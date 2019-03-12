@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>politica on Fernando Meireles</title>
+    <link>https://fmeireles.com/categories/politica/</link>
+    <description>Recent content in politica on Fernando Meireles</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 Fernando Meireles</copyright>
+    <lastBuildDate>Mon, 31 Oct 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fmeireles.com/categories/politica/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Desempenho das pesquisas eleitorais no segundo turno</title>
+      <link>https://fmeireles.com/blog/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</link>
+      <pubDate>Mon, 31 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</guid>
+      <description>Apesar das invariáveis críticas que os institutos de pesquisa recebem toda eleição (vide aqui, por exemplo)[1], neste segundo turno o desempenho deles, &amp;ndash; ao menos o de alguns deles &amp;ndash;, não deixou a desejar.
+Como já havia postado no Twitter, o instituto Ibope, por exemplo, acertou, dentro da margem de erro (os 3 ou 4 tradicionais pontos para mais ou para menos), os resultados em 15 das 18 capitais onde realizou pesquisa entre os dias 25 e 28 de outubro.</description>
+    </item>
+    
+    <item>
+      <title>Desatualização nas bases do TSE e abstenção eleitoral</title>
+      <link>https://fmeireles.com/blog/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
+      <pubDate>Fri, 07 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
+      <description>Aproveitando os dados do TSE-RS, que divulgou uma lista completa dos municípios que passaram pelo recadastramento biométrico até esse ano, resolvi investigar se a biometria realmente afetou as taxas de abstenção nestas eleições.
+O gráfico abaixo ilustra essa diferença entre municípios que passaram ou não pelo recadastramento. Como dá pra ver, a taxa de abstenção média nos municípios que passaram a usar o sistema de biometria cai visivelmente depois de 2014 no Rio Grande do Sul (quando a maior parte dos municípios fez o cadastramento).</description>
+    </item>
+    
+    <item>
+      <title>Uma análise de sentimentos dos tweets da Dilma Rousseff</title>
+      <link>https://fmeireles.com/blog/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</link>
+      <pubDate>Sun, 14 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</guid>
+      <description>Num post anterior, fiz uma análise dos tweets da Presidenta Dilma Rousseff. Neste aqui, aproveitei os dados já coletados para fazer algo diferente, que já estava querendo fazer há tempos: uma análise de sentimentos. Basicamente, esta técnica serve para avaliar um determinado texto, dando a ele uma nota numa escala que vai de negativo a positivo, triste a feliz, etc. No caso, vou fazer isto utilizando a API do cognitive services da Microsoft, que possui um algoritimo próprio para classificar os textos numa escala que vai de 0, mais negativo, a 1, mais positivo (assim como outros métodos, ele classifica cada palavra num texto e, então, computa um score para a frase ou trecho; para uma análise sobre a potencialidade do método, ver aqui).</description>
+    </item>
+    
+    <item>
+      <title>Golpe ou impeachment? Uma análise dos tweets da Dilma Rousseff</title>
+      <link>https://fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
+      <pubDate>Fri, 12 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
+      <description>Desde o ínicio do impeachment da agora Presidente afastada, Dilma Rousseff (PT), acadêmicos e articulistas discutem se este processo se encaixa na categoria de golpe de estado. Críticos do governo e membros da oposição defendem que, conceitualmente, golpe de estado envolveria deposição à força da ou do presidente (i.e., por golpe militar), o que não é o caso aqui. Por outro lado, esta definição está longe de ser consensual: outras definições são consistentes com a ausência de participação militar.</description>
+    </item>
+    
+  </channel>
+</rss>

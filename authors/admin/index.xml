@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>admin on Fernando Meireles</title>
+    <link>https://fmeireles.com/authors/admin/</link>
+    <description>Recent content in admin on Fernando Meireles</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 Fernando Meireles</copyright>
+    <lastBuildDate>Sun, 30 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fmeireles.com/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Deflacionando séries com o deflateBR</title>
+      <link>https://fmeireles.com/blog/rstats/deflacionar-series-no-r-deflatebr/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/deflacionar-series-no-r-deflatebr/</guid>
+      <description>Deflacionar séries é pré-requisito em qualquer análise sobre o valor do dinheiro ao longo do tempo. E embora não seja algo complexo, isso envolve várias etapas que consomem tempo, todas sujeitas a erro humano: obter dados históricos de algum índice de preços; compatibilizar as datas da série nominal que se quer corrigir com a série do índice de preços; calcular o ajuste; refazer o processo caso seja necessário usar outro índice de preços.</description>
+    </item>
+    
+    <item>
+      <title>Predizendo sexo a partir de nomes próprios com o genderBR</title>
+      <link>https://fmeireles.com/blog/rstats/predizendo-sexo-nomes-proprios-genderbr/</link>
+      <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/predizendo-sexo-nomes-proprios-genderbr/</guid>
+      <description>Para quem trabalha com bases de dados públicas, não é incomum encontrar o seguinte problema: ter disponível em alguma coluna o nome de várias pessoas, mas não a informação sobre o sexo delas. Para lidar com esse problema, há alguns meses desenvolvi um pacote para R, o genderBR, que oferece um método simples para resolvê-lo: usando dados do Censo de 2010 do IBGE, ele inferie o sexo de uma pessoa a partir de seu nome próprio (como descrito em maiores detalhes aqui).</description>
+    </item>
+    
+    <item>
+      <title>genderBR: predizendo sexo a partir de nomes próprios</title>
+      <link>https://fmeireles.com/blog/rstats/genderbr-predizer-sexo/</link>
+      <pubDate>Tue, 05 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/genderbr-predizer-sexo/</guid>
+      <description>Várias questões importantes nas Ciências Sociais estão ligadas ao sexo das pessoas. Se quisermos saber se mulheres recebem menores salários, se estão sub-representadas na política, se sofrem mais com as violências urbana e doméstica, entre outros, precisamos identificar o sexo das pessoas que investigamos. Entretanto, esse dado nem sempre é fácil de obter: vários bancos usados para responder às perguntas acima não contêm informações sobre o sexo das pessoas estudadas &amp;ndash; embora alguns destes contenham outras que podem ser usada para inferir seus sexos.</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: versão 0.3.0</title>
+      <link>https://fmeireles.com/blog/rstats/electionsbr-versao-0.3.0/</link>
+      <pubDate>Thu, 08 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/electionsbr-versao-0.3.0/</guid>
+      <description>O pacote do R para baixar e limpar dados eleitorais do TSE criado pelo Denisson Silva, Beatriz Costa e eu, o electionsBR, acaba de ganhar uma grande atualização, já disponível no CRAN: para a versão 0.3.0[1]. Para quem não o conhece, basicamente ele automatiza o trabalho de baixar, deszipar, tratar e limpar dados eleitorais brasileiros diretamente do Repositório de Dados Eleitorais do TSE &amp;ndash; tudo acompanhado de extensa documentação baseada em informações oficiais.</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: uma nova versão (0.2.0)</title>
+      <link>https://fmeireles.com/blog/rstats/electionsbr-uma-nova-versao/</link>
+      <pubDate>Tue, 13 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/electionsbr-uma-nova-versao/</guid>
+      <description>Obter dados eleitorais no Brasil nunca foi uma tarefa das mais fáceis. Quem já precisou fazer isso provavelmente sabe o tamanho do problema: baixar diversos arquivos, deszipá-los, abrir um a um os arquivos brutos, limpar e arrumar os dados, juntar tudo, exportar, e por aí vai. Foi com isso na cabeça que o Denisson, a Beatriz e eu lançamos, nos idos de agosto, o electionsBR - um pacote para baixar e limpar estes dados automaticamente, direto do Repositório de Dados Eleitorais do TSE.</description>
+    </item>
+    
+    <item>
+      <title>Desempenho das pesquisas eleitorais no segundo turno</title>
+      <link>https://fmeireles.com/blog/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</link>
+      <pubDate>Mon, 31 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</guid>
+      <description>Apesar das invariáveis críticas que os institutos de pesquisa recebem toda eleição (vide aqui, por exemplo)[1], neste segundo turno o desempenho deles, &amp;ndash; ao menos o de alguns deles &amp;ndash;, não deixou a desejar.
+Como já havia postado no Twitter, o instituto Ibope, por exemplo, acertou, dentro da margem de erro (os 3 ou 4 tradicionais pontos para mais ou para menos), os resultados em 15 das 18 capitais onde realizou pesquisa entre os dias 25 e 28 de outubro.</description>
+    </item>
+    
+    <item>
+      <title>Desatualização nas bases do TSE e abstenção eleitoral</title>
+      <link>https://fmeireles.com/blog/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
+      <pubDate>Fri, 07 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
+      <description>Aproveitando os dados do TSE-RS, que divulgou uma lista completa dos municípios que passaram pelo recadastramento biométrico até esse ano, resolvi investigar se a biometria realmente afetou as taxas de abstenção nestas eleições.
+O gráfico abaixo ilustra essa diferença entre municípios que passaram ou não pelo recadastramento. Como dá pra ver, a taxa de abstenção média nos municípios que passaram a usar o sistema de biometria cai visivelmente depois de 2014 no Rio Grande do Sul (quando a maior parte dos municípios fez o cadastramento).</description>
+    </item>
+    
+    <item>
+      <title>Como escolher cores para gráficos cientificamente</title>
+      <link>https://fmeireles.com/blog/graficos/como-escolher-cores-para-graficos-cientificamente/</link>
+      <pubDate>Fri, 16 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/graficos/como-escolher-cores-para-graficos-cientificamente/</guid>
+      <description>O método pode ser acessado aqui. O funcionamento dele é simples: ele fornece padrões de cores (i.e., paletas) que são visualmente distinguíveis e esteticamente atraentes, além de permitir que se escolham padrões perceptíveis para daltônicos e para impressão em preto e branco. Tudo isso numa interface amigável e intuitiva.
+Para saber mais sobre o método (que é científico - o que não é o mesmo que dizer que é infalível) utilizado para selecionar os padrões, clique aqui.</description>
+    </item>
+    
+    <item>
+      <title>Estimando regressões logísticas no R (com razão de chance)</title>
+      <link>https://fmeireles.com/blog/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</link>
+      <pubDate>Fri, 09 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</guid>
+      <description>Uma das coisas que dá dor de cabeça a usuários do Stata que migram para o R é a estimação de modelos estatísticos. Como o Stata já oferece, de forma simples, diversos modelos e opções para alterar as suas especificações, a migração para o R pode ser frustrante neste aspecto: muitas coisas simples no Stata, como incluir erros-padrão robustos ou efeitos fixos, geralmente demandam mais linhas de código (e chamada a vários pacotes) no R.</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: Exportando dados eleitorais do R para o Stata</title>
+      <link>https://fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</link>
+      <pubDate>Mon, 22 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</guid>
+      <description>Semana passada, o Denisson, a Bia e eu lançamos o electionsBR, um pacote no R para baixar e limpas dados eleitorais do repositório do TSE. Como explicamos, o pacote contém diversas funções que facilitam a obtenção destes dados, além de tornar um processo imensamente mais rápido. Mas, como algumas mensagens que recebemos de lá pra cá indicaram, algumas (talvez muitas) pessoas usam o Stata para rodar suas análises e, por isso, não se beneficiariam do pacote.</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: analisando a apuração das eleições para a Câmara dos Deputados</title>
+      <link>https://fmeireles.com/blog/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</link>
+      <pubDate>Fri, 19 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</guid>
+      <description>Usando o nosso pacote no R para baixar e limpar dados eleitorais do TSE, desenvolvimento conjuntamente pelo Denisson Silva, Beatriz Costa e eu, vou mostrar aqui como é possível obter e analisar os resultados de apuração das eleições para a Câmara dos Deputados desde 1998 (o período disponível, por causa de limitações nos dados do TSE, vai de 98 a 2014 &amp;ndash; mas pretendemos expandir ele no futuro) desagregados por município/zona eleitoral.</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: um pacote no R para baixar e limpar dados eleitorais do TSE</title>
+      <link>https://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</link>
+      <pubDate>Thu, 18 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</guid>
+      <description>Nosso pacote para baixar e limpar dados eleitorais do website do TSE, desenvolvido conjuntamente por Denisson Silva, Beatriz Costa e eu, foi publicado no Comprehensive R Archive Network (CRAN): o electionsBR. Basicamente, ele contém uma série de funções para extrair e limpar a maioria dos dados disponíveis no Repositório de Dados Eleitorais do TSE, deixando-os prontos para uso.
+O electionsBR vem para facilitar a vida de quem trabalha ou precisa consultar estes dados do TSE de duas formas.</description>
+    </item>
+    
+    <item>
+      <title>Uma análise de sentimentos dos tweets da Dilma Rousseff</title>
+      <link>https://fmeireles.com/blog/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</link>
+      <pubDate>Sun, 14 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</guid>
+      <description>Num post anterior, fiz uma análise dos tweets da Presidenta Dilma Rousseff. Neste aqui, aproveitei os dados já coletados para fazer algo diferente, que já estava querendo fazer há tempos: uma análise de sentimentos. Basicamente, esta técnica serve para avaliar um determinado texto, dando a ele uma nota numa escala que vai de negativo a positivo, triste a feliz, etc. No caso, vou fazer isto utilizando a API do cognitive services da Microsoft, que possui um algoritimo próprio para classificar os textos numa escala que vai de 0, mais negativo, a 1, mais positivo (assim como outros métodos, ele classifica cada palavra num texto e, então, computa um score para a frase ou trecho; para uma análise sobre a potencialidade do método, ver aqui).</description>
+    </item>
+    
+    <item>
+      <title>Golpe ou impeachment? Uma análise dos tweets da Dilma Rousseff</title>
+      <link>https://fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
+      <pubDate>Fri, 12 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
+      <description>Desde o ínicio do impeachment da agora Presidente afastada, Dilma Rousseff (PT), acadêmicos e articulistas discutem se este processo se encaixa na categoria de golpe de estado. Críticos do governo e membros da oposição defendem que, conceitualmente, golpe de estado envolveria deposição à força da ou do presidente (i.e., por golpe militar), o que não é o caso aqui. Por outro lado, esta definição está longe de ser consensual: outras definições são consistentes com a ausência de participação militar.</description>
+    </item>
+    
+    <item>
+      <title>Como importar qualquer arquivo no R</title>
+      <link>https://fmeireles.com/blog/rstats/como-importar-qualquer-arquivo-no-r/</link>
+      <pubDate>Fri, 15 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/como-importar-qualquer-arquivo-no-r/</guid>
+      <description>Uma das potencialidades do R é que é possível abrir (quase) qualquer tipo de arquivo nele. Arquivos no formato .csv, .txt, .dta, etc., são apenas algumas das opções. Mas esta enorme gama de possibilidades também traz complicações, especialmente porque cada um destes arquivos possui uma função respectiva para importação.
+O pacote rio serve para acabar com estes problemas. Com uma única função, import(), ele é capaz de detectar qual arquivo o usuário deseja abrir e seleciona o método mais eficiente para fazê-lo.</description>
+    </item>
+    
+    <item>
+      <title>Como importar dados em .csv no R</title>
+      <link>https://fmeireles.com/blog/rstats/como-importar-dados-em-csv-no-r/</link>
+      <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/como-importar-dados-em-csv-no-r/</guid>
+      <description>Uma das tarefas mais básicas no R é importar dados. E, dentre todos os tipos de formatos mais usados para armazenar dados, .csv (ou comma-separated values, em inglês) talvez seja o mais comum. Dados demográficos do Instituto Brasileiro de Geografia e Estatística, dados sobre os gastos do governo federal, por exemplo, vêm neste formato.
+Assim como outros ambientes de programação e softwares, o R possui facilidades nativas para importar este tipo de arquivo.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://fmeireles.com/author/admin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/author/admin/</guid>
+      <description>I am a Postdoctoral Fellow at the Institute of Social and Political Studies (IESP-UERJ), where I study and teach comparative politics and political methodology. I am also a Research Associate at the Center for Legislative Studies (CEL-UFMG) and I was previously a visiting scholar at the Department of Government of the University of Essex.
+My research centers on the consequences of political institutions on policy-making and welfare in presidential countries. In my recent work, I investigate how the separation of powers and fiscal decentralization explain how parties reap benefits from joining government coalitions in Brazil.</description>
+    </item>
+    
+  </channel>
+</rss>

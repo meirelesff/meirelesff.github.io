@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>graficos on Fernando Meireles</title>
+    <link>https://fmeireles.com/categories/graficos/</link>
+    <description>Recent content in graficos on Fernando Meireles</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 Fernando Meireles</copyright>
+    <lastBuildDate>Fri, 16 Sep 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fmeireles.com/categories/graficos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Como escolher cores para gráficos cientificamente</title>
+      <link>https://fmeireles.com/blog/graficos/como-escolher-cores-para-graficos-cientificamente/</link>
+      <pubDate>Fri, 16 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/graficos/como-escolher-cores-para-graficos-cientificamente/</guid>
+      <description>O método pode ser acessado aqui. O funcionamento dele é simples: ele fornece padrões de cores (i.e., paletas) que são visualmente distinguíveis e esteticamente atraentes, além de permitir que se escolham padrões perceptíveis para daltônicos e para impressão em preto e branco. Tudo isso numa interface amigável e intuitiva.
+Para saber mais sobre o método (que é científico - o que não é o mesmo que dizer que é infalível) utilizado para selecionar os padrões, clique aqui.</description>
+    </item>
+    
+  </channel>
+</rss>

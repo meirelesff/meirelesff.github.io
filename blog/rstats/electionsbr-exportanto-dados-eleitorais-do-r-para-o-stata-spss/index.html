@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.1.0">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Fernando Meireles">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Semana passada, o Denisson, a Bia e eu lançamos o electionsBR, um pacote no R para baixar e limpas dados eleitorais do repositório do TSE. Como explicamos, o pacote contém diversas funções que facilitam a obtenção destes dados, além de tornar um processo imensamente mais rápido. Mas, como algumas mensagens que recebemos de lá pra cá indicaram, algumas (talvez muitas) pessoas usam o Stata para rodar suas análises e, por isso, não se beneficiariam do pacote.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/">
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#A37E58">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/rainbow.min.css" crossorigin="anonymous">
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,700|Roboto:400,400italic,700|Roboto+Mono">
+  
+
+  <link rel="stylesheet" href="https://fmeireles.com/styles.css">
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-80581604-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+  <link rel="alternate" href="https://fmeireles.com/index.xml" type="application/rss+xml" title="Fernando Meireles">
+  <link rel="feed" href="https://fmeireles.com/index.xml" type="application/rss+xml" title="Fernando Meireles">
+  
+
+  <link rel="manifest" href="https://fmeireles.com/site.webmanifest">
+  <link rel="icon" type="image/png" href="https://fmeireles.com/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="https://fmeireles.com/img/icon-192.png">
+
+  <link rel="canonical" href="https://fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@meirelesff">
+  <meta property="twitter:creator" content="@meirelesff">
+  
+  <meta property="og:site_name" content="Fernando Meireles">
+  <meta property="og:url" content="https://fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/">
+  <meta property="og:title" content="electionsBR: Exportando dados eleitorais do R para o Stata | Fernando Meireles">
+  <meta property="og:description" content="Semana passada, o Denisson, a Bia e eu lançamos o electionsBR, um pacote no R para baixar e limpas dados eleitorais do repositório do TSE. Como explicamos, o pacote contém diversas funções que facilitam a obtenção destes dados, além de tornar um processo imensamente mais rápido. Mas, como algumas mensagens que recebemos de lá pra cá indicaram, algumas (talvez muitas) pessoas usam o Stata para rodar suas análises e, por isso, não se beneficiariam do pacote."><meta property="og:image" content="https://fmeireles.com/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2016-08-22T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2016-08-22T00:00:00&#43;00:00">
+  
+
+  
+
+  
+
+  <title>electionsBR: Exportando dados eleitorais do R para o Stata | Fernando Meireles</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="https://fmeireles.com/">Fernando Meireles</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/cv">
+            
+            <span>CV</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/research">
+            
+            <span>Research</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/teaching">
+            
+            <span>Teaching</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/software">
+            
+            <span>Software</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/data">
+            
+            <span>Data</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/blog">
+            
+            <span>Blog</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1 itemprop="name">electionsBR: Exportando dados eleitorais do R para o Stata</h1>
+
+  
+
+  
+    
+
+
+
+<meta content="2016-08-22 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2016-08-22 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">
+        
+
+      
+      
+      
+        <a href="https://fmeireles.com/authors/admin/">Fernando Meireles</a></span></span>
+  
+
+
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>Aug 22, 2016</time>
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    3 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="https://fmeireles.com/categories/rstats/">rstats</a>, 
+    
+    <a href="https://fmeireles.com/categories/electionsbr/">electionsbr</a>
+    
+  </span>
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=electionsBR%3a%20Exportando%20dados%20eleitorais%20do%20R%20para%20o%20Stata&amp;url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2felectionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2felectionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2felectionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss%2f&amp;title=electionsBR%3a%20Exportando%20dados%20eleitorais%20do%20R%20para%20o%20Stata"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2felectionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss%2f&amp;title=electionsBR%3a%20Exportando%20dados%20eleitorais%20do%20R%20para%20o%20Stata"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=electionsBR%3a%20Exportando%20dados%20eleitorais%20do%20R%20para%20o%20Stata&amp;body=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2felectionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      <p>Semana passada, o Denisson, a Bia e eu lançamos o <a href="http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse" target="_blank">electionsBR</a>, um pacote no <code>R</code> para baixar e limpas dados eleitorais do <a href="http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais" target="_blank">repositório do TSE</a>. Como explicamos, o pacote contém diversas funções que facilitam a obtenção destes dados, além de tornar um processo imensamente mais rápido. Mas, como algumas mensagens que recebemos de lá pra cá indicaram, algumas (talvez muitas) pessoas usam o Stata para rodar suas análises e, por isso, não se beneficiariam do pacote.</p>
+
+<p>Neste post, farei um pequeno tutorial de como baixar e exportar estes dados do <code>R</code> para o Stata. Não é necessário muito conhecimento de <code>R</code> para segui-lo. Na verdade, o procedimento é tão simples que pode ser resumido em três etapas:</p>
+
+<ul>
+<li><em>Carregar os pacotes necessários</em>: a primeira coisa a fazer é instalar e carregar o pacote <code>electionsBR</code> no <code>R</code>, que contêm as funções para baixar os dados do TSE. Para isto, basta apenas digitar no console:</li>
+</ul>
+
+<pre><code class="language-r"># Instala o pacote electionsBR (se ja foi instalado, esta etapa pode ser pulada)
+install.packages(&quot;electionsBR&quot;)
+</code></pre>
+
+<ul>
+<li><em>Carregar e baixar os dados necessários</em>: agora, precisamos carregar o pacote e apenas utilizar a função desejada. Por exemplo, podemos baixar todos os dados sobre as coligações eleitorais e partidos que concorreram nas eleições de 2010 com o seguinte código:</li>
+</ul>
+
+<pre><code class="language-r"># Carrega o pacote electionsBR
+library(electionsBR)
+
+# Baixa os dados sobre as legendas da eleicao de 2010
+dados &lt;- legend_fed(2010)
+</code></pre>
+
+<ul>
+<li><em>Exportanto os dados</em>: por fim, exportamos os dados com o pacote <code>foreign</code>, disponível por padrão no <code>R</code> (ao menos nas distribuições do <a href="https://www.r-project.org/" target="_blank">R Project</a>, que é também a mais utilizada):</li>
+</ul>
+
+<pre><code class="language-r"># Carrega o pacote foreign
+library(foreign)
+
+# Exporta os dados baixados do TSE (objeto 'dados') para o Stada
+write.dta(dados, file = &quot;dados.dta&quot;)
+</code></pre>
+
+<p>Feito isto, os dados baixados estarão disponíveis no diretório de trabalho do <code>R</code> (é possível vê-lo digitando no console <code>getwd()</code>), especificamente no arquivo &ldquo;dados.dta&rdquo;. É possível usar outro nome de arquivo para salvá-lo &ndash; desde que seja mantida a extensão no final (<code>.dta</code>). Exemplos:</p>
+
+<pre><code class="language-r"># Este nome de arquivo e' valido
+write.dta(dados, file = &quot;outro_nome.dta&quot;)
+
+# Este nome de arquivo nao e'
+write.dta(dados, file = &quot;outro_nome&quot;)
+</code></pre>
+
+<p>(Na verdade, é até possível exportar um <code>data.frame</code> para o Stata sem usar a extensão <code>.dta</code> no nome do arquivo; o problema é que o arquivo não será associado ao Stata e, portanto, não será possível abri-lo com dois cliques simultâneos).</p>
+
+<p>Em resumo, mesmo com um conhecimento quase zero de <code>R</code>, é fácil usar o pacote <code>electionsBR</code> para pegar dados do TSE e exportá-los para o Stata (<a href="http://www.statmethods.net/input/exportingdata.html" target="_blank">ou para outros softwares</a>) &ndash; e, o que não é menos importante, de forma rápida e eficiente.</p>
+
+    </div>
+
+    
+
+
+
+
+
+    
+      
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+
+<div class="media author-card" itemscope itemtype="http://schema.org/Person">
+  
+  <img class="portrait mr-3" src="https://s.gravatar.com/avatar/635d6702474b49febd57319879c244db?s=200')" itemprop="image" alt="Avatar">
+  
+
+  <div class="media-body">
+    <h5 class="card-title" itemprop="name"><a href="https://fmeireles.com/authors/admin">Fernando Meireles</a></h5>
+    <h6 class="card-subtitle">Postdoc in Political Science</h6>
+    <p class="card-text" itemprop="description">Postdoctoral Fellow in Political Science at <a href="http://www.iesp.uerj.br/" target="_blank">IESP-UERJ</a>. Studying comparative politics and political methodology.</p>
+    <ul class="network-icon" aria-hidden="true">
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      <li>
+        <a itemprop="sameAs" href="mailto:fmeireles@ufmg.br" >
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://twitter.com/meirelesff" target="_blank" rel="noopener">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://scholar.google.com.br/citations?user=hMma3BsAAAAJ" target="_blank" rel="noopener">
+          <i class="ai ai-google-scholar"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="http://orcid.org/0000-0002-7027-2058" target="_blank" rel="noopener">
+          <i class="ai ai-orcid"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://github.com/meirelesff" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+      
+      
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
+<div class="container">
+  
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/html.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="https://fmeireles.com/js/academic.min.76a41a243fcea75defe7d35a07d3aaa3.js"></script>
+
+  </body>
+</html>
+

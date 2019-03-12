@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Authors on Fernando Meireles</title>
+    <link>https://fmeireles.com/authors/</link>
+    <description>Recent content in Authors on Fernando Meireles</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 Fernando Meireles</copyright>
+    
+	<atom:link href="https://fmeireles.com/authors/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Denisson Silva</title>
+      <link>https://fmeireles.com/authors/denisson-silva/</link>
+      <pubDate>Mon, 01 May 2017 00:00:00 -0300</pubDate>
+      
+      <guid>https://fmeireles.com/authors/denisson-silva/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fernando Meireles</title>
+      <link>https://fmeireles.com/authors/fernando-meireles/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 -0200</pubDate>
+      
+      <guid>https://fmeireles.com/authors/fernando-meireles/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Filipe Correa</title>
+      <link>https://fmeireles.com/authors/filipe-correa/</link>
+      <pubDate>Mon, 01 May 2017 00:00:00 -0300</pubDate>
+      
+      <guid>https://fmeireles.com/authors/filipe-correa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Luciana Andrade</title>
+      <link>https://fmeireles.com/authors/luciana-andrade/</link>
+      <pubDate>Fri, 01 Sep 2017 00:00:00 -0300</pubDate>
+      
+      <guid>https://fmeireles.com/authors/luciana-andrade/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>admin</title>
+      <link>https://fmeireles.com/authors/admin/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/authors/admin/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

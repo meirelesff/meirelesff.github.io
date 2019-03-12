@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dilma on Fernando Meireles</title>
+    <link>https://fmeireles.com/categories/dilma/</link>
+    <description>Recent content in dilma on Fernando Meireles</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 Fernando Meireles</copyright>
+    <lastBuildDate>Sun, 14 Aug 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fmeireles.com/categories/dilma/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Uma análise de sentimentos dos tweets da Dilma Rousseff</title>
+      <link>https://fmeireles.com/blog/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</link>
+      <pubDate>Sun, 14 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</guid>
+      <description>Num post anterior, fiz uma análise dos tweets da Presidenta Dilma Rousseff. Neste aqui, aproveitei os dados já coletados para fazer algo diferente, que já estava querendo fazer há tempos: uma análise de sentimentos. Basicamente, esta técnica serve para avaliar um determinado texto, dando a ele uma nota numa escala que vai de negativo a positivo, triste a feliz, etc. No caso, vou fazer isto utilizando a API do cognitive services da Microsoft, que possui um algoritimo próprio para classificar os textos numa escala que vai de 0, mais negativo, a 1, mais positivo (assim como outros métodos, ele classifica cada palavra num texto e, então, computa um score para a frase ou trecho; para uma análise sobre a potencialidade do método, ver aqui).</description>
+    </item>
+    
+    <item>
+      <title>Golpe ou impeachment? Uma análise dos tweets da Dilma Rousseff</title>
+      <link>https://fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
+      <pubDate>Fri, 12 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
+      <description>Desde o ínicio do impeachment da agora Presidente afastada, Dilma Rousseff (PT), acadêmicos e articulistas discutem se este processo se encaixa na categoria de golpe de estado. Críticos do governo e membros da oposição defendem que, conceitualmente, golpe de estado envolveria deposição à força da ou do presidente (i.e., por golpe militar), o que não é o caso aqui. Por outro lado, esta definição está longe de ser consensual: outras definições são consistentes com a ausência de participação militar.</description>
+    </item>
+    
+  </channel>
+</rss>

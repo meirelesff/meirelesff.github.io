@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.1.0">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Fernando Meireles">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Para quem trabalha com bases de dados públicas, não é incomum encontrar o seguinte problema: ter disponível em alguma coluna o nome de várias pessoas, mas não a informação sobre o sexo delas. Para lidar com esse problema, há alguns meses desenvolvi um pacote para R, o genderBR, que oferece um método simples para resolvê-lo: usando dados do Censo de 2010 do IBGE, ele inferie o sexo de uma pessoa a partir de seu nome próprio (como descrito em maiores detalhes aqui).">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://fmeireles.com/blog/rstats/predizendo-sexo-nomes-proprios-genderbr/">
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#A37E58">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/rainbow.min.css" crossorigin="anonymous">
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,700|Roboto:400,400italic,700|Roboto+Mono">
+  
+
+  <link rel="stylesheet" href="https://fmeireles.com/styles.css">
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-80581604-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+  <link rel="alternate" href="https://fmeireles.com/index.xml" type="application/rss+xml" title="Fernando Meireles">
+  <link rel="feed" href="https://fmeireles.com/index.xml" type="application/rss+xml" title="Fernando Meireles">
+  
+
+  <link rel="manifest" href="https://fmeireles.com/site.webmanifest">
+  <link rel="icon" type="image/png" href="https://fmeireles.com/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="https://fmeireles.com/img/icon-192.png">
+
+  <link rel="canonical" href="https://fmeireles.com/blog/rstats/predizendo-sexo-nomes-proprios-genderbr/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@meirelesff">
+  <meta property="twitter:creator" content="@meirelesff">
+  
+  <meta property="og:site_name" content="Fernando Meireles">
+  <meta property="og:url" content="https://fmeireles.com/blog/rstats/predizendo-sexo-nomes-proprios-genderbr/">
+  <meta property="og:title" content="Predizendo sexo a partir de nomes próprios com o genderBR | Fernando Meireles">
+  <meta property="og:description" content="Para quem trabalha com bases de dados públicas, não é incomum encontrar o seguinte problema: ter disponível em alguma coluna o nome de várias pessoas, mas não a informação sobre o sexo delas. Para lidar com esse problema, há alguns meses desenvolvi um pacote para R, o genderBR, que oferece um método simples para resolvê-lo: usando dados do Censo de 2010 do IBGE, ele inferie o sexo de uma pessoa a partir de seu nome próprio (como descrito em maiores detalhes aqui)."><meta property="og:image" content="https://fmeireles.com/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2018-04-19T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2018-04-19T00:00:00&#43;00:00">
+  
+
+  
+
+  
+
+  <title>Predizendo sexo a partir de nomes próprios com o genderBR | Fernando Meireles</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="https://fmeireles.com/">Fernando Meireles</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/cv">
+            
+            <span>CV</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/research">
+            
+            <span>Research</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/teaching">
+            
+            <span>Teaching</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/software">
+            
+            <span>Software</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/data">
+            
+            <span>Data</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/blog">
+            
+            <span>Blog</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1 itemprop="name">Predizendo sexo a partir de nomes próprios com o genderBR</h1>
+
+  
+  <p class="page-subtitle">Com um exemplo de classificação de autores de mais de 200 mil teses defendidas no Brasil</p>
+  
+
+  
+    
+
+
+
+<meta content="2018-04-19 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2018-04-19 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">
+        
+
+      
+      
+      
+        <a href="https://fmeireles.com/authors/admin/">Fernando Meireles</a></span></span>
+  
+
+
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>Apr 19, 2018</time>
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    9 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="https://fmeireles.com/categories/rstats/">rstats</a>, 
+    
+    <a href="https://fmeireles.com/categories/genderbr/">genderbr</a>
+    
+  </span>
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Predizendo%20sexo%20a%20partir%20de%20nomes%20pr%c3%b3prios%20com%20o%20genderBR&amp;url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2fpredizendo-sexo-nomes-proprios-genderbr%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2fpredizendo-sexo-nomes-proprios-genderbr%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2fpredizendo-sexo-nomes-proprios-genderbr%2f&amp;title=Predizendo%20sexo%20a%20partir%20de%20nomes%20pr%c3%b3prios%20com%20o%20genderBR"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2fpredizendo-sexo-nomes-proprios-genderbr%2f&amp;title=Predizendo%20sexo%20a%20partir%20de%20nomes%20pr%c3%b3prios%20com%20o%20genderBR"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Predizendo%20sexo%20a%20partir%20de%20nomes%20pr%c3%b3prios%20com%20o%20genderBR&amp;body=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2fpredizendo-sexo-nomes-proprios-genderbr%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<p>Para quem trabalha com bases de dados públicas, não é incomum encontrar
+o seguinte problema: ter disponível em alguma coluna o nome de várias
+pessoas, mas não a informação sobre o sexo delas. Para lidar com esse
+problema, há alguns meses desenvolvi um pacote para <code>R</code>, o
+<a href="https://cran.r-project.org/web/packages/genderBR/index.html" target="_blank">genderBR</a>,
+que oferece um método simples para resolvê-lo: usando dados do <a href="https://censo2010.ibge.gov.br/nomes/" target="_blank">Censo
+de 2010 do IBGE</a>, ele inferie o
+sexo de uma pessoa a partir de seu nome próprio (como descrito em
+maiores detalhes
+<a href="http://fmeireles.com/blog/rstats/genderbr-predizer-sexo" target="_blank">aqui</a>).
+Comparado à tarefa manual de classificar sexo a partir desses nomes, o
+método não só é infinitamente mais rápido, mas também evita erros de
+imputação, tornando replicável qualquer pesquisa que o use.</p>
+
+<p>Apesar da utilidade do pacote para resolver esse problema, ele fazia
+isso com algumas limitações. A principal delas é a de tempo gasto na
+tarefa, às vezes na casa de horas ou dias. Basicamente, isso ocorre por
+causa da forma com que a principal função do pacote, <code>get_gender</code>, faz
+predições: para cada nome solicitado, ela envia uma requisição ao
+serviço online de nomes do IBGE (daqui para frente,
+<a href="https://pt.wikipedia.org/wiki/Interface_de_programa%C3%A7%C3%A3o_de_aplica%C3%A7%C3%B5es" target="_blank">API</a>),
+recebe as informações necessárias e, com base nelas, calcula a
+probabilidade desse nome pertencer a um a homem ou a uma mulher. Como
+esse processo consome cerca de 0.1 segundos, as consequências são
+inevitáveis: para 10 mil nomes, a função pode facilmente rodar por mais
+de 15 horas.</p>
+
+<p>A partir da recém lançada versão do pacote, contudo, isso deixou de ser
+um problema. Aproveitando que o IBGE divulgou a <a href="http://www.consultaesic.cgu.gov.br/busca/dados/Lists/Pedido/Item/displayifs.aspx?List=0c839f31-47d7-4485-ab65-ab0cee9cf8fe&amp;ID=557307&amp;Web=88cc5f44-8cfe-4964-8ff4-376b5ebb3bef" target="_blank">base de dados que
+alimenta a API do serviço de
+nomes</a>,
+agora o <code>genderBR</code> dispõe internamente dessas informações.
+Especificamente, a função <code>get_gender</code> ganhou um argumento opcional,
+<code>internal</code>, que permite escolher entre usar os dados internos do pacote
+(<code>internal = TRUE</code>, que agora é o padrão) ou requisitar os dados da API
+(<code>internal = FALSE</code>). Optando pelo primeiro, o processo de predizer
+nomes consome poucos segundos – e isso mesmo em bases com milhares ou
+milhões de nomes próprios.[1]</p>
+
+<h3 id="como-usar-o-genderbr">Como usar o genderBR</h3>
+
+<p>O primeiro passo para usar o <code>genderBR</code> é simples: com o <code>R</code> aberto, só
+é necessário executar <code>install.packages(&quot;genderBR&quot;)</code> para instalá-lo.
+Feito isso, predizer sexo a partir de nomes próprios é uma questão de
+chamar a função <code>get_gender</code>:</p>
+
+<pre><code class="language-r"># Carrega o pacote
+library(genderBR)
+
+# Prediz o sexo de oito nomes
+nomes &lt;- c(&quot;Guilherme&quot;, &quot;Maria&quot;, &quot;Ana&quot;, &quot;Arnaldo&quot;, &quot;Martha&quot;, &quot;Carlos&quot;, &quot;Almir&quot;, &quot;Cida&quot;)
+get_gender(nomes)
+</code></pre>
+
+<pre><code>## [1] &quot;Male&quot;   &quot;Female&quot; &quot;Female&quot; &quot;Male&quot;   &quot;Female&quot; &quot;Male&quot;   &quot;Male&quot;   &quot;Female&quot;
+</code></pre>
+
+<p>Mais útil que isso, é possível predizer o sexo de nomes contidos numa
+base de dados, adicionando o resultado dessa predição numa nova
+variável.
+Exemplo:</p>
+
+<pre><code class="language-r">base &lt;- data.frame(nome = c(&quot;Ana Maria&quot;, &quot;Roberto Silva&quot;, &quot;Marcia Campos&quot;),
+                   idade = c(25, 42, 33),
+                   grupo = c(&quot;A&quot;, &quot;A&quot;, &quot;B&quot;)
+                   )
+
+base$sexo &lt;- get_gender(base$nome)
+
+base
+</code></pre>
+
+<pre><code>##            nome idade grupo   sexo
+## 1     Ana Maria    25     A Female
+## 2 Roberto Silva    42     A   Male
+## 3 Marcia Campos    33     B Female
+</code></pre>
+
+<p>Nos dois casos, as predições usam os dados internos ao pacote. Para
+desabilitar essa opção, fazendo requisições diretamente à API do IBGE,
+basta declarar como falso o argumento <code>internal</code>: <code>get_gender(nomes,
+internal = FALSE)</code>. Como mostro na sequência, entretanto, usar essa
+opção consome muito mais tempo.</p>
+
+<h3 id="o-desempenho-da-nova-versão-do-genderbr">O desempenho da nova versão do genderBR</h3>
+
+<p>Quão rápido é predizer o sexo usando os dados internos do pacote
+<code>genderBR</code>? A título de ilustração, podemos comparar o tempo gasto para
+predizer o sexo daqueles 8 nomes do primeiro exemplo usando a API do
+IBGE, i.e. <code>internal = FALSE</code>, e os dados internos do pacote, <code>internal
+= TRUE</code>. Repeti essa operação 100 vezes com cada método, registrando o
+tempo gasto para concluir a predição em cada uma. Resultado: com os
+dados internos, o pacote leva cerca de 0.06 segundos para concluir a
+predição dos 8 nomes, em média; já usando a API do IBGE, o tempo
+necessário gira em torno de 1.4 segundos. Em outras palavras, o novo
+método adicionado ao pacote é cerca de 23 vezes mais rápido nesse
+exemplo.</p>
+
+<p>Na verdade, usar os dados internos é ainda mais rápido se levarmos em
+conta as pausas entre requisições, aplicadas pela função <code>get_gender</code>
+quando o número de nomes a serem consultados na API do IBGE excede 100.
+Além disso, os ganhos em escala do método interno são imensos porque ele
+consome quase o mesmo tempo para predizer o sexo de 100, 1000, ou 10000
+nomes. Isso, de novo, não acontece ao usar a opção <code>internal = FALSE</code>
+para extrair dados da API do IBGE.</p>
+
+<p>Em resumo, predizer sexo a partir de nomes próprios com o <code>genderBR</code>
+ficou extremamente mais rápido.</p>
+
+<h3 id="exemplo-sexo-de-autores-de-teses-de-doutorado-no-brasil">Exemplo: sexo de autores de teses de Doutorado no Brasil</h3>
+
+<p>Para exemplificar os usos do pacote <code>genderBR</code>, classifiquei o sexo de
+autores(as) de todas as 221990 teses de Doutorado defendidas no Brasil
+entre 1987 e 2016. Esses dados vêm do <a href="http://catalogodeteses.capes.gov.br/catalogo-teses/#!/" target="_blank">Banco de Teses e Dissertações da
+Capes</a>,
+disponíveis no novo <a href="https://dadosabertos.capes.gov.br/" target="_blank">portal de dados
+abertos</a> da instituição – onde
+também estão outros sobre a composição dos programas de pós-graduação
+no país, ou sobre a produção acadêmica de doscentes e discentes, por
+exemplo.</p>
+
+<p>O importante a notar é que a Capes disponibiliza apenas informações
+sobre instituição, área de avaliação e nome dos autores das teses
+defendidas no período, mas não o sexo de quem as defendeu.[2] É aí que
+entra o <code>genderBR</code>: usando os dados internos do pacote, predizer o sexo
+para todos os nomes na base leva <em>menos de 5 segundos</em>. Com essa
+informação, podemos criar um gráfico como esse.</p>
+
+<p><img src="https://fmeireles.com/figs/genderbr1-1.png" style="display: block; margin: auto;" /></p>
+
+<p>O gráfico acima ilustra bem o trabalho do <code>genderBR</code>: ele classificou a
+imensa maioria dos nomes como pertencendo a homens ou mulheres (96% do
+total). Ainda assim, como os dados disponibilizados pelo IBGE incluem
+apenas nomes com mais de 20 ocorrências no país, alguns na base da
+Capes, cerca de 3% deles, foram classificados como <em>Desconhecido</em>, o que
+indica que não encontraram correspondência. Em outros casos, nomes
+classificados podem ser tanto de homens quanto de mulheres – como Ariel,
+Darci, Noá e Elir, por exemplo –, dificultando a tarefa de atribuir sexo
+(os <em>Unissex</em> do gráfico). De qualquer forma, como é possível ver, ambos
+os casos são residuais.</p>
+
+<p>Voltando ao gráfico, dá para notar que mulheres defenderam cerca de
+metade das teses registradas no banco da Capes no período. Entretanto,
+como o número de defesas era pequeno até os anos 2000 – em 1987, por
+exemplo, apenas 939 teses defendidas foram registradas, e mesmo em 2000
+esse número ainda era de apenas 5344 –, acompanhar o crescimento
+absoluto, ano a ano, dessa série dificulta detectar tendências. Por essa
+razão, podemos focar apenas na percentagem de teses defendidas por
+mulheres, excluindo da base pessoas com sexo classificado como
+<em>Desconhecido</em> ou <em>Unissex</em>.</p>
+
+<p><img src="https://fmeireles.com/figs/genderbr2-1.png" style="display: block; margin: auto;" /></p>
+
+<p>A tendência geral, agora, é clara: com o passar do tempo, mulheres
+aumentaram sua participação na defesa de teses no Brasil.</p>
+
+<h4 id="defesas-de-tese-por-grandes-áreas">Defesas de tese por grandes áreas</h4>
+
+<p>O mesmo padrão, entretanto, certamente varia entre áreas: pode ser que
+mulheres defendam mais teses em algumas grandes áreas da Capes, menos em
+outras. Como o Banco de Teses contém variáveis indicando essas grandes
+áreas, verificar isso é relativamente simples.</p>
+
+<p><img src="https://fmeireles.com/figs/genderbr3-1.png" style="display: block; margin: auto;" /></p>
+
+<p>Por um lado, mulheres defendem mais teses no Brasil, ao menos nos
+últimos anos. Por outro lado, é possível ver que essa participação é
+desigual entre grandes áreas da Capes: mulheres defendem mais teses nas
+Ciências Biológicas, nas Humanas e nas Letras; homens, entretanto, estão
+sobrerrepresentados nas áreas de Engenharia e Exatas. O gradual aumento
+no número de mulheres defendendo teses não ocorreu nessas duas últimas.</p>
+
+<h4 id="defesas-de-tese-por-área-de-avaliação">Defesas de tese por área de avaliação</h4>
+
+<p>Enquanto que classificar o sexo de autores(as) de teses por grande área
+revela um cenário detalhado da participação de mulheres, é possível ir
+além com os dados da Capes. Em especial, podemos usar a classificação
+por área de avaliação, que é usada para classificar os programas de
+pós-graduação no país. Aqui, vou fazer isso para algumas dessas: para a
+Ciência Política, separadamente, e em algumas outras, mais próximas
+dessa. Os resultados, também aqui, mostram que mulheres participam mais
+na produção e defesa de teses em algumas áreas; já em outras, inclusa a
+Ciência Política, a presença delas fica aquém – às vezes muito aquém –
+da de homens.</p>
+
+<p><img src="https://fmeireles.com/figs/genderbr4-1.png" style="display: block; margin: auto;" /></p>
+
+<p><img src="https://fmeireles.com/figs/genderbr5-1.png" style="display: block; margin: auto;" /></p>
+
+<h3 id="final">Final</h3>
+
+<p>Classificar por sexo autores(as) de teses no Brasil é apenas uma das
+utilidades do <code>genderBR</code>. Usando as mesmas fontes de dados, na verdade,
+é possível investigar as causas da variação na participação de homens e
+mulheres na produção de teses; mapear a distribuição de docentes e
+discentes por sexo em todos os programas de pós-graduação; ou, ainda,
+aplicar o mesmo método para classificar qualquer outro tipo de produção
+por sexo do(a) autor(a). Isso tudo, note-se, apenas com os dados da
+Capes, o que está longe de esgotar todas as aplicações possíveis do
+pacote.</p>
+
+<p>A mensagem mais geral desse texto, entretanto, é outra: com a nova
+atualização, usar o <code>genderBR</code> para predizer sexo a partir de nomes
+próprios ficou muito mais rápido. Como o exemplo anterior indica, isso
+pode ser feito em poucos segundos mesmo em bases de dados grandes;
+quando os nomes próprios estão formatados de diferentes maneiras; e
+levando em conta diferenças no uso de nomes por sexo entre estados (ver
+<a href="http://fmeireles.com/blog/rstats/genderbr-predizer-sexo" target="_blank">aqui</a>) – nesse
+caso, usando a API do IBGE. Como já discuti no
+<a href="http://fmeireles.com/blog/rstats/genderbr-predizer-sexo" target="_blank">texto</a> da
+versão anterior do pacote, as predições do <code>genderBR</code>, além disso, são
+bastante precisas: nos testes que realizei, o método prediz o sexo a
+partir de um nome de forma correta mais de 99% das vezes, além de
+produzir poucos <em>missings</em>, como no caso do exemplo anterior. Tudo
+somado, o <code>genderBR</code> não só é incomparavelmente mais rápido do que
+classificar manualmente sexo a partir de nomes, mas também mais
+recomendado para evitar erros de imputação e contribuir para a
+replicabilidade de qualquer pesquisa que o use.</p>
+
+<h4 id="dados-e-cógido">Dados e cógido</h4>
+
+<p>Os dados e o código usados nesse posto podem ser encontrados
+<a href="https://github.com/meirelesff/teses_capes" target="_blank">aqui</a>. Como o pacote
+<code>genderBR</code> é open source, o que significa que qualquer um pode consultar ou trabalhar em
+cima do seu código, disponível no
+<a href="https://github.com/meirelesff/genderBR" target="_blank">GitHub</a>. Críticas e sugestões
+são bem-vindos.</p>
+
+<ol>
+<li><p>A única ressalva, aqui, é que esse método só está disponível quando
+outro argumento, <code>state</code>, não é declarado. Com isso, apenas pela API
+do IBGE é possível obter predições considerando variação entre
+estados.</p></li>
+
+<li><p>Os dados do Banco de Teses e Dissertações da Capes têm muitos
+problemas, como <em>missings</em>, campos preenchidos de forma incorreta,
+incosistência de classificação em alguns anos, entre outros. Como
+meu objetivo é apenas exemplificar o pacote, fiz uma limpeza
+superficial na base. Os dados e o código usados nesse post, de
+qualquer forma, podem ser encontrados aqui.</p></li>
+</ol>
+
+    </div>
+
+    
+
+
+
+
+
+    
+      
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+
+<div class="media author-card" itemscope itemtype="http://schema.org/Person">
+  
+  <img class="portrait mr-3" src="https://s.gravatar.com/avatar/635d6702474b49febd57319879c244db?s=200')" itemprop="image" alt="Avatar">
+  
+
+  <div class="media-body">
+    <h5 class="card-title" itemprop="name"><a href="https://fmeireles.com/authors/admin">Fernando Meireles</a></h5>
+    <h6 class="card-subtitle">Postdoc in Political Science</h6>
+    <p class="card-text" itemprop="description">Postdoctoral Fellow in Political Science at <a href="http://www.iesp.uerj.br/" target="_blank">IESP-UERJ</a>. Studying comparative politics and political methodology.</p>
+    <ul class="network-icon" aria-hidden="true">
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      <li>
+        <a itemprop="sameAs" href="mailto:fmeireles@ufmg.br" >
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://twitter.com/meirelesff" target="_blank" rel="noopener">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://scholar.google.com.br/citations?user=hMma3BsAAAAJ" target="_blank" rel="noopener">
+          <i class="ai ai-google-scholar"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="http://orcid.org/0000-0002-7027-2058" target="_blank" rel="noopener">
+          <i class="ai ai-orcid"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://github.com/meirelesff" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+      
+      
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
+<div class="container">
+  
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/html.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="https://fmeireles.com/js/academic.min.76a41a243fcea75defe7d35a07d3aaa3.js"></script>
+
+  </body>
+</html>
+

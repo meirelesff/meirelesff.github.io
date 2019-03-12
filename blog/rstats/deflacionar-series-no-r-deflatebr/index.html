@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.1.0">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Fernando Meireles">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Deflacionar séries é pré-requisito em qualquer análise sobre o valor do dinheiro ao longo do tempo. E embora não seja algo complexo, isso envolve várias etapas que consomem tempo, todas sujeitas a erro humano: obter dados históricos de algum índice de preços; compatibilizar as datas da série nominal que se quer corrigir com a série do índice de preços; calcular o ajuste; refazer o processo caso seja necessário usar outro índice de preços.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://fmeireles.com/blog/rstats/deflacionar-series-no-r-deflatebr/">
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#A37E58">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/rainbow.min.css" crossorigin="anonymous">
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,700|Roboto:400,400italic,700|Roboto+Mono">
+  
+
+  <link rel="stylesheet" href="https://fmeireles.com/styles.css">
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-80581604-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+  <link rel="alternate" href="https://fmeireles.com/index.xml" type="application/rss+xml" title="Fernando Meireles">
+  <link rel="feed" href="https://fmeireles.com/index.xml" type="application/rss+xml" title="Fernando Meireles">
+  
+
+  <link rel="manifest" href="https://fmeireles.com/site.webmanifest">
+  <link rel="icon" type="image/png" href="https://fmeireles.com/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="https://fmeireles.com/img/icon-192.png">
+
+  <link rel="canonical" href="https://fmeireles.com/blog/rstats/deflacionar-series-no-r-deflatebr/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@meirelesff">
+  <meta property="twitter:creator" content="@meirelesff">
+  
+  <meta property="og:site_name" content="Fernando Meireles">
+  <meta property="og:url" content="https://fmeireles.com/blog/rstats/deflacionar-series-no-r-deflatebr/">
+  <meta property="og:title" content="Deflacionando séries com o deflateBR | Fernando Meireles">
+  <meta property="og:description" content="Deflacionar séries é pré-requisito em qualquer análise sobre o valor do dinheiro ao longo do tempo. E embora não seja algo complexo, isso envolve várias etapas que consomem tempo, todas sujeitas a erro humano: obter dados históricos de algum índice de preços; compatibilizar as datas da série nominal que se quer corrigir com a série do índice de preços; calcular o ajuste; refazer o processo caso seja necessário usar outro índice de preços."><meta property="og:image" content="https://fmeireles.com/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2018-09-30T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2018-09-30T00:00:00&#43;00:00">
+  
+
+  
+
+  
+
+  <title>Deflacionando séries com o deflateBR | Fernando Meireles</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="https://fmeireles.com/">Fernando Meireles</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/cv">
+            
+            <span>CV</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/research">
+            
+            <span>Research</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/teaching">
+            
+            <span>Teaching</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/software">
+            
+            <span>Software</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/data">
+            
+            <span>Data</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/blog">
+            
+            <span>Blog</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1 itemprop="name">Deflacionando séries com o deflateBR</h1>
+
+  
+  <p class="page-subtitle">Um novo pacote para R, com dados extraídos diretamente da API do Ipea</p>
+  
+
+  
+    
+
+
+
+<meta content="2018-09-30 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2018-09-30 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">
+        
+
+      
+      
+      
+        <a href="https://fmeireles.com/authors/admin/">Fernando Meireles</a></span></span>
+  
+
+
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>Sep 30, 2018</time>
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    6 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="https://fmeireles.com/categories/rstats/">rstats</a>, 
+    
+    <a href="https://fmeireles.com/categories/deflatebr/">deflatebr</a>
+    
+  </span>
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Deflacionando%20s%c3%a9ries%20com%20o%20deflateBR&amp;url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2fdeflacionar-series-no-r-deflatebr%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2fdeflacionar-series-no-r-deflatebr%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2fdeflacionar-series-no-r-deflatebr%2f&amp;title=Deflacionando%20s%c3%a9ries%20com%20o%20deflateBR"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2fdeflacionar-series-no-r-deflatebr%2f&amp;title=Deflacionando%20s%c3%a9ries%20com%20o%20deflateBR"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Deflacionando%20s%c3%a9ries%20com%20o%20deflateBR&amp;body=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2fdeflacionar-series-no-r-deflatebr%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<p>Deflacionar séries é pré-requisito em qualquer análise sobre o valor do
+dinheiro ao longo do tempo. E embora não seja algo complexo, isso
+envolve várias etapas que consomem tempo, todas sujeitas a erro humano:
+obter dados históricos de algum índice de preços; compatibilizar as
+datas da série nominal que se quer corrigir com a série do índice de
+preços; calcular o ajuste; refazer o processo caso seja necessário usar
+outro índice de preços. Em suma, deflacionar séries acaba sempre tomando
+mais tempo do que deveria.</p>
+
+<p>Para realizar essa tarefa de uma forma mais rápida e replicável, usando
+cinco dos índices de preços mais populares no Brasil, criei um pacote
+para <code>R</code>: o <code>deflateBR</code>. A partir de uma série de reais nominais, ele
+obtém as séries de índices de preços atualizadas diretamente da API do
+IPEA e, em segundos, retorna os valores corrigidos – usando a
+metodologia adotada pelo <a href="https://www3.bcb.gov.br/CALCIDADAO/publico/metodologiaCorrigirIndice.do?method=metodologiaCorrigirIndice" target="_blank">Banco
+Central</a>.
+Segue um breve descrição do pacote.</p>
+
+<h3 id="como-funciona-o-deflatebr">Como funciona o deflateBR?</h3>
+
+<p>O <code>deflateBR</code> automatiza três processos para deflacionar uma série.
+Primeiro, ele extrai dados de um dos seguintes índices de preços da API
+do IPEA: IPCA e INPC, desenvolvidos pelo IBGE; e IGP-M, IGP-DI e IPC,
+desenvolvidos pela FGV. Segundo, ele compatibiliza as datas mensais
+desses índices com as datas dos valores nominais da série. Feito isso,
+enfim, ele deflaciona e retorna os valores corrigidos.</p>
+
+<p>A função principal do pacote, <code>deflate</code>, requer apenas três argumentos:
+um vetor numérico de valores nominais; um vetor com as datas nominais; e
+uma data de referência no formato MM/AAAA. Um exemplo usando o IPCA:</p>
+
+<pre><code class="language-r"># Carrega o pacote
+library(deflateBR)
+
+# Deflaciona 100 reais de janeiro de 2000
+deflate(nominal_values = 100, nominal_dates = as.Date(&quot;2000-01-01&quot;), real_date = &quot;01/2018&quot;)
+</code></pre>
+
+<pre><code>## 
+## Downloading necessary data from IPEA's API
+## ...
+
+## [1] 310.3893
+</code></pre>
+
+<p>Por padrão, a função <code>deflate</code> esse índice. Podemos alterar isso com
+outro argumento chamado <code>index</code>.</p>
+
+<pre><code class="language-r">deflate(100, as.Date(&quot;2000-01-01&quot;), &quot;01/2018&quot;, index = &quot;igpm&quot;)
+</code></pre>
+
+<pre><code>## 
+## Downloading necessary data from IPEA's API
+## ...
+
+## [1] 372.1672
+</code></pre>
+
+<p>Passando o valor <code>igpm</code> para o argumento, a função usa o IGP-M como
+indexador. Os demais indexadores possíveis são: <code>ipc</code> para o IPC;
+<code>igpdi</code> para o IGP-DI; <code>inpc</code> para o INPC. Para sabermos 100 reais de
+janeiro de 1995 valeriam hoje segundo esse último, bastaria usar:</p>
+
+<pre><code class="language-r">deflate(100, as.Date(&quot;1995-01-01&quot;), &quot;01/2018&quot;, &quot;inpc&quot;)
+</code></pre>
+
+<pre><code>## 
+## Downloading necessary data from IPEA's API
+## ...
+
+## [1] 491.0543
+</code></pre>
+
+<h3 id="deflacionando-séries-maiores">Deflacionando séries maiores</h3>
+
+<p>Mais útil do que corrigir um único valor é corrigir séries inteiras, com
+várias quantias em reais nominais associadas a algum período específico.
+Para mostrar como a função <code>deflate</code> faz isso, podemos criar os seguinte
+<code>data.frame</code>:</p>
+
+<pre><code class="language-r">dados &lt;- data.frame(reais = seq(1, 5),
+                    datas = seq.Date(from = as.Date(&quot;2001-01-01&quot;), by = &quot;month&quot;, length.out = 5),
+                    stringsAsFactors = FALSE
+                     )
+</code></pre>
+
+<p>Feito isso, temos agora dados fictícios, com valores de 1 a 5 observados
+desde janeiro até maio de 2001. Suponha que queremos deflacionar esses
+valores para janeiro de 2017 usando o IPC da FGV. Como fazer isso?
+Apenas mudando o jeito de passar as informações necessárias para a
+função <code>deflate</code>:</p>
+
+<pre><code class="language-r">deflate(dados$reais, dados$datas, &quot;01/2017&quot;, &quot;ipc&quot;)
+</code></pre>
+
+<pre><code>## 
+## Downloading necessary data from IPEA's API
+## ...
+
+## [1]  2.759569  5.484001  8.193400 10.863809 13.464326
+</code></pre>
+
+<h3 id="combinando-o-deflatebr-com-o-tidyverse">Combinando o deflateBR com o tidyverse</h3>
+
+<p>Para quem usa o conjunto de pacotes contidos no <code>tidyverse</code>, a função
+<code>deflate</code> pode ser usada dentro de <code>mutate()</code> ou similares. Adaptando o
+exemplo anterior:</p>
+
+<pre><code class="language-r">library(tidyverse)
+
+dados %&gt;%
+  mutate(reais_deflacionados = deflate(reais, datas, &quot;01/2017&quot;, &quot;ipc&quot;))
+</code></pre>
+
+<pre><code>## 
+## Downloading necessary data from IPEA's API
+## ...
+
+##   reais      datas reais_deflacionados
+## 1     1 2001-01-01            2.759569
+## 2     2 2001-02-01            5.484001
+## 3     3 2001-03-01            8.193400
+## 4     4 2001-04-01           10.863809
+## 5     5 2001-05-01           13.464326
+</code></pre>
+
+<h3 id="outras-funções">Outras funções</h3>
+
+<p>Para facilitar o uso de cada um dos cinco índices de preços, também
+incluí no pacote <code>deflateBR</code> cinco funções auxiliares. Em vez de usar a
+função <code>deflate</code> com o argumento <code>index = &quot;ipca&quot;</code> para deflacionar pelo
+IPCA, é possível fazer isso:</p>
+
+<pre><code class="language-r">ipca(dados$reais, dados$datas, &quot;01/2017&quot;)
+</code></pre>
+
+<pre><code>## 
+## Downloading necessary data from IPEA's API
+## ...
+
+## [1]  2.847600  5.662908  8.455458 11.231286 13.958171
+</code></pre>
+
+<p>Ou, para usar o IGP-DI, o seguinte:</p>
+
+<pre><code class="language-r">igpdi(dados$reais, dados$datas, &quot;01/2017&quot;)
+</code></pre>
+
+<pre><code>## 
+## Downloading necessary data from IPEA's API
+## ...
+
+## [1]  3.385977  6.738949 10.074312 13.325380 16.471004
+</code></pre>
+
+<p>Por fim, o pacote <code>deflateBR</code> também contém uma função simples, chamada
+<code>inflation</code>, para identificar a variação percentual na inflação entre
+dois períodos. Se quisermos saber qual foi a taxa de inflação em 2017
+segundo o IPCA, por exemplo, basta rodar:</p>
+
+<pre><code class="language-r">inflation(&quot;01/2017&quot;, &quot;12/2017&quot;, &quot;ipca&quot;)
+</code></pre>
+
+<pre><code>## 
+## Downloading necessary data from IPEA's API
+## ...
+
+## [1] 2.947421
+</code></pre>
+
+<p>Como o resultado está em percentual, podemos dizer que a taxa de
+inflação em 2017, medida pelo IPCA, foi de 2.95%, <a href="http://agenciabrasil.ebc.com.br/economia/noticia/2018-01/inflacao-oficial-pelo-ipca-em-2017-e-de-295-menor-taxa-desde-1998" target="_blank">conforme também
+reportado oficialmente pelo
+IBGE</a>.</p>
+
+<h3 id="exemplo-de-aplicação-1-o-valor-do-salário-mínimo">Exemplo de aplicação 1: o valor do salário mínimo</h3>
+
+<p>Deflacionar séries é útil para ver como o poder de compra de salários ou
+outros variam ao longo do tempo. O salário mínimo, por exemplo, cresceu
+ou não acima da inflação? É possível responder a essa pergunta ajustando
+os salários nominais em cada período específico com um índice de preços,
+como o IPCA. Fazendo isso com o pacote <code>deflateBR</code>, podemos ver que o
+mínimo realmente cresceu acima da inflação desde
+1995.</p>
+
+<p><img src="https://fmeireles.com/figs/salario_minimo-1.png" style="display: block; margin: auto;" /></p>
+
+<h3 id="exemplo-de-aplicação-2-o-valor-de-bolsas-de-pós-graduação">Exemplo de aplicação 2: o valor de bolsas de pós-graduação</h3>
+
+<p>Um bom exemplo de categoria que não teve aumento de renda acima da
+inflação de 1995 a 2018 foram pós-graduandos que recebem bolsas de
+estudos da Capes. Fixadas há anos nos mesmos patamares – R$ 2200 para
+Doutorado, R$ 1500 para Mestrado –, a inflação não reposta se reflete em
+perda de poder de compra da categoria.[1] Como dá pra ver, o valor dos
+benefícios, hoje, praticamente voltaram aos patamares do início do
+primeiro governo
+Lula.</p>
+
+<p><img src="https://fmeireles.com/figs/bolsa_capes-1.png" style="display: block; margin: auto;" /></p>
+
+<h3 id="validade">Validade</h3>
+
+<p>Como já dito, o <code>deflateBR</code> usa a fórmula convencional para corrigir
+valores nominais pela inflação: multiplicá-lo pela razão entre o índice
+de preços no período de referência e no período observado, assim como a
+<a href="https://www3.bcb.gov.br/CALCIDADAO/publico/metodologiaCorrigirIndice.do?method=metodologiaCorrigirIndice" target="_blank">calculadora disponibilizada pelo Banco
+Central</a>.
+Os resultados do pacote e desse serviço, por essa razão, são
+iguais.[2]</p>
+
+<h3 id="como-instalar">Como instalar</h3>
+
+<p>Para instalar a versão disponível no
+<a href="https://cran.r-project.org/package=deflateBR" target="_blank">CRAN</a> do pacote, basta
+executar o seguinte códido:</p>
+
+<pre><code class="language-r">install.packages(&quot;deflateBR&quot;)
+</code></pre>
+
+<h3 id="final">Final</h3>
+
+<p>Como procurei mostrar, o pacote <code>deflateBR</code> faz rapidamente, e de forma
+replicável, correções de valores nominais pela inflação. De qualquer
+forma, por ser ainda a primeira versão dele, certamente existem várias
+coisas por implementar ou melhorar. Para quem quiser sugerir melhorias
+como essas ou outras, o código do pacote está disponível no
+<a href="https://github.com/meirelesff/deflateBR" target="_blank">GitHub</a>. Críticas e sugestões,
+como sempre, são bem-vindos.</p>
+
+<ol>
+<li><p>Os dados sobre os períodos de ajustes nas bolsas foram retirados
+<a href="https://revistacantareira.files.wordpress.com/2012/09/ultimo-artigo1.pdf" target="_blank">daqui</a>.</p></li>
+
+<li><p>Em todos os testes que realizei, os resultados sempre foram
+praticamente idênticos – com algumas diferenças na terceira e,
+raramente, na segunda casa decimal, provavelmente por conta de algum
+arredondamento realizado pela ferramenta online do BC.</p></li>
+</ol>
+
+    </div>
+
+    
+
+
+
+
+
+    
+      
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+
+<div class="media author-card" itemscope itemtype="http://schema.org/Person">
+  
+  <img class="portrait mr-3" src="https://s.gravatar.com/avatar/635d6702474b49febd57319879c244db?s=200')" itemprop="image" alt="Avatar">
+  
+
+  <div class="media-body">
+    <h5 class="card-title" itemprop="name"><a href="https://fmeireles.com/authors/admin">Fernando Meireles</a></h5>
+    <h6 class="card-subtitle">Postdoc in Political Science</h6>
+    <p class="card-text" itemprop="description">Postdoctoral Fellow in Political Science at <a href="http://www.iesp.uerj.br/" target="_blank">IESP-UERJ</a>. Studying comparative politics and political methodology.</p>
+    <ul class="network-icon" aria-hidden="true">
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      <li>
+        <a itemprop="sameAs" href="mailto:fmeireles@ufmg.br" >
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://twitter.com/meirelesff" target="_blank" rel="noopener">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://scholar.google.com.br/citations?user=hMma3BsAAAAJ" target="_blank" rel="noopener">
+          <i class="ai ai-google-scholar"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="http://orcid.org/0000-0002-7027-2058" target="_blank" rel="noopener">
+          <i class="ai ai-orcid"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://github.com/meirelesff" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+      
+      
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
+<div class="container">
+  
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/html.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="https://fmeireles.com/js/academic.min.76a41a243fcea75defe7d35a07d3aaa3.js"></script>
+
+  </body>
+</html>
+

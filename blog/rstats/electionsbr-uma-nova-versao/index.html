@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.1.0">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Fernando Meireles">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Obter dados eleitorais no Brasil nunca foi uma tarefa das mais fáceis. Quem já precisou fazer isso provavelmente sabe o tamanho do problema: baixar diversos arquivos, deszipá-los, abrir um a um os arquivos brutos, limpar e arrumar os dados, juntar tudo, exportar, e por aí vai. Foi com isso na cabeça que o Denisson, a Beatriz e eu lançamos, nos idos de agosto, o electionsBR - um pacote para baixar e limpar estes dados automaticamente, direto do Repositório de Dados Eleitorais do TSE.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://fmeireles.com/blog/rstats/electionsbr-uma-nova-versao/">
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#A37E58">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/rainbow.min.css" crossorigin="anonymous">
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,700|Roboto:400,400italic,700|Roboto+Mono">
+  
+
+  <link rel="stylesheet" href="https://fmeireles.com/styles.css">
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-80581604-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+  <link rel="alternate" href="https://fmeireles.com/index.xml" type="application/rss+xml" title="Fernando Meireles">
+  <link rel="feed" href="https://fmeireles.com/index.xml" type="application/rss+xml" title="Fernando Meireles">
+  
+
+  <link rel="manifest" href="https://fmeireles.com/site.webmanifest">
+  <link rel="icon" type="image/png" href="https://fmeireles.com/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="https://fmeireles.com/img/icon-192.png">
+
+  <link rel="canonical" href="https://fmeireles.com/blog/rstats/electionsbr-uma-nova-versao/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@meirelesff">
+  <meta property="twitter:creator" content="@meirelesff">
+  
+  <meta property="og:site_name" content="Fernando Meireles">
+  <meta property="og:url" content="https://fmeireles.com/blog/rstats/electionsbr-uma-nova-versao/">
+  <meta property="og:title" content="electionsBR: uma nova versão (0.2.0) | Fernando Meireles">
+  <meta property="og:description" content="Obter dados eleitorais no Brasil nunca foi uma tarefa das mais fáceis. Quem já precisou fazer isso provavelmente sabe o tamanho do problema: baixar diversos arquivos, deszipá-los, abrir um a um os arquivos brutos, limpar e arrumar os dados, juntar tudo, exportar, e por aí vai. Foi com isso na cabeça que o Denisson, a Beatriz e eu lançamos, nos idos de agosto, o electionsBR - um pacote para baixar e limpar estes dados automaticamente, direto do Repositório de Dados Eleitorais do TSE."><meta property="og:image" content="https://fmeireles.com/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2016-12-13T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2016-12-13T00:00:00&#43;00:00">
+  
+
+  
+
+  
+
+  <title>electionsBR: uma nova versão (0.2.0) | Fernando Meireles</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="https://fmeireles.com/">Fernando Meireles</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/cv">
+            
+            <span>CV</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/research">
+            
+            <span>Research</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/teaching">
+            
+            <span>Teaching</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/software">
+            
+            <span>Software</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/data">
+            
+            <span>Data</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/blog">
+            
+            <span>Blog</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1 itemprop="name">electionsBR: uma nova versão (0.2.0)</h1>
+
+  
+  <p class="page-subtitle">Um pacote no R para baixar e limpar ainda mais dados eleitorais do TSE</p>
+  
+
+  
+    
+
+
+
+<meta content="2016-12-13 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2016-12-13 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">
+        
+
+      
+      
+      
+        <a href="https://fmeireles.com/authors/admin/">Fernando Meireles</a></span></span>
+  
+
+
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>Dec 13, 2016</time>
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="https://fmeireles.com/categories/rstats/">rstats</a>, 
+    
+    <a href="https://fmeireles.com/categories/electionsbr/">electionsbr</a>
+    
+  </span>
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=electionsBR%3a%20uma%20nova%20vers%c3%a3o%20%280.2.0%29&amp;url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2felectionsbr-uma-nova-versao%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2felectionsbr-uma-nova-versao%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2felectionsbr-uma-nova-versao%2f&amp;title=electionsBR%3a%20uma%20nova%20vers%c3%a3o%20%280.2.0%29"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2felectionsbr-uma-nova-versao%2f&amp;title=electionsBR%3a%20uma%20nova%20vers%c3%a3o%20%280.2.0%29"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=electionsBR%3a%20uma%20nova%20vers%c3%a3o%20%280.2.0%29&amp;body=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2felectionsbr-uma-nova-versao%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<p>Obter dados eleitorais no Brasil nunca foi uma tarefa das mais fáceis. Quem já precisou fazer isso provavelmente sabe o tamanho do problema: baixar diversos arquivos, deszipá-los, abrir um a um os arquivos brutos, limpar e arrumar os dados, juntar tudo, exportar, e por aí vai. Foi com isso na cabeça que o <a href="http://denissonsilva.com/" target="_blank">Denisson</a>, a <a href="mailto:bea.s.costa@gmail.com" target="_blank">Beatriz</a> e eu lançamos, nos idos de agosto, o <a href="http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse" target="_blank">electionsBR</a> - um pacote para baixar e limpar estes dados automaticamente, direto do <a href="http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais" target="_blank">Repositório de Dados Eleitorais do TSE</a>. Passado algum tempo, e depois dos diversos <em>feedbacks</em> que recebemos, lançamos agora uma nova versão do <code>electionsBR</code>, já disponível no CRAN[1]: a 0.2.0.</p>
+
+<p>Resumidamente, além de todas as funcionalidades existentes na versão anterior (era possível baixar quase todos os dados disponíveis do TSE e armazená-los em objetos na memória no R em segundos; para saber mais sobre a versão anterior, <a href="%5BelectionsBR%5D(http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse)" target="_blank">clique aqui</a>), ampliamos a cobertura dela com diversos reparos e acréscimos. Destes, três se destacam:</p>
+
+<ol>
+<li><p><strong>Novas funções</strong> - Incluímos duas novas funções, <code>voter_affiliation</code> e <code>voter_profile</code>, que coletam e limpam dados de filiação e de perfil demográfico dos(as) eleitores(as), respectivamente. Com elas, é possível saber, por exemplo, quantos(as) filiados(as) um partido possui em cada estado; nome, sexo, data de filiação e situação cadastral destes(as) filiados(as); o número de eleitores(as) registrados(as) em cada eleição desde 1998; além do sexo, faixa etária e grau de escolaridade dos(as) votantes. No <code>R</code>, basta digitar <code>?voter_affiliation</code>, ou <code>?voter_profile</code>, para acessar a documentação completa destas funções.</p></li>
+
+<li><p><strong>Controle de acentos</strong> - Seguindo uma sugestão dada pelo <a href="http://robertmyles.github.io/" target="_blank">Robert McDonnel</a>, adicionamos um argumento chamado <code>ascii</code> em todas as funções. Basicamente, este remove acentos das informações do TSE - o que pode ser útil para computadores que não têm suporte para acentos latinos ou evitar erros em algumas operações com <code>strings</code> (comparar nomes, por exemplo). Para remover acentos, só é necessário usar <code>ascii = TRUE</code>.</p></li>
+
+<li><p><strong>Inclusão das eleições de 2016</strong> - Agora também é possível obter os dados eleitorais das eleições municipais de 2016 pelo pacote (esta atualização, na verdade, já havia sido feito na versão beta, disponível no GitHub, por boa sugestão do <a href="https://twitter.com/guilhermejd1" target="_blank">Guilherme Duarte</a>). Todas as funções que coletam dados de eleições municipais (como <code>candidate_local</code> ou <code>legend_local</code>, por exemplo) aceitam esta opção: o usuário precisa apenas passar <code>2016</code> para o argumento <code>year</code> destas funções (e.g., <code>legend_local(year = 2016)</code>).</p></li>
+</ol>
+
+<p>Tudo isto para que o <code>electionsBR</code> dê mais opções ao usuário: qual dado eleitoral ele quer (agora, sim, o pacote cobre quase todos os dados); como ele quer as informações (com ou sem acentos) e para qual período (incluso as eleições de 2016).</p>
+
+<h3 id="outras-novidades">Outras novidades</h3>
+
+<p>Além destas três melhorias, também alteramos outros aspectos do <code>electionsBR</code>. Em primeiro lugar, corrigimos alguns problemas no código da versão anterior que geravam erros. Em segundo lugar, e em parte por causa dessas correções, também tivemos de modificar a documentação técnica do pacote para registrar as alterações feitas; nesta nova versão, portanto, mais detalhes passaram a ser abordados na documentação oficial do pacote (<a href="https://cran.r-project.org/web/packages/electionsBR/electionsBR.pdf" target="_blank">disponível neste link</a>). Por fim, removemos algumas funções internas (i.e. menos confusão para os usuários) e deixamos todas as funções externas mais flexíveis (é possível, por exemplo, customizar o <code>encoding</code> dos dados do TSE; para isso, basta definir o argumento, como <code>enconding = &quot;UTF-8&quot;</code>, ou <code>enconding = &quot;windows-1252&quot;</code>).</p>
+
+<p>Apesar destas mudanças, contudo, o funcionamento do pacote permanece o mesmo. Para baixar dados eleitorais, tanto com a versão anterior quanto com essa, só é necessário carregar o pacote numa sessão do R e chamar a função desejada. Um mini-exemplo:</p>
+
+<pre><code class="language-r"># Instala a nova versao do electionsBR
+install.packages(&quot;electionsBR&quot;)
+
+# Carrega o pacote
+library(&quot;electionsBR&quot;)
+
+# Baixa dados de filiacao individuais do PT no estado de Sao Paulo
+x &lt;- voter_affiliation(party = &quot;PT&quot;, uf = &quot;SP&quot;)
+
+# Baixa os mesmos dados, agora sem acentos nas informacoes textuais
+x &lt;- voter_affiliation(party = &quot;PT&quot;, uf = &quot;SP&quot;, ascii = TRUE)
+
+# Baixa dados de filiacao individuais do PT e do PSDB nos estados de Minas Gerais e Bahia
+x &lt;- voter_affiliation(party = c(&quot;PT&quot;, &quot;PSDB&quot;), uf = c(&quot;MG&quot;, &quot;BA&quot;))
+</code></pre>
+
+<h3 id="o-electionsbr">O electionsBR</h3>
+
+<p>Para quem descobriu o pacote agora e/ou quer saber mais, segue abaixo uma lista de outros exemplos e tutoriais de como usá-lo:</p>
+
+<ul>
+<li><p><a href="http://fmeireles.com/blog/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados" target="_blank">electionsBR: o que é e como usar</a>;</p></li>
+
+<li><p><a href="http://fmeireles.com/blog/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados" target="_blank">Coletando e analisando dados de apuração eleitoral</a>;</p></li>
+
+<li><p><a href="http://fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss" target="_blank">Exportando dados eleitorais para o Stata</a>;</p></li>
+
+<li><p><a href="http://blog.ibpad.com.br/index.php/2016/11/07/construindo-mapas-eleitorais-com-r-e-electionsbr/" target="_blank">Criando mapas eleitorais</a>;</p></li>
+
+<li><p><a href="http://fmeireles.com/files/electionsbr.pdf" target="_blank">electionsBR: R Functions to Download and Clean Brazilian Electoral Data</a>, (paper acadêmico do pacote, para quem precisa de uma referência mais detalhada).</p></li>
+</ul>
+
+<p>Para publicações que usam o pacote, esta última fonte, o paper, pode ser citada. É possível obter a referência dela, tanto em texto já formatado quanto em <code>BibTeX</code>, pela função <code>citation</code>. Exemplo:</p>
+
+<pre><code class="language-r"># Gera a informacao bibliografica para citar o electionsBR
+citation(&quot;electionsBR&quot;)
+</code></pre>
+
+<pre><code>## 
+## To cite electionsBR in publications, please use:
+## 
+##   Meireles, F.; Silva, D.; Costa, B. (2016). electionsBR: R
+##   functions to download and clean Brazilian electoral data.
+##   Federal University of Minas Gerais (UFMG). Belo Horizonte,
+##   Brazil. http://fmeireles.com/files/electionsbr.pdf
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {electionsBR: {R} Functions to Download and Clean {B}razilian Electoral Data},
+##     author = {Fernando Meireles and Denisson Silva and Beatriz Costa},
+##     organization = {Federal University of Minas Gerais (UFMG)},
+##     address = {Belo Horizonte, Brazil},
+##     year = {2016},
+##     url = {http://fmeireles.com/files/electionsbr.pdf},
+##   }
+</code></pre>
+
+<h3 id="notas-finais">Notas finais</h3>
+
+<p>Como não poderia deixar de ser num projeto como este, nos beneficiamos muito da ajuda de diversas pessoas para fazer esta atualização. Em especial, nossos colegas do <a href="http://www.centroestudoslegislativos.com.br/" target="_blank">Centro de Estudos Legislativos</a> Suzana Alves, Haína Coelho, Felipe Lima, Leonardo Ev, Lucas Gelape, Bruno Arcas, e também Bruno Reis e Carlos Ranulfo; e os já mencionados Guilherme e Robert, além do <a href="https://github.com/dfalbel" target="_blank">Daniel Falbel</a>, <a href="https://github.com/sillasgonzaga" target="_blank">Sillas Gonzaga</a> e <a href="https://github.com/flaviobarros" target="_blank">Flávio Barros</a> (estes, pelo <a href="https://github.com/silvadenisson/electionsBR" target="_blank">github</a>) contribuíram com críticas e sugestões e, por isto, estamos indefinidamente em débito com todos(as).</p>
+
+<p>[1] CRAN, ou Comprehensive R Archive Network, é um repositório oficial de pacotes para o R.</p>
+
+    </div>
+
+    
+
+
+
+
+
+    
+      
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+
+<div class="media author-card" itemscope itemtype="http://schema.org/Person">
+  
+  <img class="portrait mr-3" src="https://s.gravatar.com/avatar/635d6702474b49febd57319879c244db?s=200')" itemprop="image" alt="Avatar">
+  
+
+  <div class="media-body">
+    <h5 class="card-title" itemprop="name"><a href="https://fmeireles.com/authors/admin">Fernando Meireles</a></h5>
+    <h6 class="card-subtitle">Postdoc in Political Science</h6>
+    <p class="card-text" itemprop="description">Postdoctoral Fellow in Political Science at <a href="http://www.iesp.uerj.br/" target="_blank">IESP-UERJ</a>. Studying comparative politics and political methodology.</p>
+    <ul class="network-icon" aria-hidden="true">
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      <li>
+        <a itemprop="sameAs" href="mailto:fmeireles@ufmg.br" >
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://twitter.com/meirelesff" target="_blank" rel="noopener">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://scholar.google.com.br/citations?user=hMma3BsAAAAJ" target="_blank" rel="noopener">
+          <i class="ai ai-google-scholar"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="http://orcid.org/0000-0002-7027-2058" target="_blank" rel="noopener">
+          <i class="ai ai-orcid"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://github.com/meirelesff" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+      
+      
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
+<div class="container">
+  
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/html.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="https://fmeireles.com/js/academic.min.76a41a243fcea75defe7d35a07d3aaa3.js"></script>
+
+  </body>
+</html>
+

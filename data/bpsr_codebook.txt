@@ -1,0 +1,72 @@
+
+SURPLUS GOVERNMENT COALITIONS IN LATIN AMERICA (1979-2012)
+
+Fernando Meireles
+Federal University of Minas Gerais/Brazil
+2016
+
+
+# HOW TO LOAD THE DATA
+
+The original data used in the analysis is stored in 'oversized.tab' as a delimited data file.
+It can be read with conventional software. The delimiter is TAB (\tab in escape).
+To load the data in R, set the working directory where the file is located and
+execute the following line:
+
+df <- read.table("oversized.txt")
+
+
+# VARIABLES
+
+* country - Country name.
+* year - Year.
+* presid - President name.
+* negretto_leg1 - Presidential Power Index calculated by Negretto (2013). Ranges from 0 to 100.
+* pres_seats - President's party seat share in the lower house.
+* range1 - Ideological polarization in the lower house.
+* range2 - Ideological polarization in the lower house calculated from alternative data sources.
+* distance1 - Ideological distance in a unidimensional scale between the
+  the president's party and the lower house median.
+* cicle - Measures the remaining time in office of a president. Ranges from 0, at the end
+  of the term, to 1.
+* veto - Categorical variable indicating a president's veto power. Ranges from 0 to 2 (maximum).
+* cda - Categorical variable indicating a president's constituonal decree powers. Ranges from 0 to 2 (maximum).
+* eff_leg - Lower house's effectiveness.
+* infl - Anual inflation rate. Taken from World Bank.
+* enp - Effective Number of Parties (ENP) in the lower house. Data taken from various sources (see below).
+* t - Number of year since the last oversized government coalition.
+* bicam - Dummy variable. 1 indicates that a country is bicameral.
+* surplus - Number of parties that could be removed from a coalition without it losing its surplus size.
+* surplus - Dummy variable. 1 indicates that a government coalition in a given country in a given year is surplus.
+
+
+# SOURCES
+
+AMORIM NETO, Octávio (2006). The presidential calculus: executive policy making and cabinet formation in the Americas. Comparative Political Studies.
+
+BAKER, Andy & GREENE, Kenneth F. (2011). The Latin American left's mandate: free-market policies and issue voting in new democracies. World Politics.
+
+CHASQUETTI, Daniel (2001). Democracia, multipartidismo y coaliciones en América Latina: evaluando la difícil combinación. In: Tipos de presidencialismo y coaliciones politicas en America Latina.
+
+CHEIBUB, José Antonio (2007). Presidentialism, parliamentarism, and democracy.
+
+COPPEDGE, Michael (1997). A classification of Latin American political parties. Working paper.
+
+MARTINEZ-GALLARDO, Cecília (2012). Out of the cabinet: what drives defections from the government in presidential systems? Comparative Political Studies.
+
+NEGRETTO, Gabriel L. (2006). Minority presidents and democratic performance in Latin America. Latin American Politics and Society.
+
+SAEZ, Manuel A. & MONTERO, Mercedes G. (2008). Institutions and politicians: and analysis of the factors that determine presidential legislative success. Working Paper.
+
+
+# OTHER SOURCES
+
+CIA World Leaders.
+
+Lexis Nexis Academics.
+
+El país Online.
+
+Interviews with country experts.
+
+ 

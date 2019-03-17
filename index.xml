@@ -20,11 +20,38 @@
     </item>
     
     <item>
+      <title>Carreiras políticas na Câmara dos Deputados: Uma análise quase-experimental</title>
+      <link>https://fmeireles.com/publication/carreiras-camara-deputados/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 -0200</pubDate>
+      
+      <guid>https://fmeireles.com/publication/carreiras-camara-deputados/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Legislative Representation in a Multilevel System: The Case of Brazil</title>
+      <link>https://fmeireles.com/publication/legislative-representation-brazil/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 -0200</pubDate>
+      
+      <guid>https://fmeireles.com/publication/legislative-representation-brazil/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Partisan alignment and requests for federal transfers in Brazil</title>
       <link>https://fmeireles.com/publication/alinhamento-partidario-demanda/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 -0200</pubDate>
       
       <guid>https://fmeireles.com/publication/alinhamento-partidario-demanda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Usando R: Um Guia Para Cientistas Políticos</title>
+      <link>https://fmeireles.com/publication/livro-r-cientistas-politicos/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 -0200</pubDate>
+      
+      <guid>https://fmeireles.com/publication/livro-r-cientistas-politicos/</guid>
       <description></description>
     </item>
     
@@ -1092,180 +1119,6 @@ citation(&amp;quot;electionsBR&amp;quot;)
 &lt;p&gt;&lt;img src=&#34;https://fmeireles.com/figs/abstencao2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Especificamente, o efeito estimado é de cerca de 4.5% (estimado com um modelo &lt;a href=&#34;https://en.wikipedia.org/wiki/Difference_in_differences&#34; target=&#34;_blank&#34;&gt;diff-in-diff&lt;/a&gt;), o que significa que, na média, a taxa de abstenção no estado estava inflada em quase 50% (ela foi de cerca de 10% em 2012 na média dos municípios, embora Porto Alegre e região tenham tido abstenção maior). Em outras palavras, removendo os eleitores fantasmas, a abstenção caiu quase pela metade.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Como escolher cores para gráficos cientificamente</title>
-      <link>https://fmeireles.com/blog/graficos/como-escolher-cores-para-graficos-cientificamente/</link>
-      <pubDate>Fri, 16 Sep 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://fmeireles.com/blog/graficos/como-escolher-cores-para-graficos-cientificamente/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://vrl.cs.brown.edu/color&#34; target=&#34;_blank&#34;&gt;O método pode ser acessado aqui&lt;/a&gt;. O funcionamento dele é simples: ele fornece padrões de cores (i.e., paletas) que são visualmente distinguíveis e esteticamente atraentes, além de permitir que se escolham padrões perceptíveis para daltônicos e para impressão em preto e branco. Tudo isso numa interface amigável e intuitiva.&lt;/p&gt;
-
-&lt;p&gt;Para saber mais sobre o método (que é científico - o que não é o mesmo que dizer que é infalível) utilizado para selecionar os padrões, &lt;a href=&#34;http://vrl.cs.brown.edu/color/pdf/colorgorical.pdf?v=5dd92af6d1e6c5584236275adc769e82&#34; target=&#34;_blank&#34;&gt;clique aqui&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Estimando regressões logísticas no R (com razão de chance)</title>
-      <link>https://fmeireles.com/blog/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</link>
-      <pubDate>Fri, 09 Sep 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://fmeireles.com/blog/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</guid>
-      <description>
-
-&lt;p&gt;Uma das coisas que dá dor de cabeça a usuários do Stata que migram para o &lt;code&gt;R&lt;/code&gt; é a estimação de modelos estatísticos. Como o Stata já oferece, de forma simples, diversos modelos e opções para alterar as suas especificações, a migração para o &lt;code&gt;R&lt;/code&gt; pode ser frustrante neste aspecto: muitas coisas simples no Stata, como incluir erros-padrão robustos ou efeitos fixos, geralmente demandam mais linhas de código (e chamada a vários pacotes) no &lt;code&gt;R&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Neste post, vou iniciar um pequeno guia para estimar &lt;a href=&#34;https://pt.wikipedia.org/wiki/Regress%C3%A3o_log%C3%ADstica&#34; target=&#34;_blank&#34;&gt;regressões logísticas&lt;/a&gt; no &lt;code&gt;R&lt;/code&gt;. O procedimento básico é bastante simples, como se poderá ver, mas alguns detalhes, como converter os coeficientes para &lt;a href=&#34;https://pt.wikipedia.org/wiki/Raz%C3%A3o_de_possibilidades&#34; target=&#34;_blank&#34;&gt;razão de chance&lt;/a&gt;, envolvem algumas manhas adicionais.&lt;/p&gt;
-
-&lt;h4 id=&#34;estimando-modelos-logísticos-explorando-dados-do-titanic&#34;&gt;Estimando modelos logísticos: explorando dados do Titanic&lt;/h4&gt;
-
-&lt;p&gt;Antes de começar, precisamos de alguns dados para rodar um modelo logístico. Para isto, vou utilizar dados sobre os sobreviventes do &lt;a href=&#34;https://pt.wikipedia.org/wiki/Lista_de_passageiros_do_RMS_Titanic&#34; target=&#34;_blank&#34;&gt;Titanic&lt;/a&gt;, onde a variável de interesse (que usaremos como variável dependente nos modelos) é binária (ter sobrevivido, 1, ou não, 0). Esta base pode ser &lt;a href=&#34;http://web.univ-ubs.fr/lmam/blanche/data-titanic.txt&#34; target=&#34;_blank&#34;&gt;baixada aqui&lt;/a&gt; (meus tutoriais de como carregar dados no R, &lt;a href=&#34;http://fmeireles.com/blog/rstats/como-importar-qualquer-arquivo-no-r&#34; target=&#34;_blank&#34;&gt;aqui&lt;/a&gt; e &lt;a href=&#34;http://fmeireles.com/blog/rstats/como-importar-qualquer-arquivo-no-r&#34; target=&#34;_blank&#34;&gt;aqui&lt;/a&gt;), mas também podemos armazená-la num objeto diretamente no &lt;code&gt;R&lt;/code&gt; via:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Salva a base de dados sobre os sobreviventes do Titanic
-titanic &amp;lt;- read.table(&amp;quot;http://web.univ-ubs.fr/lmam/blanche/data-titanic.txt&amp;quot;, sep = &amp;quot;,&amp;quot;, header = T)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Feito isto, podemos explorar um pouco a base. Em particular, ela possui 891 observações e 12 variáveis, que são:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;names(titanic)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;PassengerId&amp;quot; &amp;quot;Survived&amp;quot;    &amp;quot;Pclass&amp;quot;      &amp;quot;Name&amp;quot;        &amp;quot;Sex&amp;quot;        
-##  [6] &amp;quot;Age&amp;quot;         &amp;quot;SibSp&amp;quot;       &amp;quot;Parch&amp;quot;       &amp;quot;Ticket&amp;quot;      &amp;quot;Fare&amp;quot;       
-## [11] &amp;quot;Cabin&amp;quot;       &amp;quot;Embarked&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;O que mais nos interessa aqui é a variável binária &lt;code&gt;Survived&lt;/code&gt;, que assume o valor de 1 para passageiros sobreviventes, e 0 para os não sobreviventes. Outras variáveis podem nos ajudar a explicá-la, como o sexo dos passageiros. Com alguns gráficos simples, podemos ter uma noção da relação entre estas duas variáveis:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Primeiro, carregamos o pacote ggplot2 (para gerar os graficos)
-library(ggplot2)
-
-# Geramos um grafico de barras para visualizar o numero de sobreviventes e nao sobreviventes
-ggplot(titanic, aes(x = as.factor(Survived))) + geom_bar() + theme_light() + 
-  labs(title = &amp;quot;Titanic&amp;quot;, x = &amp;quot;Sobreviventes&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://fmeireles.com/figs/titanic-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Por fim, cruzamos a variavel sexo com a variavel sobreviventes
-ggplot(titanic, aes(x = as.factor(Survived), fill = Sex)) + geom_bar() + theme_light() + 
-  labs(title = &amp;quot;Titanic&amp;quot;, x = &amp;quot;Sobreviventes&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://fmeireles.com/figs/titanic-2.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;O que podemos concluir? Que a maior parte dos passageiros do Titanic, infelizmente, não sobreviveu ao acidente, e que, dos que sobreviveram, a maioria é do sexo feminino. Estimando uma regressão logística, podemos investigar esta relação mais detidamente.&lt;/p&gt;
-
-&lt;h4 id=&#34;estimando-modelos-logísticos-a-função-glm-do-r&#34;&gt;Estimando modelos logísticos: a função glm do R&lt;/h4&gt;
-
-&lt;p&gt;Para estimar essa regressão logística, uso a função &lt;a href=&#34;https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html&#34; target=&#34;_blank&#34;&gt;glm&lt;/a&gt;, que já vem no &lt;code&gt;R&lt;/code&gt;, especificamente no pacote &lt;a href=&#34;https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html&#34; target=&#34;_blank&#34;&gt;stats&lt;/a&gt;. A função aceita vários argumentos, mas os principais que usaremos são três: a fórmula, o link (o que usaremos é o logístico, mas a função também aceita outros) e os dados usados (no caso, da base dos sobreviventes do Titanic, que já carregamos). Exemplo:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Estima um modelo logistico com a funcao glm
-modelo &amp;lt;- glm(Survived ~ Sex, family = &amp;quot;binomial&amp;quot;, data = titanic)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Explicando o código acima, fizemos o seguinte. Primeiro, passamos a fórmula que queremos estimar, com a variável &lt;code&gt;Survived&lt;/code&gt; (sobreviventes) como dependente (Y) sendo explicada (o &lt;code&gt;~&lt;/code&gt; indica que tudo após isto é variável independente) pela variávei &lt;code&gt;Sex&lt;/code&gt; (sexo dos passageiros). Segundo, explicitamos o link (&lt;code&gt;family = &amp;quot;binomial&amp;quot;&lt;/code&gt;). Por fim, passamos os nossos dados (&lt;code&gt;data = titanic&lt;/code&gt;).&lt;/p&gt;
-
-&lt;p&gt;Para visualizarmos o resultado deste modelo, apenas precisamos usar a função &lt;code&gt;summary&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Acessa os resultados do modelo logistico
-summary(modelo)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## 
-## Call:
-## glm(formula = Survived ~ Sex, family = &amp;quot;binomial&amp;quot;, data = titanic)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.6462  -0.6471  -0.6471   0.7725   1.8256  
-## 
-## Coefficients:
-##             Estimate Std. Error z value Pr(&amp;gt;|z|)    
-## (Intercept)   1.0566     0.1290   8.191 2.58e-16 ***
-## Sexmale      -2.5137     0.1672 -15.036  &amp;lt; 2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 1186.7  on 890  degrees of freedom
-## Residual deviance:  917.8  on 889  degrees of freedom
-## AIC: 921.8
-## 
-## Number of Fisher Scoring iterations: 4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Como já havíamos visto, a probabilidade de passageiros homens terem sobrevivido é menor do que a de passageiras mulheres (&lt;a href=&#34;http://www.pgsc.ufma.br/arquivos/apostilaregressaologistica.pdf&#34; target=&#34;_blank&#34;&gt;aqui há um bom tutorial de como interpretar os resultados de modelos logísticos&lt;/a&gt;). Mas, da forma como é reportado, este coeficiente (&lt;code&gt;Sexmale&lt;/code&gt;, que retorna a probabilidade, em log odds, de um homem ter sobrevivido em relação a uma mulher) é difícil de ser interpretado. Uma forma mais simples é por meio de &lt;a href=&#34;http://www.ats.ucla.edu/stat/mult_pkg/faq/general/odds_ratio.htm&#34; target=&#34;_blank&#34;&gt;razão de chance&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Tendo salvo o modelo, podemos calcular as razões de chance de forma fácil usando a função &lt;code&gt;exp&lt;/code&gt;, que serve para exponenciar um número:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Converte os coeficientes do modelo de log odds para razao de chance
-exp(modelo$coefficients)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## (Intercept)     Sexmale 
-##  2.87654321  0.08096732
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Agora, podemos interpretar os resultado de forma mais direta: para cada mulher que se salvou no Titanic, 0.08 homens se salvaram (ou, de forma mais intuitiva, 100 mulheres para cada 8 homens; o &lt;a href=&#34;https://pt.wikipedia.org/wiki/Raz%C3%A3o_de_possibilidades&#34; target=&#34;_blank&#34;&gt;artigo da Wikipedia sobre razão de chance&lt;/a&gt; é um bom guia para interpretar essas razões de chance).&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>electionsBR: Exportando dados eleitorais do R para o Stata</title>
-      <link>https://fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</link>
-      <pubDate>Mon, 22 Aug 2016 00:00:00 +0000</pubDate>
-      
-      <guid>https://fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</guid>
-      <description>&lt;p&gt;Semana passada, o Denisson, a Bia e eu lançamos o &lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse&#34; target=&#34;_blank&#34;&gt;electionsBR&lt;/a&gt;, um pacote no &lt;code&gt;R&lt;/code&gt; para baixar e limpas dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34;&gt;repositório do TSE&lt;/a&gt;. Como explicamos, o pacote contém diversas funções que facilitam a obtenção destes dados, além de tornar um processo imensamente mais rápido. Mas, como algumas mensagens que recebemos de lá pra cá indicaram, algumas (talvez muitas) pessoas usam o Stata para rodar suas análises e, por isso, não se beneficiariam do pacote.&lt;/p&gt;
-
-&lt;p&gt;Neste post, farei um pequeno tutorial de como baixar e exportar estes dados do &lt;code&gt;R&lt;/code&gt; para o Stata. Não é necessário muito conhecimento de &lt;code&gt;R&lt;/code&gt; para segui-lo. Na verdade, o procedimento é tão simples que pode ser resumido em três etapas:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;Carregar os pacotes necessários&lt;/em&gt;: a primeira coisa a fazer é instalar e carregar o pacote &lt;code&gt;electionsBR&lt;/code&gt; no &lt;code&gt;R&lt;/code&gt;, que contêm as funções para baixar os dados do TSE. Para isto, basta apenas digitar no console:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala o pacote electionsBR (se ja foi instalado, esta etapa pode ser pulada)
-install.packages(&amp;quot;electionsBR&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;Carregar e baixar os dados necessários&lt;/em&gt;: agora, precisamos carregar o pacote e apenas utilizar a função desejada. Por exemplo, podemos baixar todos os dados sobre as coligações eleitorais e partidos que concorreram nas eleições de 2010 com o seguinte código:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote electionsBR
-library(electionsBR)
-
-# Baixa os dados sobre as legendas da eleicao de 2010
-dados &amp;lt;- legend_fed(2010)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;Exportanto os dados&lt;/em&gt;: por fim, exportamos os dados com o pacote &lt;code&gt;foreign&lt;/code&gt;, disponível por padrão no &lt;code&gt;R&lt;/code&gt; (ao menos nas distribuições do &lt;a href=&#34;https://www.r-project.org/&#34; target=&#34;_blank&#34;&gt;R Project&lt;/a&gt;, que é também a mais utilizada):&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote foreign
-library(foreign)
-
-# Exporta os dados baixados do TSE (objeto &#39;dados&#39;) para o Stada
-write.dta(dados, file = &amp;quot;dados.dta&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Feito isto, os dados baixados estarão disponíveis no diretório de trabalho do &lt;code&gt;R&lt;/code&gt; (é possível vê-lo digitando no console &lt;code&gt;getwd()&lt;/code&gt;), especificamente no arquivo &amp;ldquo;dados.dta&amp;rdquo;. É possível usar outro nome de arquivo para salvá-lo &amp;ndash; desde que seja mantida a extensão no final (&lt;code&gt;.dta&lt;/code&gt;). Exemplos:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Este nome de arquivo e&#39; valido
-write.dta(dados, file = &amp;quot;outro_nome.dta&amp;quot;)
-
-# Este nome de arquivo nao e&#39;
-write.dta(dados, file = &amp;quot;outro_nome&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;(Na verdade, é até possível exportar um &lt;code&gt;data.frame&lt;/code&gt; para o Stata sem usar a extensão &lt;code&gt;.dta&lt;/code&gt; no nome do arquivo; o problema é que o arquivo não será associado ao Stata e, portanto, não será possível abri-lo com dois cliques simultâneos).&lt;/p&gt;
-
-&lt;p&gt;Em resumo, mesmo com um conhecimento quase zero de &lt;code&gt;R&lt;/code&gt;, é fácil usar o pacote &lt;code&gt;electionsBR&lt;/code&gt; para pegar dados do TSE e exportá-los para o Stata (&lt;a href=&#34;http://www.statmethods.net/input/exportingdata.html&#34; target=&#34;_blank&#34;&gt;ou para outros softwares&lt;/a&gt;) &amp;ndash; e, o que não é menos importante, de forma rápida e eficiente.&lt;/p&gt;
 </description>
     </item>
     

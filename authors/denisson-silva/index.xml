@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2019 Fernando Meireles</copyright>
-    <lastBuildDate>Mon, 01 May 2017 00:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Tue, 01 Jan 2019 00:00:00 -0200</lastBuildDate>
     
 	<atom:link href="https://fmeireles.com/authors/denisson-silva/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Usando R: Um Guia Para Cientistas Políticos</title>
+      <link>https://fmeireles.com/publication/livro-r-cientistas-politicos/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 -0200</pubDate>
+      
+      <guid>https://fmeireles.com/publication/livro-r-cientistas-politicos/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Simulações de Monte Carlo no Ensino de Ciência Política</title>

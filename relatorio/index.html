@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<meta name="date" content="2019-05-06" />
+
+<title>Análise dos rankings temáticos</title>
+
+<script src="index_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="index_files/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="index_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="index_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="index_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="index_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="index_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="index_files/navigation-1.1/tabsets.js"></script>
+<link href="index_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="index_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Análise dos rankings temáticos <br></h1>
+<h4 class="author">Relatório inicial <br></h4>
+<h4 class="date">05/06/2019 <br> <br></h4>
+
+</div>
+
+
+<style> 
+@import url('https://fonts.googleapis.com/css?family=Rasa');
+@import url('https://fonts.googleapis.com/css?family=Neuton');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300');
+
+h2, h3, h4, h5, h6, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Roboto Slab",serif;
+    color: inherit;
+}
+
+h1, .h1 {
+    font-family: "Neuton","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    line-height: 1.1;
+    color: inherit;
+}
+
+h2, h3, .h2, .h3 {
+    font-family: "Neuton","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: inherit;
+}
+
+.navbar {
+  background-color:#28a745;
+  border-color:#28a745;
+}
+a {
+  color:#28a745;
+}
+
+a:visited {
+  color:#28a745;
+}
+
+a:hover {
+  color:#28a745;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+    border-top-color: #28a745;
+}
+body {
+    font-family: Rasa, Georgia,"Times New Roman",Times,serif;
+    font-size: 22px;
+}
+.chart-title {
+    font-size: 22px;
+}
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus {
+    z-index: 3;
+    color: #ffffff;
+    background-color: #28a745;
+    border-color: #28a745;
+    cursor: default;
+}
+.main-container {
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    z-index: 2;
+    color: #ffffff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+</style>
+<div id="introducao" class="section level2 unnumbered">
+<h2>Introdução</h2>
+<p>Este relatório apresenta algumas visualizações utilizando informações dos rankings temáticos do <a href="http://olb.org.br/">OLB</a> e variáveis biográficas e eleitorais dos deputados da legislatura passada (conforme discutido nos issues <a href="https://github.com/iesp-uerj/OLB-Org/issues/54">54</a> e <a href="https://github.com/iesp-uerj/OLB-Org/issues/46">46</a>). O documento está organizado da seguinte forma: cada subseção apresenta um cruzamento ou visualização específica, descrevendo resumidamente o que se pode extrair dali; o tema da mudança climática vem em primeiro lugar, seguido de ciência e tecnologia e, por fim, pela análise conjunta dos dois rankings.</p>
+</div>
+<div id="mudancas-climaticas-ics" class="section level2 unnumbered">
+<h2>Mudanças climáticas (ICS)</h2>
+<div id="distribuicao-das-notas" class="section level3 unnumbered">
+<h3>Distribuição das notas</h3>
+<p>O gráfico abaixo mostra a distribuição das notas no ranking. Como é possível ver, a maioria dos deputados têm nota negativa. A nota média é de -0.65 e, a mediana da Câmara, é de -1.38 (indicada pela linha vertical tracejada no gráfico).</p>
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" /><!-- --></p>
+</div>
+<div id="distribuicao-dos-scores" class="section level3 unnumbered">
+<h3>Distribuição dos scores</h3>
+<p>Os painéis abaixo exibem a distribuição dos scores – as métricas utilizadas para gerar as notas. De todos os tipos de scores, os de votações nominais são quase uniformemente distribuídos entre os deputados.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" /><!-- --></p>
+</div>
+<div id="notas-por-partido" class="section level3 unnumbered">
+<h3>Notas por partido</h3>
+<p>O gráfico a seguir reporta a distribuição das notas dos deputados agrupadas e ordenadas por partido. Disso, fica visível um padrão mais ou menos ideológico: direita e centro-direita aparecem com notas mais negativas, no geral. Outro ponto a ser observado é a variação dentro de alguns partidos. No PT, por exemplo, contam-se tanto deputados muito favoráveis quanto desfavoráveis ao tema.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" /><!-- --></p>
+</div>
+<div id="notas-por-uf" class="section level3 unnumbered">
+<h3>Notas por UF</h3>
+<p>Por UF, a distribuição das notas deixa de ter padrão tão aparente. Como depreende-se do gráfico abaixo, há enorme dispersão dentro de cada unidade.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" /><!-- --></p>
+</div>
+<div id="notas-por-sexo" class="section level3 unnumbered">
+<h3>Notas por sexo</h3>
+<p>O sexo dos(as) deputados(as) não distingue suas notas no ranking. Há um pequeno número, entretanto, de mulheres com notas mais altas.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" /><!-- --></p>
+</div>
+<div id="notas-por-grau-de-instrucao" class="section level3 unnumbered">
+<h3>Notas por grau de instrução</h3>
+<p>De forma similar, o grau de instrução reportado pelos(as) deputados(as) durante o registro de suas candidaturas junto ao <a href="http://www.tse.jus.br/">TSE</a> não têm relação aparente com a distribuição de suas notas no ranking.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" /><!-- --></p>
+</div>
+<div id="notas-por-cor-declarada" class="section level3 unnumbered">
+<h3>Notas por cor declarada</h3>
+<p>Quanto à cor da pele, deputados(as) autodeclarados(as) pretos(as) têm nota ligeiramente maiores que os(as) demais. Para a cor parda, a distribuição é bimodal, indicando a presença de dois grupos mais ou menos distantes na escala do ranking.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" /><!-- --></p>
+</div>
+<div id="residuos-dos-partidos" class="section level3 unnumbered">
+<h3>Resíduos dos partidos</h3>
+<p>Parte da atuação parlamentar é mediada pelos partidos, algo que é especialmente saliente em votações nominais. Para remover o que é efeito dos partidos nas notas do ranking, no gráfico abaixo examinei os resíduos das notas regredidas na variável partidária. Com isso, é possível saber quais deputados(as) têm notas maiores ou menores do que é possível predizer com base em suas filiações – a comparação, em outras palavras, é feita sem levar controlando tudo aquilo determinado pelos partidos na variação do ranking.</p>
+<p>Formalmente, seja <span class="math inline">\(i\)</span> o indexador dos(as) deputados(as) e <span class="math inline">\(p\)</span> o dos partidos, o modelo estimado por OLS estima o efeito predito do <span class="math inline">\(Partido^{j}\)</span> sobre a <span class="math inline">\(Nota_{ij}\)</span>:</p>
+<p><span class="math display">\[
+Nota_{ij} = \beta Partido_{j} + \epsilon_{ij}
+\]</span></p>
+<p>Cerca de 47.0% da variação na nota é predita pela filiação partidária e, mais importante, é possível inferir diferenças entre esses efeitos preditos, como mostra o gráfico abaixo (as linhas horizontais indicam os intervalos de confiança de 90% das estimativas).</p>
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" /><!-- --></p>
+<p>Tendo os valores preditos de <span class="math inline">\(\hat{Nota_{ij}}\)</span>, os resíduos partidários, <span class="math inline">\(\hat{Nota_{ij}} - Nota_{ij}\)</span>, podem ser usados para detectar quais parlamentares tiveram atuação mais positiva ou negativa do que seria de esperar dado a atuação de seus partidos. Uma lista com os 10 melhores segue abaixo:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Rank*</th>
+<th align="left">Nome</th>
+<th align="left">Partido</th>
+<th align="left">UF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Arnaldo Faria De Sá</td>
+<td align="left">PP</td>
+<td align="left">SP</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Alessandro Molon</td>
+<td align="left">PSB</td>
+<td align="left">RJ</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Danilo Cabral</td>
+<td align="left">PSB</td>
+<td align="left">PE</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Maria Helena</td>
+<td align="left">MDB</td>
+<td align="left">RR</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">Deley</td>
+<td align="left">PTB</td>
+<td align="left">RJ</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">Nilto Tatto</td>
+<td align="left">PT</td>
+<td align="left">SP</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">Waldir Maranhão</td>
+<td align="left">PSDB</td>
+<td align="left">MA</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Evair Vieira De Melo</td>
+<td align="left">PP</td>
+<td align="left">ES</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">Augusto Carvalho</td>
+<td align="left">SD</td>
+<td align="left">DF</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="left">Leo De Brito</td>
+<td align="left">PT</td>
+<td align="left">AC</td>
+</tr>
+</tbody>
+</table>
+<p>Os 10 piores:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Rank*</th>
+<th align="left">Nome</th>
+<th align="left">Partido</th>
+<th align="left">UF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Fabio Garcia</td>
+<td align="left">DEM</td>
+<td align="left">MT</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Luciano Ducci</td>
+<td align="left">PSB</td>
+<td align="left">PR</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Julio Lopes</td>
+<td align="left">PP</td>
+<td align="left">RJ</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Takayama</td>
+<td align="left">PSC</td>
+<td align="left">PR</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">Augusto Coutinho</td>
+<td align="left">SD</td>
+<td align="left">PE</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">Helder Salomão</td>
+<td align="left">PT</td>
+<td align="left">ES</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">José Carlos Aleluia</td>
+<td align="left">DEM</td>
+<td align="left">BA</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Luiz Sérgio</td>
+<td align="left">PT</td>
+<td align="left">RJ</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">Evandro Gussi</td>
+<td align="left">PV</td>
+<td align="left">SP</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="left">Roberto Góes</td>
+<td align="left">PDT</td>
+<td align="left">AP</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="distribuicao-espacial" class="section level3 unnumbered">
+<h3>Distribuição espacial</h3>
+<p>Abaixo, segue a distribuição espacial da soma dos votos percentuais dos(as) 100 deputados(as) com maior nota no ranking.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" /><!-- --></p>
+<p>A seguir, o mapa da votação conjunta dos(as) 100 deputados(as) com pior nota no ranking.</p>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" /><!-- --></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

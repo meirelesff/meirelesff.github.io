@@ -398,7 +398,7 @@ div.tocify {
       <a href="basico.html">Básico</a>
     </li>
     <li>
-      <a href="proxima.html">Manipulação I</a>
+      <a href="manipulacao.html">Manipulação I</a>
     </li>
     <li>
       <a href="proxima.html">Manipulação II</a>
@@ -434,7 +434,7 @@ div.tocify {
 <p><br></p>
 <div id="introducao" class="section level1">
 <h1>1 Introdução</h1>
-<p>Na última aula, começamos a manipular alguns <code>data.frames</code> simples. Nesta, não só avançaremos nessa tarefa como também aprenderemos a carregar dados de inúmeros formatos de arquivo. Além disso, como vimos em aula, usaremos <a href="https://bookdown.org/yihui/rmarkdown/notebook.html">notebooks</a> para combinar códigos e texto. A aula encerra introduzindo um operador extremamente útil, o <code>pipe</code>, para simplificar análises mais longas.</p>
+<p>Na última aula, começamos a manipular alguns <code>data.frames</code> simples. Nesta, não só avançaremos nessa tarefa como também aprenderemos a carregar dados de inúmeros formatos. Além disso, como vimos em aula, usaremos <a href="https://bookdown.org/yihui/rmarkdown/notebook.html">notebooks</a> para combinar códigos e texto.</p>
 <p><br></p>
 </div>
 <div id="carregando-dados" class="section level1">
@@ -613,7 +613,7 @@ export(banco, &quot;meu_banco.csv&quot;)</code></pre>
 <h1>Exercícios I</h1>
 <div id="carregando-dados-1" class="section level3">
 <h3>Carregando dados</h3>
-<p>Nos materiais deste curso, há uma pasta chamada <code>testes</code> que contém alguns arquivos com dados. Usando as funções que vimos, tente carregar cada um deles e descreva (use texto no seu Rnotebook ou comentários dentro dos <em>chunks</em>) seus conteúdos.</p>
+<p>Dentro da pasta desta aula, há outra chamada <code>arquivos</code> com alguns dados. Usando as funções que vimos, tente carregar e visualizar cada um deles (use texto no seu Rnotebook para fazer comentários, se precisar).</p>
 </div>
 <div id="exportando-dados" class="section level3">
 <h3>Exportando dados</h3>
@@ -641,9 +641,8 @@ export(banco, &quot;meu_banco.csv&quot;)</code></pre>
 </ul>
 <p>Tendo este conteúdo dominado, saberemos como realizar uns 90% de todas as tarefas mais comuns em uma análise de dados.</p>
 <p><br></p>
-</div>
-<div id="fatiar" class="section level1">
-<h1>3.1 Fatiar</h1>
+<div id="fatiar" class="section level2">
+<h2>4.1 Fatiar</h2>
 <p>Já vimos uma das funções de fatiar, <code>slice</code>. O que não vimos, talvez, foi como usá-la em bancos maiores. Vamos carregar o <code>data.frame</code> de municípios mineiros novamente para fazer isso.</p>
 <pre class="r"><code>banco &lt;- read_csv(&quot;municipios_mg.csv&quot;)</code></pre>
 <p>Usando um pouco do que vimos sobre vetores, podemos filtrar as 5 primeiras observações assim:</p>
@@ -664,7 +663,7 @@ dez_maiores &lt;- slice(dez_maiores, 1:10) # passamos o objeto &#39;dez_maiores&
 dez_maiores</code></pre>
 <p><br></p>
 <div id="classes-e-vetores" class="section level3">
-<h3>3.1.1 Classes e vetores</h3>
+<h3>4.1.1 Classes e vetores</h3>
 <p>Precisamos recuar um pouco para entendermos outras operações de fatiamento. Até agora, trabalhos com números, textos e <code>data.frames</code>, e vimos que cada um desses objetos serve para coisas diferentes no R. O que não vimos é que chamamos esses tipos de <code>types</code> (alguns chamam de classes), e que elas são basicamente essas<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>:</p>
 <table>
 <thead>
@@ -709,7 +708,7 @@ class(TRUE) # logical</code></pre>
 <p><br></p>
 </div>
 <div id="filter" class="section level3">
-<h3>3.1.2 Filter</h3>
+<h3>4.1.2 Filter</h3>
 <p>Mas por que isso é útil? Entre outras coisas, podemos usar testes lógicos para filtrar observações. Vamos manter no <code>banco</code> apenas municípios mineiros com mais de 500 mil habitantes:</p>
 <pre class="r"><code>filter(banco, populacao &gt; 500000)</code></pre>
 <p>Pronto. Quer municípios com mais de 300 e menos de 500 mil? Basta combinar dois operadores lógicos:</p>
@@ -719,8 +718,8 @@ class(TRUE) # logical</code></pre>
 <p><br></p>
 </div>
 </div>
-<div id="selecionar" class="section level1">
-<h1>3.2 Selecionar</h1>
+<div id="selecionar" class="section level2">
+<h2>4.2 Selecionar</h2>
 <p>Também já vimos como selecionar variáveis usando <code>select</code>. No geral, funciona assim:</p>
 <pre class="r"><code>select(banco, populacao) # seleciona a variavel populacao</code></pre>
 <p>Mas podemos combiná-la com algumas funções auxiliares. Basicamente, essas funções procuram por alguma palavra no nome das variáveis e, se as encontra (<code>TRUE</code>) em algum caso, as seleciona. Por exemplo, para selecionar todas as variáveis que tenham a palavra “despesa” no nome, basta usar:</p>
@@ -738,8 +737,8 @@ banco &lt;- select(banco, municipio, populacao, total_despesas)</code></pre>
 <p>Experimente usar <code>View(banco)</code> para ver como ficou a base após essas transformações.</p>
 <p><br></p>
 </div>
-<div id="transformar" class="section level1">
-<h1>3.3 Transformar</h1>
+<div id="transformar" class="section level2">
+<h2>4.3 Transformar</h2>
 <p>Claro, apenas fatiar e selecionar partes de um <code>data.frame</code> não esgota o que precisamos fazer em uma análise – embora seja algo útil. No mais das vezes, precisamos criar novas variáveis, alterar algumas que já temos, combiná-las. Para essas e outras tarefas, usamos a função <code>mutate</code>. Melhor do que explicar o que ela faz, vejamos um exemplo (se quiser, user <code>View</code> depois):</p>
 <pre class="r"><code>banco &lt;- mutate(banco, nova_var = 1)
 glimpse(banco)</code></pre>
@@ -767,6 +766,7 @@ y &lt;- 2
 ifelse(x &gt; y, &quot;x e&#39; maior que y&quot;, &quot;y e&#39; maior ou igual a x&quot;)</code></pre>
 <p>Praticar essas habilidades é essencial para poder limpar dados com fluência. Uma vez que você domine essas ferramentas, arrumar qualquer banco torna-se questão de poucos minutos.</p>
 <p><br></p>
+</div>
 </div>
 <div id="exercicios-ii" class="section level1">
 <h1>Exercícios II</h1>
@@ -805,7 +805,7 @@ ifelse(x &gt; y, &quot;x e&#39; maior que y&quot;, &quot;y e&#39; maior ou igual
 </div>
 <div id="revisao" class="section level1">
 <h1>Revisão</h1>
-<p>Para essa aula, o material de revisão indicado são as seções 5.1, 5.2, 5.3, 5.4 e 5.5 do Capítulo 5 do livro <a href="https://r4ds.had.co.nz/transform.html">R for Data Science</a>. O material infelizmente só está disponível em inglês, mas é fácil entender seu conteúdo apenas pelos exemplos. Não é demais enfatizar que dominar esse conteúdo é pré-requisito para o restante do curso.</p>
+<p>Para essa aula, o material de revisão indicado são as seções 5.1, 5.2, 5.3, 5.4 e 5.5 do Capítulo 5 do livro <a href="https://r4ds.had.co.nz/transform.html">R for Data Science</a>. O material infelizmente só está disponível em inglês, mas é fácil entender seu conteúdo apenas pelos exemplos.</p>
 </div>
 <div class="footnotes">
 <hr />

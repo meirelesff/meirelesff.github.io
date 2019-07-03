@@ -11,7 +11,7 @@
 
 
 
-<title>Aula 2 Manipulação II</title>
+<title>Aula 3 Manipulação II</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -401,7 +401,7 @@ div.tocify {
       <a href="manipulacao.html">Manipulação I</a>
     </li>
     <li>
-      <a href="proxima.html">Manipulação II</a>
+      <a href="manipulacao2.html">Manipulação II</a>
     </li>
     <li>
       <a href="proxima.html">Análise</a>
@@ -426,26 +426,326 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Aula 2 Manipulação II</h1>
+<h1 class="title toc-ignore">Aula 3 Manipulação II</h1>
 
 </div>
 
 
+<p><br></p>
 <div id="introducao" class="section level1">
 <h1>1 Introdução</h1>
-<p>Lembrar dos notebooks.</p>
+<p>A última aula introduziu diversas ferramentas, a maioria realmente útil para pesquisa acadêmica. Entre outras coisas, aprendemos a carregar dados dos formatos mais comuns, e também vimos alguns truques para carregar outros formatos usando o pacote <code>rio</code>; também aprendemos a usar os principais verbos em uma análise dados, cobrindo o principal que normalmente é necessário para transformar variáveis, resumir informações e reorganizar linhas e colunas.</p>
+<p>Esta aula continua a focar na manipulação, mas agora de uma forma diferente. Nela, começaremos a ver que existe uma estrutura canônica para organizar <code>data.frames</code> (ou <code>tibbles</code>), e que há duas funções que nos ajudam a colocar qualquer planilha nessa estrutura. Também veremos operações por grupos – o último verbo que não cobrimos ontem – e como cruzar, unir e comparar <code>data.frames</code>.</p>
+<p><br></p>
 </div>
 <div id="tidy-data" class="section level1">
 <h1>2 Tidy data</h1>
+<p>Normalmente existe mais de uma forma de organizar informações em uma planilha. Eu posso, por exemplo, usar esses dois <code>data.frames</code> para armazenar dados sobre algumas pessoas:</p>
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="left">nome</th>
+<th align="left">materia</th>
+<th align="right">nota</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ana</td>
+<td align="left">Português</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">Ana</td>
+<td align="left">Matemática</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Ana</td>
+<td align="left">Geografia</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Maria</td>
+<td align="left">Português</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Maria</td>
+<td align="left">Matemática</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Maria</td>
+<td align="left">Geografia</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Pedro</td>
+<td align="left">Português</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">Pedro</td>
+<td align="left">Matemática</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">Pedro</td>
+<td align="left">Geografia</td>
+<td align="right">5</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table class="kable_wrapper">
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Nome</th>
+<th align="right">Geografia</th>
+<th align="right">Matemática</th>
+<th align="right">Português</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ana</td>
+<td align="right">6</td>
+<td align="right">10</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">Maria</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Pedro</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="right">9</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Ainda que o segundo modelo de <code>data.frame</code> seja intelegível, ele não é útil para diversos fins. Não podemos, por exemplo, usá-lo em modelos de regressão em painel, nem podemos criar gráficos com séries de uma forma simples. Além do mais, esse segundo não segue regras explícitas: ele parece, na verdade, uma tabela que alguém colocaria em um artigo.</p>
+<p>O primeiro modelo de <code>data.frame</code>, ao contrário, segue regras: nele, colunas armazenam um tipo de informação (idade, nome, região, escolaridade, etc.); linhas, por sua vez, armazenam ocorrências (indivíduos, países, empresas, candidaturas, etc.); e, por fim, cada entrada armazena um único valor (o que decorre das regras anteriores). Essa estrutura é denominada de <em>tidy data</em>.</p>
+<p><br></p>
+<div id="espalhar-e-reunir" class="section level2">
+<h2>2.1 Espalhar e reunir</h2>
+<p>Existem duas funções que usamos para alterar estruturas como essa: <code>gather</code>, para reunir; e <code>spread</code>, para espalhar. Na pasta desta aula, temos uma planilha do Excel, <code>homicidios_uf.xls</code>, que armazena informações sobre o número de homicídios nos estados brasileiros. Vamos carregá-la.</p>
+<pre class="r"><code># Carrega os pacotes
+library(tidyverse)
+library(readxl)
+
+# Carrega os dados
+homicidios &lt;- read_excel(&quot;homicidios_uf.xls&quot;)</code></pre>
+<p>É só usar <code>glimpse</code> (ou <code>View</code>) que você entenderá o que eu estava falando sobre base fora da estrutura <code>tidy</code>:</p>
+<pre class="r"><code>glimpse(homicidios)</code></pre>
+<p>Outra função útil, podemos usar <code>head</code> para visualizar no console as primeiras linhas do banco:</p>
+<pre class="r"><code>head(homicidios)</code></pre>
+<p>Temos o número de homicídios em cada ano em colunas diferentes, mas isso deveria ser uma variável, assim como ano. Chegar nesse formato é simples: como temos dados de homicídios espalhados em múltiplas colunas, colocamos ele no formato <code>tidy</code> reunindo essas informações em poucas colunas, com <code>gather</code>:</p>
+<pre class="r"><code>gather(homicidios, Ano, Homicidios, -Sigla, -Codigo, -Estado)</code></pre>
+<p>Deu para perceber a diferença? Agora, em vez de várias colunas com informações anuais sobre homicídios temos um banco com mais linhas e menos colunas, no qual uma delas indica o ano e, outra, o número de homicídios. Essa é uma base de dados <em>tidy</em>.</p>
+<p>Especificamente, o funcionamento da função é relativamente simples: passamos o nome do nosso <code>data.frame</code>, como em outras funções do <code>tidyverse</code>; e então o nome da variável que receberá o nome das variáveis a serem espalhadas (no caso, ano); e o nome da variável que receberá o conteúdo. Como queremos preservar as outras variáveis, colocamos o nome delas antecedido por <code>-</code>. Sem isso, o resultado seria:</p>
+<pre class="r"><code>gather(homicidios, Ano, Homicidios)</code></pre>
+<p>Voltando, tudo o que precisamos fazer, então, é retirar as colunas que não queremos reunir com <code>gather</code>. O que sobrar será colocado em duas variáveis, uma que armazenará o nome das variáveis antigas e, a outra, que armazenará seu conteúdo.</p>
+<p>Podemos salvar essa base:</p>
+<pre class="r"><code>homicidios_novo &lt;- gather(homicidios, Ano, Homicidios, -Sigla, -Codigo, -Estado)</code></pre>
+<p>Para voltar ela ao formato <em>untidy</em>, usamos <code>spread</code>, passando o nome das colunas que queremos espalhar:</p>
+<pre class="r"><code>spread(homicidios_novo, Ano, Homicidios)</code></pre>
+<p>Com esses dois novos verbos, conseguimos arrumar a maioria das planilhas organizadas em formatos <em>untidy</em>, basta passar a elas os nomes das variáveis a serem criadas (reunidas) ou espalhadas.</p>
+<p><br></p>
+</div>
 </div>
 <div id="agrupamentos" class="section level1">
 <h1>3 Agrupamentos</h1>
+<p><code>summarise</code>, como vimos, serve para resumir informações em um banco, enquanto que <code>mutate</code> cria ou transforma variáveis. Tudo isso é útil, mas não é o suficiente. Imagine que temos um banco com salários pagos a homens e mulheres e, com isso, queremos saber a média que cada grupo recebe. <code>summarise</code>, e nem <code>mutate</code>, fazem isso sozinhas.</p>
+<p>O <code>tidyverse</code> inclui, contudo, uma função que pode ser usada em conjunto com elas para fazermos operações por grupos – o verbo de manipulação que faltava, <em>agrupar</em>. Vamos ver um exemplo usando o <code>data.frame</code> <code>homicidios_novo</code> que criamos acima.</p>
+<pre class="r"><code>summarise(homicidios_novo, media_homicidios = mean(Homicidios))</code></pre>
+<p>Sabemos que a variável armazena o número de homicídios em cada um dos estados brasileiros por ano, e quando pedimos a média desse valor para <code>summarise</code> ela nos retorna apenas um valor. Como fazemos para saber a média de homicídios ao longo do tempo por estado?</p>
+<pre class="r"><code>homicidios_novo &lt;- group_by(homicidios_novo, Estado)
+summarise(homicidios_novo, media_homicidios = mean(Homicidios))</code></pre>
+<p>O resultado é direto, mas vamos nos deter um pouco no que está acontecendo. Criamos um objeto <code>homicidios_novo</code> cujo conteúdo é igual <code>group_by(homicidios_novo, Estado)</code>, e é nessa parte do código que o agrupamento é feito por meio da função <code>group_by</code>. Basta passar a ela o nome da variável com os grupos que queremos considerar que, a partir de então, todas as transformações feitas no <code>tibble</code> com <code>mutate</code> ou <code>summarise</code> serão feitas dentro dos grupos, e não na base inteira.</p>
+<p>Vejam que <code>group_by</code> não altera as observações e as variáveis de <code>homicidios_novo</code> (podem conferir usando <code>glimpse</code> ou <code>View</code>). Apesar disso, ele transforma internamente esse objeto, que passa a ter uma classe um pouco diferente:</p>
+<pre class="r"><code># Classe de &#39;homicidios&#39; sem group_by
+class(homicidios)
+
+# Classe de &#39;homicidios&#39; com group_by
+class(homicidios_novo)</code></pre>
+<p>Para voltar a base ao normal, usamos <code>ungroup</code>:</p>
+<pre class="r"><code>homicidios_novo &lt;- ungroup(homicidios_novo)</code></pre>
+<p>É bom prestar atenção a isso porque, às vezes, podemos acabar fazendo operações em grupos sem perceber.</p>
+<p><br></p>
+</div>
+<div id="exercicios-i" class="section level1">
+<h1>Exercícios I</h1>
+<p>**Importante<em>: Para todos esses exercícios, será necessário carregar a base de homicídios por estado e colocá-la no formato </em>tidy* usando as funções que vimos anteriormente (se tiver dúvidas, copie e execute o código que faz isso do material acima).</p>
+<div id="fatiar-e-filtrar-i" class="section level3">
+<h3>Fatiar e filtrar I</h3>
+<p>Relembrando o que vimos na aula anterior, carregue a base de homicídios por estado, deixe-a em formato <em>tidy</em> e selecione apenas as variáveis <code>Estado</code>, <code>Ano</code> e <code>Homicidios</code> e salve o resultado disso em um objeto chamado <code>homic_modificado</code>.</p>
+</div>
+<div id="fatiar-e-filtrar-ii" class="section level3">
+<h3>Fatiar e filtrar II</h3>
+<p>Com o <code>data.frame</code> <code>homic_modificado</code> criado no exercício anterior, filtre as observações pelo número de homicídios maior que 2.000. Em outras palavras, mantenha na base apenas observações cujo valor da variável <code>Homicidios</code> seja maior que 2.000. Salve esse novo objeto em <code>homic_modificado</code>.</p>
+</div>
+<div id="sumarizar" class="section level3">
+<h3>Sumarizar</h3>
+<p>Usando <code>summarise</code> e o objeto <code>homic_modificado</code> criado no exercício anterior, calcule a média do número de homicídios na base que resultou das operações anteriores. Depois, calcule a mediana e o desvio-padrão do número de homicídios.</p>
+</div>
+<div id="sumarizar-e-agrupar" class="section level3">
+<h3>Sumarizar e agrupar</h3>
+<p>Usando de homicídios original (carregue-a novamente do arquivo se precisar), a função <code>summarise</code> e <code>group_by</code>, calcule a média do número de homicídios por ano no Brasil (basta adaptar um dos códigos que vimos anteriormente). Salve o resultado dessa operação em um objeto chamado <code>homic_anual</code> e descubra em qual ano tivemos a maior média de homicídios por estado.</p>
+</div>
+<div id="modificar-e-agrupar" class="section level3">
+<h3>Modificar e agrupar</h3>
+<p>Usando de homicídios original, <code>group_by</code> e, agora, <code>mutate</code> no lugar de <code>summarise</code>, repita a operação anterior e calcule a média de homicídios por ano no Brasil. Use <code>View</code> para ver o resultado dessa operação. No que <code>summarise</code> é diferente de <code>mutate</code>?</p>
+<p><br></p>
+</div>
 </div>
 <div id="cruzamentos-binds-e-listas" class="section level1">
 <h1>4 Cruzamentos, binds e listas</h1>
+<p>Frequentemente nossa base de dados não têm todas as informações que precisamos, que podem estar em outra base. Quando isso acontece, precisamos combinar, ou cruzar, as duas para produzirmos uma terceira, essa sim completa. Usando o <code>tidyverse</code>, existem algumas maneiras de se fazer isso. A principal delas é por meio das funções <code>_join</code>, que veremos a seguir.</p>
+<p>Para ilustrar esse conjunto de ferramentas, usaremos duas bases. A primeira, já familiar, é que contém dados anuais sobre os homicídios por estado. Já a segunda, uma base com a população desses mesmos estados segundo o Censo do IBGE de 2000. Nosso objetivo será unir essa informação da população à base original, o que nos permitirá calcular a taxa de homicídio por mil habitantes em cada estado.</p>
+<p>Começamos carregando e deixando em formato <em>tidy</em> os dados de homicídios:</p>
+<pre class="r"><code># Homicidios
+homicidios &lt;- read_excel(&quot;homicidios_uf.xls&quot;)
+homicidios &lt;- gather(homicidios, Ano, Homicidios, -Sigla, -Codigo, -Estado)</code></pre>
+<p>Feito isso, podemos carregar os dados populacionais, que estão no formato padrão do R.</p>
+<pre class="r"><code># Populacao
+load(&quot;populacao_estados_2000.Rda&quot;)</code></pre>
+<p>Como não conhecemos essa base, vamos inspecioná-la:</p>
+<pre class="r"><code>glimpse(populacao)
+head(populacao)</code></pre>
+<p>Já de cara dá para ver que temos três variáveis: <code>sigla</code> e <code>codigo</code>, que indicam a sigla e o código do IBGE de cada estado, respectivamente; e <code>populacao_2000</code>, que contém as populações. Em comum, podemos ver que nossa outra base têm duas variáveis em comum, apesar dos nomes diferentes.</p>
+<pre class="r"><code>glimpse(homicidios)</code></pre>
+<p>O que queremos fazer, portanto, é adicionar uma nova variável à base <code>homicidios</code> com a população registrada de cada estado no ano de 2000. Faremos o cruzamento com base na sigla e no código, o que nos garantirá que colocaremos a população de Minas Gerais nas observações de Minas Gerais, as de São Paulo em São Paulo, e assim por diante.</p>
+<p>A forma mais simples de realizarmos isso é por meio da função <code>left_join</code>, assim:</p>
+<pre class="r"><code>nova_base &lt;- left_join(homicidios, populacao, by = c(&quot;Sigla&quot; = &quot;sigla&quot;, &quot;Codigo&quot; = &quot;codigo&quot;))</code></pre>
+<p>Vamos verificar o que aconteceu?</p>
+<pre class="r"><code>glimpse(nova_base)</code></pre>
+<p>Como dá para notar, adicionamos uma variável nova a essa base, <code>populacao_2000</code>. Fazendo isso, portanto, combinamos as duas bases. As coisas importantes a reter aqui são: 1) precisamos de informações comuns nas duas bases para fazer a combinação (no caso, usamos a sigla e o código de cada estado, que estavam disponíveis nas duas bases); 2) precisamos especificar por meio do argumento <code>by</code> qual variável da primeira base corresponde a qual outra da segunda (fizemos isso usando um operador <code>=</code>); por fim, as variáveis precisam ter a mesma classe (podemos juntar texto com texto, números com números, e assim por diante).</p>
+<p>O <code>tidyverse</code> contém outras funções para fazer cruzamentos, ou <code>joins</code>. Em particular, <code>left_join</code> tenta adicionar dados da segunda base para a primeira – o que significa que ela vai preservar integralmente o conteúdo da primeira, adicionando apenas o que ele conseguir da segunda. Para fazer o inverso, usamos <code>right_join</code>. Outras funções (para mais detalhes, ver <code>help(left_join)</code>) incluem:</p>
+<ul>
+<li><code>inner_join</code>: mantém apenas o que é comum nas duas variáveis (se não tivéssemos Minas Gerais em uma das bases, por exemplo, essa informação seria perdida da base final);</li>
+<li><code>full_join</code>: mantém tudo das duas bases (se um não tem MG e outra não tem SP, a base final mantém os dois estados com <em>missing</em> nas variáveis unidas);</li>
+<li><code>anti_join</code>: mantém apenas o que não é comum entre as bases (MG e SP no exemplo anterior).</li>
+</ul>
 </div>
-<div id="purrr" class="section level1">
-<h1>5 purrr</h1>
+<div id="dplyr-e-funcoes-auxiliares" class="section level1">
+<h1>5 dplyr e funções auxiliares</h1>
+<p>Vimos os principais verbos para análise de dados – e, acredite, combinando eles de formas criativas é possível fazer praticamente qualquer manipulação em bases gigantes em questão de minutos. Também vimos como colocar bases no formato <em>tidy</em> e como cruzar informações de diferentes bases. Como já disse, todas essas ferramentas dão uma base avançada de conhecimento em manipulação de dados.</p>
+<p>O que realmente faz toda a diferença quando o assunto é manipulação de dados, contudo, é saber combinar essas ferramentas que vimos com funções auxiliares. Até aqui, cobrimos apenas algumas coisas disso, mas nesse tópico veremos algumas das mais importantes combinações entre verbos e funções auxiliares.</p>
+<p>Para essa seção, vamos carregar novamente dados que vimos na última aula, sobre os municípios mineiros.</p>
+<pre class="r"><code># Carrega o pacote rio, que tem a funcao import
+library(rio)
+
+# Carrega os dados
+municipios_mg &lt;- import(&quot;municipios_mg.xlsx&quot;)</code></pre>
+<p><br></p>
+<div id="ordenar-valores" class="section level2">
+<h2>5.1 Ordenar valores</h2>
+<p>Podemos abrir uma base com <code>View</code> e clicar no nome de uma de suas variáveis para ordenar uma base. O resultado disso não fica salvo, contudo. Para fazer isso de forma funcional, usamos a função <code>arrange</code> do <code>tidyverse</code>. Precisamos passar para ela apenas o nome da variável que queremos usar para ordenar o banco de dados:</p>
+<pre class="r"><code># Vamos usar a base dos municipios mineiros
+arrange(municipios_mg, populacao)</code></pre>
+<p>Esse código retorna uma base em que as linhas (observações) foram reordenadas de acordo com o tamanho de suas populações, do menor para o maior. Se quisermos fazer o inverso, do maior para o menor, basta usar <code>-</code> na frente do nome da variável:</p>
+<pre class="r"><code>arrange(municipios_mg, -populacao)</code></pre>
+<p>Em bases maiores, com dezenas de variáveis, é possível até mesmo usar <code>arrange</code> com mais de uma variável:</p>
+<pre class="r"><code>arrange(municipios_mg, total_despesas, municipio)</code></pre>
+<p>Além disso, podemos combinar <code>arrange</code> com <code>slice</code> para produzir bases com os 10 maiores, ou os 10 menores, municípios Para isso, primeiro ordenamos a base e, depois, aplicamos <code>slice</code>:</p>
+<pre class="r"><code># Usamos -populacao para ordenar do maior para o menor
+# e salvamos o resultado
+dez_maiores &lt;- arrange(municipios_mg, -populacao)
+
+
+# Depois, usamos slice
+dez_maiores &lt;- slice(dez_maiores, 1:10)
+
+
+# Podemos ver com head
+head(dez_maiores)</code></pre>
+<p>Depois, podemos salvar uma base apenas com o nome e a população desses municípios usando <code>select</code>:</p>
+<pre class="r"><code>dez_maiores &lt;- select(dez_maiores, municipio, populacao)</code></pre>
+<p>Tente dar <code>View</code> nessa base para ver o que ela salvou.</p>
+<p><br></p>
+</div>
+<div id="selecionar-por-padroes" class="section level2">
+<h2>5.2 Selecionar por padrões</h2>
+<p>Quando selecionamos colunas (i.e., fatiamento vertical), usamos números ou o nome das variáveis. Mas o <code>tidyverse</code> também nos permite buscar por padrões nos nomes das variáveis por meio de testes lógicos.</p>
+<p>Para sabermos o nome das variáveis do nosso banco de municípios, usamos:</p>
+<pre class="r"><code>names(municipios_mg)</code></pre>
+<p>Note que a maioria das variáveis começa com <code>despesas_</code>. Se quisermos manter apenas essas variáveis, usamos a função auxiliar <code>contains</code>:</p>
+<pre class="r"><code># Seleciona apenas as variaveis com nomes que comecam com &#39;despesas_&#39;
+despesas &lt;- select(municipios_mg, contains(&quot;despesas_&quot;))</code></pre>
+<p>O resultado pode ser visto com <code>glimpse</code>:</p>
+<pre class="r"><code>glimpse(despesas)</code></pre>
+<p>Existem outras funções como <code>contains</code>, conforme exemplifico abaixo:</p>
+<pre class="r"><code># Pega apenas a ultima coluna
+select(municipios_mg, last_col())
+
+# Comeca com prefixo
+select(municipios_mg, starts_with(&quot;desp&quot;))
+
+# Termina com sufixo
+select(municipios_mg, ends_with(&quot;as&quot;))</code></pre>
+</div>
+<div id="filtrar-por-uniao" class="section level2">
+<h2>5.3 Filtrar por união</h2>
+<p>Digamos que eu queira manter na base de municípios apenas os seguintes: Salinas, Belo Horizonte e Ouro Preto? Vimos que podemos usar <code>filter</code> para fazer o seguinte:</p>
+<pre class="r"><code>tres_municipios &lt;- filter(municipios_mg, municipio == &quot;Salinas&quot;)</code></pre>
+<p>Mas isso inclui apenas um município.</p>
+<pre class="r"><code>tres_municipios &lt;- filter(municipios_mg, 
+                          municipio == &quot;Salinas&quot;,
+                          municipio == &quot;Belo Hozironte&quot;,
+                          municipio == &quot;Ouro Preto&quot;
+                          )</code></pre>
+<p>E o código acima não funciona (por que o R tenta combinar, ao mesmo tempo, os três testes). A solução é usar um novo operador, chamado “pertence a”, ou <code>%in%</code>.</p>
+<pre class="r"><code>tres &lt;- c(&quot;Salinas&quot;, &quot;Belo Horizonte&quot;, &quot;Ouro Preto&quot;)
+tres_municipios &lt;- filter(municipios_mg, municipio %in% tres)</code></pre>
+<p>Agora sim:</p>
+<pre class="r"><code>View(tres_municipios)</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="exercicios-ii" class="section level1">
+<h1>Exercícios II</h1>
+<div id="ordenar-e-fatiar-i" class="section level3">
+<h3>Ordenar e fatiar I</h3>
+<p>Usando a base de municípios mineiros, ordene todos pelo total gasto em saúde, do maior para o menor, e salve o resultado desse ordenamento em um objeto chamado <code>saude</code> (sem acento). Feito isso, faça com que essa base mantenha apenas os 30 municípios que mais gastaram em saúde.</p>
+</div>
+<div id="ordenar-e-fatiar-ii" class="section level3">
+<h3>Ordenar e fatiar II</h3>
+<p>Combinando <code>mutate</code>, <code>arrange</code> e <code>slice</code>, crie uma nova variável na base de municípios chamada <code>gasto_pc_saude</code> que seja igual ao gasto <em>per capita</em> em saúde por esses municípios. Ordene todos do maior para o menor gasto <em>per capita</em> em saúde e fique apenas com 30 que mais gastaram. Os resultados mudam em relação ao do exercícios anterior?</p>
+</div>
+<div id="joins-i" class="section level3">
+<h3>Joins I</h3>
+<p>Vimos que o <code>tidyverse</code> contém uma base chamada <code>band_members</code> (basta executar seu nome para acessá-la), com o nome e a banda de três músicos. Agora, use outra base, <code>band_instruments</code>, e <code>left_join</code> para cruzar os músicos com seus instrumentos, criando uma nova base.</p>
+<p><br></p>
+</div>
+</div>
+<div id="homework" class="section level1">
+<h1>Homework</h1>
+<p>Na pasta dessa aula, há alguns arquivos chamados <code>teses_ufmg_humanas.</code> com extensões diferentes. Esses arquivos contêm dados sobre todas as Teses de Doutorados defendidas na UFMG na grande área da Capes de Ciências Humanas, entre 1987 até 2016. Carregue essa base usando qualquer função e, combinando diferentes ferramentas que já vimos, tente calcular: 1) o número de teses defendidas por ano; 2) o número de teses defendidas por mulheres por ano. (Dica: use <code>mutate</code> para criar variáveis, se preciso; use <code>sum</code> para somar valores, <code>ifelse</code> para criar variáveis condicionalmente; use <code>filter</code> para filtrar linhas).</p>
+<p><br></p>
+</div>
+<div id="revisao" class="section level1">
+<h1>Revisão</h1>
+<p>Para revisar o conteúdo dessa aula, o ideal é cobrir todo o Capítulo 5 do <a href="https://r4ds.had.co.nz/transform.html">R for Data Science</a>. Ali é possível encontrar vários exemplos e funções extras que podem ser úteis para resolver problemas específicos.</p>
 </div>
 
 

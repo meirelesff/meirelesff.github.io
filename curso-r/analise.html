@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Aula 4 Análise</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="estilo.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Introdução ao R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Aulas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basico.html">Básico</a>
+    </li>
+    <li>
+      <a href="manipulacao.html">Manipulação I</a>
+    </li>
+    <li>
+      <a href="manipulacao2.html">Manipulação II</a>
+    </li>
+    <li>
+      <a href="analise.html">Análise</a>
+    </li>
+    <li>
+      <a href="proxima.html">Projetos</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="avaliacao.html">Avaliação</a>
+</li>
+<li>
+  <a href="materiais.html">Materiais</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Aula 4 Análise</h1>
+
+</div>
+
+
+<p><br></p>
+<div id="introducao" class="section level1">
+<h1>1 Introdução</h1>
+<p>Tendo as principais ferramentas para análise de dados – já sabemos carregar e limpar diferentes bases de dados, de várias formas –, daqui até o final do curso nos deteremos no próximo passo: a análise dos dados. Veremos as principais ferramentas, incluindo alguns modelos e gráficos simples, e também alguns procedimentos que nos ajudam a exportar resultados e criar documentos.</p>
+<p><br></p>
+</div>
+<div id="rmarkdown" class="section level1">
+<h1>2 Rmarkdown</h1>
+<p>Ao longo do curso, estamos vendo notas de aulas em um <em>website</em> e <em>slides</em> que têm código embutido. Esses são apenas dois dos tipos de documentos que podem ser criados com o <a href="https://rmarkdown.rstudio.com/">Rmarkdown</a>, um formato dinâmico para criação de documentos com o R. De forma geral, o <em>Rmarkdown</em> combina texto e código, usando uma ferramenta chamada <code>knitr</code> para compilar nosso código e outra chamada <code>pandoc</code> para converter nosso texto para diversos formatos.</p>
+<p>Hoje começaremos a ver mais detidamente esse formato. Para tanto, exploraremos algumas opções de documentos que podem ser criados a partir do menu <strong>Create New Rmarkdown Document</strong> (no ícone branco com uma cruz em verde, no canto superior esquerdo do seu RStudio).</p>
+<p><br></p>
+</div>
+<div id="graficos" class="section level1">
+<h1>3 Gráficos</h1>
+<p>Veremos agora o pacote <code>ggplot2</code>, que é a ferramenta mais flexível no R para criar visualizações. Entre outros, ele é extremamente intuitivo e flexível. Praticamente qualquer gráfico imaginável pode ser criado com ele: mapas, diagramas, gráficos comentados, gráficos interpolados, entre inúmeros outros.</p>
+<p>Como o <code>ggplot2</code> faz parte do <code>tidyverse</code>, só precisamos carregá-lo com:</p>
+<pre class="r"><code># Carrega o tidyverse
+library(tidyverse)</code></pre>
+<p>Para criarmos alguns gráficos, usaremos uma base de dados com informacoes de 853 municipios brasileiros auditados pela CGU, usados por Carnes e Lupu (2015) em artigo publicado no <em>Journal of Politics</em>. O objetivo do artigo é examinar se o grau de escolaridade de uma(o) política(o) afeta o seu desempenho no cargo, e esta base, em particular, contém diversas variaveis que são úteis para explorar a questão, tais como:</p>
+<ul>
+<li>Partido da prefeita;</li>
+<li>Idade;</li>
+<li>Escolaridade;</li>
+<li>Indicadores sociais e demográficos do município;</li>
+<li>Quantia detectada como corrupção pelo CGU no municipio.</li>
+</ul>
+<p>Como a base está em formato <code>.dta</code> (‘carnes_lupu_2015_audits.dta’), usaremos o pacote <code>rio</code> para carregá-la:</p>
+<pre class="r"><code>library(rio)
+dados &lt;- import(&quot;carnes_lupu_2015_audits.dta&quot;)</code></pre>
+<p>Podemos checar alguns detalhes do banco com funcções que já vimos:</p>
+<pre class="r"><code>glimpse(dados)
+head(dados)</code></pre>
+<p>Com ela carregada, podemos comaçar a trabalhar com gráficos Isto requer conhecer o básico da mecânica do <code>ggplot</code>, que é estruturada em camadas (<em>layers</em>). Em primeiro nivel, todo gráfico feito com <code>ggplot</code> começa com uma declaração explícita dos dados e das variáveis que serão usadas nos eixos. Declaramos isto por meio da função <code>ggplot()</code>.</p>
+<pre class="r"><code>ggplot(dados, aes(x = urb, y = income))</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Como dá para ver, essa primeira camada cria um painel em branco, já indicando qual variável ficará no eixo X (<code>urb</code>) e no eixo Y (<code>income</code>). O próximo passo é indicar como iremos visualizar essa informação: aqui entra, especificamente, a seleção de tipo de gráfico que queremos criar. Usaremos um <em>scatterplot</em>.</p>
+<pre class="r"><code>ggplot(dados, aes(x = urb, y = income)) + geom_point()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Como vimos, bastou adicionar uma nova função, antecedida por <code>+</code> (operador de união de <em>layers</em> no <code>ggplot2</code>), para indicar como a informação (os dados) deve ser exibidos. Essa é a chave de como o <code>ggplot2</code> funciona: ele adiciona camadas sobre camadas para criar gráficos, e isso é um processo relativamente flexível porque nos permite adicionar, ou controlar, diversos aspectos de um gráfico, dos mais aos menos gerais.</p>
+<p>Podemos adicionar uma curva GAM sobre os pontos que já criamos usando a função <code>geom_smooth</code>:</p>
+<pre class="r"><code>ggplot(dados, aes(x = urb, y = income)) + geom_point() + geom_smooth()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Ou podemos agrupar pontos comuns, criando um gráfico com pontos de diferentes tamanhos:</p>
+<pre class="r"><code>ggplot(dados, aes(x = urb, y = income)) + geom_count()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>O que precisa ficar claro, aqui, é que cada camada de um gráfico deve seguir uma ordem mínima:</p>
+<ul>
+<li>Primeiro, usamos <code>ggplot()</code> para passar dados e indicar as variáveis de cada eixo;</li>
+<li>Segundo, indicamos os <code>geoms</code> (e.g., <code>geom_point</code>) para criar as visualizações;</li>
+<li>Por fim, adicionamos outros elementos, como o título dos eixos (usamos a função <code>labs</code> para isso).</li>
+</ul>
+<p>Alem disso, tambem é preciso notar que determinados gráficos requerem diferentes tipos de variáveis. Por exemplo, um <em>scatterplot</em> requer duas variáveis, com eixos X e Y. Já um histograma, diferentemente, requer apeanas uma , a do eixo X.</p>
+<pre class="r"><code>ggplot(dados, aes(x = urb)) + geom_histogram()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Outros gráficos ainda requerem variáveis adicionais. Por exemplo, vamos criar o gráfico de pontos com <code>urb</code> vs. <code>income</code> novamente.</p>
+<pre class="r"><code>ggplot(dados, aes(x = urb, y = income)) + geom_point()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Ele indica a relação entre <code>urb</code> e <code>income</code> de um município. Mas vamos dizer que queremos adicionar uma terceira dimensão no gráfico, como <code>literacy</code>. Para isso, passamos mais uma variável para a função <code>aes()</code>:</p>
+<pre class="r"><code>ggplot(dados, aes(x = urb, y = income, color = literacy)) + geom_point()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Em resumo, todos os gráficos que fizemos seguem um padrão: adicionamos elementos a ele em camadas, somando funções: <code>isto() + aquilo() + etc()</code></p>
+<p>Dentro outros, também vimos que:</p>
+<ul>
+<li><code>aes()</code> (de <em>aesthetics</em>) é usada para as variáveis (primeira camada);</li>
+<li>as funcoes <code>geom_</code> (de <em>geometry</em>) são usadas para plotar as informações (segunda camada);</li>
+<li>e que outras funções podem ser combinadas (quarta, quinta, sexta, etc, camadas).</li>
+</ul>
+<p><br></p>
+</div>
+<div id="exercicios-i" class="section level1">
+<h1>Exercícios I</h1>
+<div id="ggplot2-i" class="section level3">
+<h3>ggplot2 I</h3>
+<p>Carregue os dados de Carnes e Lupu (2015) e, com o <code>ggplot2</code>, crie um gráfico <code>scatterplot</code> (<code>geom_point()</code>) que tenha como eixo X a variável <code>pop</code> e, no eixo Y, a variável <code>literacy</code>.</p>
+</div>
+<div id="ggplot2-ii" class="section level3">
+<h3>ggplot2 II</h3>
+<p>Agora, crie um histograma da variavel <code>pop</code>.</p>
+</div>
+<div id="ggplot2-iii" class="section level3">
+<h3>ggplot2 III</h3>
+<p>De novo, crie um <em>scatterplot</em> de <code>age</code> (eixo X) e <code>pop</code> (eixo Y).</p>
+<p><br></p>
+</div>
+</div>
+<div id="mais-graficos" class="section level1">
+<h1>3 Mais gráficos</h1>
+<p>Vamos nos concentrar agora em alguns dos tipos mais comuns de gráficos:</p>
+<ul>
+<li><em>Scatterplot</em>;</li>
+<li>Gráfico de linhas;</li>
+<li>Gráfico de barras;</li>
+<li>Histograma.</li>
+</ul>
+<p>Existem vários outros tipos úteis para uma análise, mas a mecânica de como criá-los é bastante semelhante a desses que veremos. Se nos concentrarmos apenas nesses, portanto, será mais fácil aprender a criar qualquer outro.</p>
+<p>Já vimos um <em>scatterplot</em> e um histograma antes:</p>
+<pre class="r"><code># Scatterplot
+ggplot(dados, aes(x = urb, y = income)) + geom_point()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r"><code># Histograma
+ggplot(dados, aes(x = urb)) + geom_histogram()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<p>Para criar outros gráficos, podemos gerar algumas variáveis (veremos a razão disso a seguir):</p>
+<pre class="r"><code># Usamos mutate para criar duas variaveis
+dados &lt;- mutate(dados,
+                mulher = ifelse(female == 1, &quot;Mulher&quot;, &quot;Homem&quot;),
+                ensino = ifelse(college == 1, &quot;Superior&quot;, &quot;Outros&quot;))</code></pre>
+<p><br></p>
+<div id="barras" class="section level2">
+<h2>3.1 Barras</h2>
+<p>Gráficos de barras servem principalmente para reportar frequências. Podemos usar ele, por exemplo, para saber quantos dos municipios da base foram governados por mulheres prefeitas:</p>
+<pre class="r"><code># So&#39; precisamos usar geom_bar para criar visualizacoes de barras
+ggplot(dados, aes(x = mulher)) + geom_bar()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p>Como é possível ver, a esmagadora maioria dos municípios foram governados por homens. Também é possível ver que valores com <code>NA</code> (<em>missing</em>) apareceram na base. Vamos lidar com isso daqui a pouco. Antes, vamos ver a distribuição do ensino.</p>
+<pre class="r"><code>ggplot(dados, aes(x = ensino)) + geom_bar()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Nesta variavel, nao há <em>missings</em>. Ensino superior é comum entre as(os) prefeitas(os) da amostra.</p>
+<p>Às vezes, contudo, precisamos reportar em um gráfico o cruzamento de mais de uma variável. Imagine que queiramos ver quantos prefeitos homens e mulheres, separadamente, têm ensino superior. Com <code>aes()</code> do <code>ggplot2</code>, precisamos apenas declarar uma variável adicional para realizar isso: a variavel <code>fill</code>.</p>
+<pre class="r"><code>ggplot(dados, aes(x = mulher, fill = ensino)) + geom_bar()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><code>fill</code> serve para incluir uma dimensão de cores em um gráfico. Diferentemente de <code>color</code>, contudo, ela serve para preencher cores, e não para criar contornos. Observe a diferença.</p>
+<pre class="r"><code>ggplot(dados, aes(x = mulher, color = ensino)) + geom_bar() # Usando color</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(dados, aes(x = mulher, fill = ensino)) + geom_bar() # Usando fill</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<p>Existe uma função <code>scale_fill</code> que nos permite controlar as cores (para cores, a função é <code>scale_color_manual</code>:</p>
+<pre class="r"><code>ggplot(dados, aes(x = mulher, fill = ensino)) +
+  geom_bar() +
+  scale_fill_manual(values = c(&quot;black&quot;, &quot;gray&quot;)) # Preto e cinza</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(dados, aes(x = mulher, fill = ensino)) +
+  geom_bar() +
+  scale_fill_manual(values = c(&quot;orange&quot;, &quot;black&quot;)) # Laranja e preto</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+<p><br></p>
+</div>
+<div id="linhas" class="section level2">
+<h2>3.2 Linhas</h2>
+<p>E quanto aos gráficos de linhas? Geralmente, estes são usados para visualizar séries temporais, algo que não temos na nossa base de municípios. Podemos carregar a base de ontem, sobre homicídios nos estados, para explorar isso. Como você deve lembrar, precisamos usar <code>gather</code> para colocar ela em formato de painel.</p>
+<pre class="r"><code># Carrega o pacote readxl, para ler excel
+library(readxl)
+
+# Carrega os dados
+base_homic &lt;- read_excel(&quot;homicidios_uf.xls&quot;)
+
+# Coloca ele no formato tidy, de painel
+base_homic &lt;- gather(base_homic, ano, homicidios, -Sigla, -Codigo, -Estado)</code></pre>
+<p>Também vamos filtrar apenas um estado, para facilitar as coisas:</p>
+<pre class="r"><code># Usamos filter para filtrar o Parana
+parana &lt;- filter(base_homic, Sigla == &quot;PR&quot;)</code></pre>
+<p>Para plotar esta série, basta usar <code>geom_line</code> e passar os eixos X e Y (e também usar <code>group = 1</code>, para indicar que nossa série só tem uma linha).</p>
+<pre class="r"><code>ggplot(parana, aes(x = ano, y = homicidios, group = 1)) + geom_line()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>E o mesmo valeria para qualquer outro estado:</p>
+<pre class="r"><code>bahia &lt;- filter(base_homic, Sigla == &quot;BA&quot;)
+ggplot(bahia, aes(x = ano, y = homicidios, group = 1)) + geom_line()</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+</div>
+</div>
+<div id="exportacao-de-graficos" class="section level1">
+<h1>4 Exportação de gráficos</h1>
+<p>Gráficos também podem ser salvos em objetos. Vamos gerar e salvar o da Bahia novamente, por exemplo:</p>
+<pre class="r"><code>graf_bahia &lt;- ggplot(bahia, aes(x = ano, y = homicidios)) + geom_line()</code></pre>
+<p>Assim como com outros objetos, se quisermos checar seu conteúdo, basta executá-lo:</p>
+<pre class="r"><code>graf_bahia</code></pre>
+<p><img src="analise_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>E, assim também como salvamos bancos de dados para arquivos, podemos usar algumas funções para salvar esses gráficos no disco. A principal e mais útil delas é <code>ggsave</code>. Usamos ela assim:</p>
+<pre class="r"><code># Salva nosso grafico em PNG no disco
+ggsave(plot = graf_bahia, filename = &quot;grafico_da_bahia.png&quot;)</code></pre>
+<p>Para alterar a resolução, usamos os argumentos <code>width</code> (largura) e <code>heigth</code> (altura) em polegadas (podemos alterar para centímetros ou pixels usando o argumento <code>units</code>):</p>
+<pre class="r"><code># Salva com resolucao de 4 por 7 polegadas
+ggsave(plot = graf_bahia, 
+       filename = &quot;grafico_da_bahia.png&quot;,
+       height = 4,
+       width = 7)
+
+# Salva com resolucao de 10 por 15 centimetros
+ggsave(plot = graf_bahia, 
+       filename = &quot;grafico_da_bahia.png&quot;,
+       height = 10,
+       width = 15,
+       units = &quot;cm&quot;)</code></pre>
+<p>Especialmente no Windows, apenas isso pode produzir gráficos com distorções (pixels quebrados, linhas granulares, etc). Para evitar isso, usamos:</p>
+<pre class="r"><code># Cairo para evitar distorcoes
+ggsave(plot = graf_bahia, filename = &quot;grafico_da_bahia.png&quot;, type = &quot;cairo-png&quot;)</code></pre>
+<p><br></p>
+</div>
+<div id="exercicios-ii" class="section level1">
+<h1>Exercícios II</h1>
+<div id="histograma-i" class="section level3">
+<h3>Histograma I</h3>
+<p>Ainda usando os dados de Carnes e Lupu (2015), crie um histograma da idade das prefeitas(os) da base (variável <code>age</code>).</p>
+</div>
+<div id="histograma-ii" class="section level3">
+<h3>Histograma II</h3>
+<p>Com o auxílio de outras funções do <code>tidyverse</code> para criar variáveis, crie um histograma com a proporção de tudo o que o CGU considerou como gasto irregular das prefeituras (será necessário somar as variáveis <code>fraction_broad</code> e <code>fraction_narrow</code>).</p>
+</div>
+<div id="barras-i" class="section level3">
+<h3>Barras I</h3>
+<p>Crie um grpafico de barras com a frequência de municípios com casos de corrupção ampla (variável <code>broad</code>).</p>
+</div>
+<div id="barras-ii" class="section level3">
+<h3>Barras II</h3>
+<p>Usando cores (argumento <code>fill</code>), crie o mesmo gráfico de barras anterior, mas separe por cores o tipo de ensino (criando uma nova variável, como vimos anteriormente).</p>
+<p><br></p>
+</div>
+</div>
+<div id="homework" class="section level1">
+<h1>Homework</h1>
+<p>Para essa aula, a atividade será livre – como uma preparação para o projeto final. Usando a base da aula de ontem sobre Teses de Doutorado defendidas na UFMG entre 1987 e 2016 (que está na pasta <code>aula_3</code>), crie um notebook ou outro arquivo em <em>Rmarkdown</em> e coloque nele o código para carregar os dados e criar um gráfico a partir deles.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -407,7 +407,7 @@ div.tocify {
       <a href="analise.html">Análise</a>
     </li>
     <li>
-      <a href="proxima.html">Projetos</a>
+      <a href="projetos.html">Projetos</a>
     </li>
   </ul>
 </li>
@@ -465,17 +465,17 @@ dados &lt;- import(&quot;carnes_lupu_2015_audits.dta&quot;)</code></pre>
 head(dados)</code></pre>
 <p>Com ela carregada, podemos comaçar a trabalhar com gráficos Isto requer conhecer o básico da mecânica do <code>ggplot</code>, que é estruturada em camadas (<em>layers</em>). Em primeiro nivel, todo gráfico feito com <code>ggplot</code> começa com uma declaração explícita dos dados e das variáveis que serão usadas nos eixos. Declaramos isto por meio da função <code>ggplot()</code>.</p>
 <pre class="r"><code>ggplot(dados, aes(x = urb, y = income))</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>Como dá para ver, essa primeira camada cria um painel em branco, já indicando qual variável ficará no eixo X (<code>urb</code>) e no eixo Y (<code>income</code>). O próximo passo é indicar como iremos visualizar essa informação: aqui entra, especificamente, a seleção de tipo de gráfico que queremos criar. Usaremos um <em>scatterplot</em>.</p>
 <pre class="r"><code>ggplot(dados, aes(x = urb, y = income)) + geom_point()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Como vimos, bastou adicionar uma nova função, antecedida por <code>+</code> (operador de união de <em>layers</em> no <code>ggplot2</code>), para indicar como a informação (os dados) deve ser exibidos. Essa é a chave de como o <code>ggplot2</code> funciona: ele adiciona camadas sobre camadas para criar gráficos, e isso é um processo relativamente flexível porque nos permite adicionar, ou controlar, diversos aspectos de um gráfico, dos mais aos menos gerais.</p>
 <p>Podemos adicionar uma curva GAM sobre os pontos que já criamos usando a função <code>geom_smooth</code>:</p>
 <pre class="r"><code>ggplot(dados, aes(x = urb, y = income)) + geom_point() + geom_smooth()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>Ou podemos agrupar pontos comuns, criando um gráfico com pontos de diferentes tamanhos:</p>
 <pre class="r"><code>ggplot(dados, aes(x = urb, y = income)) + geom_count()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>O que precisa ficar claro, aqui, é que cada camada de um gráfico deve seguir uma ordem mínima:</p>
 <ul>
 <li>Primeiro, usamos <code>ggplot()</code> para passar dados e indicar as variáveis de cada eixo;</li>
@@ -484,13 +484,13 @@ head(dados)</code></pre>
 </ul>
 <p>Alem disso, tambem é preciso notar que determinados gráficos requerem diferentes tipos de variáveis. Por exemplo, um <em>scatterplot</em> requer duas variáveis, com eixos X e Y. Já um histograma, diferentemente, requer apeanas uma , a do eixo X.</p>
 <pre class="r"><code>ggplot(dados, aes(x = urb)) + geom_histogram()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Outros gráficos ainda requerem variáveis adicionais. Por exemplo, vamos criar o gráfico de pontos com <code>urb</code> vs. <code>income</code> novamente.</p>
 <pre class="r"><code>ggplot(dados, aes(x = urb, y = income)) + geom_point()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Ele indica a relação entre <code>urb</code> e <code>income</code> de um município. Mas vamos dizer que queremos adicionar uma terceira dimensão no gráfico, como <code>literacy</code>. Para isso, passamos mais uma variável para a função <code>aes()</code>:</p>
 <pre class="r"><code>ggplot(dados, aes(x = urb, y = income, color = literacy)) + geom_point()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Em resumo, todos os gráficos que fizemos seguem um padrão: adicionamos elementos a ele em camadas, somando funções: <code>isto() + aquilo() + etc()</code></p>
 <p>Dentro outros, também vimos que:</p>
 <ul>
@@ -529,10 +529,10 @@ head(dados)</code></pre>
 <p>Já vimos um <em>scatterplot</em> e um histograma antes:</p>
 <pre class="r"><code># Scatterplot
 ggplot(dados, aes(x = urb, y = income)) + geom_point()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre class="r"><code># Histograma
 ggplot(dados, aes(x = urb)) + geom_histogram()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-13-2.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
 <p>Para criar outros gráficos, podemos gerar algumas variáveis (veremos a razão disso a seguir):</p>
 <pre class="r"><code># Usamos mutate para criar duas variaveis
 dados &lt;- mutate(dados,
@@ -544,28 +544,28 @@ dados &lt;- mutate(dados,
 <p>Gráficos de barras servem principalmente para reportar frequências. Podemos usar ele, por exemplo, para saber quantos dos municipios da base foram governados por mulheres prefeitas:</p>
 <pre class="r"><code># So&#39; precisamos usar geom_bar para criar visualizacoes de barras
 ggplot(dados, aes(x = mulher)) + geom_bar()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>Como é possível ver, a esmagadora maioria dos municípios foram governados por homens. Também é possível ver que valores com <code>NA</code> (<em>missing</em>) apareceram na base. Vamos lidar com isso daqui a pouco. Antes, vamos ver a distribuição do ensino.</p>
 <pre class="r"><code>ggplot(dados, aes(x = ensino)) + geom_bar()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Nesta variavel, nao há <em>missings</em>. Ensino superior é comum entre as(os) prefeitas(os) da amostra.</p>
 <p>Às vezes, contudo, precisamos reportar em um gráfico o cruzamento de mais de uma variável. Imagine que queiramos ver quantos prefeitos homens e mulheres, separadamente, têm ensino superior. Com <code>aes()</code> do <code>ggplot2</code>, precisamos apenas declarar uma variável adicional para realizar isso: a variavel <code>fill</code>.</p>
 <pre class="r"><code>ggplot(dados, aes(x = mulher, fill = ensino)) + geom_bar()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p><code>fill</code> serve para incluir uma dimensão de cores em um gráfico. Diferentemente de <code>color</code>, contudo, ela serve para preencher cores, e não para criar contornos. Observe a diferença.</p>
 <pre class="r"><code>ggplot(dados, aes(x = mulher, color = ensino)) + geom_bar() # Usando color</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(dados, aes(x = mulher, fill = ensino)) + geom_bar() # Usando fill</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-18-2.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-16-2.png" width="672" /></p>
 <p>Existe uma função <code>scale_fill</code> que nos permite controlar as cores (para cores, a função é <code>scale_color_manual</code>:</p>
 <pre class="r"><code>ggplot(dados, aes(x = mulher, fill = ensino)) +
   geom_bar() +
   scale_fill_manual(values = c(&quot;black&quot;, &quot;gray&quot;)) # Preto e cinza</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <pre class="r"><code>ggplot(dados, aes(x = mulher, fill = ensino)) +
   geom_bar() +
   scale_fill_manual(values = c(&quot;orange&quot;, &quot;black&quot;)) # Laranja e preto</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-19-2.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-17-2.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="linhas" class="section level2">
@@ -584,11 +584,11 @@ base_homic &lt;- gather(base_homic, ano, homicidios, -Sigla, -Codigo, -Estado)</
 parana &lt;- filter(base_homic, Sigla == &quot;PR&quot;)</code></pre>
 <p>Para plotar esta série, basta usar <code>geom_line</code> e passar os eixos X e Y (e também usar <code>group = 1</code>, para indicar que nossa série só tem uma linha).</p>
 <pre class="r"><code>ggplot(parana, aes(x = ano, y = homicidios, group = 1)) + geom_line()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>E o mesmo valeria para qualquer outro estado:</p>
 <pre class="r"><code>bahia &lt;- filter(base_homic, Sigla == &quot;BA&quot;)
 ggplot(bahia, aes(x = ano, y = homicidios, group = 1)) + geom_line()</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 </div>
 </div>
 <div id="exportacao-de-graficos" class="section level1">
@@ -597,7 +597,7 @@ ggplot(bahia, aes(x = ano, y = homicidios, group = 1)) + geom_line()</code></pre
 <pre class="r"><code>graf_bahia &lt;- ggplot(bahia, aes(x = ano, y = homicidios)) + geom_line()</code></pre>
 <p>Assim como com outros objetos, se quisermos checar seu conteúdo, basta executá-lo:</p>
 <pre class="r"><code>graf_bahia</code></pre>
-<p><img src="analise_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="analise_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>E, assim também como salvamos bancos de dados para arquivos, podemos usar algumas funções para salvar esses gráficos no disco. A principal e mais útil delas é <code>ggsave</code>. Usamos ela assim:</p>
 <pre class="r"><code># Salva nosso grafico em PNG no disco
 ggsave(plot = graf_bahia, filename = &quot;grafico_da_bahia.png&quot;)</code></pre>
@@ -641,7 +641,10 @@ ggsave(plot = graf_bahia, filename = &quot;grafico_da_bahia.png&quot;, type = &q
 </div>
 <div id="homework" class="section level1">
 <h1>Homework</h1>
+<div id="atividade-aula-iv" class="section level3">
+<h3>Atividade (Aula IV)</h3>
 <p>Para essa aula, a atividade será livre – como uma preparação para o projeto final. Usando a base da aula de ontem sobre Teses de Doutorado defendidas na UFMG entre 1987 e 2016 (que está na pasta <code>aula_3</code>), crie um notebook ou outro arquivo em <em>Rmarkdown</em> e coloque nele o código para carregar os dados e criar um gráfico a partir deles.</p>
+</div>
 </div>
 
 

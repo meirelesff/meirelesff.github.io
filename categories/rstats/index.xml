@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2019 Fernando Meireles</copyright>
-    <lastBuildDate>Sun, 30 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://fmeireles.com/categories/rstats/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>electionsBR 0.3.1: novos dados e funcionalidades</title>
+      <link>https://fmeireles.com/blog/rstats/electionsbr-novos-dados-e-funcionalidades/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/electionsbr-novos-dados-e-funcionalidades/</guid>
+      <description>Depois de alguns meses sem novidades, hoje lançamos um nova atualização do electionsBR, o nosso pacote no R criado para extrair dados eleitorais do Repositório do TSE. Para além de tudo que o software já fazia, agora adicionamos a ele suporte para extração de todos os dados da última eleição, de 2018, além de correções que devem torná-lo mais estável e maduro. Esperamos que essa seja, digamos, a sua versão definitiva.</description>
+    </item>
     
     <item>
       <title>Deflacionando séries com o deflateBR</title>

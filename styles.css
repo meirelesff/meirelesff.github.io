@@ -1758,7 +1758,7 @@ font-size: 15px;
 .navbar-light .navbar-nav>.nav-item>.nav-link:hover {
 white-space: nowrap;
 -webkit-transition: 0.2s ease;
-transition: 0.2s ease;
+transition: all 0.4s cubic-bezier(0.68, -0.01, 0.58, 1);
 color: #fff;
 font-weight: 600;
 }

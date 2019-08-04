@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>R: Uma Introdução Rápida</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="estilo.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Introdução à Inferência Causal</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Pré-requisitos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basico.html">R Básico</a>
+    </li>
+    <li>
+      <a href="notacao.html">Notações</a>
+    </li>
+    <li>
+      <a href="regressao.html">Regressão Linear</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Atividades
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="aula1.html">Aula 1</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="slides.html">Slides</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">R: Uma Introdução Rápida</h1>
+<h3 class="subtitle">Noções básicas para navegar pelo curso</h3>
+
+</div>
+
+
+<p><br></p>
+<div id="como-usar" class="section level1">
+<h1>Como usar</h1>
+<p>Este guia cobre o básico necessário sobre programação em <code>R</code> para acompanhar o curso <strong>Introdução à Inferência Causal</strong>. O conteúdo deste guia provavelmente será mais útil para iniciantes, ainda que também sirva para usuários(as) com nível intermediário aprenderem algumas coisas úteis para estimar quantias de interessa: efeitos causais médios, estimadores estratificados ou condicionais, entre outros. O conteúdo do guia está todo separado em seções e subseções. Caso tenha algo específico em mente, pule para a parte que te interessar.</p>
+<p>Para usar o guia, navegue pelo conteúdo, tente entender cada código, reproduzindo e adaptando exemplos, e siga pelas seções. O material avança rapidamente, o que pode tornar necessário ir e voltar várias vezes no texto. Caso tenha dúvidas, use o bom e velho <code>Ctrl+f</code> para procurar um tópico específico. Outra dica: use o <a href="https://www.google.com/">www.google.com</a> para procurar coisas que não encontrar aqui; na esmagadora maioria das vezes, ele terá uma resposta para te oferecer.</p>
+<p><br></p>
+<div id="instrucoes-gerais-de-leitura-do-codigo" class="section level2">
+<h2>Instruções gerais de leitura do código</h2>
+<ul>
+<li>Tudo o que estiver em caixa cinza, com texto destacado por cores, é código e pode ser executado (copie e cole no <code>R</code>);</li>
+<li>Tudo o que estiver em caixa branca, sem destaque no texto, é <em>output</em> do <code>R</code>;</li>
+<li>Alguns códigos dependem de códigos anteriores; caso encontre algum erro ao rodar um código de exemplo, tente voltar atrás e rodar o código anterior.</li>
+</ul>
+<p><br></p>
+</div>
+<div id="instrucoes-sobre-o-guia" class="section level2">
+<h2>Instruções sobre o guia</h2>
+<ul>
+<li>Tente reproduzir cada exemplo e procure entender o que cada código produz;</li>
+<li>Teste variações dos exemplos, mude parâmetros, valores, etc.;</li>
+<li>Combine materiais de diferentes seções;</li>
+<li>Na maioria das vezes, explicações não ajudam a entender um código; aprender por exemplos é muito mais fácil; caso tenha dúvidas, repita os códigos.</li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="basico" class="section level1">
+<h1>Básico</h1>
+<div id="o-console" class="section level2">
+<h2>O console</h2>
+<p>Abrindo diretamente o <code>R</code>, a primeira coisa que vemos nele é um console - que nada mais é do que uma caixa de texto onde colocamos nosso código. Experimente digitar, por exemplo, <code>2</code> ali.</p>
+<pre class="r"><code>2</code></pre>
+<p>O <code>R</code> reproduzirá o <code>2</code> digitado seguido de <code>#</code> e <code>[]</code>, geralmente com algum número dentro. No primeiro caso, <code>#</code> indica um comentário: tudo o que vem sucedido de <code>#</code> o <code>R</code> não executará.</p>
+<pre class="r"><code># Isto é um comentário
+
+# O 2, abaixo, não é um comentário
+2
+
+# O 2, abaixo, é um comentário
+
+# 2</code></pre>
+<p>O <code>R</code> também serve como calculadora: basta usar operadores matemáticos e números. Aqui vão alguns exemplos (tente outros).</p>
+<pre class="r"><code>2 + 2 # adição
+2 - 2 # subtração
+2 / 2 # divisão
+2 * 2 # multiplicação
+2^2 # 2 ao quadrado
+2^3 # 2 ao cubo
+3 %/% 2 # divisão sem resto
+3 %% 2 # resto da divisão</code></pre>
+<p><br></p>
+</div>
+<div id="funcoes" class="section level2">
+<h2>Funções</h2>
+<p>O <code>R</code> também possui muitas funções - parte da potencialidade dele vem daí, aliás. Funções servem para realizar ações no <code>R</code>, como calcular a raiz quadrada de um número.</p>
+<pre class="r"><code># a funcao sqrt() retorna a raiz quadrada de um número
+
+sqrt(4) # raiz quadrado de 4</code></pre>
+<p>Outros exemplos de funções.</p>
+<pre class="r"><code>log(4) # logaritmo natural de 4
+log10(4) # logaritmo base 10 de 4
+sum(2, 2) # soma dois ou mais números</code></pre>
+<p><br></p>
+</div>
+<div id="criando-objeto" class="section level2">
+<h2>Criando objeto</h2>
+<p>Podemos armazenar objetos no <code>R</code> com o operador <code>&lt;-</code> (menor seguido de hífen). Basicamente, ele diz ao <code>R</code> para armazenar um valor num objeto para podermos acessá-lo posteriormente. Podemos salvar o número <code>2</code> num objeto <code>x</code>.</p>
+<pre class="r"><code>x &lt;- 2</code></pre>
+<p>E depois usá-lo diretamente para realizar outras operações.</p>
+<pre class="r"><code>x
+x + 1
+x / 2
+x^2</code></pre>
+<p>Também podemos armazenar texto num objeto.</p>
+<pre class="r"><code>texto &lt;- &quot;texto&quot;
+texto
+
+x &lt;- &quot;outro texto&quot;
+x</code></pre>
+<p>A função <code>print()</code> nos permite visualizar o conteúdo armazenado num objeto (digitar o nome dele no console e executar é o equivalente disso, mas <code>print</code> pode ser útil em algumas situações).</p>
+<pre class="r"><code>print(texto)
+print(x)</code></pre>
+<p><br></p>
+</div>
+<div id="classes" class="section level2">
+<h2>Classes</h2>
+<p>No <code>R</code>, cada tipo de informação possui uma classe. Números são <code>numeric</code> ou <code>integer</code> (para números inteiros); texto é <code>character</code> (também pode ser <code>factor</code>). Também existem valores lógicos (<code>TRUE</code> ou <code>FALSE</code>, ou <code>T</code> e <code>F</code>, respectivamente), complexos, etc. Vamos ver os mais comuns.</p>
+<pre class="r"><code>class(&quot;a&quot;) # &quot;a&quot; é character
+is.character(&quot;a&quot;) # &quot;a&quot; é character
+
+class(2) # é numeric
+is.numeric(2) # é numeric
+
+class(2L) # 2L (o L força o número a ficar inteiro) é integer
+is.integer(2L) # 2L é integer
+
+class(TRUE) # TRUE é logical
+is.logical(TRUE) # TRUE é logical</code></pre>
+<p>Valores lógicos são úteis para fazer testes relacionais (comparações) com valores. Podemos verificar se 2 é maior que 1, por exemplo.</p>
+<pre class="r"><code>2 &gt; 1</code></pre>
+<p>Ou se 2 é maior que 3.</p>
+<pre class="r"><code>2 &gt; 3</code></pre>
+<p>Outros operadores relacionais úteis.</p>
+<pre class="r"><code>2 &gt; 1 # maior
+2 &lt; 1 # menor
+2 &gt;= 1 # maior ou igual
+2 &lt;= 1 # menor ou igual
+2 == 1 # igual (note que existem dois &#39;=&#39; aqui)
+2 != 1 # diferente
+!TRUE # inverso (não é bem um operador, mas é útil para inverter o resultado de um operador)</code></pre>
+<p><br></p>
+</div>
+<div id="recomendacoes" class="section level2">
+<h2>Recomendações</h2>
+<p>Podemos criar objetos e realizar operações no <code>R</code> de forma simples, como vimos. No entanto, algumas coisas devem ser evitadas quando escrevemos nosso código, seja para evitar erros ou para facilitar a compreensão.</p>
+<p>A recomendação mais básica neste sentido é: evite criar objetos com nomes que comecem com <strong>números</strong>, <strong>caracteres especiais</strong> ou <strong>nomes de funções</strong>. Algumas destas coisas produzirão erros imediatos; outras, podem complicar códigos inteiros. Alguns exemplos.</p>
+<pre class="r"><code># Exemplos de nomes de objetos que produzem erros
+2x &lt;- 1
+_x &lt;- 1
+&amp;x &lt;- 1
+
+# Exemplos de nomes de objetos que não produzem erros imediatos
+class &lt;- 1
+print &lt;- 1</code></pre>
+<pre><code>## Error: &lt;text&gt;:2:2: unexpected symbol
+## 1: # Exemplos de nomes de objetos que produzem erros
+## 2: 2x
+##     ^</code></pre>
+<p>Também note que o <code>R</code> é <em>case sensitive</em>, o que significa que <code>A</code> não é a mesma coisa que <code>a</code>.</p>
+<pre class="r"><code>A &lt;- 1
+print(a)</code></pre>
+<pre><code>## Error in print(a): object &#39;a&#39; not found</code></pre>
+<p>Sempre que criar um objeto armazenando texto, não esqueça das aspas (outra forma de cometer erros no <code>R</code> bastante comum).</p>
+<pre class="r"><code>x &lt;- texto
+
+x &lt;- &quot;texto&quot;
+x</code></pre>
+<p>Por fim, sempre que abrir parênteses, não esqueça de fechá-los (caso contrário, aparecerá um <code>+</code> no console, indicando que o <code>R</code> espera mais conteúdo). Estas e outras recomendações comuns para evitar erros podem ser vistas <a href="http://www.alex-singleton.com/R-Tutorial-Materials/common-error-msg.pdf">aqui</a> (em inglês).</p>
+<p><br></p>
+</div>
+<div id="estilo" class="section level2">
+<h2>Estilo</h2>
+<p>Isto não é mandatório, mas algumas noções de estilo - i.e., de como organizar o código - nos ajudam a compreender e partilhar códigos, tanto nossos quanto os de outras pessoas. Resumidamente, as principais considerações aqui são:</p>
+<ul>
+<li>Use espaços entre objetos, operadores e chamadas a funções;</li>
+<li>Use quebra de linhas para separar blocos de códigos;</li>
+<li>Sempre que possível, crie objetos apenas com letras minúsculas;</li>
+<li>Se precisar separar o nome de um objeto, use <code>_</code> (<em>underscore</em>);</li>
+<li>Prefira nomes curtos para objetos;</li>
+<li>Prefira o atribuidor <code>&lt;-</code> a <code>=</code> (eles fazem a mesma coisa).</li>
+</ul>
+<p>Exemplos.</p>
+<pre class="r"><code>x&lt;-1 # Ruim
+x &lt;- 1 # OK
+
+x+x+x+x # Ruim
+x + x + x + x # OK
+
+print (x) # Ruim
+print(x) # OK
+
+x = 1 # Ruim
+x &lt;- 1 # OK
+
+OBJETO &lt;- 1 # Ruim
+objeto &lt;- 1 # OK
+
+meu.objeto &lt;- 1 # Ruim
+meu_objeto &lt;- 1 # OK
+
+objeto_com_nome_excessivamente_grande &lt;- 1 # Ruim
+objeto &lt;- 1 # OK</code></pre>
+<p>Um guia completo de estilo, em inglês, pode ser encontrado <a href="https://google.github.io/styleguide/Rguide.xml">neste link</a>.</p>
+<p><br></p>
+</div>
+</div>
+<div id="vetores" class="section level1">
+<h1>Vetores</h1>
+<div id="vetores-1" class="section level2">
+<h2>Vetores</h2>
+<p>Podemos armazenar mais de um valor num objeto: para isto, criamos um vetor. Vetores armazenam uma sequência de valores em ordem, e cada um fica salvo num elemento do vetor. Usamos a função <code>c</code> para criar um vetor.</p>
+<pre class="r"><code>x &lt;- c(1, 2, 3) # vetor com três elementos numéricos
+y &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;) # vetor com três elementos de texto</code></pre>
+<p>Podemos realizar operações com vetores da mesma forma que com valores únicos (na verdade, valores únicos são vetores com apenas um elemento). Tente outras além destas.</p>
+<pre class="r"><code>x &lt;- c(1, 2, 3, 4, 5)
+x + 1
+x - 1
+x^2
+c(1, 2, 3) + c(1, 2, 3)</code></pre>
+<p>Outras formas de criar vetores.</p>
+<pre class="r"><code>seq(1, 10, by = 1) # cria um vetor de 1 a 10
+seq(1, 10, by = 0.5) # vetor de 1 a 10 com intervalos de 0.5
+
+rep(1, 10) # vetor com 10 elementos, todos iguais a 1
+rep(c(1, 2), 5) # vetor com 10 elementos, c(1, 2) repetidos 5 vezes
+rep(c(1, 2), each = 5) # vetor com 10 elementos, 1 repetido 5 vezes, 2 repetido 5 vezes
+
+1:10 # vetor de 1 a 10
+10:1 # vetor de 10 a 1
+
+numeric(10) # vetor com 10 elementos
+
+x &lt;- c(1, 2)
+y &lt;- c(x, 3)
+y # vetor com tres elementos
+
+x &lt;- c(1, 2)
+y &lt;- c(1, 2)
+z &lt;- c(x, y, 1, 2) # vetor com seis elementos
+
+z &lt;- c(z, z) # vetor com 12 elementos
+
+w &lt;- rnorm(10) # vetor com 10 elementos gerados aleatoriamente (distribuição normal, média 0)</code></pre>
+<p>Para saber o tamanho ou a classe de um vetor, usamos <code>length</code> e <code>class</code> (que já vimos).</p>
+<pre class="r"><code>x &lt;- 1:100
+
+length(x) # número de elementos de x
+class(x) # classe de x (integer)
+
+tamanho_x &lt;- length(x) # salva o tamanho de x num novo objeto</code></pre>
+<p><br></p>
+</div>
+<div id="indexacao" class="section level2">
+<h2>Indexação</h2>
+<p>Acessamos um ou mais elementos de um vetor com <code>[]</code>. O jeito mais fácil de fazer isto é passar a posição do elemento para dentro dos colchetes.</p>
+<pre class="r"><code>x &lt;- c(1, 5, 10, 15, 20)
+x
+
+x[1] # acessa o primeiro elemento do vetor
+x[3] # acessa o terceiro elemento do vetor
+
+x[1 + 1] # acessa o segundo elemento do vetor
+x[length(x)] # acessa o último elemento do vetor
+
+x[c(1, 2)] # acessa o primeiro e o segundo elementos do vetor
+x[c(1, 3, length(x))] # acessa o primeiro, o terceiro e o último elementos do vetor
+
+x[-2] # acessa todos os elementos do vetor, menos o segundo
+x[-c(1, 2)] # acessa todos os elementos do vetor, menos o primeiro e o segundo</code></pre>
+<p>Outro jeito, mais prático em algumas situações, é passar um vetor com valores lógicos de mesmo tamanho do vetor original para dentro dos colchetes.</p>
+<pre class="r"><code>x &lt;- c(1, 2, 3)
+x
+
+x[c(TRUE, FALSE, FALSE)] # acessa o primeiro elemento
+x[c(FALSE, TRUE, FALSE)] # acessa o segundo elemento
+x[c(T, F, T)] # acessa o primeiro e o último elementos</code></pre>
+<p>Combinando operadores relacionais e vetores, podemos selecionar elementos de acordo com algum critério (como acessar apenas elementos maiores que 2).</p>
+<pre class="r"><code>x &lt;- c(1, 2, 3, 4, 5)
+x
+
+x &gt; 3
+
+x[x &gt; 3] # acessa apenas elementos maiores que 3
+x[x == 2] # acessa apenas elementos iguais a 2
+
+x[x == 1 | x == 5] # acessa apenas elementos iguais a 1 ou elementos iguais a 5
+x[x &gt; 2 &amp; x &lt; 4] # acessa apenas elementos maiores que 2 e menores que 4
+
+x[x != 3] # acessa apenas elementos diferentes de 3</code></pre>
+<p>O mesmo vale para vetores com <code>character</code>.</p>
+<pre class="r"><code>vec &lt;- c(&quot;a&quot;, &quot;c&quot;, &quot;e&quot;)
+vec
+
+vec[vec == &quot;a&quot;] # acessa apenas elementos iguais a &quot;a&quot;
+vec[vec != &quot;c&quot;] # acessa apenas elementos diferentes de &quot;c&quot;</code></pre>
+<p><br></p>
+</div>
+<div id="manipulacao-de-vetores" class="section level2">
+<h2>Manipulação de vetores</h2>
+<p>Sabendo como criar objetos e indexar vetores, combinamos as duas coisas para modificar e realizar operações com vetores. Um exemplo: alterar o valor do primeiro elemento de um vetor.</p>
+<pre class="r"><code>x &lt;- 1:5
+x[1] &lt;- 99 # muda o valor do primeiro elemento do vetor para 99
+x
+
+x[c(1, 2)] &lt;- c(99, 100) # muda o valor do primeiro e do segundo elementos do vetor</code></pre>
+<p>Mas também podemos modificar elementos baseados numa condição (operadores relacionais novamente).</p>
+<pre class="r"><code>x &lt;- 1:10
+x[x &lt; 5] &lt;- 99
+x
+
+y &lt;- letters[1:5]
+y[y == &quot;a&quot;] &lt;- &quot;X&quot;
+y
+
+z &lt;- rnorm(100)
+z[z &gt; 0 &amp; z &lt; 1] &lt;- 99
+z</code></pre>
+<p>Partindo destas operações mais simples, podemos criar condições mais complexas - como transformar apenas números pares em 0.</p>
+<pre class="r"><code>x &lt;- 1:100
+x[x %% 2 == 0] &lt;- 0 # número maior que 0 que seja divisível por 2 sem resto é par
+x</code></pre>
+<p><br></p>
+</div>
+<div id="conversao-de-vetores" class="section level2">
+<h2>Conversão de vetores</h2>
+<p>Vetores não armazenam informações de diferentes classes - ao fim, elas são transformadas para uma das classes existentes. Teste variações dos exemplos abaixo para entender como o <code>R</code> força essas conversões.</p>
+<pre class="r"><code>x &lt;- c(1, &quot;a&quot;) 
+x # o número 1 vira texto &quot;1&quot;
+class(x) # character
+
+x &lt;- c(1, TRUE, FALSE)
+x # TRUE é convertido para 1; FALSE é convertido para 0
+class(x) # numeric
+
+x &lt;- c(1L, 2.3)
+x # 1L (integer) é convertido para decimal (numeric)
+class(x) # numeric
+
+x &lt;- c(TRUE, &quot;a&quot;)
+x # TRUE vira texto &quot;TRUE&quot;
+class(x) # character</code></pre>
+<p>Resumindo a conversão de classes básicas:</p>
+<ul>
+<li><code>character</code> tem precedência sobre as outras classes;</li>
+<li><code>logical</code> pode ser convertido para <code>numeric</code>;</li>
+<li><code>integer</code> pode ser convertido para <code>numeric</code> (ganha casas decimais).</li>
+</ul>
+<p>No <code>R</code>, existem algumas funções para converter explicitamente um classe em outra. Seguem algumas.</p>
+<pre class="r"><code>x &lt;- c(1.1, 2.2, 3.3, 4.4, 5.5)
+class(x) # numeric
+
+x &lt;- as.integer(x)
+x
+class(x) # agora é integer
+
+x &lt;- as.character(x)
+x
+class(x) # agora é character
+
+x &lt;- as.numeric(x) # converte de character para numeric
+x
+class(x)
+
+x &lt;- as.integer(x) # converte de numeric para integer
+class(x)
+
+x &lt;- as.logical(x) # converte x para logical (tudo o que for diferente de 0 vira TRUE)
+x
+class(x)</code></pre>
+<p>Ainda assim, não podemos fazer conversões como esta.</p>
+<pre class="r"><code>x &lt;- c(&quot;Texto&quot;)
+as.numeric(x)</code></pre>
+<p>Neste caso, <code>x</code> vira <code>NA</code>, que é valor <code>logical</code> especial no <code>R</code> para representar <em>missings</em> (valores ausentes). Como o <code>NA</code>, o <code>R</code> também possui alguns valores especiais. Vamos vê-los na sequência.</p>
+<p><br></p>
+</div>
+<div id="valores-especiais" class="section level2">
+<h2>Valores especiais</h2>
+<p>Como dito anteriormente, <code>NA</code> é um valor <code>logical</code> particular, e serve para indicar <em>missings</em>. Mas, apesar de ser <code>logical</code> (<code>TRUE</code> ou <code>FALSE</code>), ele não muda a classe de um vetor de outro tipo. Exemplo.</p>
+<pre class="r"><code>x &lt;- NA
+class(x) # NA é logical
+class(NA) # NA é logical
+
+x &lt;- c(1, 2, 3, NA)
+class(x) # mas &#39;x&#39; é numeric
+
+z &lt;- c(&quot;a&quot;, &quot;b&quot;, NA)
+class(z) # e z é character
+
+class(z[3]) # assim como o terceiro elemento de z, que armazena o NA</code></pre>
+<p>Basicamente, isto significa que o <code>NA</code> pode ser convertido para qualquer classe a partir de <code>logical</code> e que, no fundo, ele serve para dizer o seguinte: o <code>R</code> não sabe qual valor <code>NA</code> deve assumir, mas certamente é um valor da mesma classe do restante do vetor (afinal, todos os elementos de um vetor precisam ser da mesma classe).</p>
+<pre class="r"><code>x &lt;- NA
+x &lt;- as.integer(NA)
+class(x) # NA agora é integer
+
+x &lt;- NA
+x &lt;- as.character(NA)
+class(x) # NA agora é character</code></pre>
+<p>Podemos testar se um valor ou objeto é <code>NA</code> com a função <code>is.na</code> (este é o método mais apropriado de fazer isto, por sinal).</p>
+<pre class="r"><code>x &lt;- c(1, 2, NA)
+is.na(x[3]) # como testar se um valor é NA
+
+x[3] == NA # como NÃO testar se um valor é NA</code></pre>
+<p>Note também que qualquer operação feita num objeto <code>NA</code> retorna <code>NA</code> (às vezes também dá erro).</p>
+<pre class="r"><code>NA + 1
+NA / 2</code></pre>
+<p>Outros valores especiais são <code>Inf</code>, para positivo e negativo infinito, e <code>NaN</code>, que literalmente significa “não é um número” (<em>not a number</em>). Exemplos.</p>
+<pre class="r"><code># Exemplos de números infinitos
+Inf + 1
+-Inf + 1
+1 / 0
+
+x &lt;- Inf
+class(x) # infinito é numeric
+is.infinite(x) # mas infinito
+
+# Exemplos de not a number
+log(-2) # não existe log de números negativos
+0 / 0
+
+x &lt;- NaN
+class(x) # NaN também é numeric
+is.nan(x)</code></pre>
+<p>Outro valor, este não tão comum (a depender da aplicação): o <code>NULL</code>, que indica um objeto nulo, ou vazio, sem classe e sem valores.</p>
+<pre class="r"><code>class(NULL) # classe &quot;NULL&quot;
+NULL + 1 # vira NULL
+c(1, 2, 3, NULL) # desaparece do fim do vetor
+is.null(NULL) # maneira de testar se um objeto é NULL</code></pre>
+<p>Como um objeto <code>NULL</code>, por definição, é vazio, podemos usar este valor especial para apagar o conteúdo de objetos de outras classes.</p>
+<pre class="r"><code>x &lt;- c(1, 2, 3)
+x &lt;- NULL
+x # apaga o vetor x</code></pre>
+<p>Mas perceba que isto não funciona para apagar elementos dentro de um vetor. Para remover um objeto da memória no <code>R</code>, contudo, usamos a função <code>rm</code> - é só passar para ela o nome do objeto que queremos remover.</p>
+<pre class="r"><code>x &lt;- c(1, 2, 3)
+rm(x)</code></pre>
+<p>É importante reconhecer estes valores especiais para, se preciso, podermos alterá-los: como quando precisamos transformar <em>missings</em> em outras coisas.</p>
+<pre class="r"><code>x &lt;- c(2, 5.6, 24, 45, 89.23, NA)
+is.na(x)
+x[is.na(x)] &lt;- 999 # trocamos o NA por 999
+x</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="estatistica-basica" class="section level1">
+<h1>Estatística básica</h1>
+<p>Vetores numéricos ou inteiros armazenam números que podem ser analisados estatisticamente. E, para tanto, o <code>R</code> oferece um conjunto de funções nativas para realizar as mais diversas análises e testes.</p>
+<p>Vimos funções anteriormente, mas cabe lembrar que elas (como funções na matemática) recebem uma informação (no <code>R</code>, geralmente um objeto) e retornam outra. Dá para saber se um objeto é uma função pelas funções <code>class</code> e <code>is.function</code>.</p>
+<pre class="r"><code>class(mean) # mean() é uma função
+is.function(mean)
+
+class(class) # assim como a própria função class() é uma função
+is.function(class)
+
+is.function(is.function) # ou como is.function() é uma função</code></pre>
+<p>Algumas das estatísticas descritivas mais usadas.</p>
+<pre class="r"><code># Criamos um vetor aleatoriamente com distribuição normal e média 0
+x &lt;- rnorm(100)
+
+mean(x) # média de x
+median(x) # mediana de x
+weighted.mean(x, x) # média ponderada (o segundo x deve ser um vetor com os pesos)
+sd(x) # desvio-padrão de x
+max(x) # máxima de x
+min(x) # mínima de x
+quantile(x) # quantis de x
+summary(x) # retorna várias estatísticas básicas de uma só vez</code></pre>
+<p><br></p>
+<div id="aninhando-funcoes" class="section level2">
+<h2>Aninhando funções</h2>
+<p>Às vezes, uma forma prática de usar funções é aninhando elas, isto é, passando uma função para dentro de outra. Exemplo.</p>
+<pre class="r"><code>mean(seq(1, 10))</code></pre>
+<p>Como dá para intuir, <code>seq(1, 10)</code> cria um vetor de 1 a 10 e, diretamente, este vetor é passado para dentro da função <code>mean</code> - sem a necessidade de salvar o resultado de <code>seq(1, 10)</code> num objeto para, então, passá-lo para a função <code>mean</code>.</p>
+<p>Este uso aninhado de funções pode ir além.</p>
+<pre class="r"><code>c(1, 2, c(1, 2, c(1, 2, c(1, 2, c(1, 2, c(1, 2))))))</code></pre>
+<p>Mas, à medida que vamos aninhando funções, fica mais difícil entender o código. É por esta razão, principalmente, que o aninhamento de funções é melhor usado apenas em tarefas mais simples.</p>
+<p><br></p>
+</div>
+<div id="argumentos-opcionais" class="section level2">
+<h2>Argumentos opcionais</h2>
+<p>A maioria das funções no <code>R-base</code> possui argumentos opcionais que podem ser alterarados para atender a alguma necessidade. Geralmente, passamos estes argumentos para dentro das funções via <code>=</code>, como abaixo.</p>
+<pre class="r"><code>x &lt;- c(1, 2, 3, 4, NA)
+mean(x) # retorna NA
+mean(x, na.rm = TRUE) # na.rm = TRUE para ignorar os NA</code></pre>
+<p>O uso de cada função, com a documentação completa dos argumentos opcionais, pode ser visto com via função <code>help</code>: basta passar o nome da função desejada para ela.</p>
+<pre class="r"><code>help(mean)</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="graficos" class="section level1">
+<h1>Gráficos</h1>
+<div id="histogramas" class="section level2">
+<h2>Histogramas</h2>
+<p>O <code>R</code> também possui um potente arsenal nativo de implementações gráficas. Como no caso das estatísticas básicas, acessamos estas ferramentais via funções. Podemos começar com uma das mais simples: o histograma.</p>
+<pre class="r"><code>x &lt;- rnorm(100) # cria um vetor
+hist(x) # a função hist() cria um histograma</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p>A função <code>hist</code>, assim como as demais funções gráficas nativas do <code>R</code>, possui diversos argumentos opcionais que nos permitem controlar a aparência do gráfico.</p>
+<p>Incluímos títulos e mudamos o nome dos eixos com os argumentos <code>main</code>, <code>xlab</code> e <code>ylab</code>, respectivamente.</p>
+<pre class="r"><code>hist(x, main = &quot;Um histograma&quot;, xlab = &quot;Eixo X&quot;, ylab = &quot;Eixo Y&quot;)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p>Mudamos a cor das barras com <code>col</code>.</p>
+<pre class="r"><code>hist(x, main = &quot;Um histograma&quot;, xlab = &quot;Eixo X&quot;, ylab = &quot;Eixo Y&quot;, col = &quot;red&quot;)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p>E a espessura das barras (i.e., o número de elementos por barra) com <code>breaks</code>.</p>
+<pre class="r"><code>hist(x, main = &quot;Um histograma&quot;, xlab = &quot;Eixo X&quot;, ylab = &quot;Eixo Y&quot;, col = &quot;red&quot;, breaks = 50)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p>Para organizar melhor o código, podemos quebrá-lo em linhas - nada mudará na sua execução, mas fica visualmente mais simples de entender o que estamos fazendo.</p>
+<pre class="r"><code>hist(x, main = &quot;Um histograma&quot;,
+     xlab = &quot;Eixo X&quot;,
+     ylab = &quot;Eixo Y&quot;,
+     col = &quot;red&quot;,
+     breaks = 50)</code></pre>
+<p><br></p>
+</div>
+<div id="scatterplots" class="section level2">
+<h2>Scatterplots</h2>
+<p>Para visualizar relações bivariadas, o gráfico de pontos (<em>scatterplot</em>) geralmente é a melhor opção. Criamos ele com a função <code>plot</code>.</p>
+<pre class="r"><code>x &lt;- rnorm(100)
+y &lt;- rnorm(100)
+
+plot(y ~ x)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<pre class="r"><code># plot(x, y) é a mesma coisa</code></pre>
+<p>Também podemos alterar uma série de elementos do gráfico. Vamos, novamente, mudar títulos e cores.</p>
+<pre class="r"><code>plot(y ~ x, main = &quot;Um scatterplot&quot;, 
+     xlab = &quot;Eixo X&quot;,
+     ylab = &quot;Eixo Y&quot;,
+     col = &quot;red&quot;)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p>Ainda podemos alterar o formato dos eixos - deixando-os abertos, por exemplo.</p>
+<pre class="r"><code>plot(y ~ x, main = &quot;Um scatterplot&quot;, 
+     xlab = &quot;Eixo X&quot;,
+     ylab = &quot;Eixo Y&quot;,
+     col = &quot;red&quot;,
+     bty = &quot;n&quot;)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p>E depois mudar o formato dos pontos.</p>
+<pre class="r"><code>plot(y ~ x, main = &quot;Um scatterplot&quot;, 
+     xlab = &quot;Eixo X&quot;,
+     ylab = &quot;Eixo Y&quot;,
+     col = &quot;red&quot;,
+     bty = &quot;n&quot;,
+     pch = 2) # pch muda o formato dos pontos</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p>Os valores mais comuns de <code>pch</code> são (<a href="http://www.sthda.com/sthda/RDoc/figure/graphs/r-plot-pch-symbols-points-in-r.png">veja outros aqui</a>):</p>
+<ul>
+<li><code>0</code>, para quadrado vazado;</li>
+<li><code>1</code>, para círculo vazado;</li>
+<li><code>2</code>, para triângulo vazado;</li>
+<li><code>16</code>, para círculo pequeno sólido;</li>
+<li><code>19</code>, para círulo grande sólido.</li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="regressao-linear" class="section level1">
+<h1>Regressão linear</h1>
+<p>Regressões nos ajudam a entender a relação entre uma variável quantitativa e uma ou mais variáveis explicativas. E o modelo mais usado para realizar este tipo de análise, sem dúvidas, é a <a href="https://pt.wikipedia.org/wiki/Regress%C3%A3o_linear">regressão linear</a>, que modela a relação entre variáveis dependente e independente de forma linear - a reta que melhor se ajusta aos dados. No <code>R</code>, podemos estimar regressões como estas com a função <code>lm</code>, de <em>linear model</em>.</p>
+<p><br></p>
+<div id="modelo-bivariado" class="section level2">
+<h2>Modelo bivariado</h2>
+<p>Vamos começar com um exemplo simples: modelar a relação entre dois vetores numéricos.</p>
+<pre class="r"><code>x &lt;- rnorm(50)
+y &lt;- rnorm(50)
+
+modelo &lt;- lm(y ~ x) # estima um modelo linear e salva os resultados no objeto &#39;modelo&#39;
+
+class(modelo) # a classe do objeto &#39;modelo&#39; vira &#39;lm&#39;
+
+summary(modelo) # usamos a função &#39;summary&#39; para exibir os resultados</code></pre>
+<p>O <em>output</em> da função <code>summary</code> nos dá um panorama geral dos resultados do modelo. Em ordem:</p>
+<ul>
+<li><code>Call</code>, no topo, indica a fórmula que passamos para o modelo;</li>
+<li><code>Residuals</code> mostra a distribuição dos resíduos;</li>
+<li><code>Coefficientes</code> reporta as estimativas do modelo:
+<ul>
+<li><code>Estimate</code> reporta os coeficientes;</li>
+<li><code>Std. Error</code> reporta erros-padrão;</li>
+<li><code>t value</code> reporta t valores;</li>
+<li><code>Pr(&gt;|t|)</code> reporta p-valores.</li>
+</ul></li>
+<li><code>Residual standard error</code>, <code>Multiple R-squared</code>, <code>Adjusted R-squared</code> e <code>F-statistic</code> mostram algumas estatísticas de ajustes do modelo.</li>
+</ul>
+<p>Usando a função <code>plot</code> <a href="http://fmeireles.com/teaching/r_um_guia_pratico.html#52_scatterplots">vista anteriormente</a>, podemos plotar a reta estimada nos dados originais.</p>
+<pre class="r"><code>plot(y ~ x, main = &quot;Regressão linear&quot;)
+abline(modelo) # a função abline toma um objeto &#39;lm&#39; e plota a reta da regressão</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p>Também podemos usar a função <code>plot</code> para termos uma noção geral do ajuste de um modelo.</p>
+<pre class="r"><code>plot(modelo)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-58-1.png" width="672" /><img src="basico_files/figure-html/unnamed-chunk-58-2.png" width="672" /><img src="basico_files/figure-html/unnamed-chunk-58-3.png" width="672" /><img src="basico_files/figure-html/unnamed-chunk-58-4.png" width="672" /></p>
+<p><br></p>
+</div>
+<div id="modelo-multivariado" class="section level2">
+<h2>Modelo multivariado</h2>
+<p>Modelos lineares podem ter mais de uma variável independente. Usamos a mesma função, <code>lm</code>, para fazer isto - a única coisa que modificamos é a fórmula passada ao modelo.</p>
+<pre class="r"><code>x &lt;- rnorm(50)
+z &lt;- rnorm(50)
+y &lt;- rnorm(50)
+
+modelo &lt;- lm(y ~ x + z) # adicionamos variável com o operador &#39;+&#39;
+
+summary(modelo)</code></pre>
+<p>Com mais de duas variáveis independentes no modelo, visualizar a relação entre elas e a variável dependente não é tão simples: o efeito de <code>x</code> e <code>z</code> são controlados por <code>z</code> e <code>x</code>, respectivamente. O que podemos fazer é ver o efeito parcial de cada preditor com a função <code>termplot</code>. (Na verdade, existem várias outras maneiras de fazer isto, mas a maioria delas pressupõe conhecimentos adicionais de <code>R</code>; uma boa referência pode ser vista <a href="http://www.statmethods.net/stats/regression.html">aqui</a>).</p>
+<pre class="r"><code>termplot(modelo)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-60-1.png" width="672" /><img src="basico_files/figure-html/unnamed-chunk-60-2.png" width="672" /></p>
+<p><br></p>
+</div>
+<div id="modelo-com-dummies" class="section level2">
+<h2>Modelo com dummies</h2>
+<p>Em algumas situações, a relação linear entre duas variáveis pode ser diferente para grupos diferentes. Nestes casos, adicionar uma variável ao modelo indicando estes grupos pode ser uma boa opção.</p>
+<pre class="r"><code>x &lt;- rnorm(100)
+grupo &lt;- rbinom(100, 1, prob = 0.5) # &#39;rbinom&#39; serve para criar uma variavel com distribuicao binomial
+
+y &lt;- rnorm(100) + grupo # adicionando &#39;grupo&#39;, &#39;y&#39; sera&#39; afetada por ela
+
+modelo &lt;- lm(y ~ x + grupo)
+
+summary(modelo)</code></pre>
+<p>O <em>output</em> de <code>summary</code> já nos indica que a variável <code>grupo</code> tem efeito preditivo significativo sobre <code>y</code>. Com a função <code>plot</code>, podemos ter uma noção visual mais clara disto (usaremos a função <code>points</code>, que, assim como <code>lines</code>, serve para plotar pontos após um gráfico já ter sido criado).</p>
+<pre class="r"><code>plot(y ~ x, type = &quot;n&quot;) # &#39;type = n&#39; plota apenas os eixos do gráfico
+points(y[grupo == 1] ~ x[grupo == 1], col = &quot;red&quot;)
+points(y[grupo == 0] ~ x[grupo == 0], col = &quot;blue&quot;)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<p>É possível perceber pelo gráfico que as observações em vermelho (<code>grupo == 1</code>) tendem a ter maiores valores no eixo Y. O que vamos fazer, agora, é plotar uma reta de regressão para cada grupo, tomando nosso modelo para fazer isto.</p>
+<p>Usaremos a função <code>fitted</code> para salvar os valores preditos do modelo e, com isto, plotaremos as retas usando a função <code>lines</code> (este exemplo pode parecer complicado, mas envolve apenas coisas que já vimos anteriormente; se tiver dúvidas, tente refazer este exemplo de outras maneiras, até entender).</p>
+<pre class="r"><code>plot(y ~ x, type = &quot;n&quot;, main = &quot;Regressão com dummy&quot;) 
+
+points(y[grupo == 1] ~ x[grupo == 1], col = &quot;red&quot;) # p
+points(y[grupo == 0] ~ x[grupo == 0], col = &quot;blue&quot;)
+
+lines(x[grupo == 1], fitted(modelo)[grupo == 1], col = &quot;red&quot;)
+lines(x[grupo == 0], fitted(modelo)[grupo == 0], col = &quot;blue&quot;)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><br></p>
+</div>
+<div id="termos-multiplicativos" class="section level2">
+<h2>Termos multiplicativos</h2>
+<p>O exemplo anterior mostra como estimar uma reta para cada grupo num modelo linear, todas com a mesma inclinação. Podemos relaxar isto utilizando termos multiplicativos (<code>x * grupo</code>) para fazer com que cada reta se ajuste individualmente ao grupo de dados. Novamente, só modificamos a fórmula passada para a função <code>lm</code> para fazer isto.</p>
+<pre class="r"><code>modelo &lt;- lm(y ~ x * grupo) # reestimamos o modelo com o termo multiplicativo
+
+# Criamos novamente o gráfico
+plot(y ~ x, type = &quot;n&quot;, main = &quot;Regressão com termo multiplicativo&quot;) 
+
+points(y[grupo == 1] ~ x[grupo == 1], col = &quot;red&quot;)
+points(y[grupo == 0] ~ x[grupo == 0], col = &quot;blue&quot;)
+
+lines(x[grupo == 1], fitted(modelo)[grupo == 1], col = &quot;red&quot;)
+lines(x[grupo == 0], fitted(modelo)[grupo == 0], col = &quot;blue&quot;)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p><br></p>
+</div>
+<div id="relacao-quadratica" class="section level2">
+<h2>Relação quadrática</h2>
+<p>Relações entre duas variáveis nem sempre são apenas lineares: às vezes, elas assumem algum tipo de curva. Ainda que um modelo linear nem sempre seja a melhor opção para modelar relações como estas, podemos adaptá-lo para dar conta disto. A solução, neste caso, é bem simples: passamos a variável independente ao quadrado para a função <code>lm</code>.</p>
+<pre class="r"><code>x &lt;- rnorm(100)
+x2 &lt;- x^2
+y &lt;- x2 + rnorm(100) # adicionando &#39;x2&#39; a &#39;y&#39;, fazemos com que a relação entre eles seja quadrática
+
+plot(y ~ x, main = &quot;Relação quadrática&quot;)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<p>Só precisamos passar <code>x</code> e <code>x2</code> para a fórmula na função <code>lm</code> para estimarmos a relação quadrática. Depois, para criarmos o gráfico, precisaremos criar dois novos vetores: 1) <code>novo_x</code>, que será um vetor sequencial contendo os valores máximos e mínimos de <code>x</code> como referências; e, 2), <code>pred</code>, que criaremos usando a função <code>predict</code>, que serve para usar um modelo que já estimamos para fazer predições em cima de novos dados (também usaremos a função <code>list</code> para passar <code>x</code> e <code>x2</code> para dentro da função simultaneamente).</p>
+<pre class="r"><code>modelo &lt;- lm(y ~ x + x2)
+
+plot(y ~ x, main = &quot;Relação quadrática&quot;)
+
+novo_x &lt;- seq(min(x), max(x), by = 0.1)
+pred &lt;- predict(modelo, list(x = novo_x, x2 = novo_x^2))
+
+lines(novo_x, pred)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<p>O mesmo procedimento também serve para uma relação cúbica.</p>
+<pre class="r"><code>x &lt;- rnorm(100)
+x2 &lt;- x^2
+x3 &lt;- x^3
+y &lt;- x3 + rnorm(100) 
+
+modelo &lt;- lm(y ~ x + x2 + x3)
+
+plot(y ~ x, main = &quot;Relação cúbica&quot;)
+
+novo_x &lt;- seq(min(x), max(x), by = 0.1)
+pred &lt;- predict(modelo, list(x = novo_x, x2 = novo_x^2, x3 = novo_x^3))
+
+lines(novo_x, pred)</code></pre>
+<p><img src="basico_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p><br></p>
+</div>
+</div>
+<div id="exercicios" class="section level1">
+<h1>Exercícios</h1>
+<p>O conteúdo deste guia pode parecer simples, mas é somente com um pouco de prática que conseguimos identificar detalhes que passam desapercebidos. Por isso, recomendo a realização dos seguintes exercícios para afixar o que foi visto até aqui.</p>
+<p><br></p>
+<div id="operacoes-aritmeticas" class="section level2">
+<h2>Operações aritméticas</h2>
+<p>Arrume as seguintes operações para que compilem sem erros:</p>
+<pre class="r"><code>&quot;2&quot; + &quot;2&quot;
+(10 + (10)) \ 10
+sum[2, 2]
+&quot;3^3&quot;
+3 x 3</code></pre>
+<p><br></p>
+</div>
+<div id="criacao-de-objetos-i" class="section level2">
+<h2>Criação de objetos I</h2>
+<p>Arrume (ou não) essas atribuições de objetos. Tente entender o que o operador atribuidor faz.</p>
+<pre class="r"><code>texto &lt; - &quot;um texto qualquer&quot;
+outro texto &lt; - &quot;mais um texto&quot;
+x &lt; 2
+y = 0
+z &lt;- &quot;1&quot;</code></pre>
+<p><br></p>
+</div>
+<div id="criacao-de-objetos-ii" class="section level2">
+<h2>Criação de objetos II</h2>
+<p>O que está errado no código abaixo (o objetivo é criar um objeto <code>x</code> que armazene o número <code>100</code>)?</p>
+<pre class="r"><code>dez &lt;- 10
+cinco &lt;- dez - 5
+y &lt;- dez &lt;- cinco
+x &lt;- 10 * dez</code></pre>
+<p><br></p>
+</div>
+<div id="usando-funcoes" class="section level2">
+<h2>Usando funções</h2>
+<p>De novo, arrume o código:</p>
+<pre class="r"><code>print(uma frase qualquer)
+seq(1 5)
+sum(log(-2), sum(2 + 2))
+abs(&quot;-dez&quot;)
+paste(&quot;um&quot;, &quot;exemplo&quot;, &quot;de&quot;, &quot;texto&#39;)
+plot(10, ?)</code></pre>
+<p><br></p>
+</div>
+<div id="vetores-2" class="section level2">
+<h2>Vetores</h2>
+<p>O que há de errado com os exemplos abaixo?</p>
+<pre class="r"><code>c(&quot;1&quot;, 0)
+
+meu_vetor &lt;- c(&quot;texto&quot;, &quot;do,&quot; &quot;vetor&quot;)
+
+c(c(1, 2), c(3, 4), 5:6
+  
+c(-1.3, 
+  -0.3, 
+  -0.6, 
+  -0.6 
+  -0.2)</code></pre>
+<p><br></p>
+</div>
+<div id="vetores-numericos-i" class="section level2">
+<h2>Vetores numéricos I</h2>
+<p>Qual é a média e a mediana dos vetores abaixo?</p>
+<pre class="r"><code>c(1, 45, 67, 2.35, 5.6)
+c(0.275, -0.883, 1.69, -0.589, -0.778, 1.318, -0.235, -2.166)
+c(0.3, 0, 0)
+c(0, -1, 0, -1, 1, NA, -2, 1, 1, -2)</code></pre>
+<p><br></p>
+</div>
+<div id="vetores-numericos-ii" class="section level2">
+<h2>Vetores numéricos II</h2>
+<p>Qual é a somatória (i.e., o valor da soma de todos os elementos) do vetor abaixo? (Dica: use uma função)</p>
+<pre class="r"><code>x &lt;- c(232, 129, 125, 84, 157, 119, 196, 174, 202, 104)</code></pre>
+<p><br></p>
+</div>
+<div id="vetores-numericos-iii" class="section level2">
+<h2>Vetores numéricos III</h2>
+<p>Crie um vetor <code>x</code> com 10 elementos, de 1 a 10. Depois, multiplique esse vetor por 5 e salve seu resultado. Qual é a média dele?</p>
+<p><br></p>
+</div>
+<div id="vetores-numericos-iv" class="section level2">
+<h2>Vetores numéricos IV</h2>
+<p>O que o seguinte código faz (use comentários para escrever sua explicação)?</p>
+<pre class="r"><code>y &lt;- seq(5, 25, by = 5)
+x &lt;- seq(10, 50, by = 10)
+y * x</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

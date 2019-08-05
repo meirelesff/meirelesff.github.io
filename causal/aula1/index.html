@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Introdução à Inferência Causal</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="meu_tema.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introdução à Inferência Causal
+## <br/>Resultados Potenciais
+### Fernando Meireles
+### IESP-UERJ<br><br/>
+### Agosto, 2019
+
+---
+
+
+
+
+
+
+
+
+# Efeitos e suas causas
+
+Relações de causa e efeito são vistas em todo o lugar. 
+--
+Se eu derrubo meu *laptop* de uma certa altura, ele cai e quebra. 
+
+--
+
+A queda é a causa da quebra.
+
+--
+
+Obviamente, vocês não precisam de um curso para aprender isso.
+
+
+
+---
+
+# Causas e seus efeitos
+
+
+.left-column[
+Estudar causalidade é, por definição, estudar o que não **não aconteceu**
+]
+
+
+.right-column[
+{{content}}
+]
+
+--
+
+- Se meu *laptop* não tivesse caído ele estaria intacto?
+{{content}}
+
+
+--
+
+- Se eu tivesse investido em *bitcoins* há 5 anos, hoje eu estaria rico?
+{{content}}
+
+
+--
+
+- Se a crise econômica de 2008 nunca tivesse ocorrido, Donald Trump seria hoje o Presidente dos Estados Unidos?
+
+
+---
+
+count: true
+# Precisamos estudar isso?
+
+#### As alternativas
+
+&lt;br&gt;
+
+
+Não podemos simplesmente conjecturar cenários?
+
+--
+
+Ou estudar covariações entre fenômenos?
+
+--
+
+Ou, ainda usar apenas *big data* e *machine learning*?
+
+
+
+---
+
+count: false
+
+# Precisamos estudar isso?
+
+#### As alternativas
+
+&lt;br&gt;
+
+.center[
+Se quisermos entender como fenômenos complexos — desigualdade, violência urbana, corrupção, entre inúmeros outros —  surgem ou desaparecem, *precisamos ser capazes de testar afirmações causais*.
+]
+
+
+
+---
+
+# Conhecimento causal
+
+&lt;br&gt;
+
+Correlação não é causalidade, mas não é disso que estamos tratando.
+
+--
+
+&lt;br&gt;
+
+.center[
+| Tipos de inferência |
+|---------------------------------------------------------------|
+| Preditiva `\(\rightsquigarrow\)` Sobre o futuro |
+| Descritiva `\(\rightsquigarrow\)` Sobre estruturas |
+| Classificatórias `\(\rightsquigarrow\)` Sobre pertencimentos |
+
+]
+
+
+---
+
+count: false
+# Conhecimento causal
+
+&lt;br&gt;
+
+Correlação não é causalidade, mas não é disso que estamos tratando.
+
+&lt;br&gt;
+
+.center[
+| Tipos de inferência |
+|---------------------------------------------------------------|
+| Preditiva `\(\rightsquigarrow\)` Sobre o futuro |
+| Descritiva `\(\rightsquigarrow\)` Sobre estruturas |
+| Classificatórias `\(\rightsquigarrow\)` Sobre pertencimentos |
+| *Causal* `\(\rightsquigarrow\)` *Sobre **contrafactuais** *|
+
+]
+
+
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Motivação&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+
+
+---
+
+count: true
+# Questões causais 
+
+
+.left-column[
+A maioria das **questões** que importam para nós são de **natureza causal**
+]
+
+
+.right-column[
+{{content}}
+]
+
+--
+
+- Corrupção na gestão educacional afeta o ensino dos(as) alunos(as) (e.g., Ferraz, Finan, and Moreira, 2012)? 
+{{content}}
+
+--
+
+
+- Programas de transferência condicionada de renda melhoram a qualidade de vida da população (e.g., Galiani and McEwan, 2013) ?
+{{content}}
+
+
+--
+
+- Casos de violência em larga escala no passado afetam o compartamentos das pessoas no presente (e.g., Lupu and Peisakhin, 2017) ?
+{{content}}
+
+
+--
+
+- Guerras promovem a integração de imigrantes (e.g., Lupu and Peisakhin, 2017) ?
+{{content}}
+
+
+--
+
+- Os discursos de Hitler contribuiriam para a ascensão eleitoral do Partido Nacional Socialista (Selb and Munzert, 2018) ?
+
+
+
+
+---
+
+count: true
+# Impacto real 
+
+- Mudar geograficamente para locais pobres afeta decisivamente o futuro de uma criança 
+
+  - Sabemos disso graças a [Chetty et al. (2016)](https://pubs.aeaweb.org/doi/pdfplus/10.1257/aer.20150572);
+
+--
+
+- Censurar ações coletivas, e não protestos individuais, é a melhor forma de manter um regime autoritário
+
+  - [King et al. (2013)](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/C7EF4A9C9D59425C2D09D83742C1FE00/S0003055413000014a.pdf/div-class-title-how-censorship-in-china-allows-government-criticism-but-silences-collective-expression-div.pdf) mostraram isso.
+
+
+---
+
+count: true
+# Revolução de credibilidade
+
+#### Nas Ciências Sociais, o uso de inferência causal cresceu enormemente
+
+- Periódicos dedicados:
+  - '[Metrica](https://www.econometricsociety.org/publications/econometrica/browse);
+  - [Journal of Development Economics](https://www.journals.elsevier.com/journal-of-development-economics);
+  - [Journal of Experimental Political Science](https://www.cambridge.org/core/journals/journal-of-experimental-political-science);
+  
+- Maioria em periódicos *mainstream*:
+  - APSR, AJPS, CPS, JoP;
+  
+- Obrigatória na graduação e pós-graduação nos EUA;
+
+
+---
+
+count: false
+# Revolução de credibilidade
+
+#### Em números
+
+De [Druckman et al. (2006)](https://www.jstor.org/stable/pdf/27644392.pdf?casa_token=SKpW12leJEMAAAAA:fsaptE8JUhyoyy0cEyTE13qO_otrDwq1HtJ281Nf5VwNNILRawgffXNAaDwSGuNgQqLmEx6pwBVYCElDqtszFgOUg3ljmDTLNJjB9tc15VukopRRoKwi):
+
+.center[
+&lt;img src="trends.png" width="700"&gt;
+]
+
+
+
+
+---
+count: true
+# Expansão
+
+#### O estudo de causa e efeito se espalhou entre disciplinas
+
+.center[
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="book_of_why.jpg" width="200"&gt;
+]
+
+
+---
+# Objetivo
+
+&lt;br&gt;
+
+Nosso objetivo neste curso é precisamente introduzir um conjunto de ferramentas que nos permitem falar, e principalmente analisar, afirmações causais.
+
+
+
+---
+
+# Plano desta aula
+
+#### Resultados Potenciais
+
+.pull-left[
+Precisamos de uma base comum para discutirmos efeitos causais que seja rigorosa e simples.
+]
+
+.pull-right[
+{{content}}
+]
+
+--
+
+Isso é o que cobriremos hoje.
+{{content}}
+
+--
+
+Mas, antes, precisamos discutir também:
+
+- *Nosso percurso:* resultados potenciais, DAGS, experimentos, experimentos naturais e outras estratégias comuns;
+- *Método:* `R`, estatística básica, exercícios e tarefas;
+- *Expectativas:* Não veremos tudo, mas entratemos no percurso principal. 
+
+
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Contrafactuais&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+
+---
+# Dois casos, múltiplos cenários
+
+&lt;br&gt;
+
+Imagine que uma pessoa, *Fulano*, tem uma prova de matemática a fazer e uma escolha a tomar:
+
+- Estudar para a provar; ou
+- Não estudar;
+
+
+
+---
+count: false
+
+# Dois casos, múltiplos cenários
+
+&lt;br&gt;
+
+Estas são as notas de *Fulano* nos dois cenários:
+
+&lt;br&gt;
+
+| Nome  | Estudou | Não estudou |
+|-------|:---------:|:---------:|
+| *Fulano* |       7   |       4   |
+
+
+
+
+---
+count: false
+# Dois casos, múltiplos cenários
+
+&lt;br&gt;
+
+Agora, imagine que o colega de *Fulano*, *Ciclano*, tenha as seguintes notas nos dois cenários.
+
+
+| Nome  | Estudou | Não estudou |
+|-------|:---------:|:---------:|
+| *Fulano* |       6   |       4   |
+| *Ciclano* |       9   |       7   |
+
+
+---
+count: false
+# Dois casos, múltiplos cenários
+
+&lt;br&gt;
+
+Estudar parece ser o melhor cenário porque o efeito de estudar é positivo.
+
+
+| Nome  | Estudou | Não estudou | Resultado |
+|-------|:---------:|:---------:|:---------:|
+| *Fulano* |       6  |    4  |  6-4=2  | 
+| *Ciclano* |       9   |   7   |  =2  |
+
+
+
+---
+count: false
+# Dois casos, múltiplos cenários
+
+&lt;br&gt;
+
+Obviamente, não podemos observar os dois cenários simultaneamente. Se *Fulano* estudar, e se *Ciclano* não, a comparação direta entre eles leva ao resultado contrário.
+
+
+
+| Nome  | Estudou | Não estudou | Resultado |
+|-------|:---------:|:---------:|:---------:|
+| *Fulano* |       6   |       ?   |  ?  | 
+| *Ciclano* |       ?  |       7   |  ?  |
+
+
+
+---
+count: false
+# Dois casos, múltiplos cenários
+
+&lt;br&gt;
+
+Obviamente, não podemos observar os dois cenários simultaneamente. Se *Fulano* estudar, e se *Ciclano* não, a comparação direta entre eles leva ao resultado contrário.
+
+
+
+| Nome  | Estudou | Não estudou | Resultado |
+|-------|:---------:|:---------:|:---------:|
+| *Fulano* |       6   |       ?   |  ?  | 
+| *Ciclano* |       ?   |       7   |  ?  |
+
+
+.center[
+6 - 7 = -1
+]
+
+---
+count: true
+# Contrafactualidade
+
+
+.left-column[
+O **problema central** de estudar causalidade é resolver essa falta do **cenário alternativo**, do **contrafactual**
+]
+
+
+.right-column[
+{{content}}
+]
+
+--
+
+Como só observamos um cenário para cada indivíduo, compará-los diretamente não nos permite saber se estudar causa um aumento nas notas. Precisamos de ferramentas.
+
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Resultados Potenciais&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+---
+# O *Framework*
+
+Podemos avançar no estudo de contrafactuais colocando o problema em termos mais claros.
+--
+Usaremos o chamado **Modelo de Resultados Potenciais**, desenvolvido originalmente por Neyman e expandido por D. Rubin, entre outros (e popularizado por Holland).
+
+--
+
+A ideia central dele é fornecer uma base para *identificar* certas quantias.
+
+
+---
+# Preliminares
+
+#### Alguma notação antes de avançarmos
+
+- Digamos que a nota de *Fulano* quando ele estudou seja denotada por `\(Y_i(1)\)`;
+- E, quando ele não estudou, por `\(Y_i(0)\)`;
+- Estudar ou não pode ser indicado por `\(D_i\)` (e.g., `\(D_i = 1\)` se estudou);
+- `\(E\)` indica um valor esperado e, `\(|\)`, uma relação condicional.
+
+
+---
+# Problema
+
+&lt;br&gt;
+
+Temos um tratamento `\(D_i\)`, também chamado de intervenção ou causa, e queremos saber o que acontece em alguma unidade quando ela submetida ao tratamento. 
+
+--
+
+.center[
+Queremos saber, portanto, quanto é `\(Y_i(1) - Y_i(0)\)`, ou 
+
+`\(\tau = [Y_i|D_i = 1] - [Y_i|D_i = 0]\)`
+
+`\(\tau = E[Y_i|D_i = 1] - E[Y_i|D_i = 0]\)`
+]
+
+
+---
+# Definições
+
+&lt;br&gt;
+
+#### A ausência de contrafactuais
+
+.pull-left[
+Resultados potenciais nada mais são do que os cenários possíveis para `\(Y_i\)`. Mas, como vimos, só observamos um deles.
+]
+
+--
+
+.pull-right[
+Como vimos, entretanto, apenas um pode ser observado.
+]
+
+
+
+---
+# Problema fundamental da inferência causal
+
+&lt;br&gt;
+
+&gt; Não podemos observar diferentes resultados potenciais de uma mesma unidade.
+
+--
+
+&lt;br&gt;
+Como contornamos isso?
+
+
+---
+# Pressupostos de identificação
+
+
+.left-column[
+Uma **quantia é identificada** quando, com dados infinitos, conseguimos estimar um valor fixo para ela. Isso dependende **pressupostos**.
+]
+
+
+.right-column[
+{{content}}
+]
+
+--
+
+- Homogeneidade;
+{{content}}
+
+--
+
+- Ignorabilidade (ou *exchangeability*, em inglês).
+
+
+
+---
+# Solução do *framework*
+
+
+
+.left-column[
+Quando um tratamento `\(D\)` é independente dos resultados potenciais `\(Y\)`, uma quantia pode ser identificada comparando indivíduos
+]
+
+
+.right-column[
+{{content}}
+]
+
+--
+
+- Basta comparar grupos de médias;
+{{content}}
+
+--
+
+- O exemplo de ouro é o experimento, no qual o mecanismo de seleção é aleatório.
+
+
+
+---
+# Efeito médio
+
+&lt;br&gt;
+
+Enquanto que um efeito causal individual não pode ser calculado, podemos usar esse pressupostos de *ignorability* (mais alguns, que veremos) para estimar diferenças de médias entre tratados e não tratados.
+
+
+
+
+---
+# Vários casos, dois cenários
+
+&lt;br&gt;
+
+Vamos voltar ao problema da prova, agora com mais observações.
+
+
+
+| Nome  | Estudou | Não estudou | Resultado |
+|-------|:---------:|:---------:|:---------:|
+| *Fulano* |       6   |       ?   |  ?  | 
+| *Ciclano* |       ?   |       6   |  ?  |
+| *Ciclano* |       ?   |       4   |  ?  |
+| *Ciclano* |       8   |       ?   |  ?  |
+| *Ciclano* |       ?   |       2   |  ?  |
+| *Ciclano* |       4   |       ?   |  ?  |
+
+
+.center[
+`\(\tau = \frac{1}{3} (6 + 8 + 4) - \frac{1}{3} (6 + 4 + 2)\)`
+
+`\(\tau = 6\)`
+]
+
+
+---
+
+# Identificação
+
+#### Uma ciência da identificação
+
+- Em modelagem, a prática é reproduzir o Processo Gerador de Dados (PGD), incluindo especificação correta e tudo o mais;
+- Identificação depende, ao contrário, de um desenho, e pode ser implementada com métodos não-paramétricos ou simples testes randomizados.
+
+&lt;br&gt;
+
+--
+
+.center[
+`Modelo` `\(\rightsquigarrow\)` `Estimação` `\(\rightsquigarrow\)` `Inferência`
+
+
+`Desenho` `\(\rightsquigarrow\)` `Estimação` `\(\rightsquigarrow\)` `Inferência`
+]
+
+
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Observações&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+
+---
+
+# A especificidade da inferência causal
+
+&lt;br&gt;
+
+- Na classificação, queremos usar `\(X_i\)` para descobrir `\(Z_i\)`;
+
+--
+
+- Para fazer predições, queremos apenas saber o valor de `\(Y_i\)` com base nos valores de `\(X_i\)`;
+
+--
+
+- Na inferência causal, queremos saber qual valor `\(Y_i\)` assumirá se alterarmos `\(X_i\)`.
+
+
+---
+# Identificação e pressupostos
+
+&lt;br&gt;
+
+O importante a reter, enfim, é que **identificação** de efeitos causais depende centralmente de pressupostos, e não de técnicas ou modelos sofistificados.
+
+--
+
+Quando falamos de **estratégia de identificação**, estamos falando: 
+
+- Quais pressupostos, fora estimação, para explorar o mecanismo de seleção ao tratamento, nos permitem fazer afirmações causais com os dados que temos?
+
+
+
+
+---
+# Viés de seleção
+
+
+
+.left-column[
+Na ausência de **ignorability**, comparar unidades com tratamentos diferentes pode resultar em **viés de seleção**
+]
+
+
+.right-column[
+{{content}}
+]
+
+--
+
+- Hospital mata pessoas (e.g., se fui parar no hospital, minha saúde não estava boa previamente);
+{{content}}
+
+--
+
+- Dinheiro pode não trazer votos (e.g., se eu tenho votos, consigo dinheiro);
+{{content}}
+
+
+--
+
+- Educação pode não aumentar renda (e.g., se eu me eduquei, provavelmente tinha tempo livre e dinheiro).
+
+
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Pausa para usar o R&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+
+---
+# LaLonde
+
+&lt;br&gt;
+
+Vamos analisar os dados de (LaLonde, 1986), sobre o efeito de um programa de treinamento profissional sobre os salários de trabalhadores americanos.
+
+- Dados:
+
+  - 445 observações e 12 variáveis;
+  - `nsw` é o indicador de tratamento, `\(D_i\)`;
+  - A variável de interesse é `re87` (salário em 1978, depois da intervenção). 
+
+
+---
+
+# Referências
+
+Ferraz, C, F. Finan, and D. B. Moreira (2012). "Corrupting
+learning: Evidence from missing federal education funds in
+Brazil". In: _Journal of Public Economics_ 96.9-10, pp. 712-726.
+
+Galiani, S. and P. J. McEwan (2013). "The heterogeneous impact of
+conditional cash transfers". In: _Journal of Public Economics_
+103, pp. 85-96.
+
+LaLonde, R. J. (1986). "Evaluating the econometric evaluations of
+training programs with experimental data". In: _The American
+economic review_, pp. 604-620.
+
+Lupu, N. and L. Peisakhin (2017). "The legacy of political
+violence across generations". In: _American Journal of Political
+Science_ 61.4, pp. 836-851.
+
+Selb, P. and S. Munzert (2018). "Examining a most likely case for
+strong campaign effects: HitlerÃ¢â‚¬â„¢s speeches and the rise of
+the Nazi party, 1927-1933". In: _American Political Science
+Review_ 112.4, pp. 1050-1066.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

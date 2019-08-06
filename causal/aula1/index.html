@@ -46,6 +46,7 @@ Obviamente, vocês não precisam de um curso para aprender isso.
 
 ---
 
+has-continuation:true
 # Causas e seus efeitos
 
 
@@ -128,9 +129,9 @@ Correlação não é causalidade, mas não é disso que estamos tratando.
 .center[
 | Tipos de inferência |
 |---------------------------------------------------------------|
-| Preditiva `\(\rightsquigarrow\)` Sobre o futuro |
-| Descritiva `\(\rightsquigarrow\)` Sobre estruturas |
-| Classificatórias `\(\rightsquigarrow\)` Sobre pertencimentos |
+| Preditiva: Sobre o futuro |
+| Descritiva: Sobre estruturas |
+| Classificatórias: Sobre pertencimentos |
 
 ]
 
@@ -149,10 +150,10 @@ Correlação não é causalidade, mas não é disso que estamos tratando.
 .center[
 | Tipos de inferência |
 |---------------------------------------------------------------|
-| Preditiva `\(\rightsquigarrow\)` Sobre o futuro |
-| Descritiva `\(\rightsquigarrow\)` Sobre estruturas |
-| Classificatórias `\(\rightsquigarrow\)` Sobre pertencimentos |
-| *Causal* `\(\rightsquigarrow\)` *Sobre **contrafactuais** *|
+| Preditiva: Sobre o futuro |
+| Descritiva: Sobre estruturas |
+| Classificatórias: Sobre pertencimentos |
+| *Causal*: *Sobre **contrafactuais** *|
 
 ]
 
@@ -390,8 +391,8 @@ Estudar parece ser o melhor cenário porque o efeito de estudar é positivo.
 
 | Nome  | Estudou | Não estudou | Resultado |
 |-------|:---------:|:---------:|:---------:|
-| *Fulano* |       6  |    4  |  6-4=2  | 
-| *Ciclano* |       9   |   7   |  =2  |
+| *Fulano* |       6  |    4  |  6 - 4 = 2  | 
+| *Ciclano* |       9   |   7   |  = 2  |
 
 
 
@@ -492,16 +493,17 @@ A ideia central dele é fornecer uma base para *identificar* certas quantias.
 
 &lt;br&gt;
 
-Temos um tratamento `\(D_i\)`, também chamado de intervenção ou causa, e queremos saber o que acontece em alguma unidade quando ela submetida ao tratamento. 
+Temos um tratamento `\(D\)`, também chamado de intervenção ou causa, e queremos saber o que acontece em alguma unidade quando ela submetida a esse tratamento. 
 
 --
 
 .center[
-Queremos saber, portanto, quanto é `\(Y_i(1) - Y_i(0)\)`, ou 
+Queremos saber, no nível individual, quanto é `\(Y_i(1) - Y_i(0)\)`, ou 
 
-`\(\tau = [Y_i|D_i = 1] - [Y_i|D_i = 0]\)`
+`\(\tau_i = [Y_i(1)|D_i = 1] - [Y_i(0)|D_i = 0]\)`
 
-`\(\tau = E[Y_i|D_i = 1] - E[Y_i|D_i = 0]\)`
+`\(= [Y_i|D_i = 1] - [Y_i|D_i = 0]\)`
+
 ]
 
 
@@ -513,13 +515,13 @@ Queremos saber, portanto, quanto é `\(Y_i(1) - Y_i(0)\)`, ou
 #### A ausência de contrafactuais
 
 .pull-left[
-Resultados potenciais nada mais são do que os cenários possíveis para `\(Y_i\)`. Mas, como vimos, só observamos um deles.
+Resultados potenciais nada mais são do que os cenários possíveis para a unidade `\(_i\)` (i.e., `\(Y_i(1)\)` e `\(Y_i(0)\)`). 
 ]
 
 --
 
 .pull-right[
-Como vimos, entretanto, apenas um pode ser observado.
+Mas, como vimos, só observamos um deles.
 ]
 
 
@@ -567,7 +569,7 @@ Uma **quantia é identificada** quando, com dados infinitos, conseguimos estimar
 
 
 .left-column[
-Quando um tratamento `\(D\)` é independente dos resultados potenciais `\(Y\)`, uma quantia pode ser identificada comparando indivíduos
+Quando um tratamento `\(D\)` é **independente** dos resultados potenciais `\(Y\)`, uma quantia pode ser identificada comparando grupos
 ]
 
 
@@ -616,9 +618,11 @@ Vamos voltar ao problema da prova, agora com mais observações.
 
 
 .center[
-`\(\tau = \frac{1}{3} (6 + 8 + 4) - \frac{1}{3} (6 + 4 + 2)\)`
+`\(E[\tau_i] = E[Y_i|D_i = 1] - E[Y_i|D_i = 0]\)`
 
-`\(\tau = 6\)`
+`\(E[\tau_i] = \frac{1}{3} (6 + 8 + 4) - \frac{1}{3} (6 + 4 + 2)\)`
+
+`\(E[\tau_i] = 2\)`
 ]
 
 
@@ -628,8 +632,8 @@ Vamos voltar ao problema da prova, agora com mais observações.
 
 #### Uma ciência da identificação
 
-- Em modelagem, a prática é reproduzir o Processo Gerador de Dados (PGD), incluindo especificação correta e tudo o mais;
-- Identificação depende, ao contrário, de um desenho, e pode ser implementada com métodos não-paramétricos ou simples testes randomizados.
+- Em modelagem, a prática é reproduzir o Processo Gerador de Dados (PGD), o que nos leva a escolher formas de estimação e de inferência;
+- Identificação depende, ao contrário, de um desenho, o que nos permite adotar estimadores simples (como diferença de médias).
 
 &lt;br&gt;
 
@@ -672,7 +676,7 @@ class: inverse, middle, center
 
 --
 
-- Na inferência causal, queremos saber qual valor `\(Y_i\)` assumirá se alterarmos `\(X_i\)`.
+- Na inferência causal, queremos saber qual valor `\(Y_i\)` assumirá se alterarmos `\(D_i\)`.
 
 
 ---
@@ -680,7 +684,7 @@ class: inverse, middle, center
 
 &lt;br&gt;
 
-O importante a reter, enfim, é que **identificação** de efeitos causais depende centralmente de pressupostos, e não de técnicas ou modelos sofistificados.
+O importante a reter, enfim, é que **identificação** de efeitos causais depende centralmente de pressupostos, e não de técnicas ou modelos.
 
 --
 
@@ -746,7 +750,7 @@ Vamos analisar os dados de (LaLonde, 1986), sobre o efeito de um programa de tre
 - Dados:
 
   - 445 observações e 12 variáveis;
-  - `nsw` é o indicador de tratamento, `\(D_i\)`;
+  - `nsw` é o indicador de tratamento, `\(D\)`;
   - A variável de interesse é `re87` (salário em 1978, depois da intervenção). 
 
 

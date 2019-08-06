@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Introdução à Inferência Causal</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="meu_tema.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introdução à Inferência Causal
+## <br/>DAGs e quantias de interesse
+### Fernando Meireles
+### IESP-UERJ<br><br/>
+### Agosto, 2019
+
+---
+
+
+
+
+
+
+# Inferir causalidade
+
+&lt;br&gt;
+
+Como vimos na aula anterior, sustentar afirmações causais, do tipo `\(X \rightarrow Y\)`, depende principalmente de pressupostos 
+--
+(e um X).
+
+--
+
+- É possível usar nosso conhecimento para justificar quais unidades podem ser comparadas (algo injustificável na maioria dos casos);
+
+--
+
+- Ou estatística para comparar valores esperados.
+
+
+---
+# Efeito causal
+
+#### O problema fundamental da inferência causal
+
+.pull-left[
+- Um efeito causal nada mais é do que a diferença entre dois resultados potenciais;
+]
+
+--
+
+.pull-right[
+- Em uma mesma unidade `\(_i\)`, apenas um é observado -- o outro é um contrafactual.
+]
+
+
+---
+# Efeito causal individual
+
+&lt;br&gt;
+
+Se considerarmos que `\(Y_i(1)\)` é o resultado potencial da unidade `\(_i\)` quando ela recebe tratamento; e `\(Y_i(0)\)` o resultado potencial quando ela não recebe, então
+
+--
+
+O efeito causal individual é
+
+.center[
+`\(Y_i(1) - Y_i(0)\)`
+]
+
+--
+
+`\(D_i\)` sendo um indicador de tratamento ( `\(D_i = 1\)` quando a unidade `\(_i\)` é tratada), eu observo `\(Y_i(1)\)` quando `\(D_i = 1\)`. 
+
+
+---
+# Usando factuais e pressupostos
+
+.left-column[
+Podemos comparar **resultados potenciais observados** de unidades diferentes, mas precisamos de **pressupostos**
+]
+
+.right-column[
+{{content}}
+]
+
+
+--
+
+- Unidades são homogêneas (comum nas ciências naturais e em algumas tradições nas humanas);
+{{content}}
+
+--
+
+- O estatístico, que tem como ideal um experimento;
+
+
+
+
+---
+# Ideal experimental
+
+&lt;br&gt;
+
+Em um experimento, o tratamento é por definição independente dos resultados potenciais. Com isso, uma diferença entre valores esperados me permite calcular o efeito causal médio:
+
+--
+
+.center[
+`\(E[Y_i(1) | T_i = 1] − E[Y_i(0) | T_i = 0]\)`
+]
+
+--
+
+Posso usar apenas valores observados:
+
+.center[
+`\(E[Y_i | T_i = 1] − E[Y_i | T_i = 0]\)`
+]
+
+---
+# Estimador simples
+
+
+.left-column[
+Usamos diferenças de médias para obter um **efeito causal médio**
+]
+
+.right-column[
+{{content}}
+]
+
+
+--
+
+- O mecanismo causal atuando pode ter diferentes formas funcionais (o *framework* é flexível);
+{{content}}
+
+--
+
+- A diferença de valor esperado serve para identificar efeitos causais médios.
+
+
+---
+# Identificação
+
+#### O que significa identificar um efeito causal?
+
+Identificar um efeito não depende necessariamente do tamanho da amostra, mas de:
+
+--
+
+.pull-left[
+- uma fonte de variação exógena no mecanismo de seleção (i.e., `\(\{Y(1), Y(0)\} \perp\!\!\!\perp D\)`) plausível;
+]
+
+--
+
+.pull-right[
+- De técnica para explorá-la (um estimador).
+]
+
+--
+
+&lt;br&gt;
+
+`\(\rightsquigarrow\)` Um efeito causal é identificado quando temos um pressuposto que justifica `\(\{Y(1), Y(0)\} \perp\!\!\!\perp D\)` e um estimador.
+
+
+---
+# Inferência baseada em desenhos
+
+#### A visão do conjunto
+
+&lt;br&gt;
+&lt;br&gt;
+
+.center[
+`Desenho` `\(\rightsquigarrow\)` `Estimação` `\(\rightsquigarrow\)` `Inferência` `\(\rightsquigarrow\)`
+
+`Afirmação causal`
+]
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;DAGs&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+---
+# DAGS
+
+#### *Grafos Acíclidos Diretos*
+&lt;br&gt;
+
+Antes de passarmos para outras quantias e aplicações práticas, vamos nos deter em algo que pode ser útil: 
+
+--
+
+- Grafos causais (Knight and Winship, 2013; Pearl and others, 2009).
+
+
+---
+# Relações diretas
+
+
+.left-column[
+**DAGs** estabelecem relações **causais** entre variáveis
+]
+
+
+.right-column[
+{{content}}
+]
+
+--
+
+- Elementos (ou nós, como `\(X\)`) representam variáveis; 
+{{content}}
+
+--
+
+- `\(\leftarrow\)` e `\(\rightarrow\)` indicam causalidade direta (lê-se `\(X \rightarrow Y\)` como X causa Y)
+{{content}}
+
+--
+
+- Setas apontam para uma única direção (daí o *directed*);
+{{content}}
+
+--
+
+- Cadeias causais têm setas que apontam todas para a mesma direção;
+{{content}}
+
+--
+
+- Cadeias diferentes não são ligadas diretamente (mas podem vir a ser).
+
+
+---
+# Exemplos de DAGs
+
+#### Causalidade conectando duas variáveis
+
+&lt;img src="inferencia_causal_aula2_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Exemplos de DAGs
+
+#### Cadeia causal
+
+&lt;img src="inferencia_causal_aula2_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:true
+# Caminhos não causais
+
+#### Fatores conectados podem não ter relação causal
+
+&lt;img src="inferencia_causal_aula2_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:true
+# Confundidores
+
+#### Cadeias podem abrir portas para viés
+
+&lt;img src="inferencia_causal_aula2_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:true
+# Porta dos fundos
+
+#### Ou *back door*
+
+&lt;br&gt;
+
+Fumar é um confundidor: ele é relacionado tanto com `\(Y\)` quanto com `\(D\)` e, portanto, abre uma porta que deixa escapar o efeito direto.
+
+--
+
+Parte da associação que vemos entre `\(Y\)` e `\(D\)`, em outras palavras, é espúria.
+
+--
+
+Se eu observo isso, posso controlar condicionar no confundidor (regressão, *matching*, ponderação). 
+
+
+
+
+---
+count:true
+# Confundidores
+
+#### Fechando uma porta dos fundos
+
+&lt;img src="inferencia_causal_aula2_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Confundidores
+
+#### Fechando todas as portas dos fundos
+
+&lt;img src="inferencia_causal_aula2_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Caminhos, não variáveis
+
+#### Critério dos fundos
+
+
+.pull-left[
+O que importa é o caminho, não necessariamente as variáveis.
+] 
+
+--
+
+.pull-right[
+Por isso, muitas vezes o importante não é controlar muitas variáveis em um modelo para evitar viés.
+
+O capítulo 4 [Cunningham (2018)](https://www.scunning.com/mixtape.html) cobre detidamente essas lições sobre DAGs, para quem quiser se aprofundar.
+] 
+
+
+
+---
+# Viés clássico
+
+#### Financiamento de campanhas e resultados eleitorais
+
+&lt;img src="inferencia_causal_aula2_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Exercícios com R&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+---
+# Quantias de interesse
+
+
+.left-column[
+No modelo de **resultados potenciais**, estimamos parâmetros populacionais para **identificar efeitos causais**
+]
+
+
+.pull-right[
+{{content}}
+]
+
+--
+
+- O primeiro que vimos foi o *efeito causal médio do tratamento*; 
+{{content}}
+
+- Outro comum: o *efeito do tratamento sobre os tratados*; 
+{{content}}
+
+- Mais um: o *efeito da intenção de tratar*.
+
+
+---
+# Exemplos
+
+#### Pesquisas que estimam aquelas quantias de interesse
+
+&lt;br&gt;
+
+- Gerber, Green, and Shachar (2003), que usou uma cartas ou visitas para incentivar eleitores americanos nas eleições de 1998 (intenção para tratar);
+
+- Bertrand and Mullainathan (2004), que usou um *survey experiment* para identificar se nomes racializados recebem menos propostas de emprego.
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Estimadores&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+---
+# Outros estimadores
+
+&lt;br&gt;
+
+.pull-left[
+Cobrimos a diferença entre médias, que um dos estimadores mais simples. O problema é que ele pode não servir em algumas aplicações
+]
+
+.pull-right[
+{{content}}
+]
+
+--
+
+Outros comuns incluem:
+{{content}}
+
+
+--
+
+- Regressão linear, útil para variáveis dependentes lineares e até binárias;
+{{content}}
+
+
+--
+
+
+- Inferência randomizada (*aka* aproximações do teste exato de Fisher), não-paramétrico.
+
+
+---
+# Materiais para praticar
+
+&lt;br&gt;
+
+Na pasta `4_scripts_basicos` vocês encontram o código em R para usar esses estimadores. 
+
+--
+
+Para quem quiser se aprofundar neles, ver Dunning (2012). 
+
+
+
+
+---
+
+# Referências
+
+Bertrand, M. and S. Mullainathan (2004). "Are Emily and Greg more
+employable than Lakisha and Jamal? A field experiment on labor
+market discrimination". In: _American economic review_ 94.4, pp.
+991-1013.
+
+Dunning, T. (2012). _Natural experiments in the social sciences: a
+design-based approach_. Cambridge University Press.
+
+Gerber, A. S, D. P. Green, and R. Shachar (2003). "Voting may be
+habit-forming: evidence from a randomized field experiment". In:
+_American Journal of Political Science_ 47.3, pp. 540-550.
+
+Knight, C. R. and C. Winship (2013). "The causal implications of
+mechanistic thinking: Identification using directed acyclic graphs
+(DAGs)". In: _Handbook of causal analysis for social research_.
+Springer, pp. 275-299.
+
+Pearl, J. and others (2009). "Causal inference in statistics: An
+overview". In: _Statistics surveys_ 3, pp. 96-146.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

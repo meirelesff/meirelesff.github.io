@@ -11,7 +11,7 @@
 
 
 
-<title>Atividades - Aula 3</title>
+<title>Atividades - Aula 4</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -341,7 +341,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Atividades - Aula 3</h1>
+<h1 class="title toc-ignore">Atividades - Aula 4</h1>
 
 </div>
 
@@ -350,17 +350,20 @@ $(document).ready(function () {
 <div id="exercicios" class="section level1">
 <h1>Exercícios</h1>
 <p><br></p>
+<div id="rdd" class="section level4">
+<h4>1) RDD</h4>
+<p>Usando a base <code>fpm.Rda</code>, que contém dados sobre municípios brasileiros que receberam mais ou menos recursos do Fundo de Participação dos Municípios nos anos 80 em função de suas populações, estime:</p>
+<ul>
+<li>O efeito local médio do tratamento local no analfabetismo no nível municipal em 1991.</li>
+</ul>
+</div>
+<div id="rdd-ii" class="section level4">
+<h4>2) RDD II</h4>
+<p>Ainda com <code>fpm.Rda</code>, tente estimar efeitos locais usando outras variáveis dependentes. Quais são os resultados mais interessantes?</p>
+</div>
 <div id="lalonde" class="section level4">
-<h4>1) LaLonde</h4>
-<p>Já usamos a base <code>lalonde_exp</code> e vimos que unidades tratadas tiveram aumento salarial depois da intervenção (e, de quebra, vimos que tratados e não-tratados têm características semelhantes pré-tratamento). Usando um banco com dados observacionais dos mesmos trabalhadores (em <code>lalonde_observacional.Rda</code>), use diferenças de médias e regressão para calcular novamente o efeito causal médio de <code>nsw</code>. Ele muda? O que isso diz sobre a relação?</p>
-</div>
-<div id="matching" class="section level4">
-<h4>2) Matching</h4>
-<p>Usando o código de exemplo na pasta <code>4_scripts_basicos</code>, use os dados observacionais de LaLonde e crie uma estratégia de condicionamento (i.e., controle) usando variáveis pré-tratamento para calcular o efeito causal da intervenção. Note, entrento, que essa quantia será um efeito médio sobre os tratados.</p>
-</div>
-<div id="ivs" class="section level4">
-<h4>3) IVs</h4>
-<p>Na pasta <code>5_datasets</code>, há um arquivo chamado <code>conflitos.Rda</code> que contém os dados sobre PIB per capita, precipitação e conflitos civis na África que discutimos. Usando eles, tente calcular o Efeito sobre os Tratados do PIB sobre os conflitos.</p>
+<h4>3) LaLonde</h4>
+<p>Com a base observacional de LaLonde, tente rodar regressões para analisar o efeito do tratamento condicionando em observáveis (i.e., controlando por outras variáveis). É possível chegar a um resultado próximo do experimental com essa estratégia com esses dados?</p>
 </div>
 </div>
 

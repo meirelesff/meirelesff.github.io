@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Introdução à Inferência Causal</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="meu_tema.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introdução à Inferência Causal
+## <br/>Experimentos naturais II
+### Fernando Meireles
+### IESP-UERJ<br><br/>
+### Agosto, 2019
+
+---
+
+
+
+
+
+
+# Experimentos naturais
+
+#### Quando a natureza aloca tratamentos
+
+--
+
+.pull-left[
+Em um experimento natural, exploramos o fato de que a natureza às vezes distribui certos eventos e causas de forma exógena, independente dos resultados potenciais `\(Y(1)\)` e `\(Y(0)\)`, ou de qualquer resultado `\(Y(d)\)`  
+]
+
+--
+
+.pull-right[
+Alguns potenciais candidatos a experimentos naturais:
+
+- Loterias e sorteios;
+- Desastres naturais e eventos não-antecipados;
+- Algumas políticas públicas;
+- Entre outros.
+]
+
+
+--
+
+.pull-left[
+Hoje, veremos mais um candidato: .texto-marrom[**descontinuidades**].
+]
+
+---
+# Plano desta aula
+
+Até o final desta aula, aprenderemos a interpretar gráficos como esse.
+
+--
+
+&lt;br&gt;
+
+&lt;img src="inferencia_causal_aula4_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Plano desta aula
+
+Também revisaremos as estratégias de identificação que vimos anteriormente.
+
+| Estratégia              | Pressuposto comum                                     |
+|-------------------------|-------------------------------------------------------|
+| Experimento controlado  | SUTVA                                          |
+| Loteria natural         | O tratamento é independente dos resultados potenciais |
+| Variáveis instrumentais | `\(Z\)` afeta `\(Y\)` apenas através de `\(X\)`                   |
+| Diferenças-em-diferenças| Grupos seguiriam trajetórias similares não fosse por `\(D\)`| 
+
+
+---
+count:false
+# Plano desta aula
+
+Também revisaremos as estratégias de identificação que vimos anteriormente.
+
+
+| Estratégia              | Pressuposto comum                                     |
+|-------------------------|-------------------------------------------------------|
+| Experimento controlado  | SUTVA                                          |
+| Loteria natural         | O tratamento é independente dos resultados potenciais |
+| .texto-marrom[Descontinuidade]  | .texto-marrom[O tratamento é independente na descontinuidade]|
+| Variáveis instrumentais | `\(Z\)` afeta `\(Y\)` apenas através de `\(X\)`                    |
+| Diferenças-em-diferenças| Grupos seguiriam trajetórias similares não fosse por `\(D\)`| 
+
+--
+
+E veremos rapidamente outras (e.g., porta da frente, controle sintético, triplas-diferenças, efeitos-fixos).
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Experimentos naturais&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+---
+# Recapitulando
+
+.left-column[
+**Experimentos** e **experimentos naturais** são dois tipos de desenhos comuns para se responder **questões causais** quantitativamente
+]
+
+.right-column[
+{{content}}
+]
+
+--
+
+- Com experimentos, o desenho é custoso, mas temos maior validade interna e podemos usar estimadores simples (teste randomizado, e.g.);
+{{content}}
+
+--
+
+- Com loterias e choques exógenos, precisamos coletar mais dados e adaptar os estimadores (alguns são mais complicados, como vimos);
+{{content}}
+
+--
+
+- Estratégias comuns são: achar um bom instrumento para `\(X\)` ou identificar choques exógenos que afetam apenas um grupo;
+{{content}}
+
+--
+
+- As principais quantias estimadas são *Intenção de Tratar* e *Efeito sobre os Tratados*.
+
+
+
+
+---
+# Como encontrar experimentos naturais?
+
+Explorar criativamente fontes de variação exógenas em mecanismos de seleção passou a ser parte corrente do fazer acadêmico (Dunning, 2012). Há dicas para fazer isso:
+
+--
+
+- Consultar trabalhos que usaram estratégias de identificação de efeitos causais para responder as questões que queremos analisar; e
+
+--
+
+- Consultar edições recentes de periódicos especializados (como o [Journal of Development Economics](https://www.journals.elsevier.com/journal-of-development-economics)).
+
+
+
+---
+# Combinando desenhos
+
+.pull-left[
+Na prática, pesquisas influentes que fazem uso do modelo de resultados potenciais valem-se de diferentes desenhos de pesquisa:
+
+- Boas, Hidalgo, and Melo (2019) usam mais de um desenho para entender porque eleitores votam em políticos acusados de má gestão
+]
+
+--
+
+.pull-right[
+A .texto-marrom[ideia de fundo] é que, usando desenhos diferentes que dependem de pressupostos também diferentes, obter resultados similares nos dá maior confiança sobre um efeito (à la triangulação)
+]
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Descontinuidades&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+---
+# Descontinuidade
+
+.left-column[
+Vários **tratamentos** são atribuídos por meio de **notas**, ** *scores* **, e **valores críticos**
+]
+
+.right-column[
+{{content}}
+]
+
+--
+
+- Alunas e alunos que tiram mais que determinada nota são aprovados; 
+{{content}}
+
+--
+
+- Contribuintes que recebem mais que determinada quantia e passam a pagar mais impostos; 
+{{content}}
+
+--
+
+- Candidatos que fazem mais que 50+1% dos votos em uma eleição por *plurality*; 
+{{content}}
+
+--
+
+- E vários outros casos.
+
+
+
+---
+count:false
+# Descontinuidade
+
+Ao atribuir tratamentos com base nesses pontos de corte (ou *cuttoffs*), criamos uma espécie de experimento natural.
+
+--
+
+.pull-left[
+- Se um ponto de corte para passar de ano é `70` e eu tiro `6.99` na prova, reprovo
+]
+
+--
+
+.pull-right[
+- Em casos como esse, o fato de .texto-marrom[passar ou reprovar] pode depender de componentes .texto-marrom[aleatórios]
+]
+
+--
+
+&lt;br&gt;
+
+.center[
+`\(\rightsquigarrow\)` se esse for o caso, posso comparar unidades `\(_i\)` ao redor da descontinuidade
+]
+
+
+---
+# Pressuposto de identificação
+
+#### *No sorting*
+
+Normalmente, a forma correta e mais aceita de entender esse desenho é pensar que, ao redor da descontinuidade, os resultados potenciais são contínuos.
+
+&lt;img src="inferencia_causal_aula4_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Pressuposto de identificação
+
+#### *No sorting*
+
+Normalmente, a forma correta e mais aceita de entender esse desenho é pensar que, ao redor da descontinuidade, os resultados potenciais são contínuos.
+
+&lt;img src="inferencia_causal_aula4_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+count:false
+# Pressuposto de identificação
+
+#### *No sorting*
+
+Normalmente, a forma correta e mais aceita de entender esse desenho é pensar que, ao redor da descontinuidade, os resultados potenciais são contínuos.
+
+&lt;img src="inferencia_causal_aula4_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Pressuposto de identificação
+
+#### *No sorting*
+
+Na prática, isso normalmente significa uma coisa: 
+--
+.texto-marrom[*Nenhuma unidade pode manipular seu tratamento*]
+
+--
+
+#### Continuidade em *c*
+
+Se `\(c\)` indicar o ponto de corte, uma unidade `\(_i\)` com `\(X_i &lt; c\)` não pode dar um jeito de manipular seu *score* para `\(X_i \geq c\)` (e.g., adulterar provas).
+
+
+---
+# Atribuição do tratamento
+
+#### Notação útil
+
+&lt;br&gt;
+- `\(X_i\)` é o *score* (nota na prova, e.g.) da unidade `\(_i\)`;
+- `\(D_i\)` ainda é o indicador de tratamento; e que
+- `\(c\)` indica o ponto de corte.
+
+--
+&lt;br&gt;
+
+Nesse caso, `\(D_i\)` é igual a
+
+.center[
+`\(1 ~se~ X_i \geq c\)`&lt;br&gt;
+`\(0 ~se~ X_i &lt; c\)`
+]
+
+
+---
+count:false
+# Atribuição do tratamento
+
+Visualmente, dizemos que a .texto-marrom[atribuição do tratamento muda descontinuamente] no ponto de corte.
+
+--
+
+&lt;img src="inferencia_causal_aula4_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Quantia de interesse
+
+#### Efeito causal médio *local*
+
+Temos
+
+.center[
+`\(E[Y_i(1)|X_i = c]\)`&lt;br&gt;
+`\(E[Y_i(0)|X_i = c]\)`
+]
+
+--
+
+E podemos estimar
+
+.center[
+`\(E[Y_i(1)|X_i = c] - E[Y_i(0)|X_i = c]\)`
+]
+
+--
+
+Na verdade
+
+.center[
+`\(\rightsquigarrow \lim_{x \downarrow c} E[Y_i|X_i = c] - \lim_{x \uparrow c} E[Y_i|X_i = c]\)`
+]
+
+
+---
+# Voltando
+
+A distância vertical entre as curvas representa o efeito local.
+
+--
+
+&lt;br&gt;
+
+&lt;img src="inferencia_causal_aula4_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+# Detalhes importantes
+
+.left-column[
+Nessa versão do desenho, o tramento é atribuído **deterministicamente** entre unidades em função de seus ** *scores* **
+]
+
+.right-column[
+{{content}}
+]
+
+--
+
+Por conta disso, algumas coisas precisam ser entendidas:
+{{content}}
+
+--
+
+- Preciso de dados bem mensurados sobre o *score*;
+{{content}}
+
+--
+
+- Nossa quantia de interesse é media (intercambiável); 
+{{content}}
+
+--
+
+- Não deve haver vazamento na intervenção;
+{{content}}
+
+--
+
+- Se houver, temos uma intenção de tratar (*fuzzy RDD*, não discutiremos aqui).
+
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Aplicação&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+---
+# Tipos de descontinuidade comuns 
+
+#### Alguns exemplos recorrentes
+
+--
+
+- Descontinuidade em notas (e.g., Ludwig and Miller, 2007);
+- Descontinuidade na idade para votar (e.g., Bruce and Lima, 2015; de
+Leon, Leite, and Rizzi, 2014);
+- Descontinuidade geográfica (e.g., Mattingly, 2017); 
+- Descontinuidade populacional (e.g., Mattingly, 2017); 
+- Descontinuidade em eleições (e.g., Bueno, 2018);
+
+
+---
+# Estimador
+
+#### Regressões locais e diferenças de médias
+
+--
+
+.pull-left[
+A depender de como o desenho é entendido, é possível usar estimadores diferentes para explorar a mesma descontinuidade
+]
+
+--
+
+.pull-left[
+Muitas vezes, pesquisadoras(es) utilizam vários no mesmo estudo (como robustez), como Bueno (2018).
+]
+
+
+
+---
+count:false
+# Estimador
+
+#### Regressões locais e diferenças de médias
+
+Detalhes importantes a serem notados:
+
+--
+
+- Precisamos selecionar apenas observações próximas da descontinuidade (afinal, a estimativa é local);
+
+--
+
+- É bom dar maior peso (com ponderação) a observações mais próximas da descontinuidade;
+
+--
+
+- Na regressão, também é preciso atentar para a forma funcional dos *scores*
+
+  - Polinômios grandes podem produzir viés;
+  
+  - Sem polinômios, precisamos de janelas menores.
+
+
+
+---
+
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Exercícios&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+---
+# Seleção em observáveis
+
+#### Mas e se não tivermos um experimento natural?
+
+Ainda é possível fazer afirmações causais.
+
+--
+
+Mas, claro, teremos que defender pressupostos ainda mais fortes.
+
+
+---
+# Fechando portas
+
+.left-column[
+Se pudermos **fechar** todas as portas, atingimos **ignorabilidade**
+
+]
+
+--
+
+.right-column[
+Obviamente, isso é muito difícil:
+
+- Podem passar coisas desapercebidas;
+- Nem sempre temos dados para mensurar tudo o que é relevante;
+- Nossa estratégia de condicionamento (i.e., estimador) fica mais complexo.
+]
+
+---
+# Pressuposto
+
+#### Seleção em observáveis
+
+Se `\(X\)` conter diversas variáveis observadas que podem ter ralação tanto com `\(Y\)` quanto com `\(D\)`, seleção em observáveis significa que eu assumo que meu resultados potenciais são independentes de `\(D\)` quando eu condiciono por `\(X\)`.
+
+--
+
+.center[
+`\(\{Y(1), Y(0)\} \perp\!\!\!\perp D | X\)`
+]
+
+--
+
+Veremos mais disso na próxima aula.
+
+
+---
+# Referências
+
+Boas, T. C, F. D. Hidalgo, and M. A. Melo (2019). "Norms versus
+action: Why voters fail to sanction malfeasance in Brazil". In:
+_American Journal of Political Science_ 63.2, pp. 385-400.
+
+Bruce, R. and R. C. Lima (2015). _Compulsory Voting and TV News
+Consumption: Evidence from Brazil_. FEA/USP.
+
+Bueno, N. S. (2018). "Bypassing the enemy: Distributive politics,
+credit claiming, and nonstate organizations in brazil". In:
+_Comparative Political Studies_ 51.3, pp. 304-340.
+
+Dunning, T. (2012). _Natural experiments in the social sciences: a
+design-based approach_. Cambridge University Press.
+
+Leon, L. de, F. Leite, and R. Rizzi (2014). "A test for the
+rational ignorance hypothesis: Evidence from a natural experiment
+in Brazil". In: _American Economic Journal: Economic Policy_ 6.4,
+pp. 380-98.
+
+Ludwig, J. and D. L. Miller (2007). "Does Head Start improve
+children's life chances? Evidence from a regression discontinuity
+design". In: _The Quarterly journal of economics_ 122.1, pp.
+159-208.
+
+Mattingly, D. C. (2017). "Colonial legacies and state institutions
+in China: Evidence from a natural experiment". In: _Comparative
+Political Studies_ 50.4, pp. 434-463.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Introdução à Inferência Causal</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="meu_tema.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introdução à Inferência Causal
+## <br/>Seleção em observáveis e validação
+### Fernando Meireles
+### IESP-UERJ<br><br/>
+### Agosto, 2019
+
+---
+
+
+
+
+
+
+# O que já vimos
+
+Nas últimas aulas, cobrimos a lógica dos resultados potenciais, dos DAGs. 
+--
+Com base nisso, estudamos desenhos experimentais e naturais.
+
+
+---
+count:false
+# O que já vimos
+
+#### Desenhos comuns
+
+--
+
+.pull-left[
+.texto-marrom[**Experimentais**]
+
+- *Field experiment* (e.g., Gerber, Green, and Shachar, 2003);
+
+- *Survey experiment* (e.g., Lupu, 2013);
+
+- *List experiment* (e.g., Traunmüller, Kijewski, and Freitag, 2019).
+
+]
+
+
+--
+
+
+.pull-right[
+.texto-marrom[**Naturais**]
+
+- *Sorteios* (e.g., Angrist and Krueger, 1992);
+
+- *Descontinuidades* (e.g., Bueno, 2018);
+
+- *Instrumentos* (e.g., Miguel, Satyanath, and Sergenti, 2004);
+
+- *Diferença-em-diferenças* (e.g., Hall, 2016).
+
+]
+
+
+
+---
+count:false
+# O que já vimos
+
+#### Pressupostos de identificação podem ser fracos ou fortes
+
+--
+
+.pull-left[
+Uma empresa sorteia funcionárias(os) para um programa de treinamento intensivo;
+  
+  - O sorteio realmente funcionou? Como ele foi feito? Alguém no tratamento desistiu? Houve vazamento?
+]
+
+--
+
+.pull-left[
+Uma empresa mandou funcionárias(os) para um programa de treinamento intensivo;
+  
+  - A ordem foi inesperada? Alguém conseguiu influir nisso? Antes do treinamento havia trajetórias paralelas?
+]
+
+
+
+---
+# Implementação de estimadores
+
+No `R`, calcular efeitos médios é bastante simples:
+&lt;br&gt;
+
+--
+
+
+```r
+# Alguns dados simulados
+set.seed(123)
+d &lt;- rbinom(1000, 1, 0.5)
+y &lt;- 2 * d + rnorm(1000) 
+```
+
+
+--
+
+Digamos que
+
+.center[
+ `\(\tau = E[Y_i|D_i = 1] - E[Y_i|D_i = 0] = 2\)`
+]
+
+
+---
+count:false
+# Implementação de estimadores
+
+No `R`, a maioria deles é bastante simples:
+&lt;br&gt;
+
+
+
+```r
+# Diferenca de medias
+mean(y[d == 1]) - mean(y[d == 0])
+```
+
+```
+## [1] 2.003341
+```
+
+
+
+---
+count:false
+# Implementação de estimadores
+
+No `R`, a maioria deles é bastante simples:
+&lt;br&gt;
+
+
+
+```r
+# Regressao
+lm(y ~ d)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ d)
+## 
+## Coefficients:
+## (Intercept)            d  
+##     0.01029      2.00334
+```
+
+
+
+
+---
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Seleção em observáveis&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+---
+# Diferença inicial
+
+.pull-left[
+Em um experimento natural, exploramos o fato de que a natureza às vezes distribui certos eventos e causas de forma exógena, independente dos resultados potenciais `\(Y(1)\)` e `\(Y(0)\)`, ou de qualquer resultado `\(Y(d)\)`  
+]
+
+--
+
+.pull-right[
+Alguns potenciais candidatos a experimentos naturais:
+
+- Loterias e sorteios;
+- Desastres naturais e eventos não-antecipados;
+- Algumas políticas públicas;
+- Entre outros.
+]
+
+
+
+
+---
+# Seleção em observáveis
+
+#### Mas e se não tivermos um experimento natural?
+
+Ainda é possível fazer afirmações causais.
+
+--
+
+Mas, claro, teremos que defender pressupostos ainda mais fortes.
+
+
+---
+# Fechando portas
+
+.left-column[
+Se pudermos **fechar** todas as portas, atingimos **ignorabilidade**
+
+]
+
+--
+
+.right-column[
+Obviamente, isso é muito difícil:
+
+- Podem passar coisas desapercebidas;
+- Nem sempre temos dados para mensurar tudo o que é relevante;
+- Nossa estratégia de condicionamento (i.e., estimador) fica mais complexo.
+]
+
+
+---
+# Implementação
+
+Na prática, a forma mais comum de se condicionar em observáveis é por meio de modelos de regressão.
+
+--
+
+.center[
+`\(\rightsquigarrow\)` a modelagem e o ajuste de especificações ganham papel central. 
+]
+
+
+---
+# Pressuposto
+
+#### Seleção em observáveis
+
+Se `\(X\)` conter diversas variáveis observadas que podem ter ralação tanto com `\(Y\)` quanto com `\(D\)`, seleção em observáveis significa que eu assumo que meu resultados potenciais são independentes de `\(D\)` quando eu condiciono por `\(X\)`.
+
+--
+
+&lt;br&gt;
+
+.center[
+`\(\{Y(1), Y(0)\} \perp\!\!\!\perp D | X\)`
+]
+
+
+---
+# Modelo causal
+
+.left-column[
+Quando **assumo** que `\(D\)` é **independente dos RP** quando condiciono em `\(X\)`, assumo implicitamente um **modelo estrutural**
+]
+
+.right-column[
+{{content}}
+]
+
+--
+
+Em outras palavras, eu tenho:
+{{content}}
+
+--
+
+- Razões teóricas para achar que fechei todas as portas relevantes que conectam `\(X \rightarrow Y\)`;
+{{content}}
+
+--
+
+- O uso de efeitos-fixos fecha portas não observadas;
+{{content}}
+
+--
+
+- Tenho evidência qualitativa para sustentar o pressuposto.
+
+
+---
+count:false
+# Modelo causal
+
+Ainda assim, o pressuposto de seleção em observáveis é o mais forte de todos.
+
+--
+
+.texto-marrom[O que fazer?]
+
+
+---
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Validação&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+---
+# Estratégias de validação
+
+.left-column[
+**Por definição**, nunca posso testar a **validade** do meu pressuposto de identificação
+]
+
+.right-column[
+{{content}}
+]
+
+--
+
+- Se o experimento é a natural, nunca sei com certeza que `\(D\)` é independente dos resultados potenciais;
+{{content}}
+
+--
+
+- Se tenho um experimento controlado, nunca posso afirmar com certeza que não há violação de SUTVA; e
+{{content}}
+
+--
+
+- Se condiciono em observáveis, nunca vou saber se há ou não caminhos abertos não-observados confundindo minha relação de interesse
+
+
+---
+count:false
+# Estratégias de validação
+
+#### Falsificações e placebos
+
+
+Para casos como esse, normalmente se recorre a testes para tentar .texto-marrom[**falsificar**] meu pressuposto. 
+--
+Não posso provar que ele é verdadeiro, mas posso testar implicações de que ele seja falso.
+
+--
+
+#### Exemplos
+
+- Se meu tratamento causa efeitos que teoricamente eu sei que ele não deveria causar, meu pressuposto é falseado;
+
+--
+
+- Se vejo o mesmo efeito do tratamento em uma amostra que não foi tratada, meu pressuposto é falseado;
+
+
+---
+# Teste de sensibilidade
+
+Outra estratégia de validação cada vez mais comum consiste em testar .texto-marrom[quão grande teria de ser o efeito do viés para invalidar minha inferência causal].
+
+--
+
+.pull-left[
+- Embora eu não observe `\(U\)`, é possível simular seu efeito em uma aplicação real (e.g., Rosenbaum, 2014)
+]
+
+--
+
+.pull-right[
+- Com isso, conseguimos estimar o quão plausível é o efeito que estimamos
+]
+
+--
+
+Em aplicações com seleção em observáveis explícita (e.g., Mazumder, 2018), isso é cada vez mais comum.
+
+
+
+---
+class: inverse, middle, center
+
+&lt;html&gt;
+  &lt;div style='float:left'&gt;&lt;/div&gt;
+  &lt;div style='color: #7d5b38; font-size: 48px; font-family: Roboto;'&gt;Tarefa final&lt;/div&gt;
+  &lt;hr color='#7d5b38' size=1px width=640px&gt;
+&lt;/html&gt; 
+
+
+
+
+---
+# Referências
+
+Angrist, J. D. and A. B. Krueger (1992). _Estimating the payoff to
+schooling using the Vietnam-era draft lottery_. National bureau of
+economic research.
+
+Bueno, N. S. (2018). "Bypassing the enemy: Distributive politics,
+credit claiming, and nonstate organizations in brazil". In:
+_Comparative Political Studies_ 51.3, pp. 304-340.
+
+Gerber, A. S, D. P. Green, and R. Shachar (2003). "Voting may be
+habit-forming: evidence from a randomized field experiment". In:
+_American Journal of Political Science_ 47.3, pp. 540-550.
+
+Hall, A. B. (2016). "Systemic effects of campaign spending:
+evidence from corporate contribution bans in us state
+legislatures". In: _Political Science Research and Methods_ 4.2,
+pp. 343-359.
+
+Lupu, N. (2013). "Party brands and partisanship: Theory with
+evidence from a survey experiment in Argentina". In: _American
+Journal of Political Science_ 57.1, pp. 49-64.
+
+Mazumder, S. (2018). "The persistent effect of US civil rights
+protests on political attitudes". In: _American Journal of
+Political Science_ 62.4, pp. 922-935.
+
+Miguel, E, S. Satyanath, and E. Sergenti (2004). "Economic shocks
+and civil conflict: An instrumental variables approach". In:
+_Journal of political Economy_ 112.4, pp. 725-753.
+
+Rosenbaum, P. R. (2014). "Sensitivity analysis in observational
+studies". In: _Wiley StatsRef: Statistics Reference Online_.
+
+TraunmÃ¼ller, R, S. Kijewski, and M. Freitag (2019). "The Silent
+Victims of Sexual Violence during War: Evidence from a List
+Experiment in Sri Lanka". In: _Journal of conflict resolution_, p.
+0022002719828053.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

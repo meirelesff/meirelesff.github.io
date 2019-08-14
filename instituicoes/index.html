@@ -398,8 +398,8 @@ $(document).ready(function () {
 @import url('https://fonts.googleapis.com/css?family=Roboto:900&display=swap');
 
 h1, .h1 {
-font-family: 'Roboto', 'Raleway', sans-serif;
-font-weight: 900;
+    font-family: 'Roboto', 'Raleway', sans-serif;
+    font-weight: 900;
 }
 
 h1.title {
@@ -413,30 +413,40 @@ h4.author {
 }
 
 h2, h3, .h2, .h3, h4, .h4 {
-color: #7d5b38;
+    color: #7d5b38;
 }
 
-a {
-color: #7d5b38;
+a, a > code {
+    color: #7d5b38;
+}
+
+
+a, a:visited {
+    box-shadow: inset 0 -2px 0 #7d5b38;
+}
+
+a:hover, a:focus {
+    background: #DFD7CF;
 }
 
 a:visited {
-color: #7d5b38;
-text-decoration: none;
+    color: #7d5b38;
+    text-decoration: none;
 }
 
 a:link {
-color: #7d5b38;
-text-decoration: none;
+    color: #7d5b38;
+    text-decoration: none;
 }
 
 a:hover {
-color: #483520;
-text-decoration: underline;
+    color: #483520;
+    text-decoration: underline;
 }
 
-
-
+.table {
+    width: 40%;
+}
 </style>
 <div id="materiais" class="section level3">
 <h3>Materiais</h3>
@@ -449,13 +459,41 @@ text-decoration: underline;
 </div>
 <div id="encontros" class="section level3">
 <h3>Encontros</h3>
-<p>Tentativamente, segue um cronograma para os nossos primeiros encontros:</p>
+<p>Tentativamente, segue um cronograma inicial, e ainda incompleto, para dos nossos primeiros encontros:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Aula</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Apresentação</td>
+<td>14/8</td>
+</tr>
+<tr class="even">
+<td>Aula 1</td>
+<td>21/8</td>
+</tr>
+<tr class="odd">
+<td>Aula 2</td>
+<td>28/8</td>
+</tr>
+<tr class="even">
+<td>Aula 3</td>
+<td>4/9</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="datas" class="section level3">
+<h3>Datas</h3>
+<p>Ainda podendo ser alterada, a data de entrega da resenha na pasta do Drive (<code>5_resenhas</code>) deverá ser feita em:</p>
 <ul>
-<li>Apresentação, 14/8;</li>
-<li>Aula 1, 21/8;</li>
-<li>Aula 2, 28/8;</li>
-<li>Aula 3, 4/9; …</li>
+<li>13/10 (segundo domingo de outubro, até às 23h59)</li>
 </ul>
+<p><br> <br></p>
 </div>
 
 

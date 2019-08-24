@@ -30,37 +30,35 @@
 &lt;p&gt;Acaba de ser aceito no CRAN um pacote que &lt;a href=&#34;https://github.com/silvadenisson&#34; target=&#34;_blank&#34;&gt;Denisson
 Silva&lt;/a&gt;, &lt;a href=&#34;https://github.com/antrologos&#34; target=&#34;_blank&#34;&gt;Rogério
 Barbosa&lt;/a&gt; e eu decidimos criar há algum
-tempo: o rscilo.&lt;/p&gt;
-
-&lt;p&gt;O pacote é um &lt;em&gt;scraper&lt;/em&gt; para extrair rapidamente diversos tipos de
-informação de periódicos hospedados no &lt;a href=&#34;https://www.scielo.org&#34; target=&#34;_blank&#34;&gt;Scientific Electronic Library
-Online&lt;/a&gt;, popularmente conhecido como Scielo. Por
-meio dele, é possível coletar desde metadados, como número de autores e
-&lt;em&gt;abstract&lt;/em&gt;, de todos os artigos já publicados por um determinado
+tempo: o &lt;a href=&#34;https://cran.r-project.org/package=rscielo&#34; target=&#34;_blank&#34;&gt;rscielo&lt;/a&gt;. Resumidamente, o pacote é um &lt;em&gt;scraper&lt;/em&gt; para extrair
+informações de periódicos hospedados no &lt;a href=&#34;https://www.scielo.org&#34; target=&#34;_blank&#34;&gt;Scientific Electronic Library
+Online&lt;/a&gt;, Scielo. Por
+meio dele, é possível coletar metadados, número de autores e
+&lt;em&gt;abstract&lt;/em&gt; de todos os artigos já publicados por um determinado
 periódico; contagem de citações recebidas e dadas; texto integral de
-artigos e resenhas em formato adequado para &lt;em&gt;text mining&lt;/em&gt;; entre outras.
-Todas as informações são retiradas diretamente do repositório do Scielo
+artigos e resenhas em formato adequado para &lt;em&gt;text mining&lt;/em&gt;; entre inúmeras outras.
+Todas essas informações são retiradas diretamente do repositório do Scielo
 e organizadas em formato de banco de dados (i.e. &lt;code&gt;data.frame&lt;/code&gt; e
-&lt;code&gt;tibble&lt;/code&gt;), que podem ser facilmente analisados ou exportados para
+&lt;code&gt;tibble&lt;/code&gt;), facilitando a análise e exportação para
 qualquer formato.&lt;/p&gt;
 
 &lt;h1 id=&#34;como-usar&#34;&gt;Como usar&lt;/h1&gt;
 
-&lt;p&gt;Usar o &lt;code&gt;rscielo&lt;/code&gt; para obter dados e metadados de publicações é simples.
+&lt;p&gt;Usar o &lt;code&gt;rscielo&lt;/code&gt; é bastante simples.
 Antes de mais nada, é necessário instalá-lo, o que pode ser feito a
 partir do console com:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;rscielo&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Ou, para instalar a versão &lt;em&gt;pre-release&lt;/em&gt; no
-&lt;a href=&#34;https://github.com/meirelesff/rscielo&#34; target=&#34;_blank&#34;&gt;GitHub&lt;/a&gt;, com:&lt;/p&gt;
+&lt;p&gt;Alternativamente, use o seguinte código para instalar a versão &lt;em&gt;pre-release&lt;/em&gt; no
+&lt;a href=&#34;https://github.com/meirelesff/rscielo&#34; target=&#34;_blank&#34;&gt;GitHub&lt;/a&gt;:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;if(!require(remotes)) install.packages(&amp;quot;remotes&amp;quot;)
 remotes::install_github(&amp;quot;meirelesff/rscielo&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;Com o pacote devidamente instalado, podemos extrair metadados de todos
+&lt;p&gt;Com o pacote instalado, podemos extrair metadados de todos
 os artigos publicados na última edição de um periódico qualquer com a
 função &lt;code&gt;get_journal&lt;/code&gt;. Por exemplo, o código a seguir retorna um banco
 com informações da última edição da &lt;a href=&#34;http://www.scielo.br/scielo.php?script=sci_serial&amp;amp;pid=0103-3352&amp;amp;lng=en&amp;amp;nrm=iso&#34; target=&#34;_blank&#34;&gt;Revista Brasileira de Ciência

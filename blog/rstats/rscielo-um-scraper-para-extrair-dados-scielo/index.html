@@ -28,8 +28,7 @@
   
     
   
-  <meta name="description" content="Acaba de ser aceito no CRAN um pacote que Denisson Silva, Rogério Barbosa e eu decidimos criar há algum tempo: o rscilo.
-O pacote é um scraper para extrair rapidamente diversos tipos de informação de periódicos hospedados no Scientific Electronic Library Online, popularmente conhecido como Scielo. Por meio dele, é possível coletar desde metadados, como número de autores e abstract, de todos os artigos já publicados por um determinado periódico; contagem de citações recebidas e dadas; texto integral de artigos e resenhas em formato adequado para text mining; entre outras.">
+  <meta name="description" content="Acaba de ser aceito no CRAN um pacote que Denisson Silva, Rogério Barbosa e eu decidimos criar há algum tempo: o rscielo. Resumidamente, o pacote é um scraper para extrair informações de periódicos hospedados no Scientific Electronic Library Online, Scielo. Por meio dele, é possível coletar metadados, número de autores e abstract de todos os artigos já publicados por um determinado periódico; contagem de citações recebidas e dadas; texto integral de artigos e resenhas em formato adequado para text mining; entre inúmeras outras.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://fmeireles.com/blog/rstats/rscielo-um-scraper-para-extrair-dados-scielo/">
@@ -135,8 +134,7 @@ O pacote é um scraper para extrair rapidamente diversos tipos de informação d
   <meta property="og:site_name" content="Fernando Meireles">
   <meta property="og:url" content="https://fmeireles.com/blog/rstats/rscielo-um-scraper-para-extrair-dados-scielo/">
   <meta property="og:title" content="rscielo: um scraper em R para extrair informações do Scielo | Fernando Meireles">
-  <meta property="og:description" content="Acaba de ser aceito no CRAN um pacote que Denisson Silva, Rogério Barbosa e eu decidimos criar há algum tempo: o rscilo.
-O pacote é um scraper para extrair rapidamente diversos tipos de informação de periódicos hospedados no Scientific Electronic Library Online, popularmente conhecido como Scielo. Por meio dele, é possível coletar desde metadados, como número de autores e abstract, de todos os artigos já publicados por um determinado periódico; contagem de citações recebidas e dadas; texto integral de artigos e resenhas em formato adequado para text mining; entre outras."><meta property="og:image" content="https://fmeireles.com/img/icon-192.png">
+  <meta property="og:description" content="Acaba de ser aceito no CRAN um pacote que Denisson Silva, Rogério Barbosa e eu decidimos criar há algum tempo: o rscielo. Resumidamente, o pacote é um scraper para extrair informações de periódicos hospedados no Scientific Electronic Library Online, Scielo. Por meio dele, é possível coletar metadados, número de autores e abstract de todos os artigos já publicados por um determinado periódico; contagem de citações recebidas e dadas; texto integral de artigos e resenhas em formato adequado para text mining; entre inúmeras outras."><meta property="og:image" content="https://fmeireles.com/img/icon-192.png">
   <meta property="og:locale" content="en-us">
   
   <meta property="article:published_time" content="2019-08-23T00:00:00&#43;00:00">
@@ -407,7 +405,7 @@ O pacote é um scraper para extrair rapidamente diversos tipos de informação d
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    5 min read
+    4 min read
   </span>
   
 
@@ -504,37 +502,35 @@ O pacote é um scraper para extrair rapidamente diversos tipos de informação d
 <p>Acaba de ser aceito no CRAN um pacote que <a href="https://github.com/silvadenisson" target="_blank">Denisson
 Silva</a>, <a href="https://github.com/antrologos" target="_blank">Rogério
 Barbosa</a> e eu decidimos criar há algum
-tempo: o rscilo.</p>
-
-<p>O pacote é um <em>scraper</em> para extrair rapidamente diversos tipos de
-informação de periódicos hospedados no <a href="https://www.scielo.org" target="_blank">Scientific Electronic Library
-Online</a>, popularmente conhecido como Scielo. Por
-meio dele, é possível coletar desde metadados, como número de autores e
-<em>abstract</em>, de todos os artigos já publicados por um determinado
+tempo: o <a href="https://cran.r-project.org/package=rscielo" target="_blank">rscielo</a>. Resumidamente, o pacote é um <em>scraper</em> para extrair
+informações de periódicos hospedados no <a href="https://www.scielo.org" target="_blank">Scientific Electronic Library
+Online</a>, Scielo. Por
+meio dele, é possível coletar metadados, número de autores e
+<em>abstract</em> de todos os artigos já publicados por um determinado
 periódico; contagem de citações recebidas e dadas; texto integral de
-artigos e resenhas em formato adequado para <em>text mining</em>; entre outras.
-Todas as informações são retiradas diretamente do repositório do Scielo
+artigos e resenhas em formato adequado para <em>text mining</em>; entre inúmeras outras.
+Todas essas informações são retiradas diretamente do repositório do Scielo
 e organizadas em formato de banco de dados (i.e. <code>data.frame</code> e
-<code>tibble</code>), que podem ser facilmente analisados ou exportados para
+<code>tibble</code>), facilitando a análise e exportação para
 qualquer formato.</p>
 
 <h1 id="como-usar">Como usar</h1>
 
-<p>Usar o <code>rscielo</code> para obter dados e metadados de publicações é simples.
+<p>Usar o <code>rscielo</code> é bastante simples.
 Antes de mais nada, é necessário instalá-lo, o que pode ser feito a
 partir do console com:</p>
 
 <pre><code class="language-r">install.packages(&quot;rscielo&quot;)
 </code></pre>
 
-<p>Ou, para instalar a versão <em>pre-release</em> no
-<a href="https://github.com/meirelesff/rscielo" target="_blank">GitHub</a>, com:</p>
+<p>Alternativamente, use o seguinte código para instalar a versão <em>pre-release</em> no
+<a href="https://github.com/meirelesff/rscielo" target="_blank">GitHub</a>:</p>
 
 <pre><code class="language-r">if(!require(remotes)) install.packages(&quot;remotes&quot;)
 remotes::install_github(&quot;meirelesff/rscielo&quot;)
 </code></pre>
 
-<p>Com o pacote devidamente instalado, podemos extrair metadados de todos
+<p>Com o pacote instalado, podemos extrair metadados de todos
 os artigos publicados na última edição de um periódico qualquer com a
 função <code>get_journal</code>. Por exemplo, o código a seguir retorna um banco
 com informações da última edição da <a href="http://www.scielo.br/scielo.php?script=sci_serial&amp;pid=0103-3352&amp;lng=en&amp;nrm=iso" target="_blank">Revista Brasileira de Ciência

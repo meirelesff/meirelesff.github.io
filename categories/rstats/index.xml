@@ -18,8 +18,7 @@
       <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
       
       <guid>https://fmeireles.com/blog/rstats/rscielo-um-scraper-para-extrair-dados-scielo/</guid>
-      <description>Acaba de ser aceito no CRAN um pacote que Denisson Silva, Rogério Barbosa e eu decidimos criar há algum tempo: o rscilo.
-O pacote é um scraper para extrair rapidamente diversos tipos de informação de periódicos hospedados no Scientific Electronic Library Online, popularmente conhecido como Scielo. Por meio dele, é possível coletar desde metadados, como número de autores e abstract, de todos os artigos já publicados por um determinado periódico; contagem de citações recebidas e dadas; texto integral de artigos e resenhas em formato adequado para text mining; entre outras.</description>
+      <description>Acaba de ser aceito no CRAN um pacote que Denisson Silva, Rogério Barbosa e eu decidimos criar há algum tempo: o rscielo. Resumidamente, o pacote é um scraper para extrair informações de periódicos hospedados no Scientific Electronic Library Online, Scielo. Por meio dele, é possível coletar metadados, número de autores e abstract de todos os artigos já publicados por um determinado periódico; contagem de citações recebidas e dadas; texto integral de artigos e resenhas em formato adequado para text mining; entre inúmeras outras.</description>
     </item>
     
     <item>

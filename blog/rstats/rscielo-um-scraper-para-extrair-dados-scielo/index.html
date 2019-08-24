@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.1.0">
+  <meta name="generator" content="Hugo 0.54.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Fernando Meireles">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Acaba de ser aceito no CRAN um pacote que Denisson Silva, Rogério Barbosa e eu decidimos criar há algum tempo: o rscilo.
+O pacote é um scraper para extrair rapidamente diversos tipos de informação de periódicos hospedados no Scientific Electronic Library Online, popularmente conhecido como Scielo. Por meio dele, é possível coletar desde metadados, como número de autores e abstract, de todos os artigos já publicados por um determinado periódico; contagem de citações recebidas e dadas; texto integral de artigos e resenhas em formato adequado para text mining; entre outras.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://fmeireles.com/blog/rstats/rscielo-um-scraper-para-extrair-dados-scielo/">
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#A37E58">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/rainbow.min.css" crossorigin="anonymous">
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,700|Roboto:400,400italic,700|Roboto+Mono">
+  
+
+  <link rel="stylesheet" href="https://fmeireles.com/styles.css">
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-80581604-1', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+  <link rel="alternate" href="https://fmeireles.com/index.xml" type="application/rss+xml" title="Fernando Meireles">
+  <link rel="feed" href="https://fmeireles.com/index.xml" type="application/rss+xml" title="Fernando Meireles">
+  
+
+  <link rel="manifest" href="https://fmeireles.com/site.webmanifest">
+  <link rel="icon" type="image/png" href="https://fmeireles.com/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="https://fmeireles.com/img/icon-192.png">
+
+  <link rel="canonical" href="https://fmeireles.com/blog/rstats/rscielo-um-scraper-para-extrair-dados-scielo/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="twitter:site" content="@meirelesff">
+  <meta property="twitter:creator" content="@meirelesff">
+  
+  <meta property="og:site_name" content="Fernando Meireles">
+  <meta property="og:url" content="https://fmeireles.com/blog/rstats/rscielo-um-scraper-para-extrair-dados-scielo/">
+  <meta property="og:title" content="rscielo: um scraper em R para extrair informações do Scielo | Fernando Meireles">
+  <meta property="og:description" content="Acaba de ser aceito no CRAN um pacote que Denisson Silva, Rogério Barbosa e eu decidimos criar há algum tempo: o rscilo.
+O pacote é um scraper para extrair rapidamente diversos tipos de informação de periódicos hospedados no Scientific Electronic Library Online, popularmente conhecido como Scielo. Por meio dele, é possível coletar desde metadados, como número de autores e abstract, de todos os artigos já publicados por um determinado periódico; contagem de citações recebidas e dadas; texto integral de artigos e resenhas em formato adequado para text mining; entre outras."><meta property="og:image" content="https://fmeireles.com/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2019-08-23T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2019-08-23T00:00:00&#43;00:00">
+  
+
+  
+
+  
+
+  <title>rscielo: um scraper em R para extrair informações do Scielo | Fernando Meireles</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="https://fmeireles.com/">Fernando Meireles</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/cv">
+            
+            <span>CV</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/research">
+            
+            <span>Research</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/teaching">
+            
+            <span>Teaching</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/software">
+            
+            <span>Software</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/data">
+            
+            <span>Data</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://fmeireles.com/blog">
+            
+            <span>Blog</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1 itemprop="name">rscielo: um scraper em R para extrair informações do Scielo</h1>
+
+  
+
+  
+    
+
+
+
+<meta content="2019-08-23 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2019-08-23 00:00:00 &#43;0000 UTC" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+      <span itemprop="name">
+        
+
+      
+      
+      
+        <a href="https://fmeireles.com/authors/admin/">Fernando Meireles</a></span></span>
+  
+
+
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>Aug 23, 2019</time>
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    
+    <a href="https://fmeireles.com/categories/rstats/">rstats</a>, 
+    
+    <a href="https://fmeireles.com/categories/rscielo/">rscielo</a>
+    
+  </span>
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=rscielo%3a%20um%20scraper%20em%20R%20para%20extrair%20informa%c3%a7%c3%b5es%20do%20Scielo&amp;url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2frscielo-um-scraper-para-extrair-dados-scielo%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2frscielo-um-scraper-para-extrair-dados-scielo%2f"
+         target="_blank" rel="noopener">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2frscielo-um-scraper-para-extrair-dados-scielo%2f&amp;title=rscielo%3a%20um%20scraper%20em%20R%20para%20extrair%20informa%c3%a7%c3%b5es%20do%20Scielo"
+         target="_blank" rel="noopener">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2frscielo-um-scraper-para-extrair-dados-scielo%2f&amp;title=rscielo%3a%20um%20scraper%20em%20R%20para%20extrair%20informa%c3%a7%c3%b5es%20do%20Scielo"
+         target="_blank" rel="noopener">
+        <i class="fab fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=rscielo%3a%20um%20scraper%20em%20R%20para%20extrair%20informa%c3%a7%c3%b5es%20do%20Scielo&amp;body=https%3a%2f%2ffmeireles.com%2fblog%2frstats%2frscielo-um-scraper-para-extrair-dados-scielo%2f">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<p>Acaba de ser aceito no CRAN um pacote que <a href="https://github.com/silvadenisson" target="_blank">Denisson
+Silva</a>, <a href="https://github.com/antrologos" target="_blank">Rogério
+Barbosa</a> e eu decidimos criar há algum
+tempo: o rscilo.</p>
+
+<p>O pacote é um <em>scraper</em> para extrair rapidamente diversos tipos de
+informação de periódicos hospedados no <a href="https://www.scielo.org" target="_blank">Scientific Electronic Library
+Online</a>, popularmente conhecido como Scielo. Por
+meio dele, é possível coletar desde metadados, como número de autores e
+<em>abstract</em>, de todos os artigos já publicados por um determinado
+periódico; contagem de citações recebidas e dadas; texto integral de
+artigos e resenhas em formato adequado para <em>text mining</em>; entre outras.
+Todas as informações são retiradas diretamente do repositório do Scielo
+e organizadas em formato de banco de dados (i.e. <code>data.frame</code> e
+<code>tibble</code>), que podem ser facilmente analisados ou exportados para
+qualquer formato.</p>
+
+<h1 id="como-usar">Como usar</h1>
+
+<p>Usar o <code>rscielo</code> para obter dados e metadados de publicações é simples.
+Antes de mais nada, é necessário instalá-lo, o que pode ser feito a
+partir do console com:</p>
+
+<pre><code class="language-r">install.packages(&quot;rscielo&quot;)
+</code></pre>
+
+<p>Ou, para instalar a versão <em>pre-release</em> no
+<a href="https://github.com/meirelesff/rscielo" target="_blank">GitHub</a>, com:</p>
+
+<pre><code class="language-r">if(!require(remotes)) install.packages(&quot;remotes&quot;)
+remotes::install_github(&quot;meirelesff/rscielo&quot;)
+</code></pre>
+
+<p>Com o pacote devidamente instalado, podemos extrair metadados de todos
+os artigos publicados na última edição de um periódico qualquer com a
+função <code>get_journal</code>. Por exemplo, o código a seguir retorna um banco
+com informações da última edição da <a href="http://www.scielo.br/scielo.php?script=sci_serial&amp;pid=0103-3352&amp;lng=en&amp;nrm=iso" target="_blank">Revista Brasileira de Ciência
+Política</a>:</p>
+
+<pre><code class="language-r"># Carrega o pacote
+library(rscielo)
+
+# Baixa dados da ultima edicao da RBCP
+ult_edicao &lt;- get_journal(&quot;0103-3352&quot;)
+</code></pre>
+
+<pre><code>## 
+## 
+## Scraping data from: Revista Brasileira de Ciência Política
+## 
+## May take a while...
+
+## 
+## Done.
+</code></pre>
+
+<p>Poucos segundos depois, todos os metadados dos 8 artigos publicados na
+última edição da RBCP são recuperados. Ao todo, <code>get_journal</code> extrai 23
+variáveis, incluindo nome das autoras, título dos artigos, <em>abstract</em> em
+diferentes línguas, número de páginas, entre outras informações úteis
+para análises bibliométricas e para revisões sistemáticas de literatura.</p>
+
+<p>Para ter um panorama do banco, <code>rscielo</code> também inclui um método
+<code>summary</code> que pode ser usado assim:</p>
+
+<pre><code class="language-r">summary(ult_edicao)
+</code></pre>
+
+<pre><code>## 
+## ### JOURNAL: Revista Brasileira de Ciência Política
+## 
+## 
+##  Total number of articles:  8 
+##  Total number of articles (reviews excluded):  7
+## 
+##  Mean number of authors per article:  2 
+##  Mean number of pages per article:  31.29
+</code></pre>
+
+<p>A única informação que deve ser passada para <code>get_journal</code>, e para a
+maioria das outras do pacote, é o ISSN do periódico de interesse
+hospedado no Scielo. Caso não saiba como obter essa informação (o ISSN
+normalmente pode ser encontrado na <em>home</em> de cada periódico), use
+<code>get_journal_list</code> para obter uma lista de todos os periódicos mantidos
+pelo Scielo e seus respectivos ISSN.</p>
+
+<pre><code class="language-r">get_journal_list()
+</code></pre>
+
+<p>Especificando o argumento <code>last_issue = FALSE</code>, também é possível usar
+<code>get_journal</code> para baixar metadados de todos os artigos já publicados
+por um periódico:</p>
+
+<pre><code class="language-r">bpsr &lt;- get_journal(&quot;0103-3352&quot;, last_issue = FALSE)
+</code></pre>
+
+<h1 id="outras-funcionalidades">Outras funcionalidades</h1>
+
+<h2 id="artigos">Artigos</h2>
+
+<p>Para além das funções <code>_journal</code>, o <code>rscielo</code> também permite pegar
+metadados, texto integral, referências bibliográficas e notas de rodapé
+de qualquer artigo hospedado na plataforma Scielo. Com a URL do artigo
+desejado, basta usar:</p>
+
+<pre><code class="language-r"># Metadados de um artigo
+get_article_meta(&quot;http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-33522019000100007&quot;)
+
+#Texto de um artigo
+get_article(&quot;http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-33522019000100007&quot;)
+
+# Notas de um artigo
+get_article_footnotes(&quot;http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-33522019000100007&quot;)
+
+# Bibliografia de um artigo
+get_article_references(&quot;http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-33522019000100007&quot;)
+</code></pre>
+
+<p>Em todas essas funções <code>_article</code>, também é possível passar o ID do
+artigo que se quer raspar. Nos exemplos acima, essa informação pode ser
+encontrada depois de <code>&amp;pid=</code> (i.e., <code>S0103-33522019000100007</code>), ou
+obtida por meio da função
+<code>get_article_id</code>:</p>
+
+<pre><code class="language-r">get_article_id(&quot;http://www.scielo.br/scielo.php?script=sci_arttext&amp;pid=S0103-33522019000100007&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;S0103-33522019000100007&quot;
+</code></pre>
+
+<p>Por padrão, a função <code>get_journal</code> já retorna o ID de cada um dos
+artigos obtidos.</p>
+
+<h2 id="citações">Citações</h2>
+
+<p>Para saber quantas citações um determinado periódico recebeu ou concedeu
+ao longo do tempo, o <code>rscielo</code> a função <code>get_journal_metrics</code>.</p>
+
+<pre><code class="language-r"># Citacoes da RBCP
+cit &lt;- get_journal_metrics(&quot;0103-3352&quot;)
+</code></pre>
+
+<p>Com esses dados salvos, podemos usar o método <code>plot</code> para uma
+visualização
+rápida:</p>
+
+<pre><code class="language-r">plot(cit)
+</code></pre>
+
+<p><img src="https://fmeireles.com/figs/citacoes_rbcp-1.png" style="display: block; margin: auto;" /></p>
+
+<h2 id="um-resumo">Um resumo</h2>
+
+<p>Esses são alguns dos usos do <code>rscielo</code> para extrair dados e metadados de
+publicações. Para saber mais sobre ele funciona, consulte a
+<a href="https://cran.r-project.org/package=rscielo" target="_blank">documentação oficial</a> e a
+<a href="https://github.com/meirelesff/rscielo" target="_blank">home dele no Github</a>, ou dê uma
+olhada na tabela abaixo, que resume o que cada uma de suas funções
+faz:</p>
+
+<table>
+<thead>
+<tr>
+<th align="left">Função</th>
+<th align="left">Dados</th>
+<th align="left">Uso</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left"><code>get_article</code></td>
+<td align="left">Conteúdo de artigos</td>
+<td align="left"><code>get_article(id_artigo)</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>get_article_footnotes</code></td>
+<td align="left">Notas de artigos</td>
+<td align="left"><code>get_article_footnotes(id_artigo)</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>get_article_id</code></td>
+<td align="left">ID de artigos</td>
+<td align="left"><code>get_article_id(url_artigo)</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>get_article_meta</code></td>
+<td align="left">Metadados de artigos</td>
+<td align="left"><code>get_article_meta(id_artigo)</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>get_article_references</code></td>
+<td align="left">Bibliografia de artigos</td>
+<td align="left"><code>get_article_references(id_artigo)</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>get_journal</code></td>
+<td align="left">Metadados de artigos</td>
+<td align="left"><code>get_journal(issn)</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>get_journal_id</code></td>
+<td align="left">ISSN de periódico</td>
+<td align="left"><code>get_journal_if(url_periodico)</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>get_journal_info</code></td>
+<td align="left">Descrição de periódico</td>
+<td align="left"><code>get_journal_info(issn)</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>get_journal_metrics</code></td>
+<td align="left">Citações de periódico</td>
+<td align="left"><code>get_journal_metrics(issn)</code></td>
+</tr>
+
+<tr>
+<td align="left"><code>get_journal_lista</code></td>
+<td align="left">Lista de periódico</td>
+<td align="left"><code>get_journal_list()</code></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="sobre-os-dados">Sobre os dados</h2>
+
+<p>Enquanto trabalhávamos no <code>rscielo</code>, tivemos que lidar inúmeras vezes
+com informações incompletas e erros de formatação nos dados contidos na
+base do Scielo. Em muitos casos, isso ocorre por razões diretas – quando
+um periódico não inclui determinadas informações, ou quando as inclui
+sem seguir uma formatação adequada. Em outros casos, problemas podem
+ocorrer quando se tenta extrair o texto de um artigo apenas disponível
+em formato PDF, por exemplo. Por todas essas razões, cautela é
+necessária ao usar o <code>rscielo</code> em análises ou publicações.</p>
+
+<h1 id="final">Final</h1>
+
+<p>Com o <code>rscielo</code>, agora é possível obter em pouco tempo milhares de
+informações que podem ajudar pesquisadoras e estudantes a realizar
+análises bibliográficas, revisões sistemáticas, <em>text minining</em>
+aplicado à atividade científica, entre outros. Como essa é a primeira
+versão do <code>rscielo</code>, certamente ainda há bastante espaço para
+implementar novas funcionalidade e melhorar as já existentes. Críticas e
+sugestões, nesse sentido, são bem-vindas.</p>
+
+    </div>
+
+    
+
+
+
+
+
+    
+      
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+
+
+<div class="media author-card" itemscope itemtype="http://schema.org/Person">
+  
+  <img class="portrait mr-3" src="https://s.gravatar.com/avatar/635d6702474b49febd57319879c244db?s=200')" itemprop="image" alt="Avatar">
+  
+
+  <div class="media-body">
+    <h5 class="card-title" itemprop="name"><a href="https://fmeireles.com/authors/admin">Fernando Meireles</a></h5>
+    <h6 class="card-subtitle">Postdoc in Political Science</h6>
+    <p class="card-text" itemprop="description">Postdoctoral Fellow in Political Science at <a href="http://www.iesp.uerj.br/" target="_blank">IESP-UERJ</a>. Studying comparative politics and political methodology.</p>
+    <ul class="network-icon" aria-hidden="true">
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      <li>
+        <a itemprop="sameAs" href="mailto:fmeireles@ufmg.br" >
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://twitter.com/meirelesff" target="_blank" rel="noopener">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://scholar.google.com.br/citations?user=hMma3BsAAAAJ" target="_blank" rel="noopener">
+          <i class="ai ai-google-scholar"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="http://orcid.org/0000-0002-7027-2058" target="_blank" rel="noopener">
+          <i class="ai ai-orcid"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a itemprop="sameAs" href="https://github.com/meirelesff" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+
+      
+      
+    
+
+    
+
+    
+
+
+  </div>
+</article>
+
+<div class="container">
+  
+</div>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha512-+NqPlbbtM1QqiK8ZAo4Yrj2c4lNQoGv8P79DPtKzj++l5jnN39rHA/xsqn8zE9l0uSoxaCdrOgFs6yjyfbBxSg==" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha256-VsEqElsCHSGmnmHXGQzvoWjWwoznFSZc6hs7ARLRacQ=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/html.min.js"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="https://fmeireles.com/js/academic.min.76a41a243fcea75defe7d35a07d3aaa3.js"></script>
+
+  </body>
+</html>
+

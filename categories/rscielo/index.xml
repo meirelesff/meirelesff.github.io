@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rscielo on Fernando Meireles</title>
+    <link>https://fmeireles.com/categories/rscielo/</link>
+    <description>Recent content in rscielo on Fernando Meireles</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 Fernando Meireles</copyright>
+    <lastBuildDate>Fri, 23 Aug 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://fmeireles.com/categories/rscielo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>rscielo: um scraper em R para extrair informações do Scielo</title>
+      <link>https://fmeireles.com/blog/rstats/rscielo-um-scraper-para-extrair-dados-scielo/</link>
+      <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/rstats/rscielo-um-scraper-para-extrair-dados-scielo/</guid>
+      <description>Acaba de ser aceito no CRAN um pacote que Denisson Silva, Rogério Barbosa e eu decidimos criar há algum tempo: o rscilo.
+O pacote é um scraper para extrair rapidamente diversos tipos de informação de periódicos hospedados no Scientific Electronic Library Online, popularmente conhecido como Scielo. Por meio dele, é possível coletar desde metadados, como número de autores e abstract, de todos os artigos já publicados por um determinado periódico; contagem de citações recebidas e dadas; texto integral de artigos e resenhas em formato adequado para text mining; entre outras.</description>
+    </item>
+    
+  </channel>
+</rss>

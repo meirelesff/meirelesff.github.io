@@ -409,6 +409,7 @@ h1.title {
 
 body {
     font-family: 'Work Sans';
+    font-size: 21px;
 }
 
 h1, .h1 {
@@ -419,17 +420,48 @@ h1, .h1 {
     color: #000;
 }
 
+h2, .h2 {
+    font-size: 34px;
+}
+
+h3, .h3 {
+    font-size: 24px;
+}
+
 a, a:hover, a:active, a:visited, a:focus {
     color: #28a745;
+}
+
+p {
+    margin: 0 0 4px;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+    margin-top: 22px;
+    margin-bottom: 19px;
+}
+
+.progress-bar {
+    background-color: #28a745;
+}
+
+.progress {
+    background-color: #72ba81;
+}
+
+.modal-body {
+    position: relative;
+    padding: 20px;
+    font-size: 16px;
 }
 
 </style>
 <div class="row">
 <div class="col-md-4">
-<img src="https://www.camara.leg.br/internet/deputado/bandep/178957.jpgmaior.jpg" alt="foto" style="float: left" class="agent-image"/>
+<img src="https://www.camara.leg.br/internet/deputado/bandep/74693.jpgmaior.jpg" alt="foto" style="float: left" class="agent-image"/>
 </div>
 <div class="col-md-8">
-<h1>Abel Mesquita Jr.</h1><h4>DEM/Roraima</h4><h4>
+<h1>Rodrigo Maia</h1><h4>DEM/Rio de Janeiro</h4><h4>
 <a href="https://www.camara.leg.br/deputados/178957/biografia" target="_blank">Biografia completa</a>
 </h4>
 </div>
@@ -437,38 +469,123 @@ a, a:hover, a:active, a:visited, a:focus {
 <p><br></p>
 <div class="row">
 <div class="col-md-6">
-<h3>
+<h2>
 Mudanças climáticas
+</h2>
+<p>
+Nota no ranking: <span class="label label-success"><b>0.19</b></span>
+</p>
+<p>
+Posição no ranking: <span class="label label-success"><b>160 / 455</b></span>
+</p>
+<p><br></p>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="modal-title">Scores</h4>
+</div>
+<div class="modal-body">Scores são notas de 0 a 1 que os parlamentares recebem
+         por suas atuações. Quando mais próximo de 1, mais favorável ao tema foram as ações de um parlamentar.</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Fechar</button>
+</div>
+</div>
+</div>
+</div>
+<h3>
+Scores <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></button>
 </h3>
+<div class="col-md-8">
 <h5>
-Nota: -1.11
-</h5>
-<h5>
-Posição no ranking: #217
+Emendas apresentadas
 </h5>
 <div class="progress">
-<div class="progress-bar progress-bar-success" style="width: 54.4%;">
-
+<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 11%;">
+0.11
+</div>
+</div>
+<h5>
+Discursos proferidos
+</h5>
+<div class="progress">
+<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 52%;">
+0.52
+</div>
+</div>
+<h5>
+Votos em plenário
+</h5>
+<div class="progress">
+<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+0.45
+</div>
 </div>
 </div>
 </div>
 <div class="col-md-6">
-<h3>
+<h2>
 Ciência e Tecnologia
+</h2>
+<p>
+Nota no ranking: <span class="label label-success"><b>-0.56</b></span>
+</p>
+<p>
+Posição no ranking: <span class="label label-success"><b>131 / 511</b></span>
+</p>
+<p><br></p>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-title">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+<h4 class="modal-title" id="modal-title">Scores</h4>
+</div>
+<div class="modal-body">Scores são notas de 0 a 1 que os parlamentares recebem
+         por suas atuações. Quando mais próximo de 1, mais favorável ao tema foram as ações de um parlamentar.</div>
+<div class="modal-footer">
+<button class="btn btn-default" data-dismiss="modal">Fechar</button>
+</div>
+</div>
+</div>
+</div>
+<h3>
+Scores <button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal" data-target="#modal"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></button>
 </h3>
+<div class="col-md-8">
 <h5>
-Nota: -3.96
-</h5>
-<h5>
-Posição no ranking: #335
+Emendas apresentadas
 </h5>
 <div class="progress">
-<div class="progress-bar progress-bar-success" style="width: 34.2%;">
-
+<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+0
+</div>
+</div>
+<h5>
+Discursos proferidos
+</h5>
+<div class="progress">
+<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 42%;">
+0.42
+</div>
+</div>
+<h5>
+Votos em plenário
+</h5>
+<div class="progress">
+<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 68%;">
+0.68
 </div>
 </div>
 </div>
 </div>
+</div>
+<p><br> <br> <br> <br> <br> <br></p>
 
 
 

@@ -540,7 +540,7 @@ a[data-fancybox] img {
   }
 
 .home-section:first-of-type {
-  padding-top: 50px;
+  padding-top: 20px;
 }
 
 .home-section:nth-of-type(even) {
@@ -751,7 +751,7 @@ margin-top: 30px;
 
 .network-icon li:hover {
   transform: scale(1.2);
-  transition: all 0.4s cubic-bezier(0.68, -0.01, 0.58, 1);
+  transition: all 0.1s cubic-bezier(0.68, -0.01, 0.58, 1);
 }
 
 .big-icon {
@@ -1731,7 +1731,7 @@ min-height: 70px !important;
 }
 
 .navbar-light {
-background: #554236 !important;
+background: #745a4a !important;
 box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.11)
 }
 
@@ -1757,10 +1757,10 @@ font-size: 15px;
 .navbar-light .navbar-nav>.nav-item>.nav-link:focus,
 .navbar-light .navbar-nav>.nav-item>.nav-link:hover {
 white-space: nowrap;
--webkit-transition: 0.2s ease;
-transition: 0.2s ease;
+-webkit-transition: 0.4s ease;
+transition: 0.4s ease;
 color: #fff;
-font-weight: 600;
+font-weight: 400;
 }
 
 .navbar-light .navbar-nav>.nav-item>.nav-link:focus {

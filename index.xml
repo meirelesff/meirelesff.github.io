@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2019 Fernando Meireles</copyright>
-    <lastBuildDate>Fri, 23 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 31 Dec 2018 23:00:00 -0300</lastBuildDate>
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
@@ -17,413 +17,6 @@
       
       <guid>https://fmeireles.com/blog/posts/</guid>
       <description></description>
-    </item>
-    
-    <item>
-      <title>rscielo: um scraper em R para extrair informações do Scielo</title>
-      <link>https://fmeireles.com/blog/rstats/rscielo-um-scraper-para-extrair-dados-scielo/</link>
-      <pubDate>Fri, 23 Aug 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://fmeireles.com/blog/rstats/rscielo-um-scraper-para-extrair-dados-scielo/</guid>
-      <description>
-
-&lt;p&gt;Acaba de ser aceito no CRAN um pacote que &lt;a href=&#34;https://github.com/silvadenisson&#34; target=&#34;_blank&#34;&gt;Denisson
-Silva&lt;/a&gt;, &lt;a href=&#34;https://github.com/antrologos&#34; target=&#34;_blank&#34;&gt;Rogério
-Barbosa&lt;/a&gt; e eu decidimos criar há algum
-tempo: o &lt;a href=&#34;https://cran.r-project.org/package=rscielo&#34; target=&#34;_blank&#34;&gt;rscielo&lt;/a&gt;. Resumidamente, o pacote é um &lt;em&gt;scraper&lt;/em&gt; para extrair
-informações de periódicos hospedados no &lt;a href=&#34;https://www.scielo.org&#34; target=&#34;_blank&#34;&gt;Scientific Electronic Library
-Online&lt;/a&gt;, Scielo. Por
-meio dele, é possível coletar metadados, número de autores e
-&lt;em&gt;abstract&lt;/em&gt; de todos os artigos já publicados por um determinado
-periódico; contagem de citações recebidas e dadas; texto integral de
-artigos e resenhas em formato adequado para &lt;em&gt;text mining&lt;/em&gt;; entre inúmeras outras.
-Todas essas informações são retiradas diretamente do repositório do Scielo
-e organizadas em formato de banco de dados (i.e. &lt;code&gt;data.frame&lt;/code&gt; e
-&lt;code&gt;tibble&lt;/code&gt;), facilitando a análise e exportação para
-qualquer formato.&lt;/p&gt;
-
-&lt;h1 id=&#34;como-usar&#34;&gt;Como usar&lt;/h1&gt;
-
-&lt;p&gt;Usar o &lt;code&gt;rscielo&lt;/code&gt; é bastante simples.
-Antes de mais nada, é necessário instalá-lo, o que pode ser feito a
-partir do console com:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;rscielo&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Alternativamente, use o seguinte código para instalar a versão &lt;em&gt;pre-release&lt;/em&gt; no
-&lt;a href=&#34;https://github.com/meirelesff/rscielo&#34; target=&#34;_blank&#34;&gt;GitHub&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;if(!require(remotes)) install.packages(&amp;quot;remotes&amp;quot;)
-remotes::install_github(&amp;quot;meirelesff/rscielo&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Com o pacote instalado, podemos extrair metadados de todos
-os artigos publicados na última edição de um periódico qualquer com a
-função &lt;code&gt;get_journal&lt;/code&gt;. Por exemplo, o código a seguir retorna um banco
-com informações da última edição da &lt;a href=&#34;http://www.scielo.br/scielo.php?script=sci_serial&amp;amp;pid=0103-3352&amp;amp;lng=en&amp;amp;nrm=iso&#34; target=&#34;_blank&#34;&gt;Revista Brasileira de Ciência
-Política&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote
-library(rscielo)
-
-# Baixa dados da ultima edicao da RBCP
-ult_edicao &amp;lt;- get_journal(&amp;quot;0103-3352&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## 
-## 
-## Scraping data from: Revista Brasileira de Ciência Política
-## 
-## May take a while...
-
-## 
-## Done.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Poucos segundos depois, todos os metadados dos 8 artigos publicados na
-última edição da RBCP são recuperados. Ao todo, &lt;code&gt;get_journal&lt;/code&gt; extrai 23
-variáveis, incluindo nome das autoras, título dos artigos, &lt;em&gt;abstract&lt;/em&gt; em
-diferentes línguas, número de páginas, entre outras informações úteis
-para análises bibliométricas e para revisões sistemáticas de literatura.&lt;/p&gt;
-
-&lt;p&gt;Para ter um panorama do banco, &lt;code&gt;rscielo&lt;/code&gt; também inclui um método
-&lt;code&gt;summary&lt;/code&gt; que pode ser usado assim:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;summary(ult_edicao)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## 
-## ### JOURNAL: Revista Brasileira de Ciência Política
-## 
-## 
-##  Total number of articles:  8 
-##  Total number of articles (reviews excluded):  7
-## 
-##  Mean number of authors per article:  2 
-##  Mean number of pages per article:  31.29
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;A única informação que deve ser passada para &lt;code&gt;get_journal&lt;/code&gt;, e para a
-maioria das outras do pacote, é o ISSN do periódico de interesse
-hospedado no Scielo. Caso não saiba como obter essa informação (o ISSN
-normalmente pode ser encontrado na &lt;em&gt;home&lt;/em&gt; de cada periódico), use
-&lt;code&gt;get_journal_list&lt;/code&gt; para obter uma lista de todos os periódicos mantidos
-pelo Scielo e seus respectivos ISSN.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_journal_list()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Especificando o argumento &lt;code&gt;last_issue = FALSE&lt;/code&gt;, também é possível usar
-&lt;code&gt;get_journal&lt;/code&gt; para baixar metadados de todos os artigos já publicados
-por um periódico:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bpsr &amp;lt;- get_journal(&amp;quot;0103-3352&amp;quot;, last_issue = FALSE)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;outras-funcionalidades&#34;&gt;Outras funcionalidades&lt;/h1&gt;
-
-&lt;h2 id=&#34;artigos&#34;&gt;Artigos&lt;/h2&gt;
-
-&lt;p&gt;Para além das funções &lt;code&gt;_journal&lt;/code&gt;, o &lt;code&gt;rscielo&lt;/code&gt; também permite pegar
-metadados, texto integral, referências bibliográficas e notas de rodapé
-de qualquer artigo hospedado na plataforma Scielo. Com a URL do artigo
-desejado, basta usar:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Metadados de um artigo
-get_article_meta(&amp;quot;http://www.scielo.br/scielo.php?script=sci_arttext&amp;amp;pid=S0103-33522019000100007&amp;quot;)
-
-#Texto de um artigo
-get_article(&amp;quot;http://www.scielo.br/scielo.php?script=sci_arttext&amp;amp;pid=S0103-33522019000100007&amp;quot;)
-
-# Notas de um artigo
-get_article_footnotes(&amp;quot;http://www.scielo.br/scielo.php?script=sci_arttext&amp;amp;pid=S0103-33522019000100007&amp;quot;)
-
-# Bibliografia de um artigo
-get_article_references(&amp;quot;http://www.scielo.br/scielo.php?script=sci_arttext&amp;amp;pid=S0103-33522019000100007&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Em todas essas funções &lt;code&gt;_article&lt;/code&gt;, também é possível passar o ID do
-artigo que se quer raspar. Nos exemplos acima, essa informação pode ser
-encontrada depois de &lt;code&gt;&amp;amp;pid=&lt;/code&gt; (i.e., &lt;code&gt;S0103-33522019000100007&lt;/code&gt;), ou
-obtida por meio da função
-&lt;code&gt;get_article_id&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_article_id(&amp;quot;http://www.scielo.br/scielo.php?script=sci_arttext&amp;amp;pid=S0103-33522019000100007&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;S0103-33522019000100007&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Por padrão, a função &lt;code&gt;get_journal&lt;/code&gt; já retorna o ID de cada um dos
-artigos obtidos.&lt;/p&gt;
-
-&lt;h2 id=&#34;citações&#34;&gt;Citações&lt;/h2&gt;
-
-&lt;p&gt;Para saber quantas citações um determinado periódico recebeu ou concedeu
-ao longo do tempo, o &lt;code&gt;rscielo&lt;/code&gt; a função &lt;code&gt;get_journal_metrics&lt;/code&gt;.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Citacoes da RBCP
-cit &amp;lt;- get_journal_metrics(&amp;quot;0103-3352&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Com esses dados salvos, podemos usar o método &lt;code&gt;plot&lt;/code&gt; para uma
-visualização
-rápida:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plot(cit)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://fmeireles.com/figs/citacoes_rbcp-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;um-resumo&#34;&gt;Um resumo&lt;/h2&gt;
-
-&lt;p&gt;Esses são alguns dos usos do &lt;code&gt;rscielo&lt;/code&gt; para extrair dados e metadados de
-publicações. Para saber mais sobre ele funciona, consulte a
-&lt;a href=&#34;https://cran.r-project.org/package=rscielo&#34; target=&#34;_blank&#34;&gt;documentação oficial&lt;/a&gt; e a
-&lt;a href=&#34;https://github.com/meirelesff/rscielo&#34; target=&#34;_blank&#34;&gt;home dele no Github&lt;/a&gt;, ou dê uma
-olhada na tabela abaixo, que resume o que cada uma de suas funções
-faz:&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&#34;left&#34;&gt;Função&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;Dados&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;Uso&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_article&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Conteúdo de artigos&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_article(id_artigo)&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_article_footnotes&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Notas de artigos&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_article_footnotes(id_artigo)&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_article_id&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;ID de artigos&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_article_id(url_artigo)&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_article_meta&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Metadados de artigos&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_article_meta(id_artigo)&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_article_references&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Bibliografia de artigos&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_article_references(id_artigo)&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_journal&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Metadados de artigos&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_journal(issn)&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_journal_id&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;ISSN de periódico&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_journal_if(url_periodico)&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_journal_info&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Descrição de periódico&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_journal_info(issn)&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_journal_metrics&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Citações de periódico&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_journal_metrics(issn)&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_journal_lista&lt;/code&gt;&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Lista de periódico&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;code&gt;get_journal_list()&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&#34;sobre-os-dados&#34;&gt;Sobre os dados&lt;/h2&gt;
-
-&lt;p&gt;Enquanto trabalhávamos no &lt;code&gt;rscielo&lt;/code&gt;, tivemos que lidar inúmeras vezes
-com informações incompletas e erros de formatação nos dados contidos na
-base do Scielo. Em muitos casos, isso ocorre por razões diretas – quando
-um periódico não inclui determinadas informações, ou quando as inclui
-sem seguir uma formatação adequada. Em outros casos, problemas podem
-ocorrer quando se tenta extrair o texto de um artigo apenas disponível
-em formato PDF, por exemplo. Por todas essas razões, cautela é
-necessária ao usar o &lt;code&gt;rscielo&lt;/code&gt; em análises ou publicações.&lt;/p&gt;
-
-&lt;h1 id=&#34;final&#34;&gt;Final&lt;/h1&gt;
-
-&lt;p&gt;Com o &lt;code&gt;rscielo&lt;/code&gt;, agora é possível obter em pouco tempo milhares de
-informações que podem ajudar pesquisadoras e estudantes a realizar
-análises bibliográficas, revisões sistemáticas, &lt;em&gt;text minining&lt;/em&gt;
-aplicado à atividade científica, entre outros. Como essa é a primeira
-versão do &lt;code&gt;rscielo&lt;/code&gt;, certamente ainda há bastante espaço para
-implementar novas funcionalidade e melhorar as já existentes. Críticas e
-sugestões, nesse sentido, são bem-vindas.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>electionsBR 0.3.1: novos dados e funcionalidades</title>
-      <link>https://fmeireles.com/blog/rstats/electionsbr-novos-dados-e-funcionalidades/</link>
-      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://fmeireles.com/blog/rstats/electionsbr-novos-dados-e-funcionalidades/</guid>
-      <description>
-
-&lt;p&gt;Depois de alguns meses sem novidades, hoje lançamos um nova atualização
-do &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34;&gt;electionsBR&lt;/a&gt;, o nosso pacote no R criado
-para extrair dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais-1/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34;&gt;Repositório do
-TSE&lt;/a&gt;.
-Para além de tudo que o &lt;em&gt;software&lt;/em&gt; já fazia, agora adicionamos a ele
-suporte para extração de todos os dados da última eleição, de 2018, além
-de correções que devem torná-lo mais estável e maduro. Esperamos que
-essa seja, digamos, a sua versão definitiva.&lt;/p&gt;
-
-&lt;h1 id=&#34;obtendo-dados-eleitorais-com-o-electionsbr&#34;&gt;Obtendo dados eleitorais com o &lt;code&gt;electionsBR&lt;/code&gt;&lt;/h1&gt;
-
-&lt;p&gt;Para quem não o conhece ou nunca o usou, o &lt;code&gt;electionsBR&lt;/code&gt; faz
-essencialmente três tarefas:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;1)  Conectar o R ao &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais-1/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34;&gt;Repositório do
-    TSE&lt;/a&gt;
-    para baixar as informações eleitorais, fazendo o gerenciamento
-    de diretórios e de arquivos;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;2)  Extrair e carregar as diversas planilhas dentro de cada arquivo
-    compactado (tarefa que, feita de forma manual, pode levar
-    horas);&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;3)  Unir, limpar e consolidar as diversas informações em um banco de
-    dados pronto para análise, que pode ser exportado diretamente
-    para análise em &lt;em&gt;softwares&lt;/em&gt; como Stata e SPSS (basta habilitar o
-    argumento &lt;code&gt;export&lt;/code&gt; disponível na maioria das funções).&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Essas tarefas são realizadas por algumas
-&lt;a href=&#34;http://electionsbr.com/reference/index.html&#34; target=&#34;_blank&#34;&gt;funções&lt;/a&gt;, uma para cada
-tipo de informação eleitoral. Assim, para obter dados sobre as
-candidaturas individuais nas eleições de 2014, por exemplo, basta usar a
-função &lt;code&gt;candidate_fed&lt;/code&gt;; para eleições municipais, a função
-correspondente é &lt;code&gt;candidate_local&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Ao todo, o pacote passa a contar com 21 funções nessa versão, que
-permitem extrair e limpar em segundos tanto resultados desagregados por
-seções eleitorais quanto informações sobre as declarações de bens de
-cada candidatura. Para além disso, ampliamos a já extensa documentação
-do pacote, em inglês, sobre a origem e a natureza de cada informação
-extraída por meio dele.&lt;/p&gt;
-
-&lt;p&gt;Para saber mais detalhes sobre como usar o &lt;code&gt;electionsBR&lt;/code&gt;, as seguintes
-referências podem ajudar:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34;&gt;electionsbr.com&lt;/a&gt;;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-uma-nova-versao&#34; target=&#34;_blank&#34;&gt;electionsBR: uma nova
-versão&lt;/a&gt;;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://denissonsilva.com/programando-em-r/16-electionsbr&#34; target=&#34;_blank&#34;&gt;electionsBR (blog
-post)&lt;/a&gt;;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://electionsbr.com/articles/introduction.html&#34; target=&#34;_blank&#34;&gt;Introduction to the electionsBR
-package&lt;/a&gt;
-(tutorial em inglês).&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;novas-funcionalidades&#34;&gt;Novas funcionalidades&lt;/h1&gt;
-
-&lt;p&gt;A principal funcionalidade que adicionamos, para além das pequenas
-melhorias de código, foi um argumento chamado &lt;code&gt;br_archive&lt;/code&gt; na maioria
-das funções do pacote. Quando ele é colocado como &lt;code&gt;TRUE&lt;/code&gt;, as funções do
-pacote retornam apenas o conteúdo de arquivos com sufixo &lt;code&gt;_BR&lt;/code&gt;, que
-contém dados nacionais de uma determinada eleição – o que economiza
-tempo no processamento dos dados quando alguém deseja, por exemplo,
-obter apenas resultados de eleições presidenciais. Quando deixado como
-&lt;code&gt;FALSE&lt;/code&gt;, o &lt;code&gt;electionsBR&lt;/code&gt; usa todas as planilhas baixadas do TSE para
-construir o banco demandado pela(o) usuária(o).&lt;/p&gt;
-
-&lt;p&gt;Na prática, o uso dessa opção pode trazer problemas, como dados
-insuficientes ou duplicados. Infelizmente, isso ocorre porque o próprio
-TSE mantém em seu repositório oficial arquivos que são incompletos ou
-duplicados. Por conta disso, nossa recomendação é usar cada função dos
-dois modos.&lt;/p&gt;
-
-&lt;h1 id=&#34;outras-alterações&#34;&gt;Outras alterações&lt;/h1&gt;
-
-&lt;p&gt;Entre outras coisas, essa versão corrige pequenos problemas apontados
-por diversas pessoas ao longo do último ano (fica aqui, novamente, o
-nosso agradecimento a todas).&lt;/p&gt;
-
-&lt;p&gt;Talvez mais importante, alteramos a forma com que o &lt;code&gt;electionsBR&lt;/code&gt;
-carregava os dados. Até a última versão, esse trabalho era feito pela
-&lt;code&gt;fread&lt;/code&gt; do
-&lt;a href=&#34;https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html&#34; target=&#34;_blank&#34;&gt;data.table&lt;/a&gt;
-em pouquíssimo tempo. Por conta da inclusão de dados no TSE,
-especialmente em formato diferente dos que eram públicos até então,
-tivemos que alterar a API de leitura do pacote para evitar erros. A
-partir de agora, o &lt;code&gt;electionsBR&lt;/code&gt; é movido por &lt;code&gt;read_delim&lt;/code&gt; do
-&lt;a href=&#34;https://www.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;tidyverse&lt;/a&gt;, mais flexível.&lt;/p&gt;
-
-&lt;h1 id=&#34;dados-das-eleições-de-2018&#34;&gt;Dados das eleições de 2018&lt;/h1&gt;
-
-&lt;p&gt;A partir dessa versão, o &lt;code&gt;electionsBR&lt;/code&gt; passa a contar, de forma estável,
-com todos os dados das eleições de 2018. Como o TSE ampliou a cobertura
-de informações registradas de seus dados mais recentes, isso significa
-que o &lt;code&gt;electionsBR&lt;/code&gt; retorna agora bases maiores – com mais variáveis –
-para esses pleitos. Ao mesmo tempo, também atualizamos a documentação
-das funções usadas para extrair dados de eleições gerais (i.e., as
-funções com sufixo &lt;code&gt;_fed&lt;/code&gt;) para descrever o conteúdo das novas
-colunas.&lt;/p&gt;
-
-&lt;p&gt;A título de exemplo, quem coletar dados sobre as candidaturas à Câmara
-dos Deputados de 2018, obtidas com &lt;code&gt;candidate_fed(2018)&lt;/code&gt;, poderá notar
-que, agora, existe um variável chamada &lt;code&gt;SITUACAO_REELEICAO&lt;/code&gt;. Como o nome
-sugere, essa variável indica quais candidaturas foram realizadas por
-pessoas que já foram eleitas para o mesmo cargo anteriormente. Como dá
-para ver no gráfico abaixo, pouco mais de 400 incumbentes tentaram suas
-reeleições ano
-passado.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://fmeireles.com/figs/reeleicao_camara.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Para saber quais informações estão disponíveis para as eleições de 2018,
-basta consultar a documentação das funções &lt;code&gt;_fed&lt;/code&gt; (usando
-&lt;code&gt;help(candidate_fed)&lt;/code&gt;, por exemplo).&lt;/p&gt;
-
-&lt;h1 id=&#34;instalação&#34;&gt;Instalação&lt;/h1&gt;
-
-&lt;p&gt;A nova versão do &lt;code&gt;electionsBR&lt;/code&gt; já está disponível no repositório oficial
-de pacotes para R, o &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34;&gt;CRAN&lt;/a&gt;. Para
-instalá-lo diretamente, rode:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;electionsBR&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Eventualmente, uma nova versão &lt;em&gt;pre-release&lt;/em&gt; ficará disponível no
-&lt;a href=&#34;https://github.com/silvadenisson/electionsBR&#34; target=&#34;_blank&#34;&gt;GitHub&lt;/a&gt; do pacote (onde
-também é possível postar dúvidas e sugestões). Para instalar essa, é
-possível executar:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;if(!require(&amp;quot;devtools&amp;quot;)) install.packages(&amp;quot;devtools&amp;quot;)
-devtools::install_github(&amp;quot;silvadenisson/electionsBR&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-</description>
     </item>
     
     <item>
@@ -1476,6 +1069,56 @@ citation(&amp;quot;electionsBR&amp;quot;)
 &lt;p&gt;Como não poderia deixar de ser num projeto como este, nos beneficiamos muito da ajuda de diversas pessoas para fazer esta atualização. Em especial, nossos colegas do &lt;a href=&#34;http://www.centroestudoslegislativos.com.br/&#34; target=&#34;_blank&#34;&gt;Centro de Estudos Legislativos&lt;/a&gt; Suzana Alves, Haína Coelho, Felipe Lima, Leonardo Ev, Lucas Gelape, Bruno Arcas, e também Bruno Reis e Carlos Ranulfo; e os já mencionados Guilherme e Robert, além do &lt;a href=&#34;https://github.com/dfalbel&#34; target=&#34;_blank&#34;&gt;Daniel Falbel&lt;/a&gt;, &lt;a href=&#34;https://github.com/sillasgonzaga&#34; target=&#34;_blank&#34;&gt;Sillas Gonzaga&lt;/a&gt; e &lt;a href=&#34;https://github.com/flaviobarros&#34; target=&#34;_blank&#34;&gt;Flávio Barros&lt;/a&gt; (estes, pelo &lt;a href=&#34;https://github.com/silvadenisson/electionsBR&#34; target=&#34;_blank&#34;&gt;github&lt;/a&gt;) contribuíram com críticas e sugestões e, por isto, estamos indefinidamente em débito com todos(as).&lt;/p&gt;
 
 &lt;p&gt;[1] CRAN, ou Comprehensive R Archive Network, é um repositório oficial de pacotes para o R.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Desempenho das pesquisas eleitorais no segundo turno</title>
+      <link>https://fmeireles.com/blog/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</link>
+      <pubDate>Mon, 31 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</guid>
+      <description>&lt;p&gt;Apesar das invariáveis críticas que os institutos de pesquisa recebem toda eleição (&lt;a href=&#34;http://g1.globo.com/rio-de-janeiro/eleicoes/2016/noticia/2016/10/ibope-e-datafolha-explicam-diferencas-entre-pesquisas-e-resultado-da-eleicao.html&#34; target=&#34;_blank&#34;&gt;vide aqui&lt;/a&gt;, por exemplo)[1], neste segundo turno o desempenho deles, &amp;ndash; ao menos o de alguns deles &amp;ndash;, não deixou a desejar.&lt;/p&gt;
+
+&lt;p&gt;Como já havia postado no &lt;a href=&#34;https://twitter.com/meirelesff/status/792861918927134720&#34; target=&#34;_blank&#34;&gt;Twitter&lt;/a&gt;, o instituto Ibope, por exemplo, acertou, dentro da margem de erro (os 3 ou 4 tradicionais pontos para mais ou para menos), os resultados em 15 das 18 capitais onde realizou pesquisa entre os dias 25 e 28 de outubro. Nos três casos onde chutou a bola fora, os erros foram pequenos &amp;ndash; caso de Porto Alegre, Florianópolis e Maceió. Apenas em uma capital, Aracaju, o Ibope errou o resultado da eleição, onde a previsão era de que o candidato do PSB, Valadares Filho, ficaria na frente de Edvaldo Nogueira, do PC do B, por 2% de votos válidos. Como a previsão já era de resultado apertado, e o instituto acertou o resultado dentro da margem, este é um caso residual entre as capitais pesquisadas.&lt;/p&gt;
+
+&lt;p&gt;Dois outros casos ilustram o desempenho dos institutos de pesquisa &amp;ndash; agora incluindo Datafolha, Paraná Eleitoral e CP2. Os gráficos abaixo mostram o retrospecto de todas as pesquisas feitas no segundo turno no Rio de Janeiro, onde Crivella (PRB) enfretou o Freixo (PSOL), e em Belo Horizonte, onde Leite (PSDB) competiu contra Kalil (PHS), por estes institutos. Nos gráficos, cada ponto é a percentagem de intenção de votos (incluindo, portanto, não-válidos) de cada candidato estimada por cada pesquisa (em outras palavras, cada data de pesquisa, no eixo X, representa uma pesquisa eleitoral); a curva (ou linha) representa a tendência geral destas pesquisas, estimadas via &lt;a href=&#34;https://en.wikipedia.org/wiki/Local_regression&#34; target=&#34;_blank&#34;&gt;LOESS&lt;/a&gt;; e as áreas mais claras ao redor das curvas representam os intervalos de confiança de 95%.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://fmeireles.com/figs/bh-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://fmeireles.com/figs/rio-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Duas coisas merecem comentários em relação a esses dados:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Tendências são mais importantes do que resultados exatos: as intenções de votos dos quatro candidatos variaram ao longo do segundo turno; no caso de BH, o resultado inclusive se inverte no meio da campanha. Como consequência, tentar estimar o resultado final de uma eleição dias antes dela se encerrar poderia nos levar a cometer erros grotescos. Por outro lado, ao examinarmos a evolução da intenção de votos de cada candidato, temos um quadro mais claro da dinâmica das campanhas. Por exemplo, Freixo teve menos tempo de TV e recursos no primeiro turno no Rio, mas, como é possível verificar, seu desempenho oscilou pouco no período todo, ressalva feita à pequena tendência de crescimento no final do segundo turno. Só por isso, já teríamos bons indicíos de que não teríamos grandes reviravoltas ali, já que nos 30 dias anteriores isto não ocorreu. Ao contrário, em BH a ultrapassagem de Kalil em meados de outubro já indicava um movimento maior, constante, e foi inclusive comentado na mídia como &lt;a href=&#34;http://eleicoes.uol.com.br/2016/noticias/2016/10/27/ibope-aponta-empate-tecnico-em-belo-horizonte-kalil-com-39-leite-36.htm&#34; target=&#34;_blank&#34;&gt;um cenário mais incerto&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Não se pode tomar o resultado de uma única pesquisa como indicativo do resultado final das eleições. Institutos de pesquisa fazem amostras diferentes, aplicam questionários em períodos e locais diferentes, usando metodologias e pessoal diferentes, e, apenas por isso, variações aleatórias (ruídos no meio do sinal que as pesquisas tentam detectar) são esperadas. Observando o gráfico de Belo Horizonte, isto fica evidente: algumas pesquisas, às vezes realizadas pouquíssimos dias antes ou depois de outras, são destoantes; e, o que é ainda mais problemático, quando dois candidatos aparecem muito próximos, como os dois concorrentes em BH, é difícil distinguir quem está na frente (caso também de Aracaju). Nestes casos, dois institutos diferentes podem atribuir a vitória a candidatos diferentes &amp;ndash; mesmo que não exista má fé por parte deles. Cautela, enfim, é sempre necessária ao se projetar os resultados de uma eleiçao com base em pesquisas eleitorais.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;De resto, cabe notar que pesquisas eleitorais, com todos os seus defeitos, são extremamente úteis. Quando bem interpretadas e tomadas em conjunto, podem nos dizer com bastante grau de certeza os resultados de uma eleição &amp;ndash; &lt;a href=&#34;http://www.dailykos.com/story/2016/4/21/1516967/-How-accurate-are-those-538-primary-forecasts-anyway&#34; target=&#34;_blank&#34;&gt;vide o retrospecto do 538, nos EUA&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;[1] Eu mesmo já critiquei, e ainda tenho ressalvas contra, as pesquisas eleitorais brasileiras por conta do uso de amostra por quotas. Um bom resumo do sistema, e uma crítica às margens de erro que os intitutos calculam para elas, pode ser &lt;a href=&#34;http://www.ime.unicamp.br/~nancy/Cursos/me320/falaciaPesquisaEleitoral.pdf&#34; target=&#34;_blank&#34;&gt;visto aqui&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Desatualização nas bases do TSE e abstenção eleitoral</title>
+      <link>https://fmeireles.com/blog/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
+      <pubDate>Fri, 07 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://fmeireles.com/blog/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
+      <description>&lt;p&gt;Aproveitando os dados do &lt;a href=&#34;http://www.tre-rs.jus.br/&#34; target=&#34;_blank&#34;&gt;TSE-RS&lt;/a&gt;, que divulgou uma lista completa dos municípios que passaram pelo recadastramento biométrico até esse ano, resolvi investigar se a biometria realmente afetou as taxas de abstenção nestas eleições.&lt;/p&gt;
+
+&lt;p&gt;O gráfico abaixo ilustra essa diferença entre municípios que passaram ou não pelo recadastramento. Como dá pra ver, a taxa de abstenção média nos municípios que passaram a usar o sistema de biometria cai visivelmente depois de 2014 no Rio Grande do Sul (quando a maior parte dos municípios fez o cadastramento).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://fmeireles.com/figs/abstencao1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Quando removemos os efeitos temporais e entre casos via um &lt;a href=&#34;https://en.wikipedia.org/wiki/Fixed_effects_model&#34; target=&#34;_blank&#34;&gt;modelo de regressão com efeitos fixos&lt;/a&gt;, este efeito fica ainda mais nítido:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://fmeireles.com/figs/abstencao2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Especificamente, o efeito estimado é de cerca de 4.5% (estimado com um modelo &lt;a href=&#34;https://en.wikipedia.org/wiki/Difference_in_differences&#34; target=&#34;_blank&#34;&gt;diff-in-diff&lt;/a&gt;), o que significa que, na média, a taxa de abstenção no estado estava inflada em quase 50% (ela foi de cerca de 10% em 2012 na média dos municípios, embora Porto Alegre e região tenham tido abstenção maior). Em outras palavras, removendo os eleitores fantasmas, a abstenção caiu quase pela metade.&lt;/p&gt;
 </description>
     </item>
     

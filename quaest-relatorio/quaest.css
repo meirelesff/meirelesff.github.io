@@ -1,0 +1,114 @@
+/* Importacoes */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700&display=swap');
+
+/* Layout geral */
+.remark-slide-content {
+    background-color: #FFFFFF;
+    border-bottom: 70px solid #10acb8;
+    font-size: 28px;
+    font-weight: 400;
+    border-top: 0px;
+}
+
+.remark-slide-content h1 {
+    color: #ffffff00;
+    position: relative;
+    top: 685px;
+    background-image: url(https://www.quaest.com.br/assets/images/logo-white-footer.png);
+    background-position: 1% 45%;
+    background-size: 90px;
+    background-repeat: no-repeat;
+}
+
+/* Texto */
+body {
+    font-family: 'Montserrat','Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+    color:#0098a0;
+    font-weight:300;
+    
+}
+
+/* Numeracao do slide */
+.remark-slide-number {
+    color: #FAFAFA;
+    bottom: 25px;
+    font-size: 9pt;
+}
+
+.title-slide h1, h2, h3, h4 {
+  display: none;
+}
+
+.title-slide  {
+    background-color: #10acb8;
+    border-bottom: 0x;
+    font-size: 24px;
+    font-weight: 400;
+    border-top: 0px;
+    background-image: url(quaest_branco.png);
+    background-position: 50% 50%;
+    background-size: 340px;
+}
+
+.inverse {
+  background-color: #FFFFF;
+  text-shadow: none;
+  border-bottom: none;
+  color: #10acb8;
+}
+
+.inverse .remark-slide-number {
+    display: none;
+}
+
+
+.inverse2 {
+  background-color: #10acb8;
+  text-shadow: none;
+  border-bottom: none;
+  color: #FFFFFF;
+}
+
+.inverse2 .remark-slide-number {
+    display: none;
+}
+
+
+hr, .title-slide h2::after, .mline h1::after {
+  content: '';
+  display: block;
+  border: none;
+  background-color: #10acb8;
+  color: #10acb8;
+  height: 2px;
+  margin-left: 0px;
+}
+
+hr2, .title-slide h2::after, .mline h1::after {
+  content: '';
+  display: block;
+  border: none;
+  background-color: #10acb8;
+  color: #10acb8;
+  height: 2px;
+}
+
+hr3, .title-slide h2::after, .mline h1::after {
+  content: '';
+  display: block;
+  border: none;
+  background-color: #FFFFFF;
+  color: #FFFFFF;
+  height: 3px;
+}
+
+
+cinza {
+  color: #555555;
+  font-size:22px;
+  font-weight:300;
+}
+
+
+
+

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>eleições 2020</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Fernando Meireles" />
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link href="slides_files/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script src="slides_files/htmlwidgets-1.3/htmlwidgets.js"></script>
+    <link href="slides_files/echarts4r-4.3.2/plugins/leaflet/leaflet.css" rel="stylesheet" />
+    <script src="slides_files/echarts4r-4.3.2/echarts.min.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/echarts-gl.min.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/ecStat.min.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/dataTool.min.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/world.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/plugins/echarts-wordcloud.min.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/plugins/echarts-liquidfill.min.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/plugins/echarts-graph-modularity.min.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/plugins/leaflet/leaflet.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/plugins/leaflet/echarts-leaflet.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/dark.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/vintage.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/westeros.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/essos.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/wonderland.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/walden.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/chalk.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/infographic.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/macarons.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/roma.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/shine.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/purple-passion.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/halloween.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/wef.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/weforum.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/themes/auritus.js"></script>
+    <script src="slides_files/echarts4r-4.3.2/custom/renderers.js"></script>
+    <link href="slides_files/mapbox-0.38.0/mapbox-gl.css" rel="stylesheet" />
+    <script src="slides_files/mapbox-0.38.0/mapbox-gl.js"></script>
+    <script src="slides_files/echarts4r-binding-0.2.3/echarts4r.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# eleições 2020
+## Um guia sobre como consumir e avaliar pesquisas eleitorais
+### Dr. Fernando Meireles
+### <small>Quaest Estratégia e Pesquisa</small> <a href="http://www.link.com"><i class="fas  fa-link " style="color:#0098a0;"></i></a>
+
+---
+
+
+
+
+
+
+&lt;style type="text/css"&gt;
+/* Importacoes */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700&amp;display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:700&amp;display=swap');
+
+
+/* Inverse slide */
+  
+.inverse {
+    background-color: #0098a0;
+}
+
+.inverse .remark-slide-number {
+    opacity: 0;
+}
+
+
+
+
+.title-slide h2::after, .mline h1::after {
+    background-color: #f3f3f3;
+    color: #f3f3f3;
+    height: 4px;
+}
+
+
+/* body */
+.remark-slide-content {
+    background-color: #ecf0f2;
+    border-top: 60px solid #0098a0;
+    font-size: 24px;
+    font-weight:300; 
+}
+
+body {
+    font-family: 'Montserrat','Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+}
+
+/* Slide inicial */
+.title-slide h1 {
+    color: #0098a0;
+    font-size: 49px;
+    padding-top: 320px;
+    margin-bottom: 30px;
+}
+  
+.title-slide {
+    background-color: #ecf0f2;
+    border-top: #ecf0f2;
+    background-size: 105px;
+}
+
+.title-slide h1 {
+    margin-bottom:35px;
+}
+
+.title-slide h2 {
+    line-height: 1.1;
+}
+
+.title-slide h3 {
+    font-weight: 400;
+    font-size: 21px;
+}
+
+.title-slide h2::after {
+    display:none;
+}
+
+
+/* Fontes */
+.remark-slide-content h1 {
+    font-size: 50px;
+    font-family: 'Poppins','Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+    
+}
+
+h1 {
+    font-weight: bold;
+    margin-top: -92px;
+    color: #FAFAFA;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.hljs-default .hljs {
+    background: #ecf0f2;
+}
+
+
+/* Efeitos */
+
+.left-column {
+    color: #0098a0;
+    font-weight:400;
+}
+
+.remark-inline-code {
+    background: #bfccd3;
+    border-radius: 2px;
+}
+
+
+/* Barra de progresso */
+.remark-slide-number {
+  position: inherit;
+  opacity: 1;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #0098a0;
+}
+
+
+/* Links */
+a, a:visited {
+    color: #0098a0;
+    text-decoration:underline;
+    transition: all 0.4s ease-out;
+      -webkit-transition: all 0.4s ease-out;
+      -moz-transition: all 0.4s ease-out;
+      -o-transition: all 0.4s ease-out;
+      -ms-transition: all 0.4s ease-out;
+}  
+
+a:hover, a:focus {
+    color: #111111;
+    background: #95d8fd;
+    border-bottom: none;
+}
+
+
+.remark-slide&gt;.center a, a:visited {
+    color: #f3f3f3;
+    font-size: 24px;
+    text-decoration: none;
+    transition: all 0.4s ease-out;
+      -webkit-transition: all 0.4s ease-out;
+      -moz-transition: all 0.4s ease-out;
+      -o-transition: all 0.4s ease-out;
+      -ms-transition: all 0.4s ease-out;
+}  
+
+
+/* Slide final */
+.remark-slide&gt;.center a:hover, a:focus {
+    color: #f3f3f3;
+    background: #00b0ba;
+    border-bottom: none;
+}
+
+
+
+/* Lista */
+li{
+    list-style-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVQoU2NkmLHgPwMewDgyFAAAFR4RwfXjpNMAAAAASUVORK5CYII=");
+}
+
+&lt;/style&gt;
+
+
+# Sobre esse novo template
+
+Embora seja mais tradicional, este slide tem alguns elementos úteis para apresentações dinâmicas.
+
+
+---
+class: inverse, mline, middle, center
+background-color: #0098a0
+
+# Transição
+
+
+---
+# Outro slide
+
+.left-column[
+O tema deste slide é **importante**
+]
+
+--
+
+.right-column[
+Aqui vai uma explicação do porquê.
+]
+
+
+---
+# Código e notação
+
+
+```r
+# Dados
+df &lt;- data.frame(x = rnorm(10), y = rnorm (10))
+
+# Modelo
+modelo &lt;- lm(y ~ x, data = df)
+```
+
+--
+
+Modelo estimado:
+
+`$$Y_{i} = \gamma + \beta x_{i} + \varepsilon_{i}$$`
+
+
+
+
+
+---
+# Mais um slide
+
+Esse aqui quebra o texto. 
+--
+`Texto em caixa`.
+
+--
+
+- Itens;
+
+--
+
+- Numa lista.
+
+
+---
+# Interatividade
+
+<div id="htmlwidget-1de3cbd5b2e8e61795d8" style="width:100%;height:500px;" class="echarts4r html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1de3cbd5b2e8e61795d8">{"x":{"theme":"","tl":false,"draw":true,"renderer":"svg","events":[],"buttons":[],"opts":{"yAxis":[{"show":true,"axisLabel":{"color":"#222222","fontSize":"19","formatter":"function(value, index) {\n        var fmt = new Intl.NumberFormat('pt', {\"style\":\"decimal\",\"minimumFractionDigits\":0,\"maximumFractionDigits\":0,\"currency\":\"USD\"});\n        return fmt.format(value);\n    }"},"axisTick":{"show":false}}],"xAxis":[{"data":["A","B"],"type":"category","boundaryGap":true,"axisLabel":{"color":"#222222","fontSize":"19"},"axisTick":{"show":false}}],"legend":{"data":["Total","Parcial"],"show":true,"type":"plain","textStyle":{"color":"#222222","fontSize":"20"}},"series":[{"data":[{"value":["A","21"]},{"value":["B","21"]}],"name":"Total","type":"bar","yAxisIndex":0,"xAxisIndex":0,"coordinateSystem":"cartesian2d","stack":"grp","barWidth":"25%"},{"data":[{"value":["A","6"]},{"value":["B","6"]}],"name":"Parcial","type":"bar","yAxisIndex":0,"xAxisIndex":0,"coordinateSystem":"cartesian2d","stack":"grp","barWidth":"25%"}],"color":["#004f54","#669598","#c1d4d5"],"backgroundColor":"#ecf0f2","tooltip":{"trigger":"item"},"textStyle":{"fontFamily":"Montserrat","fontWeight":"400","color":"#222222","fontSize":"16px"},"grid":[{"top":"75px"}]},"dispose":true},"evals":["opts.yAxis.0.axisLabel.formatter"],"jsHooks":[]}</script>
+
+
+
+---
+# Slide final
+
+.center[
+Aqui vai uma mensagem final
+]
+
+--
+
+.center[
+É isso. [Um link](www.link.com)
+]
+
+
+---
+class: center, middle
+background-color: #0098a0
+background-image: url(https://www.quaest.com.br/assets/images/logo-white-footer.png)
+background-size: 270px
+background-position: 50% 20%
+
+&lt;br&gt;
+&lt;br&gt;
+
+[<i class="fab  fa-facebook "></i> fb.com/quaestpesquisa](https://www.facebook.com/quaestpesquisa/)  
+
+[<i class="fab  fa-instagram "></i> instagram.com/quaestpesquisa/](https://www.instagram.com/quaestpesquisa/)
+
+[<i class="fab  fa-linkedin-in "></i> linkedin.com/company/quaestpesquisa/](https://www.linkedin.com/company/quaestpesquisa/)
+
+[<i class="fas  fa-link "></i> www.quaest.com.br](https://www.quaest.com.br/)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "<div class=\"progress-bar-container\">   <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">   </div> </div>` "
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

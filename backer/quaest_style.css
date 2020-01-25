@@ -8,12 +8,13 @@
     font-size: 28px;
     font-weight: 400;
     border-top: 0px;
+    padding: 2em 2em 1em 2em;
 }
 
 .remark-slide-content h1 {
     color: #ffffff00;
     position: relative;
-    top: 680px;
+    top: 655px;
     background-image: url(https://www.quaest.com.br/assets/images/logo-white-footer.png);
     background-position: 1% 45%;
     background-size: 93px;
@@ -176,4 +177,20 @@ titulo {
     background: none;
 }
 
+
+/* Exportacao pra PDF */
+@page { margin: 0; }
+@media print {
+  
+  .remark-slide-scaler {
+    width: 908px;
+    height: 681px;
+    transform: scale(1.02349);
+    left: 3.83333px;
+    top: 0px;
+  }
+  
+  .remark-slide-content h1 {
+    top: 635px;
+}
 

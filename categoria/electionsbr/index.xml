@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>electionsbr | Fernando Meireles</title>
+    <link>https://www.femeireles.com/categoria/electionsbr/</link>
+      <atom:link href="https://www.femeireles.com/categoria/electionsbr/index.xml" rel="self" type="application/rss+xml" />
+    <description>electionsbr</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <title>electionsbr</title>
+      <link>https://www.femeireles.com/categoria/electionsbr/</link>
+    </image>
+    
+    <item>
+      <title>electionsBR 0.3.1: novos dados e funcionalidades</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-novos-dados-e-funcionalidades/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-novos-dados-e-funcionalidades/</guid>
+      <description>&lt;p&gt;Depois de alguns meses sem novidades, hoje lançamos um nova atualização
+do &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, o nosso pacote no R criado
+para extrair dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais-1/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório do
+TSE&lt;/a&gt;.
+Para além de tudo que o &lt;em&gt;software&lt;/em&gt; já fazia, agora adicionamos a ele
+suporte para extração de todos os dados da última eleição, de 2018, além
+de correções que devem torná-lo mais estável e maduro. Esperamos que
+essa seja, digamos, a sua versão definitiva.&lt;/p&gt;
+&lt;h1 id=&#34;obtendo-dados-eleitorais-com-o-electionsbr&#34;&gt;Obtendo dados eleitorais com o &lt;code&gt;electionsBR&lt;/code&gt;&lt;/h1&gt;
+&lt;p&gt;Para quem não o conhece ou nunca o usou, o &lt;code&gt;electionsBR&lt;/code&gt; faz
+essencialmente três tarefas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;Conectar o R ao &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais-1/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório do
+TSE&lt;/a&gt;
+para baixar as informações eleitorais, fazendo o gerenciamento
+de diretórios e de arquivos;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Extrair e carregar as diversas planilhas dentro de cada arquivo
+compactado (tarefa que, feita de forma manual, pode levar
+horas);&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Unir, limpar e consolidar as diversas informações em um banco de
+dados pronto para análise, que pode ser exportado diretamente
+para análise em &lt;em&gt;softwares&lt;/em&gt; como Stata e SPSS (basta habilitar o
+argumento &lt;code&gt;export&lt;/code&gt; disponível na maioria das funções).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Essas tarefas são realizadas por algumas
+&lt;a href=&#34;http://electionsbr.com/reference/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;funções&lt;/a&gt;, uma para cada
+tipo de informação eleitoral. Assim, para obter dados sobre as
+candidaturas individuais nas eleições de 2014, por exemplo, basta usar a
+função &lt;code&gt;candidate_fed&lt;/code&gt;; para eleições municipais, a função
+correspondente é &lt;code&gt;candidate_local&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Ao todo, o pacote passa a contar com 21 funções nessa versão, que
+permitem extrair e limpar em segundos tanto resultados desagregados por
+seções eleitorais quanto informações sobre as declarações de bens de
+cada candidatura. Para além disso, ampliamos a já extensa documentação
+do pacote, em inglês, sobre a origem e a natureza de cada informação
+extraída por meio dele.&lt;/p&gt;
+&lt;p&gt;Para saber mais detalhes sobre como usar o &lt;code&gt;electionsBR&lt;/code&gt;, as seguintes
+referências podem ajudar:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsbr.com&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-uma-nova-versao&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR: uma nova
+versão&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://denissonsilva.com/programando-em-r/16-electionsbr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR (blog
+post)&lt;/a&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://electionsbr.com/articles/introduction.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Introduction to the electionsBR
+package&lt;/a&gt;
+(tutorial em inglês).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;novas-funcionalidades&#34;&gt;Novas funcionalidades&lt;/h1&gt;
+&lt;p&gt;A principal funcionalidade que adicionamos, para além das pequenas
+melhorias de código, foi um argumento chamado &lt;code&gt;br_archive&lt;/code&gt; na maioria
+das funções do pacote. Quando ele é colocado como &lt;code&gt;TRUE&lt;/code&gt;, as funções do
+pacote retornam apenas o conteúdo de arquivos com sufixo &lt;code&gt;_BR&lt;/code&gt;, que
+contém dados nacionais de uma determinada eleição – o que economiza
+tempo no processamento dos dados quando alguém deseja, por exemplo,
+obter apenas resultados de eleições presidenciais. Quando deixado como
+&lt;code&gt;FALSE&lt;/code&gt;, o &lt;code&gt;electionsBR&lt;/code&gt; usa todas as planilhas baixadas do TSE para
+construir o banco demandado pela(o) usuária(o).&lt;/p&gt;
+&lt;p&gt;Na prática, o uso dessa opção pode trazer problemas, como dados
+insuficientes ou duplicados. Infelizmente, isso ocorre porque o próprio
+TSE mantém em seu repositório oficial arquivos que são incompletos ou
+duplicados. Por conta disso, nossa recomendação é usar cada função dos
+dois modos.&lt;/p&gt;
+&lt;h1 id=&#34;outras-alterações&#34;&gt;Outras alterações&lt;/h1&gt;
+&lt;p&gt;Entre outras coisas, essa versão corrige pequenos problemas apontados
+por diversas pessoas ao longo do último ano (fica aqui, novamente, o
+nosso agradecimento a todas).&lt;/p&gt;
+&lt;p&gt;Talvez mais importante, alteramos a forma com que o &lt;code&gt;electionsBR&lt;/code&gt;
+carregava os dados. Até a última versão, esse trabalho era feito pela
+&lt;code&gt;fread&lt;/code&gt; do
+&lt;a href=&#34;https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;data.table&lt;/a&gt;
+em pouquíssimo tempo. Por conta da inclusão de dados no TSE,
+especialmente em formato diferente dos que eram públicos até então,
+tivemos que alterar a API de leitura do pacote para evitar erros. A
+partir de agora, o &lt;code&gt;electionsBR&lt;/code&gt; é movido por &lt;code&gt;read_delim&lt;/code&gt; do
+&lt;a href=&#34;https://www.tidyverse.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tidyverse&lt;/a&gt;, mais flexível.&lt;/p&gt;
+&lt;h1 id=&#34;dados-das-eleições-de-2018&#34;&gt;Dados das eleições de 2018&lt;/h1&gt;
+&lt;p&gt;A partir dessa versão, o &lt;code&gt;electionsBR&lt;/code&gt; passa a contar, de forma estável,
+com todos os dados das eleições de 2018. Como o TSE ampliou a cobertura
+de informações registradas de seus dados mais recentes, isso significa
+que o &lt;code&gt;electionsBR&lt;/code&gt; retorna agora bases maiores – com mais variáveis –
+para esses pleitos. Ao mesmo tempo, também atualizamos a documentação
+das funções usadas para extrair dados de eleições gerais (i.e., as
+funções com sufixo &lt;code&gt;_fed&lt;/code&gt;) para descrever o conteúdo das novas
+colunas.&lt;/p&gt;
+&lt;p&gt;A título de exemplo, quem coletar dados sobre as candidaturas à Câmara
+dos Deputados de 2018, obtidas com &lt;code&gt;candidate_fed(2018)&lt;/code&gt;, poderá notar
+que, agora, existe um variável chamada &lt;code&gt;SITUACAO_REELEICAO&lt;/code&gt;. Como o nome
+sugere, essa variável indica quais candidaturas foram realizadas por
+pessoas que já foram eleitas para o mesmo cargo anteriormente. Como dá
+para ver no gráfico abaixo, pouco mais de 400 incumbentes tentaram suas
+reeleições ano
+passado.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/reeleicao_camara.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Para saber quais informações estão disponíveis para as eleições de 2018,
+basta consultar a documentação das funções &lt;code&gt;_fed&lt;/code&gt; (usando
+&lt;code&gt;help(candidate_fed)&lt;/code&gt;, por exemplo).&lt;/p&gt;
+&lt;h1 id=&#34;instalação&#34;&gt;Instalação&lt;/h1&gt;
+&lt;p&gt;A nova versão do &lt;code&gt;electionsBR&lt;/code&gt; já está disponível no repositório oficial
+de pacotes para R, o &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;. Para
+instalá-lo diretamente, rode:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Eventualmente, uma nova versão &lt;em&gt;pre-release&lt;/em&gt; ficará disponível no
+&lt;a href=&#34;https://github.com/silvadenisson/electionsBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt; do pacote (onde
+também é possível postar dúvidas e sugestões). Para instalar essa, é
+possível executar:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;if(!require(&amp;quot;devtools&amp;quot;)) install.packages(&amp;quot;devtools&amp;quot;)
+devtools::install_github(&amp;quot;silvadenisson/electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: versão 0.3.0</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-versao-0.3.0/</link>
+      <pubDate>Thu, 08 Jun 2017 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-versao-0.3.0/</guid>
+      <description>&lt;p&gt;O pacote do &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R&lt;/a&gt; para baixar e limpar dados eleitorais do TSE criado pelo Denisson Silva, Beatriz Costa e eu, o &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, acaba de ganhar uma grande atualização, já disponível no &lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;: para a versão 0.3.0[1]. Para quem não o conhece, basicamente ele automatiza o trabalho de baixar, deszipar, tratar e limpar dados eleitorais brasileiros diretamente do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt; &amp;ndash; tudo acompanhado de extensa documentação baseada em informações oficiais. Em outras palavras, com ele é possível extrair quase todos os dados públicos de resultados eleitorais, apuração, partidos, coligações, candidaturas, de perfil dos eleitores, entre outros, diretamente pelo R, e isto em pouquíssimo tempo.&lt;/p&gt;
+&lt;p&gt;Nesta nova versão, estendemos as funcionalidades do pacote em vários pontos, mas sem comprometer a forma com que ele já funcionava. Segue, em forma de lista, as novidades do pacote.&lt;/p&gt;
+&lt;h3 id=&#34;velocidade&#34;&gt;Velocidade&lt;/h3&gt;
+&lt;p&gt;O &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt; já era extremamente rápido (em poucos segundos ele é capaz de baixar e processar centenas de milhares de informações do &lt;em&gt;website&lt;/em&gt; do TSE), especialmente comparado à tarefa manual de baixar separadamente os arquivos do TSE, tratar e limpar cada um para, enfim, unir todos numa base única.&lt;/p&gt;
+&lt;p&gt;Nessa versão, melhoramos esse desempenho ainda mais: alteramos internamente as formas de leitura e união dos arquivos por meio das funções &lt;code&gt;fread&lt;/code&gt; e &lt;code&gt;rbindlist&lt;/code&gt; do pacote &lt;a href=&#34;https://cran.r-project.org/package=data.table&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;data.table&lt;/a&gt;. Com isso, o pacote ficou cerca de 6x mais rápido do que já era.&lt;/p&gt;
+&lt;h3 id=&#34;resultados-por-estado&#34;&gt;Resultados por estado&lt;/h3&gt;
+&lt;p&gt;Anteriormente, só era possível pegar dados eleitorais para todo o Brasil com o pacote &amp;ndash; o que significa que, caso desejássemos ter resultados apenas para um ou mais estados, teríamos que extrair dados do país todo para, aí sim, filtrar as informações.&lt;/p&gt;
+&lt;p&gt;Agora, a maioria das funções possui um argumento opcional chamado &lt;code&gt;uf&lt;/code&gt;, que serve para indicar estados para os quais queremos dados &amp;ndash; e isto de forma eficiente, sem ter de processar informações dos demais estados. Para pegar dados sobre as candidaturas (nome, sexo, partido, número de urna, profissão, entre outros, dos[as] candidatos[as]) nas eleições federais de 2010 apenas em Minas Gerais, por exemplo, podemos fazer isso:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala a nova versão do pacote 
+# (é preciso descomentar a linha abaixo)
+# install.packages(&amp;quot;electionsBR&amp;quot;)
+
+# Carrega o pacote
+library(electionsBR)
+
+# Pega dados de candidaturas em 2010 apenas para Minas Gerais
+mg2010 &amp;lt;- candidate_fed(2010, uf = &amp;quot;MG&amp;quot;)
+
+# Um panorama dos dados
+mg2010
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,789 × 43
+##    DATA_GERACAO HORA_GERACAO ANO_ELEICAO NUM_TURNO DESCRICAO_ELEICAO
+##           &amp;lt;chr&amp;gt;        &amp;lt;chr&amp;gt;       &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;chr&amp;gt;
+## 1    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 2    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 3    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 4    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 5    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 6    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 7    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 8    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 9    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 10   19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## # ... with 1,779 more rows, and 38 more variables: SIGLA_UF &amp;lt;chr&amp;gt;,
+## #   SIGLA_UE &amp;lt;chr&amp;gt;, DESCRICAO_UE &amp;lt;chr&amp;gt;, CODIGO_CARGO &amp;lt;chr&amp;gt;,
+## #   DESCRICAO_CARGO &amp;lt;chr&amp;gt;, NOME_CANDIDATO &amp;lt;chr&amp;gt;,
+## #   SEQUENCIAL_CANDIDATO &amp;lt;chr&amp;gt;, NUMERO_CANDIDATO &amp;lt;chr&amp;gt;,
+## #   CPF_CANDIDATO &amp;lt;chr&amp;gt;, NOME_URNA_CANDIDATO &amp;lt;chr&amp;gt;,
+## #   COD_SITUACAO_CANDIDATURA &amp;lt;chr&amp;gt;, DES_SITUACAO_CANDIDATURA &amp;lt;chr&amp;gt;,
+## #   NUMERO_PARTIDO &amp;lt;chr&amp;gt;, SIGLA_PARTIDO &amp;lt;chr&amp;gt;, NOME_PARTIDO &amp;lt;chr&amp;gt;,
+## #   CODIGO_LEGENDA &amp;lt;chr&amp;gt;, SIGLA_LEGENDA &amp;lt;chr&amp;gt;, COMPOSICAO_LEGENDA &amp;lt;chr&amp;gt;,
+## #   NOME_COLIGACAO &amp;lt;chr&amp;gt;, CODIGO_OCUPACAO &amp;lt;chr&amp;gt;, DESCRICAO_OCUPACAO &amp;lt;chr&amp;gt;,
+## #   DATA_NASCIMENTO &amp;lt;chr&amp;gt;, NUM_TITULO_ELEITORAL_CANDIDATO &amp;lt;chr&amp;gt;,
+## #   IDADE_DATA_ELEICAO &amp;lt;chr&amp;gt;, CODIGO_SEXO &amp;lt;chr&amp;gt;, DESCRICAO_SEXO &amp;lt;chr&amp;gt;,
+## #   COD_GRAU_INSTRUCAO &amp;lt;chr&amp;gt;, DESCRICAO_GRAU_INSTRUCAO &amp;lt;chr&amp;gt;,
+## #   CODIGO_ESTADO_CIVIL &amp;lt;chr&amp;gt;, DESCRICAO_ESTADO_CIVIL &amp;lt;chr&amp;gt;,
+## #   CODIGO_NACIONALIDADE &amp;lt;chr&amp;gt;, DESCRICAO_NACIONALIDADE &amp;lt;chr&amp;gt;,
+## #   SIGLA_UF_NASCIMENTO &amp;lt;chr&amp;gt;, CODIGO_MUNICIPIO_NASCIMENTO &amp;lt;chr&amp;gt;,
+## #   NOME_MUNICIPIO_NASCIMENTO &amp;lt;chr&amp;gt;, DESPESA_MAX_CAMPANHA &amp;lt;chr&amp;gt;,
+## #   COD_SIT_TOT_TURNO &amp;lt;chr&amp;gt;, DESC_SIT_TOT_TURNO &amp;lt;chr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Também é possível pegar dados de mais de um estado por vez passando um vetor para a função:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Pega dados de estados da região sul
+sul &amp;lt;- candidate_fed(2010, uf = c(&amp;quot;RS&amp;quot;, &amp;quot;SC&amp;quot;, &amp;quot;PR&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As siglas dos estados podem ser passadas em maiúsculo, minúsculo ou combinação dos dois: &lt;code&gt;MG&lt;/code&gt;, &lt;code&gt;mg&lt;/code&gt;, &lt;code&gt;Mg&lt;/code&gt; ou &lt;code&gt;mG&lt;/code&gt; são todos &lt;code&gt;inputs&lt;/code&gt; igualmente válidos.&lt;/p&gt;
+&lt;h3 id=&#34;percentual-de-votos&#34;&gt;Percentual de votos&lt;/h3&gt;
+&lt;p&gt;Para além das funções que o pacote já tinha (&lt;a href=&#34;http://electionsbr.com/reference/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ver aqui&lt;/a&gt; uma descrição de todas as funções disponíveis), incluímos quatro funções para facilitar a extração de resultados eleitorais, que já retornam o percentual de votos válidos (nominais e de legenda somados) de cada partido nas eleições presidenciais, para o Senado e para a Câmara Federal agregados por estado ou por município. Estas funções são, respectivamente:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;president_mun_vote&lt;/code&gt;, para votação percentual nas eleições presidenciais no segundo turno por município;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;president_state_vote&lt;/code&gt;, para votação percentual nas eleições presidenciais no segundo turno por estado;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legislative_mun_vote&lt;/code&gt;, para votação percentual nas eleições legislativas federais (Senado e Câmara) por município;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legislative_state_vote&lt;/code&gt;, para votação percentual nas eleições legislativas federais (Senado e Câmara) por município.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;No caso das eleições legislativas, as funções aceitam um argumento opcional, &lt;code&gt;house&lt;/code&gt; indicando a casa a ser analisada, se Senado ou Câmara (&lt;code&gt;senate&lt;/code&gt; ou &lt;code&gt;chamber&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Por exemplo, o código abaixo pega os resultados presidenciais do segundo turno de 2014 por estado:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;pres &amp;lt;- president_state_vote(2010)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E o abaixo pega o total de votos percentuais de cada partido na disputa para a Câmara Federal em 2010, por estado:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cam &amp;lt;- legislative_state_vote(2010, house = &amp;quot;chamber&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;vagas-em-disputa&#34;&gt;Vagas em disputa&lt;/h3&gt;
+&lt;p&gt;Também acrescentamos uma função para coletar dados sobre o número de cadeira para cada cargo em disputa (&lt;code&gt;seats_fed&lt;/code&gt;, para eleições federais, e &lt;code&gt;seats_local&lt;/code&gt;, para eleições municipais). Para saber quantas vagas nas Câmara municipais estavam disponíveis em cada município em 2016, por exemplo, use:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;vagas &amp;lt;- seats_local(2016)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;exportar-dados-para-stata-e-spss&#34;&gt;Exportar dados para Stata e SPSS&lt;/h3&gt;
+&lt;p&gt;Para quem não usa, ou não tem tanta familiaridade com o &lt;code&gt;R&lt;/code&gt;, incluímos uma opção para exportar os dados pegos pelas funções do pacote para arquivos &lt;code&gt;.dta&lt;/code&gt; e &lt;code&gt;.sav&lt;/code&gt;, que podem ser analisados pelo Stata e pelo SPSS, respectivamente. O argumento opcional para fazer isso é o &lt;code&gt;export&lt;/code&gt;, que, por padrão, é igual a &lt;code&gt;FALSE&lt;/code&gt;. Para exportar os resultados das funções, é só passar ele para &lt;code&gt;TRUE&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Resultados eleitorais federais de 2010, agregados por zona eleitoral
+df &amp;lt;- vote_mun_zone_fed(2010, export = TRUE)
+
+# Resultados eleitorais municipais de 2012, agregados por zona eleitoral
+df2 &amp;lt;- vote_mun_zone_local(2012, export = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;siglas-de-estados-e-partidos&#34;&gt;Siglas de estados e partidos&lt;/h3&gt;
+&lt;p&gt;Para consultar uma lista de siglas de estados e partidos, que pode ser útil para filtrar resultados, use:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Sigla dos estados brasileiros
+uf_br()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;AC&amp;quot; &amp;quot;AL&amp;quot; &amp;quot;AM&amp;quot; &amp;quot;AP&amp;quot; &amp;quot;BA&amp;quot; &amp;quot;CE&amp;quot; &amp;quot;DF&amp;quot; &amp;quot;ES&amp;quot; &amp;quot;GO&amp;quot; &amp;quot;MA&amp;quot; &amp;quot;MG&amp;quot; &amp;quot;MS&amp;quot; &amp;quot;MT&amp;quot; &amp;quot;PA&amp;quot;
+## [15] &amp;quot;PB&amp;quot; &amp;quot;PE&amp;quot; &amp;quot;PI&amp;quot; &amp;quot;PR&amp;quot; &amp;quot;RJ&amp;quot; &amp;quot;RN&amp;quot; &amp;quot;RO&amp;quot; &amp;quot;RR&amp;quot; &amp;quot;RS&amp;quot; &amp;quot;SC&amp;quot; &amp;quot;SE&amp;quot; &amp;quot;SP&amp;quot; &amp;quot;TO&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Sigla dos partidos que disputaram a eleicao de 2016
+parties_br()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;PPS&amp;quot;     &amp;quot;PSB&amp;quot;     &amp;quot;PSOL&amp;quot;    &amp;quot;PP&amp;quot;      &amp;quot;PSL&amp;quot;     &amp;quot;PR&amp;quot;      &amp;quot;PSDB&amp;quot;   
+##  [8] &amp;quot;PDT&amp;quot;     &amp;quot;PSDC&amp;quot;    &amp;quot;PHS&amp;quot;     &amp;quot;PT&amp;quot;      &amp;quot;PROS&amp;quot;    &amp;quot;PTC&amp;quot;     &amp;quot;PSC&amp;quot;    
+## [15] &amp;quot;PC do B&amp;quot; &amp;quot;PRB&amp;quot;     &amp;quot;PMDB&amp;quot;    &amp;quot;DEM&amp;quot;     &amp;quot;PMB&amp;quot;     &amp;quot;PTB&amp;quot;     &amp;quot;PEN&amp;quot;    
+## [22] &amp;quot;PTN&amp;quot;     &amp;quot;SD&amp;quot;      &amp;quot;PMN&amp;quot;     &amp;quot;PT do B&amp;quot; &amp;quot;PSD&amp;quot;     &amp;quot;PV&amp;quot;      &amp;quot;PRP&amp;quot;    
+## [29] &amp;quot;REDE&amp;quot;    &amp;quot;PPL&amp;quot;     &amp;quot;PRTB&amp;quot;    &amp;quot;PSTU&amp;quot;    &amp;quot;PCB&amp;quot;     &amp;quot;PCO&amp;quot;     &amp;quot;NOVO&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;tutoriais&#34;&gt;Tutoriais&lt;/h3&gt;
+&lt;p&gt;Para quem deseja ver um tutorial mais completo do funcionamento do &lt;a href=&#34;http://electionsbr.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, adicionamos uma &lt;code&gt;vignette&lt;/code&gt; ao pacote, que pode ser visto em:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://electionsbr.com/articles/index.html&#34;&gt;http://electionsbr.com/articles/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Na mesma página, também existem outros tutoriais sobre em inglês e em português.&lt;/p&gt;
+&lt;h3 id=&#34;website&#34;&gt;Website&lt;/h3&gt;
+&lt;p&gt;Por fim, em vez de ter toda a documentação espalhada por aí, reunimos tudo num único &lt;em&gt;website&lt;/em&gt;, que agora é também o site oficial do projeto.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://electionsbr.com&#34;&gt;http://electionsbr.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;[1] Para instalar a nova versão, basta abrir o &lt;code&gt;R&lt;/code&gt; e executar no console o seguinte código: &lt;code&gt;install.packages(&amp;quot;electionsBR&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: uma nova versão (0.2.0)</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-uma-nova-versao/</link>
+      <pubDate>Tue, 13 Dec 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-uma-nova-versao/</guid>
+      <description>&lt;p&gt;Obter dados eleitorais no Brasil nunca foi uma tarefa das mais fáceis. Quem já precisou fazer isso provavelmente sabe o tamanho do problema: baixar diversos arquivos, deszipá-los, abrir um a um os arquivos brutos, limpar e arrumar os dados, juntar tudo, exportar, e por aí vai. Foi com isso na cabeça que o &lt;a href=&#34;http://denissonsilva.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Denisson&lt;/a&gt;, a &lt;a href=&#34;mailto:bea.s.costa@gmail.com&#34;&gt;Beatriz&lt;/a&gt; e eu lançamos, nos idos de agosto, o &lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt; - um pacote para baixar e limpar estes dados automaticamente, direto do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt;. Passado algum tempo, e depois dos diversos &lt;em&gt;feedbacks&lt;/em&gt; que recebemos, lançamos agora uma nova versão do &lt;code&gt;electionsBR&lt;/code&gt;, já disponível no CRAN[1]: a 0.2.0.&lt;/p&gt;
+&lt;p&gt;Resumidamente, além de todas as funcionalidades existentes na versão anterior (era possível baixar quase todos os dados disponíveis do TSE e armazená-los em objetos na memória no R em segundos; para saber mais sobre a versão anterior, &lt;a href=&#34;%5BelectionsBR%5D%28http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse%29&#34;&gt;clique aqui&lt;/a&gt;), ampliamos a cobertura dela com diversos reparos e acréscimos. Destes, três se destacam:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Novas funções&lt;/strong&gt; - Incluímos duas novas funções, &lt;code&gt;voter_affiliation&lt;/code&gt; e &lt;code&gt;voter_profile&lt;/code&gt;, que coletam e limpam dados de filiação e de perfil demográfico dos(as) eleitores(as), respectivamente. Com elas, é possível saber, por exemplo, quantos(as) filiados(as) um partido possui em cada estado; nome, sexo, data de filiação e situação cadastral destes(as) filiados(as); o número de eleitores(as) registrados(as) em cada eleição desde 1998; além do sexo, faixa etária e grau de escolaridade dos(as) votantes. No &lt;code&gt;R&lt;/code&gt;, basta digitar &lt;code&gt;?voter_affiliation&lt;/code&gt;, ou &lt;code&gt;?voter_profile&lt;/code&gt;, para acessar a documentação completa destas funções.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Controle de acentos&lt;/strong&gt; - Seguindo uma sugestão dada pelo &lt;a href=&#34;http://robertmyles.github.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Robert McDonnel&lt;/a&gt;, adicionamos um argumento chamado &lt;code&gt;ascii&lt;/code&gt; em todas as funções. Basicamente, este remove acentos das informações do TSE - o que pode ser útil para computadores que não têm suporte para acentos latinos ou evitar erros em algumas operações com &lt;code&gt;strings&lt;/code&gt; (comparar nomes, por exemplo). Para remover acentos, só é necessário usar &lt;code&gt;ascii = TRUE&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Inclusão das eleições de 2016&lt;/strong&gt; - Agora também é possível obter os dados eleitorais das eleições municipais de 2016 pelo pacote (esta atualização, na verdade, já havia sido feito na versão beta, disponível no GitHub, por boa sugestão do &lt;a href=&#34;https://twitter.com/guilhermejd1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Guilherme Duarte&lt;/a&gt;). Todas as funções que coletam dados de eleições municipais (como &lt;code&gt;candidate_local&lt;/code&gt; ou &lt;code&gt;legend_local&lt;/code&gt;, por exemplo) aceitam esta opção: o usuário precisa apenas passar &lt;code&gt;2016&lt;/code&gt; para o argumento &lt;code&gt;year&lt;/code&gt; destas funções (e.g., &lt;code&gt;legend_local(year = 2016)&lt;/code&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Tudo isto para que o &lt;code&gt;electionsBR&lt;/code&gt; dê mais opções ao usuário: qual dado eleitoral ele quer (agora, sim, o pacote cobre quase todos os dados); como ele quer as informações (com ou sem acentos) e para qual período (incluso as eleições de 2016).&lt;/p&gt;
+&lt;h3 id=&#34;outras-novidades&#34;&gt;Outras novidades&lt;/h3&gt;
+&lt;p&gt;Além destas três melhorias, também alteramos outros aspectos do &lt;code&gt;electionsBR&lt;/code&gt;. Em primeiro lugar, corrigimos alguns problemas no código da versão anterior que geravam erros. Em segundo lugar, e em parte por causa dessas correções, também tivemos de modificar a documentação técnica do pacote para registrar as alterações feitas; nesta nova versão, portanto, mais detalhes passaram a ser abordados na documentação oficial do pacote (&lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/electionsBR.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;disponível neste link&lt;/a&gt;). Por fim, removemos algumas funções internas (i.e. menos confusão para os usuários) e deixamos todas as funções externas mais flexíveis (é possível, por exemplo, customizar o &lt;code&gt;encoding&lt;/code&gt; dos dados do TSE; para isso, basta definir o argumento, como &lt;code&gt;enconding = &amp;quot;UTF-8&amp;quot;&lt;/code&gt;, ou &lt;code&gt;enconding = &amp;quot;windows-1252&amp;quot;&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Apesar destas mudanças, contudo, o funcionamento do pacote permanece o mesmo. Para baixar dados eleitorais, tanto com a versão anterior quanto com essa, só é necessário carregar o pacote numa sessão do R e chamar a função desejada. Um mini-exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala a nova versao do electionsBR
+install.packages(&amp;quot;electionsBR&amp;quot;)
+
+# Carrega o pacote
+library(&amp;quot;electionsBR&amp;quot;)
+
+# Baixa dados de filiacao individuais do PT no estado de Sao Paulo
+x &amp;lt;- voter_affiliation(party = &amp;quot;PT&amp;quot;, uf = &amp;quot;SP&amp;quot;)
+
+# Baixa os mesmos dados, agora sem acentos nas informacoes textuais
+x &amp;lt;- voter_affiliation(party = &amp;quot;PT&amp;quot;, uf = &amp;quot;SP&amp;quot;, ascii = TRUE)
+
+# Baixa dados de filiacao individuais do PT e do PSDB nos estados de Minas Gerais e Bahia
+x &amp;lt;- voter_affiliation(party = c(&amp;quot;PT&amp;quot;, &amp;quot;PSDB&amp;quot;), uf = c(&amp;quot;MG&amp;quot;, &amp;quot;BA&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;o-electionsbr&#34;&gt;O electionsBR&lt;/h3&gt;
+&lt;p&gt;Para quem descobriu o pacote agora e/ou quer saber mais, segue abaixo uma lista de outros exemplos e tutoriais de como usá-lo:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR: o que é e como usar&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coletando e analisando dados de apuração eleitoral&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Exportando dados eleitorais para o Stata&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://blog.ibpad.com.br/index.php/2016/11/07/construindo-mapas-eleitorais-com-r-e-electionsbr/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Criando mapas eleitorais&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/files/electionsbr.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR: R Functions to Download and Clean Brazilian Electoral Data&lt;/a&gt;, (paper acadêmico do pacote, para quem precisa de uma referência mais detalhada).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para publicações que usam o pacote, esta última fonte, o paper, pode ser citada. É possível obter a referência dela, tanto em texto já formatado quanto em &lt;code&gt;BibTeX&lt;/code&gt;, pela função &lt;code&gt;citation&lt;/code&gt;. Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Gera a informacao bibliografica para citar o electionsBR
+citation(&amp;quot;electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## To cite electionsBR in publications, please use:
+## 
+##   Meireles, F.; Silva, D.; Costa, B. (2016). electionsBR: R
+##   functions to download and clean Brazilian electoral data.
+##   Federal University of Minas Gerais (UFMG). Belo Horizonte,
+##   Brazil. http://fmeireles.com/files/electionsbr.pdf
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {electionsBR: {R} Functions to Download and Clean {B}razilian Electoral Data},
+##     author = {Fernando Meireles and Denisson Silva and Beatriz Costa},
+##     organization = {Federal University of Minas Gerais (UFMG)},
+##     address = {Belo Horizonte, Brazil},
+##     year = {2016},
+##     url = {http://fmeireles.com/files/electionsbr.pdf},
+##   }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;notas-finais&#34;&gt;Notas finais&lt;/h3&gt;
+&lt;p&gt;Como não poderia deixar de ser num projeto como este, nos beneficiamos muito da ajuda de diversas pessoas para fazer esta atualização. Em especial, nossos colegas do &lt;a href=&#34;http://www.centroestudoslegislativos.com.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Centro de Estudos Legislativos&lt;/a&gt; Suzana Alves, Haína Coelho, Felipe Lima, Leonardo Ev, Lucas Gelape, Bruno Arcas, e também Bruno Reis e Carlos Ranulfo; e os já mencionados Guilherme e Robert, além do &lt;a href=&#34;https://github.com/dfalbel&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Daniel Falbel&lt;/a&gt;, &lt;a href=&#34;https://github.com/sillasgonzaga&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sillas Gonzaga&lt;/a&gt; e &lt;a href=&#34;https://github.com/flaviobarros&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Flávio Barros&lt;/a&gt; (estes, pelo &lt;a href=&#34;https://github.com/silvadenisson/electionsBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;github&lt;/a&gt;) contribuíram com críticas e sugestões e, por isto, estamos indefinidamente em débito com todos(as).&lt;/p&gt;
+&lt;p&gt;[1] CRAN, ou Comprehensive R Archive Network, é um repositório oficial de pacotes para o R.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: Exportando dados eleitorais do R para o Stata</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</link>
+      <pubDate>Mon, 22 Aug 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</guid>
+      <description>&lt;p&gt;Semana passada, o Denisson, a Bia e eu lançamos o &lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, um pacote no &lt;code&gt;R&lt;/code&gt; para baixar e limpas dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;repositório do TSE&lt;/a&gt;. Como explicamos, o pacote contém diversas funções que facilitam a obtenção destes dados, além de tornar um processo imensamente mais rápido. Mas, como algumas mensagens que recebemos de lá pra cá indicaram, algumas (talvez muitas) pessoas usam o Stata para rodar suas análises e, por isso, não se beneficiariam do pacote.&lt;/p&gt;
+&lt;p&gt;Neste post, farei um pequeno tutorial de como baixar e exportar estes dados do &lt;code&gt;R&lt;/code&gt; para o Stata. Não é necessário muito conhecimento de &lt;code&gt;R&lt;/code&gt; para segui-lo. Na verdade, o procedimento é tão simples que pode ser resumido em três etapas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Carregar os pacotes necessários&lt;/em&gt;: a primeira coisa a fazer é instalar e carregar o pacote &lt;code&gt;electionsBR&lt;/code&gt; no &lt;code&gt;R&lt;/code&gt;, que contêm as funções para baixar os dados do TSE. Para isto, basta apenas digitar no console:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala o pacote electionsBR (se ja foi instalado, esta etapa pode ser pulada)
+install.packages(&amp;quot;electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Carregar e baixar os dados necessários&lt;/em&gt;: agora, precisamos carregar o pacote e apenas utilizar a função desejada. Por exemplo, podemos baixar todos os dados sobre as coligações eleitorais e partidos que concorreram nas eleições de 2010 com o seguinte código:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote electionsBR
+library(electionsBR)
+
+# Baixa os dados sobre as legendas da eleicao de 2010
+dados &amp;lt;- legend_fed(2010)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Exportanto os dados&lt;/em&gt;: por fim, exportamos os dados com o pacote &lt;code&gt;foreign&lt;/code&gt;, disponível por padrão no &lt;code&gt;R&lt;/code&gt; (ao menos nas distribuições do &lt;a href=&#34;https://www.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R Project&lt;/a&gt;, que é também a mais utilizada):&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote foreign
+library(foreign)
+
+# Exporta os dados baixados do TSE (objeto &#39;dados&#39;) para o Stada
+write.dta(dados, file = &amp;quot;dados.dta&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feito isto, os dados baixados estarão disponíveis no diretório de trabalho do &lt;code&gt;R&lt;/code&gt; (é possível vê-lo digitando no console &lt;code&gt;getwd()&lt;/code&gt;), especificamente no arquivo &amp;ldquo;dados.dta&amp;rdquo;. É possível usar outro nome de arquivo para salvá-lo &amp;ndash; desde que seja mantida a extensão no final (&lt;code&gt;.dta&lt;/code&gt;). Exemplos:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Este nome de arquivo e&#39; valido
+write.dta(dados, file = &amp;quot;outro_nome.dta&amp;quot;)
+
+# Este nome de arquivo nao e&#39;
+write.dta(dados, file = &amp;quot;outro_nome&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(Na verdade, é até possível exportar um &lt;code&gt;data.frame&lt;/code&gt; para o Stata sem usar a extensão &lt;code&gt;.dta&lt;/code&gt; no nome do arquivo; o problema é que o arquivo não será associado ao Stata e, portanto, não será possível abri-lo com dois cliques simultâneos).&lt;/p&gt;
+&lt;p&gt;Em resumo, mesmo com um conhecimento quase zero de &lt;code&gt;R&lt;/code&gt;, é fácil usar o pacote &lt;code&gt;electionsBR&lt;/code&gt; para pegar dados do TSE e exportá-los para o Stata (&lt;a href=&#34;http://www.statmethods.net/input/exportingdata.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ou para outros softwares&lt;/a&gt;) &amp;ndash; e, o que não é menos importante, de forma rápida e eficiente.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: analisando a apuração das eleições para a Câmara dos Deputados</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</link>
+      <pubDate>Fri, 19 Aug 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</guid>
+      <description>&lt;p&gt;Usando o nosso pacote no &lt;code&gt;R&lt;/code&gt; para baixar e limpar dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE&lt;/a&gt;, desenvolvimento conjuntamente pelo &lt;a href=&#34;http://denissonsilva.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Denisson Silva&lt;/a&gt;, Beatriz Costa e eu, vou mostrar aqui como é possível obter e analisar os resultados de apuração das eleições para a Câmara dos Deputados desde 1998 (o período disponível, por causa de limitações nos dados do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE&lt;/a&gt;, vai de 98 a 2014 &amp;ndash; mas pretendemos expandir ele no futuro) desagregados por município/zona eleitoral.&lt;/p&gt;
+&lt;h3 id=&#34;baixando-os-dados-de-apuração-das-eleições-federais&#34;&gt;Baixando os dados de apuração das eleições federais&lt;/h3&gt;
+&lt;p&gt;Como o pacote está no &lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, a primeira coisa que precisamos fazer é instalá-lo via console:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala o pacote electionsBR via CRAN
+install.packages(&amp;quot;electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Também é possível baixar as versões pre-release do pacote via &lt;a href=&#34;https://github.com/silvadenisson/electionsBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt; (o que permite acessar as modificações que vamos fazendo nele antes delas irem para o CRAN):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala o pacote electionsBR via GitHub
+if (!require(&amp;quot;devtools&amp;quot;)) install.packages(&amp;quot;devtools&amp;quot;)
+devtools::install_github(&amp;quot;silvadenisson/electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feito isto, o pacote pode ser carregado com &lt;code&gt;library&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote electionsBR
+library(electionsBR)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Os dados sobre a apuração (i.e. votos válidos, nulos, brancos, etc.) podem ser acessados pela função &lt;code&gt;details_mun_zone_fed()&lt;/code&gt; (ou &lt;code&gt;details_mun_zone_local&lt;/code&gt;, para as eleições municipais). O primeiro passo para analisar a votação nas eleições da Câmara, portanto, é extrair os dados para 1998, 2002, 2006, 2010 e 2014:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Extrai os dados das eleicoes federais de 1998 a 2014
+e1998 &amp;lt;- details_mun_zone_fed(1998)
+e2002 &amp;lt;- details_mun_zone_fed(2002)
+e2006 &amp;lt;- details_mun_zone_fed(2006)
+e2010 &amp;lt;- details_mun_zone_fed(2010)
+e2014 &amp;lt;- details_mun_zone_fed(2014)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ainda é possível reduzir este código via &lt;code&gt;lapply&lt;/code&gt; (com a desvantagem de que, se em algum momento o servidor do TSE tiver problemas, o código para de executar; ao coletar os dados por eleição, é possível lidar melhor com erros):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Cria um vetor armazenando os anos
+anos &amp;lt;- seq(1998, 2014, by = 4)
+
+# Baixa os dados com lapply e details_mun_zone_fed
+dados &amp;lt;- lapply(anos, details_mun_zone_fed)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Processing the data...Done.Processing the data...Done.Processing the data...Done.Processing the data...Done.Processing the data...Done.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para unir as bases, uma maneira fácil é por meio da função &lt;code&gt;bind_rows()&lt;/code&gt; do pacote &lt;a href=&#34;https://cran.rstudio.com/web/packages/dplyr/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dplyr&lt;/a&gt; (uma pequena introdução a ele pode ser vista &lt;a href=&#34;https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui&lt;/a&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote dplyr
+if (!require(&amp;quot;dplyr&amp;quot;)) install.packages(&amp;quot;dplyr&amp;quot;)
+library(dplyr)
+
+# Une as bases (se foram baixadas separadamente, descomente a linha abaixo)
+# dados &amp;lt;- bind_rows(list(e1998, e2002, e2006, e2010, e2014))
+
+# Une as bases (se foram baixadas separadamente, comente a linha abaixo)
+dados &amp;lt;- bind_rows(dados)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feito isso (em poucos segundos!), a base final deve ficar com 196723 observações, algo que seria difícil de organizar manualmente ou em planilhas de excel. Só é necessário agora filtrar as observações para ficar apenas com as referentes às eleições da Câmara (excluindo, portanto, eleições para as assembleias estaduais, senado, etc.):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Filtra os dados
+dados &amp;lt;- dados[dados$DESCRICAO_CARGO == &amp;quot;DEPUTADO FEDERAL&amp;quot;,]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;analisando-os-dados&#34;&gt;Analisando os dados&lt;/h3&gt;
+&lt;p&gt;Tendo todos estes dados já na memória do &lt;code&gt;R&lt;/code&gt;, é possível analisá-los. Para fazer isto, utilizo o pacote &lt;a href=&#34;http://ggplot2.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ggplot2&lt;/a&gt; para gerar alguns gráficos. O primeiro deles é para examinar a relação entre a quantidade de comparecimentos vs. quantidade de abstenções &amp;ndash; obviamente, os dois têm de ser negativamente relacionados:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote ggplot2
+if (!require(&amp;quot;ggplot2&amp;quot;)) install.packages(&amp;quot;ggplot2&amp;quot;)
+library(ggplot2)
+
+
+ggplot(dados, aes(x = QTD_ABSTENCOES, y = QTD_COMPARECIMENTO)) + geom_point() +
+  theme_bw() + labs(title = &amp;quot;Abstenções vs. Comparecimento&amp;quot;, y = &amp;quot;Comparecimento&amp;quot;, x = &amp;quot;Abstenções&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes1-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;O que obtemos é justamente o contrário. Mas por quê? Porque o gráfico está captando o total de eleitores &amp;ndash; é necessário transformar comparecimentos e abstenções em percentuais do total de eleitores aptos a votar. Podemos fazer isto da seguinte forma:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot(dados, aes(x = I(QTD_ABSTENCOES / QTD_APTOS), y = I(QTD_COMPARECIMENTO / QTD_APTOS))) + 
+  geom_point() +
+  theme_bw() + labs(title = &amp;quot;Abstenções vs. Comparecimento&amp;quot;, y = &amp;quot;% Comparecimento&amp;quot;, x = &amp;quot;% Abstenções&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes2-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Agora obtemos o resultado esperado, uma relação perfeita entre comparecimento e abstenções. Com um código um pouco diferente (é preciso remover &lt;code&gt;missings&lt;/code&gt; e converter a variável &lt;code&gt;ANO_ELEICAO&lt;/code&gt; para &lt;code&gt;factor&lt;/code&gt;), também podemos investigar a média de abstenções durante o período:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter(dados, !is.na(ANO_ELEICAO)) %&amp;gt;% 
+  mutate(ANO_ELEICAO = factor(ANO_ELEICAO)) %&amp;gt;%
+  ggplot(aes(y = I(QTD_ABSTENCOES / QTD_APTOS), x = ANO_ELEICAO)) + geom_bar(stat = &amp;quot;summary&amp;quot;, fun.y = &amp;quot;mean&amp;quot;) +
+  theme_bw() + labs(title = &amp;quot;Média de abstenções nas eleições para a Câmara&amp;quot;, y = &amp;quot;% Abstenção&amp;quot;, x = &amp;quot;Ano&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes3-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;É possível ver que, após a eleição de 98, a média de abstenções cai, mas se mantém mais ou menos constante depois disso. Como a média sofre influência de outliers, podemos refazer o mesmo gráfico para visualizar a mediana das abstenções:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter(dados, !is.na(ANO_ELEICAO)) %&amp;gt;% 
+  mutate(ANO_ELEICAO = factor(ANO_ELEICAO),
+         PERC_ABST = QTD_ABSTENCOES / QTD_APTOS) %&amp;gt;%
+  ggplot(aes(y = PERC_ABST, x = ANO_ELEICAO)) + geom_bar(stat = &amp;quot;summary&amp;quot;, fun.y = &amp;quot;median&amp;quot;) +
+  theme_bw() + labs(title = &amp;quot;Mediana de abstenções nas eleições para a Câmara&amp;quot;, y = &amp;quot;% Abstenção&amp;quot;, x = &amp;quot;Ano&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes4-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Por fim, podemos investigar a distribução destas abstenções por eleição para obter uma informação mais detalhada:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter(dados, !is.na(ANO_ELEICAO)) %&amp;gt;% 
+  mutate(ANO_ELEICAO = factor(ANO_ELEICAO),
+         PERC_ABST = QTD_ABSTENCOES / QTD_APTOS) %&amp;gt;%
+  ggplot(aes(x = PERC_ABST)) + geom_histogram() + facet_wrap(~ ANO_ELEICAO) +
+  theme_bw() + labs(title = &amp;quot;Distribuição de abstenções nas eleições para a Câmara&amp;quot;,
+                    y = &amp;quot;Freqência&amp;quot;, x = &amp;quot;% Abstenção&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes5-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;O que corrobora os gráficos anteriores: a distribuição das abstenções em 98 estava mais dispersa do que nas eleições seguintes.&lt;/p&gt;
+&lt;h3 id=&#34;notas-finais&#34;&gt;Notas finais&lt;/h3&gt;
+&lt;p&gt;Este é apenas um dois possíveis tipos de análises que é possível fazer com a ajuda do pacote &lt;code&gt;electionsBR&lt;/code&gt;. Como deve ter ficado claro, ele simplifica enormemente a tarefa de obter dados eleitorais, além de já os deixar prontos para uso. Mesmo assim, ainda é possível que alguns dos dados do TSE não possam ser tão simplemente analisados. A formação de alguns campos varia ao longo do tempo (a data de nascimento dos candidatos, por exemplo, era preenchida como &amp;ldquo;13/10/1976&amp;rdquo; em anos anteriores, mas também já foi preenchida como &amp;ldquo;13-10-76&amp;rdquo;), algumas variáveis são acrescentadas e, constantemente, outras são atualizadas pelo TSE. Por estas e outras razões, o pacote &lt;code&gt;electionsBR&lt;/code&gt; ainda é um trabalho em aberto, que pode melhorar com a contribuição de outras pessoas.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: um pacote no R para baixar e limpar dados eleitorais do TSE</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</link>
+      <pubDate>Thu, 18 Aug 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</guid>
+      <description>&lt;p&gt;Nosso pacote para baixar e limpar dados eleitorais do website do TSE, desenvolvido conjuntamente por Denisson Silva, Beatriz Costa e eu, foi publicado no &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Comprehensive R Archive Network (CRAN)&lt;/a&gt;: o &lt;code&gt;electionsBR&lt;/code&gt;. Basicamente, ele contém uma série de funções para extrair e limpar a maioria dos dados disponíveis no &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt;, deixando-os prontos para uso.&lt;/p&gt;
+&lt;p&gt;O &lt;code&gt;electionsBR&lt;/code&gt; vem para facilitar a vida de quem trabalha ou precisa consultar estes dados do TSE de duas formas. Primeiro, ele fornece um conjunto de funções para baixar a maioria dos dados do TSE, que são então armazenados diretamente num objeto na memória do &lt;code&gt;R&lt;/code&gt; &amp;ndash; sem a necessidade de abrir o website do TSE, deszipar, ler e limpar cada um dos arquivos individuais. Segundo, ele faz isso em poucos segundos e, além disso, já lida com os principais problemas nas bases do TSE: como é notório entre os usuários do Repositório, os arquivos do TSE frequentemente vêm com problemas de enconding (i.e. acentos tornam-se caracteres inelegíveis), incompatibilidade entre arquivos (i.e. mais ou menos variáveis, células vazias) e informações mal formatadas (i.e. variáveis numéricas contêm caracteres não-numéricos).Com ele, portanto, é possível baixar rapidamente, e sem problemas, os principais dados eleitorais do TSE.&lt;/p&gt;
+&lt;h3 id=&#34;usando-o-pacote&#34;&gt;Usando o pacote&lt;/h3&gt;
+&lt;p&gt;Apenas duas coisas são necessárias para usar o pacote: uma versão do &lt;code&gt;R&lt;/code&gt; superior a 2.1 (&amp;gt;= 2.1) e conexão com a internet. Para instalar a versão estável dele no &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, basta digitar no console:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Também é possível instalar as versões pré-release direto do &lt;a href=&#34;https://github.com/silvadenisson/electionsBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt; (onde também está disponível uma pequena introdução ao pacote, em inglês):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;if (!require(&amp;quot;devtools&amp;quot;)) install.packages(&amp;quot;devtools&amp;quot;)
+devtools::install_github(&amp;quot;silvadenisson/electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O pacote &lt;code&gt;electionsBR&lt;/code&gt; possui dez funções básicas para baixar cinco tipos de dados diferentes. São elas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;candidate_fed()&lt;/code&gt;: baixa dados sobre as candidaturas individuais nas eleições federais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;candidate_local()&lt;/code&gt;: baixa dados sobre as candidaturas individuais nas eleições municipais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;details_mun_zone_fed()&lt;/code&gt;: baixa dados sobre os detalhes de apuração desagregados por município/zona eleitoral das eleições federais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;details_mun_zone_fed()&lt;/code&gt;: baixa dados sobre os detalhes de apuração desagregados por município/zona eleitoral das eleições municipais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legend_fed()&lt;/code&gt;: baixa dados sobre as legendas que concorreram nas eleições federais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legend_local()&lt;/code&gt;: baixa dados sobre as legendas que concorreram nas eleições locais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;party_mun_zone_fed()&lt;/code&gt;: baixa dados sobre o desempenho das legendas desagregados por município/zona eleitoral nas eleições federais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;party_mun_zone_local()&lt;/code&gt;: baixa dados sobre o desempenho das legendas desagregados por município/zona eleitoral nas eleições locais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;vote_mun_zone_fed()&lt;/code&gt;: baixa dados sobre os resultados eleitorais desagregados por município/zona eleitoral nas eleições federais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;vote_mun_zone_locais()&lt;/code&gt;: baixa dados sobre os resultados eleitorais desagregados por município/zona eleitoral nas eleições locais.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para baixar os dados sobre os candidatos que disputaram as eleições nacionais de 2002, por exemplo, basta executar o seguinte código:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote
+library(electionsBR)
+
+# Baixa os dados
+dados &amp;lt;- candidate_fed(year = 2002)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Processing the data...Done
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Todas as funções funcionam da mesma forma: o único argumento que deve ser preenchido pelo usuário é o ano do pleito (&lt;code&gt;year&lt;/code&gt;), que deve ser introduzido como &lt;code&gt;integer&lt;/code&gt; (e.g., 2002, 2006, 1996). O objeto resultante é um &lt;code&gt;data.frame&lt;/code&gt; que contém diversas variáveis (para uma descrição detalhada de cada uma, &lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/electionsBR.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ver a documentação do pacote no CRAN&lt;/a&gt;).&lt;/p&gt;
+&lt;h3 id=&#34;algumas-notas-finais&#34;&gt;Algumas notas finais&lt;/h3&gt;
+&lt;p&gt;É importante ressaltar que este pacote é resultado de alguns projetos de pesquisa em andamento no &lt;a href=&#34;http://www.centroestudoslegislativos.com.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Centro de Estudos Legislativos (CEL)&lt;/a&gt;, do qual o Denisson, a Bia e eu fazemos parte. Ao ter de repetir diversas vezes a tarefa de baixar, descompactar, abrir e unir todas as bases do TSE, achamos uma boa ideia criar este pacote para facilitar a nossa vida. Mas, como efeito final, também possibilitamos que outras pessoas consultem os mesmos dados facilmente.&lt;/p&gt;
+&lt;p&gt;Como esta é a primeira versão estável do pacote, críticas e sugestões para melhorá-lo são bem-vindas.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

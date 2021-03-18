@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>impeachment | Fernando Meireles</title>
+    <link>https://www.femeireles.com/categoria/impeachment/</link>
+      <atom:link href="https://www.femeireles.com/categoria/impeachment/index.xml" rel="self" type="application/rss+xml" />
+    <description>impeachment</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Fri, 12 Aug 2016 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <title>impeachment</title>
+      <link>https://www.femeireles.com/categoria/impeachment/</link>
+    </image>
+    
+    <item>
+      <title>Golpe ou impeachment? Uma análise dos tweets da Dilma Rousseff</title>
+      <link>https://www.femeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
+      <pubDate>Fri, 12 Aug 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
+      <description>&lt;p&gt;Desde o ínicio do impeachment da agora Presidente afastada, Dilma
+Rousseff (PT), acadêmicos e articulistas discutem se este processo se
+encaixa na categoria de golpe de estado. Críticos do governo e membros
+da oposição defendem que, conceitualmente, golpe de estado envolveria
+deposição à força da ou do presidente (i.e., por golpe militar), o que
+não é o caso aqui. Por outro lado, esta definição está longe de ser
+consensual: &lt;a href=&#34;http://www.cienciapolitica.org.br/impeachment-golpe-politico-e-democracia/#.V6-XR5grLtQ&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;outras definições são consistentes com a ausência de
+participação
+militar&lt;/a&gt;.
+No caso da queda do então Presidente do Paraguai, Fernando Lugo, o mesmo
+foi frequentemente alegado, embora, também ali, seja difícil explicar
+como que um processo tão rápido possa ter seguido dentro da normalidade
+democrática.&lt;/p&gt;
+&lt;p&gt;Outra questão neste debate, entretanto, não é muito analisada: rotular o
+processo de impedimento da Presidenta Dilma como golpe é uma boa
+estratégia? Para analisar isto, resolvi aproveitar o pacote
+&lt;a href=&#34;https://cran.r-project.org/web/packages/twitteR/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;twitteR&lt;/a&gt;,
+no &lt;code&gt;R&lt;/code&gt;, para fazer uma análise de todos os tweets dela desde outubro de
+2014 para responder esta pergunta. Como o twitter é reconhecidamente uma
+ferramenta importante de comunicação (a Dilma, além disso, tem quase 5
+milhões de seguidores), este é um bom exercício para investigar o
+retorno desta estratégia.&lt;/p&gt;
+&lt;p&gt;Os dados que usei, com todos os tweets da Presidenta, podem ser baixados
+&lt;a href=&#34;https://github.com/meirelesff/tweets_politicos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;neste link&lt;/a&gt;. Com eles, é possível replicar o código que usei abaixo para
+fazer a análise (também é necessário ter instalado alguns pacotes, como
+o &lt;code&gt;ggplot2&lt;/code&gt;, pra gerar gráficos, e o &lt;code&gt;dplyr&lt;/code&gt;, pra manipular os dados).&lt;/p&gt;
+&lt;h4 id=&#34;a-presidenta-dilma-ficou-mais-ativa-no-twitter-nos-últimos-meses&#34;&gt;A Presidenta Dilma ficou mais ativa no Twitter nos últimos meses?&lt;/h4&gt;
+&lt;p&gt;Depois de sua posse em 2010, Dilma Rousseff acabou &lt;a href=&#34;http://oglobo.globo.com/politica/dilma-serra-desaparecem-do-twitter-no-mes-seguinte-eleicao-2916329&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;abandonando o
+Twitter&lt;/a&gt;,
+rede social onde foi bastante ativa durante as eleições. Entre indas e
+vindas, logo após ter sido afastada da Presidência, entretanto, o perfil
+&lt;a href=&#34;https://twitter.com/dilmabr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dilmabr&lt;/a&gt; &lt;a href=&#34;http://www.istoedinheiro.com.br/noticias/economia/20160519/afastada-presidencia-dilma-rousseff-torna-se-ativa-nas-redes-sociais/374904&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;voltou a ser usado com mais
+frequência&lt;/a&gt;.
+E, &lt;a href=&#34;http://epoca.globo.com/tempo/expresso/noticia/2016/05/dilma-lanca-mao-de-rede-social-para-se-defender-no-processo-de-impeachment.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;segundo a revista
+Época&lt;/a&gt;,
+seu novo uso para a ferramente tem sido divulgar sua defesa no processo
+de impeachment.&lt;/p&gt;
+&lt;p&gt;A primeira coisa que resolvi investigar foi justamente isto: se a
+Presidenta teria ficado mais ativa no Twitter após o seu afastamento.
+Para começar, primeiro carrego os pacotes e os dados necessários no &lt;code&gt;R&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(lubridate) # Para manipular datas
+library(ggplot2) # Para gerar graficos
+library(tidyr) # Para manipular os dados
+library(dplyr) # Para manipular os dados
+library(tm) # Para fazer text mining nos tweets
+
+load(&amp;quot;dilma_tw.Rda&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A base tem 16 variáveis e 1859 observações (significando que, desde
+2010, o perfil &lt;code&gt;@dilmabr&lt;/code&gt; tuítou 1859 vezes). A questão que precisamos
+analisar, agora, é verificar a frequência com que a Presidenta tem
+tuítado. Agregando seus tweets por mês, podemos visualizar isto:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dilma_tw$data_mes &amp;lt;- floor_date(dilma_tw$created, &amp;quot;month&amp;quot;)
+
+dilma_tw %&amp;gt;%
+  count(data_mes) %&amp;gt;%
+  ggplot(aes(x = data_mes, y = n)) + geom_line() + 
+  geom_vline(xintercept = 
+  as.numeric(as.POSIXct(&amp;quot;2016-05-01&amp;quot;)), linetype = 2) + 
+  theme_bw() + 
+  labs(title = &amp;quot;Atividade da Dilma no Twitter&amp;quot;,
+  x = &amp;quot;Ano-Mês&amp;quot;, y = &amp;quot;Número de tweets&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;O gráfico mostra que a pró-atividade da Presidenta no twitter é ambígua.
+É verdade que ela passou a tuítar mais nos últimos dois meses (a linha
+pontilhada indica o mês de maio de 2016), mas em outros períodos ela
+utilizava a ferramente muito mais, especialmente nos meses anteriores às
+eleições de 2014. Mesmo assim, pode ser que, mesmo não tuitando com
+tanta frequência, seus tweets mais recentes estejam atingindo um público
+maior (recebendo mais retweets ou sendo mais favoritados pelos usuários,
+o que indicaria que eles estariam tendo maior engajamento com os seus
+conteúdos). Podemos ver isso agregando as retuítadas e os favoritos
+também por mês:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dilma_tw %&amp;gt;%
+  group_by(data_mes) %&amp;gt;%
+    summarise(Reteets = sum(retweetCount), Favoritos = sum(favoriteCount)) %&amp;gt;%
+      gather(key = Ação, value = N, Reteets:Favoritos) %&amp;gt;%
+      ggplot(aes(x = data_mes, y = N / 1000, color = Ação)) +
+      geom_line() + geom_vline(xintercept = as.numeric(as.POSIXct(&amp;quot;2016-05-01&amp;quot;)),
+      linetype = 2) + 
+      theme_bw() + labs(title = &amp;quot;RTs e Favs dos tweets da Dilma&amp;quot;,
+      x =&amp;quot;Ano-Mês&amp;quot;, y = &amp;quot;RTs e Fav (em milhares)&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;O padrão parece seguir o anterior: a Presidenta vem tendo maior
+influência no twitter após seu afastamento, mas já teve mais que isso no
+passado. O problema é que estas simples medidas escondem uma informação
+importante: mesmo tuitando menos, pode ser que seus tweets atuais sejam
+relativamente mais influentes. Suponhamos, por exemplo, que todo tweet
+da @dilmabr tenha sempre 100 retweets; caso ela tuíte muito num mês,
+este gerará mais retweets no agregado. Como essa influência depende do
+número de tweets (quem tuíta mais pode receber mais retweets e
+favoritos), portanto, uma medida melhor de influência pode ser obtida
+calculando a média de retweets e favoritos por tweet num mês, i.e.
+&lt;code&gt;retweets / total de tweets&lt;/code&gt; e &lt;code&gt;favoritos / total de tweets&lt;/code&gt;. É possível
+ver este gráfico abaixo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dilma_tw %&amp;gt;%
+  group_by(data_mes) %&amp;gt;%
+  summarise(Retweets_por_tuite = sum(retweetCount) / n(),
+  Favoritos_por_tuite = sum(favoriteCount) / n()) %&amp;gt;%
+  gather(key = Ação, value = N, Retweets_por_tuite:Favoritos_por_tuite) %&amp;gt;%
+  ggplot(aes(x = data_mes, y = N, color = Ação)) + geom_line() +
+  geom_vline(xintercept = as.numeric(as.POSIXct(&amp;quot;2016-05-01&amp;quot;)),
+  linetype = 2) + 
+  theme_bw() + 
+  labs(title = &amp;quot;RTs e Favs por tweet da Dilma&amp;quot;, x = &amp;quot;Ano-Mês&amp;quot;,
+  y = &amp;quot;RTs e Fav por tweet&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Agora é que as coisas mudam de figura: mesmo tendo tuítado relativamente
+menos do que em outras épocas, os tweets mais recentes da Presidenta são
+mais influentes, isto é, eles obtêm mais retweets e favoritos (apenas
+com base neste gráfico, também suspeito que poucas pessoas têm interesse
+em retuítar e favoritar tweets de campanha, como aqueles divulgando
+agenda de eventos e comícios, o que pode explicar porque a atividade nos
+períodos eleitorais não produz um impacto por tweet tão grande; também
+deve ser considerado que o número de seguidores da Presidente não se
+manteve constante no período).&lt;/p&gt;
+&lt;h4 id=&#34;quais-termos-mais-aparecem-nos-tweets-da-presidenta-dilma&#34;&gt;Quais termos mais aparecem nos tweets da Presidenta Dilma?&lt;/h4&gt;
+&lt;p&gt;Se os últimos tweets da Dilma têm sido os seus mais influentes, no que
+eles são diferentes dos anteriores? Eles falam sobre assuntos distintos?
+Para analisar isto, criei uma matriz com a frequência de palavras usadas
+nos tweets para, então, visualizar os resultados. Começo com os tweets
+pré-afastamento:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;pre_afast &amp;lt;- dilma_tw %&amp;gt;%
+  filter(data_mes &amp;lt; as.POSIXct(&amp;quot;2016-04-01 UTC&amp;quot;)) %&amp;gt;%
+  select(text) %&amp;gt;%
+  VectorSource() %&amp;gt;%
+  Corpus() %&amp;gt;%
+  TermDocumentMatrix(control = list(
+    removePunctuation = T,
+    stopwords = c(stopwords(&amp;quot;portuguese&amp;quot;),
+    &amp;quot;vcs&amp;quot;,
+    &amp;quot;aqui&amp;quot;,
+    &amp;quot;ser&amp;quot;,
+    &amp;quot;hoje&amp;quot;,
+    &amp;quot;sobre&amp;quot;,
+    &amp;quot;agora&amp;quot;,
+    &amp;quot;todos&amp;quot;,
+    &amp;quot;ter&amp;quot;,
+    &amp;quot;vamos&amp;quot;,
+    &amp;quot;anos&amp;quot;),
+    removeNumbers = T, tolower = T)
+  ) %&amp;gt;%
+  as.matrix() %&amp;gt;%
+  as.data.frame()
+
+pre_afast &amp;lt;- data.frame(termos = rownames(pre_afast),
+freq = rowSums(pre_afast), periodo = &amp;quot;Pré afastamento&amp;quot;)
+
+ pre_afast %&amp;gt;%
+  arrange(desc(freq)) %&amp;gt;%
+  slice(1:15) %&amp;gt;%
+  mutate(termos = factor(termos,
+  levels = termos[order(freq, decreasing = T)])) %&amp;gt;%
+  ggplot(aes(x = termos, y = freq)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;) + theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  labs(title = &amp;quot;Termos mais usados nos tweets da Dilma\n(Pré-afastamento)&amp;quot;,
+  x = &amp;quot;Termo&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Neste período pré-afastamento, os termos que mais aparecem nos tweets da
+Presidenta se referem principalmente às eleições, ela mesma e ao país.
+Quando analisamos o segundo período, alguns termos novos aparecem:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Apesar da frequência de termos ser menor (o período também é menor),
+fica evidente que alguns ganham maior espaço: especialmente os termos
+&amp;ldquo;provisório&amp;rdquo;, &amp;ldquo;impeachment&amp;rdquo;, &amp;ldquo;processo&amp;rdquo;, &amp;ldquo;democracia&amp;rdquo; e &amp;ldquo;golpe&amp;rdquo;. Estes
+são, especificamente, os tweets usados como estratégia de defesa da
+Presidente, como &lt;a href=&#34;https://twitter.com/dilmabr/status/763810258561236992&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;seguinte exemplo
+mostra&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Portanto, vimos não só que os tuítes da Dilma se tornaram mais
+influentes após o seu afastamento, mas também que o conteúdo destes é um
+pouco diferente dos anteriores: eles mencionam mais o processo de
+impeachment e, além disso, contêm mais o termo &amp;ldquo;golpe&amp;rdquo;.&lt;/p&gt;
+&lt;h4 id=&#34;usar-os-termos-golpe-e-impeachment-dá-resultado&#34;&gt;Usar os termos &amp;ldquo;golpe&amp;rdquo; e &amp;ldquo;impeachment&amp;rdquo; dá resultado?&lt;/h4&gt;
+&lt;p&gt;Mas os tweets que usam o termo &amp;ldquo;golpe&amp;rdquo; recebem mais retweets e
+favoritadas? Em caso positivo, podemos dizer que, ao menos no âmbito do
+twitter, o uso do conceito traz benefícios. Podemos fazer um exercício
+simples para verificar isto, que consiste em calcular a média de
+retweets e favoritos nos tweets com a palavra &amp;ldquo;golpe&amp;rdquo; e nos que não a
+contêm.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## =================================
+## golpe          Retweets Favoritos
+## ---------------------------------
+## C/ termo golpe  734.4    1326.8  
+## S/ termo golpe  435.8     817.4  
+## ---------------------------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O resultado dá uma ideia da influência do termo &amp;ldquo;golpe&amp;rdquo;: tweets com este
+termo recebem, em média, cerca de 299 retweets a mais, além de cerca de
+509 favoritadas a mais. Este não é a forma mais rigorosa de fazer isto
+(o grupo dos tweets sem o termo &amp;ldquo;golpe&amp;rdquo; pode tratar de assuntos menos
+relevantes, ter sido publicado em períodos diferentes, etc.), mas este
+simples exercício mostra que o uso do termo tem relação com a influência
+de um tweet da Presidenta (também deve ser levado em conta que isto não
+explica toda a influência dos seus tweets mais recentes). E quanto ao
+termo impeachment? O resultado muda:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## =======================================
+## golpe                Retweets Favoritos
+## ---------------------------------------
+## C/ termo impeachment  464.3     937.7  
+## S/ termo impeachment  449.9     836.8  
+## ---------------------------------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Praticamente não existe diferença entre tweets que usam ou não o termo
+&amp;ldquo;impeachment&amp;rdquo;. Podemos ainda comparar os dois, &amp;ldquo;golpe&amp;rdquo; e &amp;ldquo;impeachment&amp;rdquo;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## =======================================
+## golpe                Retweets Favoritos
+## ---------------------------------------
+## C/ termo golpe        734.4    1326.8  
+## C/ termo impeachment  436.4     893.7  
+## ---------------------------------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Tweets com o termo &amp;ldquo;golpe&amp;rdquo;, novamente, ganham disparado em influência.
+Fazendo uma estimativa simples de que cada retweet alcance 100 novos
+usuários, podemos dizer que cada tweet com o termo atinge cerca de
+30.000 usuários a mais. Provavelmente este número é maior, e ele ainda
+deve ser somado ao número de seguidores da Presidente que já viram os
+tweets em suas timelines. Outra coisa que deve ser considera é que estes
+retweets são feitos por usuários que provavelmente têm maior inclinação
+pela Presidenta, o que significa que estes já são mais propensos a se
+engajar com publicações que mencionam o termo &amp;ldquo;golpe&amp;rdquo;. Em todo caso,
+como os números mostram, o uso deste termo está associado com um maior
+número de retweets e favoritos, sugerindo que, ao menos no twitter,
+classificar o processo de impeachment como golpe parece ser a melhor
+estratégia.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

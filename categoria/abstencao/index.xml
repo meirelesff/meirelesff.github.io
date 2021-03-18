@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>abstencao | Fernando Meireles</title>
+    <link>https://www.femeireles.com/categoria/abstencao/</link>
+      <atom:link href="https://www.femeireles.com/categoria/abstencao/index.xml" rel="self" type="application/rss+xml" />
+    <description>abstencao</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Fri, 07 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <title>abstencao</title>
+      <link>https://www.femeireles.com/categoria/abstencao/</link>
+    </image>
+    
+    <item>
+      <title>Desatualização nas bases do TSE e abstenção eleitoral</title>
+      <link>https://www.femeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
+      <pubDate>Fri, 07 Oct 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
+      <description>&lt;p&gt;Aproveitando os dados do &lt;a href=&#34;http://www.tre-rs.jus.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE-RS&lt;/a&gt;, que divulgou uma lista completa dos municípios que passaram pelo recadastramento biométrico até esse ano, resolvi investigar se a biometria realmente afetou as taxas de abstenção nestas eleições.&lt;/p&gt;
+&lt;p&gt;O gráfico abaixo ilustra essa diferença entre municípios que passaram ou não pelo recadastramento. Como dá pra ver, a taxa de abstenção média nos municípios que passaram a usar o sistema de biometria cai visivelmente depois de 2014 no Rio Grande do Sul (quando a maior parte dos municípios fez o cadastramento).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencao1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Quando removemos os efeitos temporais e entre casos via um &lt;a href=&#34;https://en.wikipedia.org/wiki/Fixed_effects_model&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;modelo de regressão com efeitos fixos&lt;/a&gt;, este efeito fica ainda mais nítido:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencao2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Especificamente, o efeito estimado é de cerca de 4.5% (estimado com um modelo &lt;a href=&#34;https://en.wikipedia.org/wiki/Difference_in_differences&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;diff-in-diff&lt;/a&gt;), o que significa que, na média, a taxa de abstenção no estado estava inflada em quase 50% (ela foi de cerca de 10% em 2012 na média dos municípios, embora Porto Alegre e região tenham tido abstenção maior). Em outras palavras, removendo os eleitores fantasmas, a abstenção caiu quase pela metade.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

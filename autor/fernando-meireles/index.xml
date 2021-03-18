@@ -1,0 +1,1516 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fernando Meireles</title>
+    <link>https://www.femeireles.com/autor/fernando-meireles/</link>
+      <atom:link href="https://www.femeireles.com/autor/fernando-meireles/index.xml" rel="self" type="application/rss+xml" />
+    <description>Fernando Meireles</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Sun, 30 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://www.femeireles.com/autor/fernando-meireles/avatar_huf4d0ce3015084569c42b04aba0abcb0a_15701_270x270_fill_q75_lanczos_center.jpeg</url>
+      <title>Fernando Meireles</title>
+      <link>https://www.femeireles.com/autor/fernando-meireles/</link>
+    </image>
+    
+    <item>
+      <title>Deflacionando séries com o deflateBR</title>
+      <link>https://www.femeireles.com/post/rstats/deflacionar-series-no-r-deflatebr/</link>
+      <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/deflacionar-series-no-r-deflatebr/</guid>
+      <description>&lt;p&gt;Deflacionar séries é pré-requisito em qualquer análise sobre o valor do
+dinheiro ao longo do tempo. E embora não seja algo complexo, isso
+envolve várias etapas que consomem tempo, todas sujeitas a erro humano:
+obter dados históricos de algum índice de preços; compatibilizar as
+datas da série nominal que se quer corrigir com a série do índice de
+preços; calcular o ajuste; refazer o processo caso seja necessário usar
+outro índice de preços. Em suma, deflacionar séries acaba sempre tomando
+mais tempo do que deveria.&lt;/p&gt;
+&lt;p&gt;Para realizar essa tarefa de uma forma mais rápida e replicável, usando
+cinco dos índices de preços mais populares no Brasil, criei um pacote
+para &lt;code&gt;R&lt;/code&gt;: o &lt;code&gt;deflateBR&lt;/code&gt;. A partir de uma série de reais nominais, ele
+obtém as séries de índices de preços atualizadas diretamente da API do
+IPEA e, em segundos, retorna os valores corrigidos – usando a
+metodologia adotada pelo &lt;a href=&#34;https://www3.bcb.gov.br/CALCIDADAO/publico/metodologiaCorrigirIndice.do?method=metodologiaCorrigirIndice&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Banco
+Central&lt;/a&gt;.
+Segue um breve descrição do pacote.&lt;/p&gt;
+&lt;h3 id=&#34;como-funciona-o-deflatebr&#34;&gt;Como funciona o deflateBR?&lt;/h3&gt;
+&lt;p&gt;O &lt;code&gt;deflateBR&lt;/code&gt; automatiza três processos para deflacionar uma série.
+Primeiro, ele extrai dados de um dos seguintes índices de preços da API
+do IPEA: IPCA e INPC, desenvolvidos pelo IBGE; e IGP-M, IGP-DI e IPC,
+desenvolvidos pela FGV. Segundo, ele compatibiliza as datas mensais
+desses índices com as datas dos valores nominais da série. Feito isso,
+enfim, ele deflaciona e retorna os valores corrigidos.&lt;/p&gt;
+&lt;p&gt;A função principal do pacote, &lt;code&gt;deflate&lt;/code&gt;, requer apenas três argumentos:
+um vetor numérico de valores nominais; um vetor com as datas nominais; e
+uma data de referência no formato MM/AAAA. Um exemplo usando o IPCA:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote
+library(deflateBR)
+
+# Deflaciona 100 reais de janeiro de 2000
+deflate(nominal_values = 100, nominal_dates = as.Date(&amp;quot;2000-01-01&amp;quot;), real_date = &amp;quot;01/2018&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Downloading necessary data from IPEA&#39;s API
+## ...
+
+## [1] 310.3893
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Por padrão, a função &lt;code&gt;deflate&lt;/code&gt; esse índice. Podemos alterar isso com
+outro argumento chamado &lt;code&gt;index&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;deflate(100, as.Date(&amp;quot;2000-01-01&amp;quot;), &amp;quot;01/2018&amp;quot;, index = &amp;quot;igpm&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Downloading necessary data from IPEA&#39;s API
+## ...
+
+## [1] 372.1672
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Passando o valor &lt;code&gt;igpm&lt;/code&gt; para o argumento, a função usa o IGP-M como
+indexador. Os demais indexadores possíveis são: &lt;code&gt;ipc&lt;/code&gt; para o IPC;
+&lt;code&gt;igpdi&lt;/code&gt; para o IGP-DI; &lt;code&gt;inpc&lt;/code&gt; para o INPC. Para sabermos 100 reais de
+janeiro de 1995 valeriam hoje segundo esse último, bastaria usar:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;deflate(100, as.Date(&amp;quot;1995-01-01&amp;quot;), &amp;quot;01/2018&amp;quot;, &amp;quot;inpc&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Downloading necessary data from IPEA&#39;s API
+## ...
+
+## [1] 491.0543
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;deflacionando-séries-maiores&#34;&gt;Deflacionando séries maiores&lt;/h3&gt;
+&lt;p&gt;Mais útil do que corrigir um único valor é corrigir séries inteiras, com
+várias quantias em reais nominais associadas a algum período específico.
+Para mostrar como a função &lt;code&gt;deflate&lt;/code&gt; faz isso, podemos criar os seguinte
+&lt;code&gt;data.frame&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dados &amp;lt;- data.frame(reais = seq(1, 5),
+                    datas = seq.Date(from = as.Date(&amp;quot;2001-01-01&amp;quot;), by = &amp;quot;month&amp;quot;, length.out = 5),
+                    stringsAsFactors = FALSE
+                     )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feito isso, temos agora dados fictícios, com valores de 1 a 5 observados
+desde janeiro até maio de 2001. Suponha que queremos deflacionar esses
+valores para janeiro de 2017 usando o IPC da FGV. Como fazer isso?
+Apenas mudando o jeito de passar as informações necessárias para a
+função &lt;code&gt;deflate&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;deflate(dados$reais, dados$datas, &amp;quot;01/2017&amp;quot;, &amp;quot;ipc&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Downloading necessary data from IPEA&#39;s API
+## ...
+
+## [1]  2.759569  5.484001  8.193400 10.863809 13.464326
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;combinando-o-deflatebr-com-o-tidyverse&#34;&gt;Combinando o deflateBR com o tidyverse&lt;/h3&gt;
+&lt;p&gt;Para quem usa o conjunto de pacotes contidos no &lt;code&gt;tidyverse&lt;/code&gt;, a função
+&lt;code&gt;deflate&lt;/code&gt; pode ser usada dentro de &lt;code&gt;mutate()&lt;/code&gt; ou similares. Adaptando o
+exemplo anterior:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
+
+dados %&amp;gt;%
+  mutate(reais_deflacionados = deflate(reais, datas, &amp;quot;01/2017&amp;quot;, &amp;quot;ipc&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Downloading necessary data from IPEA&#39;s API
+## ...
+
+##   reais      datas reais_deflacionados
+## 1     1 2001-01-01            2.759569
+## 2     2 2001-02-01            5.484001
+## 3     3 2001-03-01            8.193400
+## 4     4 2001-04-01           10.863809
+## 5     5 2001-05-01           13.464326
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;outras-funções&#34;&gt;Outras funções&lt;/h3&gt;
+&lt;p&gt;Para facilitar o uso de cada um dos cinco índices de preços, também
+incluí no pacote &lt;code&gt;deflateBR&lt;/code&gt; cinco funções auxiliares. Em vez de usar a
+função &lt;code&gt;deflate&lt;/code&gt; com o argumento &lt;code&gt;index = &amp;quot;ipca&amp;quot;&lt;/code&gt; para deflacionar pelo
+IPCA, é possível fazer isso:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ipca(dados$reais, dados$datas, &amp;quot;01/2017&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Downloading necessary data from IPEA&#39;s API
+## ...
+
+## [1]  2.847600  5.662908  8.455458 11.231286 13.958171
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ou, para usar o IGP-DI, o seguinte:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;igpdi(dados$reais, dados$datas, &amp;quot;01/2017&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Downloading necessary data from IPEA&#39;s API
+## ...
+
+## [1]  3.385977  6.738949 10.074312 13.325380 16.471004
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Por fim, o pacote &lt;code&gt;deflateBR&lt;/code&gt; também contém uma função simples, chamada
+&lt;code&gt;inflation&lt;/code&gt;, para identificar a variação percentual na inflação entre
+dois períodos. Se quisermos saber qual foi a taxa de inflação em 2017
+segundo o IPCA, por exemplo, basta rodar:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;inflation(&amp;quot;01/2017&amp;quot;, &amp;quot;12/2017&amp;quot;, &amp;quot;ipca&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Downloading necessary data from IPEA&#39;s API
+## ...
+
+## [1] 2.947421
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como o resultado está em percentual, podemos dizer que a taxa de
+inflação em 2017, medida pelo IPCA, foi de 2.95%, &lt;a href=&#34;http://agenciabrasil.ebc.com.br/economia/noticia/2018-01/inflacao-oficial-pelo-ipca-em-2017-e-de-295-menor-taxa-desde-1998&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;conforme também
+reportado oficialmente pelo
+IBGE&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;exemplo-de-aplicação-1-o-valor-do-salário-mínimo&#34;&gt;Exemplo de aplicação 1: o valor do salário mínimo&lt;/h3&gt;
+&lt;p&gt;Deflacionar séries é útil para ver como o poder de compra de salários ou
+outros variam ao longo do tempo. O salário mínimo, por exemplo, cresceu
+ou não acima da inflação? É possível responder a essa pergunta ajustando
+os salários nominais em cada período específico com um índice de preços,
+como o IPCA. Fazendo isso com o pacote &lt;code&gt;deflateBR&lt;/code&gt;, podemos ver que o
+mínimo realmente cresceu acima da inflação desde
+1995.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/salario_minimo-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;exemplo-de-aplicação-2-o-valor-de-bolsas-de-pós-graduação&#34;&gt;Exemplo de aplicação 2: o valor de bolsas de pós-graduação&lt;/h3&gt;
+&lt;p&gt;Um bom exemplo de categoria que não teve aumento de renda acima da
+inflação de 1995 a 2018 foram pós-graduandos que recebem bolsas de
+estudos da Capes. Fixadas há anos nos mesmos patamares – R$ 2200 para
+Doutorado, R$ 1500 para Mestrado –, a inflação não reposta se reflete em
+perda de poder de compra da categoria.[1] Como dá pra ver, o valor dos
+benefícios, hoje, praticamente voltaram aos patamares do início do
+primeiro governo
+Lula.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/bolsa_capes-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;validade&#34;&gt;Validade&lt;/h3&gt;
+&lt;p&gt;Como já dito, o &lt;code&gt;deflateBR&lt;/code&gt; usa a fórmula convencional para corrigir
+valores nominais pela inflação: multiplicá-lo pela razão entre o índice
+de preços no período de referência e no período observado, assim como a
+&lt;a href=&#34;https://www3.bcb.gov.br/CALCIDADAO/publico/metodologiaCorrigirIndice.do?method=metodologiaCorrigirIndice&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;calculadora disponibilizada pelo Banco
+Central&lt;/a&gt;.
+Os resultados do pacote e desse serviço, por essa razão, são
+iguais.[2]&lt;/p&gt;
+&lt;h3 id=&#34;como-instalar&#34;&gt;Como instalar&lt;/h3&gt;
+&lt;p&gt;Para instalar a versão disponível no
+&lt;a href=&#34;https://cran.r-project.org/package=deflateBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt; do pacote, basta
+executar o seguinte códido:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;deflateBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;final&#34;&gt;Final&lt;/h3&gt;
+&lt;p&gt;Como procurei mostrar, o pacote &lt;code&gt;deflateBR&lt;/code&gt; faz rapidamente, e de forma
+replicável, correções de valores nominais pela inflação. De qualquer
+forma, por ser ainda a primeira versão dele, certamente existem várias
+coisas por implementar ou melhorar. Para quem quiser sugerir melhorias
+como essas ou outras, o código do pacote está disponível no
+&lt;a href=&#34;https://github.com/meirelesff/deflateBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;. Críticas e sugestões,
+como sempre, são bem-vindos.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Os dados sobre os períodos de ajustes nas bolsas foram retirados
+&lt;a href=&#34;https://revistacantareira.files.wordpress.com/2012/09/ultimo-artigo1.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;daqui&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Em todos os testes que realizei, os resultados sempre foram
+praticamente idênticos – com algumas diferenças na terceira e,
+raramente, na segunda casa decimal, provavelmente por conta de algum
+arredondamento realizado pela ferramenta online do BC.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Predizendo sexo a partir de nomes próprios com o genderBR</title>
+      <link>https://www.femeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</link>
+      <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</guid>
+      <description>&lt;p&gt;Para quem trabalha com bases de dados públicas, não é incomum encontrar
+o seguinte problema: ter disponível em alguma coluna o nome de várias
+pessoas, mas não a informação sobre o sexo delas. Para lidar com esse
+problema, há alguns meses desenvolvi um pacote para &lt;code&gt;R&lt;/code&gt;, o
+&lt;a href=&#34;https://cran.r-project.org/web/packages/genderBR/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;genderBR&lt;/a&gt;,
+que oferece um método simples para resolvê-lo: usando dados do &lt;a href=&#34;https://censo2010.ibge.gov.br/nomes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Censo
+de 2010 do IBGE&lt;/a&gt;, ele inferie o
+sexo de uma pessoa a partir de seu nome próprio (como descrito em
+maiores detalhes
+&lt;a href=&#34;http://fmeireles.com/blog/rstats/genderbr-predizer-sexo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui&lt;/a&gt;).
+Comparado à tarefa manual de classificar sexo a partir desses nomes, o
+método não só é infinitamente mais rápido, mas também evita erros de
+imputação, tornando replicável qualquer pesquisa que o use.&lt;/p&gt;
+&lt;p&gt;Apesar da utilidade do pacote para resolver esse problema, ele fazia
+isso com algumas limitações. A principal delas é a de tempo gasto na
+tarefa, às vezes na casa de horas ou dias. Basicamente, isso ocorre por
+causa da forma com que a principal função do pacote, &lt;code&gt;get_gender&lt;/code&gt;, faz
+predições: para cada nome solicitado, ela envia uma requisição ao
+serviço online de nomes do IBGE (daqui para frente,
+&lt;a href=&#34;https://pt.wikipedia.org/wiki/Interface_de_programa%C3%A7%C3%A3o_de_aplica%C3%A7%C3%B5es&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;API&lt;/a&gt;),
+recebe as informações necessárias e, com base nelas, calcula a
+probabilidade desse nome pertencer a um a homem ou a uma mulher. Como
+esse processo consome cerca de 0.1 segundos, as consequências são
+inevitáveis: para 10 mil nomes, a função pode facilmente rodar por mais
+de 15 horas.&lt;/p&gt;
+&lt;p&gt;A partir da recém lançada versão do pacote, contudo, isso deixou de ser
+um problema. Aproveitando que o IBGE divulgou a &lt;a href=&#34;http://www.consultaesic.cgu.gov.br/busca/dados/Lists/Pedido/Item/displayifs.aspx?List=0c839f31-47d7-4485-ab65-ab0cee9cf8fe&amp;amp;ID=557307&amp;amp;Web=88cc5f44-8cfe-4964-8ff4-376b5ebb3bef&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;base de dados que
+alimenta a API do serviço de
+nomes&lt;/a&gt;,
+agora o &lt;code&gt;genderBR&lt;/code&gt; dispõe internamente dessas informações.
+Especificamente, a função &lt;code&gt;get_gender&lt;/code&gt; ganhou um argumento opcional,
+&lt;code&gt;internal&lt;/code&gt;, que permite escolher entre usar os dados internos do pacote
+(&lt;code&gt;internal = TRUE&lt;/code&gt;, que agora é o padrão) ou requisitar os dados da API
+(&lt;code&gt;internal = FALSE&lt;/code&gt;). Optando pelo primeiro, o processo de predizer
+nomes consome poucos segundos – e isso mesmo em bases com milhares ou
+milhões de nomes próprios.[1]&lt;/p&gt;
+&lt;h3 id=&#34;como-usar-o-genderbr&#34;&gt;Como usar o genderBR&lt;/h3&gt;
+&lt;p&gt;O primeiro passo para usar o &lt;code&gt;genderBR&lt;/code&gt; é simples: com o &lt;code&gt;R&lt;/code&gt; aberto, só
+é necessário executar &lt;code&gt;install.packages(&amp;quot;genderBR&amp;quot;)&lt;/code&gt; para instalá-lo.
+Feito isso, predizer sexo a partir de nomes próprios é uma questão de
+chamar a função &lt;code&gt;get_gender&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote
+library(genderBR)
+
+# Prediz o sexo de oito nomes
+nomes &amp;lt;- c(&amp;quot;Guilherme&amp;quot;, &amp;quot;Maria&amp;quot;, &amp;quot;Ana&amp;quot;, &amp;quot;Arnaldo&amp;quot;, &amp;quot;Martha&amp;quot;, &amp;quot;Carlos&amp;quot;, &amp;quot;Almir&amp;quot;, &amp;quot;Cida&amp;quot;)
+get_gender(nomes)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Male&amp;quot;   &amp;quot;Female&amp;quot; &amp;quot;Female&amp;quot; &amp;quot;Male&amp;quot;   &amp;quot;Female&amp;quot; &amp;quot;Male&amp;quot;   &amp;quot;Male&amp;quot;   &amp;quot;Female&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Mais útil que isso, é possível predizer o sexo de nomes contidos numa
+base de dados, adicionando o resultado dessa predição numa nova
+variável.
+Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;base &amp;lt;- data.frame(nome = c(&amp;quot;Ana Maria&amp;quot;, &amp;quot;Roberto Silva&amp;quot;, &amp;quot;Marcia Campos&amp;quot;),
+                   idade = c(25, 42, 33),
+                   grupo = c(&amp;quot;A&amp;quot;, &amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;)
+                   )
+
+base$sexo &amp;lt;- get_gender(base$nome)
+
+base
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##            nome idade grupo   sexo
+## 1     Ana Maria    25     A Female
+## 2 Roberto Silva    42     A   Male
+## 3 Marcia Campos    33     B Female
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nos dois casos, as predições usam os dados internos ao pacote. Para
+desabilitar essa opção, fazendo requisições diretamente à API do IBGE,
+basta declarar como falso o argumento &lt;code&gt;internal&lt;/code&gt;: &lt;code&gt;get_gender(nomes, internal = FALSE)&lt;/code&gt;. Como mostro na sequência, entretanto, usar essa
+opção consome muito mais tempo.&lt;/p&gt;
+&lt;h3 id=&#34;o-desempenho-da-nova-versão-do-genderbr&#34;&gt;O desempenho da nova versão do genderBR&lt;/h3&gt;
+&lt;p&gt;Quão rápido é predizer o sexo usando os dados internos do pacote
+&lt;code&gt;genderBR&lt;/code&gt;? A título de ilustração, podemos comparar o tempo gasto para
+predizer o sexo daqueles 8 nomes do primeiro exemplo usando a API do
+IBGE, i.e. &lt;code&gt;internal = FALSE&lt;/code&gt;, e os dados internos do pacote, &lt;code&gt;internal = TRUE&lt;/code&gt;. Repeti essa operação 100 vezes com cada método, registrando o
+tempo gasto para concluir a predição em cada uma. Resultado: com os
+dados internos, o pacote leva cerca de 0.06 segundos para concluir a
+predição dos 8 nomes, em média; já usando a API do IBGE, o tempo
+necessário gira em torno de 1.4 segundos. Em outras palavras, o novo
+método adicionado ao pacote é cerca de 23 vezes mais rápido nesse
+exemplo.&lt;/p&gt;
+&lt;p&gt;Na verdade, usar os dados internos é ainda mais rápido se levarmos em
+conta as pausas entre requisições, aplicadas pela função &lt;code&gt;get_gender&lt;/code&gt;
+quando o número de nomes a serem consultados na API do IBGE excede 100.
+Além disso, os ganhos em escala do método interno são imensos porque ele
+consome quase o mesmo tempo para predizer o sexo de 100, 1000, ou 10000
+nomes. Isso, de novo, não acontece ao usar a opção &lt;code&gt;internal = FALSE&lt;/code&gt;
+para extrair dados da API do IBGE.&lt;/p&gt;
+&lt;p&gt;Em resumo, predizer sexo a partir de nomes próprios com o &lt;code&gt;genderBR&lt;/code&gt;
+ficou extremamente mais rápido.&lt;/p&gt;
+&lt;h3 id=&#34;exemplo-sexo-de-autores-de-teses-de-doutorado-no-brasil&#34;&gt;Exemplo: sexo de autores de teses de Doutorado no Brasil&lt;/h3&gt;
+&lt;p&gt;Para exemplificar os usos do pacote &lt;code&gt;genderBR&lt;/code&gt;, classifiquei o sexo de
+autores(as) de todas as 221990 teses de Doutorado defendidas no Brasil
+entre 1987 e 2016. Esses dados vêm do &lt;a href=&#34;http://catalogodeteses.capes.gov.br/catalogo-teses/#!/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Banco de Teses e Dissertações da
+Capes&lt;/a&gt;,
+disponíveis no novo &lt;a href=&#34;https://dadosabertos.capes.gov.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;portal de dados
+abertos&lt;/a&gt; da instituição – onde
+também estão outros sobre a composição dos programas de pós-graduação
+no país, ou sobre a produção acadêmica de doscentes e discentes, por
+exemplo.&lt;/p&gt;
+&lt;p&gt;O importante a notar é que a Capes disponibiliza apenas informações
+sobre instituição, área de avaliação e nome dos autores das teses
+defendidas no período, mas não o sexo de quem as defendeu.[2] É aí que
+entra o &lt;code&gt;genderBR&lt;/code&gt;: usando os dados internos do pacote, predizer o sexo
+para todos os nomes na base leva &lt;em&gt;menos de 5 segundos&lt;/em&gt;. Com essa
+informação, podemos criar um gráfico como esse.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr1-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;O gráfico acima ilustra bem o trabalho do &lt;code&gt;genderBR&lt;/code&gt;: ele classificou a
+imensa maioria dos nomes como pertencendo a homens ou mulheres (96% do
+total). Ainda assim, como os dados disponibilizados pelo IBGE incluem
+apenas nomes com mais de 20 ocorrências no país, alguns na base da
+Capes, cerca de 3% deles, foram classificados como &lt;em&gt;Desconhecido&lt;/em&gt;, o que
+indica que não encontraram correspondência. Em outros casos, nomes
+classificados podem ser tanto de homens quanto de mulheres – como Ariel,
+Darci, Noá e Elir, por exemplo –, dificultando a tarefa de atribuir sexo
+(os &lt;em&gt;Unissex&lt;/em&gt; do gráfico). De qualquer forma, como é possível ver, ambos
+os casos são residuais.&lt;/p&gt;
+&lt;p&gt;Voltando ao gráfico, dá para notar que mulheres defenderam cerca de
+metade das teses registradas no banco da Capes no período. Entretanto,
+como o número de defesas era pequeno até os anos 2000 – em 1987, por
+exemplo, apenas 939 teses defendidas foram registradas, e mesmo em 2000
+esse número ainda era de apenas 5344 –, acompanhar o crescimento
+absoluto, ano a ano, dessa série dificulta detectar tendências. Por essa
+razão, podemos focar apenas na percentagem de teses defendidas por
+mulheres, excluindo da base pessoas com sexo classificado como
+&lt;em&gt;Desconhecido&lt;/em&gt; ou &lt;em&gt;Unissex&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr2-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;A tendência geral, agora, é clara: com o passar do tempo, mulheres
+aumentaram sua participação na defesa de teses no Brasil.&lt;/p&gt;
+&lt;h4 id=&#34;defesas-de-tese-por-grandes-áreas&#34;&gt;Defesas de tese por grandes áreas&lt;/h4&gt;
+&lt;p&gt;O mesmo padrão, entretanto, certamente varia entre áreas: pode ser que
+mulheres defendam mais teses em algumas grandes áreas da Capes, menos em
+outras. Como o Banco de Teses contém variáveis indicando essas grandes
+áreas, verificar isso é relativamente simples.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr3-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Por um lado, mulheres defendem mais teses no Brasil, ao menos nos
+últimos anos. Por outro lado, é possível ver que essa participação é
+desigual entre grandes áreas da Capes: mulheres defendem mais teses nas
+Ciências Biológicas, nas Humanas e nas Letras; homens, entretanto, estão
+sobrerrepresentados nas áreas de Engenharia e Exatas. O gradual aumento
+no número de mulheres defendendo teses não ocorreu nessas duas últimas.&lt;/p&gt;
+&lt;h4 id=&#34;defesas-de-tese-por-área-de-avaliação&#34;&gt;Defesas de tese por área de avaliação&lt;/h4&gt;
+&lt;p&gt;Enquanto que classificar o sexo de autores(as) de teses por grande área
+revela um cenário detalhado da participação de mulheres, é possível ir
+além com os dados da Capes. Em especial, podemos usar a classificação
+por área de avaliação, que é usada para classificar os programas de
+pós-graduação no país. Aqui, vou fazer isso para algumas dessas: para a
+Ciência Política, separadamente, e em algumas outras, mais próximas
+dessa. Os resultados, também aqui, mostram que mulheres participam mais
+na produção e defesa de teses em algumas áreas; já em outras, inclusa a
+Ciência Política, a presença delas fica aquém – às vezes muito aquém –
+da de homens.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr4-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr5-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;final&#34;&gt;Final&lt;/h3&gt;
+&lt;p&gt;Classificar por sexo autores(as) de teses no Brasil é apenas uma das
+utilidades do &lt;code&gt;genderBR&lt;/code&gt;. Usando as mesmas fontes de dados, na verdade,
+é possível investigar as causas da variação na participação de homens e
+mulheres na produção de teses; mapear a distribuição de docentes e
+discentes por sexo em todos os programas de pós-graduação; ou, ainda,
+aplicar o mesmo método para classificar qualquer outro tipo de produção
+por sexo do(a) autor(a). Isso tudo, note-se, apenas com os dados da
+Capes, o que está longe de esgotar todas as aplicações possíveis do
+pacote.&lt;/p&gt;
+&lt;p&gt;A mensagem mais geral desse texto, entretanto, é outra: com a nova
+atualização, usar o &lt;code&gt;genderBR&lt;/code&gt; para predizer sexo a partir de nomes
+próprios ficou muito mais rápido. Como o exemplo anterior indica, isso
+pode ser feito em poucos segundos mesmo em bases de dados grandes;
+quando os nomes próprios estão formatados de diferentes maneiras; e
+levando em conta diferenças no uso de nomes por sexo entre estados (ver
+&lt;a href=&#34;http://fmeireles.com/blog/rstats/genderbr-predizer-sexo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui&lt;/a&gt;) – nesse
+caso, usando a API do IBGE. Como já discuti no
+&lt;a href=&#34;http://fmeireles.com/blog/rstats/genderbr-predizer-sexo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;texto&lt;/a&gt; da
+versão anterior do pacote, as predições do &lt;code&gt;genderBR&lt;/code&gt;, além disso, são
+bastante precisas: nos testes que realizei, o método prediz o sexo a
+partir de um nome de forma correta mais de 99% das vezes, além de
+produzir poucos &lt;em&gt;missings&lt;/em&gt;, como no caso do exemplo anterior. Tudo
+somado, o &lt;code&gt;genderBR&lt;/code&gt; não só é incomparavelmente mais rápido do que
+classificar manualmente sexo a partir de nomes, mas também mais
+recomendado para evitar erros de imputação e contribuir para a
+replicabilidade de qualquer pesquisa que o use.&lt;/p&gt;
+&lt;h4 id=&#34;dados-e-cógido&#34;&gt;Dados e cógido&lt;/h4&gt;
+&lt;p&gt;Os dados e o código usados nesse posto podem ser encontrados
+&lt;a href=&#34;https://github.com/meirelesff/teses_capes&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui&lt;/a&gt;. Como o pacote
+&lt;code&gt;genderBR&lt;/code&gt; é open source, o que significa que qualquer um pode consultar ou trabalhar em
+cima do seu código, disponível no
+&lt;a href=&#34;https://github.com/meirelesff/genderBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;. Críticas e sugestões
+são bem-vindos.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;A única ressalva, aqui, é que esse método só está disponível quando
+outro argumento, &lt;code&gt;state&lt;/code&gt;, não é declarado. Com isso, apenas pela API
+do IBGE é possível obter predições considerando variação entre
+estados.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Os dados do Banco de Teses e Dissertações da Capes têm muitos
+problemas, como &lt;em&gt;missings&lt;/em&gt;, campos preenchidos de forma incorreta,
+incosistência de classificação em alguns anos, entre outros. Como
+meu objetivo é apenas exemplificar o pacote, fiz uma limpeza
+superficial na base. Os dados e o código usados nesse post, de
+qualquer forma, podem ser encontrados aqui.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>genderBR: predizendo sexo a partir de nomes próprios</title>
+      <link>https://www.femeireles.com/post/rstats/genderbr-predizer-sexo/</link>
+      <pubDate>Tue, 05 Sep 2017 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/genderbr-predizer-sexo/</guid>
+      <description>&lt;p&gt;Várias questões importantes nas Ciências Sociais estão ligadas ao sexo das pessoas. Se quisermos saber se mulheres recebem menores salários, se estão sub-representadas na política, se sofrem mais com as violências urbana e doméstica, entre outros, precisamos identificar o sexo das pessoas que investigamos. Entretanto, esse dado nem sempre é fácil de obter: vários bancos usados para responder às perguntas acima não contêm informações sobre o sexo das pessoas estudadas &amp;ndash; embora alguns destes contenham outras que podem ser usada para inferir seus sexos.&lt;/p&gt;
+&lt;p&gt;O pacote &lt;code&gt;genderBR&lt;/code&gt; para o &lt;code&gt;R&lt;/code&gt;, que acabou de ser publicado no &lt;a href=&#34;https://cran.r-project.org/package=genderBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, serve para isso: ele usa uma informação relativamente simples de obter &amp;ndash; nome próprio &amp;ndash; e, a partir dela, prediz o sexo de uma pessoa com dados do &lt;a href=&#34;http://censo2010.ibge.gov.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Censo de 2010 realizado pelo IBGE&lt;/a&gt;. Se o nome João, por exemplo, é usado majoritariamente por individuos do sexo masculino no Brasil, temos alguma confiança em dizer que outro brasileiro qualquer com o mesmo nome provavelmente também seja do sexo masculino. Entre outras vantagens, este método é replicável, baseado em dados públicos e, o que é mais importante, muito mais rápido do que qualquer classificação manual de sexos a partir de nomes próprios. O passo-a-passo a seguir exemplifica isso.&lt;/p&gt;
+&lt;h2 id=&#34;como-instalar&#34;&gt;Como instalar&lt;/h2&gt;
+&lt;p&gt;Como o pacote &lt;code&gt;genderBR&lt;/code&gt; está no &lt;a href=&#34;https://cran.r-project.org/package=genderBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt; e, portanto, pode ser instalado diretamente pelo &lt;code&gt;R&lt;/code&gt; com:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;genderBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ou, para versões beta do pacote, ele pode ser instalado com &lt;code&gt;devtools&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;if(!require(&amp;quot;devtools&amp;quot;)) install.packages(&amp;quot;devtools&amp;quot;)
+devtools::install_github(&amp;quot;meirelesff/genderBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feito isso, para usar o pacote, basta carregá-lo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(genderBR)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;como-usar&#34;&gt;Como usar&lt;/h2&gt;
+&lt;p&gt;O pacote &lt;code&gt;genderBR&lt;/code&gt; possui uma função principal, &lt;code&gt;get_gender&lt;/code&gt;, que prediz o sexo de uma pessoa baseado no seu primeiro nome (com ou sem letras maiúsculas, acentos e sobrenomes), como no exemplo abaixo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(&amp;quot;maria&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Female&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(&amp;quot;MARIA&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Female&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(&amp;quot;Maria da Silva Conceição&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Female&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A função funciona igualmente com um vetor de nomes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(c(&amp;quot;isabel&amp;quot;, &amp;quot;marta&amp;quot;, &amp;quot;silvia&amp;quot;, &amp;quot;rodrigo&amp;quot;, &amp;quot;roberto&amp;quot;, &amp;quot;thiago&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Female&amp;quot; &amp;quot;Female&amp;quot; &amp;quot;Female&amp;quot; &amp;quot;Male&amp;quot;   &amp;quot;Male&amp;quot;   &amp;quot;Male&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Resumidamente, esta chamada envia uma requisição GET a &lt;a href=&#34;http://censo2010.ibge.gov.br/nomes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;API do Censo 2010&lt;/a&gt; (que pode demorar a responder), calcula a proporção de mulheres que possuem o nome passado e, então, faz uma predição baseado num ponto de corte: por padrão, se mais de 0.9 das pessoas com o nome passado são do sexo feminino, segundo o Censo de 2010, a função prediz o sexo deste nome como &lt;em&gt;Female&lt;/em&gt;; se mais 0.9 das pessoas com esse nome forem do sexo masculino, a predição será &lt;em&gt;Male&lt;/em&gt;; por fim, nomes com proporções menores que 0.9 ou não encontrados na base do IBGE são classificados como &lt;em&gt;missing&lt;/em&gt; (e.g., &lt;code&gt;NA&lt;/code&gt;) Exemplos:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Male
+get_gender(&amp;quot;joao&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Male&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# NA
+get_gender(&amp;quot;muriel&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# NA
+get_gender(&amp;quot;ashdfjg&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;É possível modificar a proporção usada para classificar corretamente um nome. Por exemplo, podemos considerar como do sexo masculino apenas pessoas cujo primeiro nome seja usado por 0.95 (95%) de pessoas identificadas como do sexo masculino pelo IBGE:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(&amp;quot;augusto&amp;quot;, threshold = 0.95)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Male&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Além deste resulto básico, a função &lt;code&gt;get_gender&lt;/code&gt; também permite saber a proporção de mulheres que usam um dado primeiro nome no país &amp;ndash; com isto, é possível usar qualquer outra medida para predizer o sexo de uma pessoa. No exemplo abaixo, percebe-se que a probabilidade de alguém com o nome Muriel ser do sexo feminino no universo de entrevistados do Censo de 2010 é igual a 43%.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(&amp;quot;muriel&amp;quot;, prob = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.4303515
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Por fim, podemos obter os resultados por estado &amp;ndash; partido da ideia de que o uso de um dado nome próprio entre sexos pode variar de região para região. Um bom exemplo é o do político goiano Iris Rezende, casado com sua xará Iris de Araújo.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Probabilidade do nome Iris ser usado por uma mulher em SP
+get_gender(&amp;quot;iris&amp;quot;, prob = TRUE, state = &amp;quot;SP&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.9491027
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Probabilidade do nome Iris ser usado por uma mulher em GO
+get_gender(&amp;quot;iris&amp;quot;, prob = TRUE, state = &amp;quot;GO&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como o exemplo acima mostra, o nome Iris é muito mais comum para pessoas do sexo masculino em Goiás do que em São Paulo.&lt;/p&gt;
+&lt;h2 id=&#34;outras-funções&#34;&gt;Outras funções&lt;/h2&gt;
+&lt;p&gt;Além da função &lt;code&gt;get_gender&lt;/code&gt;, o pacote &lt;code&gt;genderBR&lt;/code&gt; possui outras duas funções que podem ser úteis em algumas situações. A primeira delas, &lt;code&gt;get_states&lt;/code&gt;, serve para retornar um &lt;code&gt;data.frame&lt;/code&gt; com o nome, a sigla e o código do IBGE de todos os estados brasileiros, o que pode ajudar nas consultas à função &lt;code&gt;get_gender&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Já a segunda função, &lt;code&gt;map_gender&lt;/code&gt;, serve para mapear os usos de um nome qualquer entre todos os estados do Brasil:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;map_gender(&amp;quot;mario&amp;quot;, gender = &amp;quot;f&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 19 x 6
+##                   nome    uf  freq populacao  sexo  prop
+##  *               &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;     &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt;
+##  1            Amazonas    13    60   3483985     f  1.72
+##  2               Piauí    22    30   3118360     f  0.96
+##  3      Rio de Janeiro    33   140  15989929     f  0.88
+##  4 Rio Grande do Norte    24    23   3168027     f  0.73
+##  5           São Paulo    35   293  41262199     f  0.71
+##  6               Ceará    23    56   8452381     f  0.66
+##  7      Santa Catarina    42    41   6248436     f  0.66
+##  8         Mato Grosso    51    19   3035122     f  0.63
+##  9          Pernambuco    26    54   8796448     f  0.61
+## 10            Maranhão    21    40   6574789     f  0.61
+## 11                Pará    15    46   7581051     f  0.61
+## 12      Espírito Santo    32    21   3514952     f  0.60
+## 13               Bahia    29    84  14016906     f  0.60
+## 14             Alagoas    27    17   3120494     f  0.54
+## 15             Paraíba    25    20   3766528     f  0.53
+## 16              Paraná    41    55  10444526     f  0.53
+## 17   Rio Grande do Sul    43    48  10693929     f  0.45
+## 18        Minas Gerais    31    79  19597330     f  0.40
+## 19               Goiás    52    20   6003788     f  0.33
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nela, basta passar as letras &lt;code&gt;f&lt;/code&gt;, para &lt;em&gt;Female&lt;/em&gt;, ou &lt;code&gt;m&lt;/code&gt;, para &lt;em&gt;Male&lt;/em&gt;, e a função retorna o total de pessoas em cada estado com o nome fornecido, além do total de usos daquele nome no sexo indicado.&lt;/p&gt;
+&lt;h1 id=&#34;avaliando-as-predições&#34;&gt;Avaliando as predições&lt;/h1&gt;
+&lt;p&gt;O método é confiável? Depois de ter feitos alguns testes, a precisão média do método sempre foi maior que 95%, sem sinal de viés. Aqui, vou exemplificar isso com um exemplo simples: os dados de candidaturas do TSE (extraídos com o &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Basicamente, candidatos a cargos eletivos no Brasil reportam seus sexos no formulário de registro de suas candidaturas, informação que, posteriormente, é disponibilizada pelo TSE. Apesar de possíveis erros de mensuração &amp;ndash; afinal, estes dados são auto-reportados e, como tal, estão sujeitos até mesmo a erros de imputação &amp;ndash;, o &lt;code&gt;genderBR&lt;/code&gt; faz um bom trabalho de classificar o sexo dos 104122 candidatos a cargos federais nas cinco eleições entre 1998 e 2014, como mostra a tabela abaixo.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Sexo declarado&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Sexo predito&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;N&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;%&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;410&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;0.5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;79485&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;95.5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Unissex&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;1121&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;1.3%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Unknown&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;2201&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;2.6%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;19796&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;94.7%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;106&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;0.5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Unissex&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;348&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;1.7%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Unknown&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;655&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;3.1%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Especificamente, o método classificou 99.5% das observações corretamente (desconsiderando os &lt;em&gt;missings&lt;/em&gt;, que são mostrados aqui como &lt;em&gt;Unissex&lt;/em&gt;, quando a proporção de usos do nome pelo sexo feminino ou masculino é menor que 0.9, ou &lt;em&gt;Unknown&lt;/em&gt;, quando o nome não foi encontrado na base do TSE), e apenas 2.74% ficaram como &lt;em&gt;missing&lt;/em&gt;. No geral, portanto, o método funciona.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: versão 0.3.0</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-versao-0.3.0/</link>
+      <pubDate>Thu, 08 Jun 2017 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-versao-0.3.0/</guid>
+      <description>&lt;p&gt;O pacote do &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R&lt;/a&gt; para baixar e limpar dados eleitorais do TSE criado pelo Denisson Silva, Beatriz Costa e eu, o &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, acaba de ganhar uma grande atualização, já disponível no &lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;: para a versão 0.3.0[1]. Para quem não o conhece, basicamente ele automatiza o trabalho de baixar, deszipar, tratar e limpar dados eleitorais brasileiros diretamente do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt; &amp;ndash; tudo acompanhado de extensa documentação baseada em informações oficiais. Em outras palavras, com ele é possível extrair quase todos os dados públicos de resultados eleitorais, apuração, partidos, coligações, candidaturas, de perfil dos eleitores, entre outros, diretamente pelo R, e isto em pouquíssimo tempo.&lt;/p&gt;
+&lt;p&gt;Nesta nova versão, estendemos as funcionalidades do pacote em vários pontos, mas sem comprometer a forma com que ele já funcionava. Segue, em forma de lista, as novidades do pacote.&lt;/p&gt;
+&lt;h3 id=&#34;velocidade&#34;&gt;Velocidade&lt;/h3&gt;
+&lt;p&gt;O &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt; já era extremamente rápido (em poucos segundos ele é capaz de baixar e processar centenas de milhares de informações do &lt;em&gt;website&lt;/em&gt; do TSE), especialmente comparado à tarefa manual de baixar separadamente os arquivos do TSE, tratar e limpar cada um para, enfim, unir todos numa base única.&lt;/p&gt;
+&lt;p&gt;Nessa versão, melhoramos esse desempenho ainda mais: alteramos internamente as formas de leitura e união dos arquivos por meio das funções &lt;code&gt;fread&lt;/code&gt; e &lt;code&gt;rbindlist&lt;/code&gt; do pacote &lt;a href=&#34;https://cran.r-project.org/package=data.table&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;data.table&lt;/a&gt;. Com isso, o pacote ficou cerca de 6x mais rápido do que já era.&lt;/p&gt;
+&lt;h3 id=&#34;resultados-por-estado&#34;&gt;Resultados por estado&lt;/h3&gt;
+&lt;p&gt;Anteriormente, só era possível pegar dados eleitorais para todo o Brasil com o pacote &amp;ndash; o que significa que, caso desejássemos ter resultados apenas para um ou mais estados, teríamos que extrair dados do país todo para, aí sim, filtrar as informações.&lt;/p&gt;
+&lt;p&gt;Agora, a maioria das funções possui um argumento opcional chamado &lt;code&gt;uf&lt;/code&gt;, que serve para indicar estados para os quais queremos dados &amp;ndash; e isto de forma eficiente, sem ter de processar informações dos demais estados. Para pegar dados sobre as candidaturas (nome, sexo, partido, número de urna, profissão, entre outros, dos[as] candidatos[as]) nas eleições federais de 2010 apenas em Minas Gerais, por exemplo, podemos fazer isso:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala a nova versão do pacote 
+# (é preciso descomentar a linha abaixo)
+# install.packages(&amp;quot;electionsBR&amp;quot;)
+
+# Carrega o pacote
+library(electionsBR)
+
+# Pega dados de candidaturas em 2010 apenas para Minas Gerais
+mg2010 &amp;lt;- candidate_fed(2010, uf = &amp;quot;MG&amp;quot;)
+
+# Um panorama dos dados
+mg2010
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1,789 × 43
+##    DATA_GERACAO HORA_GERACAO ANO_ELEICAO NUM_TURNO DESCRICAO_ELEICAO
+##           &amp;lt;chr&amp;gt;        &amp;lt;chr&amp;gt;       &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;             &amp;lt;chr&amp;gt;
+## 1    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 2    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 3    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 4    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 5    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 6    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 7    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 8    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 9    19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## 10   19/02/2016     19:56:37        2010         1     ELEIÇÕES 2010
+## # ... with 1,779 more rows, and 38 more variables: SIGLA_UF &amp;lt;chr&amp;gt;,
+## #   SIGLA_UE &amp;lt;chr&amp;gt;, DESCRICAO_UE &amp;lt;chr&amp;gt;, CODIGO_CARGO &amp;lt;chr&amp;gt;,
+## #   DESCRICAO_CARGO &amp;lt;chr&amp;gt;, NOME_CANDIDATO &amp;lt;chr&amp;gt;,
+## #   SEQUENCIAL_CANDIDATO &amp;lt;chr&amp;gt;, NUMERO_CANDIDATO &amp;lt;chr&amp;gt;,
+## #   CPF_CANDIDATO &amp;lt;chr&amp;gt;, NOME_URNA_CANDIDATO &amp;lt;chr&amp;gt;,
+## #   COD_SITUACAO_CANDIDATURA &amp;lt;chr&amp;gt;, DES_SITUACAO_CANDIDATURA &amp;lt;chr&amp;gt;,
+## #   NUMERO_PARTIDO &amp;lt;chr&amp;gt;, SIGLA_PARTIDO &amp;lt;chr&amp;gt;, NOME_PARTIDO &amp;lt;chr&amp;gt;,
+## #   CODIGO_LEGENDA &amp;lt;chr&amp;gt;, SIGLA_LEGENDA &amp;lt;chr&amp;gt;, COMPOSICAO_LEGENDA &amp;lt;chr&amp;gt;,
+## #   NOME_COLIGACAO &amp;lt;chr&amp;gt;, CODIGO_OCUPACAO &amp;lt;chr&amp;gt;, DESCRICAO_OCUPACAO &amp;lt;chr&amp;gt;,
+## #   DATA_NASCIMENTO &amp;lt;chr&amp;gt;, NUM_TITULO_ELEITORAL_CANDIDATO &amp;lt;chr&amp;gt;,
+## #   IDADE_DATA_ELEICAO &amp;lt;chr&amp;gt;, CODIGO_SEXO &amp;lt;chr&amp;gt;, DESCRICAO_SEXO &amp;lt;chr&amp;gt;,
+## #   COD_GRAU_INSTRUCAO &amp;lt;chr&amp;gt;, DESCRICAO_GRAU_INSTRUCAO &amp;lt;chr&amp;gt;,
+## #   CODIGO_ESTADO_CIVIL &amp;lt;chr&amp;gt;, DESCRICAO_ESTADO_CIVIL &amp;lt;chr&amp;gt;,
+## #   CODIGO_NACIONALIDADE &amp;lt;chr&amp;gt;, DESCRICAO_NACIONALIDADE &amp;lt;chr&amp;gt;,
+## #   SIGLA_UF_NASCIMENTO &amp;lt;chr&amp;gt;, CODIGO_MUNICIPIO_NASCIMENTO &amp;lt;chr&amp;gt;,
+## #   NOME_MUNICIPIO_NASCIMENTO &amp;lt;chr&amp;gt;, DESPESA_MAX_CAMPANHA &amp;lt;chr&amp;gt;,
+## #   COD_SIT_TOT_TURNO &amp;lt;chr&amp;gt;, DESC_SIT_TOT_TURNO &amp;lt;chr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Também é possível pegar dados de mais de um estado por vez passando um vetor para a função:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Pega dados de estados da região sul
+sul &amp;lt;- candidate_fed(2010, uf = c(&amp;quot;RS&amp;quot;, &amp;quot;SC&amp;quot;, &amp;quot;PR&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As siglas dos estados podem ser passadas em maiúsculo, minúsculo ou combinação dos dois: &lt;code&gt;MG&lt;/code&gt;, &lt;code&gt;mg&lt;/code&gt;, &lt;code&gt;Mg&lt;/code&gt; ou &lt;code&gt;mG&lt;/code&gt; são todos &lt;code&gt;inputs&lt;/code&gt; igualmente válidos.&lt;/p&gt;
+&lt;h3 id=&#34;percentual-de-votos&#34;&gt;Percentual de votos&lt;/h3&gt;
+&lt;p&gt;Para além das funções que o pacote já tinha (&lt;a href=&#34;http://electionsbr.com/reference/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ver aqui&lt;/a&gt; uma descrição de todas as funções disponíveis), incluímos quatro funções para facilitar a extração de resultados eleitorais, que já retornam o percentual de votos válidos (nominais e de legenda somados) de cada partido nas eleições presidenciais, para o Senado e para a Câmara Federal agregados por estado ou por município. Estas funções são, respectivamente:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;president_mun_vote&lt;/code&gt;, para votação percentual nas eleições presidenciais no segundo turno por município;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;president_state_vote&lt;/code&gt;, para votação percentual nas eleições presidenciais no segundo turno por estado;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legislative_mun_vote&lt;/code&gt;, para votação percentual nas eleições legislativas federais (Senado e Câmara) por município;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legislative_state_vote&lt;/code&gt;, para votação percentual nas eleições legislativas federais (Senado e Câmara) por município.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;No caso das eleições legislativas, as funções aceitam um argumento opcional, &lt;code&gt;house&lt;/code&gt; indicando a casa a ser analisada, se Senado ou Câmara (&lt;code&gt;senate&lt;/code&gt; ou &lt;code&gt;chamber&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Por exemplo, o código abaixo pega os resultados presidenciais do segundo turno de 2014 por estado:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;pres &amp;lt;- president_state_vote(2010)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;E o abaixo pega o total de votos percentuais de cada partido na disputa para a Câmara Federal em 2010, por estado:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cam &amp;lt;- legislative_state_vote(2010, house = &amp;quot;chamber&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;vagas-em-disputa&#34;&gt;Vagas em disputa&lt;/h3&gt;
+&lt;p&gt;Também acrescentamos uma função para coletar dados sobre o número de cadeira para cada cargo em disputa (&lt;code&gt;seats_fed&lt;/code&gt;, para eleições federais, e &lt;code&gt;seats_local&lt;/code&gt;, para eleições municipais). Para saber quantas vagas nas Câmara municipais estavam disponíveis em cada município em 2016, por exemplo, use:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;vagas &amp;lt;- seats_local(2016)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;exportar-dados-para-stata-e-spss&#34;&gt;Exportar dados para Stata e SPSS&lt;/h3&gt;
+&lt;p&gt;Para quem não usa, ou não tem tanta familiaridade com o &lt;code&gt;R&lt;/code&gt;, incluímos uma opção para exportar os dados pegos pelas funções do pacote para arquivos &lt;code&gt;.dta&lt;/code&gt; e &lt;code&gt;.sav&lt;/code&gt;, que podem ser analisados pelo Stata e pelo SPSS, respectivamente. O argumento opcional para fazer isso é o &lt;code&gt;export&lt;/code&gt;, que, por padrão, é igual a &lt;code&gt;FALSE&lt;/code&gt;. Para exportar os resultados das funções, é só passar ele para &lt;code&gt;TRUE&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Resultados eleitorais federais de 2010, agregados por zona eleitoral
+df &amp;lt;- vote_mun_zone_fed(2010, export = TRUE)
+
+# Resultados eleitorais municipais de 2012, agregados por zona eleitoral
+df2 &amp;lt;- vote_mun_zone_local(2012, export = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;siglas-de-estados-e-partidos&#34;&gt;Siglas de estados e partidos&lt;/h3&gt;
+&lt;p&gt;Para consultar uma lista de siglas de estados e partidos, que pode ser útil para filtrar resultados, use:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Sigla dos estados brasileiros
+uf_br()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;AC&amp;quot; &amp;quot;AL&amp;quot; &amp;quot;AM&amp;quot; &amp;quot;AP&amp;quot; &amp;quot;BA&amp;quot; &amp;quot;CE&amp;quot; &amp;quot;DF&amp;quot; &amp;quot;ES&amp;quot; &amp;quot;GO&amp;quot; &amp;quot;MA&amp;quot; &amp;quot;MG&amp;quot; &amp;quot;MS&amp;quot; &amp;quot;MT&amp;quot; &amp;quot;PA&amp;quot;
+## [15] &amp;quot;PB&amp;quot; &amp;quot;PE&amp;quot; &amp;quot;PI&amp;quot; &amp;quot;PR&amp;quot; &amp;quot;RJ&amp;quot; &amp;quot;RN&amp;quot; &amp;quot;RO&amp;quot; &amp;quot;RR&amp;quot; &amp;quot;RS&amp;quot; &amp;quot;SC&amp;quot; &amp;quot;SE&amp;quot; &amp;quot;SP&amp;quot; &amp;quot;TO&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Sigla dos partidos que disputaram a eleicao de 2016
+parties_br()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;PPS&amp;quot;     &amp;quot;PSB&amp;quot;     &amp;quot;PSOL&amp;quot;    &amp;quot;PP&amp;quot;      &amp;quot;PSL&amp;quot;     &amp;quot;PR&amp;quot;      &amp;quot;PSDB&amp;quot;   
+##  [8] &amp;quot;PDT&amp;quot;     &amp;quot;PSDC&amp;quot;    &amp;quot;PHS&amp;quot;     &amp;quot;PT&amp;quot;      &amp;quot;PROS&amp;quot;    &amp;quot;PTC&amp;quot;     &amp;quot;PSC&amp;quot;    
+## [15] &amp;quot;PC do B&amp;quot; &amp;quot;PRB&amp;quot;     &amp;quot;PMDB&amp;quot;    &amp;quot;DEM&amp;quot;     &amp;quot;PMB&amp;quot;     &amp;quot;PTB&amp;quot;     &amp;quot;PEN&amp;quot;    
+## [22] &amp;quot;PTN&amp;quot;     &amp;quot;SD&amp;quot;      &amp;quot;PMN&amp;quot;     &amp;quot;PT do B&amp;quot; &amp;quot;PSD&amp;quot;     &amp;quot;PV&amp;quot;      &amp;quot;PRP&amp;quot;    
+## [29] &amp;quot;REDE&amp;quot;    &amp;quot;PPL&amp;quot;     &amp;quot;PRTB&amp;quot;    &amp;quot;PSTU&amp;quot;    &amp;quot;PCB&amp;quot;     &amp;quot;PCO&amp;quot;     &amp;quot;NOVO&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;tutoriais&#34;&gt;Tutoriais&lt;/h3&gt;
+&lt;p&gt;Para quem deseja ver um tutorial mais completo do funcionamento do &lt;a href=&#34;http://electionsbr.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, adicionamos uma &lt;code&gt;vignette&lt;/code&gt; ao pacote, que pode ser visto em:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://electionsbr.com/articles/index.html&#34;&gt;http://electionsbr.com/articles/index.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Na mesma página, também existem outros tutoriais sobre em inglês e em português.&lt;/p&gt;
+&lt;h3 id=&#34;website&#34;&gt;Website&lt;/h3&gt;
+&lt;p&gt;Por fim, em vez de ter toda a documentação espalhada por aí, reunimos tudo num único &lt;em&gt;website&lt;/em&gt;, que agora é também o site oficial do projeto.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://electionsbr.com&#34;&gt;http://electionsbr.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;[1] Para instalar a nova versão, basta abrir o &lt;code&gt;R&lt;/code&gt; e executar no console o seguinte código: &lt;code&gt;install.packages(&amp;quot;electionsBR&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: uma nova versão (0.2.0)</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-uma-nova-versao/</link>
+      <pubDate>Tue, 13 Dec 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-uma-nova-versao/</guid>
+      <description>&lt;p&gt;Obter dados eleitorais no Brasil nunca foi uma tarefa das mais fáceis. Quem já precisou fazer isso provavelmente sabe o tamanho do problema: baixar diversos arquivos, deszipá-los, abrir um a um os arquivos brutos, limpar e arrumar os dados, juntar tudo, exportar, e por aí vai. Foi com isso na cabeça que o &lt;a href=&#34;http://denissonsilva.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Denisson&lt;/a&gt;, a &lt;a href=&#34;mailto:bea.s.costa@gmail.com&#34;&gt;Beatriz&lt;/a&gt; e eu lançamos, nos idos de agosto, o &lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt; - um pacote para baixar e limpar estes dados automaticamente, direto do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt;. Passado algum tempo, e depois dos diversos &lt;em&gt;feedbacks&lt;/em&gt; que recebemos, lançamos agora uma nova versão do &lt;code&gt;electionsBR&lt;/code&gt;, já disponível no CRAN[1]: a 0.2.0.&lt;/p&gt;
+&lt;p&gt;Resumidamente, além de todas as funcionalidades existentes na versão anterior (era possível baixar quase todos os dados disponíveis do TSE e armazená-los em objetos na memória no R em segundos; para saber mais sobre a versão anterior, &lt;a href=&#34;%5BelectionsBR%5D%28http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse%29&#34;&gt;clique aqui&lt;/a&gt;), ampliamos a cobertura dela com diversos reparos e acréscimos. Destes, três se destacam:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Novas funções&lt;/strong&gt; - Incluímos duas novas funções, &lt;code&gt;voter_affiliation&lt;/code&gt; e &lt;code&gt;voter_profile&lt;/code&gt;, que coletam e limpam dados de filiação e de perfil demográfico dos(as) eleitores(as), respectivamente. Com elas, é possível saber, por exemplo, quantos(as) filiados(as) um partido possui em cada estado; nome, sexo, data de filiação e situação cadastral destes(as) filiados(as); o número de eleitores(as) registrados(as) em cada eleição desde 1998; além do sexo, faixa etária e grau de escolaridade dos(as) votantes. No &lt;code&gt;R&lt;/code&gt;, basta digitar &lt;code&gt;?voter_affiliation&lt;/code&gt;, ou &lt;code&gt;?voter_profile&lt;/code&gt;, para acessar a documentação completa destas funções.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Controle de acentos&lt;/strong&gt; - Seguindo uma sugestão dada pelo &lt;a href=&#34;http://robertmyles.github.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Robert McDonnel&lt;/a&gt;, adicionamos um argumento chamado &lt;code&gt;ascii&lt;/code&gt; em todas as funções. Basicamente, este remove acentos das informações do TSE - o que pode ser útil para computadores que não têm suporte para acentos latinos ou evitar erros em algumas operações com &lt;code&gt;strings&lt;/code&gt; (comparar nomes, por exemplo). Para remover acentos, só é necessário usar &lt;code&gt;ascii = TRUE&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Inclusão das eleições de 2016&lt;/strong&gt; - Agora também é possível obter os dados eleitorais das eleições municipais de 2016 pelo pacote (esta atualização, na verdade, já havia sido feito na versão beta, disponível no GitHub, por boa sugestão do &lt;a href=&#34;https://twitter.com/guilhermejd1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Guilherme Duarte&lt;/a&gt;). Todas as funções que coletam dados de eleições municipais (como &lt;code&gt;candidate_local&lt;/code&gt; ou &lt;code&gt;legend_local&lt;/code&gt;, por exemplo) aceitam esta opção: o usuário precisa apenas passar &lt;code&gt;2016&lt;/code&gt; para o argumento &lt;code&gt;year&lt;/code&gt; destas funções (e.g., &lt;code&gt;legend_local(year = 2016)&lt;/code&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Tudo isto para que o &lt;code&gt;electionsBR&lt;/code&gt; dê mais opções ao usuário: qual dado eleitoral ele quer (agora, sim, o pacote cobre quase todos os dados); como ele quer as informações (com ou sem acentos) e para qual período (incluso as eleições de 2016).&lt;/p&gt;
+&lt;h3 id=&#34;outras-novidades&#34;&gt;Outras novidades&lt;/h3&gt;
+&lt;p&gt;Além destas três melhorias, também alteramos outros aspectos do &lt;code&gt;electionsBR&lt;/code&gt;. Em primeiro lugar, corrigimos alguns problemas no código da versão anterior que geravam erros. Em segundo lugar, e em parte por causa dessas correções, também tivemos de modificar a documentação técnica do pacote para registrar as alterações feitas; nesta nova versão, portanto, mais detalhes passaram a ser abordados na documentação oficial do pacote (&lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/electionsBR.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;disponível neste link&lt;/a&gt;). Por fim, removemos algumas funções internas (i.e. menos confusão para os usuários) e deixamos todas as funções externas mais flexíveis (é possível, por exemplo, customizar o &lt;code&gt;encoding&lt;/code&gt; dos dados do TSE; para isso, basta definir o argumento, como &lt;code&gt;enconding = &amp;quot;UTF-8&amp;quot;&lt;/code&gt;, ou &lt;code&gt;enconding = &amp;quot;windows-1252&amp;quot;&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Apesar destas mudanças, contudo, o funcionamento do pacote permanece o mesmo. Para baixar dados eleitorais, tanto com a versão anterior quanto com essa, só é necessário carregar o pacote numa sessão do R e chamar a função desejada. Um mini-exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala a nova versao do electionsBR
+install.packages(&amp;quot;electionsBR&amp;quot;)
+
+# Carrega o pacote
+library(&amp;quot;electionsBR&amp;quot;)
+
+# Baixa dados de filiacao individuais do PT no estado de Sao Paulo
+x &amp;lt;- voter_affiliation(party = &amp;quot;PT&amp;quot;, uf = &amp;quot;SP&amp;quot;)
+
+# Baixa os mesmos dados, agora sem acentos nas informacoes textuais
+x &amp;lt;- voter_affiliation(party = &amp;quot;PT&amp;quot;, uf = &amp;quot;SP&amp;quot;, ascii = TRUE)
+
+# Baixa dados de filiacao individuais do PT e do PSDB nos estados de Minas Gerais e Bahia
+x &amp;lt;- voter_affiliation(party = c(&amp;quot;PT&amp;quot;, &amp;quot;PSDB&amp;quot;), uf = c(&amp;quot;MG&amp;quot;, &amp;quot;BA&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;o-electionsbr&#34;&gt;O electionsBR&lt;/h3&gt;
+&lt;p&gt;Para quem descobriu o pacote agora e/ou quer saber mais, segue abaixo uma lista de outros exemplos e tutoriais de como usá-lo:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR: o que é e como usar&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Coletando e analisando dados de apuração eleitoral&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Exportando dados eleitorais para o Stata&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://blog.ibpad.com.br/index.php/2016/11/07/construindo-mapas-eleitorais-com-r-e-electionsbr/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Criando mapas eleitorais&lt;/a&gt;;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/files/electionsbr.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR: R Functions to Download and Clean Brazilian Electoral Data&lt;/a&gt;, (paper acadêmico do pacote, para quem precisa de uma referência mais detalhada).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para publicações que usam o pacote, esta última fonte, o paper, pode ser citada. É possível obter a referência dela, tanto em texto já formatado quanto em &lt;code&gt;BibTeX&lt;/code&gt;, pela função &lt;code&gt;citation&lt;/code&gt;. Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Gera a informacao bibliografica para citar o electionsBR
+citation(&amp;quot;electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## To cite electionsBR in publications, please use:
+## 
+##   Meireles, F.; Silva, D.; Costa, B. (2016). electionsBR: R
+##   functions to download and clean Brazilian electoral data.
+##   Federal University of Minas Gerais (UFMG). Belo Horizonte,
+##   Brazil. http://fmeireles.com/files/electionsbr.pdf
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {electionsBR: {R} Functions to Download and Clean {B}razilian Electoral Data},
+##     author = {Fernando Meireles and Denisson Silva and Beatriz Costa},
+##     organization = {Federal University of Minas Gerais (UFMG)},
+##     address = {Belo Horizonte, Brazil},
+##     year = {2016},
+##     url = {http://fmeireles.com/files/electionsbr.pdf},
+##   }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;notas-finais&#34;&gt;Notas finais&lt;/h3&gt;
+&lt;p&gt;Como não poderia deixar de ser num projeto como este, nos beneficiamos muito da ajuda de diversas pessoas para fazer esta atualização. Em especial, nossos colegas do &lt;a href=&#34;http://www.centroestudoslegislativos.com.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Centro de Estudos Legislativos&lt;/a&gt; Suzana Alves, Haína Coelho, Felipe Lima, Leonardo Ev, Lucas Gelape, Bruno Arcas, e também Bruno Reis e Carlos Ranulfo; e os já mencionados Guilherme e Robert, além do &lt;a href=&#34;https://github.com/dfalbel&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Daniel Falbel&lt;/a&gt;, &lt;a href=&#34;https://github.com/sillasgonzaga&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sillas Gonzaga&lt;/a&gt; e &lt;a href=&#34;https://github.com/flaviobarros&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Flávio Barros&lt;/a&gt; (estes, pelo &lt;a href=&#34;https://github.com/silvadenisson/electionsBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;github&lt;/a&gt;) contribuíram com críticas e sugestões e, por isto, estamos indefinidamente em débito com todos(as).&lt;/p&gt;
+&lt;p&gt;[1] CRAN, ou Comprehensive R Archive Network, é um repositório oficial de pacotes para o R.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Desempenho das pesquisas eleitorais no segundo turno</title>
+      <link>https://www.femeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</link>
+      <pubDate>Mon, 31 Oct 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</guid>
+      <description>&lt;p&gt;Apesar das invariáveis críticas que os institutos de pesquisa recebem toda eleição (&lt;a href=&#34;http://g1.globo.com/rio-de-janeiro/eleicoes/2016/noticia/2016/10/ibope-e-datafolha-explicam-diferencas-entre-pesquisas-e-resultado-da-eleicao.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;vide aqui&lt;/a&gt;, por exemplo)[1], neste segundo turno o desempenho deles, &amp;ndash; ao menos o de alguns deles &amp;ndash;, não deixou a desejar.&lt;/p&gt;
+&lt;p&gt;Como já havia postado no &lt;a href=&#34;https://twitter.com/meirelesff/status/792861918927134720&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Twitter&lt;/a&gt;, o instituto Ibope, por exemplo, acertou, dentro da margem de erro (os 3 ou 4 tradicionais pontos para mais ou para menos), os resultados em 15 das 18 capitais onde realizou pesquisa entre os dias 25 e 28 de outubro. Nos três casos onde chutou a bola fora, os erros foram pequenos &amp;ndash; caso de Porto Alegre, Florianópolis e Maceió. Apenas em uma capital, Aracaju, o Ibope errou o resultado da eleição, onde a previsão era de que o candidato do PSB, Valadares Filho, ficaria na frente de Edvaldo Nogueira, do PC do B, por 2% de votos válidos. Como a previsão já era de resultado apertado, e o instituto acertou o resultado dentro da margem, este é um caso residual entre as capitais pesquisadas.&lt;/p&gt;
+&lt;p&gt;Dois outros casos ilustram o desempenho dos institutos de pesquisa &amp;ndash; agora incluindo Datafolha, Paraná Eleitoral e CP2. Os gráficos abaixo mostram o retrospecto de todas as pesquisas feitas no segundo turno no Rio de Janeiro, onde Crivella (PRB) enfretou o Freixo (PSOL), e em Belo Horizonte, onde Leite (PSDB) competiu contra Kalil (PHS), por estes institutos. Nos gráficos, cada ponto é a percentagem de intenção de votos (incluindo, portanto, não-válidos) de cada candidato estimada por cada pesquisa (em outras palavras, cada data de pesquisa, no eixo X, representa uma pesquisa eleitoral); a curva (ou linha) representa a tendência geral destas pesquisas, estimadas via &lt;a href=&#34;https://en.wikipedia.org/wiki/Local_regression&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;LOESS&lt;/a&gt;; e as áreas mais claras ao redor das curvas representam os intervalos de confiança de 95%.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/bh-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/rio-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Duas coisas merecem comentários em relação a esses dados:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Tendências são mais importantes do que resultados exatos: as intenções de votos dos quatro candidatos variaram ao longo do segundo turno; no caso de BH, o resultado inclusive se inverte no meio da campanha. Como consequência, tentar estimar o resultado final de uma eleição dias antes dela se encerrar poderia nos levar a cometer erros grotescos. Por outro lado, ao examinarmos a evolução da intenção de votos de cada candidato, temos um quadro mais claro da dinâmica das campanhas. Por exemplo, Freixo teve menos tempo de TV e recursos no primeiro turno no Rio, mas, como é possível verificar, seu desempenho oscilou pouco no período todo, ressalva feita à pequena tendência de crescimento no final do segundo turno. Só por isso, já teríamos bons indicíos de que não teríamos grandes reviravoltas ali, já que nos 30 dias anteriores isto não ocorreu. Ao contrário, em BH a ultrapassagem de Kalil em meados de outubro já indicava um movimento maior, constante, e foi inclusive comentado na mídia como &lt;a href=&#34;http://eleicoes.uol.com.br/2016/noticias/2016/10/27/ibope-aponta-empate-tecnico-em-belo-horizonte-kalil-com-39-leite-36.htm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;um cenário mais incerto&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Não se pode tomar o resultado de uma única pesquisa como indicativo do resultado final das eleições. Institutos de pesquisa fazem amostras diferentes, aplicam questionários em períodos e locais diferentes, usando metodologias e pessoal diferentes, e, apenas por isso, variações aleatórias (ruídos no meio do sinal que as pesquisas tentam detectar) são esperadas. Observando o gráfico de Belo Horizonte, isto fica evidente: algumas pesquisas, às vezes realizadas pouquíssimos dias antes ou depois de outras, são destoantes; e, o que é ainda mais problemático, quando dois candidatos aparecem muito próximos, como os dois concorrentes em BH, é difícil distinguir quem está na frente (caso também de Aracaju). Nestes casos, dois institutos diferentes podem atribuir a vitória a candidatos diferentes &amp;ndash; mesmo que não exista má fé por parte deles. Cautela, enfim, é sempre necessária ao se projetar os resultados de uma eleiçao com base em pesquisas eleitorais.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;De resto, cabe notar que pesquisas eleitorais, com todos os seus defeitos, são extremamente úteis. Quando bem interpretadas e tomadas em conjunto, podem nos dizer com bastante grau de certeza os resultados de uma eleição &amp;ndash; &lt;a href=&#34;http://www.dailykos.com/story/2016/4/21/1516967/-How-accurate-are-those-538-primary-forecasts-anyway&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;vide o retrospecto do 538, nos EUA&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;[1] Eu mesmo já critiquei, e ainda tenho ressalvas contra, as pesquisas eleitorais brasileiras por conta do uso de amostra por quotas. Um bom resumo do sistema, e uma crítica às margens de erro que os intitutos calculam para elas, pode ser &lt;a href=&#34;http://www.ime.unicamp.br/~nancy/Cursos/me320/falaciaPesquisaEleitoral.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;visto aqui&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Desatualização nas bases do TSE e abstenção eleitoral</title>
+      <link>https://www.femeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
+      <pubDate>Fri, 07 Oct 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
+      <description>&lt;p&gt;Aproveitando os dados do &lt;a href=&#34;http://www.tre-rs.jus.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE-RS&lt;/a&gt;, que divulgou uma lista completa dos municípios que passaram pelo recadastramento biométrico até esse ano, resolvi investigar se a biometria realmente afetou as taxas de abstenção nestas eleições.&lt;/p&gt;
+&lt;p&gt;O gráfico abaixo ilustra essa diferença entre municípios que passaram ou não pelo recadastramento. Como dá pra ver, a taxa de abstenção média nos municípios que passaram a usar o sistema de biometria cai visivelmente depois de 2014 no Rio Grande do Sul (quando a maior parte dos municípios fez o cadastramento).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencao1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Quando removemos os efeitos temporais e entre casos via um &lt;a href=&#34;https://en.wikipedia.org/wiki/Fixed_effects_model&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;modelo de regressão com efeitos fixos&lt;/a&gt;, este efeito fica ainda mais nítido:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencao2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Especificamente, o efeito estimado é de cerca de 4.5% (estimado com um modelo &lt;a href=&#34;https://en.wikipedia.org/wiki/Difference_in_differences&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;diff-in-diff&lt;/a&gt;), o que significa que, na média, a taxa de abstenção no estado estava inflada em quase 50% (ela foi de cerca de 10% em 2012 na média dos municípios, embora Porto Alegre e região tenham tido abstenção maior). Em outras palavras, removendo os eleitores fantasmas, a abstenção caiu quase pela metade.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Estimando regressões logísticas no R (com razão de chance)</title>
+      <link>https://www.femeireles.com/post/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</link>
+      <pubDate>Fri, 09 Sep 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</guid>
+      <description>&lt;p&gt;Uma das coisas que dá dor de cabeça a usuários do Stata que migram para o &lt;code&gt;R&lt;/code&gt; é a estimação de modelos estatísticos. Como o Stata já oferece, de forma simples, diversos modelos e opções para alterar as suas especificações, a migração para o &lt;code&gt;R&lt;/code&gt; pode ser frustrante neste aspecto: muitas coisas simples no Stata, como incluir erros-padrão robustos ou efeitos fixos, geralmente demandam mais linhas de código (e chamada a vários pacotes) no &lt;code&gt;R&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Neste post, vou iniciar um pequeno guia para estimar &lt;a href=&#34;https://pt.wikipedia.org/wiki/Regress%C3%A3o_log%C3%ADstica&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;regressões logísticas&lt;/a&gt; no &lt;code&gt;R&lt;/code&gt;. O procedimento básico é bastante simples, como se poderá ver, mas alguns detalhes, como converter os coeficientes para &lt;a href=&#34;https://pt.wikipedia.org/wiki/Raz%C3%A3o_de_possibilidades&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;razão de chance&lt;/a&gt;, envolvem algumas manhas adicionais.&lt;/p&gt;
+&lt;h4 id=&#34;estimando-modelos-logísticos-explorando-dados-do-titanic&#34;&gt;Estimando modelos logísticos: explorando dados do Titanic&lt;/h4&gt;
+&lt;p&gt;Antes de começar, precisamos de alguns dados para rodar um modelo logístico. Para isto, vou utilizar dados sobre os sobreviventes do &lt;a href=&#34;https://pt.wikipedia.org/wiki/Lista_de_passageiros_do_RMS_Titanic&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Titanic&lt;/a&gt;, onde a variável de interesse (que usaremos como variável dependente nos modelos) é binária (ter sobrevivido, 1, ou não, 0). Esta base pode ser &lt;a href=&#34;http://web.univ-ubs.fr/lmam/blanche/data-titanic.txt&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;baixada aqui&lt;/a&gt; (meus tutoriais de como carregar dados no R, &lt;a href=&#34;http://fmeireles.com/blog/rstats/como-importar-qualquer-arquivo-no-r&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui&lt;/a&gt; e &lt;a href=&#34;http://fmeireles.com/blog/rstats/como-importar-qualquer-arquivo-no-r&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui&lt;/a&gt;), mas também podemos armazená-la num objeto diretamente no &lt;code&gt;R&lt;/code&gt; via:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Salva a base de dados sobre os sobreviventes do Titanic
+titanic &amp;lt;- read.table(&amp;quot;http://web.univ-ubs.fr/lmam/blanche/data-titanic.txt&amp;quot;, sep = &amp;quot;,&amp;quot;, header = T)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feito isto, podemos explorar um pouco a base. Em particular, ela possui 891 observações e 12 variáveis, que são:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;names(titanic)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;PassengerId&amp;quot; &amp;quot;Survived&amp;quot;    &amp;quot;Pclass&amp;quot;      &amp;quot;Name&amp;quot;        &amp;quot;Sex&amp;quot;        
+##  [6] &amp;quot;Age&amp;quot;         &amp;quot;SibSp&amp;quot;       &amp;quot;Parch&amp;quot;       &amp;quot;Ticket&amp;quot;      &amp;quot;Fare&amp;quot;       
+## [11] &amp;quot;Cabin&amp;quot;       &amp;quot;Embarked&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O que mais nos interessa aqui é a variável binária &lt;code&gt;Survived&lt;/code&gt;, que assume o valor de 1 para passageiros sobreviventes, e 0 para os não sobreviventes. Outras variáveis podem nos ajudar a explicá-la, como o sexo dos passageiros. Com alguns gráficos simples, podemos ter uma noção da relação entre estas duas variáveis:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Primeiro, carregamos o pacote ggplot2 (para gerar os graficos)
+library(ggplot2)
+
+# Geramos um grafico de barras para visualizar o numero de sobreviventes e nao sobreviventes
+ggplot(titanic, aes(x = as.factor(Survived))) + geom_bar() + theme_light() + 
+  labs(title = &amp;quot;Titanic&amp;quot;, x = &amp;quot;Sobreviventes&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/titanic-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Por fim, cruzamos a variavel sexo com a variavel sobreviventes
+ggplot(titanic, aes(x = as.factor(Survived), fill = Sex)) + geom_bar() + theme_light() + 
+  labs(title = &amp;quot;Titanic&amp;quot;, x = &amp;quot;Sobreviventes&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/titanic-2.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;O que podemos concluir? Que a maior parte dos passageiros do Titanic, infelizmente, não sobreviveu ao acidente, e que, dos que sobreviveram, a maioria é do sexo feminino. Estimando uma regressão logística, podemos investigar esta relação mais detidamente.&lt;/p&gt;
+&lt;h4 id=&#34;estimando-modelos-logísticos-a-função-glm-do-r&#34;&gt;Estimando modelos logísticos: a função glm do R&lt;/h4&gt;
+&lt;p&gt;Para estimar essa regressão logística, uso a função &lt;a href=&#34;https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;glm&lt;/a&gt;, que já vem no &lt;code&gt;R&lt;/code&gt;, especificamente no pacote &lt;a href=&#34;https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;stats&lt;/a&gt;. A função aceita vários argumentos, mas os principais que usaremos são três: a fórmula, o link (o que usaremos é o logístico, mas a função também aceita outros) e os dados usados (no caso, da base dos sobreviventes do Titanic, que já carregamos). Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Estima um modelo logistico com a funcao glm
+modelo &amp;lt;- glm(Survived ~ Sex, family = &amp;quot;binomial&amp;quot;, data = titanic)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Explicando o código acima, fizemos o seguinte. Primeiro, passamos a fórmula que queremos estimar, com a variável &lt;code&gt;Survived&lt;/code&gt; (sobreviventes) como dependente (Y) sendo explicada (o &lt;code&gt;~&lt;/code&gt; indica que tudo após isto é variável independente) pela variávei &lt;code&gt;Sex&lt;/code&gt; (sexo dos passageiros). Segundo, explicitamos o link (&lt;code&gt;family = &amp;quot;binomial&amp;quot;&lt;/code&gt;). Por fim, passamos os nossos dados (&lt;code&gt;data = titanic&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Para visualizarmos o resultado deste modelo, apenas precisamos usar a função &lt;code&gt;summary&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Acessa os resultados do modelo logistico
+summary(modelo)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## glm(formula = Survived ~ Sex, family = &amp;quot;binomial&amp;quot;, data = titanic)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.6462  -0.6471  -0.6471   0.7725   1.8256  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&amp;gt;|z|)    
+## (Intercept)   1.0566     0.1290   8.191 2.58e-16 ***
+## Sexmale      -2.5137     0.1672 -15.036  &amp;lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1186.7  on 890  degrees of freedom
+## Residual deviance:  917.8  on 889  degrees of freedom
+## AIC: 921.8
+## 
+## Number of Fisher Scoring iterations: 4
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como já havíamos visto, a probabilidade de passageiros homens terem sobrevivido é menor do que a de passageiras mulheres (&lt;a href=&#34;http://www.pgsc.ufma.br/arquivos/apostilaregressaologistica.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui há um bom tutorial de como interpretar os resultados de modelos logísticos&lt;/a&gt;). Mas, da forma como é reportado, este coeficiente (&lt;code&gt;Sexmale&lt;/code&gt;, que retorna a probabilidade, em log odds, de um homem ter sobrevivido em relação a uma mulher) é difícil de ser interpretado. Uma forma mais simples é por meio de &lt;a href=&#34;http://www.ats.ucla.edu/stat/mult_pkg/faq/general/odds_ratio.htm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;razão de chance&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Tendo salvo o modelo, podemos calcular as razões de chance de forma fácil usando a função &lt;code&gt;exp&lt;/code&gt;, que serve para exponenciar um número:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Converte os coeficientes do modelo de log odds para razao de chance
+exp(modelo$coefficients)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## (Intercept)     Sexmale 
+##  2.87654321  0.08096732
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Agora, podemos interpretar os resultado de forma mais direta: para cada mulher que se salvou no Titanic, 0.08 homens se salvaram (ou, de forma mais intuitiva, 100 mulheres para cada 8 homens; o &lt;a href=&#34;https://pt.wikipedia.org/wiki/Raz%C3%A3o_de_possibilidades&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;artigo da Wikipedia sobre razão de chance&lt;/a&gt; é um bom guia para interpretar essas razões de chance).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: Exportando dados eleitorais do R para o Stata</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</link>
+      <pubDate>Mon, 22 Aug 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</guid>
+      <description>&lt;p&gt;Semana passada, o Denisson, a Bia e eu lançamos o &lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, um pacote no &lt;code&gt;R&lt;/code&gt; para baixar e limpas dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;repositório do TSE&lt;/a&gt;. Como explicamos, o pacote contém diversas funções que facilitam a obtenção destes dados, além de tornar um processo imensamente mais rápido. Mas, como algumas mensagens que recebemos de lá pra cá indicaram, algumas (talvez muitas) pessoas usam o Stata para rodar suas análises e, por isso, não se beneficiariam do pacote.&lt;/p&gt;
+&lt;p&gt;Neste post, farei um pequeno tutorial de como baixar e exportar estes dados do &lt;code&gt;R&lt;/code&gt; para o Stata. Não é necessário muito conhecimento de &lt;code&gt;R&lt;/code&gt; para segui-lo. Na verdade, o procedimento é tão simples que pode ser resumido em três etapas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Carregar os pacotes necessários&lt;/em&gt;: a primeira coisa a fazer é instalar e carregar o pacote &lt;code&gt;electionsBR&lt;/code&gt; no &lt;code&gt;R&lt;/code&gt;, que contêm as funções para baixar os dados do TSE. Para isto, basta apenas digitar no console:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala o pacote electionsBR (se ja foi instalado, esta etapa pode ser pulada)
+install.packages(&amp;quot;electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Carregar e baixar os dados necessários&lt;/em&gt;: agora, precisamos carregar o pacote e apenas utilizar a função desejada. Por exemplo, podemos baixar todos os dados sobre as coligações eleitorais e partidos que concorreram nas eleições de 2010 com o seguinte código:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote electionsBR
+library(electionsBR)
+
+# Baixa os dados sobre as legendas da eleicao de 2010
+dados &amp;lt;- legend_fed(2010)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Exportanto os dados&lt;/em&gt;: por fim, exportamos os dados com o pacote &lt;code&gt;foreign&lt;/code&gt;, disponível por padrão no &lt;code&gt;R&lt;/code&gt; (ao menos nas distribuições do &lt;a href=&#34;https://www.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R Project&lt;/a&gt;, que é também a mais utilizada):&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote foreign
+library(foreign)
+
+# Exporta os dados baixados do TSE (objeto &#39;dados&#39;) para o Stada
+write.dta(dados, file = &amp;quot;dados.dta&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feito isto, os dados baixados estarão disponíveis no diretório de trabalho do &lt;code&gt;R&lt;/code&gt; (é possível vê-lo digitando no console &lt;code&gt;getwd()&lt;/code&gt;), especificamente no arquivo &amp;ldquo;dados.dta&amp;rdquo;. É possível usar outro nome de arquivo para salvá-lo &amp;ndash; desde que seja mantida a extensão no final (&lt;code&gt;.dta&lt;/code&gt;). Exemplos:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Este nome de arquivo e&#39; valido
+write.dta(dados, file = &amp;quot;outro_nome.dta&amp;quot;)
+
+# Este nome de arquivo nao e&#39;
+write.dta(dados, file = &amp;quot;outro_nome&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(Na verdade, é até possível exportar um &lt;code&gt;data.frame&lt;/code&gt; para o Stata sem usar a extensão &lt;code&gt;.dta&lt;/code&gt; no nome do arquivo; o problema é que o arquivo não será associado ao Stata e, portanto, não será possível abri-lo com dois cliques simultâneos).&lt;/p&gt;
+&lt;p&gt;Em resumo, mesmo com um conhecimento quase zero de &lt;code&gt;R&lt;/code&gt;, é fácil usar o pacote &lt;code&gt;electionsBR&lt;/code&gt; para pegar dados do TSE e exportá-los para o Stata (&lt;a href=&#34;http://www.statmethods.net/input/exportingdata.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ou para outros softwares&lt;/a&gt;) &amp;ndash; e, o que não é menos importante, de forma rápida e eficiente.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: analisando a apuração das eleições para a Câmara dos Deputados</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</link>
+      <pubDate>Fri, 19 Aug 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</guid>
+      <description>&lt;p&gt;Usando o nosso pacote no &lt;code&gt;R&lt;/code&gt; para baixar e limpar dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE&lt;/a&gt;, desenvolvimento conjuntamente pelo &lt;a href=&#34;http://denissonsilva.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Denisson Silva&lt;/a&gt;, Beatriz Costa e eu, vou mostrar aqui como é possível obter e analisar os resultados de apuração das eleições para a Câmara dos Deputados desde 1998 (o período disponível, por causa de limitações nos dados do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE&lt;/a&gt;, vai de 98 a 2014 &amp;ndash; mas pretendemos expandir ele no futuro) desagregados por município/zona eleitoral.&lt;/p&gt;
+&lt;h3 id=&#34;baixando-os-dados-de-apuração-das-eleições-federais&#34;&gt;Baixando os dados de apuração das eleições federais&lt;/h3&gt;
+&lt;p&gt;Como o pacote está no &lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, a primeira coisa que precisamos fazer é instalá-lo via console:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala o pacote electionsBR via CRAN
+install.packages(&amp;quot;electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Também é possível baixar as versões pre-release do pacote via &lt;a href=&#34;https://github.com/silvadenisson/electionsBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt; (o que permite acessar as modificações que vamos fazendo nele antes delas irem para o CRAN):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instala o pacote electionsBR via GitHub
+if (!require(&amp;quot;devtools&amp;quot;)) install.packages(&amp;quot;devtools&amp;quot;)
+devtools::install_github(&amp;quot;silvadenisson/electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feito isto, o pacote pode ser carregado com &lt;code&gt;library&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote electionsBR
+library(electionsBR)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Os dados sobre a apuração (i.e. votos válidos, nulos, brancos, etc.) podem ser acessados pela função &lt;code&gt;details_mun_zone_fed()&lt;/code&gt; (ou &lt;code&gt;details_mun_zone_local&lt;/code&gt;, para as eleições municipais). O primeiro passo para analisar a votação nas eleições da Câmara, portanto, é extrair os dados para 1998, 2002, 2006, 2010 e 2014:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Extrai os dados das eleicoes federais de 1998 a 2014
+e1998 &amp;lt;- details_mun_zone_fed(1998)
+e2002 &amp;lt;- details_mun_zone_fed(2002)
+e2006 &amp;lt;- details_mun_zone_fed(2006)
+e2010 &amp;lt;- details_mun_zone_fed(2010)
+e2014 &amp;lt;- details_mun_zone_fed(2014)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ainda é possível reduzir este código via &lt;code&gt;lapply&lt;/code&gt; (com a desvantagem de que, se em algum momento o servidor do TSE tiver problemas, o código para de executar; ao coletar os dados por eleição, é possível lidar melhor com erros):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Cria um vetor armazenando os anos
+anos &amp;lt;- seq(1998, 2014, by = 4)
+
+# Baixa os dados com lapply e details_mun_zone_fed
+dados &amp;lt;- lapply(anos, details_mun_zone_fed)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Processing the data...Done.Processing the data...Done.Processing the data...Done.Processing the data...Done.Processing the data...Done.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Para unir as bases, uma maneira fácil é por meio da função &lt;code&gt;bind_rows()&lt;/code&gt; do pacote &lt;a href=&#34;https://cran.rstudio.com/web/packages/dplyr/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dplyr&lt;/a&gt; (uma pequena introdução a ele pode ser vista &lt;a href=&#34;https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui&lt;/a&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote dplyr
+if (!require(&amp;quot;dplyr&amp;quot;)) install.packages(&amp;quot;dplyr&amp;quot;)
+library(dplyr)
+
+# Une as bases (se foram baixadas separadamente, descomente a linha abaixo)
+# dados &amp;lt;- bind_rows(list(e1998, e2002, e2006, e2010, e2014))
+
+# Une as bases (se foram baixadas separadamente, comente a linha abaixo)
+dados &amp;lt;- bind_rows(dados)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feito isso (em poucos segundos!), a base final deve ficar com 196723 observações, algo que seria difícil de organizar manualmente ou em planilhas de excel. Só é necessário agora filtrar as observações para ficar apenas com as referentes às eleições da Câmara (excluindo, portanto, eleições para as assembleias estaduais, senado, etc.):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Filtra os dados
+dados &amp;lt;- dados[dados$DESCRICAO_CARGO == &amp;quot;DEPUTADO FEDERAL&amp;quot;,]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;analisando-os-dados&#34;&gt;Analisando os dados&lt;/h3&gt;
+&lt;p&gt;Tendo todos estes dados já na memória do &lt;code&gt;R&lt;/code&gt;, é possível analisá-los. Para fazer isto, utilizo o pacote &lt;a href=&#34;http://ggplot2.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ggplot2&lt;/a&gt; para gerar alguns gráficos. O primeiro deles é para examinar a relação entre a quantidade de comparecimentos vs. quantidade de abstenções &amp;ndash; obviamente, os dois têm de ser negativamente relacionados:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote ggplot2
+if (!require(&amp;quot;ggplot2&amp;quot;)) install.packages(&amp;quot;ggplot2&amp;quot;)
+library(ggplot2)
+
+
+ggplot(dados, aes(x = QTD_ABSTENCOES, y = QTD_COMPARECIMENTO)) + geom_point() +
+  theme_bw() + labs(title = &amp;quot;Abstenções vs. Comparecimento&amp;quot;, y = &amp;quot;Comparecimento&amp;quot;, x = &amp;quot;Abstenções&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes1-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;O que obtemos é justamente o contrário. Mas por quê? Porque o gráfico está captando o total de eleitores &amp;ndash; é necessário transformar comparecimentos e abstenções em percentuais do total de eleitores aptos a votar. Podemos fazer isto da seguinte forma:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot(dados, aes(x = I(QTD_ABSTENCOES / QTD_APTOS), y = I(QTD_COMPARECIMENTO / QTD_APTOS))) + 
+  geom_point() +
+  theme_bw() + labs(title = &amp;quot;Abstenções vs. Comparecimento&amp;quot;, y = &amp;quot;% Comparecimento&amp;quot;, x = &amp;quot;% Abstenções&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes2-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Agora obtemos o resultado esperado, uma relação perfeita entre comparecimento e abstenções. Com um código um pouco diferente (é preciso remover &lt;code&gt;missings&lt;/code&gt; e converter a variável &lt;code&gt;ANO_ELEICAO&lt;/code&gt; para &lt;code&gt;factor&lt;/code&gt;), também podemos investigar a média de abstenções durante o período:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter(dados, !is.na(ANO_ELEICAO)) %&amp;gt;% 
+  mutate(ANO_ELEICAO = factor(ANO_ELEICAO)) %&amp;gt;%
+  ggplot(aes(y = I(QTD_ABSTENCOES / QTD_APTOS), x = ANO_ELEICAO)) + geom_bar(stat = &amp;quot;summary&amp;quot;, fun.y = &amp;quot;mean&amp;quot;) +
+  theme_bw() + labs(title = &amp;quot;Média de abstenções nas eleições para a Câmara&amp;quot;, y = &amp;quot;% Abstenção&amp;quot;, x = &amp;quot;Ano&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes3-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;É possível ver que, após a eleição de 98, a média de abstenções cai, mas se mantém mais ou menos constante depois disso. Como a média sofre influência de outliers, podemos refazer o mesmo gráfico para visualizar a mediana das abstenções:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter(dados, !is.na(ANO_ELEICAO)) %&amp;gt;% 
+  mutate(ANO_ELEICAO = factor(ANO_ELEICAO),
+         PERC_ABST = QTD_ABSTENCOES / QTD_APTOS) %&amp;gt;%
+  ggplot(aes(y = PERC_ABST, x = ANO_ELEICAO)) + geom_bar(stat = &amp;quot;summary&amp;quot;, fun.y = &amp;quot;median&amp;quot;) +
+  theme_bw() + labs(title = &amp;quot;Mediana de abstenções nas eleições para a Câmara&amp;quot;, y = &amp;quot;% Abstenção&amp;quot;, x = &amp;quot;Ano&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes4-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Por fim, podemos investigar a distribução destas abstenções por eleição para obter uma informação mais detalhada:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter(dados, !is.na(ANO_ELEICAO)) %&amp;gt;% 
+  mutate(ANO_ELEICAO = factor(ANO_ELEICAO),
+         PERC_ABST = QTD_ABSTENCOES / QTD_APTOS) %&amp;gt;%
+  ggplot(aes(x = PERC_ABST)) + geom_histogram() + facet_wrap(~ ANO_ELEICAO) +
+  theme_bw() + labs(title = &amp;quot;Distribuição de abstenções nas eleições para a Câmara&amp;quot;,
+                    y = &amp;quot;Freqência&amp;quot;, x = &amp;quot;% Abstenção&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes5-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;O que corrobora os gráficos anteriores: a distribuição das abstenções em 98 estava mais dispersa do que nas eleições seguintes.&lt;/p&gt;
+&lt;h3 id=&#34;notas-finais&#34;&gt;Notas finais&lt;/h3&gt;
+&lt;p&gt;Este é apenas um dois possíveis tipos de análises que é possível fazer com a ajuda do pacote &lt;code&gt;electionsBR&lt;/code&gt;. Como deve ter ficado claro, ele simplifica enormemente a tarefa de obter dados eleitorais, além de já os deixar prontos para uso. Mesmo assim, ainda é possível que alguns dos dados do TSE não possam ser tão simplemente analisados. A formação de alguns campos varia ao longo do tempo (a data de nascimento dos candidatos, por exemplo, era preenchida como &amp;ldquo;13/10/1976&amp;rdquo; em anos anteriores, mas também já foi preenchida como &amp;ldquo;13-10-76&amp;rdquo;), algumas variáveis são acrescentadas e, constantemente, outras são atualizadas pelo TSE. Por estas e outras razões, o pacote &lt;code&gt;electionsBR&lt;/code&gt; ainda é um trabalho em aberto, que pode melhorar com a contribuição de outras pessoas.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>electionsBR: um pacote no R para baixar e limpar dados eleitorais do TSE</title>
+      <link>https://www.femeireles.com/post/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</link>
+      <pubDate>Thu, 18 Aug 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</guid>
+      <description>&lt;p&gt;Nosso pacote para baixar e limpar dados eleitorais do website do TSE, desenvolvido conjuntamente por Denisson Silva, Beatriz Costa e eu, foi publicado no &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Comprehensive R Archive Network (CRAN)&lt;/a&gt;: o &lt;code&gt;electionsBR&lt;/code&gt;. Basicamente, ele contém uma série de funções para extrair e limpar a maioria dos dados disponíveis no &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt;, deixando-os prontos para uso.&lt;/p&gt;
+&lt;p&gt;O &lt;code&gt;electionsBR&lt;/code&gt; vem para facilitar a vida de quem trabalha ou precisa consultar estes dados do TSE de duas formas. Primeiro, ele fornece um conjunto de funções para baixar a maioria dos dados do TSE, que são então armazenados diretamente num objeto na memória do &lt;code&gt;R&lt;/code&gt; &amp;ndash; sem a necessidade de abrir o website do TSE, deszipar, ler e limpar cada um dos arquivos individuais. Segundo, ele faz isso em poucos segundos e, além disso, já lida com os principais problemas nas bases do TSE: como é notório entre os usuários do Repositório, os arquivos do TSE frequentemente vêm com problemas de enconding (i.e. acentos tornam-se caracteres inelegíveis), incompatibilidade entre arquivos (i.e. mais ou menos variáveis, células vazias) e informações mal formatadas (i.e. variáveis numéricas contêm caracteres não-numéricos).Com ele, portanto, é possível baixar rapidamente, e sem problemas, os principais dados eleitorais do TSE.&lt;/p&gt;
+&lt;h3 id=&#34;usando-o-pacote&#34;&gt;Usando o pacote&lt;/h3&gt;
+&lt;p&gt;Apenas duas coisas são necessárias para usar o pacote: uma versão do &lt;code&gt;R&lt;/code&gt; superior a 2.1 (&amp;gt;= 2.1) e conexão com a internet. Para instalar a versão estável dele no &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, basta digitar no console:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Também é possível instalar as versões pré-release direto do &lt;a href=&#34;https://github.com/silvadenisson/electionsBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt; (onde também está disponível uma pequena introdução ao pacote, em inglês):&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;if (!require(&amp;quot;devtools&amp;quot;)) install.packages(&amp;quot;devtools&amp;quot;)
+devtools::install_github(&amp;quot;silvadenisson/electionsBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O pacote &lt;code&gt;electionsBR&lt;/code&gt; possui dez funções básicas para baixar cinco tipos de dados diferentes. São elas:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;candidate_fed()&lt;/code&gt;: baixa dados sobre as candidaturas individuais nas eleições federais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;candidate_local()&lt;/code&gt;: baixa dados sobre as candidaturas individuais nas eleições municipais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;details_mun_zone_fed()&lt;/code&gt;: baixa dados sobre os detalhes de apuração desagregados por município/zona eleitoral das eleições federais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;details_mun_zone_fed()&lt;/code&gt;: baixa dados sobre os detalhes de apuração desagregados por município/zona eleitoral das eleições municipais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legend_fed()&lt;/code&gt;: baixa dados sobre as legendas que concorreram nas eleições federais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legend_local()&lt;/code&gt;: baixa dados sobre as legendas que concorreram nas eleições locais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;party_mun_zone_fed()&lt;/code&gt;: baixa dados sobre o desempenho das legendas desagregados por município/zona eleitoral nas eleições federais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;party_mun_zone_local()&lt;/code&gt;: baixa dados sobre o desempenho das legendas desagregados por município/zona eleitoral nas eleições locais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;vote_mun_zone_fed()&lt;/code&gt;: baixa dados sobre os resultados eleitorais desagregados por município/zona eleitoral nas eleições federais.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;vote_mun_zone_locais()&lt;/code&gt;: baixa dados sobre os resultados eleitorais desagregados por município/zona eleitoral nas eleições locais.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Para baixar os dados sobre os candidatos que disputaram as eleições nacionais de 2002, por exemplo, basta executar o seguinte código:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote
+library(electionsBR)
+
+# Baixa os dados
+dados &amp;lt;- candidate_fed(year = 2002)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Processing the data...Done
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Todas as funções funcionam da mesma forma: o único argumento que deve ser preenchido pelo usuário é o ano do pleito (&lt;code&gt;year&lt;/code&gt;), que deve ser introduzido como &lt;code&gt;integer&lt;/code&gt; (e.g., 2002, 2006, 1996). O objeto resultante é um &lt;code&gt;data.frame&lt;/code&gt; que contém diversas variáveis (para uma descrição detalhada de cada uma, &lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/electionsBR.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ver a documentação do pacote no CRAN&lt;/a&gt;).&lt;/p&gt;
+&lt;h3 id=&#34;algumas-notas-finais&#34;&gt;Algumas notas finais&lt;/h3&gt;
+&lt;p&gt;É importante ressaltar que este pacote é resultado de alguns projetos de pesquisa em andamento no &lt;a href=&#34;http://www.centroestudoslegislativos.com.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Centro de Estudos Legislativos (CEL)&lt;/a&gt;, do qual o Denisson, a Bia e eu fazemos parte. Ao ter de repetir diversas vezes a tarefa de baixar, descompactar, abrir e unir todas as bases do TSE, achamos uma boa ideia criar este pacote para facilitar a nossa vida. Mas, como efeito final, também possibilitamos que outras pessoas consultem os mesmos dados facilmente.&lt;/p&gt;
+&lt;p&gt;Como esta é a primeira versão estável do pacote, críticas e sugestões para melhorá-lo são bem-vindas.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Uma análise de sentimentos dos tweets da Dilma Rousseff</title>
+      <link>https://www.femeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</link>
+      <pubDate>Sun, 14 Aug 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Num post anterior&lt;/a&gt;, fiz uma análise dos tweets da &lt;a href=&#34;https://twitter.com/dilmabr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Presidenta Dilma Rousseff&lt;/a&gt;. Neste aqui, aproveitei os dados já coletados para fazer algo diferente, que já estava querendo fazer há tempos: uma análise de sentimentos. Basicamente, esta técnica serve para avaliar um determinado texto, dando a ele uma nota numa escala que vai de negativo a positivo, triste a feliz, etc. No caso, vou fazer isto utilizando a &lt;a href=&#34;https://www.microsoft.com/cognitive-services/en-us/apis&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;API do cognitive services da Microsoft&lt;/a&gt;, que possui um algoritimo próprio para classificar os textos numa escala que vai de 0, mais negativo, a 1, mais positivo (assim como outros métodos, ele classifica cada palavra num texto e, então, computa um score para a frase ou trecho; para uma análise sobre a potencialidade do método, &lt;a href=&#34;http://blog.revolutionanalytics.com/2016/06/microsoft-cognitive-services.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ver aqui&lt;/a&gt;).&lt;/p&gt;
+&lt;h4 id=&#34;analisando-os-sentimentos-dos-tweets-da-dilma&#34;&gt;Analisando os sentimentos dos tweets da Dilma&lt;/h4&gt;
+&lt;p&gt;Como mostro naquele post anterior, podemos concluir três coisas em relação aos tweets da @dilmabr publicados desde 2015: (1) ela passou a tuítar mais após o seu afastamento (mas já tuitou mais no passado); (2) seus tweets passaram a receber mais retweets e favoritadas após o afastamento; e, (3), os tweets que mencionam o termo &amp;ldquo;golpe&amp;rdquo; são mais influentes do que a média deste outro grupo (tweets pós-afastamento sem o termo &amp;ldquo;golpe&amp;rdquo;).&lt;/p&gt;
+&lt;p&gt;Com uma análise de sentimentos destes tweets, podemos descobrir outras coisas: como o tom das postagens da Presidenta variaram ao longo do tempo? Seus tweets mais recentes possuem conteúdo mais negativo (críticas, mostras de ressentimento, etc.) ou mais positivos (expressões de felicidade, elogios, etc.)? Para responder estas perguntas, apliquei o algoritimo do cognitive services em cada um dos tweets 1859 da Dilma e salvei seus scores (aqui há um &lt;a href=&#34;https://github.com/philferriere/mscstexta4r&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;bom tutorial sobre como usar o serviço da Microsoft no R&lt;/a&gt;, com o pacote &lt;a href=&#34;https://cran.r-project.org/web/packages/mscstexta4r/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mscstexta4r&lt;/a&gt;). Feito isto, podemos plotar os resultados (cada ponto cinza indica um tweet, o eixo y indica o score do tweet naquela escala que vai de 0, mais negativo, a 1, mais positivo e, enfim, a linha azul é uma &lt;a href=&#34;https://en.wikipedia.org/wiki/Local_regression&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;curva loess&lt;/a&gt;):&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/sentimentos_dilma.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Duas coisas chamam a atenção logo de cara. A primeira delas é o fato de que, após o seu afastamento (maio de 2016, linha tracejada), o sentimento geral dos tweets da Dilma tornam-se mais negativos, como mostra o declínio da linha azul (o que até faz sentido). Exemplos disto:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Tweet =  Fico triste de não assistir à festa &amp;quot;ao vivo e a cores&amp;quot;.
+Mas estarei acompanhando, torcendo pelo Brasil.  / Score =  0
+
+## Tweet =  O golpe consiste em 2 coisas: estancar a sangria, impedir
+q as investigações da #LavaJato chegasse até eles. O meu gov não
+interromperia.  / Score =  0.2127647
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O que contrasta com alguns tweets anteriores:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Tweet =  Viva a mulher brasileira! Viva o povo brasileiro.
+Viva o Brasil! #DilmaDaMulher  / Score =  1
+
+## Tweet =  (...) valeu a pena lutar pela liberdade,
+valeu a pena lutar pela democracia! Este País está + forte
+do q nunca.  / Score =  1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Durante todo o restante do período, os tweets da Presidenta oscilavam pouco em seus tons, ficando, na média, um pouco acima de 0.5 na escala de sentimentos. A caída repentina após o afastamento, portanto, indica que o tom geral dos tweets da Presidenta mudaram (embora não dê pra saber, apenas visualmente, se a média destes tweets é significativamente diferente dos demais).&lt;/p&gt;
+&lt;p&gt;Já a segunda coisa que merece destaque é a retomada do tom positivos nos últimos tweets Como dá pra ver, após a queda, a linha azul volta a subir bastante (superando, inclusive, períodos anteriores). Mas o que ela tem dito? Coisas como estas:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Tweet =  As mulheres têm se destacado nesses Jogos,
+o que nos enche de orgulho e alegria. #Rio2016  /
+Score =  0.9818006
+
+## Tweet =  Obrigada, @BernieSanders! Dilma agradece
+solidariedade do senador democrata norte-americano:
+https://t.co/jtPVdAouaA  / Score =  1
+
+## Tweet =  O Brasil está orgulhoso, @RafaelaSilvaa.
+Estamos emocionados com sua conquista. Você é o máximo!
+Parabéns! #Rio2016  / Score =  1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como se pode ver, o tom triste e combativo dos tweets mais negativos contrasta com estes, que são dedicados a agradecer pessoas e exaltar conquistas.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Golpe ou impeachment? Uma análise dos tweets da Dilma Rousseff</title>
+      <link>https://www.femeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
+      <pubDate>Fri, 12 Aug 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
+      <description>&lt;p&gt;Desde o ínicio do impeachment da agora Presidente afastada, Dilma
+Rousseff (PT), acadêmicos e articulistas discutem se este processo se
+encaixa na categoria de golpe de estado. Críticos do governo e membros
+da oposição defendem que, conceitualmente, golpe de estado envolveria
+deposição à força da ou do presidente (i.e., por golpe militar), o que
+não é o caso aqui. Por outro lado, esta definição está longe de ser
+consensual: &lt;a href=&#34;http://www.cienciapolitica.org.br/impeachment-golpe-politico-e-democracia/#.V6-XR5grLtQ&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;outras definições são consistentes com a ausência de
+participação
+militar&lt;/a&gt;.
+No caso da queda do então Presidente do Paraguai, Fernando Lugo, o mesmo
+foi frequentemente alegado, embora, também ali, seja difícil explicar
+como que um processo tão rápido possa ter seguido dentro da normalidade
+democrática.&lt;/p&gt;
+&lt;p&gt;Outra questão neste debate, entretanto, não é muito analisada: rotular o
+processo de impedimento da Presidenta Dilma como golpe é uma boa
+estratégia? Para analisar isto, resolvi aproveitar o pacote
+&lt;a href=&#34;https://cran.r-project.org/web/packages/twitteR/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;twitteR&lt;/a&gt;,
+no &lt;code&gt;R&lt;/code&gt;, para fazer uma análise de todos os tweets dela desde outubro de
+2014 para responder esta pergunta. Como o twitter é reconhecidamente uma
+ferramenta importante de comunicação (a Dilma, além disso, tem quase 5
+milhões de seguidores), este é um bom exercício para investigar o
+retorno desta estratégia.&lt;/p&gt;
+&lt;p&gt;Os dados que usei, com todos os tweets da Presidenta, podem ser baixados
+&lt;a href=&#34;https://github.com/meirelesff/tweets_politicos&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;neste link&lt;/a&gt;. Com eles, é possível replicar o código que usei abaixo para
+fazer a análise (também é necessário ter instalado alguns pacotes, como
+o &lt;code&gt;ggplot2&lt;/code&gt;, pra gerar gráficos, e o &lt;code&gt;dplyr&lt;/code&gt;, pra manipular os dados).&lt;/p&gt;
+&lt;h4 id=&#34;a-presidenta-dilma-ficou-mais-ativa-no-twitter-nos-últimos-meses&#34;&gt;A Presidenta Dilma ficou mais ativa no Twitter nos últimos meses?&lt;/h4&gt;
+&lt;p&gt;Depois de sua posse em 2010, Dilma Rousseff acabou &lt;a href=&#34;http://oglobo.globo.com/politica/dilma-serra-desaparecem-do-twitter-no-mes-seguinte-eleicao-2916329&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;abandonando o
+Twitter&lt;/a&gt;,
+rede social onde foi bastante ativa durante as eleições. Entre indas e
+vindas, logo após ter sido afastada da Presidência, entretanto, o perfil
+&lt;a href=&#34;https://twitter.com/dilmabr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dilmabr&lt;/a&gt; &lt;a href=&#34;http://www.istoedinheiro.com.br/noticias/economia/20160519/afastada-presidencia-dilma-rousseff-torna-se-ativa-nas-redes-sociais/374904&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;voltou a ser usado com mais
+frequência&lt;/a&gt;.
+E, &lt;a href=&#34;http://epoca.globo.com/tempo/expresso/noticia/2016/05/dilma-lanca-mao-de-rede-social-para-se-defender-no-processo-de-impeachment.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;segundo a revista
+Época&lt;/a&gt;,
+seu novo uso para a ferramente tem sido divulgar sua defesa no processo
+de impeachment.&lt;/p&gt;
+&lt;p&gt;A primeira coisa que resolvi investigar foi justamente isto: se a
+Presidenta teria ficado mais ativa no Twitter após o seu afastamento.
+Para começar, primeiro carrego os pacotes e os dados necessários no &lt;code&gt;R&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(lubridate) # Para manipular datas
+library(ggplot2) # Para gerar graficos
+library(tidyr) # Para manipular os dados
+library(dplyr) # Para manipular os dados
+library(tm) # Para fazer text mining nos tweets
+
+load(&amp;quot;dilma_tw.Rda&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A base tem 16 variáveis e 1859 observações (significando que, desde
+2010, o perfil &lt;code&gt;@dilmabr&lt;/code&gt; tuítou 1859 vezes). A questão que precisamos
+analisar, agora, é verificar a frequência com que a Presidenta tem
+tuítado. Agregando seus tweets por mês, podemos visualizar isto:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dilma_tw$data_mes &amp;lt;- floor_date(dilma_tw$created, &amp;quot;month&amp;quot;)
+
+dilma_tw %&amp;gt;%
+  count(data_mes) %&amp;gt;%
+  ggplot(aes(x = data_mes, y = n)) + geom_line() + 
+  geom_vline(xintercept = 
+  as.numeric(as.POSIXct(&amp;quot;2016-05-01&amp;quot;)), linetype = 2) + 
+  theme_bw() + 
+  labs(title = &amp;quot;Atividade da Dilma no Twitter&amp;quot;,
+  x = &amp;quot;Ano-Mês&amp;quot;, y = &amp;quot;Número de tweets&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;O gráfico mostra que a pró-atividade da Presidenta no twitter é ambígua.
+É verdade que ela passou a tuítar mais nos últimos dois meses (a linha
+pontilhada indica o mês de maio de 2016), mas em outros períodos ela
+utilizava a ferramente muito mais, especialmente nos meses anteriores às
+eleições de 2014. Mesmo assim, pode ser que, mesmo não tuitando com
+tanta frequência, seus tweets mais recentes estejam atingindo um público
+maior (recebendo mais retweets ou sendo mais favoritados pelos usuários,
+o que indicaria que eles estariam tendo maior engajamento com os seus
+conteúdos). Podemos ver isso agregando as retuítadas e os favoritos
+também por mês:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dilma_tw %&amp;gt;%
+  group_by(data_mes) %&amp;gt;%
+    summarise(Reteets = sum(retweetCount), Favoritos = sum(favoriteCount)) %&amp;gt;%
+      gather(key = Ação, value = N, Reteets:Favoritos) %&amp;gt;%
+      ggplot(aes(x = data_mes, y = N / 1000, color = Ação)) +
+      geom_line() + geom_vline(xintercept = as.numeric(as.POSIXct(&amp;quot;2016-05-01&amp;quot;)),
+      linetype = 2) + 
+      theme_bw() + labs(title = &amp;quot;RTs e Favs dos tweets da Dilma&amp;quot;,
+      x =&amp;quot;Ano-Mês&amp;quot;, y = &amp;quot;RTs e Fav (em milhares)&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;O padrão parece seguir o anterior: a Presidenta vem tendo maior
+influência no twitter após seu afastamento, mas já teve mais que isso no
+passado. O problema é que estas simples medidas escondem uma informação
+importante: mesmo tuitando menos, pode ser que seus tweets atuais sejam
+relativamente mais influentes. Suponhamos, por exemplo, que todo tweet
+da @dilmabr tenha sempre 100 retweets; caso ela tuíte muito num mês,
+este gerará mais retweets no agregado. Como essa influência depende do
+número de tweets (quem tuíta mais pode receber mais retweets e
+favoritos), portanto, uma medida melhor de influência pode ser obtida
+calculando a média de retweets e favoritos por tweet num mês, i.e.
+&lt;code&gt;retweets / total de tweets&lt;/code&gt; e &lt;code&gt;favoritos / total de tweets&lt;/code&gt;. É possível
+ver este gráfico abaixo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dilma_tw %&amp;gt;%
+  group_by(data_mes) %&amp;gt;%
+  summarise(Retweets_por_tuite = sum(retweetCount) / n(),
+  Favoritos_por_tuite = sum(favoriteCount) / n()) %&amp;gt;%
+  gather(key = Ação, value = N, Retweets_por_tuite:Favoritos_por_tuite) %&amp;gt;%
+  ggplot(aes(x = data_mes, y = N, color = Ação)) + geom_line() +
+  geom_vline(xintercept = as.numeric(as.POSIXct(&amp;quot;2016-05-01&amp;quot;)),
+  linetype = 2) + 
+  theme_bw() + 
+  labs(title = &amp;quot;RTs e Favs por tweet da Dilma&amp;quot;, x = &amp;quot;Ano-Mês&amp;quot;,
+  y = &amp;quot;RTs e Fav por tweet&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Agora é que as coisas mudam de figura: mesmo tendo tuítado relativamente
+menos do que em outras épocas, os tweets mais recentes da Presidenta são
+mais influentes, isto é, eles obtêm mais retweets e favoritos (apenas
+com base neste gráfico, também suspeito que poucas pessoas têm interesse
+em retuítar e favoritar tweets de campanha, como aqueles divulgando
+agenda de eventos e comícios, o que pode explicar porque a atividade nos
+períodos eleitorais não produz um impacto por tweet tão grande; também
+deve ser considerado que o número de seguidores da Presidente não se
+manteve constante no período).&lt;/p&gt;
+&lt;h4 id=&#34;quais-termos-mais-aparecem-nos-tweets-da-presidenta-dilma&#34;&gt;Quais termos mais aparecem nos tweets da Presidenta Dilma?&lt;/h4&gt;
+&lt;p&gt;Se os últimos tweets da Dilma têm sido os seus mais influentes, no que
+eles são diferentes dos anteriores? Eles falam sobre assuntos distintos?
+Para analisar isto, criei uma matriz com a frequência de palavras usadas
+nos tweets para, então, visualizar os resultados. Começo com os tweets
+pré-afastamento:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;pre_afast &amp;lt;- dilma_tw %&amp;gt;%
+  filter(data_mes &amp;lt; as.POSIXct(&amp;quot;2016-04-01 UTC&amp;quot;)) %&amp;gt;%
+  select(text) %&amp;gt;%
+  VectorSource() %&amp;gt;%
+  Corpus() %&amp;gt;%
+  TermDocumentMatrix(control = list(
+    removePunctuation = T,
+    stopwords = c(stopwords(&amp;quot;portuguese&amp;quot;),
+    &amp;quot;vcs&amp;quot;,
+    &amp;quot;aqui&amp;quot;,
+    &amp;quot;ser&amp;quot;,
+    &amp;quot;hoje&amp;quot;,
+    &amp;quot;sobre&amp;quot;,
+    &amp;quot;agora&amp;quot;,
+    &amp;quot;todos&amp;quot;,
+    &amp;quot;ter&amp;quot;,
+    &amp;quot;vamos&amp;quot;,
+    &amp;quot;anos&amp;quot;),
+    removeNumbers = T, tolower = T)
+  ) %&amp;gt;%
+  as.matrix() %&amp;gt;%
+  as.data.frame()
+
+pre_afast &amp;lt;- data.frame(termos = rownames(pre_afast),
+freq = rowSums(pre_afast), periodo = &amp;quot;Pré afastamento&amp;quot;)
+
+ pre_afast %&amp;gt;%
+  arrange(desc(freq)) %&amp;gt;%
+  slice(1:15) %&amp;gt;%
+  mutate(termos = factor(termos,
+  levels = termos[order(freq, decreasing = T)])) %&amp;gt;%
+  ggplot(aes(x = termos, y = freq)) +
+  geom_bar(stat = &amp;quot;identity&amp;quot;) + theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  labs(title = &amp;quot;Termos mais usados nos tweets da Dilma\n(Pré-afastamento)&amp;quot;,
+  x = &amp;quot;Termo&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Neste período pré-afastamento, os termos que mais aparecem nos tweets da
+Presidenta se referem principalmente às eleições, ela mesma e ao país.
+Quando analisamos o segundo período, alguns termos novos aparecem:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Apesar da frequência de termos ser menor (o período também é menor),
+fica evidente que alguns ganham maior espaço: especialmente os termos
+&amp;ldquo;provisório&amp;rdquo;, &amp;ldquo;impeachment&amp;rdquo;, &amp;ldquo;processo&amp;rdquo;, &amp;ldquo;democracia&amp;rdquo; e &amp;ldquo;golpe&amp;rdquo;. Estes
+são, especificamente, os tweets usados como estratégia de defesa da
+Presidente, como &lt;a href=&#34;https://twitter.com/dilmabr/status/763810258561236992&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;seguinte exemplo
+mostra&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Portanto, vimos não só que os tuítes da Dilma se tornaram mais
+influentes após o seu afastamento, mas também que o conteúdo destes é um
+pouco diferente dos anteriores: eles mencionam mais o processo de
+impeachment e, além disso, contêm mais o termo &amp;ldquo;golpe&amp;rdquo;.&lt;/p&gt;
+&lt;h4 id=&#34;usar-os-termos-golpe-e-impeachment-dá-resultado&#34;&gt;Usar os termos &amp;ldquo;golpe&amp;rdquo; e &amp;ldquo;impeachment&amp;rdquo; dá resultado?&lt;/h4&gt;
+&lt;p&gt;Mas os tweets que usam o termo &amp;ldquo;golpe&amp;rdquo; recebem mais retweets e
+favoritadas? Em caso positivo, podemos dizer que, ao menos no âmbito do
+twitter, o uso do conceito traz benefícios. Podemos fazer um exercício
+simples para verificar isto, que consiste em calcular a média de
+retweets e favoritos nos tweets com a palavra &amp;ldquo;golpe&amp;rdquo; e nos que não a
+contêm.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## =================================
+## golpe          Retweets Favoritos
+## ---------------------------------
+## C/ termo golpe  734.4    1326.8  
+## S/ termo golpe  435.8     817.4  
+## ---------------------------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;O resultado dá uma ideia da influência do termo &amp;ldquo;golpe&amp;rdquo;: tweets com este
+termo recebem, em média, cerca de 299 retweets a mais, além de cerca de
+509 favoritadas a mais. Este não é a forma mais rigorosa de fazer isto
+(o grupo dos tweets sem o termo &amp;ldquo;golpe&amp;rdquo; pode tratar de assuntos menos
+relevantes, ter sido publicado em períodos diferentes, etc.), mas este
+simples exercício mostra que o uso do termo tem relação com a influência
+de um tweet da Presidenta (também deve ser levado em conta que isto não
+explica toda a influência dos seus tweets mais recentes). E quanto ao
+termo impeachment? O resultado muda:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## =======================================
+## golpe                Retweets Favoritos
+## ---------------------------------------
+## C/ termo impeachment  464.3     937.7  
+## S/ termo impeachment  449.9     836.8  
+## ---------------------------------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Praticamente não existe diferença entre tweets que usam ou não o termo
+&amp;ldquo;impeachment&amp;rdquo;. Podemos ainda comparar os dois, &amp;ldquo;golpe&amp;rdquo; e &amp;ldquo;impeachment&amp;rdquo;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## =======================================
+## golpe                Retweets Favoritos
+## ---------------------------------------
+## C/ termo golpe        734.4    1326.8  
+## C/ termo impeachment  436.4     893.7  
+## ---------------------------------------
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Tweets com o termo &amp;ldquo;golpe&amp;rdquo;, novamente, ganham disparado em influência.
+Fazendo uma estimativa simples de que cada retweet alcance 100 novos
+usuários, podemos dizer que cada tweet com o termo atinge cerca de
+30.000 usuários a mais. Provavelmente este número é maior, e ele ainda
+deve ser somado ao número de seguidores da Presidente que já viram os
+tweets em suas timelines. Outra coisa que deve ser considera é que estes
+retweets são feitos por usuários que provavelmente têm maior inclinação
+pela Presidenta, o que significa que estes já são mais propensos a se
+engajar com publicações que mencionam o termo &amp;ldquo;golpe&amp;rdquo;. Em todo caso,
+como os números mostram, o uso deste termo está associado com um maior
+número de retweets e favoritos, sugerindo que, ao menos no twitter,
+classificar o processo de impeachment como golpe parece ser a melhor
+estratégia.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Como importar qualquer arquivo no R</title>
+      <link>https://www.femeireles.com/post/rstats/como-importar-qualquer-arquivo-no-r/</link>
+      <pubDate>Fri, 15 Jul 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/como-importar-qualquer-arquivo-no-r/</guid>
+      <description>&lt;p&gt;Uma das potencialidades do &lt;code&gt;R&lt;/code&gt; é que é possível abrir (quase) qualquer
+tipo de arquivo nele. Arquivos no formato &lt;code&gt;.csv&lt;/code&gt;, &lt;code&gt;.txt&lt;/code&gt;, &lt;code&gt;.dta&lt;/code&gt;,
+etc., são apenas algumas das opções. Mas esta enorme gama de
+possibilidades também traz complicações, especialmente porque cada um
+destes arquivos possui uma função respectiva para importação.&lt;/p&gt;
+&lt;p&gt;O pacote &lt;a href=&#34;https://cran.r-project.org/web/packages/rio/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;rio&lt;/a&gt;
+serve para acabar com estes problemas. Com uma única função, &lt;code&gt;import()&lt;/code&gt;,
+ele é capaz de detectar qual arquivo o usuário deseja abrir e seleciona
+o método mais eficiente para fazê-lo.&lt;/p&gt;
+&lt;p&gt;O primeiro passo para usá-lo é instalar o pacote, que está no
+&lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Instalando o pacote &#39;rio&#39;
+install.packages(&amp;quot;rio&amp;quot;, dependencies = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Acima, instalamos o pacote com todas as dependências (outros pacotes que
+são necessários para que ele funcione). Feito isto, carregar qualquer
+arquivo de dados fica fácil, basta usar a função &lt;code&gt;import()&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote rio
+library(rio)
+
+
+# Carrega um arquivo em .csv no diretorio corrente
+df &amp;lt;- import(file = &amp;quot;dados.csv&amp;quot;)
+
+# Carrega um arquivo em .txt no diretorio corrente
+df2 &amp;lt;- import(file = &amp;quot;dados.txt&amp;quot;)
+
+# Carrega um arquivo em .dta (Stata) no diretorio corrente
+df3 &amp;lt;- import(file = &amp;quot;dados.dta&amp;quot;)
+
+# Carrega um arquivo em .sav (SPSS) no diretorio corrente
+df4 &amp;lt;- import(file = &amp;quot;dados.sav&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Como importar dados em .csv no R</title>
+      <link>https://www.femeireles.com/post/rstats/como-importar-dados-em-csv-no-r/</link>
+      <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/como-importar-dados-em-csv-no-r/</guid>
+      <description>&lt;p&gt;Uma das tarefas mais básicas no &lt;code&gt;R&lt;/code&gt; é importar dados. E, dentre todos os
+tipos de formatos mais usados para armazenar dados, &lt;code&gt;.csv&lt;/code&gt; (ou
+&lt;a href=&#34;https://pt.wikipedia.org/wiki/Comma-separated_values&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;comma-separated
+values&lt;/a&gt;, em
+inglês) talvez seja o mais comum. Dados demográficos do &lt;a href=&#34;http://www.ibge.gov.br/home/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Instituto Brasileiro de Geografia e
+Estatística&lt;/a&gt;, dados sobre os gastos do
+&lt;a href=&#34;http://www.portaltransparencia.gov.br/downloads/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;governo federal&lt;/a&gt;, por
+exemplo, vêm neste formato.&lt;/p&gt;
+&lt;p&gt;Assim como outros ambientes de programação e softwares, o &lt;code&gt;R&lt;/code&gt; possui
+facilidades nativas para importar este tipo de arquivo. Aqui, vou
+mostrar uma forma de fazer isto.&lt;/p&gt;
+&lt;h4 id=&#34;importando-dados-em-csv-com-readcsv&#34;&gt;Importando dados em .csv com read.csv&lt;/h4&gt;
+&lt;p&gt;A primeira forma de carregar dados em .csv no &lt;code&gt;R&lt;/code&gt;, e também a mais
+simples, é por meio da função
+&lt;a href=&#34;https://stat.ethz.ch/R-manual/R-devel/library/utils/html/read.table.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;read.csv()&lt;/a&gt;.
+Por exemplo, vamos supor que queremos abrir um arquivo chamado
+&lt;code&gt;dados.csv&lt;/code&gt; que está localizado no diretório de trabalho no &lt;code&gt;R&lt;/code&gt; (é
+possível verificar o diretório corrento com a função &lt;code&gt;getwd&lt;/code&gt;). O
+procedimento é simples:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df &amp;lt;- read.csv(file = &amp;quot;dados.csv&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Basicamente, este código apenas atribui a um objeto &lt;code&gt;df&lt;/code&gt; o resultado da
+função &lt;code&gt;read.csv&lt;/code&gt;, que serve justamente para importar o conteúdo de um
+arquivo em &lt;code&gt;.csv&lt;/code&gt;. O único argumento que precisamos definir foi &lt;code&gt;file&lt;/code&gt;,
+que é onde devemos especificar o endereço do arquivo (como supomos que o
+arquivos &lt;code&gt;dados.csv&lt;/code&gt; estava no diretório local, apenas o nome do arquivo
+completo foi necessário; mas é possível especificar outros endereços,
+como &amp;ldquo;C:/Pasta/dados.csv&amp;rdquo;).&lt;/p&gt;
+&lt;p&gt;A função &lt;code&gt;read.csv&lt;/code&gt; também possui outros argumentos úteis. O primeiro
+deles &lt;code&gt;header&lt;/code&gt;, que especifica se a primeira linha contém o nome das
+variáveis (&lt;code&gt;TRUE&lt;/code&gt; é o padrão) ou não (para o caso do arquivo não ter o
+nome das variáveis). O segundo argumento é &lt;code&gt;sep&lt;/code&gt;, que indica qual o
+caractere usado para separar as observações de cada linha (lembrando que
+um &lt;code&gt;.csv&lt;/code&gt; é um tipo de arquivo de texto que apenas separa informações
+por meio de algum caractere); normalmente, este caractere é &lt;code&gt;;&lt;/code&gt; (ponto e
+vírgula), mas também é comum o uso de &lt;code&gt;,&lt;/code&gt; (vírgula) ou &lt;code&gt;\t&lt;/code&gt; (tab). Erros
+de importação, como quando o &lt;code&gt;R&lt;/code&gt; junta todas as observações numa mesma
+variável, geralmente ocorrem por falta de especificar corretamente este
+argumento. Podemos melhorar nossa chamada à função &lt;code&gt;read.csv&lt;/code&gt; com estes
+argumentos:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df &amp;lt;- read.csv(file = &amp;quot;dados.csv&amp;quot;, header = TRUE, sep = &amp;quot;;&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Com este código, deixamos explícito que a primeira linha do arquivo
+&lt;code&gt;.csv&lt;/code&gt; contém o nome das variáveis, e que o caractere usado para separar
+as observações é ponto e vírgula.&lt;/p&gt;
+&lt;h4 id=&#34;outros-argumentos-úteis-da-função-readcsv&#34;&gt;Outros argumentos úteis da função read.csv&lt;/h4&gt;
+&lt;p&gt;Normalmente, apenas &lt;code&gt;file&lt;/code&gt;, &lt;code&gt;header&lt;/code&gt; e &lt;code&gt;sep&lt;/code&gt; precisam ser especificados
+para abrir corretamente um &lt;code&gt;.csv&lt;/code&gt;. Mas, em alguns casos, problemas
+adicionais podem tornar necessário o uso de outros argumentos da função.
+Abaixo, listo três outros deles:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;stringsAsFactors: por padrão, a função &lt;code&gt;read.csv&lt;/code&gt; transforma
+variáveis que contêm caracteres em &lt;code&gt;factor&lt;/code&gt;, &lt;a href=&#34;http://www.r-datacollection.com/blog/hellno/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;o que normalmente não
+é útil&lt;/a&gt;. Para
+desabilitar isto, basta especificar na chamada à função
+&lt;code&gt;stringsAsFactors = FALSE&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;fill: nem sempre arquivos &lt;code&gt;.csv&lt;/code&gt; possuem todos os valores ordenados
+no formato correto (por exemplo, uma observação pode ter sido
+pulada), o que pode gerar erros ao carregá-los. &lt;code&gt;fill = FALSE&lt;/code&gt; pode
+solucionar problemas como este.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;dec: caractere usado para separar as casas decimais de
+variáveis numéricas. Muitos bancos vêm com vírgulas cumprindo esta
+função (30,00, por exemplo); neste caso, é possível declarar
+&lt;code&gt;dec = &amp;quot;,&amp;quot;&lt;/code&gt; para fazer com que a função leia corretamente os dados.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

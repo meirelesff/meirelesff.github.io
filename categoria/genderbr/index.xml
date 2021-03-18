@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>genderbr | Fernando Meireles</title>
+    <link>https://www.femeireles.com/categoria/genderbr/</link>
+      <atom:link href="https://www.femeireles.com/categoria/genderbr/index.xml" rel="self" type="application/rss+xml" />
+    <description>genderbr</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Thu, 19 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <title>genderbr</title>
+      <link>https://www.femeireles.com/categoria/genderbr/</link>
+    </image>
+    
+    <item>
+      <title>Predizendo sexo a partir de nomes próprios com o genderBR</title>
+      <link>https://www.femeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</link>
+      <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</guid>
+      <description>&lt;p&gt;Para quem trabalha com bases de dados públicas, não é incomum encontrar
+o seguinte problema: ter disponível em alguma coluna o nome de várias
+pessoas, mas não a informação sobre o sexo delas. Para lidar com esse
+problema, há alguns meses desenvolvi um pacote para &lt;code&gt;R&lt;/code&gt;, o
+&lt;a href=&#34;https://cran.r-project.org/web/packages/genderBR/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;genderBR&lt;/a&gt;,
+que oferece um método simples para resolvê-lo: usando dados do &lt;a href=&#34;https://censo2010.ibge.gov.br/nomes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Censo
+de 2010 do IBGE&lt;/a&gt;, ele inferie o
+sexo de uma pessoa a partir de seu nome próprio (como descrito em
+maiores detalhes
+&lt;a href=&#34;http://fmeireles.com/blog/rstats/genderbr-predizer-sexo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui&lt;/a&gt;).
+Comparado à tarefa manual de classificar sexo a partir desses nomes, o
+método não só é infinitamente mais rápido, mas também evita erros de
+imputação, tornando replicável qualquer pesquisa que o use.&lt;/p&gt;
+&lt;p&gt;Apesar da utilidade do pacote para resolver esse problema, ele fazia
+isso com algumas limitações. A principal delas é a de tempo gasto na
+tarefa, às vezes na casa de horas ou dias. Basicamente, isso ocorre por
+causa da forma com que a principal função do pacote, &lt;code&gt;get_gender&lt;/code&gt;, faz
+predições: para cada nome solicitado, ela envia uma requisição ao
+serviço online de nomes do IBGE (daqui para frente,
+&lt;a href=&#34;https://pt.wikipedia.org/wiki/Interface_de_programa%C3%A7%C3%A3o_de_aplica%C3%A7%C3%B5es&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;API&lt;/a&gt;),
+recebe as informações necessárias e, com base nelas, calcula a
+probabilidade desse nome pertencer a um a homem ou a uma mulher. Como
+esse processo consome cerca de 0.1 segundos, as consequências são
+inevitáveis: para 10 mil nomes, a função pode facilmente rodar por mais
+de 15 horas.&lt;/p&gt;
+&lt;p&gt;A partir da recém lançada versão do pacote, contudo, isso deixou de ser
+um problema. Aproveitando que o IBGE divulgou a &lt;a href=&#34;http://www.consultaesic.cgu.gov.br/busca/dados/Lists/Pedido/Item/displayifs.aspx?List=0c839f31-47d7-4485-ab65-ab0cee9cf8fe&amp;amp;ID=557307&amp;amp;Web=88cc5f44-8cfe-4964-8ff4-376b5ebb3bef&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;base de dados que
+alimenta a API do serviço de
+nomes&lt;/a&gt;,
+agora o &lt;code&gt;genderBR&lt;/code&gt; dispõe internamente dessas informações.
+Especificamente, a função &lt;code&gt;get_gender&lt;/code&gt; ganhou um argumento opcional,
+&lt;code&gt;internal&lt;/code&gt;, que permite escolher entre usar os dados internos do pacote
+(&lt;code&gt;internal = TRUE&lt;/code&gt;, que agora é o padrão) ou requisitar os dados da API
+(&lt;code&gt;internal = FALSE&lt;/code&gt;). Optando pelo primeiro, o processo de predizer
+nomes consome poucos segundos – e isso mesmo em bases com milhares ou
+milhões de nomes próprios.[1]&lt;/p&gt;
+&lt;h3 id=&#34;como-usar-o-genderbr&#34;&gt;Como usar o genderBR&lt;/h3&gt;
+&lt;p&gt;O primeiro passo para usar o &lt;code&gt;genderBR&lt;/code&gt; é simples: com o &lt;code&gt;R&lt;/code&gt; aberto, só
+é necessário executar &lt;code&gt;install.packages(&amp;quot;genderBR&amp;quot;)&lt;/code&gt; para instalá-lo.
+Feito isso, predizer sexo a partir de nomes próprios é uma questão de
+chamar a função &lt;code&gt;get_gender&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Carrega o pacote
+library(genderBR)
+
+# Prediz o sexo de oito nomes
+nomes &amp;lt;- c(&amp;quot;Guilherme&amp;quot;, &amp;quot;Maria&amp;quot;, &amp;quot;Ana&amp;quot;, &amp;quot;Arnaldo&amp;quot;, &amp;quot;Martha&amp;quot;, &amp;quot;Carlos&amp;quot;, &amp;quot;Almir&amp;quot;, &amp;quot;Cida&amp;quot;)
+get_gender(nomes)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Male&amp;quot;   &amp;quot;Female&amp;quot; &amp;quot;Female&amp;quot; &amp;quot;Male&amp;quot;   &amp;quot;Female&amp;quot; &amp;quot;Male&amp;quot;   &amp;quot;Male&amp;quot;   &amp;quot;Female&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Mais útil que isso, é possível predizer o sexo de nomes contidos numa
+base de dados, adicionando o resultado dessa predição numa nova
+variável.
+Exemplo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;base &amp;lt;- data.frame(nome = c(&amp;quot;Ana Maria&amp;quot;, &amp;quot;Roberto Silva&amp;quot;, &amp;quot;Marcia Campos&amp;quot;),
+                   idade = c(25, 42, 33),
+                   grupo = c(&amp;quot;A&amp;quot;, &amp;quot;A&amp;quot;, &amp;quot;B&amp;quot;)
+                   )
+
+base$sexo &amp;lt;- get_gender(base$nome)
+
+base
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##            nome idade grupo   sexo
+## 1     Ana Maria    25     A Female
+## 2 Roberto Silva    42     A   Male
+## 3 Marcia Campos    33     B Female
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nos dois casos, as predições usam os dados internos ao pacote. Para
+desabilitar essa opção, fazendo requisições diretamente à API do IBGE,
+basta declarar como falso o argumento &lt;code&gt;internal&lt;/code&gt;: &lt;code&gt;get_gender(nomes, internal = FALSE)&lt;/code&gt;. Como mostro na sequência, entretanto, usar essa
+opção consome muito mais tempo.&lt;/p&gt;
+&lt;h3 id=&#34;o-desempenho-da-nova-versão-do-genderbr&#34;&gt;O desempenho da nova versão do genderBR&lt;/h3&gt;
+&lt;p&gt;Quão rápido é predizer o sexo usando os dados internos do pacote
+&lt;code&gt;genderBR&lt;/code&gt;? A título de ilustração, podemos comparar o tempo gasto para
+predizer o sexo daqueles 8 nomes do primeiro exemplo usando a API do
+IBGE, i.e. &lt;code&gt;internal = FALSE&lt;/code&gt;, e os dados internos do pacote, &lt;code&gt;internal = TRUE&lt;/code&gt;. Repeti essa operação 100 vezes com cada método, registrando o
+tempo gasto para concluir a predição em cada uma. Resultado: com os
+dados internos, o pacote leva cerca de 0.06 segundos para concluir a
+predição dos 8 nomes, em média; já usando a API do IBGE, o tempo
+necessário gira em torno de 1.4 segundos. Em outras palavras, o novo
+método adicionado ao pacote é cerca de 23 vezes mais rápido nesse
+exemplo.&lt;/p&gt;
+&lt;p&gt;Na verdade, usar os dados internos é ainda mais rápido se levarmos em
+conta as pausas entre requisições, aplicadas pela função &lt;code&gt;get_gender&lt;/code&gt;
+quando o número de nomes a serem consultados na API do IBGE excede 100.
+Além disso, os ganhos em escala do método interno são imensos porque ele
+consome quase o mesmo tempo para predizer o sexo de 100, 1000, ou 10000
+nomes. Isso, de novo, não acontece ao usar a opção &lt;code&gt;internal = FALSE&lt;/code&gt;
+para extrair dados da API do IBGE.&lt;/p&gt;
+&lt;p&gt;Em resumo, predizer sexo a partir de nomes próprios com o &lt;code&gt;genderBR&lt;/code&gt;
+ficou extremamente mais rápido.&lt;/p&gt;
+&lt;h3 id=&#34;exemplo-sexo-de-autores-de-teses-de-doutorado-no-brasil&#34;&gt;Exemplo: sexo de autores de teses de Doutorado no Brasil&lt;/h3&gt;
+&lt;p&gt;Para exemplificar os usos do pacote &lt;code&gt;genderBR&lt;/code&gt;, classifiquei o sexo de
+autores(as) de todas as 221990 teses de Doutorado defendidas no Brasil
+entre 1987 e 2016. Esses dados vêm do &lt;a href=&#34;http://catalogodeteses.capes.gov.br/catalogo-teses/#!/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Banco de Teses e Dissertações da
+Capes&lt;/a&gt;,
+disponíveis no novo &lt;a href=&#34;https://dadosabertos.capes.gov.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;portal de dados
+abertos&lt;/a&gt; da instituição – onde
+também estão outros sobre a composição dos programas de pós-graduação
+no país, ou sobre a produção acadêmica de doscentes e discentes, por
+exemplo.&lt;/p&gt;
+&lt;p&gt;O importante a notar é que a Capes disponibiliza apenas informações
+sobre instituição, área de avaliação e nome dos autores das teses
+defendidas no período, mas não o sexo de quem as defendeu.[2] É aí que
+entra o &lt;code&gt;genderBR&lt;/code&gt;: usando os dados internos do pacote, predizer o sexo
+para todos os nomes na base leva &lt;em&gt;menos de 5 segundos&lt;/em&gt;. Com essa
+informação, podemos criar um gráfico como esse.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr1-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;O gráfico acima ilustra bem o trabalho do &lt;code&gt;genderBR&lt;/code&gt;: ele classificou a
+imensa maioria dos nomes como pertencendo a homens ou mulheres (96% do
+total). Ainda assim, como os dados disponibilizados pelo IBGE incluem
+apenas nomes com mais de 20 ocorrências no país, alguns na base da
+Capes, cerca de 3% deles, foram classificados como &lt;em&gt;Desconhecido&lt;/em&gt;, o que
+indica que não encontraram correspondência. Em outros casos, nomes
+classificados podem ser tanto de homens quanto de mulheres – como Ariel,
+Darci, Noá e Elir, por exemplo –, dificultando a tarefa de atribuir sexo
+(os &lt;em&gt;Unissex&lt;/em&gt; do gráfico). De qualquer forma, como é possível ver, ambos
+os casos são residuais.&lt;/p&gt;
+&lt;p&gt;Voltando ao gráfico, dá para notar que mulheres defenderam cerca de
+metade das teses registradas no banco da Capes no período. Entretanto,
+como o número de defesas era pequeno até os anos 2000 – em 1987, por
+exemplo, apenas 939 teses defendidas foram registradas, e mesmo em 2000
+esse número ainda era de apenas 5344 –, acompanhar o crescimento
+absoluto, ano a ano, dessa série dificulta detectar tendências. Por essa
+razão, podemos focar apenas na percentagem de teses defendidas por
+mulheres, excluindo da base pessoas com sexo classificado como
+&lt;em&gt;Desconhecido&lt;/em&gt; ou &lt;em&gt;Unissex&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr2-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;A tendência geral, agora, é clara: com o passar do tempo, mulheres
+aumentaram sua participação na defesa de teses no Brasil.&lt;/p&gt;
+&lt;h4 id=&#34;defesas-de-tese-por-grandes-áreas&#34;&gt;Defesas de tese por grandes áreas&lt;/h4&gt;
+&lt;p&gt;O mesmo padrão, entretanto, certamente varia entre áreas: pode ser que
+mulheres defendam mais teses em algumas grandes áreas da Capes, menos em
+outras. Como o Banco de Teses contém variáveis indicando essas grandes
+áreas, verificar isso é relativamente simples.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr3-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Por um lado, mulheres defendem mais teses no Brasil, ao menos nos
+últimos anos. Por outro lado, é possível ver que essa participação é
+desigual entre grandes áreas da Capes: mulheres defendem mais teses nas
+Ciências Biológicas, nas Humanas e nas Letras; homens, entretanto, estão
+sobrerrepresentados nas áreas de Engenharia e Exatas. O gradual aumento
+no número de mulheres defendendo teses não ocorreu nessas duas últimas.&lt;/p&gt;
+&lt;h4 id=&#34;defesas-de-tese-por-área-de-avaliação&#34;&gt;Defesas de tese por área de avaliação&lt;/h4&gt;
+&lt;p&gt;Enquanto que classificar o sexo de autores(as) de teses por grande área
+revela um cenário detalhado da participação de mulheres, é possível ir
+além com os dados da Capes. Em especial, podemos usar a classificação
+por área de avaliação, que é usada para classificar os programas de
+pós-graduação no país. Aqui, vou fazer isso para algumas dessas: para a
+Ciência Política, separadamente, e em algumas outras, mais próximas
+dessa. Os resultados, também aqui, mostram que mulheres participam mais
+na produção e defesa de teses em algumas áreas; já em outras, inclusa a
+Ciência Política, a presença delas fica aquém – às vezes muito aquém –
+da de homens.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr4-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr5-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;final&#34;&gt;Final&lt;/h3&gt;
+&lt;p&gt;Classificar por sexo autores(as) de teses no Brasil é apenas uma das
+utilidades do &lt;code&gt;genderBR&lt;/code&gt;. Usando as mesmas fontes de dados, na verdade,
+é possível investigar as causas da variação na participação de homens e
+mulheres na produção de teses; mapear a distribuição de docentes e
+discentes por sexo em todos os programas de pós-graduação; ou, ainda,
+aplicar o mesmo método para classificar qualquer outro tipo de produção
+por sexo do(a) autor(a). Isso tudo, note-se, apenas com os dados da
+Capes, o que está longe de esgotar todas as aplicações possíveis do
+pacote.&lt;/p&gt;
+&lt;p&gt;A mensagem mais geral desse texto, entretanto, é outra: com a nova
+atualização, usar o &lt;code&gt;genderBR&lt;/code&gt; para predizer sexo a partir de nomes
+próprios ficou muito mais rápido. Como o exemplo anterior indica, isso
+pode ser feito em poucos segundos mesmo em bases de dados grandes;
+quando os nomes próprios estão formatados de diferentes maneiras; e
+levando em conta diferenças no uso de nomes por sexo entre estados (ver
+&lt;a href=&#34;http://fmeireles.com/blog/rstats/genderbr-predizer-sexo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui&lt;/a&gt;) – nesse
+caso, usando a API do IBGE. Como já discuti no
+&lt;a href=&#34;http://fmeireles.com/blog/rstats/genderbr-predizer-sexo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;texto&lt;/a&gt; da
+versão anterior do pacote, as predições do &lt;code&gt;genderBR&lt;/code&gt;, além disso, são
+bastante precisas: nos testes que realizei, o método prediz o sexo a
+partir de um nome de forma correta mais de 99% das vezes, além de
+produzir poucos &lt;em&gt;missings&lt;/em&gt;, como no caso do exemplo anterior. Tudo
+somado, o &lt;code&gt;genderBR&lt;/code&gt; não só é incomparavelmente mais rápido do que
+classificar manualmente sexo a partir de nomes, mas também mais
+recomendado para evitar erros de imputação e contribuir para a
+replicabilidade de qualquer pesquisa que o use.&lt;/p&gt;
+&lt;h4 id=&#34;dados-e-cógido&#34;&gt;Dados e cógido&lt;/h4&gt;
+&lt;p&gt;Os dados e o código usados nesse posto podem ser encontrados
+&lt;a href=&#34;https://github.com/meirelesff/teses_capes&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;aqui&lt;/a&gt;. Como o pacote
+&lt;code&gt;genderBR&lt;/code&gt; é open source, o que significa que qualquer um pode consultar ou trabalhar em
+cima do seu código, disponível no
+&lt;a href=&#34;https://github.com/meirelesff/genderBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;. Críticas e sugestões
+são bem-vindos.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;A única ressalva, aqui, é que esse método só está disponível quando
+outro argumento, &lt;code&gt;state&lt;/code&gt;, não é declarado. Com isso, apenas pela API
+do IBGE é possível obter predições considerando variação entre
+estados.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Os dados do Banco de Teses e Dissertações da Capes têm muitos
+problemas, como &lt;em&gt;missings&lt;/em&gt;, campos preenchidos de forma incorreta,
+incosistência de classificação em alguns anos, entre outros. Como
+meu objetivo é apenas exemplificar o pacote, fiz uma limpeza
+superficial na base. Os dados e o código usados nesse post, de
+qualquer forma, podem ser encontrados aqui.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>genderBR: predizendo sexo a partir de nomes próprios</title>
+      <link>https://www.femeireles.com/post/rstats/genderbr-predizer-sexo/</link>
+      <pubDate>Tue, 05 Sep 2017 00:00:00 +0000</pubDate>
+      <guid>https://www.femeireles.com/post/rstats/genderbr-predizer-sexo/</guid>
+      <description>&lt;p&gt;Várias questões importantes nas Ciências Sociais estão ligadas ao sexo das pessoas. Se quisermos saber se mulheres recebem menores salários, se estão sub-representadas na política, se sofrem mais com as violências urbana e doméstica, entre outros, precisamos identificar o sexo das pessoas que investigamos. Entretanto, esse dado nem sempre é fácil de obter: vários bancos usados para responder às perguntas acima não contêm informações sobre o sexo das pessoas estudadas &amp;ndash; embora alguns destes contenham outras que podem ser usada para inferir seus sexos.&lt;/p&gt;
+&lt;p&gt;O pacote &lt;code&gt;genderBR&lt;/code&gt; para o &lt;code&gt;R&lt;/code&gt;, que acabou de ser publicado no &lt;a href=&#34;https://cran.r-project.org/package=genderBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, serve para isso: ele usa uma informação relativamente simples de obter &amp;ndash; nome próprio &amp;ndash; e, a partir dela, prediz o sexo de uma pessoa com dados do &lt;a href=&#34;http://censo2010.ibge.gov.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Censo de 2010 realizado pelo IBGE&lt;/a&gt;. Se o nome João, por exemplo, é usado majoritariamente por individuos do sexo masculino no Brasil, temos alguma confiança em dizer que outro brasileiro qualquer com o mesmo nome provavelmente também seja do sexo masculino. Entre outras vantagens, este método é replicável, baseado em dados públicos e, o que é mais importante, muito mais rápido do que qualquer classificação manual de sexos a partir de nomes próprios. O passo-a-passo a seguir exemplifica isso.&lt;/p&gt;
+&lt;h2 id=&#34;como-instalar&#34;&gt;Como instalar&lt;/h2&gt;
+&lt;p&gt;Como o pacote &lt;code&gt;genderBR&lt;/code&gt; está no &lt;a href=&#34;https://cran.r-project.org/package=genderBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt; e, portanto, pode ser instalado diretamente pelo &lt;code&gt;R&lt;/code&gt; com:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;genderBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ou, para versões beta do pacote, ele pode ser instalado com &lt;code&gt;devtools&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;if(!require(&amp;quot;devtools&amp;quot;)) install.packages(&amp;quot;devtools&amp;quot;)
+devtools::install_github(&amp;quot;meirelesff/genderBR&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Feito isso, para usar o pacote, basta carregá-lo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(genderBR)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;como-usar&#34;&gt;Como usar&lt;/h2&gt;
+&lt;p&gt;O pacote &lt;code&gt;genderBR&lt;/code&gt; possui uma função principal, &lt;code&gt;get_gender&lt;/code&gt;, que prediz o sexo de uma pessoa baseado no seu primeiro nome (com ou sem letras maiúsculas, acentos e sobrenomes), como no exemplo abaixo:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(&amp;quot;maria&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Female&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(&amp;quot;MARIA&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Female&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(&amp;quot;Maria da Silva Conceição&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Female&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A função funciona igualmente com um vetor de nomes:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(c(&amp;quot;isabel&amp;quot;, &amp;quot;marta&amp;quot;, &amp;quot;silvia&amp;quot;, &amp;quot;rodrigo&amp;quot;, &amp;quot;roberto&amp;quot;, &amp;quot;thiago&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Female&amp;quot; &amp;quot;Female&amp;quot; &amp;quot;Female&amp;quot; &amp;quot;Male&amp;quot;   &amp;quot;Male&amp;quot;   &amp;quot;Male&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Resumidamente, esta chamada envia uma requisição GET a &lt;a href=&#34;http://censo2010.ibge.gov.br/nomes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;API do Censo 2010&lt;/a&gt; (que pode demorar a responder), calcula a proporção de mulheres que possuem o nome passado e, então, faz uma predição baseado num ponto de corte: por padrão, se mais de 0.9 das pessoas com o nome passado são do sexo feminino, segundo o Censo de 2010, a função prediz o sexo deste nome como &lt;em&gt;Female&lt;/em&gt;; se mais 0.9 das pessoas com esse nome forem do sexo masculino, a predição será &lt;em&gt;Male&lt;/em&gt;; por fim, nomes com proporções menores que 0.9 ou não encontrados na base do IBGE são classificados como &lt;em&gt;missing&lt;/em&gt; (e.g., &lt;code&gt;NA&lt;/code&gt;) Exemplos:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Male
+get_gender(&amp;quot;joao&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Male&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# NA
+get_gender(&amp;quot;muriel&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# NA
+get_gender(&amp;quot;ashdfjg&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;É possível modificar a proporção usada para classificar corretamente um nome. Por exemplo, podemos considerar como do sexo masculino apenas pessoas cujo primeiro nome seja usado por 0.95 (95%) de pessoas identificadas como do sexo masculino pelo IBGE:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(&amp;quot;augusto&amp;quot;, threshold = 0.95)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Male&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Além deste resulto básico, a função &lt;code&gt;get_gender&lt;/code&gt; também permite saber a proporção de mulheres que usam um dado primeiro nome no país &amp;ndash; com isto, é possível usar qualquer outra medida para predizer o sexo de uma pessoa. No exemplo abaixo, percebe-se que a probabilidade de alguém com o nome Muriel ser do sexo feminino no universo de entrevistados do Censo de 2010 é igual a 43%.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gender(&amp;quot;muriel&amp;quot;, prob = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.4303515
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Por fim, podemos obter os resultados por estado &amp;ndash; partido da ideia de que o uso de um dado nome próprio entre sexos pode variar de região para região. Um bom exemplo é o do político goiano Iris Rezende, casado com sua xará Iris de Araújo.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Probabilidade do nome Iris ser usado por uma mulher em SP
+get_gender(&amp;quot;iris&amp;quot;, prob = TRUE, state = &amp;quot;SP&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.9491027
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Probabilidade do nome Iris ser usado por uma mulher em GO
+get_gender(&amp;quot;iris&amp;quot;, prob = TRUE, state = &amp;quot;GO&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.5
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Como o exemplo acima mostra, o nome Iris é muito mais comum para pessoas do sexo masculino em Goiás do que em São Paulo.&lt;/p&gt;
+&lt;h2 id=&#34;outras-funções&#34;&gt;Outras funções&lt;/h2&gt;
+&lt;p&gt;Além da função &lt;code&gt;get_gender&lt;/code&gt;, o pacote &lt;code&gt;genderBR&lt;/code&gt; possui outras duas funções que podem ser úteis em algumas situações. A primeira delas, &lt;code&gt;get_states&lt;/code&gt;, serve para retornar um &lt;code&gt;data.frame&lt;/code&gt; com o nome, a sigla e o código do IBGE de todos os estados brasileiros, o que pode ajudar nas consultas à função &lt;code&gt;get_gender&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Já a segunda função, &lt;code&gt;map_gender&lt;/code&gt;, serve para mapear os usos de um nome qualquer entre todos os estados do Brasil:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;map_gender(&amp;quot;mario&amp;quot;, gender = &amp;quot;f&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 19 x 6
+##                   nome    uf  freq populacao  sexo  prop
+##  *               &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt; &amp;lt;int&amp;gt;     &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt;
+##  1            Amazonas    13    60   3483985     f  1.72
+##  2               Piauí    22    30   3118360     f  0.96
+##  3      Rio de Janeiro    33   140  15989929     f  0.88
+##  4 Rio Grande do Norte    24    23   3168027     f  0.73
+##  5           São Paulo    35   293  41262199     f  0.71
+##  6               Ceará    23    56   8452381     f  0.66
+##  7      Santa Catarina    42    41   6248436     f  0.66
+##  8         Mato Grosso    51    19   3035122     f  0.63
+##  9          Pernambuco    26    54   8796448     f  0.61
+## 10            Maranhão    21    40   6574789     f  0.61
+## 11                Pará    15    46   7581051     f  0.61
+## 12      Espírito Santo    32    21   3514952     f  0.60
+## 13               Bahia    29    84  14016906     f  0.60
+## 14             Alagoas    27    17   3120494     f  0.54
+## 15             Paraíba    25    20   3766528     f  0.53
+## 16              Paraná    41    55  10444526     f  0.53
+## 17   Rio Grande do Sul    43    48  10693929     f  0.45
+## 18        Minas Gerais    31    79  19597330     f  0.40
+## 19               Goiás    52    20   6003788     f  0.33
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Nela, basta passar as letras &lt;code&gt;f&lt;/code&gt;, para &lt;em&gt;Female&lt;/em&gt;, ou &lt;code&gt;m&lt;/code&gt;, para &lt;em&gt;Male&lt;/em&gt;, e a função retorna o total de pessoas em cada estado com o nome fornecido, além do total de usos daquele nome no sexo indicado.&lt;/p&gt;
+&lt;h1 id=&#34;avaliando-as-predições&#34;&gt;Avaliando as predições&lt;/h1&gt;
+&lt;p&gt;O método é confiável? Depois de ter feitos alguns testes, a precisão média do método sempre foi maior que 95%, sem sinal de viés. Aqui, vou exemplificar isso com um exemplo simples: os dados de candidaturas do TSE (extraídos com o &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Basicamente, candidatos a cargos eletivos no Brasil reportam seus sexos no formulário de registro de suas candidaturas, informação que, posteriormente, é disponibilizada pelo TSE. Apesar de possíveis erros de mensuração &amp;ndash; afinal, estes dados são auto-reportados e, como tal, estão sujeitos até mesmo a erros de imputação &amp;ndash;, o &lt;code&gt;genderBR&lt;/code&gt; faz um bom trabalho de classificar o sexo dos 104122 candidatos a cargos federais nas cinco eleições entre 1998 e 2014, como mostra a tabela abaixo.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Sexo declarado&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Sexo predito&lt;/th&gt;
+&lt;th style=&#34;text-align:right&#34;&gt;N&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;%&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;410&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;0.5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;79485&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;95.5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Unissex&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;1121&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;1.3%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Unknown&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;2201&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;2.6%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;19796&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;94.7%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Male&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;106&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;0.5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Unissex&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;348&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;1.7%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Female&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;Unknown&lt;/td&gt;
+&lt;td style=&#34;text-align:right&#34;&gt;655&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;3.1%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Especificamente, o método classificou 99.5% das observações corretamente (desconsiderando os &lt;em&gt;missings&lt;/em&gt;, que são mostrados aqui como &lt;em&gt;Unissex&lt;/em&gt;, quando a proporção de usos do nome pelo sexo feminino ou masculino é menor que 0.9, ou &lt;em&gt;Unknown&lt;/em&gt;, quando o nome não foi encontrado na base do TSE), e apenas 2.74% ficaram como &lt;em&gt;missing&lt;/em&gt;. No geral, portanto, o método funciona.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

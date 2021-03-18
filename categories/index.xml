@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories | Fernando Meireles</title>
+    <link>https://www.femeireles.com/categories/</link>
+      <atom:link href="https://www.femeireles.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    <description>Categories</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <title>Categories</title>
+      <link>https://www.femeireles.com/categories/</link>
+    </image>
+    
+  </channel>
+</rss>

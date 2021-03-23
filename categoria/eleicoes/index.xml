@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>eleicoes | Fernando Meireles</title>
-    <link>https://www.femeireles.com/categoria/eleicoes/</link>
-      <atom:link href="https://www.femeireles.com/categoria/eleicoes/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://www.fmeireles.com/categoria/eleicoes/</link>
+      <atom:link href="https://www.fmeireles.com/categoria/eleicoes/index.xml" rel="self" type="application/rss+xml" />
     <description>eleicoes</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Mon, 31 Oct 2016 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <url>https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
       <title>eleicoes</title>
-      <link>https://www.femeireles.com/categoria/eleicoes/</link>
+      <link>https://www.fmeireles.com/categoria/eleicoes/</link>
     </image>
     
     <item>
       <title>Desempenho das pesquisas eleitorais no segundo turno</title>
-      <link>https://www.femeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</link>
+      <link>https://www.fmeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</link>
       <pubDate>Mon, 31 Oct 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</guid>
+      <guid>https://www.fmeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</guid>
       <description>&lt;p&gt;Apesar das invariáveis críticas que os institutos de pesquisa recebem toda eleição (&lt;a href=&#34;http://g1.globo.com/rio-de-janeiro/eleicoes/2016/noticia/2016/10/ibope-e-datafolha-explicam-diferencas-entre-pesquisas-e-resultado-da-eleicao.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;vide aqui&lt;/a&gt;, por exemplo)[1], neste segundo turno o desempenho deles, &amp;ndash; ao menos o de alguns deles &amp;ndash;, não deixou a desejar.&lt;/p&gt;
 &lt;p&gt;Como já havia postado no &lt;a href=&#34;https://twitter.com/meirelesff/status/792861918927134720&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Twitter&lt;/a&gt;, o instituto Ibope, por exemplo, acertou, dentro da margem de erro (os 3 ou 4 tradicionais pontos para mais ou para menos), os resultados em 15 das 18 capitais onde realizou pesquisa entre os dias 25 e 28 de outubro. Nos três casos onde chutou a bola fora, os erros foram pequenos &amp;ndash; caso de Porto Alegre, Florianópolis e Maceió. Apenas em uma capital, Aracaju, o Ibope errou o resultado da eleição, onde a previsão era de que o candidato do PSB, Valadares Filho, ficaria na frente de Edvaldo Nogueira, do PC do B, por 2% de votos válidos. Como a previsão já era de resultado apertado, e o instituto acertou o resultado dentro da margem, este é um caso residual entre as capitais pesquisadas.&lt;/p&gt;
 &lt;p&gt;Dois outros casos ilustram o desempenho dos institutos de pesquisa &amp;ndash; agora incluindo Datafolha, Paraná Eleitoral e CP2. Os gráficos abaixo mostram o retrospecto de todas as pesquisas feitas no segundo turno no Rio de Janeiro, onde Crivella (PRB) enfretou o Freixo (PSOL), e em Belo Horizonte, onde Leite (PSDB) competiu contra Kalil (PHS), por estes institutos. Nos gráficos, cada ponto é a percentagem de intenção de votos (incluindo, portanto, não-válidos) de cada candidato estimada por cada pesquisa (em outras palavras, cada data de pesquisa, no eixo X, representa uma pesquisa eleitoral); a curva (ou linha) representa a tendência geral destas pesquisas, estimadas via &lt;a href=&#34;https://en.wikipedia.org/wiki/Local_regression&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;LOESS&lt;/a&gt;; e as áreas mais claras ao redor das curvas representam os intervalos de confiança de 95%.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/bh-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/rio-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/bh-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/rio-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Duas coisas merecem comentários em relação a esses dados:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -38,14 +38,14 @@
     
     <item>
       <title>Desatualização nas bases do TSE e abstenção eleitoral</title>
-      <link>https://www.femeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
+      <link>https://www.fmeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
       <pubDate>Fri, 07 Oct 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
+      <guid>https://www.fmeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
       <description>&lt;p&gt;Aproveitando os dados do &lt;a href=&#34;http://www.tre-rs.jus.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE-RS&lt;/a&gt;, que divulgou uma lista completa dos municípios que passaram pelo recadastramento biométrico até esse ano, resolvi investigar se a biometria realmente afetou as taxas de abstenção nestas eleições.&lt;/p&gt;
 &lt;p&gt;O gráfico abaixo ilustra essa diferença entre municípios que passaram ou não pelo recadastramento. Como dá pra ver, a taxa de abstenção média nos municípios que passaram a usar o sistema de biometria cai visivelmente depois de 2014 no Rio Grande do Sul (quando a maior parte dos municípios fez o cadastramento).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencao1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencao1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Quando removemos os efeitos temporais e entre casos via um &lt;a href=&#34;https://en.wikipedia.org/wiki/Fixed_effects_model&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;modelo de regressão com efeitos fixos&lt;/a&gt;, este efeito fica ainda mais nítido:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencao2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencao2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Especificamente, o efeito estimado é de cerca de 4.5% (estimado com um modelo &lt;a href=&#34;https://en.wikipedia.org/wiki/Difference_in_differences&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;diff-in-diff&lt;/a&gt;), o que significa que, na média, a taxa de abstenção no estado estava inflada em quase 50% (ela foi de cerca de 10% em 2012 na média dos municípios, embora Porto Alegre e região tenham tido abstenção maior). Em outras palavras, removendo os eleitores fantasmas, a abstenção caiu quase pela metade.&lt;/p&gt;
 </description>
     </item>

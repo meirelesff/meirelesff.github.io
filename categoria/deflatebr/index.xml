@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>deflatebr | Fernando Meireles</title>
-    <link>https://www.femeireles.com/categoria/deflatebr/</link>
-      <atom:link href="https://www.femeireles.com/categoria/deflatebr/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://www.fmeireles.com/categoria/deflatebr/</link>
+      <atom:link href="https://www.fmeireles.com/categoria/deflatebr/index.xml" rel="self" type="application/rss+xml" />
     <description>deflatebr</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Sun, 30 Sep 2018 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <url>https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
       <title>deflatebr</title>
-      <link>https://www.femeireles.com/categoria/deflatebr/</link>
+      <link>https://www.fmeireles.com/categoria/deflatebr/</link>
     </image>
     
     <item>
       <title>Deflacionando séries com o deflateBR</title>
-      <link>https://www.femeireles.com/post/rstats/deflacionar-series-no-r-deflatebr/</link>
+      <link>https://www.fmeireles.com/post/rstats/deflacionar-series-no-r-deflatebr/</link>
       <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/deflacionar-series-no-r-deflatebr/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/deflacionar-series-no-r-deflatebr/</guid>
       <description>&lt;p&gt;Deflacionar séries é pré-requisito em qualquer análise sobre o valor do
 dinheiro ao longo do tempo. E embora não seja algo complexo, isso
 envolve várias etapas que consomem tempo, todas sujeitas a erro humano:
@@ -166,7 +166,7 @@ os salários nominais em cada período específico com um índice de preços,
 como o IPCA. Fazendo isso com o pacote &lt;code&gt;deflateBR&lt;/code&gt;, podemos ver que o
 mínimo realmente cresceu acima da inflação desde
 1995.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/salario_minimo-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/salario_minimo-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;h3 id=&#34;exemplo-de-aplicação-2-o-valor-de-bolsas-de-pós-graduação&#34;&gt;Exemplo de aplicação 2: o valor de bolsas de pós-graduação&lt;/h3&gt;
 &lt;p&gt;Um bom exemplo de categoria que não teve aumento de renda acima da
 inflação de 1995 a 2018 foram pós-graduandos que recebem bolsas de
@@ -176,7 +176,7 @@ perda de poder de compra da categoria.[1] Como dá pra ver, o valor dos
 benefícios, hoje, praticamente voltaram aos patamares do início do
 primeiro governo
 Lula.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/bolsa_capes-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/bolsa_capes-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;h3 id=&#34;validade&#34;&gt;Validade&lt;/h3&gt;
 &lt;p&gt;Como já dito, o &lt;code&gt;deflateBR&lt;/code&gt; usa a fórmula convencional para corrigir
 valores nominais pela inflação: multiplicá-lo pela razão entre o índice

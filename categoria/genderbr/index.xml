@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>genderbr | Fernando Meireles</title>
-    <link>https://www.femeireles.com/categoria/genderbr/</link>
-      <atom:link href="https://www.femeireles.com/categoria/genderbr/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://www.fmeireles.com/categoria/genderbr/</link>
+      <atom:link href="https://www.fmeireles.com/categoria/genderbr/index.xml" rel="self" type="application/rss+xml" />
     <description>genderbr</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Thu, 19 Apr 2018 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <url>https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
       <title>genderbr</title>
-      <link>https://www.femeireles.com/categoria/genderbr/</link>
+      <link>https://www.fmeireles.com/categoria/genderbr/</link>
     </image>
     
     <item>
       <title>Predizendo sexo a partir de nomes próprios com o genderBR</title>
-      <link>https://www.femeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</link>
+      <link>https://www.fmeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</link>
       <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</guid>
       <description>&lt;p&gt;Para quem trabalha com bases de dados públicas, não é incomum encontrar
 o seguinte problema: ter disponível em alguma coluna o nome de várias
 pessoas, mas não a informação sobre o sexo delas. Para lidar com esse
@@ -125,7 +125,7 @@ defendidas no período, mas não o sexo de quem as defendeu.[2] É aí que
 entra o &lt;code&gt;genderBR&lt;/code&gt;: usando os dados internos do pacote, predizer o sexo
 para todos os nomes na base leva &lt;em&gt;menos de 5 segundos&lt;/em&gt;. Com essa
 informação, podemos criar um gráfico como esse.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr1-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/genderbr1-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;O gráfico acima ilustra bem o trabalho do &lt;code&gt;genderBR&lt;/code&gt;: ele classificou a
 imensa maioria dos nomes como pertencendo a homens ou mulheres (96% do
 total). Ainda assim, como os dados disponibilizados pelo IBGE incluem
@@ -145,7 +145,7 @@ absoluto, ano a ano, dessa série dificulta detectar tendências. Por essa
 razão, podemos focar apenas na percentagem de teses defendidas por
 mulheres, excluindo da base pessoas com sexo classificado como
 &lt;em&gt;Desconhecido&lt;/em&gt; ou &lt;em&gt;Unissex&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr2-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/genderbr2-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;A tendência geral, agora, é clara: com o passar do tempo, mulheres
 aumentaram sua participação na defesa de teses no Brasil.&lt;/p&gt;
 &lt;h4 id=&#34;defesas-de-tese-por-grandes-áreas&#34;&gt;Defesas de tese por grandes áreas&lt;/h4&gt;
@@ -153,7 +153,7 @@ aumentaram sua participação na defesa de teses no Brasil.&lt;/p&gt;
 mulheres defendam mais teses em algumas grandes áreas da Capes, menos em
 outras. Como o Banco de Teses contém variáveis indicando essas grandes
 áreas, verificar isso é relativamente simples.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr3-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/genderbr3-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Por um lado, mulheres defendem mais teses no Brasil, ao menos nos
 últimos anos. Por outro lado, é possível ver que essa participação é
 desigual entre grandes áreas da Capes: mulheres defendem mais teses nas
@@ -171,8 +171,8 @@ dessa. Os resultados, também aqui, mostram que mulheres participam mais
 na produção e defesa de teses em algumas áreas; já em outras, inclusa a
 Ciência Política, a presença delas fica aquém – às vezes muito aquém –
 da de homens.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr4-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr5-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/genderbr4-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/genderbr5-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;h3 id=&#34;final&#34;&gt;Final&lt;/h3&gt;
 &lt;p&gt;Classificar por sexo autores(as) de teses no Brasil é apenas uma das
 utilidades do &lt;code&gt;genderBR&lt;/code&gt;. Usando as mesmas fontes de dados, na verdade,
@@ -228,9 +228,9 @@ qualquer forma, podem ser encontrados aqui.&lt;/p&gt;
     
     <item>
       <title>genderBR: predizendo sexo a partir de nomes próprios</title>
-      <link>https://www.femeireles.com/post/rstats/genderbr-predizer-sexo/</link>
+      <link>https://www.fmeireles.com/post/rstats/genderbr-predizer-sexo/</link>
       <pubDate>Tue, 05 Sep 2017 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/genderbr-predizer-sexo/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/genderbr-predizer-sexo/</guid>
       <description>&lt;p&gt;Várias questões importantes nas Ciências Sociais estão ligadas ao sexo das pessoas. Se quisermos saber se mulheres recebem menores salários, se estão sub-representadas na política, se sofrem mais com as violências urbana e doméstica, entre outros, precisamos identificar o sexo das pessoas que investigamos. Entretanto, esse dado nem sempre é fácil de obter: vários bancos usados para responder às perguntas acima não contêm informações sobre o sexo das pessoas estudadas &amp;ndash; embora alguns destes contenham outras que podem ser usada para inferir seus sexos.&lt;/p&gt;
 &lt;p&gt;O pacote &lt;code&gt;genderBR&lt;/code&gt; para o &lt;code&gt;R&lt;/code&gt;, que acabou de ser publicado no &lt;a href=&#34;https://cran.r-project.org/package=genderBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, serve para isso: ele usa uma informação relativamente simples de obter &amp;ndash; nome próprio &amp;ndash; e, a partir dela, prediz o sexo de uma pessoa com dados do &lt;a href=&#34;http://censo2010.ibge.gov.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Censo de 2010 realizado pelo IBGE&lt;/a&gt;. Se o nome João, por exemplo, é usado majoritariamente por individuos do sexo masculino no Brasil, temos alguma confiança em dizer que outro brasileiro qualquer com o mesmo nome provavelmente também seja do sexo masculino. Entre outras vantagens, este método é replicável, baseado em dados públicos e, o que é mais importante, muito mais rápido do que qualquer classificação manual de sexos a partir de nomes próprios. O passo-a-passo a seguir exemplifica isso.&lt;/p&gt;
 &lt;h2 id=&#34;como-instalar&#34;&gt;Como instalar&lt;/h2&gt;

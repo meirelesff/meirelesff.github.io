@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>impeachment | Fernando Meireles</title>
-    <link>https://www.femeireles.com/categoria/impeachment/</link>
-      <atom:link href="https://www.femeireles.com/categoria/impeachment/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://www.fmeireles.com/categoria/impeachment/</link>
+      <atom:link href="https://www.fmeireles.com/categoria/impeachment/index.xml" rel="self" type="application/rss+xml" />
     <description>impeachment</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Fri, 12 Aug 2016 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <url>https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
       <title>impeachment</title>
-      <link>https://www.femeireles.com/categoria/impeachment/</link>
+      <link>https://www.fmeireles.com/categoria/impeachment/</link>
     </image>
     
     <item>
       <title>Golpe ou impeachment? Uma análise dos tweets da Dilma Rousseff</title>
-      <link>https://www.femeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
+      <link>https://www.fmeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
       <pubDate>Fri, 12 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
+      <guid>https://www.fmeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
       <description>&lt;p&gt;Desde o ínicio do impeachment da agora Presidente afastada, Dilma
 Rousseff (PT), acadêmicos e articulistas discutem se este processo se
 encaixa na categoria de golpe de estado. Críticos do governo e membros
@@ -80,7 +80,7 @@ dilma_tw %&amp;gt;%
   labs(title = &amp;quot;Atividade da Dilma no Twitter&amp;quot;,
   x = &amp;quot;Ano-Mês&amp;quot;, y = &amp;quot;Número de tweets&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;O gráfico mostra que a pró-atividade da Presidenta no twitter é ambígua.
 É verdade que ela passou a tuítar mais nos últimos dois meses (a linha
 pontilhada indica o mês de maio de 2016), mas em outros períodos ela
@@ -101,7 +101,7 @@ também por mês:&lt;/p&gt;
       theme_bw() + labs(title = &amp;quot;RTs e Favs dos tweets da Dilma&amp;quot;,
       x =&amp;quot;Ano-Mês&amp;quot;, y = &amp;quot;RTs e Fav (em milhares)&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;O padrão parece seguir o anterior: a Presidenta vem tendo maior
 influência no twitter após seu afastamento, mas já teve mais que isso no
 passado. O problema é que estas simples medidas escondem uma informação
@@ -126,7 +126,7 @@ ver este gráfico abaixo:&lt;/p&gt;
   labs(title = &amp;quot;RTs e Favs por tweet da Dilma&amp;quot;, x = &amp;quot;Ano-Mês&amp;quot;,
   y = &amp;quot;RTs e Fav por tweet&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Agora é que as coisas mudam de figura: mesmo tendo tuítado relativamente
 menos do que em outras épocas, os tweets mais recentes da Presidenta são
 mais influentes, isto é, eles obtêm mais retweets e favoritos (apenas
@@ -179,11 +179,11 @@ freq = rowSums(pre_afast), periodo = &amp;quot;Pré afastamento&amp;quot;)
   labs(title = &amp;quot;Termos mais usados nos tweets da Dilma\n(Pré-afastamento)&amp;quot;,
   x = &amp;quot;Termo&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Neste período pré-afastamento, os termos que mais aparecem nos tweets da
 Presidenta se referem principalmente às eleições, ela mesma e ao país.
 Quando analisamos o segundo período, alguns termos novos aparecem:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Apesar da frequência de termos ser menor (o período também é menor),
 fica evidente que alguns ganham maior espaço: especialmente os termos
 &amp;ldquo;provisório&amp;rdquo;, &amp;ldquo;impeachment&amp;rdquo;, &amp;ldquo;processo&amp;rdquo;, &amp;ldquo;democracia&amp;rdquo; e &amp;ldquo;golpe&amp;rdquo;. Estes

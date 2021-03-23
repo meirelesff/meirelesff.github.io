@@ -1,3 +1,3 @@
 User-agent: *
 
-Sitemap: https://www.femeireles.com/sitemap.xml
+Sitemap: https://www.fmeireles.com/sitemap.xml

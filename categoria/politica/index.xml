@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>politica | Fernando Meireles</title>
-    <link>https://www.femeireles.com/categoria/politica/</link>
-      <atom:link href="https://www.femeireles.com/categoria/politica/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://www.fmeireles.com/categoria/politica/</link>
+      <atom:link href="https://www.fmeireles.com/categoria/politica/index.xml" rel="self" type="application/rss+xml" />
     <description>politica</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Mon, 31 Oct 2016 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <url>https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
       <title>politica</title>
-      <link>https://www.femeireles.com/categoria/politica/</link>
+      <link>https://www.fmeireles.com/categoria/politica/</link>
     </image>
     
     <item>
       <title>Desempenho das pesquisas eleitorais no segundo turno</title>
-      <link>https://www.femeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</link>
+      <link>https://www.fmeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</link>
       <pubDate>Mon, 31 Oct 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</guid>
+      <guid>https://www.fmeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</guid>
       <description>&lt;p&gt;Apesar das invariáveis críticas que os institutos de pesquisa recebem toda eleição (&lt;a href=&#34;http://g1.globo.com/rio-de-janeiro/eleicoes/2016/noticia/2016/10/ibope-e-datafolha-explicam-diferencas-entre-pesquisas-e-resultado-da-eleicao.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;vide aqui&lt;/a&gt;, por exemplo)[1], neste segundo turno o desempenho deles, &amp;ndash; ao menos o de alguns deles &amp;ndash;, não deixou a desejar.&lt;/p&gt;
 &lt;p&gt;Como já havia postado no &lt;a href=&#34;https://twitter.com/meirelesff/status/792861918927134720&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Twitter&lt;/a&gt;, o instituto Ibope, por exemplo, acertou, dentro da margem de erro (os 3 ou 4 tradicionais pontos para mais ou para menos), os resultados em 15 das 18 capitais onde realizou pesquisa entre os dias 25 e 28 de outubro. Nos três casos onde chutou a bola fora, os erros foram pequenos &amp;ndash; caso de Porto Alegre, Florianópolis e Maceió. Apenas em uma capital, Aracaju, o Ibope errou o resultado da eleição, onde a previsão era de que o candidato do PSB, Valadares Filho, ficaria na frente de Edvaldo Nogueira, do PC do B, por 2% de votos válidos. Como a previsão já era de resultado apertado, e o instituto acertou o resultado dentro da margem, este é um caso residual entre as capitais pesquisadas.&lt;/p&gt;
 &lt;p&gt;Dois outros casos ilustram o desempenho dos institutos de pesquisa &amp;ndash; agora incluindo Datafolha, Paraná Eleitoral e CP2. Os gráficos abaixo mostram o retrospecto de todas as pesquisas feitas no segundo turno no Rio de Janeiro, onde Crivella (PRB) enfretou o Freixo (PSOL), e em Belo Horizonte, onde Leite (PSDB) competiu contra Kalil (PHS), por estes institutos. Nos gráficos, cada ponto é a percentagem de intenção de votos (incluindo, portanto, não-válidos) de cada candidato estimada por cada pesquisa (em outras palavras, cada data de pesquisa, no eixo X, representa uma pesquisa eleitoral); a curva (ou linha) representa a tendência geral destas pesquisas, estimadas via &lt;a href=&#34;https://en.wikipedia.org/wiki/Local_regression&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;LOESS&lt;/a&gt;; e as áreas mais claras ao redor das curvas representam os intervalos de confiança de 95%.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/bh-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/rio-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/bh-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/rio-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Duas coisas merecem comentários em relação a esses dados:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -38,28 +38,28 @@
     
     <item>
       <title>Desatualização nas bases do TSE e abstenção eleitoral</title>
-      <link>https://www.femeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
+      <link>https://www.fmeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
       <pubDate>Fri, 07 Oct 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
+      <guid>https://www.fmeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
       <description>&lt;p&gt;Aproveitando os dados do &lt;a href=&#34;http://www.tre-rs.jus.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE-RS&lt;/a&gt;, que divulgou uma lista completa dos municípios que passaram pelo recadastramento biométrico até esse ano, resolvi investigar se a biometria realmente afetou as taxas de abstenção nestas eleições.&lt;/p&gt;
 &lt;p&gt;O gráfico abaixo ilustra essa diferença entre municípios que passaram ou não pelo recadastramento. Como dá pra ver, a taxa de abstenção média nos municípios que passaram a usar o sistema de biometria cai visivelmente depois de 2014 no Rio Grande do Sul (quando a maior parte dos municípios fez o cadastramento).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencao1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencao1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Quando removemos os efeitos temporais e entre casos via um &lt;a href=&#34;https://en.wikipedia.org/wiki/Fixed_effects_model&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;modelo de regressão com efeitos fixos&lt;/a&gt;, este efeito fica ainda mais nítido:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencao2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencao2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Especificamente, o efeito estimado é de cerca de 4.5% (estimado com um modelo &lt;a href=&#34;https://en.wikipedia.org/wiki/Difference_in_differences&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;diff-in-diff&lt;/a&gt;), o que significa que, na média, a taxa de abstenção no estado estava inflada em quase 50% (ela foi de cerca de 10% em 2012 na média dos municípios, embora Porto Alegre e região tenham tido abstenção maior). Em outras palavras, removendo os eleitores fantasmas, a abstenção caiu quase pela metade.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Uma análise de sentimentos dos tweets da Dilma Rousseff</title>
-      <link>https://www.femeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</link>
+      <link>https://www.fmeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</link>
       <pubDate>Sun, 14 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Num post anterior&lt;/a&gt;, fiz uma análise dos tweets da &lt;a href=&#34;https://twitter.com/dilmabr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Presidenta Dilma Rousseff&lt;/a&gt;. Neste aqui, aproveitei os dados já coletados para fazer algo diferente, que já estava querendo fazer há tempos: uma análise de sentimentos. Basicamente, esta técnica serve para avaliar um determinado texto, dando a ele uma nota numa escala que vai de negativo a positivo, triste a feliz, etc. No caso, vou fazer isto utilizando a &lt;a href=&#34;https://www.microsoft.com/cognitive-services/en-us/apis&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;API do cognitive services da Microsoft&lt;/a&gt;, que possui um algoritimo próprio para classificar os textos numa escala que vai de 0, mais negativo, a 1, mais positivo (assim como outros métodos, ele classifica cada palavra num texto e, então, computa um score para a frase ou trecho; para uma análise sobre a potencialidade do método, &lt;a href=&#34;http://blog.revolutionanalytics.com/2016/06/microsoft-cognitive-services.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ver aqui&lt;/a&gt;).&lt;/p&gt;
 &lt;h4 id=&#34;analisando-os-sentimentos-dos-tweets-da-dilma&#34;&gt;Analisando os sentimentos dos tweets da Dilma&lt;/h4&gt;
 &lt;p&gt;Como mostro naquele post anterior, podemos concluir três coisas em relação aos tweets da @dilmabr publicados desde 2015: (1) ela passou a tuítar mais após o seu afastamento (mas já tuitou mais no passado); (2) seus tweets passaram a receber mais retweets e favoritadas após o afastamento; e, (3), os tweets que mencionam o termo &amp;ldquo;golpe&amp;rdquo; são mais influentes do que a média deste outro grupo (tweets pós-afastamento sem o termo &amp;ldquo;golpe&amp;rdquo;).&lt;/p&gt;
 &lt;p&gt;Com uma análise de sentimentos destes tweets, podemos descobrir outras coisas: como o tom das postagens da Presidenta variaram ao longo do tempo? Seus tweets mais recentes possuem conteúdo mais negativo (críticas, mostras de ressentimento, etc.) ou mais positivos (expressões de felicidade, elogios, etc.)? Para responder estas perguntas, apliquei o algoritimo do cognitive services em cada um dos tweets 1859 da Dilma e salvei seus scores (aqui há um &lt;a href=&#34;https://github.com/philferriere/mscstexta4r&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;bom tutorial sobre como usar o serviço da Microsoft no R&lt;/a&gt;, com o pacote &lt;a href=&#34;https://cran.r-project.org/web/packages/mscstexta4r/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mscstexta4r&lt;/a&gt;). Feito isto, podemos plotar os resultados (cada ponto cinza indica um tweet, o eixo y indica o score do tweet naquela escala que vai de 0, mais negativo, a 1, mais positivo e, enfim, a linha azul é uma &lt;a href=&#34;https://en.wikipedia.org/wiki/Local_regression&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;curva loess&lt;/a&gt;):&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/sentimentos_dilma.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/sentimentos_dilma.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Duas coisas chamam a atenção logo de cara. A primeira delas é o fato de que, após o seu afastamento (maio de 2016, linha tracejada), o sentimento geral dos tweets da Dilma tornam-se mais negativos, como mostra o declínio da linha azul (o que até faz sentido). Exemplos disto:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;## Tweet =  Fico triste de não assistir à festa &amp;quot;ao vivo e a cores&amp;quot;.
 Mas estarei acompanhando, torcendo pelo Brasil.  / Score =  0
@@ -96,9 +96,9 @@ Parabéns! #Rio2016  / Score =  1
     
     <item>
       <title>Golpe ou impeachment? Uma análise dos tweets da Dilma Rousseff</title>
-      <link>https://www.femeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
+      <link>https://www.fmeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
       <pubDate>Fri, 12 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
+      <guid>https://www.fmeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
       <description>&lt;p&gt;Desde o ínicio do impeachment da agora Presidente afastada, Dilma
 Rousseff (PT), acadêmicos e articulistas discutem se este processo se
 encaixa na categoria de golpe de estado. Críticos do governo e membros
@@ -162,7 +162,7 @@ dilma_tw %&amp;gt;%
   labs(title = &amp;quot;Atividade da Dilma no Twitter&amp;quot;,
   x = &amp;quot;Ano-Mês&amp;quot;, y = &amp;quot;Número de tweets&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;O gráfico mostra que a pró-atividade da Presidenta no twitter é ambígua.
 É verdade que ela passou a tuítar mais nos últimos dois meses (a linha
 pontilhada indica o mês de maio de 2016), mas em outros períodos ela
@@ -183,7 +183,7 @@ também por mês:&lt;/p&gt;
       theme_bw() + labs(title = &amp;quot;RTs e Favs dos tweets da Dilma&amp;quot;,
       x =&amp;quot;Ano-Mês&amp;quot;, y = &amp;quot;RTs e Fav (em milhares)&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;O padrão parece seguir o anterior: a Presidenta vem tendo maior
 influência no twitter após seu afastamento, mas já teve mais que isso no
 passado. O problema é que estas simples medidas escondem uma informação
@@ -208,7 +208,7 @@ ver este gráfico abaixo:&lt;/p&gt;
   labs(title = &amp;quot;RTs e Favs por tweet da Dilma&amp;quot;, x = &amp;quot;Ano-Mês&amp;quot;,
   y = &amp;quot;RTs e Fav por tweet&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Agora é que as coisas mudam de figura: mesmo tendo tuítado relativamente
 menos do que em outras épocas, os tweets mais recentes da Presidenta são
 mais influentes, isto é, eles obtêm mais retweets e favoritos (apenas
@@ -261,11 +261,11 @@ freq = rowSums(pre_afast), periodo = &amp;quot;Pré afastamento&amp;quot;)
   labs(title = &amp;quot;Termos mais usados nos tweets da Dilma\n(Pré-afastamento)&amp;quot;,
   x = &amp;quot;Termo&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Neste período pré-afastamento, os termos que mais aparecem nos tweets da
 Presidenta se referem principalmente às eleições, ela mesma e ao país.
 Quando analisamos o segundo período, alguns termos novos aparecem:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Apesar da frequência de termos ser menor (o período também é menor),
 fica evidente que alguns ganham maior espaço: especialmente os termos
 &amp;ldquo;provisório&amp;rdquo;, &amp;ldquo;impeachment&amp;rdquo;, &amp;ldquo;processo&amp;rdquo;, &amp;ldquo;democracia&amp;rdquo; e &amp;ldquo;golpe&amp;rdquo;. Estes

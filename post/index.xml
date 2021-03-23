@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts | Fernando Meireles</title>
-    <link>https://www.femeireles.com/post/</link>
-      <atom:link href="https://www.femeireles.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://www.fmeireles.com/post/</link>
+      <atom:link href="https://www.fmeireles.com/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://www.femeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <url>https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
-      <link>https://www.femeireles.com/post/</link>
+      <link>https://www.fmeireles.com/post/</link>
     </image>
     
     <item>
       <title>electionsBR 0.3.1: novos dados e funcionalidades</title>
-      <link>https://www.femeireles.com/post/rstats/electionsbr-novos-dados-e-funcionalidades/</link>
+      <link>https://www.fmeireles.com/post/rstats/electionsbr-novos-dados-e-funcionalidades/</link>
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/electionsbr-novos-dados-e-funcionalidades/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/electionsbr-novos-dados-e-funcionalidades/</guid>
       <description>&lt;p&gt;Depois de alguns meses sem novidades, hoje lançamos um nova atualização
 do &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, o nosso pacote no R criado
 para extrair dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais-1/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório do
@@ -122,7 +122,7 @@ pessoas que já foram eleitas para o mesmo cargo anteriormente. Como dá
 para ver no gráfico abaixo, pouco mais de 400 incumbentes tentaram suas
 reeleições ano
 passado.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/reeleicao_camara.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/reeleicao_camara.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Para saber quais informações estão disponíveis para as eleições de 2018,
 basta consultar a documentação das funções &lt;code&gt;_fed&lt;/code&gt; (usando
 &lt;code&gt;help(candidate_fed)&lt;/code&gt;, por exemplo).&lt;/p&gt;
@@ -144,9 +144,9 @@ devtools::install_github(&amp;quot;silvadenisson/electionsBR&amp;quot;)
     
     <item>
       <title>Deflacionando séries com o deflateBR</title>
-      <link>https://www.femeireles.com/post/rstats/deflacionar-series-no-r-deflatebr/</link>
+      <link>https://www.fmeireles.com/post/rstats/deflacionar-series-no-r-deflatebr/</link>
       <pubDate>Sun, 30 Sep 2018 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/deflacionar-series-no-r-deflatebr/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/deflacionar-series-no-r-deflatebr/</guid>
       <description>&lt;p&gt;Deflacionar séries é pré-requisito em qualquer análise sobre o valor do
 dinheiro ao longo do tempo. E embora não seja algo complexo, isso
 envolve várias etapas que consomem tempo, todas sujeitas a erro humano:
@@ -296,7 +296,7 @@ os salários nominais em cada período específico com um índice de preços,
 como o IPCA. Fazendo isso com o pacote &lt;code&gt;deflateBR&lt;/code&gt;, podemos ver que o
 mínimo realmente cresceu acima da inflação desde
 1995.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/salario_minimo-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/salario_minimo-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;h3 id=&#34;exemplo-de-aplicação-2-o-valor-de-bolsas-de-pós-graduação&#34;&gt;Exemplo de aplicação 2: o valor de bolsas de pós-graduação&lt;/h3&gt;
 &lt;p&gt;Um bom exemplo de categoria que não teve aumento de renda acima da
 inflação de 1995 a 2018 foram pós-graduandos que recebem bolsas de
@@ -306,7 +306,7 @@ perda de poder de compra da categoria.[1] Como dá pra ver, o valor dos
 benefícios, hoje, praticamente voltaram aos patamares do início do
 primeiro governo
 Lula.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/bolsa_capes-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/bolsa_capes-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;h3 id=&#34;validade&#34;&gt;Validade&lt;/h3&gt;
 &lt;p&gt;Como já dito, o &lt;code&gt;deflateBR&lt;/code&gt; usa a fórmula convencional para corrigir
 valores nominais pela inflação: multiplicá-lo pela razão entre o índice
@@ -346,9 +346,9 @@ arredondamento realizado pela ferramenta online do BC.&lt;/p&gt;
     
     <item>
       <title>Predizendo sexo a partir de nomes próprios com o genderBR</title>
-      <link>https://www.femeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</link>
+      <link>https://www.fmeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</link>
       <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</guid>
       <description>&lt;p&gt;Para quem trabalha com bases de dados públicas, não é incomum encontrar
 o seguinte problema: ter disponível em alguma coluna o nome de várias
 pessoas, mas não a informação sobre o sexo delas. Para lidar com esse
@@ -457,7 +457,7 @@ defendidas no período, mas não o sexo de quem as defendeu.[2] É aí que
 entra o &lt;code&gt;genderBR&lt;/code&gt;: usando os dados internos do pacote, predizer o sexo
 para todos os nomes na base leva &lt;em&gt;menos de 5 segundos&lt;/em&gt;. Com essa
 informação, podemos criar um gráfico como esse.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr1-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/genderbr1-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;O gráfico acima ilustra bem o trabalho do &lt;code&gt;genderBR&lt;/code&gt;: ele classificou a
 imensa maioria dos nomes como pertencendo a homens ou mulheres (96% do
 total). Ainda assim, como os dados disponibilizados pelo IBGE incluem
@@ -477,7 +477,7 @@ absoluto, ano a ano, dessa série dificulta detectar tendências. Por essa
 razão, podemos focar apenas na percentagem de teses defendidas por
 mulheres, excluindo da base pessoas com sexo classificado como
 &lt;em&gt;Desconhecido&lt;/em&gt; ou &lt;em&gt;Unissex&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr2-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/genderbr2-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;A tendência geral, agora, é clara: com o passar do tempo, mulheres
 aumentaram sua participação na defesa de teses no Brasil.&lt;/p&gt;
 &lt;h4 id=&#34;defesas-de-tese-por-grandes-áreas&#34;&gt;Defesas de tese por grandes áreas&lt;/h4&gt;
@@ -485,7 +485,7 @@ aumentaram sua participação na defesa de teses no Brasil.&lt;/p&gt;
 mulheres defendam mais teses em algumas grandes áreas da Capes, menos em
 outras. Como o Banco de Teses contém variáveis indicando essas grandes
 áreas, verificar isso é relativamente simples.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr3-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/genderbr3-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Por um lado, mulheres defendem mais teses no Brasil, ao menos nos
 últimos anos. Por outro lado, é possível ver que essa participação é
 desigual entre grandes áreas da Capes: mulheres defendem mais teses nas
@@ -503,8 +503,8 @@ dessa. Os resultados, também aqui, mostram que mulheres participam mais
 na produção e defesa de teses em algumas áreas; já em outras, inclusa a
 Ciência Política, a presença delas fica aquém – às vezes muito aquém –
 da de homens.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr4-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/genderbr5-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/genderbr4-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/genderbr5-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;h3 id=&#34;final&#34;&gt;Final&lt;/h3&gt;
 &lt;p&gt;Classificar por sexo autores(as) de teses no Brasil é apenas uma das
 utilidades do &lt;code&gt;genderBR&lt;/code&gt;. Usando as mesmas fontes de dados, na verdade,
@@ -560,9 +560,9 @@ qualquer forma, podem ser encontrados aqui.&lt;/p&gt;
     
     <item>
       <title>genderBR: predizendo sexo a partir de nomes próprios</title>
-      <link>https://www.femeireles.com/post/rstats/genderbr-predizer-sexo/</link>
+      <link>https://www.fmeireles.com/post/rstats/genderbr-predizer-sexo/</link>
       <pubDate>Tue, 05 Sep 2017 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/genderbr-predizer-sexo/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/genderbr-predizer-sexo/</guid>
       <description>&lt;p&gt;Várias questões importantes nas Ciências Sociais estão ligadas ao sexo das pessoas. Se quisermos saber se mulheres recebem menores salários, se estão sub-representadas na política, se sofrem mais com as violências urbana e doméstica, entre outros, precisamos identificar o sexo das pessoas que investigamos. Entretanto, esse dado nem sempre é fácil de obter: vários bancos usados para responder às perguntas acima não contêm informações sobre o sexo das pessoas estudadas &amp;ndash; embora alguns destes contenham outras que podem ser usada para inferir seus sexos.&lt;/p&gt;
 &lt;p&gt;O pacote &lt;code&gt;genderBR&lt;/code&gt; para o &lt;code&gt;R&lt;/code&gt;, que acabou de ser publicado no &lt;a href=&#34;https://cran.r-project.org/package=genderBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, serve para isso: ele usa uma informação relativamente simples de obter &amp;ndash; nome próprio &amp;ndash; e, a partir dela, prediz o sexo de uma pessoa com dados do &lt;a href=&#34;http://censo2010.ibge.gov.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Censo de 2010 realizado pelo IBGE&lt;/a&gt;. Se o nome João, por exemplo, é usado majoritariamente por individuos do sexo masculino no Brasil, temos alguma confiança em dizer que outro brasileiro qualquer com o mesmo nome provavelmente também seja do sexo masculino. Entre outras vantagens, este método é replicável, baseado em dados públicos e, o que é mais importante, muito mais rápido do que qualquer classificação manual de sexos a partir de nomes próprios. O passo-a-passo a seguir exemplifica isso.&lt;/p&gt;
 &lt;h2 id=&#34;como-instalar&#34;&gt;Como instalar&lt;/h2&gt;
@@ -731,9 +731,9 @@ get_gender(&amp;quot;iris&amp;quot;, prob = TRUE, state = &amp;quot;GO&amp;quot;
     
     <item>
       <title>electionsBR: versão 0.3.0</title>
-      <link>https://www.femeireles.com/post/rstats/electionsbr-versao-0.3.0/</link>
+      <link>https://www.fmeireles.com/post/rstats/electionsbr-versao-0.3.0/</link>
       <pubDate>Thu, 08 Jun 2017 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/electionsbr-versao-0.3.0/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/electionsbr-versao-0.3.0/</guid>
       <description>&lt;p&gt;O pacote do &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R&lt;/a&gt; para baixar e limpar dados eleitorais do TSE criado pelo Denisson Silva, Beatriz Costa e eu, o &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, acaba de ganhar uma grande atualização, já disponível no &lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;: para a versão 0.3.0[1]. Para quem não o conhece, basicamente ele automatiza o trabalho de baixar, deszipar, tratar e limpar dados eleitorais brasileiros diretamente do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt; &amp;ndash; tudo acompanhado de extensa documentação baseada em informações oficiais. Em outras palavras, com ele é possível extrair quase todos os dados públicos de resultados eleitorais, apuração, partidos, coligações, candidaturas, de perfil dos eleitores, entre outros, diretamente pelo R, e isto em pouquíssimo tempo.&lt;/p&gt;
 &lt;p&gt;Nesta nova versão, estendemos as funcionalidades do pacote em vários pontos, mas sem comprometer a forma com que ele já funcionava. Segue, em forma de lista, as novidades do pacote.&lt;/p&gt;
 &lt;h3 id=&#34;velocidade&#34;&gt;Velocidade&lt;/h3&gt;
@@ -852,9 +852,9 @@ parties_br()
     
     <item>
       <title>electionsBR: uma nova versão (0.2.0)</title>
-      <link>https://www.femeireles.com/post/rstats/electionsbr-uma-nova-versao/</link>
+      <link>https://www.fmeireles.com/post/rstats/electionsbr-uma-nova-versao/</link>
       <pubDate>Tue, 13 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/electionsbr-uma-nova-versao/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/electionsbr-uma-nova-versao/</guid>
       <description>&lt;p&gt;Obter dados eleitorais no Brasil nunca foi uma tarefa das mais fáceis. Quem já precisou fazer isso provavelmente sabe o tamanho do problema: baixar diversos arquivos, deszipá-los, abrir um a um os arquivos brutos, limpar e arrumar os dados, juntar tudo, exportar, e por aí vai. Foi com isso na cabeça que o &lt;a href=&#34;http://denissonsilva.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Denisson&lt;/a&gt;, a &lt;a href=&#34;mailto:bea.s.costa@gmail.com&#34;&gt;Beatriz&lt;/a&gt; e eu lançamos, nos idos de agosto, o &lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt; - um pacote para baixar e limpar estes dados automaticamente, direto do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt;. Passado algum tempo, e depois dos diversos &lt;em&gt;feedbacks&lt;/em&gt; que recebemos, lançamos agora uma nova versão do &lt;code&gt;electionsBR&lt;/code&gt;, já disponível no CRAN[1]: a 0.2.0.&lt;/p&gt;
 &lt;p&gt;Resumidamente, além de todas as funcionalidades existentes na versão anterior (era possível baixar quase todos os dados disponíveis do TSE e armazená-los em objetos na memória no R em segundos; para saber mais sobre a versão anterior, &lt;a href=&#34;%5BelectionsBR%5D%28http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse%29&#34;&gt;clique aqui&lt;/a&gt;), ampliamos a cobertura dela com diversos reparos e acréscimos. Destes, três se destacam:&lt;/p&gt;
 &lt;ol&gt;
@@ -937,14 +937,14 @@ citation(&amp;quot;electionsBR&amp;quot;)
     
     <item>
       <title>Desempenho das pesquisas eleitorais no segundo turno</title>
-      <link>https://www.femeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</link>
+      <link>https://www.fmeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</link>
       <pubDate>Mon, 31 Oct 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</guid>
+      <guid>https://www.fmeireles.com/post/politica/o-desempenho-das-pesquisas-eleitorais-nas-eleicoes-de-2016/</guid>
       <description>&lt;p&gt;Apesar das invariáveis críticas que os institutos de pesquisa recebem toda eleição (&lt;a href=&#34;http://g1.globo.com/rio-de-janeiro/eleicoes/2016/noticia/2016/10/ibope-e-datafolha-explicam-diferencas-entre-pesquisas-e-resultado-da-eleicao.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;vide aqui&lt;/a&gt;, por exemplo)[1], neste segundo turno o desempenho deles, &amp;ndash; ao menos o de alguns deles &amp;ndash;, não deixou a desejar.&lt;/p&gt;
 &lt;p&gt;Como já havia postado no &lt;a href=&#34;https://twitter.com/meirelesff/status/792861918927134720&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Twitter&lt;/a&gt;, o instituto Ibope, por exemplo, acertou, dentro da margem de erro (os 3 ou 4 tradicionais pontos para mais ou para menos), os resultados em 15 das 18 capitais onde realizou pesquisa entre os dias 25 e 28 de outubro. Nos três casos onde chutou a bola fora, os erros foram pequenos &amp;ndash; caso de Porto Alegre, Florianópolis e Maceió. Apenas em uma capital, Aracaju, o Ibope errou o resultado da eleição, onde a previsão era de que o candidato do PSB, Valadares Filho, ficaria na frente de Edvaldo Nogueira, do PC do B, por 2% de votos válidos. Como a previsão já era de resultado apertado, e o instituto acertou o resultado dentro da margem, este é um caso residual entre as capitais pesquisadas.&lt;/p&gt;
 &lt;p&gt;Dois outros casos ilustram o desempenho dos institutos de pesquisa &amp;ndash; agora incluindo Datafolha, Paraná Eleitoral e CP2. Os gráficos abaixo mostram o retrospecto de todas as pesquisas feitas no segundo turno no Rio de Janeiro, onde Crivella (PRB) enfretou o Freixo (PSOL), e em Belo Horizonte, onde Leite (PSDB) competiu contra Kalil (PHS), por estes institutos. Nos gráficos, cada ponto é a percentagem de intenção de votos (incluindo, portanto, não-válidos) de cada candidato estimada por cada pesquisa (em outras palavras, cada data de pesquisa, no eixo X, representa uma pesquisa eleitoral); a curva (ou linha) representa a tendência geral destas pesquisas, estimadas via &lt;a href=&#34;https://en.wikipedia.org/wiki/Local_regression&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;LOESS&lt;/a&gt;; e as áreas mais claras ao redor das curvas representam os intervalos de confiança de 95%.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/bh-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/rio-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/bh-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/rio-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Duas coisas merecem comentários em relação a esses dados:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -961,23 +961,23 @@ citation(&amp;quot;electionsBR&amp;quot;)
     
     <item>
       <title>Desatualização nas bases do TSE e abstenção eleitoral</title>
-      <link>https://www.femeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
+      <link>https://www.fmeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</link>
       <pubDate>Fri, 07 Oct 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
+      <guid>https://www.fmeireles.com/post/politica/desatualizacao-nas-bases-do-tse-abstencao-eleitoral/</guid>
       <description>&lt;p&gt;Aproveitando os dados do &lt;a href=&#34;http://www.tre-rs.jus.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE-RS&lt;/a&gt;, que divulgou uma lista completa dos municípios que passaram pelo recadastramento biométrico até esse ano, resolvi investigar se a biometria realmente afetou as taxas de abstenção nestas eleições.&lt;/p&gt;
 &lt;p&gt;O gráfico abaixo ilustra essa diferença entre municípios que passaram ou não pelo recadastramento. Como dá pra ver, a taxa de abstenção média nos municípios que passaram a usar o sistema de biometria cai visivelmente depois de 2014 no Rio Grande do Sul (quando a maior parte dos municípios fez o cadastramento).&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencao1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencao1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Quando removemos os efeitos temporais e entre casos via um &lt;a href=&#34;https://en.wikipedia.org/wiki/Fixed_effects_model&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;modelo de regressão com efeitos fixos&lt;/a&gt;, este efeito fica ainda mais nítido:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencao2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencao2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Especificamente, o efeito estimado é de cerca de 4.5% (estimado com um modelo &lt;a href=&#34;https://en.wikipedia.org/wiki/Difference_in_differences&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;diff-in-diff&lt;/a&gt;), o que significa que, na média, a taxa de abstenção no estado estava inflada em quase 50% (ela foi de cerca de 10% em 2012 na média dos municípios, embora Porto Alegre e região tenham tido abstenção maior). Em outras palavras, removendo os eleitores fantasmas, a abstenção caiu quase pela metade.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Estimando regressões logísticas no R (com razão de chance)</title>
-      <link>https://www.femeireles.com/post/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</link>
+      <link>https://www.fmeireles.com/post/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</link>
       <pubDate>Fri, 09 Sep 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</guid>
       <description>&lt;p&gt;Uma das coisas que dá dor de cabeça a usuários do Stata que migram para o &lt;code&gt;R&lt;/code&gt; é a estimação de modelos estatísticos. Como o Stata já oferece, de forma simples, diversos modelos e opções para alterar as suas especificações, a migração para o &lt;code&gt;R&lt;/code&gt; pode ser frustrante neste aspecto: muitas coisas simples no Stata, como incluir erros-padrão robustos ou efeitos fixos, geralmente demandam mais linhas de código (e chamada a vários pacotes) no &lt;code&gt;R&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Neste post, vou iniciar um pequeno guia para estimar &lt;a href=&#34;https://pt.wikipedia.org/wiki/Regress%C3%A3o_log%C3%ADstica&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;regressões logísticas&lt;/a&gt; no &lt;code&gt;R&lt;/code&gt;. O procedimento básico é bastante simples, como se poderá ver, mas alguns detalhes, como converter os coeficientes para &lt;a href=&#34;https://pt.wikipedia.org/wiki/Raz%C3%A3o_de_possibilidades&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;razão de chance&lt;/a&gt;, envolvem algumas manhas adicionais.&lt;/p&gt;
 &lt;h4 id=&#34;estimando-modelos-logísticos-explorando-dados-do-titanic&#34;&gt;Estimando modelos logísticos: explorando dados do Titanic&lt;/h4&gt;
@@ -1000,12 +1000,12 @@ library(ggplot2)
 ggplot(titanic, aes(x = as.factor(Survived))) + geom_bar() + theme_light() + 
   labs(title = &amp;quot;Titanic&amp;quot;, x = &amp;quot;Sobreviventes&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/titanic-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/titanic-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Por fim, cruzamos a variavel sexo com a variavel sobreviventes
 ggplot(titanic, aes(x = as.factor(Survived), fill = Sex)) + geom_bar() + theme_light() + 
   labs(title = &amp;quot;Titanic&amp;quot;, x = &amp;quot;Sobreviventes&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/titanic-2.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/titanic-2.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;O que podemos concluir? Que a maior parte dos passageiros do Titanic, infelizmente, não sobreviveu ao acidente, e que, dos que sobreviveram, a maioria é do sexo feminino. Estimando uma regressão logística, podemos investigar esta relação mais detidamente.&lt;/p&gt;
 &lt;h4 id=&#34;estimando-modelos-logísticos-a-função-glm-do-r&#34;&gt;Estimando modelos logísticos: a função glm do R&lt;/h4&gt;
 &lt;p&gt;Para estimar essa regressão logística, uso a função &lt;a href=&#34;https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;glm&lt;/a&gt;, que já vem no &lt;code&gt;R&lt;/code&gt;, especificamente no pacote &lt;a href=&#34;https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;stats&lt;/a&gt;. A função aceita vários argumentos, mas os principais que usaremos são três: a fórmula, o link (o que usaremos é o logístico, mas a função também aceita outros) e os dados usados (no caso, da base dos sobreviventes do Titanic, que já carregamos). Exemplo:&lt;/p&gt;
@@ -1054,9 +1054,9 @@ exp(modelo$coefficients)
     
     <item>
       <title>electionsBR: Exportando dados eleitorais do R para o Stata</title>
-      <link>https://www.femeireles.com/post/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</link>
+      <link>https://www.fmeireles.com/post/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</link>
       <pubDate>Mon, 22 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</guid>
       <description>&lt;p&gt;Semana passada, o Denisson, a Bia e eu lançamos o &lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, um pacote no &lt;code&gt;R&lt;/code&gt; para baixar e limpas dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;repositório do TSE&lt;/a&gt;. Como explicamos, o pacote contém diversas funções que facilitam a obtenção destes dados, além de tornar um processo imensamente mais rápido. Mas, como algumas mensagens que recebemos de lá pra cá indicaram, algumas (talvez muitas) pessoas usam o Stata para rodar suas análises e, por isso, não se beneficiariam do pacote.&lt;/p&gt;
 &lt;p&gt;Neste post, farei um pequeno tutorial de como baixar e exportar estes dados do &lt;code&gt;R&lt;/code&gt; para o Stata. Não é necessário muito conhecimento de &lt;code&gt;R&lt;/code&gt; para segui-lo. Na verdade, o procedimento é tão simples que pode ser resumido em três etapas:&lt;/p&gt;
 &lt;ul&gt;
@@ -1097,9 +1097,9 @@ write.dta(dados, file = &amp;quot;outro_nome&amp;quot;)
     
     <item>
       <title>electionsBR: analisando a apuração das eleições para a Câmara dos Deputados</title>
-      <link>https://www.femeireles.com/post/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</link>
+      <link>https://www.fmeireles.com/post/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</link>
       <pubDate>Fri, 19 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</guid>
       <description>&lt;p&gt;Usando o nosso pacote no &lt;code&gt;R&lt;/code&gt; para baixar e limpar dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE&lt;/a&gt;, desenvolvimento conjuntamente pelo &lt;a href=&#34;http://denissonsilva.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Denisson Silva&lt;/a&gt;, Beatriz Costa e eu, vou mostrar aqui como é possível obter e analisar os resultados de apuração das eleições para a Câmara dos Deputados desde 1998 (o período disponível, por causa de limitações nos dados do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE&lt;/a&gt;, vai de 98 a 2014 &amp;ndash; mas pretendemos expandir ele no futuro) desagregados por município/zona eleitoral.&lt;/p&gt;
 &lt;h3 id=&#34;baixando-os-dados-de-apuração-das-eleições-federais&#34;&gt;Baixando os dados de apuração das eleições federais&lt;/h3&gt;
 &lt;p&gt;Como o pacote está no &lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, a primeira coisa que precisamos fazer é instalá-lo via console:&lt;/p&gt;
@@ -1157,20 +1157,20 @@ library(ggplot2)
 ggplot(dados, aes(x = QTD_ABSTENCOES, y = QTD_COMPARECIMENTO)) + geom_point() +
   theme_bw() + labs(title = &amp;quot;Abstenções vs. Comparecimento&amp;quot;, y = &amp;quot;Comparecimento&amp;quot;, x = &amp;quot;Abstenções&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes1-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencoes1-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;O que obtemos é justamente o contrário. Mas por quê? Porque o gráfico está captando o total de eleitores &amp;ndash; é necessário transformar comparecimentos e abstenções em percentuais do total de eleitores aptos a votar. Podemos fazer isto da seguinte forma:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ggplot(dados, aes(x = I(QTD_ABSTENCOES / QTD_APTOS), y = I(QTD_COMPARECIMENTO / QTD_APTOS))) + 
   geom_point() +
   theme_bw() + labs(title = &amp;quot;Abstenções vs. Comparecimento&amp;quot;, y = &amp;quot;% Comparecimento&amp;quot;, x = &amp;quot;% Abstenções&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes2-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencoes2-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Agora obtemos o resultado esperado, uma relação perfeita entre comparecimento e abstenções. Com um código um pouco diferente (é preciso remover &lt;code&gt;missings&lt;/code&gt; e converter a variável &lt;code&gt;ANO_ELEICAO&lt;/code&gt; para &lt;code&gt;factor&lt;/code&gt;), também podemos investigar a média de abstenções durante o período:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter(dados, !is.na(ANO_ELEICAO)) %&amp;gt;% 
   mutate(ANO_ELEICAO = factor(ANO_ELEICAO)) %&amp;gt;%
   ggplot(aes(y = I(QTD_ABSTENCOES / QTD_APTOS), x = ANO_ELEICAO)) + geom_bar(stat = &amp;quot;summary&amp;quot;, fun.y = &amp;quot;mean&amp;quot;) +
   theme_bw() + labs(title = &amp;quot;Média de abstenções nas eleições para a Câmara&amp;quot;, y = &amp;quot;% Abstenção&amp;quot;, x = &amp;quot;Ano&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes3-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencoes3-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;É possível ver que, após a eleição de 98, a média de abstenções cai, mas se mantém mais ou menos constante depois disso. Como a média sofre influência de outliers, podemos refazer o mesmo gráfico para visualizar a mediana das abstenções:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter(dados, !is.na(ANO_ELEICAO)) %&amp;gt;% 
   mutate(ANO_ELEICAO = factor(ANO_ELEICAO),
@@ -1178,7 +1178,7 @@ ggplot(dados, aes(x = QTD_ABSTENCOES, y = QTD_COMPARECIMENTO)) + geom_point() +
   ggplot(aes(y = PERC_ABST, x = ANO_ELEICAO)) + geom_bar(stat = &amp;quot;summary&amp;quot;, fun.y = &amp;quot;median&amp;quot;) +
   theme_bw() + labs(title = &amp;quot;Mediana de abstenções nas eleições para a Câmara&amp;quot;, y = &amp;quot;% Abstenção&amp;quot;, x = &amp;quot;Ano&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes4-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencoes4-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Por fim, podemos investigar a distribução destas abstenções por eleição para obter uma informação mais detalhada:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter(dados, !is.na(ANO_ELEICAO)) %&amp;gt;% 
   mutate(ANO_ELEICAO = factor(ANO_ELEICAO),
@@ -1187,7 +1187,7 @@ ggplot(dados, aes(x = QTD_ABSTENCOES, y = QTD_COMPARECIMENTO)) + geom_point() +
   theme_bw() + labs(title = &amp;quot;Distribuição de abstenções nas eleições para a Câmara&amp;quot;,
                     y = &amp;quot;Freqência&amp;quot;, x = &amp;quot;% Abstenção&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/abstencoes5-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/abstencoes5-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;O que corrobora os gráficos anteriores: a distribuição das abstenções em 98 estava mais dispersa do que nas eleições seguintes.&lt;/p&gt;
 &lt;h3 id=&#34;notas-finais&#34;&gt;Notas finais&lt;/h3&gt;
 &lt;p&gt;Este é apenas um dois possíveis tipos de análises que é possível fazer com a ajuda do pacote &lt;code&gt;electionsBR&lt;/code&gt;. Como deve ter ficado claro, ele simplifica enormemente a tarefa de obter dados eleitorais, além de já os deixar prontos para uso. Mesmo assim, ainda é possível que alguns dos dados do TSE não possam ser tão simplemente analisados. A formação de alguns campos varia ao longo do tempo (a data de nascimento dos candidatos, por exemplo, era preenchida como &amp;ldquo;13/10/1976&amp;rdquo; em anos anteriores, mas também já foi preenchida como &amp;ldquo;13-10-76&amp;rdquo;), algumas variáveis são acrescentadas e, constantemente, outras são atualizadas pelo TSE. Por estas e outras razões, o pacote &lt;code&gt;electionsBR&lt;/code&gt; ainda é um trabalho em aberto, que pode melhorar com a contribuição de outras pessoas.&lt;/p&gt;
@@ -1196,9 +1196,9 @@ ggplot(dados, aes(x = QTD_ABSTENCOES, y = QTD_COMPARECIMENTO)) + geom_point() +
     
     <item>
       <title>electionsBR: um pacote no R para baixar e limpar dados eleitorais do TSE</title>
-      <link>https://www.femeireles.com/post/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</link>
+      <link>https://www.fmeireles.com/post/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</link>
       <pubDate>Thu, 18 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</guid>
       <description>&lt;p&gt;Nosso pacote para baixar e limpar dados eleitorais do website do TSE, desenvolvido conjuntamente por Denisson Silva, Beatriz Costa e eu, foi publicado no &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Comprehensive R Archive Network (CRAN)&lt;/a&gt;: o &lt;code&gt;electionsBR&lt;/code&gt;. Basicamente, ele contém uma série de funções para extrair e limpar a maioria dos dados disponíveis no &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt;, deixando-os prontos para uso.&lt;/p&gt;
 &lt;p&gt;O &lt;code&gt;electionsBR&lt;/code&gt; vem para facilitar a vida de quem trabalha ou precisa consultar estes dados do TSE de duas formas. Primeiro, ele fornece um conjunto de funções para baixar a maioria dos dados do TSE, que são então armazenados diretamente num objeto na memória do &lt;code&gt;R&lt;/code&gt; &amp;ndash; sem a necessidade de abrir o website do TSE, deszipar, ler e limpar cada um dos arquivos individuais. Segundo, ele faz isso em poucos segundos e, além disso, já lida com os principais problemas nas bases do TSE: como é notório entre os usuários do Repositório, os arquivos do TSE frequentemente vêm com problemas de enconding (i.e. acentos tornam-se caracteres inelegíveis), incompatibilidade entre arquivos (i.e. mais ou menos variáveis, células vazias) e informações mal formatadas (i.e. variáveis numéricas contêm caracteres não-numéricos).Com ele, portanto, é possível baixar rapidamente, e sem problemas, os principais dados eleitorais do TSE.&lt;/p&gt;
 &lt;h3 id=&#34;usando-o-pacote&#34;&gt;Usando o pacote&lt;/h3&gt;
@@ -1240,14 +1240,14 @@ dados &amp;lt;- candidate_fed(year = 2002)
     
     <item>
       <title>Uma análise de sentimentos dos tweets da Dilma Rousseff</title>
-      <link>https://www.femeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</link>
+      <link>https://www.fmeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</link>
       <pubDate>Sun, 14 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Num post anterior&lt;/a&gt;, fiz uma análise dos tweets da &lt;a href=&#34;https://twitter.com/dilmabr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Presidenta Dilma Rousseff&lt;/a&gt;. Neste aqui, aproveitei os dados já coletados para fazer algo diferente, que já estava querendo fazer há tempos: uma análise de sentimentos. Basicamente, esta técnica serve para avaliar um determinado texto, dando a ele uma nota numa escala que vai de negativo a positivo, triste a feliz, etc. No caso, vou fazer isto utilizando a &lt;a href=&#34;https://www.microsoft.com/cognitive-services/en-us/apis&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;API do cognitive services da Microsoft&lt;/a&gt;, que possui um algoritimo próprio para classificar os textos numa escala que vai de 0, mais negativo, a 1, mais positivo (assim como outros métodos, ele classifica cada palavra num texto e, então, computa um score para a frase ou trecho; para uma análise sobre a potencialidade do método, &lt;a href=&#34;http://blog.revolutionanalytics.com/2016/06/microsoft-cognitive-services.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ver aqui&lt;/a&gt;).&lt;/p&gt;
 &lt;h4 id=&#34;analisando-os-sentimentos-dos-tweets-da-dilma&#34;&gt;Analisando os sentimentos dos tweets da Dilma&lt;/h4&gt;
 &lt;p&gt;Como mostro naquele post anterior, podemos concluir três coisas em relação aos tweets da @dilmabr publicados desde 2015: (1) ela passou a tuítar mais após o seu afastamento (mas já tuitou mais no passado); (2) seus tweets passaram a receber mais retweets e favoritadas após o afastamento; e, (3), os tweets que mencionam o termo &amp;ldquo;golpe&amp;rdquo; são mais influentes do que a média deste outro grupo (tweets pós-afastamento sem o termo &amp;ldquo;golpe&amp;rdquo;).&lt;/p&gt;
 &lt;p&gt;Com uma análise de sentimentos destes tweets, podemos descobrir outras coisas: como o tom das postagens da Presidenta variaram ao longo do tempo? Seus tweets mais recentes possuem conteúdo mais negativo (críticas, mostras de ressentimento, etc.) ou mais positivos (expressões de felicidade, elogios, etc.)? Para responder estas perguntas, apliquei o algoritimo do cognitive services em cada um dos tweets 1859 da Dilma e salvei seus scores (aqui há um &lt;a href=&#34;https://github.com/philferriere/mscstexta4r&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;bom tutorial sobre como usar o serviço da Microsoft no R&lt;/a&gt;, com o pacote &lt;a href=&#34;https://cran.r-project.org/web/packages/mscstexta4r/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;mscstexta4r&lt;/a&gt;). Feito isto, podemos plotar os resultados (cada ponto cinza indica um tweet, o eixo y indica o score do tweet naquela escala que vai de 0, mais negativo, a 1, mais positivo e, enfim, a linha azul é uma &lt;a href=&#34;https://en.wikipedia.org/wiki/Local_regression&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;curva loess&lt;/a&gt;):&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/sentimentos_dilma.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/sentimentos_dilma.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Duas coisas chamam a atenção logo de cara. A primeira delas é o fato de que, após o seu afastamento (maio de 2016, linha tracejada), o sentimento geral dos tweets da Dilma tornam-se mais negativos, como mostra o declínio da linha azul (o que até faz sentido). Exemplos disto:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;## Tweet =  Fico triste de não assistir à festa &amp;quot;ao vivo e a cores&amp;quot;.
 Mas estarei acompanhando, torcendo pelo Brasil.  / Score =  0
@@ -1284,9 +1284,9 @@ Parabéns! #Rio2016  / Score =  1
     
     <item>
       <title>Golpe ou impeachment? Uma análise dos tweets da Dilma Rousseff</title>
-      <link>https://www.femeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
+      <link>https://www.fmeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
       <pubDate>Fri, 12 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
+      <guid>https://www.fmeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
       <description>&lt;p&gt;Desde o ínicio do impeachment da agora Presidente afastada, Dilma
 Rousseff (PT), acadêmicos e articulistas discutem se este processo se
 encaixa na categoria de golpe de estado. Críticos do governo e membros
@@ -1350,7 +1350,7 @@ dilma_tw %&amp;gt;%
   labs(title = &amp;quot;Atividade da Dilma no Twitter&amp;quot;,
   x = &amp;quot;Ano-Mês&amp;quot;, y = &amp;quot;Número de tweets&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe1.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;O gráfico mostra que a pró-atividade da Presidenta no twitter é ambígua.
 É verdade que ela passou a tuítar mais nos últimos dois meses (a linha
 pontilhada indica o mês de maio de 2016), mas em outros períodos ela
@@ -1371,7 +1371,7 @@ também por mês:&lt;/p&gt;
       theme_bw() + labs(title = &amp;quot;RTs e Favs dos tweets da Dilma&amp;quot;,
       x =&amp;quot;Ano-Mês&amp;quot;, y = &amp;quot;RTs e Fav (em milhares)&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe2.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;O padrão parece seguir o anterior: a Presidenta vem tendo maior
 influência no twitter após seu afastamento, mas já teve mais que isso no
 passado. O problema é que estas simples medidas escondem uma informação
@@ -1396,7 +1396,7 @@ ver este gráfico abaixo:&lt;/p&gt;
   labs(title = &amp;quot;RTs e Favs por tweet da Dilma&amp;quot;, x = &amp;quot;Ano-Mês&amp;quot;,
   y = &amp;quot;RTs e Fav por tweet&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe3.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Agora é que as coisas mudam de figura: mesmo tendo tuítado relativamente
 menos do que em outras épocas, os tweets mais recentes da Presidenta são
 mais influentes, isto é, eles obtêm mais retweets e favoritos (apenas
@@ -1449,11 +1449,11 @@ freq = rowSums(pre_afast), periodo = &amp;quot;Pré afastamento&amp;quot;)
   labs(title = &amp;quot;Termos mais usados nos tweets da Dilma\n(Pré-afastamento)&amp;quot;,
   x = &amp;quot;Termo&amp;quot;, y = &amp;quot;Frequência&amp;quot;)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe4.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Neste período pré-afastamento, os termos que mais aparecem nos tweets da
 Presidenta se referem principalmente às eleições, ela mesma e ao país.
 Quando analisamos o segundo período, alguns termos novos aparecem:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.femeireles.com/figs/golpe5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.fmeireles.com/figs/golpe5.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;p&gt;Apesar da frequência de termos ser menor (o período também é menor),
 fica evidente que alguns ganham maior espaço: especialmente os termos
 &amp;ldquo;provisório&amp;rdquo;, &amp;ldquo;impeachment&amp;rdquo;, &amp;ldquo;processo&amp;rdquo;, &amp;ldquo;democracia&amp;rdquo; e &amp;ldquo;golpe&amp;rdquo;. Estes
@@ -1524,9 +1524,9 @@ estratégia.&lt;/p&gt;
     
     <item>
       <title>Como importar qualquer arquivo no R</title>
-      <link>https://www.femeireles.com/post/rstats/como-importar-qualquer-arquivo-no-r/</link>
+      <link>https://www.fmeireles.com/post/rstats/como-importar-qualquer-arquivo-no-r/</link>
       <pubDate>Fri, 15 Jul 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/como-importar-qualquer-arquivo-no-r/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/como-importar-qualquer-arquivo-no-r/</guid>
       <description>&lt;p&gt;Uma das potencialidades do &lt;code&gt;R&lt;/code&gt; é que é possível abrir (quase) qualquer
 tipo de arquivo nele. Arquivos no formato &lt;code&gt;.csv&lt;/code&gt;, &lt;code&gt;.txt&lt;/code&gt;, &lt;code&gt;.dta&lt;/code&gt;,
 etc., são apenas algumas das opções. Mas esta enorme gama de
@@ -1565,9 +1565,9 @@ df4 &amp;lt;- import(file = &amp;quot;dados.sav&amp;quot;)
     
     <item>
       <title>Como importar dados em .csv no R</title>
-      <link>https://www.femeireles.com/post/rstats/como-importar-dados-em-csv-no-r/</link>
+      <link>https://www.fmeireles.com/post/rstats/como-importar-dados-em-csv-no-r/</link>
       <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.femeireles.com/post/rstats/como-importar-dados-em-csv-no-r/</guid>
+      <guid>https://www.fmeireles.com/post/rstats/como-importar-dados-em-csv-no-r/</guid>
       <description>&lt;p&gt;Uma das tarefas mais básicas no &lt;code&gt;R&lt;/code&gt; é importar dados. E, dentre todos os
 tipos de formatos mais usados para armazenar dados, &lt;code&gt;.csv&lt;/code&gt; (ou
 &lt;a href=&#34;https://pt.wikipedia.org/wiki/Comma-separated_values&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;comma-separated

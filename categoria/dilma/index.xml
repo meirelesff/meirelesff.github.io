@@ -14,9 +14,9 @@
     
     <item>
       <title>Uma análise de sentimentos dos tweets da Dilma Rousseff</title>
-      <link>https://www.fmeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</link>
+      <link>https://www.fmeireles.com/blog/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</link>
       <pubDate>Sun, 14 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</guid>
+      <guid>https://www.fmeireles.com/blog/rstats/analise-de-sentimentos-dos-tweets-da-dilma/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;http://fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Num post anterior&lt;/a&gt;, fiz uma análise dos tweets da &lt;a href=&#34;https://twitter.com/dilmabr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Presidenta Dilma Rousseff&lt;/a&gt;. Neste aqui, aproveitei os dados já coletados para fazer algo diferente, que já estava querendo fazer há tempos: uma análise de sentimentos. Basicamente, esta técnica serve para avaliar um determinado texto, dando a ele uma nota numa escala que vai de negativo a positivo, triste a feliz, etc. No caso, vou fazer isto utilizando a &lt;a href=&#34;https://www.microsoft.com/cognitive-services/en-us/apis&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;API do cognitive services da Microsoft&lt;/a&gt;, que possui um algoritimo próprio para classificar os textos numa escala que vai de 0, mais negativo, a 1, mais positivo (assim como outros métodos, ele classifica cada palavra num texto e, então, computa um score para a frase ou trecho; para uma análise sobre a potencialidade do método, &lt;a href=&#34;http://blog.revolutionanalytics.com/2016/06/microsoft-cognitive-services.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ver aqui&lt;/a&gt;).&lt;/p&gt;
 &lt;h4 id=&#34;analisando-os-sentimentos-dos-tweets-da-dilma&#34;&gt;Analisando os sentimentos dos tweets da Dilma&lt;/h4&gt;
 &lt;p&gt;Como mostro naquele post anterior, podemos concluir três coisas em relação aos tweets da @dilmabr publicados desde 2015: (1) ela passou a tuítar mais após o seu afastamento (mas já tuitou mais no passado); (2) seus tweets passaram a receber mais retweets e favoritadas após o afastamento; e, (3), os tweets que mencionam o termo &amp;ldquo;golpe&amp;rdquo; são mais influentes do que a média deste outro grupo (tweets pós-afastamento sem o termo &amp;ldquo;golpe&amp;rdquo;).&lt;/p&gt;
@@ -58,9 +58,9 @@ Parabéns! #Rio2016  / Score =  1
     
     <item>
       <title>Golpe ou impeachment? Uma análise dos tweets da Dilma Rousseff</title>
-      <link>https://www.fmeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
+      <link>https://www.fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</link>
       <pubDate>Fri, 12 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
+      <guid>https://www.fmeireles.com/blog/politica/golpe-impeachment-uma-analise-dos-tweets-da-dilma/</guid>
       <description>&lt;p&gt;Desde o ínicio do impeachment da agora Presidente afastada, Dilma
 Rousseff (PT), acadêmicos e articulistas discutem se este processo se
 encaixa na categoria de golpe de estado. Críticos do governo e membros

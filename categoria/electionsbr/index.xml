@@ -14,9 +14,9 @@
     
     <item>
       <title>electionsBR 0.3.1: novos dados e funcionalidades</title>
-      <link>https://www.fmeireles.com/post/rstats/electionsbr-novos-dados-e-funcionalidades/</link>
+      <link>https://www.fmeireles.com/blog/rstats/electionsbr-novos-dados-e-funcionalidades/</link>
       <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/rstats/electionsbr-novos-dados-e-funcionalidades/</guid>
+      <guid>https://www.fmeireles.com/blog/rstats/electionsbr-novos-dados-e-funcionalidades/</guid>
       <description>&lt;p&gt;Depois de alguns meses sem novidades, hoje lançamos um nova atualização
 do &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, o nosso pacote no R criado
 para extrair dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais-1/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório do
@@ -144,9 +144,9 @@ devtools::install_github(&amp;quot;silvadenisson/electionsBR&amp;quot;)
     
     <item>
       <title>electionsBR: versão 0.3.0</title>
-      <link>https://www.fmeireles.com/post/rstats/electionsbr-versao-0.3.0/</link>
+      <link>https://www.fmeireles.com/blog/rstats/electionsbr-versao-0.3.0/</link>
       <pubDate>Thu, 08 Jun 2017 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/rstats/electionsbr-versao-0.3.0/</guid>
+      <guid>https://www.fmeireles.com/blog/rstats/electionsbr-versao-0.3.0/</guid>
       <description>&lt;p&gt;O pacote do &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;R&lt;/a&gt; para baixar e limpar dados eleitorais do TSE criado pelo Denisson Silva, Beatriz Costa e eu, o &lt;a href=&#34;http://electionsbr.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, acaba de ganhar uma grande atualização, já disponível no &lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;: para a versão 0.3.0[1]. Para quem não o conhece, basicamente ele automatiza o trabalho de baixar, deszipar, tratar e limpar dados eleitorais brasileiros diretamente do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt; &amp;ndash; tudo acompanhado de extensa documentação baseada em informações oficiais. Em outras palavras, com ele é possível extrair quase todos os dados públicos de resultados eleitorais, apuração, partidos, coligações, candidaturas, de perfil dos eleitores, entre outros, diretamente pelo R, e isto em pouquíssimo tempo.&lt;/p&gt;
 &lt;p&gt;Nesta nova versão, estendemos as funcionalidades do pacote em vários pontos, mas sem comprometer a forma com que ele já funcionava. Segue, em forma de lista, as novidades do pacote.&lt;/p&gt;
 &lt;h3 id=&#34;velocidade&#34;&gt;Velocidade&lt;/h3&gt;
@@ -265,9 +265,9 @@ parties_br()
     
     <item>
       <title>electionsBR: uma nova versão (0.2.0)</title>
-      <link>https://www.fmeireles.com/post/rstats/electionsbr-uma-nova-versao/</link>
+      <link>https://www.fmeireles.com/blog/rstats/electionsbr-uma-nova-versao/</link>
       <pubDate>Tue, 13 Dec 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/rstats/electionsbr-uma-nova-versao/</guid>
+      <guid>https://www.fmeireles.com/blog/rstats/electionsbr-uma-nova-versao/</guid>
       <description>&lt;p&gt;Obter dados eleitorais no Brasil nunca foi uma tarefa das mais fáceis. Quem já precisou fazer isso provavelmente sabe o tamanho do problema: baixar diversos arquivos, deszipá-los, abrir um a um os arquivos brutos, limpar e arrumar os dados, juntar tudo, exportar, e por aí vai. Foi com isso na cabeça que o &lt;a href=&#34;http://denissonsilva.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Denisson&lt;/a&gt;, a &lt;a href=&#34;mailto:bea.s.costa@gmail.com&#34;&gt;Beatriz&lt;/a&gt; e eu lançamos, nos idos de agosto, o &lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt; - um pacote para baixar e limpar estes dados automaticamente, direto do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt;. Passado algum tempo, e depois dos diversos &lt;em&gt;feedbacks&lt;/em&gt; que recebemos, lançamos agora uma nova versão do &lt;code&gt;electionsBR&lt;/code&gt;, já disponível no CRAN[1]: a 0.2.0.&lt;/p&gt;
 &lt;p&gt;Resumidamente, além de todas as funcionalidades existentes na versão anterior (era possível baixar quase todos os dados disponíveis do TSE e armazená-los em objetos na memória no R em segundos; para saber mais sobre a versão anterior, &lt;a href=&#34;%5BelectionsBR%5D%28http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse%29&#34;&gt;clique aqui&lt;/a&gt;), ampliamos a cobertura dela com diversos reparos e acréscimos. Destes, três se destacam:&lt;/p&gt;
 &lt;ol&gt;
@@ -350,9 +350,9 @@ citation(&amp;quot;electionsBR&amp;quot;)
     
     <item>
       <title>electionsBR: Exportando dados eleitorais do R para o Stata</title>
-      <link>https://www.fmeireles.com/post/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</link>
+      <link>https://www.fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</link>
       <pubDate>Mon, 22 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</guid>
+      <guid>https://www.fmeireles.com/blog/rstats/electionsbr-exportanto-dados-eleitorais-do-r-para-o-stata-spss/</guid>
       <description>&lt;p&gt;Semana passada, o Denisson, a Bia e eu lançamos o &lt;a href=&#34;http://fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;electionsBR&lt;/a&gt;, um pacote no &lt;code&gt;R&lt;/code&gt; para baixar e limpas dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;repositório do TSE&lt;/a&gt;. Como explicamos, o pacote contém diversas funções que facilitam a obtenção destes dados, além de tornar um processo imensamente mais rápido. Mas, como algumas mensagens que recebemos de lá pra cá indicaram, algumas (talvez muitas) pessoas usam o Stata para rodar suas análises e, por isso, não se beneficiariam do pacote.&lt;/p&gt;
 &lt;p&gt;Neste post, farei um pequeno tutorial de como baixar e exportar estes dados do &lt;code&gt;R&lt;/code&gt; para o Stata. Não é necessário muito conhecimento de &lt;code&gt;R&lt;/code&gt; para segui-lo. Na verdade, o procedimento é tão simples que pode ser resumido em três etapas:&lt;/p&gt;
 &lt;ul&gt;
@@ -393,9 +393,9 @@ write.dta(dados, file = &amp;quot;outro_nome&amp;quot;)
     
     <item>
       <title>electionsBR: analisando a apuração das eleições para a Câmara dos Deputados</title>
-      <link>https://www.fmeireles.com/post/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</link>
+      <link>https://www.fmeireles.com/blog/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</link>
       <pubDate>Fri, 19 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</guid>
+      <guid>https://www.fmeireles.com/blog/rstats/electionsbr-analisando-a-apuracao-das-eleicoes-para-a-camara-dos-deputados/</guid>
       <description>&lt;p&gt;Usando o nosso pacote no &lt;code&gt;R&lt;/code&gt; para baixar e limpar dados eleitorais do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE&lt;/a&gt;, desenvolvimento conjuntamente pelo &lt;a href=&#34;http://denissonsilva.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Denisson Silva&lt;/a&gt;, Beatriz Costa e eu, vou mostrar aqui como é possível obter e analisar os resultados de apuração das eleições para a Câmara dos Deputados desde 1998 (o período disponível, por causa de limitações nos dados do &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;TSE&lt;/a&gt;, vai de 98 a 2014 &amp;ndash; mas pretendemos expandir ele no futuro) desagregados por município/zona eleitoral.&lt;/p&gt;
 &lt;h3 id=&#34;baixando-os-dados-de-apuração-das-eleições-federais&#34;&gt;Baixando os dados de apuração das eleições federais&lt;/h3&gt;
 &lt;p&gt;Como o pacote está no &lt;a href=&#34;https://cran.r-project.org/web/packages/electionsBR/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, a primeira coisa que precisamos fazer é instalá-lo via console:&lt;/p&gt;
@@ -492,9 +492,9 @@ ggplot(dados, aes(x = QTD_ABSTENCOES, y = QTD_COMPARECIMENTO)) + geom_point() +
     
     <item>
       <title>electionsBR: um pacote no R para baixar e limpar dados eleitorais do TSE</title>
-      <link>https://www.fmeireles.com/post/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</link>
+      <link>https://www.fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</link>
       <pubDate>Thu, 18 Aug 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</guid>
+      <guid>https://www.fmeireles.com/blog/rstats/electionsbr-um-pacote-para-baixar-dados-eleitorais-do-tse/</guid>
       <description>&lt;p&gt;Nosso pacote para baixar e limpar dados eleitorais do website do TSE, desenvolvido conjuntamente por Denisson Silva, Beatriz Costa e eu, foi publicado no &lt;a href=&#34;https://cran.r-project.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Comprehensive R Archive Network (CRAN)&lt;/a&gt;: o &lt;code&gt;electionsBR&lt;/code&gt;. Basicamente, ele contém uma série de funções para extrair e limpar a maioria dos dados disponíveis no &lt;a href=&#34;http://www.tse.jus.br/eleicoes/estatisticas/repositorio-de-dados-eleitorais&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Repositório de Dados Eleitorais do TSE&lt;/a&gt;, deixando-os prontos para uso.&lt;/p&gt;
 &lt;p&gt;O &lt;code&gt;electionsBR&lt;/code&gt; vem para facilitar a vida de quem trabalha ou precisa consultar estes dados do TSE de duas formas. Primeiro, ele fornece um conjunto de funções para baixar a maioria dos dados do TSE, que são então armazenados diretamente num objeto na memória do &lt;code&gt;R&lt;/code&gt; &amp;ndash; sem a necessidade de abrir o website do TSE, deszipar, ler e limpar cada um dos arquivos individuais. Segundo, ele faz isso em poucos segundos e, além disso, já lida com os principais problemas nas bases do TSE: como é notório entre os usuários do Repositório, os arquivos do TSE frequentemente vêm com problemas de enconding (i.e. acentos tornam-se caracteres inelegíveis), incompatibilidade entre arquivos (i.e. mais ou menos variáveis, células vazias) e informações mal formatadas (i.e. variáveis numéricas contêm caracteres não-numéricos).Com ele, portanto, é possível baixar rapidamente, e sem problemas, os principais dados eleitorais do TSE.&lt;/p&gt;
 &lt;h3 id=&#34;usando-o-pacote&#34;&gt;Usando o pacote&lt;/h3&gt;

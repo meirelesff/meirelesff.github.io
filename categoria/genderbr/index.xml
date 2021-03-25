@@ -14,9 +14,9 @@
     
     <item>
       <title>Predizendo sexo a partir de nomes próprios com o genderBR</title>
-      <link>https://www.fmeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</link>
+      <link>https://www.fmeireles.com/blog/rstats/predizendo-sexo-nomes-proprios-genderbr/</link>
       <pubDate>Thu, 19 Apr 2018 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/rstats/predizendo-sexo-nomes-proprios-genderbr/</guid>
+      <guid>https://www.fmeireles.com/blog/rstats/predizendo-sexo-nomes-proprios-genderbr/</guid>
       <description>&lt;p&gt;Para quem trabalha com bases de dados públicas, não é incomum encontrar
 o seguinte problema: ter disponível em alguma coluna o nome de várias
 pessoas, mas não a informação sobre o sexo delas. Para lidar com esse
@@ -228,9 +228,9 @@ qualquer forma, podem ser encontrados aqui.&lt;/p&gt;
     
     <item>
       <title>genderBR: predizendo sexo a partir de nomes próprios</title>
-      <link>https://www.fmeireles.com/post/rstats/genderbr-predizer-sexo/</link>
+      <link>https://www.fmeireles.com/blog/rstats/genderbr-predizer-sexo/</link>
       <pubDate>Tue, 05 Sep 2017 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/rstats/genderbr-predizer-sexo/</guid>
+      <guid>https://www.fmeireles.com/blog/rstats/genderbr-predizer-sexo/</guid>
       <description>&lt;p&gt;Várias questões importantes nas Ciências Sociais estão ligadas ao sexo das pessoas. Se quisermos saber se mulheres recebem menores salários, se estão sub-representadas na política, se sofrem mais com as violências urbana e doméstica, entre outros, precisamos identificar o sexo das pessoas que investigamos. Entretanto, esse dado nem sempre é fácil de obter: vários bancos usados para responder às perguntas acima não contêm informações sobre o sexo das pessoas estudadas &amp;ndash; embora alguns destes contenham outras que podem ser usada para inferir seus sexos.&lt;/p&gt;
 &lt;p&gt;O pacote &lt;code&gt;genderBR&lt;/code&gt; para o &lt;code&gt;R&lt;/code&gt;, que acabou de ser publicado no &lt;a href=&#34;https://cran.r-project.org/package=genderBR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt;, serve para isso: ele usa uma informação relativamente simples de obter &amp;ndash; nome próprio &amp;ndash; e, a partir dela, prediz o sexo de uma pessoa com dados do &lt;a href=&#34;http://censo2010.ibge.gov.br/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Censo de 2010 realizado pelo IBGE&lt;/a&gt;. Se o nome João, por exemplo, é usado majoritariamente por individuos do sexo masculino no Brasil, temos alguma confiança em dizer que outro brasileiro qualquer com o mesmo nome provavelmente também seja do sexo masculino. Entre outras vantagens, este método é replicável, baseado em dados públicos e, o que é mais importante, muito mais rápido do que qualquer classificação manual de sexos a partir de nomes próprios. O passo-a-passo a seguir exemplifica isso.&lt;/p&gt;
 &lt;h2 id=&#34;como-instalar&#34;&gt;Como instalar&lt;/h2&gt;

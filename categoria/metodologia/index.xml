@@ -14,9 +14,9 @@
     
     <item>
       <title>Estimando regressões logísticas no R (com razão de chance)</title>
-      <link>https://www.fmeireles.com/post/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</link>
+      <link>https://www.fmeireles.com/blog/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</link>
       <pubDate>Fri, 09 Sep 2016 00:00:00 +0000</pubDate>
-      <guid>https://www.fmeireles.com/post/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</guid>
+      <guid>https://www.fmeireles.com/blog/rstats/estimando-regressoes-logisticas-no-r-com-razao-de-chance/</guid>
       <description>&lt;p&gt;Uma das coisas que dá dor de cabeça a usuários do Stata que migram para o &lt;code&gt;R&lt;/code&gt; é a estimação de modelos estatísticos. Como o Stata já oferece, de forma simples, diversos modelos e opções para alterar as suas especificações, a migração para o &lt;code&gt;R&lt;/code&gt; pode ser frustrante neste aspecto: muitas coisas simples no Stata, como incluir erros-padrão robustos ou efeitos fixos, geralmente demandam mais linhas de código (e chamada a vários pacotes) no &lt;code&gt;R&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Neste post, vou iniciar um pequeno guia para estimar &lt;a href=&#34;https://pt.wikipedia.org/wiki/Regress%C3%A3o_log%C3%ADstica&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;regressões logísticas&lt;/a&gt; no &lt;code&gt;R&lt;/code&gt;. O procedimento básico é bastante simples, como se poderá ver, mas alguns detalhes, como converter os coeficientes para &lt;a href=&#34;https://pt.wikipedia.org/wiki/Raz%C3%A3o_de_possibilidades&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;razão de chance&lt;/a&gt;, envolvem algumas manhas adicionais.&lt;/p&gt;
 &lt;h4 id=&#34;estimando-modelos-logísticos-explorando-dados-do-titanic&#34;&gt;Estimando modelos logísticos: explorando dados do Titanic&lt;/h4&gt;

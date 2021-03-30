@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Denisson Silva | Fernando Meireles</title>
+    <link>https://www.fmeireles.com/autor/denisson-silva/</link>
+      <atom:link href="https://www.fmeireles.com/autor/denisson-silva/index.xml" rel="self" type="application/rss+xml" />
+    <description>Denisson Silva</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Tue, 01 Jan 2019 00:00:00 -0200</lastBuildDate>
+    <image>
+      <url>https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <title>Denisson Silva</title>
+      <link>https://www.fmeireles.com/autor/denisson-silva/</link>
+    </image>
+    
+    <item>
+      <title>Usando R: Um Guia Para Cientistas Políticos</title>
+      <link>https://www.fmeireles.com/publication/livro-r-cientistas-politicos/</link>
+      <pubDate>Tue, 01 Jan 2019 00:00:00 -0200</pubDate>
+      <guid>https://www.fmeireles.com/publication/livro-r-cientistas-politicos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Simulações de Monte Carlo no Ensino de Ciência Política</title>
+      <link>https://www.fmeireles.com/publication/monte-carlo-ciencia-politica/</link>
+      <pubDate>Mon, 01 May 2017 00:00:00 -0300</pubDate>
+      <guid>https://www.fmeireles.com/publication/monte-carlo-ciencia-politica/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ciência Política na era do Big Data: automação na coleta de dados digitais</title>
+      <link>https://www.fmeireles.com/publication/ciencia-politica-big-data/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:00 -0200</pubDate>
+      <guid>https://www.fmeireles.com/publication/ciencia-politica-big-data/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

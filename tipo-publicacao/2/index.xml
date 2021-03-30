@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Publications | Fernando Meireles</title>
-    <link>https://www.fmeireles.com/publication/</link>
-      <atom:link href="https://www.fmeireles.com/publication/index.xml" rel="self" type="application/rss+xml" />
-    <description>Publications</description>
+    <title>2 | Fernando Meireles</title>
+    <link>https://www.fmeireles.com/tipo-publicacao/2/</link>
+      <atom:link href="https://www.fmeireles.com/tipo-publicacao/2/index.xml" rel="self" type="application/rss+xml" />
+    <description>2</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Tue, 01 Jan 2019 00:00:00 -0200</lastBuildDate>
     <image>
       <url>https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
-      <title>Publications</title>
-      <link>https://www.fmeireles.com/publication/</link>
+      <title>2</title>
+      <link>https://www.fmeireles.com/tipo-publicacao/2/</link>
     </image>
     
     <item>
@@ -21,34 +21,10 @@
     </item>
     
     <item>
-      <title>Legislative Representation in a Multilevel System: The Case of Brazil</title>
-      <link>https://www.fmeireles.com/publication/legislative-representation-brazil/</link>
-      <pubDate>Tue, 01 Jan 2019 00:00:00 -0200</pubDate>
-      <guid>https://www.fmeireles.com/publication/legislative-representation-brazil/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Partisan alignment and requests for federal transfers in Brazil</title>
       <link>https://www.fmeireles.com/publication/alinhamento-partidario-demanda/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 -0200</pubDate>
       <guid>https://www.fmeireles.com/publication/alinhamento-partidario-demanda/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Usando R: Um Guia Para Cientistas Políticos</title>
-      <link>https://www.fmeireles.com/publication/livro-r-cientistas-politicos/</link>
-      <pubDate>Tue, 01 Jan 2019 00:00:00 -0200</pubDate>
-      <guid>https://www.fmeireles.com/publication/livro-r-cientistas-politicos/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>The Distributive Politics of Cabinet Ministers</title>
-      <link>https://www.fmeireles.com/publication/distributive-politics-cabinet/</link>
-      <pubDate>Sun, 01 Jul 2018 00:00:00 -0300</pubDate>
-      <guid>https://www.fmeireles.com/publication/distributive-politics-cabinet/</guid>
       <description></description>
     </item>
     
@@ -73,22 +49,6 @@
       <link>https://www.fmeireles.com/publication/oversized-coalitions-latin-america/</link>
       <pubDate>Fri, 01 Jan 2016 00:00:00 -0200</pubDate>
       <guid>https://www.fmeireles.com/publication/oversized-coalitions-latin-america/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>A Política Distributiva da Coalizão</title>
-      <link>https://www.fmeireles.com/publication/politica-distributiva-coalizao-tese/</link>
-      <pubDate>Tue, 01 Dec 2015 00:00:00 -0200</pubDate>
-      <guid>https://www.fmeireles.com/publication/politica-distributiva-coalizao-tese/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Coalizões governamentais sobredimensionadas na América Latina, 1979-2012</title>
-      <link>https://www.fmeireles.com/publication/coalizoes-sobredimensionadas/</link>
-      <pubDate>Tue, 01 Dec 2015 00:00:00 -0200</pubDate>
-      <guid>https://www.fmeireles.com/publication/coalizoes-sobredimensionadas/</guid>
       <description></description>
     </item>
     

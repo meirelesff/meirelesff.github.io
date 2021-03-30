@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Filipe Correa | Fernando Meireles</title>
+    <link>https://www.fmeireles.com/autor/filipe-correa/</link>
+      <atom:link href="https://www.fmeireles.com/autor/filipe-correa/index.xml" rel="self" type="application/rss+xml" />
+    <description>Filipe Correa</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>pt</language><lastBuildDate>Mon, 01 May 2017 00:00:00 -0300</lastBuildDate>
+    <image>
+      <url>https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png</url>
+      <title>Filipe Correa</title>
+      <link>https://www.fmeireles.com/autor/filipe-correa/</link>
+    </image>
+    
+    <item>
+      <title>Simulações de Monte Carlo no Ensino de Ciência Política</title>
+      <link>https://www.fmeireles.com/publication/monte-carlo-ciencia-politica/</link>
+      <pubDate>Mon, 01 May 2017 00:00:00 -0300</pubDate>
+      <guid>https://www.fmeireles.com/publication/monte-carlo-ciencia-politica/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

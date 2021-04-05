@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Pesquisas de opinião na pandemia</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles" />
+    <script src="slides_files/header-attrs-2.7/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Pesquisas de opinião na pandemia
+## Modo de entrevista e erros não-amostrais em 2020
+### Fernando Meireles
+### <div class="line-block"><small>Pós-Doutorando em Ciência Política (UFMG)</small><br> <a href="https://fmeireles.com"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"></path></svg></a> <a href="https://twitter.com/meirelesff"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a> <a href="mailto:fmeireles@ufmg.br"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg></a></div>
+
+---
+
+
+
+
+
+
+
+# Pesquisas na pandemia
+
+&lt;br&gt;
+&lt;br&gt;
+O fato novo: `pesquisas de opinião` em formato remoto (`CATI`, `IVR`, `painel digital`, entre outros) tornaram-se o modo de coleta dominante depois da pandemia
+
+
+---
+# Desempenho irregular
+
+.left-column[
+**Erros**
+
+Institutos são crescentemente alvos de críticas
+
+]
+
+--
+
+.right-column[
+
+- Dilma Rousseff em 2018;
+
+- Manuela vs. Sebastião Melo, Porto Alegre;
+
+- Estimativas díspares da popularidade de Bolsonaro (Datafolha vs. Atlas);
+
+]
+
+
+---
+# Meu ponto
+
+A evidência sobre o que funciona ou não em pesquisas de opinião no Brasil é absolutamente escassa.
+
+
+---
+# O que mostro
+
+
+- 1) Até onde é possível verificar, nossas pesquisas não têm tido bom retrospecto;
+
+- 2) Mesmo sem consenso sobre seu *status*, pesquisas remotas foram tão bem quanto as F2F em 2020.
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Modos
+
+
+---
+# Survey total error
+
+.texto[AAS]
+
+.pull-left[
+Se cada pessoa numa população tem a mesma chance de ser recrutada, a teoria quantifica adequadamente erros amostrais (nível de confiança e margem de erro)
+]
+
+--
+
+.pull-right[
+— Implementações desviam do ideal por desvios do *frame*, não-resposta, restrições de orçamento e de tempo, *question wordings*, *shifting attitudes*, entre outros
+]
+
+
+---
+# F2F
+
+.texto[Cotas e locais]
+
+.pull-left[
+No formato mais comums, variáveis demográficas de censos ou pesquisas de *survey* domiciliares são utilizadas para gerar desenhos amostrais estratificados por cotas
+]
+
+--
+
+.pull-right[
+No modelo `Datafolha`, municípios ou bairros são sorteados por PPT e entrevistadores abordam transeuntes ativamente; no modelo `Ibope`, entrevistas são delimitadas geograficamente
+]
+
+
+---
+# Transição de modo
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Transição de modo
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Alternativas
+
+.left-column[
+**Variações**
+
+Há um conjunto de alternativas de coleta remota
+
+]
+
+--
+
+.right-column[
+
+- CATI (com ou sem RDD);
+
+- IVR (ou URA);
+
+- Online (painel digital);
+
+- WhatsApp/SMS; etc.;
+]
+
+
+---
+# Trade-offs
+
+.texto[Telefônico]
+
+- Cobertura não é 100% (mas é quase);
+
+- Taxa de não-respostas tendem a ser altas (Keeter, Hatley, Kennedy, et al., 2017);
+
+- Erro de mensuração são mais comuns, especialmente em questionários longos (e.g., Holbrook, Green, and Krosnick, 2003).
+
+
+---
+count:false
+# Trade-offs
+
+.texto[F2F]
+
+- Cobertura também não é 100% (e.g., condômínios e áreas controladas);
+
+- Social desirability bias (Kreuter, Presser, and Tourangeau, 2008);
+
+- Defasagem das fontes de dados utilizadas para gerar desenhos.
+]
+
+
+
+---
+# Adaptação
+
+
+.pull-left[
+Em tese, é possível ter pesquisas precisas, com erros dentro do previsto, com qualquer modo (e.g.Ansolabehere and Schaffner, 2014)
+]
+
+--
+
+.pull-right[
+
+Há que se levar em conta também:
+
+- Abstenção eleitoral;
+
+- *Shifting attitudes*;
+
+- Falta de evidência.
+]
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Pesquisas Eleitorais
+
+
+
+---
+# Pesquisas
+
+O TSE disponibiliza informaçõe de todas as pesquisas eleitorais registradas desde 2012, um universo de `34119` pesquisas (com múltiplos cenários).
+
+--
+
+.pull-left[
+
+Coletei as pesquisas da [API do Poder360](https://www.poder360.com.br/banco-de-dados/), desenvolvida pelo [Volt Data Lab](https://voltdata.info/projetos/agregador/), pareando-as por número de registro
+]
+
+
+.pull-right[
+
+Retive `1281` pesquisas estimuladas com campos até 60 dias antes de 1º ou 2º turnos
+
+]
+
+
+---
+count:false
+# Pesquisas
+
+Como alternativa, usei a base de pesquisas do [Pindograma](https://pindograma.com.br/2020/09/07/ranking.html). A base também foi pareada por número de registro. Dali, retive `5490` pesquisas.
+
+
+---
+count:false
+# Pesquisas
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Votos e estimativas
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+# Mensuração
+
+Para cada candidatura `\(i\)` numa eleição com `\(N\)` chapas, o erro médio (e.g., El-Dash, 2010) é:
+
+`$$ME = \frac{1}{N} \sum_{i=1}^{N} (estimativa_{i} - votos_{i})$$`
+
+
+---
+count:false
+# Mensuração
+
+
+E o RMSE (e.g., Shirani-Mehr, Rothschild, Goel, et al., 2018) é:
+
+`$$RMSE = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (estimativa_{i} - votos_{i})^2}$$`
+
+
+---
+# Desempenho
+
+&lt;br&gt;
+
+
+|Base       | Erro médio|
+|:----------|----------:|
+|Poder 360  |       6.07|
+|Pindograma |       5.40|
+
+
+---
+count:false
+# Desempenho
+
+&lt;br&gt;
+
+
+|Base       | Erro médio| RMSE|
+|:----------|----------:|----:|
+|Poder 360  |       6.07| 6.72|
+|Pindograma |       5.40| 5.35|
+
+
+---
+count:false
+# Desempenho
+
+&lt;br&gt;
+
+
+|Base       | Erro médio| RMSE| Margem|
+|:----------|----------:|----:|------:|
+|Poder 360  |       6.07| 6.72|  13.17|
+|Pindograma |       5.40| 5.35|  10.48|
+
+
+---
+# Modo de coleta
+
+Em todos os pleitos, nas duas bases, o retrospecto do telefônico é melhor do que o de pesquisas F2F.
+
+
+|Base       |F2F |Online |Telefônica |
+|:----------|:---|:------|:----------|
+|Pindograma |5.4 |0.6    |4.4        |
+|Poder360   |6.9 |-      |5.4        |
+
+
+---
+# Modo de coleta
+
+Em 2020, o mesmo permaneceu verdadeiro.
+
+
+|Base       |F2F |Telefônica |
+|:----------|:---|:----------|
+|Pindograma |6.6 |4.2        |
+|Poder360   |7.3 |4.6        |
+
+
+
+
+---
+# Margem de erro
+
+O erro médio dos *surveys* é, portanto, `mais de 3x maior` do que o reportado, em média, pelos institutos.
+
+--
+
+Parte disso obviamente decorre de 1) efeitos de seleção (i.e., pesquisas que entram na amostra) e, 2), de *design effects*, normalmente não incorporados na margem de erro pelos institutos.
+
+--
+
+Ainda assim, o desvio é considerável. Nos EUA, a margens médias reais são de cerca de 7pp (e.g., Shirani-Mehr, Rothschild, Goel, et al., 2018).
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Aprovação
+
+
+
+---
+# Caso: Bolsonaro
+
+O *pool of polls* de (Jackman, 2005) modela aprovação (ou outra quantia latente) como um `random walk` ditado pela aprovação anterior mais um pequeno choque
+
+`\(\alpha_t \sim \mathcal{N}(\alpha_{t-1}, 0.0025)\)`
+
+com cada estimativa sendo modelada como `\(estimativa_i \sim \mathcal{N}(\mu, \delta_{i}^2)\)`
+
+e com `\(\alpha_i\)` sendo inicializado a partir de uma distribuição uniforme informativa. Uma *chain* com 3000 iterações com Stan para ilustrar.
+
+
+
+---
+# A visão geral
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# As diferenças
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Implicações
+
+
+
+---
+# Estudo
+
+.pull-left[
+Evidentemente, são necessários estudos para examinar o que afeta as taxas de erros das pesquisas de opinião no Brasil
+]
+
+.pull-right[
+- Boa parte das práticas adotadas não são documentadas;
+
+- Também não temos *benchmarks* consolidados de desempenho.
+]
+
+
+---
+# Ajustes
+
+.pull-left[
+Não há evidência de que modos remotos de coleta são piores do que F2F
+]
+
+.pull-right[
+O que resta nítido é que há pouco debate e transparência sobre procedimentos adotados, e que cada modo tem seus pros e cons
+]
+
+
+---
+# Opinião pública
+
+De resto, resultados de *survey* são muito importantes para serem ignorados.
+
+--
+
+O debate sobre a taxa de aprovação de Bolsonaro é um exemplo evidente disso.
+
+
+
+---
+# Referências I
+
+.font70[
+Ansolabehere, S. and B. F. Schaffner (2014). "Does survey mode still matter? Findings from a 2010
+multi-mode comparison". In: _Political Analysis_, pp. 285-303.
+
+El-Dash, N. A. (2010). "Avaliaçao metodológica das pesquisas eleitorais brasileiras".
+
+Holbrook, A. L., M. C. Green, and J. A. Krosnick (2003). "Telephone versus face-to-face interviewing of
+national probability samples with long questionnaires: Comparisons of respondent satisficing and social
+desirability response bias". In: _Public opinion quarterly_ 67.1, pp. 79-125.
+
+Jackman, S. (2005). "Pooling the polls over an election campaign". In: _Australian Journal of Political
+Science_ 40.4, pp. 499-517.
+
+Keeter, S., N. Hatley, C. Kennedy, et al. (2017). "What low response rates mean for telephone surveys". In:
+_Pew Research Center_ 15, pp. 1-39.
+]
+
+---
+# Referências II
+
+.font70[
+Kreuter, F., S. Presser, and R. Tourangeau (2008). "Social desirability bias in cati, ivr, and web
+surveysthe effects of mode and question sensitivity". In: _Public opinion quarterly_ 72.5, pp. 847-865.
+
+Shirani-Mehr, H., D. Rothschild, S. Goel, et al. (2018). "Disentangling bias and variance in election
+polls". In: _Journal of the American Statistical Association_ 113.522, pp. 607-614.
+]
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>`"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

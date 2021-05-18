@@ -150,6 +150,17 @@ Defaults to <code>TRUE</code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code>show_schema()</code> is most usefull for its side effect of downloading,
+when needed, and opening Plataforma +Brasil's documentation, but is also silently
+returns a string containing the path to the docs' index file.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p><code>show_schema()</code> needs an internet connection to download data in case it
+does not found a cache folder with the docs from a previous request. Be aware that instability
+in the Plataforma +Brasil server might produce error messagens, in which case users
+should try waiting before rerunning the function.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='fu'>show_schema</span><span class='op'>(</span><span class='op'>)</span>

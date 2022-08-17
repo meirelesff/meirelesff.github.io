@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Apresentação</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles" />
+    <script src="slides_files/header-attrs-2.14/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Apresentação
+## Ciência de Dados de Aprendizado de Máquina em Ciência Política
+### Fernando Meireles
+### <div class="line-block"><small>Cebrap</small></div>
+
+---
+
+
+
+
+
+
+
+# Motivação
+
+&lt;br&gt;
+.font110[
+Por que estudar `aprendizado de máquina` na Ciência Política?
+]
+
+
+
+---
+# As eleições de 2018
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# O papel das redes
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# O papel das redes
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:true
+# Mensurando *popularidade* nas redes
+
+.left-column[
+Criamos o `IPDv2`, um índice que usa aprendizado não-supervisionado pra estimar movimentos nas redes
+]
+
+.right-column[
+{{content}}
+]
+
+--
+
+- São extraídos dados de diferentes fontes, como `Facebook`, `YouTube`, `Google` e `Google News`
+
+{{content}}
+
+
+--
+
+- Com uma análise de *cluster* inicial, são agrupadas variáveis brutas e processadas em torno de `dimensões`
+
+{{content}}
+
+
+--
+
+- Das dimensões, uma técnica de redução de dimensionalidade é utilizada pra extrair um `componente latente` que resume a variação nos dados
+
+
+
+---
+count:true
+# Mensurando popularidade nas redes
+
+![ipdsp](imgs/ipd2sp.png)
+
+
+---
+count:false
+# Mensurando popularidade nas redes
+
+
+![ipdsp](imgs/ipd2mg.png)
+
+
+
+---
+count:true
+# *Aplicações*
+
+Outros exemplos:
+
+- Descobrir fraudes em cédulas de votação;
+
+- Estimar ideologia a partir de dados de gasto de campanha;
+
+- Classificar imagens de satélite;
+
+- Criar modelos flexíveis de MrP;
+
+- Entre inúmeros outros.
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Meetings and Greetings
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Logística &amp; Dinâmica
+
+
+---
+# Aulas
+
+.pull-left[
+.texto[Datas]
+- Aulas nas quartas-feiras, das 14h às 18h
+- Sala 122
+]
+
+.pull-right[
+.texto[Materiais e contato]
+- [meirelesff@hotmail.com](mailto:meirelesff@hotmail.com)
+- [fmeireles.com/materiais](fmeireles.com/materiais)
+]
+
+
+---
+# Conteúdo
+
+Teremos uma panorama geral de tipos de aprendizado e quantias de interesse, mas vamos nos especializar na classe de problemas mais comuns e diversa que envolve `predição` (e um pouco de `descoberta`)
+
+&gt; Nosso foco será `aprendizado de máquina` e, dentro dessa área, `aprendizado supervisionado`
+
+
+---
+# Tópicos
+
+- .texto[I] Programação intermediária
+
+- .texto[II] Predição e aprendizado de máquina
+
+- .texto[III] Regressão e classificação
+
+- .texto[IV] Ensemble
+
+- .texto[V] Pipelines (validação, *engineering*, *tuning*)
+
+- .texto[VI] Introdução ao *deep learning*
+
+
+---
+# Dinâmica
+
+.pull-left[Nossas aulas terão breves introduções expositivas seguidas de sessões práticas]
+
+.pull-right[Trabalharemos em duplas e é esperado que alunos e alunas procurem em conjunto soluções para os problemas]
+
+
+
+---
+# *Pair programming*
+
+
+Para facilitar o trabalho, trabalharemos em duplas (e, se necessário, trios ou solos). Recomendações:
+
+.pull-left[
+.font90[
+- Escolham duplas por afinidade temática
+- Escolham duplas que usem a mesma linguagem de programação
+- Pessoas com maior conhecimento devem procurar ajudar as demais
+]
+]
+
+.pull-right[
+.font90[
+- Priorizem uma pessoa escrever código e a outra revisá-lo (mas alternem os papéis)
+- Usem um único repositório do `Github` (permitam colaboração)
+- Já pensem em ideias de trabalho final
+]
+]
+
+
+
+---
+# Avaliação
+
+Três momentos avaliativos:
+
+- Exercícios em cada aula (deverão ser entregues até a aula subsequente) (*15%*)
+
+- Projetos (*35%*)
+  - Criar um modelo de MrP
+  - Classificar imagens de satélite
+
+- Paper final (*50%*)
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Dúvidas?
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Tarefas
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>`"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

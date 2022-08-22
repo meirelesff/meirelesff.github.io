@@ -288,9 +288,9 @@ Ementa
 <section id="projetos-35" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="projetos-35">Projetos (<em>35%</em>)</h3>
 <p>Também teremos dois pequenos projetos que deverão ser entregues individualmente no formato de <em>notebooks</em> (feitos com <a href="https://rmarkdown.rstudio.com/">Rmarkdown</a> ou <a href="https://jupyter.org/">Jupyter</a>). A ideia é que ambos os desafios não apenas testem conhecimentos, mas, também, ofereçam ideias de uso de aprendizado de máquina para pesquisas em Ciência Política. Nestes, a avaliação levará em conta a capacidade de aplicar o conhecimento visto ao longo do curso e a capacidade de cumprir os objetivos propostos.</p>
-<section id="projeto-1-modelo-data-driven-de-mrp-15" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="projeto-1-modelo-data-driven-de-mrp-15">Projeto 1 – Modelo <em>data-driven</em> de MrP (<em>15%</em>)</h4>
-<p>No primeiro projeto, o objetivo será treinar um modelo a partir de dados de <em>survey</em> para predizer votos em candidaturas às eleições presidenciais e, com ele, projetar as estimativas de votos em dados da <a href="https://www.ibge.gov.br/estatisticas/sociais/trabalho/9171-pesquisa-nacional-por-amostra-de-domicilios-continua-mensal.html?=&amp;t=destaques">PNADc</a>. O produto final deverá ser um modelo de MrP que use aprendizado de máquina.</p>
+<section id="projeto-1-classificador-de-discursos-presidenciais-15" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="projeto-1-classificador-de-discursos-presidenciais-15">Projeto 1 – Classificador de discursos presidenciais (<em>15%</em>)</h4>
+<p>No primeiro projeto, o objetivo será treinar um modelo de classificação de textos para identificar a autoria de uma amostra de discursos presidenciais no Brasil. Para tanto, será necessário pré-processar textos, transformá-los em <em>bag of words</em> e, finalmente, selecionar modelos mais adequados. Com o trabalho, deverá ser possível derivar probabilidades de um dado discurso ter sido proferido por cada um e cada uma dos presidentes brasileiros incluídos na amostra.</p>
 </section>
 <section id="projeto-2-classificador-de-imagens-de-satélite-20" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="projeto-2-classificador-de-imagens-de-satélite-20">Projeto 2 – Classificador de imagens de satélite (<em>20%</em>)</h4>
@@ -354,24 +354,8 @@ Ementa
 </ul></li>
 </ul>
 </section>
-<section id="aula-3-aprendizado-supervisionado-regressão" class="level4">
-<h4 class="anchored" data-anchor-id="aula-3-aprendizado-supervisionado-regressão">Aula 3 – Aprendizado Supervisionado: Regressão</h4>
-<ul>
-<li>Leituras:
-<ul>
-<li>ITSL, Cap. 3</li>
-<li>HML, Cap. 2 (para <code>Python</code>)</li>
-<li>MLR3, Cap. 2 (para <code>R</code>)</li>
-</ul></li>
-<li>Leituras sugeridas:
-<ul>
-<li><span class="citation" data-cites="li2016seat">Li e Shugart (<a href="#ref-li2016seat" role="doc-biblioref">2016</a>)</span></li>
-<li><span class="citation" data-cites="erikson2021forecasting">Erikson e Wlezien (<a href="#ref-erikson2021forecasting" role="doc-biblioref">2021</a>)</span></li>
-</ul></li>
-</ul>
-</section>
-<section id="aula-4-aprendizado-supervisionado-classificação" class="level4">
-<h4 class="anchored" data-anchor-id="aula-4-aprendizado-supervisionado-classificação">Aula 4 – Aprendizado Supervisionado: Classificação</h4>
+<section id="aula-3-aprendizado-supervisionado-classificação" class="level4">
+<h4 class="anchored" data-anchor-id="aula-3-aprendizado-supervisionado-classificação">Aula 3 – Aprendizado Supervisionado: Classificação</h4>
 <ul>
 <li>Leituras:
 <ul>
@@ -384,12 +368,30 @@ Ementa
 </ul></li>
 </ul>
 </section>
-<section id="aula-5-aprendizado-supervisionado-modelos-lineares" class="level4">
-<h4 class="anchored" data-anchor-id="aula-5-aprendizado-supervisionado-modelos-lineares">Aula 5 – Aprendizado Supervisionado: Modelos Lineares</h4>
+<section id="aula-4-aprendizado-supervisionado-modelos-lineares" class="level4">
+<h4 class="anchored" data-anchor-id="aula-4-aprendizado-supervisionado-modelos-lineares">Aula 4 – Aprendizado Supervisionado: Modelos Lineares</h4>
 <ul>
 <li>Leituras:
 <ul>
+<li>ITSL, Cap. 3</li>
+<li>HML, Cap. 2 (para <code>Python</code>)</li>
+<li>MLR3, Cap. 2 (para <code>R</code>)</li>
 <li>ITSL, Cap. 6</li>
+</ul></li>
+<li>Leituras sugeridas:
+<ul>
+<li><span class="citation" data-cites="li2016seat">Li e Shugart (<a href="#ref-li2016seat" role="doc-biblioref">2016</a>)</span></li>
+<li><span class="citation" data-cites="erikson2021forecasting">Erikson e Wlezien (<a href="#ref-erikson2021forecasting" role="doc-biblioref">2021</a>)</span></li>
+</ul>
+<h4 id="aula-5-aprendizado-supervisionado-text-as-data" class="anchored">Aula 5 – Aprendizado Supervisionado: Text as Data</h4></li>
+<li>Leituras:
+<ul>
+<li>…</li>
+</ul></li>
+<li>Leituras sugeridas:
+<ul>
+<li><span class="citation" data-cites="barbera2021automated">Barberá et al. (<a href="#ref-barbera2021automated" role="doc-biblioref">2021</a>)</span></li>
+<li><span class="citation" data-cites="erlich2021multi">Erlich et al. (<a href="#ref-erlich2021multi" role="doc-biblioref">2021</a>)</span></li>
 </ul></li>
 </ul>
 </section>
@@ -484,6 +486,9 @@ Ementa
 <div id="ref-athey2019machine" class="csl-entry" role="doc-biblioentry">
 Athey, Susan, e Guido W Imbens. 2019. <span>«Machine learning methods that economists should know about»</span>. <em>Annual Review of Economics</em> 11: 685–725.
 </div>
+<div id="ref-barbera2021automated" class="csl-entry" role="doc-biblioentry">
+Barberá, Pablo, Amber E Boydstun, Suzanna Linn, Ryan McMahon, e Jonathan Nagler. 2021. <span>«Automated text classification of news articles: A practical guide»</span>. <em>Political Analysis</em> 29 (1): 19–42.
+</div>
 <div id="ref-broniecki2022improved" class="csl-entry" role="doc-biblioentry">
 Broniecki, Philipp, Lucas Leemann, e Reto Wüest. 2022. <span>«Improved Multilevel Regression with Poststratification through Machine Learning (autoMrP)»</span>. <em>The Journal of Politics</em> 84 (1): 000–000.
 </div>
@@ -501,6 +506,9 @@ Denny, Matthew J, e Arthur Spirling. 2018. <span>«Text preprocessing for unsupe
 </div>
 <div id="ref-erikson2021forecasting" class="csl-entry" role="doc-biblioentry">
 Erikson, Robert S, e Christopher Wlezien. 2021. <span>«Forecasting the 2020 presidential election: Leading economic indicators, polls, and the vote»</span>. <em>PS: Political Science &amp; Politics</em> 54 (1): 55–58.
+</div>
+<div id="ref-erlich2021multi" class="csl-entry" role="doc-biblioentry">
+Erlich, Aaron, Stefano G Dantas, Benjamin E Bagozzi, Daniel Berliner, e Brian Palmer-Rubin. 2021. <span>«Multi-label Prediction for Political Text-as-data»</span>. <em>Political Analysis</em>, 1–18.
 </div>
 <div id="ref-grimmer2021machine" class="csl-entry" role="doc-biblioentry">
 Grimmer, Justin, Margaret E Roberts, e Brandon M Stewart. 2021. <span>«Machine learning for social science: An agnostic approach»</span>. <em>Annual Review of Political Science</em> 24: 395–419.

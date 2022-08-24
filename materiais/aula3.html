@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FLS 6497 - Ciência de Dados e Aprendizado de Máquina em Ciência Política</title>
+<title>FLS 6497 - Aula 3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -18,22 +18,22 @@ ul.task-list{list-style: none;}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -55,19 +55,19 @@ ul.task-list{list-style: none;}
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
-<meta name="twitter:title" content="FLS 6497 - Ciência de Dados e Aprendizado de Máquina em Ciência Política">
-<meta name="twitter:description" content="Quartas-feiras, das 14 às 18h, Prédio Fil. e C.">
+<link rel="stylesheet" href="../styles.css">
+<meta name="twitter:title" content="FLS 6497 - Aula 3">
+<meta name="twitter:description" content="Nesta aula, nos aprofundaremos no uso de modelos…">
 <meta name="twitter:card" content="summary">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="./index.html">
+      <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">FLS 6497</span>
   </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -76,23 +76,23 @@ ul.task-list{list-style: none;}
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page">Home</a>
+    <a class="nav-link" href="../index.html">Home</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./ementa.html">Ementa</a>
+    <a class="nav-link" href="../ementa.html">Ementa</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./recursos.html">Recursos</a>
+    <a class="nav-link" href="../recursos.html">Recursos</a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-aulas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Aulas</a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-aulas">    
         <li>
-    <a class="dropdown-item" href="./materiais/aula1.html">
+    <a class="dropdown-item" href="../materiais/aula1.html">
  <span class="dropdown-text">Aula 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./materiais/aula2.html">
+    <a class="dropdown-item" href="../materiais/aula2.html">
  <span class="dropdown-text">Aula 2</span></a>
   </li>  
     </ul>
@@ -101,7 +101,7 @@ ul.task-list{list-style: none;}
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercícios" role="button" data-bs-toggle="dropdown" aria-expanded="false">Exercícios</a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-exercícios">    
         <li>
-    <a class="dropdown-item" href="./exercicios/exercicios2.html">
+    <a class="dropdown-item" href="../exercicios/exercicios2.html">
  <span class="dropdown-text">Exercícios 2</span></a>
   </li>  
     </ul>
@@ -123,13 +123,22 @@ ul.task-list{list-style: none;}
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Ciência de Dados e Aprendizado de Máquina em Ciência Política</h1>
+<h1 class="title">Aula 3</h1>
+<p class="subtitle lead">Aprendizado Supervisionado: Regressão</p>
 </div>
 
 
@@ -140,131 +149,12 @@ ul.task-list{list-style: none;}
     
   </div>
   
-<div>
-  <div class="abstract">
-    <div class="abstract-title">DATA E LOCAL</div>
-    Quartas-feiras, das 14 às 18h, Prédio Fil. e C. Sociais, Sala 122
-  </div>
-</div>
 
 </header>
 
-<section id="sobre" class="level2">
-<h2 class="anchored" data-anchor-id="sobre">Sobre</h2>
-<p>Este é <em>website</em> com materias do curso <em>Ciência de Dados e Aprendizado de Máquina em Ciência Política</em>, ministrado no Programa de Pós-Graduação de Ciência Política da Universidade de São Paulo (USP). Neste espaço serão postados, uma semana antes de cada aula, os materiais de apoio que estudaremos em laboratório.</p>
-<p>A ementa do curso pode ser encontrada <a href="ementa.html">aqui</a>.</p>
-</section>
-<section id="cronograma" class="level2">
-<h2 class="anchored" data-anchor-id="cronograma">Cronograma</h2>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Aviso
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Este é um cronograma inicial sujeito a modificações</p>
-</div>
-</div>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Aula</th>
-<th>Data</th>
-<th style="text-align: right;">Tópico</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>17/08</td>
-<td style="text-align: right;">Apresentação</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>24/08</td>
-<td style="text-align: right;">Introdução &amp; Revisão de Programação</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>31/08</td>
-<td style="text-align: right;">Aprendizado Supervisionado: Regressão</td>
-</tr>
-<tr class="even">
-<td>-</td>
-<td>7/09</td>
-<td style="text-align: right;"><strong>Sem aula</strong> (<em>Feriado</em>)</td>
-</tr>
-<tr class="odd">
-<td>4</td>
-<td>14/09</td>
-<td style="text-align: right;">Aprendizado Supervisionado: Classificação</td>
-</tr>
-<tr class="even">
-<td>-</td>
-<td>21/09</td>
-<td style="text-align: right;"><strong>Sem aula</strong> (<em>ABCP</em>)</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>28/09</td>
-<td style="text-align: right;">Aprendizado Supervisionado: Modelos Lineares</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>5/10</td>
-<td style="text-align: right;">Aprendizado Supervisionado: Modelos Não-Lineares</td>
-</tr>
-<tr class="odd">
-<td>-</td>
-<td>12/10</td>
-<td style="text-align: right;"><strong>Sem aula</strong> (<em>Feriado</em>)</td>
-</tr>
-<tr class="even">
-<td>-</td>
-<td>19/10</td>
-<td style="text-align: right;"><strong>Sem aula</strong> (<em>Anpocs</em>)</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>26/10</td>
-<td style="text-align: right;">Ensemble: Stacking, Bagging, Boosting</td>
-</tr>
-<tr class="even">
-<td>-</td>
-<td>2/11</td>
-<td style="text-align: right;"><strong>Sem aula</strong> (<em>Feriado</em>)</td>
-</tr>
-<tr class="odd">
-<td>8</td>
-<td>9/11</td>
-<td style="text-align: right;">Aprendizado Não-Supervisionado</td>
-</tr>
-<tr class="even">
-<td>9</td>
-<td>16/11</td>
-<td style="text-align: right;">Resampling &amp; Validação</td>
-</tr>
-<tr class="odd">
-<td>10</td>
-<td>23/11</td>
-<td style="text-align: right;">Tuning &amp; Feature Selection</td>
-</tr>
-<tr class="even">
-<td>11</td>
-<td>30/11</td>
-<td style="text-align: right;">Deep learning</td>
-</tr>
-<tr class="odd">
-<td>12</td>
-<td>7/12</td>
-<td style="text-align: right;">Revisão de Trabalhos Finais &amp; Encerramento</td>
-</tr>
-</tbody>
-</table>
+<section id="introdução" class="level1">
+<h1>Introdução</h1>
+<p>Nesta aula, nos aprofundaremos no uso de modelos lineares</p>
 
 
 </section>

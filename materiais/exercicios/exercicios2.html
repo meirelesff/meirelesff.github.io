@@ -195,14 +195,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#a-gráfico" id="toc-a-gráfico" class="nav-link" data-scroll-target="#a-gráfico">a) Gráfico</a></li>
   <li><a href="#b-exploração" id="toc-b-exploração" class="nav-link" data-scroll-target="#b-exploração">b) Exploração</a></li>
-  <li><a href="#c-modelo" id="toc-c-modelo" class="nav-link" data-scroll-target="#c-modelo">c) Modelo</a></li>
-  <li><a href="#d-comparação" id="toc-d-comparação" class="nav-link" data-scroll-target="#d-comparação">d) Comparação</a></li>
+  <li><a href="#c-exportação" id="toc-c-exportação" class="nav-link" data-scroll-target="#c-exportação">c) Exportação</a></li>
+  <li><a href="#d-modelo" id="toc-d-modelo" class="nav-link" data-scroll-target="#d-modelo">d) Modelo</a></li>
+  <li><a href="#e-comparação" id="toc-e-comparação" class="nav-link" data-scroll-target="#e-comparação">e) Comparação</a></li>
   </ul></li>
   <li><a href="#sorteios" id="toc-sorteios" class="nav-link" data-scroll-target="#sorteios">2) Sorteios</a>
   <ul class="collapse">
   <li><a href="#a-umidade" id="toc-a-umidade" class="nav-link" data-scroll-target="#a-umidade">a) Umidade</a></li>
   <li><a href="#b-histograma" id="toc-b-histograma" class="nav-link" data-scroll-target="#b-histograma">b) Histograma</a></li>
+  <li><a href="#c-modelos-lineares" id="toc-c-modelos-lineares" class="nav-link" data-scroll-target="#c-modelos-lineares">c) Modelos lineares</a></li>
   </ul></li>
+  <li><a href="#frameworks" id="toc-frameworks" class="nav-link" data-scroll-target="#frameworks">3) Frameworks</a></li>
   </ul>
 </nav>
     </div>
@@ -246,18 +249,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="a-gráfico" class="level2">
 <h2 class="anchored" data-anchor-id="a-gráfico">a) Gráfico</h2>
-<p>Analise a relação entre entre cobertura de nuvens (<em>cloud_coverage</em>) e temperatura máxima (<code>maximum_temperature</code>). Para isso, plote gráficos com a relação bivariada, use coeficiente de correlação ou um modelo linear (OLS). Descreva os resultados que encontrar.</p>
+<p>Analise a relação entre entre cobertura de nuvens (<code>cloud_coverage</code>) e temperatura máxima (<code>maximum_temperature</code>). Para isso, plote gráficos com a relação bivariada, use coeficiente de correlação ou um modelo linear (OLS). Descreva os resultados que encontrar.</p>
 </section>
 <section id="b-exploração" class="level2">
 <h2 class="anchored" data-anchor-id="b-exploração">b) Exploração</h2>
 <p>Existe alguma outra variável na base com maior correção com a temperatura máxima? Novamente, registre os resultados que encontrar.</p>
 </section>
-<section id="c-modelo" class="level2">
-<h2 class="anchored" data-anchor-id="c-modelo">c) Modelo</h2>
-<p>Usando algum <em>framework</em> de aprendizado de máquina (i.e., <code>mlr3</code> ou <code>sci-kit</code>), treine modelos lineares simples (por mínimos quadrados ordinários) para predizer a temperatura máxima diária em São Bernardo do Campo (SP). Use as variáveis que quiser, faça transformações nelas se necessário, e reporte alguns resultados do melhor modelo que encontrar.</p>
+<section id="c-exportação" class="level2">
+<h2 class="anchored" data-anchor-id="c-exportação">c) Exportação</h2>
+<p>Crie um código que faça um gráfico da relação bivariada entre todas as variáveis contínuas na base e os salve em disco. Dica:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(p, <span class="at">file =</span> <span class="fu">paste0</span>(<span class="st">"grafico.png"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'grafico.png'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 </section>
-<section id="d-comparação" class="level2">
-<h2 class="anchored" data-anchor-id="d-comparação">d) Comparação</h2>
+<section id="d-modelo" class="level2">
+<h2 class="anchored" data-anchor-id="d-modelo">d) Modelo</h2>
+<p>Rode modelos lineares simples (por mínimos quadrados ordinários) para predizer a temperatura máxima diária em São Bernardo do Campo (SP). Use as variáveis que quiser, faça transformações nelas se necessário, e reporte alguns resultados do melhor modelo que encontrar.</p>
+</section>
+<section id="e-comparação" class="level2">
+<h2 class="anchored" data-anchor-id="e-comparação">e) Comparação</h2>
 <p>Salve as predições do seu modelo treinado no exercício anterior e compare com os valores reais de temperatura máxima (vale usar gráficos).</p>
 </section>
 </section>
@@ -270,9 +292,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="b-histograma" class="level2">
 <h2 class="anchored" data-anchor-id="b-histograma">b) Histograma</h2>
 <p>Com a função criada anteriormente, calcule 1000 médias de amostras de <code>humidity</code> e plote a distribuição como um histograma.</p>
-
-
 </section>
+<section id="c-modelos-lineares" class="level2">
+<h2 class="anchored" data-anchor-id="c-modelos-lineares">c) Modelos lineares</h2>
+<p>Modifique a função criada anteriormente para, depois de sortear 1000 observações do banco, rodar um modelo de regressão linear para predizer valores de <code>humidity</code> e extrair o <code>r2</code> do modelo. Dica:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>) <span class="sc">~</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'grafico.png'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="frameworks" class="level1">
+<h1>3) Frameworks</h1>
+<p>Ainda usando a base carregada anteriormente, use um <em>framework</em> para estimar um modelo de regressão tendo <code>humidity</code> como <em>target</em>. Dicas: siga os tutoriais do <a href="https://mlr3book.mlr-org.com/">mlr3</a>, para <code>R</code>, ou do <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html">sci-kit learn</a>, para <code>Python</code>. Não se preocupe em usar os <em>frameworks</em> perfeitamente, o importante é ganhar familiaridade com eles.</p>
+
+
 </section>
 
 </main> <!-- /main -->

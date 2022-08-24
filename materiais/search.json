@@ -7,25 +7,60 @@
     "text": "Este é website com materias do curso Ciência de Dados e Aprendizado de Máquina em Ciência Política, ministrado no Programa de Pós-Graduação de Ciência Política da Universidade de São Paulo (USP). Neste espaço serão postados, uma semana antes de cada aula, os materiais de apoio que estudaremos em laboratório.\nA ementa do curso pode ser encontrada aqui."
   },
   {
-    "objectID": "index.html#plano-das-aulas",
-    "href": "index.html#plano-das-aulas",
+    "objectID": "index.html#cronograma",
+    "href": "index.html#cronograma",
     "title": "Ciência de Dados e Aprendizado de Máquina em Ciência Política",
-    "section": "Plano das Aulas",
-    "text": "Plano das Aulas\n\n\n\n\n\n\nAviso\n\n\n\nEste é um cronograma inicial sujeito a modificações\n\n\n\n\n\nAula\nData\nTópico\n\n\n\n\n1\n17/08\nApresentação\n\n\n2\n24/08\nIntrodução & Revisão de Programação\n\n\n3\n31/08\nAprendizado Supervisionado: Regressão\n\n\n4\n7/09\nAprendizado Supervisionado: Classificação\n\n\n5\n21/09\nAprendizado Supervisionado: Modelos Lineares\n\n\n6\n28/09\nAprendizado Supervisionado: Modelos Não-Lineares\n\n\n7\n5/10\nEnsemble: Stacking, Bagging, Boosting\n\n\n8\n12/10\nAprendizado Não-Supervisionado\n\n\n9\n19/10\nResampling & Validação\n\n\n10\n26/10\nTuning & Feature Selection\n\n\n11\n2/11\nDeep learning\n\n\n12\n9/11\nRevisão de Trabalhos Finais & Encerramento"
+    "section": "Cronograma",
+    "text": "Cronograma\n\n\n\n\n\n\nAviso\n\n\n\nEste é um cronograma inicial sujeito a modificações\n\n\n\n\n\nAula\nData\nTópico\n\n\n\n\n1\n17/08\nApresentação\n\n\n2\n24/08\nIntrodução & Revisão de Programação\n\n\n3\n31/08\nAprendizado Supervisionado: Regressão\n\n\n-\n7/09\nSem aula (Feriado)\n\n\n4\n14/09\nAprendizado Supervisionado: Classificação\n\n\n-\n21/09\nSem aula (ABCP)\n\n\n5\n28/09\nAprendizado Supervisionado: Modelos Lineares\n\n\n6\n5/10\nAprendizado Supervisionado: Modelos Não-Lineares\n\n\n-\n12/10\nSem aula (Feriado)\n\n\n-\n19/10\nSem aula (Anpocs)\n\n\n7\n26/10\nEnsemble: Stacking, Bagging, Boosting\n\n\n-\n2/11\nSem aula (Feriado)\n\n\n8\n9/11\nAprendizado Não-Supervisionado\n\n\n9\n16/11\nResampling & Validação\n\n\n10\n23/11\nTuning & Feature Selection\n\n\n11\n30/11\nDeep learning\n\n\n12\n7/12\nRevisão de Trabalhos Finais & Encerramento"
   },
   {
-    "objectID": "aulas.html",
-    "href": "aulas.html",
-    "title": "Materiais",
+    "objectID": "materiais/aula1.html",
+    "href": "materiais/aula1.html",
+    "title": "Aula 1",
     "section": "",
-    "text": "flowchart LR\n  A[Pergunta] --> B[Problema]\n  B --> C{Decision}\n  C --> D[Result one]\n  C --> E[Result two]"
+    "text": "O que é Ciência de Dados? O que são modelos de aprendizado de máquina? Qual a relevância de um curso sobre isso em uma pós-graduação de Ciência Política? Essa aula de apresentação oferecerá algumas respostas a essas perguntas. Além disso, veremos alguns exemplos de aplicação de Ciência de Dados na área das Ciências Sociais, tanto na academia quanto no mercado."
   },
   {
-    "objectID": "aulas.html#básico",
-    "href": "aulas.html#básico",
-    "title": "Materiais",
-    "section": "Básico",
-    "text": "Básico\n\nRPython\n\n\nfizz_buzz <- function(fbnums = 1:50) {\n  output <- dplyr::case_when(\n    fbnums %% 15 == 0 ~ \"FizzBuzz\",\n    fbnums %% 3 == 0 ~ \"Fizz\",\n    fbnums %% 5 == 0 ~ \"Buzz\",\n    TRUE ~ as.character(fbnums)\n  )\n  print(output)\n}\n\n\ndef fizz_buzz(num):\n  if num % 15 == 0:\n    print(\"FizzBuzz\")\n  elif num % 5 == 0:\n    print(\"Buzz\")\n  elif num % 3 == 0:\n    print(\"Fizz\")\n  else:\n    print(num)"
+    "objectID": "materiais/aula1.html#primeiras-tarefas",
+    "href": "materiais/aula1.html#primeiras-tarefas",
+    "title": "Aula 1",
+    "section": "Primeiras tarefas",
+    "text": "Primeiras tarefas\nNosso trabalho ao longo do curso será muito mais fácil se formos capazes de versionar nossos códigos, isto é, registrar organizadamente mudanças ao longo do tempo. Por conta disso, antes de mais nada será necessário que cada aluno e aluna tenha uma conta no GitHub para usar o git – o mais famoso gerenciador de versões de código open source. Esses são os passos que deverão ser seguidos para tanto:\n\nCrie uma conta no GitHub clicando aqui\nBaixe e instale o git para o seu sistema operacional\nAprenda a\n\nClonar repositórios\nAdicionar e commitar alterações\nSubir alterações e checar status de um repo\n\n\nEm IDEs mais modernas, como Rstudio e VScode, é possível fazer isso de forma simples, sem necessidade abrir o terminal. Aqui há tutoriais cobrindo os dois casos, aqui e aqui.\nPara evitar ter de digitar login e senha repetidamente no git, o ideal é salvar suas credenciais. O modo de se fazer isso variará de acordo com o seu sistema operacional, mas, em geral, digitar isso no seu terminal deve funcionar:\ngit config --global credential.helper store\nEsse método salvará suas credenciais de forma não criptografada, o que não é muito seguro. Se você usa muito git, possui códigos sensíveis e usa Windows, outra alternativa é usar:\ngit config --global credential.helper manager\nO equivalente para Mac OS X é:\ngit config --global credential.helper osxkeychain\n\nBásico de git\n\ngit clone\nA primeira etapa para trabalhar usando versionamento de código é ter um repositório monitorado pelo git. É possível criar um do zero, mas, nesse curso, vamos seguir um caminho mais simples: clonando um repositório criado diretamente no GitHub por vocês (veremos isso em aula).\nO primeiro passo, nesse caso, consiste em achar a página do repositório no GitHub e extrair sua URL .git. O print abaixo mostra como fazer isso – basta clicar em Code, em verde, e copiar a URL que aparece.\n\n\n\n\nURL de um repositório no GitHub\n\n\n\nIsso feito, basta abrir seu terminal, navegar até a pasta onde você deseja salvar o repositório e executar:11 <URL> deve ser trocado pela URL que você copiou na etapa anterior\ngit clone <URL>\n\n\ngit branch\nCada repositório no git tem vários branches, isto é, uma espécie de diretório onde cada novo código adicionado será armazenado. Com o uso de branches, é possível ter diversas versões do mesmo projeto salvas no mesmo repositório, cada uma totalmente diferente da outra caso isso seja útil.\nPor padrão, o branch padrão no GitHub é nomeado main, mas é importante checar isso – vamos precisar usar o nome do branch onde vamos trabalhar pra subir código. Para obter o nome do branch atual, use:\ngit branch\nÉ uma boa prática criar um branch para fazer testes em um código, ou para testar novas funcionalidades. Fazendo isso, qualquer novo código que seja adicionado ficará pendente de revisão no GitHub, o que idealmente deve ser feito por outra pessoa. Aqui há um pequeno texto que trata sobre isso.\n\n\ngit add e git commit\nSuponhamos que você clonou um repositório e adicionou nele um script. Como subir ele para o GitHub? Simples:\ngit add .\nCom isso, toda e qualquer alteração no repositório no seu computador será registrada para ser adicionada ao repositório principal no GitHub. Antes disso, no entanto, é necessário fazer um commit, criar e documentar um snapshot do seu código. Para isso, use:\ngit commit -m \"Meu primeiro arquivo\"\nNote que usamos -m para registrar uma mensagem, algo útil para sabermos o que cada snapshot tem de diferente em relação ao código anterior. É sempre uma boa prática manter esses registros.\n\n\ngit push e git status\nTendo feito alterações e registrado elas com commit, para subir elas para o GitHub basta rodar:\ngit push origin main\nIsso feito, é possível checar o estado atual do repositório com:\ngit status\nO que, se tudo der certo, deve retornar uma mensagem similar a esta abaixo.\n\n\n\ngit status\n\n\n\n\nArquivos básicos\nPor motivos de organização e de armazenamento, há dois arquivos essenciais, que todo repositório no GitHub deve ter: README.md e .gitignore.\nO README.md é um arquivo de texto (em markdown, na verdade) que é exibido na página inicial de um repositório e que serve para documentar seus códigos. Considere sempre criar um e adicione informações úteis, tais como: objetivo do código, o que ele faz, de onde vieram dados, como rodar scripts, entre outros.\nJá o .gitignore serve para registrar alguns arquivos que o git deverá ignorar, ou seja, que o git deixará de fora do versionamento. Isso é útil para bases de dados que, em geral, ocupam bastante espaço de armazenamento e não devem ser hospedadas no GitHub (ele possui um limite de 50mb por arquivo). Prefira sempre armazenar o código que baixa e processa os dados que você precisará, e não uma versão da base de dados já limpa.\n\n\n\nPor que usar versionamento de código?\n\nHave you ever:\n\nMade a change to code, realised it was a mistake and wanted to revert back?\nLost code or had a backup that was too old?\nHad to maintain multiple versions of a product?\nWanted to see the difference between two (or more) versions of your code?\nWanted to prove that a particular change broke or fixed a piece of code?\nWanted to review the history of some code?\nWanted to submit a change to someone else’s code?\nWanted to share your code, or let other people work on your code?\nWanted to see how much work is being done, and where, when and by whom?\nWanted to experiment with a new feature without interfering with working code?\n\nIn these cases, and no doubt others, a version control system should make your life easier.\nTo misquote a friend: A civilised tool for a civilised age.\n\nSabedoria retirada do StackOverflow."
+  },
+  {
+    "objectID": "materiais/aula1.html#materiais-de-apoio",
+    "href": "materiais/aula1.html#materiais-de-apoio",
+    "title": "Aula 1",
+    "section": "Materiais de apoio",
+    "text": "Materiais de apoio\n\nTerminal\nÉ muito comum entrar no mundo da Ciência de Dados, ou da programação com R ou Python, sem saber usar o terminal – a famosa telinha preta de onde é possível executar uma série de funções e comandos em bash. Saber usá-lo de forma eficiente, no entanto, é algo útil para automatizar tarefas, instalar dependências necessárias para o funcionamento de alguns softwares e, também, trabalhar com git.\nCaso você precise preencher essa lacuna, estude e pratique o conteúdo desse workshop:\n\nD-Lab Workshop on Bash-Git\n\n\n\nGit e GitHub\nPara praticar ou aprender a usar recursos mais avançados do git e do GitHub, vale consultar:\n\nDocumentação oficial do GitHub\nLearn the Basics of Git in Under 10 Minutes"
+  },
+  {
+    "objectID": "materiais/aula2.html",
+    "href": "materiais/aula2.html",
+    "title": "Aula 2",
+    "section": "",
+    "text": "Esta aula cobre as diferenças entre aprendizado de máquia, ou aprendizagem estatística, e outras abordagens de análise de dados. Para quem está habituado a pensar em inferência e propriedades de estimadores, o que veremos é um pouco diferente: nosso objetivo, pelo menos na maioria das nossas aplicações, será predição. A diferença importa e tem a ver, essencialmente, com o tipo de pergunta que poderemos responder.\n\n\nExistem várias definições que poderíamos usar, mas a distinção entre predição e inferência oferica no ITSL é útil. Considere um exemplo hipotético: sabemos quanto candidaturas gastaram em uma eleição, \\(X_{i}\\), e quantos votos obtiveram, \\(Y_{i}\\); com essas informações, poderíamos estimar um modelo como \\(Y_{i} = \\beta X_{i} + \\epsilon_{i}\\). O resultado do modelo estimado nos permitiria, por exemplo, avaliar se o gasto de campanha tem efeito positivo sobre votos, ou para fazer um chute embasado sobre o desempenho de uma candidatura no futuro. No primeiro caso, queremos inferir sobre o processo que deu origem aos dados; no segundo, predizer uma nova ocorrência.\nAlguns exemplos de problemas de inferência:\n\nExaminar se a iluminação pública tem relação com assaltos em São Paulo\nDescobrir quanto um carro desvaloriza com um ano a mais de uso\nSaber se pessoas com ensino superior ganham mais do que as demais\n\nAlguns exemplos de problemas de predição:\n\nA partir de exemplos de um texto de spam, identificar se um texto qualquer é ou não spam\nUsar dados fiscas dos municípios para predizer a votação de uma candidatura específica à reeleição\nOferecer uma sugestão de filme baseada no histórico de usos na Netflix"
+  },
+  {
+    "objectID": "materiais/aula2.html#funções",
+    "href": "materiais/aula2.html#funções",
+    "title": "Aula 2",
+    "section": "Funções",
+    "text": "Funções\nCriar funções é algo extremamente útil para se automatizar determinadas rotinas. Neste curso, vamos usar, em alguns casos, funções específicas para facilitar o nosso trabalho. Caso tenha dúvidas, consulte este capítulo do R4DS ou este tutorial do Real Python."
+  },
+  {
+    "objectID": "materiais/aula2.html#controle-de-fluxo",
+    "href": "materiais/aula2.html#controle-de-fluxo",
+    "title": "Aula 2",
+    "section": "Controle de fluxo",
+    "text": "Controle de fluxo\nUsar loops é algo normalmente praticado em cursos básicos, mas, para quem tem dúvidas, vale consultar rapidamente essa este capítulo do R4DS, para quem usa R, e este tutorial do Real Python."
+  },
+  {
+    "objectID": "materiais/aula2.html#frameworks",
+    "href": "materiais/aula2.html#frameworks",
+    "title": "Aula 2",
+    "section": "Frameworks",
+    "text": "Frameworks\nVamos queimar várias etapas e ir logo para a aplicação dos frameworks. Nas próximas aulas, daremos vários passos atrás e cobriremos detidamente algoritmos e etapas de um projeto.\n\nTarefas\nEm R, será necessário carregar o pacote mle3 e seguir este tutorial. Tente acompanhar o código e ir modificando ele para ver o que acontece (fique à vontade para usar outros modelos ou outros datasets, como o mtcars, que já vem por padrão no pacote datasets).\nEm python, siga o getting started do Sci-kit learn, também brincando com o código. O exemplo, nesse caso, é mais complexo e cobre mais etapas de uma pipeline."
   },
   {
     "objectID": "ementa.html",
@@ -112,41 +147,6 @@
     "text": "Referências\n\n\nAthey, Susan, e Guido W Imbens. 2019. «Machine learning methods that economists should know about». Annual Review of Economics 11: 685–725.\n\n\nBarberá, Pablo, Amber E Boydstun, Suzanna Linn, Ryan McMahon, e Jonathan Nagler. 2021. «Automated text classification of news articles: A practical guide». Political Analysis 29 (1): 19–42.\n\n\nBroniecki, Philipp, Lucas Leemann, e Reto Wüest. 2022. «Improved Multilevel Regression with Poststratification through Machine Learning (autoMrP)». The Journal of Politics 84 (1): 000–000.\n\n\nCantú, Francisco. 2019. «The fingerprints of fraud: Evidence from Mexico’s 1988 presidential election». American Political Science Review 113 (3): 710–26.\n\n\nChang, Charles, e Michael Masterson. 2020. «Using word order in political text classification with long short-term memory models». Political Analysis 28 (3): 395–411.\n\n\nChen, Ling, e Hao Zhang. 2021. «Strategic Authoritarianism: The Political Cycles and Selectivity of China’s Tax-Break Policy». American Journal of Political Science 65 (4): 845–61.\n\n\nDenny, Matthew J, e Arthur Spirling. 2018. «Text preprocessing for unsupervised learning: Why it matters, when it misleads, and what to do about it». Political Analysis 26 (2): 168–89.\n\n\nErikson, Robert S, e Christopher Wlezien. 2021. «Forecasting the 2020 presidential election: Leading economic indicators, polls, and the vote». PS: Political Science & Politics 54 (1): 55–58.\n\n\nErlich, Aaron, Stefano G Dantas, Benjamin E Bagozzi, Daniel Berliner, e Brian Palmer-Rubin. 2021. «Multi-label Prediction for Political Text-as-data». Political Analysis, 1–18.\n\n\nGrimmer, Justin, Margaret E Roberts, e Brandon M Stewart. 2021. «Machine learning for social science: An agnostic approach». Annual Review of Political Science 24: 395–419.\n\n\nJordan, Soren, Hannah L Paul, e Andrew Q Philips. 2022. «How to Cautiously Uncover the “Black Box” of Machine Learning Models for Legislative Scholars». Legislative Studies Quarterly.\n\n\nKaufman, Aaron Russell, Peter Kraft, e Maya Sen. 2019. «Improving supreme court forecasting using boosted decision trees». Political Analysis 27 (3): 381–87.\n\n\nLi, Yuhui, e Matthew S Shugart. 2016. «The seat product model of the effective number of parties: A case for applied political science». Electoral Studies 41: 23–34.\n\n\nMagyar, Zsuzsanna B. 2022. «What makes party systems different? A principal component analysis of 17 advanced democracies 1970–2013». Political Analysis 30 (2): 250–68.\n\n\nMontgomery, Jacob M, e Santiago Olivella. 2018. «Tree-Based Models for Political Science Data». American Journal of Political Science 62 (3): 729–44.\n\n\nMuchlinski, David, Xiao Yang, Sarah Birch, Craig Macdonald, e Iadh Ounis. 2021. «We need to go deeper: Measuring electoral violence using convolutional neural networks and social media». Political Science Research and Methods 9 (1): 122–39.\n\n\nMueller, Hannes, e Christopher Rauh. 2018. «Reading between the lines: Prediction of political violence using newspaper text». American Political Science Review 112 (2): 358–75.\n\n\nMüller, Stefan. 2022. «The temporal focus of campaign communication». The Journal of Politics 84 (1): 000–000.\n\n\nNeunhoeffer, Marcel, e Sebastian Sternberg. 2019. «How cross-validation can go wrong and what to do about it». Political Analysis 27 (1): 101–6.\n\n\nRaschka, Sebastian. 2018. «Model evaluation, model selection, and algorithm selection in machine learning». arXiv preprint arXiv:1811.12808.\n\n\nSalganik, Matthew J. 2019. Bit by bit: Social research in the digital age. Princeton University Press. https://www.bitbybitbook.com/en/1st-ed/.\n\n\nStreeter, Shea. 2019. «Lethal force in black and white: Assessing racial disparities in the circumstances of police killings». The Journal of Politics 81 (3): 1124–32.\n\n\nZucco Jr, Cesar, e Timothy J Power. 2021. «Fragmentation without cleavages? Endogenous fractionalization in the Brazilian party system». Comparative Politics 53 (3): 477–500."
   },
   {
-    "objectID": "index.html#cronograma",
-    "href": "index.html#cronograma",
-    "title": "Ciência de Dados e Aprendizado de Máquina em Ciência Política",
-    "section": "Cronograma",
-    "text": "Cronograma\n\n\n\n\n\n\nAviso\n\n\n\nEste é um cronograma inicial sujeito a modificações\n\n\n\n\n\nAula\nData\nTópico\n\n\n\n\n1\n17/08\nApresentação\n\n\n2\n24/08\nIntrodução & Revisão de Programação\n\n\n3\n31/08\nAprendizado Supervisionado: Regressão\n\n\n-\n7/09\nSem aula (Feriado)\n\n\n4\n14/09\nAprendizado Supervisionado: Classificação\n\n\n-\n21/09\nSem aula (ABCP)\n\n\n5\n28/09\nAprendizado Supervisionado: Modelos Lineares\n\n\n6\n5/10\nAprendizado Supervisionado: Modelos Não-Lineares\n\n\n-\n12/10\nSem aula (Feriado)\n\n\n-\n19/10\nSem aula (Anpocs)\n\n\n7\n26/10\nEnsemble: Stacking, Bagging, Boosting\n\n\n-\n2/11\nSem aula (Feriado)\n\n\n8\n9/11\nAprendizado Não-Supervisionado\n\n\n9\n16/11\nResampling & Validação\n\n\n10\n23/11\nTuning & Feature Selection\n\n\n11\n30/11\nDeep learning\n\n\n12\n7/12\nRevisão de Trabalhos Finais & Encerramento"
-  },
-  {
-    "objectID": "materiais/aula1.html",
-    "href": "materiais/aula1.html",
-    "title": "Aula 1",
-    "section": "",
-    "text": "O que é Ciência de Dados? O que são modelos de aprendizado de máquina? Qual a relevância de um curso sobre isso em uma pós-graduação de Ciência Política? Essa aula de apresentação oferecerá algumas respostas a essas perguntas. Além disso, veremos alguns exemplos de aplicação de Ciência de Dados na área das Ciências Sociais, tanto na academia quanto no mercado."
-  },
-  {
-    "objectID": "materiais/aula1.html#primeiras-tarefas",
-    "href": "materiais/aula1.html#primeiras-tarefas",
-    "title": "Aula 1",
-    "section": "Primeiras tarefas",
-    "text": "Primeiras tarefas\nNosso trabalho ao longo do curso será muito mais fácil se formos capazes de versionar nossos códigos, isto é, registrar organizadamente mudanças ao longo do tempo. Por conta disso, antes de mais nada será necessário que cada aluno e aluna tenha uma conta no GitHub para usar o git – o mais famoso gerenciador de versões de código open source. Esses são os passos que deverão ser seguidos para tanto:\n\nCrie uma conta no GitHub clicando aqui\nBaixe e instale o git para o seu sistema operacional\nAprenda a\n\nClonar repositórios\nAdicionar e commitar alterações\nSubir alterações e checar status de um repo\n\n\nEm IDEs mais modernas, como Rstudio e VScode, é possível fazer isso de forma simples, sem necessidade abrir o terminal. Aqui há tutoriais cobrindo os dois casos, aqui e aqui.\nPara evitar ter de digitar login e senha repetidamente no git, o ideal é salvar suas credenciais. O modo de se fazer isso variará de acordo com o seu sistema operacional, mas, em geral, digitar isso no seu terminal deve funcionar:\ngit config --global credential.helper store\nEsse método salvará suas credenciais de forma não criptografada, o que não é muito seguro. Se você usa muito git, possui códigos sensíveis e usa Windows, outra alternativa é usar:\ngit config --global credential.helper manager\nO equivalente para Mac OS X é:\ngit config --global credential.helper osxkeychain\n\nBásico de git\n\ngit clone\nA primeira etapa para trabalhar usando versionamento de código é ter um repositório monitorado pelo git. É possível criar um do zero, mas, nesse curso, vamos seguir um caminho mais simples: clonando um repositório criado diretamente no GitHub por vocês (veremos isso em aula).\nO primeiro passo, nesse caso, consiste em achar a página do repositório no GitHub e extrair sua URL .git. O print abaixo mostra como fazer isso – basta clicar em Code, em verde, e copiar a URL que aparece.\n\n\n\n\nURL de um repositório no GitHub\n\n\n\nIsso feito, basta abrir seu terminal, navegar até a pasta onde você deseja salvar o repositório e executar:11 <URL> deve ser trocado pela URL que você copiou na etapa anterior\ngit clone <URL>\n\n\ngit branch\nCada repositório no git tem vários branches, isto é, uma espécie de diretório onde cada novo código adicionado será armazenado. Com o uso de branches, é possível ter diversas versões do mesmo projeto salvas no mesmo repositório, cada uma totalmente diferente da outra caso isso seja útil.\nPor padrão, o branch padrão no GitHub é nomeado main, mas é importante checar isso – vamos precisar usar o nome do branch onde vamos trabalhar pra subir código. Para obter o nome do branch atual, use:\ngit branch\nÉ uma boa prática criar um branch para fazer testes em um código, ou para testar novas funcionalidades. Fazendo isso, qualquer novo código que seja adicionado ficará pendente de revisão no GitHub, o que idealmente deve ser feito por outra pessoa. Aqui há um pequeno texto que trata sobre isso.\n\n\ngit add e git commit\nSuponhamos que você clonou um repositório e adicionou nele um script. Como subir ele para o GitHub? Simples:\ngit add .\nCom isso, toda e qualquer alteração no repositório no seu computador será registrada para ser adicionada ao repositório principal no GitHub. Antes disso, no entanto, é necessário fazer um commit, criar e documentar um snapshot do seu código. Para isso, use:\ngit commit -m \"Meu primeiro arquivo\"\nNote que usamos -m para registrar uma mensagem, algo útil para sabermos o que cada snapshot tem de diferente em relação ao código anterior. É sempre uma boa prática manter esses registros.\n\n\ngit push e git status\nTendo feito alterações e registrado elas com commit, para subir elas para o GitHub basta rodar:\ngit push origin main\nIsso feito, é possível checar o estado atual do repositório com:\ngit status\nO que, se tudo der certo, deve retornar uma mensagem similar a esta abaixo.\n\n\n\ngit status\n\n\n\n\nArquivos básicos\nPor motivos de organização e de armazenamento, há dois arquivos essenciais, que todo repositório no GitHub deve ter: README.md e .gitignore.\nO README.md é um arquivo de texto (em markdown, na verdade) que é exibido na página inicial de um repositório e que serve para documentar seus códigos. Considere sempre criar um e adicione informações úteis, tais como: objetivo do código, o que ele faz, de onde vieram dados, como rodar scripts, entre outros.\nJá o .gitignore serve para registrar alguns arquivos que o git deverá ignorar, ou seja, que o git deixará de fora do versionamento. Isso é útil para bases de dados que, em geral, ocupam bastante espaço de armazenamento e não devem ser hospedadas no GitHub (ele possui um limite de 50mb por arquivo). Prefira sempre armazenar o código que baixa e processa os dados que você precisará, e não uma versão da base de dados já limpa.\n\n\n\nPor que usar versionamento de código?\n\nHave you ever:\n\nMade a change to code, realised it was a mistake and wanted to revert back?\nLost code or had a backup that was too old?\nHad to maintain multiple versions of a product?\nWanted to see the difference between two (or more) versions of your code?\nWanted to prove that a particular change broke or fixed a piece of code?\nWanted to review the history of some code?\nWanted to submit a change to someone else’s code?\nWanted to share your code, or let other people work on your code?\nWanted to see how much work is being done, and where, when and by whom?\nWanted to experiment with a new feature without interfering with working code?\n\nIn these cases, and no doubt others, a version control system should make your life easier.\nTo misquote a friend: A civilised tool for a civilised age.\n\nSabedoria retirada do StackOverflow."
-  },
-  {
-    "objectID": "materiais/aula1.html#materiais-de-apoio",
-    "href": "materiais/aula1.html#materiais-de-apoio",
-    "title": "Aula 1",
-    "section": "Materiais de apoio",
-    "text": "Materiais de apoio\n\nTerminal\nÉ muito comum entrar no mundo da Ciência de Dados, ou da programação com R ou Python, sem saber usar o terminal – a famosa telinha preta de onde é possível executar uma série de funções e comandos em bash. Saber usá-lo de forma eficiente, no entanto, é algo útil para automatizar tarefas, instalar dependências necessárias para o funcionamento de alguns softwares e, também, trabalhar com git.\nCaso você precise preencher essa lacuna, estude e pratique o conteúdo desse workshop:\n\nD-Lab Workshop on Bash-Git\n\n\n\nGit e GitHub\nPara praticar ou aprender a usar recursos mais avançados do git e do GitHub, vale consultar:\n\nDocumentação oficial do GitHub\nLearn the Basics of Git in Under 10 Minutes"
-  },
-  {
-    "objectID": "materiais/aula2.html",
-    "href": "materiais/aula2.html",
-    "title": "Aula 2",
-    "section": "",
-    "text": "Esta aula cobre as diferenças entre aprendizado de máquia, ou aprendizagem estatística, e outras abordagens de análise de dados. Para quem está habituado a pensar em inferência e propriedades de estimadores, o que veremos é um pouco diferente: nosso objetivo, pelo menos na maioria das nossas aplicações, será predição. A diferença importa e tem a ver, essencialmente, com o tipo de pergunta que poderemos responder.\n\n\nExistem várias definições que poderíamos usar, mas a distinção entre predição e inferência oferica no ITSL é útil. Considere um exemplo hipotético: sabemos quanto candidaturas gastaram em uma eleição, \\(X_{i}\\), e quantos votos obtiveram, \\(Y_{i}\\); com essas informações, poderíamos estimar um modelo como \\(Y_{i} = \\beta X_{i} + \\epsilon_{i}\\). O resultado do modelo estimado nos permitiria, por exemplo, avaliar se o gasto de campanha tem efeito positivo sobre votos, ou para fazer um chute embasado sobre o desempenho de uma candidatura no futuro. No primeiro caso, queremos inferir sobre o processo que deu origem aos dados; no segundo, predizer uma nova ocorrência.\nAlguns exemplos de problemas de inferência:\n\nExaminar se a iluminação pública tem relação com assaltos em São Paulo\nDescobrir quanto um carro desvaloriza com um ano a mais de uso\nSaber se pessoas com ensino superior ganham mais do que as demais\n\nAlguns exemplos de problemas de predição:\n\nA partir de exemplos de um texto de spam, identificar se um texto qualquer é ou não spam\nUsar dados fiscas dos municípios para predizer a votação de uma candidatura específica à reeleição\nOferecer uma sugestão de filme baseada no histórico de usos na Netflix"
-  },
-  {
     "objectID": "recursos.html",
     "href": "recursos.html",
     "title": "Recursos",
@@ -161,46 +161,11 @@
     "text": "Programação\n\nR\n\nR for Data Science, Garrett Grolemund and Hadley Wickham.\n\nLivro essencial, cobre o básico até o intermediário do uso de R e do tidyverse aplicados à Ciência de Dados\n\nR Cookbook, Winston Chang\n\nLivro prático focado na resolução de problemas comuns\n\nRStudio cheatsheets\n\nGuias práticos para resolução de diferentes problemas com tidyverse\n\nRweekly\n\nNewsletter semanal com novidades sobre R\n\n\n\n\nPython\n\nPython for Data Analysis, Wes McKinney\n\nEm certo sentido, é um livro similar ao R4DS, bom para iniciantes\n\nLearn Python\n\nSite com diversos tutoriais e textos sobre Python\n\nPython cheatsheets\n\nGuias práticos, agora para Python\n\nPycoders\n\nUma das mais lidas newsletters sobre Python"
   },
   {
-    "objectID": "temp.html",
-    "href": "temp.html",
-    "title": "Materiais",
-    "section": "",
-    "text": "flowchart LR\n  A[Pergunta] --> B[Problema]\n  B --> C{Decision}\n  C --> D[Result one]\n  C --> E[Result two]"
-  },
-  {
-    "objectID": "temp.html#básico",
-    "href": "temp.html#básico",
-    "title": "Materiais",
-    "section": "Básico",
-    "text": "Básico\n\nRPython\n\n\nfizz_buzz <- function(fbnums = 1:50) {\n  output <- dplyr::case_when(\n    fbnums %% 15 == 0 ~ \"FizzBuzz\",\n    fbnums %% 3 == 0 ~ \"Fizz\",\n    fbnums %% 5 == 0 ~ \"Buzz\",\n    TRUE ~ as.character(fbnums)\n  )\n  print(output)\n}\n\n\ndef fizz_buzz(num):\n  if num % 15 == 0:\n    print(\"FizzBuzz\")\n  elif num % 5 == 0:\n    print(\"Buzz\")\n  elif num % 3 == 0:\n    print(\"Fizz\")\n  else:\n    print(num)"
-  },
-  {
-    "objectID": "exercicios/exercicios1.html",
-    "href": "exercicios/exercicios1.html",
-    "title": "Exercícios",
-    "section": "",
-    "text": "Para esta aula,"
-  },
-  {
-    "objectID": "materiais/aula2.html#controle-de-fluxo",
-    "href": "materiais/aula2.html#controle-de-fluxo",
-    "title": "Aula 2",
-    "section": "Controle de fluxo",
-    "text": "Controle de fluxo\nUsar loops é algo normalmente praticado em cursos básicos, mas, para quem tem dúvidas, vale consultar rapidamente essa este capítulo do R4DS, para quem usa R, e este tutorial do Real Python."
-  },
-  {
-    "objectID": "materiais/aula2.html#frameworks",
-    "href": "materiais/aula2.html#frameworks",
-    "title": "Aula 2",
-    "section": "Frameworks",
-    "text": "Frameworks\nVamos queimar várias etapas e ir logo para a aplicação dos frameworks. Nas próximas aulas, daremos vários passos atrás e cobriremos detidamente algoritmos e etapas de um projeto.\n\nTarefas\nEm R, será necessário carregar o pacote mle3 e seguir este tutorial. Tente acompanhar o código e ir modificando ele para ver o que acontece (fique à vontade para usar outros modelos ou outros datasets, como o mtcars, que já vem por padrão no pacote datasets).\nEm python, siga o getting started do Sci-kit learn, também brincando com o código. O exemplo, nesse caso, é mais complexo e cobre mais etapas de uma pipeline."
-  },
-  {
     "objectID": "exercicios/exercicios2.html",
     "href": "exercicios/exercicios2.html",
     "title": "Exercícios 2",
     "section": "",
-    "text": "Para esse exercício, será necessário carregar alguns dados climáticos de São Bernardo do Campo (SP):\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'\nc = pd.read_csv(link)\n\n\n\n\n\nAnalise a relação entre entre cobertura de nuvens (cloud_coverage) e temperatura máxima (maximum_temperature). Para isso, plote gráficos com a relação bivariada, use coeficiente de correlação ou um modelo linear (OLS). Descreva os resultados que encontrar.\n\n\n\nExiste alguma outra variável na base com maior correção com a temperatura máxima? Novamente, registre os resultados que encontrar.\n\n\n\nUsando algum framework de aprendizado de máquina (i.e., mlr3 ou sci-kit), treine modelos lineares simples (por mínimos quadrados ordinários) para predizer a temperatura máxima diária em São Bernardo do Campo (SP). Use as variáveis que quiser, faça transformações nelas se necessário, e reporte alguns resultados do melhor modelo que encontrar.\n\n\n\nSalve as predições do seu modelo treinado no exercício anterior e compare com os valores reais de temperatura máxima (vale usar gráficos)."
+    "text": "Para esse exercício, será necessário carregar alguns dados climáticos de São Bernardo do Campo (SP):\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'\nc = pd.read_csv(link)\n\n\n\n\n\nAnalise a relação entre entre cobertura de nuvens (cloud_coverage) e temperatura máxima (maximum_temperature). Para isso, plote gráficos com a relação bivariada, use coeficiente de correlação ou um modelo linear (OLS). Descreva os resultados que encontrar.\n\n\n\nExiste alguma outra variável na base com maior correção com a temperatura máxima? Novamente, registre os resultados que encontrar.\n\n\n\nCrie um código que faça um gráfico da relação bivariada entre todas as variáveis contínuas na base e os salve em disco. Dica:\n\nRPython\n\n\nlibrary(tidyverse)\n\np <- ggplot()\nggsave(p, file = paste0(\"grafico.png\"))\n\n\nfrom matplotlib import pyplot as plt\nplt.savefig('grafico.png')\n\n\n\n\n\n\nRode modelos lineares simples (por mínimos quadrados ordinários) para predizer a temperatura máxima diária em São Bernardo do Campo (SP). Use as variáveis que quiser, faça transformações nelas se necessário, e reporte alguns resultados do melhor modelo que encontrar.\n\n\n\nSalve as predições do seu modelo treinado no exercício anterior e compare com os valores reais de temperatura máxima (vale usar gráficos)."
   },
   {
     "objectID": "exercicios/exercicios2.html#a-umidade",
@@ -210,13 +175,6 @@
     "text": "a) Umidade\nCrie uma função (ou um código) para sortear 1000 observações do banco de dados climáticos, calcular a média de umidade (humidity)."
   },
   {
-    "objectID": "exercicios/exercicios2.html#b-r2",
-    "href": "exercicios/exercicios2.html#b-r2",
-    "title": "Exercícios",
-    "section": "b) R2",
-    "text": "b) R2\nCrie uma função"
-  },
-  {
     "objectID": "exercicios/exercicios2.html#b-histograma",
     "href": "exercicios/exercicios2.html#b-histograma",
     "title": "Exercícios 2",
@@ -224,17 +182,10 @@
     "text": "b) Histograma\nCom a função criada anteriormente, calcule 1000 médias de amostras de humidity e plote a distribuição como um histograma."
   },
   {
-    "objectID": "materiais/aula2.html#funções",
-    "href": "materiais/aula2.html#funções",
-    "title": "Aula 2",
-    "section": "Funções",
-    "text": "Funções\nCriar funções é algo extremamente útil para se automatizar determinadas rotinas. Neste curso, vamos usar, em alguns casos, funções específicas para facilitar o nosso trabalho. Caso tenha dúvidas, consulte este capítulo do R4DS ou este tutorial do Real Python."
-  },
-  {
-    "objectID": "materiais/aula3.html",
-    "href": "materiais/aula3.html",
-    "title": "Aula 3",
-    "section": "",
-    "text": "Nesta aula, nos aprofundaremos no uso de modelos lineares"
+    "objectID": "exercicios/exercicios2.html#c-modelos-lineares",
+    "href": "exercicios/exercicios2.html#c-modelos-lineares",
+    "title": "Exercícios 2",
+    "section": "c) Modelos lineares",
+    "text": "c) Modelos lineares\nModifique a função criada anteriormente para, depois de sortear 1000 observações do banco, rodar um modelo de regressão linear para predizer valores de humidity e extrair o r2 do modelo. Dica:\n\nRPython\n\n\nmodelo <- lm(rnorm(100) ~ rnorm(100))\nsummary(modelo)$r.squared\n\n\nfrom matplotlib import pyplot as plt\nplt.savefig('grafico.png')"
   }
 ]

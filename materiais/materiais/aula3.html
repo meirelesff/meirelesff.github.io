@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-99.9.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>FLS 6497 - Aula 3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+<meta name="twitter:title" content="FLS 6497 - Aula 3">
+<meta name="twitter:description" content="Nesta aula, começaremos a estudar como resolver o grande problema que vimos na aula anterior: o de encontrar as melhores combinações de algoritmos, variáveis, parâmetros e amostras para fazer…">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FLS 6497</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ementa.html">Ementa</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../recursos.html">Recursos</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-aulas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Aulas</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-aulas">    
+        <li>
+    <a class="dropdown-item" href="../materiais/aula1.html">
+ <span class="dropdown-text">Aula 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula2.html">
+ <span class="dropdown-text">Aula 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula3.html">
+ <span class="dropdown-text">Aula 3</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercícios" role="button" data-bs-toggle="dropdown" aria-expanded="false">Exercícios</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercícios">    
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios2.html">
+ <span class="dropdown-text">Exercícios 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios3.html">
+ <span class="dropdown-text">Exercícios 3</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="http://www.github.com/meirelesff/materiais"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a>
+  <ul class="collapse">
+  <li><a href="#aprendizado-supervisionado" id="toc-aprendizado-supervisionado" class="nav-link" data-scroll-target="#aprendizado-supervisionado">Aprendizado supervisionado</a></li>
+  <li><a href="#métricas-de-validação" id="toc-métricas-de-validação" class="nav-link" data-scroll-target="#métricas-de-validação">Métricas de validação</a>
+  <ul class="collapse">
+  <li><a href="#introdução-à-validação" id="toc-introdução-à-validação" class="nav-link" data-scroll-target="#introdução-à-validação">Introdução à validação</a></li>
+  </ul></li>
+  <li><a href="#métricas" id="toc-métricas" class="nav-link" data-scroll-target="#métricas">Métricas</a></li>
+  <li><a href="#métricas-de-classificação" id="toc-métricas-de-classificação" class="nav-link" data-scroll-target="#métricas-de-classificação">Métricas de classificação</a></li>
+  <li><a href="#métricas-para-variáveis-multinomiais" id="toc-métricas-para-variáveis-multinomiais" class="nav-link" data-scroll-target="#métricas-para-variáveis-multinomiais">Métricas para variáveis multinomiais</a></li>
+  <li><a href="#workflows" id="toc-workflows" class="nav-link" data-scroll-target="#workflows">Workflows</a></li>
+  </ul></li>
+  <li><a href="#programação-orientada-a-objetos" id="toc-programação-orientada-a-objetos" class="nav-link" data-scroll-target="#programação-orientada-a-objetos">Programação orientada a objetos</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Aula 3</h1>
+<p class="subtitle lead">Aprendizado supervisionado: classificação</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="introdução" class="level1 page-columns page-full">
+<h1>Introdução</h1>
+<p>Nesta aula, começaremos a estudar como resolver o grande problema que vimos na aula anterior: o de encontrar as melhores combinações de algoritmos, variáveis, parâmetros e amostras para fazer predições acuradas. Parte da solução para esse problema passará por aprendermos a definir formas de mensurar nosso desempenho em uma tarefa de predição.</p>
+<section id="aprendizado-supervisionado" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="aprendizado-supervisionado">Aprendizado supervisionado</h2>
+<div class="page-columns page-full"><p>Problemas de <code>aprendizado supervisionado</code> sempre partem de uma amostra na qual sabemos os valores de cada unidade <span class="math inline">\(i\)</span> de <span class="math inline">\(Y_{i}\)</span>, os <code>targets</code>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Se o problema que queremos resolver é um de predição de votos – i.e., quantos votos uma candidatura obterá dado características pessoais da candidata –, de antemão precisamos ter uma amostra, baseada em dados de eleições anteriores, na qual sabemos a votação de diferentes candidaturas. O mesmo vale para um problema de predizer se uma candidatura foi (1) ou não (0) eleita.</p><div class="no-row-height column-margin column-container"><li id="fn1" role="doc-endnote"><p><sup>1</sup>&nbsp;Há textos que se referem à variável dependente (em aprendizado de máquina, podemos ter mais de uma, como veremos quando abordarmos redes neurais) como <code>targets</code> ou <code>alvos</code>. Isso só faz sentido, no entanto, quando falamos de <code>aprendizado supervisionado</code>.</p></li></div></div>
+<p>Nesses e em outros casos, o interesse em geral é treinar um modelo, a partir de dados do passado, para fazer <em>predições</em> sobre ocorrências futuras – às vezes, o objetivo é um misto dos dois, como no caso do paper de <span class="citation" data-cites="streeter2019lethal">Streeter (<a href="#ref-streeter2019lethal" role="doc-biblioref">2019</a>)</span> recomendado para essa aula.</p>
+</section>
+<section id="métricas-de-validação" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="métricas-de-validação">Métricas de validação</h2>
+<p>Mas como sabemos se temos ou não um bom modelo? O <strong>ITSL</strong>, no capítulo 2.2, oferece uma definição do que chamamos de <em>quality of fit measures</em>, isto é, métricas de qualidade de ajuste de um modelo. Diferentemente de aplicações de estatística inferencial, trata-se de métricas que usamos para avaliar se as predições de um modelo estão próximas ou não dos valores reais do nosso target na amostra utilizada.</p>
+<section id="introdução-à-validação" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="introdução-à-validação">Introdução à validação</h3>
+<p><em>Predição</em> remete ao futuro. Quando treinamos um modelo, no mais das vezes queremos usá-lo pra falar do futuro, ou para especular sobre amostras que nas quais não temos <code>targets</code> – o que é chamado de <em>unseen data</em>. Por essa razão, calcular métricas de validação na amostra na qual um modelo foi treinado não é uma boa prática – isso abre espaço, inclusive, para que um modelo aprenda a modelar ruídos que só são encontrados nessa amostra particular. Em outras palavras, precisamos de dados ainda não usados pelo nosso modelo no treino para saber o quão bom é o seu desempenho preditivo.</p>
+<p>Em Ciência de Dados, essa diferença entre bases usadas para treinar um modelo e bases usadas para validar um modelo resultou em uma classificação própria: dados ou amostras de <code>treino</code> e de <code>teste</code>. Para resumir:</p>
+<ul>
+<li><p><code>Amostra de treino</code> é a amostra usada para treinar um modelo, <span class="math inline">\(\hat{f}\)</span>, em geral selecionada com um bom número de observações (convencionalmente se usam 70% dos dados disponíveis, mas esse número deve variar em função do problema abordado)</p></li>
+<li><p><code>Amostra de teste</code> é uma amostra usada apenas para validar um modelo, isto é, para se comparar predições de um modelo, <span class="math inline">\(\hat{Y_{i}}\)</span> com os valores reais de <span class="math inline">\(Y_{i}\)</span>`</p></li>
+</ul>
+<div class="page-columns page-full"><p>Em aplicações de aprendizado de máquina supervisionadas (e, em alguns casos, semi ou não-supervisionadas), ter amostras de <code>treino</code> e <code>teste</code> é a forma mais adequada de se avaliar o desempenho de um modelo em <em>unseen</em> data. Como fazer isso? Simples, basta separar sua base de dados em duas, sorteando cerca de 70% das observações para treinar o modelo e, as outras 30%, para validá-lo.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> De forma geral: quanto maior a amostra usada para se treinar um modelo, melhor ele consegue aprender padrões para generalização.</p><div class="no-row-height column-margin column-container"><li id="fn2" role="doc-endnote"><p><sup>2</sup>&nbsp;Em aulas futuras veremos formas mais adequadas de se selecionar amostras de treino e de teste.</p></li></div></div>
+<p>Nota final: se testarmos diferentes variações de um modelo na mesma base de treino para selecionar a melhor, acabaremos fazendo <em>overfitting</em> na amostra de teste (às vezes, mesmo com bases de testes diferentes, isso ocorre). Nesse caso, há outro tipo de base útil: a <code>amostra de valiação</code>, que é reservada para se fazer um teste final do melhor modelo selecionado (geralmente, 10% dos dados originais).</p>
+<p>Em alguns casos, validation sets também são escolhidos intencionalmente para serem muito diferentes dos sets usados para treino e teste. Exemplo: usamos dados de 2015 para treinar e validar um modelo e, posteriormente, usamos uma amostra de 2020 pra validá-lo.</p>
+<p>Aqui um quadro resumindo o básico sobre uso de dados para validação de modelos:</p>
+<table class="table">
+<caption>Tipos de amostra</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Amostra</th>
+<th style="text-align: left;">Função</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Treino</td>
+<td style="text-align: left;">Treinar um modelo (em geral, é maior parte dos dados disponíveis)</td>
+</tr>
+<tr class="even">
+<td>Teste</td>
+<td style="text-align: left;">Calcular métricas de validação a partir de um modelo treinado</td>
+</tr>
+<tr class="odd">
+<td>Validação</td>
+<td style="text-align: left;">Calcular uma métrica de validação final</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="métricas" class="level2">
+<h2 class="anchored" data-anchor-id="métricas">Métricas</h2>
+<p>Qual métrica, então, precisamos usar para mensurar o desempenho de um modelo em uma amostra de teste? A resposta realista é: depende.</p>
+<p>Em primeiro lugar, métricas devem ser selecionadas em função do tipo de problema supervisionado que queremos resolver. Em problemas de regressão, precisamos de medidas que consigam captar diferenças entre duas variáveis contínuas, <span class="math inline">\(\hat{Y}\)</span> e <span class="math inline">\(Y\)</span>. Já em problemas de classificação, ao contrário, saber a proporção de observações classificadas corretamente, ou a proporção de categorias classificadas corretamente em um ou mais categorias, é o objetivo.</p>
+<p>Em segundo lugar, métricas podem ser selecionadas de acordo com o que esperamos de um modelo. Para problemas de regressão, pode ser interessante penalizar modelos que produzem muitos <em>outliers</em> usando uma métrica como a erros quadrados médios (<em>mean squared error</em>). Se o importante for o erro médio, independentemente de <em>outliers</em>, ao contrário, talvez uma métrica como o erro médio seja útil.</p>
+<p>Imagine, por exemplo, que queremos treinar um modelo para predizer a ocorrência de golpes de estado no mundo todo. Em todo ano, não observamos muitos golpes, o que faz com que chutar que em um país qualquer não haverá golpe seja o suficiente para se acertar em mais de 90% das vezes. No entanto, se quisermos um bom modelo para predizer as ocorrências de golpe – isto é, que não as classifique como falso negativo –, uma métrica que indique a proporção de ocorrências de golpe preditas corretamente pode ser mais útil.</p>
+</section>
+<section id="métricas-de-classificação" class="level2">
+<h2 class="anchored" data-anchor-id="métricas-de-classificação">Métricas de classificação</h2>
+<p>Para facilitar a compreensão das métricas de classificação, considere o quadro abaixo (chamado matriz de confusão, ou <em>confusion matrix</em>):</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imgs/confusion.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption">Matriz de confusão</figcaption><p></p>
+</figure>
+</div>
+<p>Nesse quadro, temos os valores reais da amostra de teste e, também, os valores preditos pelo nosso modelo. Assim, o quadrante <em>verdadeiro positivo</em> (TP) indica ocorrências que foram preditas como verdadeiras (e.g., a probabilidade de uma vítima de violência policial letal ser negra) pelo nosso modelo e que, na amostra de teste, realmente são verdadeiras. De forma geral:</p>
+<ul>
+<li>TP indica que o modelo predisse uma resposta verdadeira e o valor real é verdadeiro</li>
+<li>TN indica que o modelo predisse uma resposta falsa e o valor real é falso</li>
+<li>FP indica que o modelo predisse uma resposta verdadeira e o valor real é falso</li>
+<li>FN indica que o modelo predisse uma resposta falsa e o valor real é verdadeiro</li>
+</ul>
+<p>Intuitivamente, queremos sempre minimizar <code>FP</code> e <code>FN</code>, mas, a depender do problema, pode ser mais vantajoso mirar em apenas um tipo de erro – o caso dos golpes militares do exemplo anterior.</p>
+<p>De forma geral, podemos definir uma medida geral de <code>acurácia</code>, que é o que temos em mente quando falamos em modelos com bom desempenho preditivo em tarefas de classificação:</p>
+<p><span class="math display">\[
+Acurácia = \frac{TP + TN}{TP + TN + FP + FN}
+\]</span></p>
+<p>Essa medida nos dá uma proporção que indica o total de predições corretas em relação a todas as predições feitas por um modelo. No entanto, como vimos, ela é inadequada para casos em que evitar <code>FP</code>, por exemplo, é o objetivo. Para esses, podemos definir outra medida, chamada de <code>precisão</code>:</p>
+<p><span class="math display">\[
+Acurácia = \frac{TP}{TP + FP}
+\]</span></p>
+<p>Para essa outra medida, o importante é quantas ocorrências de golpes militares fomos capazes de predizer corretamente. O lado negativo: se o modelo só fizer uma predição positiva, sua precisão será alta (ele jogará muitas ocorrências para <code>FN</code>). Nesse caso, outra medida é mais adequada:</p>
+<p><span class="math display">\[
+Recall = \frac{TP}{TP + FN}
+\]</span></p>
+<p>Diferentemente de <code>precisão</code>, <code>recall</code> leva em conta todas as ocorrências reais de valores positivos, sejam eles classificados como <code>TP</code> ou como <code>FN</code>. Quando essa medida é útil? Quando queremos que o nosso modelo seja o melhor possível em predizer ocorrências verdadeiras (e.g., golpes militares). <code>precisão</code>, ao contário, é uma medida mais parcimoniosa, que tem mais a ver com o desempenho relativo na predição de ocorrências verdadeiras. Esse é o problema de <code>recall</code>: podemos ter todas as observações realmente verdadeiras classificadas como tal, mas muitas outras como <code>FP</code>, e ainda teríamos um <code>recall</code> alto.</p>
+<p>Há uma forma intermediária de se conseguir um compromisso entre <code>recall</code> e <code>precisão</code> chamado <code>F1</code> (1 indica o máximo desempenho possível):</p>
+<p><span class="math display">\[
+F1 = \frac{2 \times Precisão \times Recall}{Precisão + Recall}
+\]</span></p>
+<p>Há ainda outras métricas, como a curva <code>AUC-ROC</code>, que compara as taxas de positivos e falsos positivos em diferentes cortes – e é uma medida mais geral do que <code>precisão</code>, mas, novamente, cabe sempre consideração sobre o problema a ser estudado para selecionar uma métrica. Outra prática recomendada é sempre calcular mais de uma métrica de validação – ainda que só possamos treinar um modelo mirando em apenas uma métrica, checar outras pode nos dar uma noção sobre o desempenho do nosso modelo em tarefas correlatas.</p>
+</section>
+<section id="métricas-para-variáveis-multinomiais" class="level2">
+<h2 class="anchored" data-anchor-id="métricas-para-variáveis-multinomiais">Métricas para variáveis multinomiais</h2>
+<p>Uma última consideração sobre métricas de validação para problemas de classificação é o número de categorias no <code>target</code>. Algumas das métricas discutidas acima, por exemplo, só se aplicam ao caso de um <code>target</code> binário. Quando temos mais de uma categoria, outras métricas precisam ser consideradas, como <code>entropia cruzada</code>.</p>
+<p>Para uma visão geral sobre as métricas disponíveis nos <em>frameworks</em> que usaremos, vale explorar <a href="https://mlr3.mlr-org.com/reference/mlr_measures.html">a documentação de métricas do mlr3</a> e do <a href="https://scikit-learn.org/stable/modules/model_evaluation.html">sci-kit</a>.</p>
+</section>
+<section id="workflows" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="workflows">Workflows</h2>
+<div class="page-columns page-full"><p>Selecionar modelo, incluir variáveis, separar amostras em treino e teste, calcular métricas de validação, entre outros, são tarefas que constituem um <em>workflow</em> em aprendizado de máquina. Por este termo, nos referimos ao processo completo de obtenção e limpeza de dados necessários até a validação de um modelo preditivo. Mas qual a razão de ter um termo para isso? No geral, cada pequena etapa desse processo, por menos que seja, pode ter impacto no nosso resultado final, então é importante pensar nela como um conjunto – e, também, desenvolver código que nos permita executar um <em>workflow</em> do início ao fim com o mínimo gasto de tempo e esforço.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn3" role="doc-endnote"><p><sup>3</sup>&nbsp;Teremos uma aula para cobrirmos boas práticas de condução de um <em>workflow</em>, como o uso de <em>pipelines</em> de código para encapsular todo um <em>workflow</em> e que são a base de aplicações comerciais em nuvem monitoradas por ferramentas como o <a href="https://airflow.apache.org/">Apache Airflow</a>.</p></li></div></div>
+</section>
+</section>
+<section id="programação-orientada-a-objetos" class="level1 page-columns page-full">
+<h1>Programação orientada a objetos</h1>
+<p>Para quem usa <code>R</code>, as funções do pacote <a href="https://mlr3.mlr-org.com/">mlr3</a> podem parecer um pouco estranhas. Para definir uma tarefa de predição linear, por exemplo, usaríamos o seguinte:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">as_task_regr</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"regr.lm"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span><span class="fu">train</span>(modelo)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Em particular, criamos um objeto <code>learner</code> e depois usamos uma função de dentro dele usando o indexador <code>$</code> – mais, não salvamos o resultado em lugar algum.</p>
+<div class="page-columns page-full"><p>Isso é possível porque o resultado da função <code>$train()</code> – que é um método do objeto <code>learner</code> – é salvo automaticamento dentro de <code>learner</code>, isto é, ele é salvo <em>in place</em>. Essa é uma das principais características da programação orientada a objetos: objetos têm métodos, isto é, funções internas que, em geral, salvam os resultados de suas chamadas <em>in place</em>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p><div class="no-row-height column-margin column-container"><li id="fn4" role="doc-endnote"><p><sup>4</sup>&nbsp;Nem sempre isso ocorre, mas é uma forma intuitiva de se entender o ponto</p></li></div></div>
+<p>Em <code>Python</code>, isso normalmente é o padrão. Vejamos uma regressão usando <a href="https://scikit-learn.org/">sci-kit learn</a> (<code>.</code> é o indexador equivalente de <code>$</code> nesse contexto):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">2</span>, <span class="dv">2</span>], [<span class="dv">2</span>, <span class="dv">3</span>]])</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.dot(X, np.array([<span class="dv">1</span>, <span class="dv">2</span>])) <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>reg <span class="op">=</span> LinearRegression()</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>reg.fit(X, y)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Não é essencial saber sobre classes, métodos e programação orientada a objetos, de forma geral, para acompanhar esse curso, mas pode ser útil aprender um pouco mais. Em <code>R</code>, a principal referência é <a href="https://adv-r.hadley.nz/oo.html">essa parte do livro Advanced R</a>. Para <code>Python</code>, <a href="https://realpython.com/python3-object-oriented-programming/">esse artigo é útil</a>.</p>
+
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-streeter2019lethal" class="csl-entry" role="doc-biblioentry">
+Streeter, Shea. 2019. <span>«Lethal force in black and white: Assessing racial disparities in the circumstances of police killings»</span>. <em>The Journal of Politics</em> 81 (3): 1124–32.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

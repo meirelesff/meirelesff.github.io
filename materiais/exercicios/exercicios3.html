@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FLS 6497 - Exercícios 2</title>
+<title>FLS 6497 - Exercícios 3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -119,8 +119,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta name="twitter:title" content="FLS 6497 - Exercícios 2">
-<meta name="twitter:description" content="Para esse exercício, será necessário carregar alguns dados climáticos de São Bernardo do Campo…">
+<meta name="twitter:title" content="FLS 6497 - Exercícios 3">
+<meta name="twitter:description" content="Para esse exercício, será necessário carregar alguns dados sobre violência policial letal nos Estados…">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -195,21 +195,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#modelos" id="toc-modelos" class="nav-link active" data-scroll-target="#modelos">1) Modelos</a>
+  <li><a href="#dados" id="toc-dados" class="nav-link active" data-scroll-target="#dados">1) Dados</a>
   <ul class="collapse">
-  <li><a href="#a-gráfico" id="toc-a-gráfico" class="nav-link" data-scroll-target="#a-gráfico">a) Gráfico</a></li>
-  <li><a href="#b-exploração" id="toc-b-exploração" class="nav-link" data-scroll-target="#b-exploração">b) Exploração</a></li>
-  <li><a href="#c-exportação" id="toc-c-exportação" class="nav-link" data-scroll-target="#c-exportação">c) Exportação</a></li>
-  <li><a href="#d-modelo" id="toc-d-modelo" class="nav-link" data-scroll-target="#d-modelo">d) Modelo</a></li>
-  <li><a href="#e-comparação" id="toc-e-comparação" class="nav-link" data-scroll-target="#e-comparação">e) Comparação</a></li>
+  <li><a href="#a-exploração-de-features" id="toc-a-exploração-de-features" class="nav-link" data-scroll-target="#a-exploração-de-features">a) Exploração de <em>features</em></a></li>
+  <li><a href="#b-nova-base" id="toc-b-nova-base" class="nav-link" data-scroll-target="#b-nova-base">b) Nova base</a></li>
   </ul></li>
-  <li><a href="#sorteios" id="toc-sorteios" class="nav-link" data-scroll-target="#sorteios">2) Sorteios</a>
+  <li><a href="#classificador-logístico" id="toc-classificador-logístico" class="nav-link" data-scroll-target="#classificador-logístico">2) Classificador logístico</a></li>
+  <li><a href="#treino-e-teste" id="toc-treino-e-teste" class="nav-link" data-scroll-target="#treino-e-teste">3) Treino e teste</a>
   <ul class="collapse">
-  <li><a href="#a-umidade" id="toc-a-umidade" class="nav-link" data-scroll-target="#a-umidade">a) Umidade</a></li>
-  <li><a href="#b-histograma" id="toc-b-histograma" class="nav-link" data-scroll-target="#b-histograma">b) Histograma</a></li>
-  <li><a href="#c-modelos-lineares" id="toc-c-modelos-lineares" class="nav-link" data-scroll-target="#c-modelos-lineares">c) Modelos lineares</a></li>
+  <li><a href="#a-criar-função" id="toc-a-criar-função" class="nav-link" data-scroll-target="#a-criar-função">a) Criar função</a></li>
+  <li><a href="#b-modelo-com-treino-e-teste" id="toc-b-modelo-com-treino-e-teste" class="nav-link" data-scroll-target="#b-modelo-com-treino-e-teste">b) Modelo com treino e teste</a></li>
+  <li><a href="#c-tamanho-das-amostras-de-treino" id="toc-c-tamanho-das-amostras-de-treino" class="nav-link" data-scroll-target="#c-tamanho-das-amostras-de-treino">c) Tamanho das amostras de treino</a></li>
   </ul></li>
-  <li><a href="#frameworks" id="toc-frameworks" class="nav-link" data-scroll-target="#frameworks">3) Frameworks</a></li>
+  <li><a href="#validação" id="toc-validação" class="nav-link" data-scroll-target="#validação">4) Validação</a>
+  <ul class="collapse">
+  <li><a href="#a-nova-função" id="toc-a-nova-função" class="nav-link" data-scroll-target="#a-nova-função">a) Nova função</a></li>
+  <li><a href="#b-cross-validation" id="toc-b-cross-validation" class="nav-link" data-scroll-target="#b-cross-validation">b) Cross-validation</a></li>
+  </ul></li>
+  <li><a href="#comparação-de-modelos" id="toc-comparação-de-modelos" class="nav-link" data-scroll-target="#comparação-de-modelos">5) Comparação de modelos</a></li>
   </ul>
 </nav>
     </div>
@@ -218,8 +221,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exercícios 2</h1>
-<p class="subtitle lead">Aula 2</p>
+<h1 class="title">Exercícios 3</h1>
+<p class="subtitle lead">Aula 3</p>
 </div>
 
 
@@ -233,91 +236,111 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="modelos" class="level1">
-<h1>1) Modelos</h1>
-<p>Para esse exercício, será necessário carregar alguns dados climáticos de São Bernardo do Campo (SP):</p>
+<section id="dados" class="level1">
+<h1>1) Dados</h1>
+<p>Para esse exercício, será necessário carregar alguns dados sobre violência policial letal nos Estados Unidos:</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv"</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web</span><span class="sc">%20s</span><span class="st">craping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv'</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> pd.read_csv(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
-<section id="a-gráfico" class="level2">
-<h2 class="anchored" data-anchor-id="a-gráfico">a) Gráfico</h2>
-<p>Analise a relação entre entre cobertura de nuvens (<code>cloud_coverage</code>) e temperatura máxima (<code>maximum_temperature</code>). Para isso, plote gráficos com a relação bivariada, use coeficiente de correlação ou um modelo linear (OLS). Descreva os resultados que encontrar.</p>
+<section id="a-exploração-de-features" class="level2">
+<h2 class="anchored" data-anchor-id="a-exploração-de-features">a) Exploração de <em>features</em></h2>
+<p>Faça gráficos de barras com a frequência da variável <code>race</code> por cada uma das variáveis <code>officer_</code> na base de dados. O resultado deve indicar quantas vítimas de mortes por violência letal policial de diferentes raças (<code>whites</code> e <code>blacks</code>) ocorreram em diferentes categorias (e.g., <code>office_offduty</code>). Dica: algumas variáveis precisam ser recategorizadas porque possuem muitas categorias com poucas ocorrências.</p>
 </section>
-<section id="b-exploração" class="level2">
-<h2 class="anchored" data-anchor-id="b-exploração">b) Exploração</h2>
-<p>Existe alguma outra variável na base com maior correção com a temperatura máxima? Novamente, registre os resultados que encontrar.</p>
+<section id="b-nova-base" class="level2">
+<h2 class="anchored" data-anchor-id="b-nova-base">b) Nova base</h2>
+<p>Crie uma nova base de dados que inclua apenas as variáveis mencionadas na Tabela 1 do paper de Streeter. Dica: será necessário criar novas variáveis e descartar outras existentes na base. Para quem usa <code>Python</code>, também é importante recodificar variáveis para o formato de <code>one hot encoding</code> (em <code>R</code>, a maioria das funções de regressão já faz essa conversão por baixo dos panos).</p>
 </section>
-<section id="c-exportação" class="level2">
-<h2 class="anchored" data-anchor-id="c-exportação">c) Exportação</h2>
-<p>Crie um código que faça um gráfico da relação bivariada entre todas as variáveis contínuas na base e os salve em disco. Dica:</p>
+</section>
+<section id="classificador-logístico" class="level1">
+<h1>2) Classificador logístico</h1>
+<p>Usando um <em>framework</em> (<code>mlr3</code> ou <code>sci-kit</code>), treine um modelo logístico para predizer mortes de <code>blacks</code> (crie uma dummy indicando <code>1</code> para essa ocorrência) usando as variáveis anteriores.</p>
+<p>O código base será mais ou menos o seguinte:</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(p, <span class="at">file =</span> <span class="fu">paste0</span>(<span class="st">"grafico.png"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3learners)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Treina o modelo</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>tsk <span class="ot">&lt;-</span> <span class="fu">as_task_classif</span>(race <span class="sc">~</span> officer_offduty <span class="sc">+</span> ..., <span class="at">data =</span> dados)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"classif.log_reg"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span><span class="fu">train</span>(tsk)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Avalia predicoes</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> learner<span class="sc">$</span><span class="fu">predict</span>(tsk)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>pred<span class="sc">$</span>confusion</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>measure <span class="ot">&lt;-</span> <span class="fu">msr</span>(<span class="st">"classif.acc"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>pred<span class="sc">$</span><span class="fu">score</span>(measure)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'grafico.png'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega os dados</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv'</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> pd.read_csv(link, encoding<span class="op">=</span><span class="st">'latin'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Transforma as variaveis (precisam ser float)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> pd.get_dummies(c[<span class="st">'race'</span>]).Black</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.get_dummies(c[<span class="st">'officer_offduty'</span>])</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Treina o modelo</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>mod <span class="op">=</span> LogisticRegression()</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>mod.fit(X, Y)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Avalia predicoes</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> mod.predict(X)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>classification_report(Y, pred)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>confusion_matrix(Y, pred)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
+<p>Dica: consulte (de verdade!) a documentação de referência de cada <em>framework</em>; é a melhor maneira de aprender a se virar.</p>
 </section>
-<section id="d-modelo" class="level2">
-<h2 class="anchored" data-anchor-id="d-modelo">d) Modelo</h2>
-<p>Rode modelos lineares simples (por mínimos quadrados ordinários) para predizer a temperatura máxima diária em São Bernardo do Campo (SP). Use as variáveis que quiser, faça transformações nelas se necessário, e reporte alguns resultados do melhor modelo que encontrar.</p>
+<section id="treino-e-teste" class="level1">
+<h1>3) Treino e teste</h1>
+<section id="a-criar-função" class="level2">
+<h2 class="anchored" data-anchor-id="a-criar-função">a) Criar função</h2>
+<p>Crie uma função para sortear da base uma amostra de treino e, outra, de teste. Para isso, a função pode retornar uma lista com as duas amostras. Crie também um argumento na função que permita selecionar o percentual de observações na amostra de treino (o <em>default</em> precisará ser 0.7).</p>
 </section>
-<section id="e-comparação" class="level2">
-<h2 class="anchored" data-anchor-id="e-comparação">e) Comparação</h2>
-<p>Salve as predições do seu modelo treinado no exercício anterior e compare com os valores reais de temperatura máxima (vale usar gráficos).</p>
+<section id="b-modelo-com-treino-e-teste" class="level2">
+<h2 class="anchored" data-anchor-id="b-modelo-com-treino-e-teste">b) Modelo com treino e teste</h2>
+<p>Com a função anterior, retreine seu modelo anterior na amostra de treino e, depois, aplique as predições na amostra de teste.</p>
 </section>
-</section>
-<section id="sorteios" class="level1">
-<h1>2) Sorteios</h1>
-<section id="a-umidade" class="level2">
-<h2 class="anchored" data-anchor-id="a-umidade">a) Umidade</h2>
-<p>Crie uma função (ou um código) para sortear 1000 observações do banco de dados climáticos, calcular a média de umidade (<code>humidity</code>).</p>
-</section>
-<section id="b-histograma" class="level2">
-<h2 class="anchored" data-anchor-id="b-histograma">b) Histograma</h2>
-<p>Com a função criada anteriormente, calcule 1000 médias de amostras de <code>humidity</code> e plote a distribuição como um histograma.</p>
-</section>
-<section id="c-modelos-lineares" class="level2">
-<h2 class="anchored" data-anchor-id="c-modelos-lineares">c) Modelos lineares</h2>
-<p>Modifique a função criada anteriormente para, depois de sortear 1000 observações do banco, rodar um modelo de regressão linear para predizer valores de <code>humidity</code> e extrair o <code>r2</code> do modelo. Dica:</p>
-<div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>) <span class="sc">~</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'grafico.png'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
+<section id="c-tamanho-das-amostras-de-treino" class="level2">
+<h2 class="anchored" data-anchor-id="c-tamanho-das-amostras-de-treino">c) Tamanho das amostras de treino</h2>
+<p>Com a função anterior, retreine seu modelo usando diferentes tamanhos de amostra de treino, de 0.3 a 0.9 com intervalos de 0.05. Crie um gráfico para reportar alguma métrica de validação (pode ser <code>acurácia</code> ou <code>precisão</code>, ou ainda <code>F1</code>) e, no eixo X, inclua a informação sobre o percentual usado</p>
 </section>
 </section>
-<section id="frameworks" class="level1">
-<h1>3) Frameworks</h1>
-<p>Ainda usando a base carregada anteriormente, use um <em>framework</em> para estimar um modelo de regressão tendo <code>humidity</code> como <em>target</em>. Dicas: siga os tutoriais do <a href="https://mlr3book.mlr-org.com/">mlr3</a>, para <code>R</code>, ou do <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html">sci-kit learn</a>, para <code>Python</code>. Não se preocupe em usar os <em>frameworks</em> perfeitamente, o importante é ganhar familiaridade com eles.</p>
+<section id="validação" class="level1">
+<h1>4) Validação</h1>
+<section id="a-nova-função" class="level2">
+<h2 class="anchored" data-anchor-id="a-nova-função">a) Nova função</h2>
+<p>Modifique a função criada anteriormente para que ela já separe a amostra em treino e teste, rode um modelo logístico e retorne alguma métrica de validação.</p>
+</section>
+<section id="b-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="b-cross-validation">b) Cross-validation</h2>
+<p>Use a função criada anteriormente para rodar <code>500</code> modelos logísticos em diferentes amostras de treino e de teste. Reporte os resultados desse exercício com um histograma dos valores de validação de alguma métrica.</p>
+</section>
+</section>
+<section id="comparação-de-modelos" class="level1">
+<h1>5) Comparação de modelos</h1>
+<p>Adapte a função criada anteriormente para rodar um outro modelo de classificação binário, como <code>naive bayes</code> ou <code>K-Nearest Neighbors</code> (explore a documentação dos <em>frameworks</em> para descobrir outras opções e saber mais). Com esse novo modelo, rode <code>500</code> vezes e compare os resultados com o do modelo logístico criado anteriormente.</p>
 
 
 </section>

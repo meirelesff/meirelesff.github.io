@@ -11,7 +11,7 @@
     "href": "index.html#cronograma",
     "title": "Ciência de Dados e Aprendizado de Máquina em Ciência Política",
     "section": "Cronograma",
-    "text": "Cronograma\n\n\n\n\n\n\nAviso\n\n\n\nEste é um cronograma inicial sujeito a modificações\n\n\n\n\n\nAula\nData\nTópico\n\n\n\n\n1\n17/08\nApresentação\n\n\n2\n24/08\nIntrodução & Revisão de Programação\n\n\n3\n31/08\nAprendizado Supervisionado: Regressão\n\n\n-\n7/09\nSem aula (Feriado)\n\n\n4\n14/09\nAprendizado Supervisionado: Classificação\n\n\n-\n21/09\nSem aula (ABCP)\n\n\n5\n28/09\nAprendizado Supervisionado: Modelos Lineares\n\n\n6\n5/10\nAprendizado Supervisionado: Modelos Não-Lineares\n\n\n-\n12/10\nSem aula (Feriado)\n\n\n-\n19/10\nSem aula (Anpocs)\n\n\n7\n26/10\nEnsemble: Stacking, Bagging, Boosting\n\n\n-\n2/11\nSem aula (Feriado)\n\n\n8\n9/11\nAprendizado Não-Supervisionado\n\n\n9\n16/11\nResampling & Validação\n\n\n10\n23/11\nTuning & Feature Selection\n\n\n11\n30/11\nDeep learning\n\n\n12\n7/12\nRevisão de Trabalhos Finais & Encerramento"
+    "text": "Cronograma\n\n\n\n\n\n\nAviso\n\n\n\nEste é um cronograma inicial sujeito a modificações\n\n\n\n\n\nAula\nData\nTópico\n\n\n\n\n1\n17/08\nApresentação\n\n\n2\n24/08\nIntrodução & Revisão de Programação\n\n\n3\n31/08\nAprendizado Supervisionado: Classificação\n\n\n-\n7/09\nSem aula (Feriado)\n\n\n4\n14/09\nAprendizado Supervisionado: Modelos Lineares\n\n\n-\n21/09\nSem aula (ABCP)\n\n\n5\n28/09\nAprendizado Supervisionado: Text as Data\n\n\n6\n5/10\nAprendizado Supervisionado: Modelos Não-Lineares\n\n\n-\n12/10\nSem aula (Feriado)\n\n\n-\n19/10\nSem aula (Anpocs)\n\n\n7\n26/10\nEnsemble: Stacking, Bagging, Boosting\n\n\n-\n2/11\nSem aula (Feriado)\n\n\n8\n9/11\nAprendizado Não-Supervisionado\n\n\n9\n16/11\nResampling & Validação\n\n\n10\n23/11\nTuning & Feature Selection\n\n\n11\n30/11\nDeep learning\n\n\n12\n7/12\nRevisão de Trabalhos Finais & Encerramento"
   },
   {
     "objectID": "materiais/aula1.html",
@@ -187,5 +187,96 @@
     "title": "Exercícios 2",
     "section": "c) Modelos lineares",
     "text": "c) Modelos lineares\nModifique a função criada anteriormente para, depois de sortear 1000 observações do banco, rodar um modelo de regressão linear para predizer valores de humidity e extrair o r2 do modelo. Dica:\n\nRPython\n\n\nmodelo <- lm(rnorm(100) ~ rnorm(100))\nsummary(modelo)$r.squared\n\n\nfrom matplotlib import pyplot as plt\nplt.savefig('grafico.png')"
+  },
+  {
+    "objectID": "materiais/aula3.html",
+    "href": "materiais/aula3.html",
+    "title": "Aula 3",
+    "section": "",
+    "text": "Programação orientada a objetos\nPara quem usa R, as funções do pacote mlr3 podem parecer um pouco estranhas. Para definir uma tarefa de predição linear, por exemplo, usaríamos o seguinte:\nlibrary(mlr3)\n\nmodelo <- as_task_regr(mpg ~ ., data = mtcars)\nlearner <- lrn(\"regr.lm\")\nlearner$train(modelo)\nEm particular, criamos um objeto learner e depois usamos uma função de dentro dele usando o indexador $ – mais, não salvamos o resultado em lugar algum.\nIsso é possível porque o resultado da função $train() – que é um método do objeto learner – é salvo automaticamento dentro de learner, isto é, ele é salvo in place. Essa é uma das principais características da programação orientada a objetos: objetos têm métodos, isto é, funções internas que, em geral, salvam os resultados de suas chamadas in place.4.4 Nem sempre isso ocorre, mas é uma forma intuitiva de se entender o ponto\nEm Python, isso normalmente é o padrão. Vejamos uma regressão usando sci-kit learn (. é o indexador equivalente de $ nesse contexto):\nfrom sklearn.linear_model import LinearRegression\nimport numpy as np\n\nX = np.array([[1, 1], [1, 2], [2, 2], [2, 3]])\ny = np.dot(X, np.array([1, 2])) + 3\nreg = LinearRegression()\nreg.fit(X, y)\nNão é essencial saber sobre classes, métodos e programação orientada a objetos, de forma geral, para acompanhar esse curso, mas pode ser útil aprender um pouco mais. Em R, a principal referência é essa parte do livro Advanced R. Para Python, esse artigo é útil.\n\n\n\n\n\n\nReferências\n\nStreeter, Shea. 2019. «Lethal force in black and white: Assessing racial disparities in the circumstances of police killings». The Journal of Politics 81 (3): 1124–32."
+  },
+  {
+    "objectID": "temp.html",
+    "href": "temp.html",
+    "title": "Materiais",
+    "section": "",
+    "text": "flowchart LR\n  A[Pergunta] --> B[Problema]\n  B --> C{Decision}\n  C --> D[Result one]\n  C --> E[Result two]"
+  },
+  {
+    "objectID": "temp.html#básico",
+    "href": "temp.html#básico",
+    "title": "Materiais",
+    "section": "Básico",
+    "text": "Básico\n\nRPython\n\n\nfizz_buzz <- function(fbnums = 1:50) {\n  output <- dplyr::case_when(\n    fbnums %% 15 == 0 ~ \"FizzBuzz\",\n    fbnums %% 3 == 0 ~ \"Fizz\",\n    fbnums %% 5 == 0 ~ \"Buzz\",\n    TRUE ~ as.character(fbnums)\n  )\n  print(output)\n}\n\n\ndef fizz_buzz(num):\n  if num % 15 == 0:\n    print(\"FizzBuzz\")\n  elif num % 5 == 0:\n    print(\"Buzz\")\n  elif num % 3 == 0:\n    print(\"Fizz\")\n  else:\n    print(num)"
+  },
+  {
+    "objectID": "exercicios/exercicios3.html",
+    "href": "exercicios/exercicios3.html",
+    "title": "Exercícios 3",
+    "section": "",
+    "text": "Para esse exercício, será necessário carregar alguns dados sobre violência policial letal nos Estados Unidos:\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv'\nc = pd.read_csv(link)\n\n\n\n\n\nFaça gráficos de barras com a frequência da variável race por cada uma das variáveis officer_ na base de dados. O resultado deve indicar quantas vítimas de mortes por violência letal policial de diferentes raças (whites e blacks) ocorreram em diferentes categorias (e.g., office_offduty). Dica: algumas variáveis precisam ser recategorizadas porque possuem muitas categorias com poucas ocorrências.\n\n\n\nCrie uma nova base de dados que inclua apenas as variáveis mencionadas na Tabela 1 do paper de Streeter. Dica: será necessário criar novas variáveis e descartar outras existentes na base. Para quem usa Python, também é importante recodificar variáveis para o formato de one hot encoding (em R, a maioria das funções de regressão já faz essa conversão por baixo dos panos)."
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#a-crie-uma-função-para-sortear-da-base-uma-amostra-de-treino-e-outra-de-teste.-para-isso-a-função-pode-retornar-uma-lista-com-as-duas-amostras.-crie-também-um-argumento-na-função-que-permita-selecionar-o-percentual-de-observações-na-amostra-de-treino-o-default-precisará-ser-0.7.",
+    "href": "exercicios/exercicios3.html#a-crie-uma-função-para-sortear-da-base-uma-amostra-de-treino-e-outra-de-teste.-para-isso-a-função-pode-retornar-uma-lista-com-as-duas-amostras.-crie-também-um-argumento-na-função-que-permita-selecionar-o-percentual-de-observações-na-amostra-de-treino-o-default-precisará-ser-0.7.",
+    "title": "Exercícios 3",
+    "section": "a) Crie uma função para sortear da base uma amostra de treino e, outra, de teste. Para isso, a função pode retornar uma lista com as duas amostras. Crie também um argumento na função que permita selecionar o percentual de observações na amostra de treino (o default precisará ser 0.7).",
+    "text": "a) Crie uma função para sortear da base uma amostra de treino e, outra, de teste. Para isso, a função pode retornar uma lista com as duas amostras. Crie também um argumento na função que permita selecionar o percentual de observações na amostra de treino (o default precisará ser 0.7)."
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#b-com-a-função-anterior-retreine-seu-modelo-anterior-na-amostra-de-treino-e-depois-aplique-as-predições-na-amostra-de-teste.",
+    "href": "exercicios/exercicios3.html#b-com-a-função-anterior-retreine-seu-modelo-anterior-na-amostra-de-treino-e-depois-aplique-as-predições-na-amostra-de-teste.",
+    "title": "Exercícios 3",
+    "section": "b) Com a função anterior, retreine seu modelo anterior na amostra de treino e, depois, aplique as predições na amostra de teste.",
+    "text": "b) Com a função anterior, retreine seu modelo anterior na amostra de treino e, depois, aplique as predições na amostra de teste."
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#c-com-a-função-anterior-retreine-seu-modelo-usando-diferentes-tamanhos-de-amostra-de-treino-de-0.3-a-0.9-com-intervalos-de-0.05.-crie-um-gráfico-para-reportar-alguma-métrica-de-validação-pode-ser-acurácia-ou-precisão-ou-ainda-f1-e-no-eixo-x-inclua-a-informação-sobre-o-percentual-usado",
+    "href": "exercicios/exercicios3.html#c-com-a-função-anterior-retreine-seu-modelo-usando-diferentes-tamanhos-de-amostra-de-treino-de-0.3-a-0.9-com-intervalos-de-0.05.-crie-um-gráfico-para-reportar-alguma-métrica-de-validação-pode-ser-acurácia-ou-precisão-ou-ainda-f1-e-no-eixo-x-inclua-a-informação-sobre-o-percentual-usado",
+    "title": "Exercícios 3",
+    "section": "c) Com a função anterior, retreine seu modelo usando diferentes tamanhos de amostra de treino, de 0.3 a 0.9 com intervalos de 0.05. Crie um gráfico para reportar alguma métrica de validação (pode ser acurácia ou precisão, ou ainda F1) e, no eixo X, inclua a informação sobre o percentual usado",
+    "text": "c) Com a função anterior, retreine seu modelo usando diferentes tamanhos de amostra de treino, de 0.3 a 0.9 com intervalos de 0.05. Crie um gráfico para reportar alguma métrica de validação (pode ser acurácia ou precisão, ou ainda F1) e, no eixo X, inclua a informação sobre o percentual usado"
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#a-modifique-a-função-criada-anteriormente-para-que-ela-já-separe-a-amostra-em-treino-e-teste",
+    "href": "exercicios/exercicios3.html#a-modifique-a-função-criada-anteriormente-para-que-ela-já-separe-a-amostra-em-treino-e-teste",
+    "title": "Exercícios 3",
+    "section": "a) Modifique a função criada anteriormente para que ela já separe a amostra em treino e teste",
+    "text": "a) Modifique a função criada anteriormente para que ela já separe a amostra em treino e teste"
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#a-criar-função",
+    "href": "exercicios/exercicios3.html#a-criar-função",
+    "title": "Exercícios 3",
+    "section": "a) Criar função",
+    "text": "a) Criar função\nCrie uma função para sortear da base uma amostra de treino e, outra, de teste. Para isso, a função pode retornar uma lista com as duas amostras. Crie também um argumento na função que permita selecionar o percentual de observações na amostra de treino (o default precisará ser 0.7)."
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#b-modelo-com-treino-e-teste",
+    "href": "exercicios/exercicios3.html#b-modelo-com-treino-e-teste",
+    "title": "Exercícios 3",
+    "section": "b) Modelo com treino e teste",
+    "text": "b) Modelo com treino e teste\nCom a função anterior, retreine seu modelo anterior na amostra de treino e, depois, aplique as predições na amostra de teste."
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#c-tamanho-das-amostras-de-treino",
+    "href": "exercicios/exercicios3.html#c-tamanho-das-amostras-de-treino",
+    "title": "Exercícios 3",
+    "section": "c) Tamanho das amostras de treino",
+    "text": "c) Tamanho das amostras de treino\nCom a função anterior, retreine seu modelo usando diferentes tamanhos de amostra de treino, de 0.3 a 0.9 com intervalos de 0.05. Crie um gráfico para reportar alguma métrica de validação (pode ser acurácia ou precisão, ou ainda F1) e, no eixo X, inclua a informação sobre o percentual usado"
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#a-nova-função",
+    "href": "exercicios/exercicios3.html#a-nova-função",
+    "title": "Exercícios 3",
+    "section": "a) Nova função",
+    "text": "a) Nova função\nModifique a função criada anteriormente para que ela já separe a amostra em treino e teste, rode um modelo logístico e retorne alguma métrica de validação."
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#b-cross-validation",
+    "href": "exercicios/exercicios3.html#b-cross-validation",
+    "title": "Exercícios 3",
+    "section": "b) Cross-validation",
+    "text": "b) Cross-validation\nUse a função criada anteriormente para rodar 500 modelos logísticos em diferentes amostras de treino e de teste. Reporte os resultados desse exercício com um histograma dos valores de validação de alguma métrica."
   }
 ]

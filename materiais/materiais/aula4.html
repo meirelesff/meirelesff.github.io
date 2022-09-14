@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-99.9.9">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FLS 6497 - Untitled</title>
+<title>FLS 6497 - Aula 4</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -42,20 +42,24 @@ ul.task-list{list-style: none;}
   "type": "overlay",
   "limit": 20,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
+<meta name="twitter:title" content="FLS 6497 - Aula 4">
+<meta name="twitter:description" content="Nesta aula, aplicaremos os frameworks que começamos a ver mais detidamente para problemas de regressão, isto é, problemas nos quais o objetivo é predizer variáveis contínuas.">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed">
@@ -92,6 +96,14 @@ ul.task-list{list-style: none;}
     <a class="dropdown-item" href="../materiais/aula2.html">
  <span class="dropdown-text">Aula 2</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula3.html">
+ <span class="dropdown-text">Aula 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula4.html">
+ <span class="dropdown-text">Aula 4</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -100,6 +112,14 @@ ul.task-list{list-style: none;}
         <li>
     <a class="dropdown-item" href="../exercicios/exercicios2.html">
  <span class="dropdown-text">Exercícios 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios3.html">
+ <span class="dropdown-text">Exercícios 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios4.html">
+ <span class="dropdown-text">Exercícios 4</span></a>
   </li>  
     </ul>
   </li>
@@ -121,14 +141,27 @@ ul.task-list{list-style: none;}
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a>
+  <ul class="collapse">
+  <li><a href="#problemas-de-regressão" id="toc-problemas-de-regressão" class="nav-link" data-scroll-target="#problemas-de-regressão">Problemas de regressão</a></li>
+  <li><a href="#métricas" id="toc-métricas" class="nav-link" data-scroll-target="#métricas">Métricas</a></li>
+  <li><a href="#regularização" id="toc-regularização" class="nav-link" data-scroll-target="#regularização">Regularização</a></li>
+  <li><a href="#transformações" id="toc-transformações" class="nav-link" data-scroll-target="#transformações">Transformações</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Untitled</h1>
+<h1 class="title">Aula 4</h1>
+<p class="subtitle lead">Aprendizado supervisionado: modelos lineares</p>
 </div>
 
 
@@ -142,8 +175,98 @@ ul.task-list{list-style: none;}
 
 </header>
 
+<section id="introdução" class="level1">
+<h1>Introdução</h1>
+<p>Nesta aula, aplicaremos os <em>frameworks</em> que começamos a ver mais detidamente para problemas de regressão, isto é, problemas nos quais o objetivo é predizer variáveis contínuas. Também precisaremos definir novas métricas de validação, entender um pouco de regularização e lidar com alguns problemas comuns como o de diferentes distribuições nos nossos preditores.</p>
+<section id="problemas-de-regressão" class="level2">
+<h2 class="anchored" data-anchor-id="problemas-de-regressão">Problemas de regressão</h2>
+<p>Como deve ser familiar para todo mundo neste curso, modelos de regressão normalmente são apresentados da seguinte forma:</p>
+<p><span class="math display">\[
+Y_{i} = \alpha + \beta x_{i} + \epsilon_{i}
+\]</span></p>
+<p>onde <span class="math inline">\(Y_{i}\)</span> indica alguma variável dependente contínua, numérica, como votos obtidos em uma eleição; o preço de um produto; a nota em uma prova. Tipicamente, esse modelo é estimado por OLS e, a partir dos coeficientes como <span class="math inline">\(\beta\)</span>, se fazem inferências. O modelo também tem uma série de pressupostos, mas não nos deteremos nisso aqui – em aprendizado de máquina, isso não é tão relevante porque o objetivo não é inferência.</p>
+<p>Do ponto de vista de predição, OLS minimiza uma métrica simples:</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n} (\hat{y_{i}} - y_{i})^{2}
+\]</span></p>
+<p>isto é, a soma das diferenças entre predição e valores reais ao quadrado. Há diferentes formas de se obter o melhor modelo usando OLS e, de forma prática, eles resultam em uma função <span class="math inline">\(f(x_{i})\)</span> que faz novas predições a partir dos coeficientes estimados.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Em regressão, não buscamos acurácia, mas sim <em>minimizar erro</em></p>
+</div>
+</div>
+</section>
+<section id="métricas" class="level2">
+<h2 class="anchored" data-anchor-id="métricas">Métricas</h2>
+<p>Problemas de regressão envolvem usar métricas apropriadas para variáveis contínuas. No geral, queremos saber se um dado modelo faz predições numéricas próximas de determinados valores, caso de um modelo OLS. No entanto, há mais do que isso: em algumas aplicações, também precisaremos obter modelos que reduzam a variação na distanção entre <span class="math inline">\(\hat{Y_i}\)</span> e <span class="math inline">\(Y_{i}\)</span>; em outras, precisaremos lidar com <em>outliers</em>. Para essas e outras tarefas, há métricas de validação mais indicadas.</p>
+<p>Para resumir, segue um quadro com exemplos:</p>
+<table class="table">
+<caption>Métricas de validação para problemas de regressão</caption>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Métrica</th>
+<th style="text-align: left;">Indicação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Erro médio (ou <code>MAE</code>)</td>
+<td style="text-align: left;">Dá o mesmo peso para quaisquer erros, isto é, <em>outliers</em>; mesma unidade de <span class="math inline">\(Y\)</span></td>
+</tr>
+<tr class="even">
+<td>Erro quadrático médio (<code>MSE</code>)</td>
+<td style="text-align: left;">Leva em conta variação nos erros, penalizando <em>outliers</em></td>
+</tr>
+<tr class="odd">
+<td>Raiz do erro quadrático médio (<code>RMSE</code>)</td>
+<td style="text-align: left;">Transforma o <code>MSE</code> trazendo ele de volta para a unidade de <span class="math inline">\(Y\)</span>, que pode ser interpretado na escala de desvios-padrão</td>
+</tr>
+</tbody>
+</table>
+<p>Exemplos: para predizer o total de vendas diárias de um item baseado em seu preço, o melhor talvez seja usar <code>MAE</code>, uma vez que é possível que valores reais de vendas não tenham variações extremas; ao contrário, para predizer a renda de uma pessoa em função de características demográficas, <code>RMSE</code> ou <code>MSE</code> podem ser mais indicadas. No geral, <code>RMSE</code> é preferido em relação a <code>MSE</code>.</p>
+<p>E o <code>R^2</code> (ou <em>r-quared</em>)? O <code>R^2</code>, apesar de ser uma métrica de ajuste muito comum em aplicações de inferência por indicar a variação explicada em <span class="math inline">\(Y\)</span> a partir dos preditores, não mensura erro diretamente – o que é mais importante para o caso de <em>unseen data</em>. Isso significa que, em alguns casos, <code>RMSE</code> ou outras podem divergir do <code>R^2</code>, dado que são medidas que buscam mensurar coisas diferentes.</p>
+</section>
+<section id="regularização" class="level2">
+<h2 class="anchored" data-anchor-id="regularização">Regularização</h2>
+<p>Como vimos, regressão por OLS encontra sempre o modelo modelo minimizando a soma dos erros quadráticos. Embora essa seja uma métrica razoável, caso queiramos usar outras, ou ainda ajustar o nível de complexidade ou reduzir o peso de variáveis que não ajudam nosso modelo, precisaremos de outras soluções. Para esses e outros casos, <code>regularização</code> é a chave.</p>
+<p>Em termos simples, <code>regularização</code> nada mais é do que um conjunto de métodos utilizados para melhorar o poder preditivo de modelos e/ou evitar <em>overffiting</em> e complexidade. Quando usamos <code>regularização</code>, portanto, estamos mirando em ter modelos melhores e, ao mesmo tempo, menos complexos. Lembrem-se do trade-off entre variânecia e viés: queremos um modelo que evite viéses, isto é, que consiga captar bem sinais evitando ruídos, mas queremos evitar <em>overfitting</em> que pode levar a erros de predição em <em>unseen data</em>.</p>
+<p>Há diversas formas de <code>regularização</code> (veremos isso detidamente em aulas futuras), mas algumas mais comuns incluem <em>cross-validation</em>, que tem a ver com o método de validação utilizado; usar <em>subsets</em> dos preditores; ou penalizar coeficientes (L1, L2 e ElasticNet). Aqui, vamos focar no último cenário, que pode ser implementado com <code>ridge</code> ou <code>LASSO</code>. As variações são simples de se entender:</p>
+<p><span class="math display">\[
+LASSO = \sum_{i=1}^{n} (y_{i} - \sum_{j=1}^{m} x_{ij} \beta_{j})^{2} + \lambda \sum_{j=0}^{m} |\beta_{j}|
+\]</span></p>
+<p><span class="math display">\[
+RIDGE = \sum_{i=1}^{n} (y_{i} - \sum_{j=1}^{m} x_{ij} \beta_{j})^{2} + \lambda \sum_{j=0}^{m} \beta^{2}_{j}
+\]</span></p>
+<p>Popularmente, essas funções são conhecidas por outros nomes:</p>
+<ul>
+<li><p><code>Regularização por L1</code>, implementada por meio de regressão <code>LASSO</code>, que é útil quando temos muitos preditores e queremos que o modelo encontre as mais úteis (i.e., até mesmo eliminando as menos relevantes)</p></li>
+<li><p><code>Regularização por L2</code>, implementada por meio de regressão <code>Ridge</code>, que é útil quando temos muitos preditores potencialmente importantes (mas queremos reduzir <em>overffiting</em>)</p></li>
+</ul>
+<p>Como deve ser possível perceber, os dois tipos são sensíveis à escala dos preditores – se usamos escalas muito diferentes, especialmente <code>L2</code>, a estimação de <span class="math inline">\(\beta\)</span> e o valor de <span class="math inline">\(\lambda\)</span> é impactado. Isso nos leva, portanto, a ter que lidar com outro tipo de problema.</p>
+</section>
+<section id="transformações" class="level2">
+<h2 class="anchored" data-anchor-id="transformações">Transformações</h2>
+<p>Para evitar que <code>regularização</code> não funcione adequadamente em problemas de regressão (mas isso também é válido para outros tipos de problemas e para um amplo leque de algoritmos), o ideal é sempre transformas, ou estandarizar, variáveis contínuas para que fiquem em escalas próximas. Bom exemplos incluem:</p>
+<ul>
+<li>Manter variáveis em proporção, variando de 0 a 1</li>
+<li>Usar <a href="https://en.wikipedia.org/wiki/Standard_score">z-valores</a>, que nada mais é do que subtrair a média de <span class="math inline">\(X\)</span> para cada unidade <span class="math inline">\(i\)</span> e, depois, dividir cada valor pelo desvio-padrão de <span class="math inline">\(X\)</span></li>
+</ul>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -168,7 +291,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiada");
     setTimeout(function() {
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');

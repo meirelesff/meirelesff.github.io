@@ -214,7 +214,7 @@
     "href": "exercicios/exercicios3.html",
     "title": "Exercícios 3",
     "section": "",
-    "text": "Para esse exercício, será necessário carregar alguns dados sobre violência policial letal nos Estados Unidos:\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv'\nc = pd.read_csv(link)\n\n\n\n\n\nFaça gráficos de barras com a frequência da variável race por cada uma das variáveis officer_ na base de dados. O resultado deve indicar quantas vítimas de mortes por violência letal policial de diferentes raças (whites e blacks) ocorreram em diferentes categorias (e.g., office_offduty). Dica: algumas variáveis precisam ser recategorizadas porque possuem muitas categorias com poucas ocorrências.\n\n\n\nCrie uma nova base de dados que inclua apenas as variáveis mencionadas na Tabela 1 do paper de Streeter. Dica: será necessário criar novas variáveis e descartar outras existentes na base. Para quem usa Python, também é importante recodificar variáveis para o formato de one hot encoding (em R, a maioria das funções de regressão já faz essa conversão por baixo dos panos)."
+    "text": "Para esse exercício, será necessário carregar alguns dados sobre violência policial letal nos Estados Unidos:\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv'\nc = pd.read_csv(link)\n\n\n\nPara quem usa R, também será importante instalar algumas bibliotecas previamente:\ninstall.packages(c(\"mlr3verse\", \"mlr3measures\"))\n\n\nFaça gráficos de barras com a frequência da variável race por cada uma das variáveis officer_ na base de dados. O resultado deve indicar quantas vítimas de mortes por violência letal policial de diferentes raças (whites e blacks) ocorreram em diferentes categorias (e.g., office_offduty). Dica: algumas variáveis precisam ser recategorizadas porque possuem muitas categorias com poucas ocorrências.\n\n\n\nCrie uma nova base de dados que inclua apenas as variáveis mencionadas na Tabela 1 do paper de Streeter. Dica: será necessário criar novas variáveis e descartar outras existentes na base. Para quem usa Python, também é importante recodificar variáveis para o formato de one hot encoding (em R, a maioria das funções de regressão já faz essa conversão por baixo dos panos)."
   },
   {
     "objectID": "exercicios/exercicios3.html#a-crie-uma-função-para-sortear-da-base-uma-amostra-de-treino-e-outra-de-teste.-para-isso-a-função-pode-retornar-uma-lista-com-as-duas-amostras.-crie-também-um-argumento-na-função-que-permita-selecionar-o-percentual-de-observações-na-amostra-de-treino-o-default-precisará-ser-0.7.",
@@ -278,5 +278,75 @@
     "title": "Exercícios 3",
     "section": "b) Cross-validation",
     "text": "b) Cross-validation\nUse a função criada anteriormente para rodar 500 modelos logísticos em diferentes amostras de treino e de teste. Reporte os resultados desse exercício com um histograma dos valores de validação de alguma métrica."
+  },
+  {
+    "objectID": "materiais/aula4.html",
+    "href": "materiais/aula4.html",
+    "title": "Aula 4",
+    "section": "",
+    "text": "Nesta aula, aplicaremos os frameworks que começamos a ver mais detidamente para problemas de regressão, isto é, problemas nos quais o objetivo é predizer variáveis contínuas. Também precisaremos definir novas métricas de validação, entender um pouco de regularização e lidar com alguns problemas comuns como o de diferentes distribuições nos nossos preditores.\n\n\nComo deve ser familiar para todo mundo neste curso, modelos de regressão normalmente são apresentados da seguinte forma:\n\\[\nY_{i} = \\alpha + \\beta x_{i} + \\epsilon_{i}\n\\]\nonde \\(Y_{i}\\) indica alguma variável dependente contínua, numérica, como votos obtidos em uma eleição; o preço de um produto; a nota em uma prova. Tipicamente, esse modelo é estimado por OLS e, a partir dos coeficientes como \\(\\beta\\), se fazem inferências. O modelo também tem uma série de pressupostos, mas não nos deteremos nisso aqui – em aprendizado de máquina, isso não é tão relevante porque o objetivo não é inferência.\nDo ponto de vista de predição, OLS minimiza uma métrica simples:\n\\[\n\\sum_{i=1}^{n} (\\hat{y_{i}} - y_{i})^{2}\n\\]\nisto é, a soma das diferenças entre predição e valores reais ao quadrado. Há diferentes formas de se obter o melhor modelo usando OLS e, de forma prática, eles resultam em uma função \\(f(x_{i})\\) que faz novas predições a partir dos coeficientes estimados.\n\n\n\n\n\n\nImportante\n\n\n\nEm regressão, não buscamos acurácia, mas sim minimizar erro\n\n\n\n\n\nProblemas de regressão envolvem usar métricas apropriadas para variáveis contínuas. No geral, queremos saber se um dado modelo faz predições numéricas próximas de determinados valores, caso de um modelo OLS. No entanto, há mais do que isso: em algumas aplicações, também precisaremos obter modelos que reduzam a variação na distanção entre \\(\\hat{Y_i}\\) e \\(Y_{i}\\); em outras, precisaremos lidar com outliers. Para essas e outras tarefas, há métricas de validação mais indicadas.\nPara resumir, segue um quadro com exemplos:\n\nMétricas de validação para problemas de regressão\n\n\n\n\n\n\nMétrica\nIndicação\n\n\n\n\nErro médio (ou MAE)\nDá o mesmo peso para quaisquer erros, isto é, outliers; mesma unidade de \\(Y\\)\n\n\nErro quadrático médio (MSE)\nLeva em conta variação nos erros, penalizando outliers\n\n\nRaiz do erro quadrático médio (RMSE)\nTransforma o MSE trazendo ele de volta para a unidade de \\(Y\\), que pode ser interpretado na escala de desvios-padrão\n\n\n\nExemplos: para predizer o total de vendas diárias de um item baseado em seu preço, o melhor talvez seja usar MAE, uma vez que é possível que valores reais de vendas não tenham variações extremas; ao contrário, para predizer a renda de uma pessoa em função de características demográficas, RMSE ou MSE podem ser mais indicadas. No geral, RMSE é preferido em relação a MSE.\nE o R^2 (ou r-quared)? O R^2, apesar de ser uma métrica de ajuste muito comum em aplicações de inferência por indicar a variação explicada em \\(Y\\) a partir dos preditores, não mensura erro diretamente – o que é mais importante para o caso de unseen data. Isso significa que, em alguns casos, RMSE ou outras podem divergir do R^2, dado que são medidas que buscam mensurar coisas diferentes.\n\n\n\nComo vimos, regressão por OLS encontra sempre o modelo modelo minimizando a soma dos erros quadráticos. Embora essa seja uma métrica razoável, caso queiramos usar outras, ou ainda ajustar o nível de complexidade ou reduzir o peso de variáveis que não ajudam nosso modelo, precisaremos de outras soluções. Para esses e outros casos, regularização é a chave.\nEm termos simples, regularização nada mais é do que um conjunto de métodos utilizados para melhorar o poder preditivo de modelos e/ou evitar overffiting e complexidade. Quando usamos regularização, portanto, estamos mirando em ter modelos melhores e, ao mesmo tempo, menos complexos. Lembrem-se do trade-off entre variânecia e viés: queremos um modelo que evite viéses, isto é, que consiga captar bem sinais evitando ruídos, mas queremos evitar overfitting que pode levar a erros de predição em unseen data.\nHá diversas formas de regularização (veremos isso detidamente em aulas futuras), mas algumas mais comuns incluem cross-validation, que tem a ver com o método de validação utilizado; usar subsets dos preditores; ou penalizar coeficientes (L1, L2 e ElasticNet). Aqui, vamos focar no último cenário, que pode ser implementado com ridge ou LASSO. As variações são simples de se entender:\n\\[\nLASSO = \\sum_{i=1}^{n} (y_{i} - \\sum_{j=1}^{m} x_{ij} \\beta_{j})^{2} + \\lambda \\sum_{j=0}^{m} |\\beta_{j}|\n\\]\n\\[\nRIDGE = \\sum_{i=1}^{n} (y_{i} - \\sum_{j=1}^{m} x_{ij} \\beta_{j})^{2} + \\lambda \\sum_{j=0}^{m} \\beta^{2}_{j}\n\\]\nPopularmente, essas funções são conhecidas por outros nomes:\n\nRegularização por L1, implementada por meio de regressão LASSO, que é útil quando temos muitos preditores e queremos que o modelo encontre as mais úteis (i.e., até mesmo eliminando as menos relevantes)\nRegularização por L2, implementada por meio de regressão Ridge, que é útil quando temos muitos preditores potencialmente importantes (mas queremos reduzir overffiting)\n\nComo deve ser possível perceber, os dois tipos são sensíveis à escala dos preditores – se usamos escalas muito diferentes, especialmente L2, a estimação de \\(\\beta\\) e o valor de \\(\\lambda\\) é impactado. Isso nos leva, portanto, a ter que lidar com outro tipo de problema.\n\n\n\nPara evitar que regularização não funcione adequadamente em problemas de regressão (mas isso também é válido para outros tipos de problemas e para um amplo leque de algoritmos), o ideal é sempre transformas, ou estandarizar, variáveis contínuas para que fiquem em escalas próximas. Bom exemplos incluem:\n\nManter variáveis em proporção, variando de 0 a 1\nUsar z-valores, que nada mais é do que subtrair a média de \\(X\\) para cada unidade \\(i\\) e, depois, dividir cada valor pelo desvio-padrão de \\(X\\)"
+  },
+  {
+    "objectID": "exercicios/exercicios4.html",
+    "href": "exercicios/exercicios4.html",
+    "title": "Exercícios 4",
+    "section": "",
+    "text": "Para esse exercício, será necessário carregar alguns dados que já vimos sobre o clima em São Bernardo do Campo (SP):\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'\nc = pd.read_csv(link)\n\n\n\nTambém usaremos, de ponta a ponta, os frameworks que estamos estudando. Para rodar um modelo de regressão OLS com partição da amostra entre teste e treino, podemos usar:\n\nRPython\n\n\nlibrary(mlr3verse)\n\n# Seleciona a tarefa e o modelo\ntsk <- as_task_regr(humidity ~ maximum_temprature + wind_speed, data = dados)\nlearner <- lrn(\"regr.lm\")\n\n# Define estrategia de separacao da amostra\nresampling <- rsmp(\"holdout\", ratio = 0.7)\n\n# Treina o modelo\nresultados <- resample(tsk, learner, resampling)\n\n# Avalia predicoes\nmeasure <- msr(c(\"regr.mse\")) # MSE\nresultados$score(measure, ids = FALSE, predict_sets = \"test\")\n\n\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error\n\n# Seleciona preditores e Y\nX = c[['wind_speed', 'maximum_temprature']]\nY = c.humidity\n\n# Holdout\nX_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3)\n\n# Treina o modelo e checa erros\nreg = LinearRegression().fit(X_train, Y_train)\npred = reg.predict(X_test)\nmean_squared_error(Y_test, pred) # MSE\n\n\n\n\n\nTreine modelos lineares (OLS) usando a combinação de variáveis que você achar melhor.\n\n\n\nUsando o modelo treinado anterioremente, calcule diferentes métricas de validação.\n\n\n\nCrie uma função que rode esse workflow inteiro e retorne apenas uma métrica de validação. Rode essa função 100 vezes e reporte os resultados (como quiser, com gráfico ou outros).\n\n\n\nUsando a função anterior, teste diferentes combinações de variáveis no modelo para achar um que tenha uma boa performance."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#a-regularização",
+    "href": "exercicios/exercicios4.html#a-regularização",
+    "title": "Exercícios 4",
+    "section": "a) Regularização",
+    "text": "a) Regularização\nUsando a mesma base de dados, adapte seu workflow anterior para, em vez de usar regressão linear, estimar modelos LASSO e Ridge."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#b-funções",
+    "href": "exercicios/exercicios4.html#b-funções",
+    "title": "Exercícios 4",
+    "section": "b) Funções",
+    "text": "b) Funções\nCrie uma função para estimar LASSO e Ridge e compare os resultados de 100 execuções."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#a-transformações-básicas",
+    "href": "exercicios/exercicios4.html#a-transformações-básicas",
+    "title": "Exercícios 4",
+    "section": "a) Transformações básicas",
+    "text": "a) Transformações básicas\nCrie uma nova variável que indique o percentual de votos válidos de Bolsonaro (dica: basta dividir votos_bolsonaro_2t_2018 por votos_validos_2t_2018)"
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#b-exploração",
+    "href": "exercicios/exercicios4.html#b-exploração",
+    "title": "Exercícios 4",
+    "section": "b) Exploração",
+    "text": "b) Exploração\nCrie alguns gráficos pra explorar a relação entre a votação de Bolsonaro e algumas das variáveis do banco (faça como quiser, e quantos gráficos quiser)."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#c-rode-modelos-lineares-com-e-sem-regularização-para-tentar-predizer-a-votação-de-bolsonaro-nos-municípios-usando-variáveis-como-regiao-semiarido-capital-pib_total.",
+    "href": "exercicios/exercicios4.html#c-rode-modelos-lineares-com-e-sem-regularização-para-tentar-predizer-a-votação-de-bolsonaro-nos-municípios-usando-variáveis-como-regiao-semiarido-capital-pib_total.",
+    "title": "Exercícios 4",
+    "section": "c) Rode modelos lineares, com e sem regularização, para tentar predizer a votação de Bolsonaro nos municípios usando variáveis como regiao, semiarido, capital, pib_total.",
+    "text": "c) Rode modelos lineares, com e sem regularização, para tentar predizer a votação de Bolsonaro nos municípios usando variáveis como regiao, semiarido, capital, pib_total."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#d-transforme-a-variável-pib_total-para-que-ela-fique-estandardizada-vale-ser-criativo-e-explorar-outras-variáveis-do-banco.",
+    "href": "exercicios/exercicios4.html#d-transforme-a-variável-pib_total-para-que-ela-fique-estandardizada-vale-ser-criativo-e-explorar-outras-variáveis-do-banco.",
+    "title": "Exercícios 4",
+    "section": "d) Transforme a variável pib_total para que ela fique estandardizada (vale ser criativo e explorar outras variáveis do banco).",
+    "text": "d) Transforme a variável pib_total para que ela fique estandardizada (vale ser criativo e explorar outras variáveis do banco)."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#c-modelos",
+    "href": "exercicios/exercicios4.html#c-modelos",
+    "title": "Exercícios 4",
+    "section": "c) Modelos",
+    "text": "c) Modelos\nRode modelos lineares, com e sem regularização, para tentar predizer a votação de Bolsonaro nos municípios usando variáveis como regiao, semiarido, capital, pib_total."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#d-transformações",
+    "href": "exercicios/exercicios4.html#d-transformações",
+    "title": "Exercícios 4",
+    "section": "d) Transformações",
+    "text": "d) Transformações\nTransforme a variável pib_total para que ela fique estandardizada (vale ser criativo e explorar outras variáveis do banco)."
   }
 ]

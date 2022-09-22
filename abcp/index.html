@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Ministries that We Want</title>
+    <meta charset="utf-8" />
+    <script src="slides_files/header-attrs-2.14/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Ministries that We Want
+## Parties’ Agendas and Signaling of Portfolio Salience
+### <p>Fernando Meireles<sup>*</sup>, Magna Inácio, Rosiene Guerra</p>
+### <p><small>Cebrap<sup>*</sup>, UFMG</small></p>
+
+---
+
+
+
+
+
+
+# Motivation
+
+.font110[Which criteria define 'who gets what' when cabinets are either formed or reshuffled?]
+
+.pull-left[
+
+- The canonical way to measure the portfolio payoff: The number of portfolios that a party gets
+]
+
+.pull-right[
+- Previous studies bolstered a turning point in determining portfolios' payoffs; however, appropriate measurement has proven to be a challenging task
+]
+
+---
+# Our contribution
+
+We offer a new measurement strategy to estimate `portfolio salience` and the `parties’ preferences` over ministerial portfolios. We depart from previous scholarly work in two ways: 
+
+
+.pull-left[
+
+- We use legislators' priorities, as disclosed by their legislative actions, to estimate salience
+]
+
+.pull-right[
+- We develop a Bayesian measurement strategy that estimates both portfolios salience and parties' preferences over them
+]
+
+---
+# Why should we care?
+
+.left-column[
+Salience is a central component of `portfolios payoffs` in government coalition
+]
+
+.right-column[
+.font90[
+- The correspondence between what parties want and what they get is a powerful incentive to hold them in line
+
+- *Formateurs* might use salience strategically to attract coalition partners
+
+- For the opposition, targeting portfolios in charge of their policy priorities is a crucial step in competing for policy outputs 
+]
+]
+
+
+---
+# Baseline model
+
+Let `\(p\)` denote political parties (i.e., `\(p = 1, ..., P\)`), `\(t\)` years ( `\(t = 1,...,T\)` ), and `\(j\)` portfolios ( `\(j = 1,...,J\)` ). For each party `\(p\)` in year `\(t\)` in respect to portfolio `\(j\)` we observe four `\(y_{k}\)` values, with `\(k\)` indexing the `\(K=4\)` indicators we defined
+&lt;br&gt;
+
+--
+
+`$$Pr[y_{ptjk = c}] = F(\theta_{jt} \beta_{k} - \alpha_{kc}) - F(\theta_{jt} \beta_{k} - \alpha_{kc-1})$$`
+
+---
+# Data
+
+`9541` observations,  `27` unique ministerial portfolios, and `38` unique parties from 2001 to 2020
+
+
+.texto[Indicators]
+.font90[
+- Floor speeches (proportion targeted towards a given party)
+
+- Individual amendments to the budget (proportion)
+
+- Legislative recommendations (proportion)
+
+- Legislative bills (proportion)
+]
+
+
+
+
+---
+# Priors
+
+We use standard priors in this Ordinal Item Response Theory (O-IRT) framework
+
+
+`$$\beta_{k} \sim HN(0, 3)$$`
+`$$\theta_{jt1} \sim N(0, 3)$$`
+
+and we do not assume that salience is independent over time. Instead, we use a robust component
+
+`$$\theta_{jt} \sim T_{4}(\theta_{jt-1}, \sigma^2)$$`
+`$$\sigma^2 \sim N(0, 1)$$`
+
+---
+# A novel dynamic model
+
+We separate ministries' salience from parties' preferences with a new quantity `\(\lambda_{pj}\)`
+
+`$$Pr[y_{ptjk = c}] = F([\theta_{jt} + \lambda_{pj}] \beta_{k} - \alpha_{kc}) - F([\theta_{jt} + \lambda_{pj}] \beta_{k} - \alpha_{kc-1})$$`
+`$$\lambda_{pj} \sim N(0, 3)$$`
+
+We fit the model running 4 Marcov Chain Monte Carlo (MCMC) chains with 4000 iterations each using Stan.
+
+
+---
+# Main results
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Our measures of salience show good face and external validity
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; We provide yearly measures of portfolio salience for 27 ministries over 20 years, as well as parties' preferences over portfolios for 38 unique political parties
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; We also provide evidence that our measure improves our understanding of the government coalition game in Brazil
+
+
+---
+# Salience scores
+
+![scores.png](scores.png)
+
+
+---
+# Parties' preferences
+
+![scores.png](parties.png)
+
+
+---
+# Gamson's Law
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; By weighting portfolios payoffs by salience and preferences, we find an almost perfect one-to-one relationship between seat share and portfolios held by coalition parties
+]
+
+![scores.png](gamson.png)
+
+
+---
+# Wrapping up
+
+.pull-left[
+Our model provides `smooth time-varying estimates of portfolio salience` that are common and independent to all legislative parties. 
+
+Moreover, these estimates match past and current events in cabinet politics in Brazil, providing the tools to investigate trends in the salience of portfolios over time
+]
+
+.pull-right[
+Our model also allows us to investigate the individual preferences Brazilian political parties have regarding the ministries we study
+]
+
+
+
+
+&lt;style type="text/css"&gt;
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+&lt;/style&gt;
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>`"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

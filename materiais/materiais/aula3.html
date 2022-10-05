@@ -190,6 +190,10 @@ div.csl-indent {
     <a class="dropdown-item" href="../materiais/aula5.html">
  <span class="dropdown-text">Aula 5</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula6.html">
+ <span class="dropdown-text">Aula 6</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -210,6 +214,10 @@ div.csl-indent {
         <li>
     <a class="dropdown-item" href="../exercicios/exercicios5.html">
  <span class="dropdown-text">Exercícios 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios6.html">
+ <span class="dropdown-text">Exercícios 6</span></a>
   </li>  
     </ul>
   </li>
@@ -362,7 +370,7 @@ Acurácia = \frac{TP + TN}{TP + TN + FP + FN}
 \]</span></p>
 <p>Essa medida nos dá uma proporção que indica o total de predições corretas em relação a todas as predições feitas por um modelo. No entanto, como vimos, ela é inadequada para casos em que evitar <code>FP</code>, por exemplo, é o objetivo. Para esses, podemos definir outra medida, chamada de <code>precisão</code>:</p>
 <p><span class="math display">\[
-Acurácia = \frac{TP}{TP + FP}
+Precisão = \frac{TP}{TP + FP}
 \]</span></p>
 <p>Para essa outra medida, o importante é quantas ocorrências de golpes militares fomos capazes de predizer corretamente. O lado negativo: se o modelo só fizer uma predição positiva, sua precisão será alta (ele jogará muitas ocorrências para <code>FN</code>). Nesse caso, outra medida é mais adequada:</p>
 <p><span class="math display">\[

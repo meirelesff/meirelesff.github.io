@@ -120,7 +120,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <link rel="stylesheet" href="../styles.css">
 <meta name="twitter:title" content="FLS 6497 - Exercícios 5">
-<meta name="twitter:description" content="Para esse exercício, será necessário carregar discursos presidenciais feitos por Dilma e Temer em parte de seus…">
+<meta name="twitter:description" content="Para esse exercício, será necessário carregar uma base de discursos presidenciais feitos por Dilma Rousseff e Michel Temer em parte de seus…">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -231,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#c-validação" id="toc-c-validação" class="nav-link" data-scroll-target="#c-validação">c) Validação</a></li>
   <li><a href="#c-validação-ii" id="toc-c-validação-ii" class="nav-link" data-scroll-target="#c-validação-ii">c) Validação II</a></li>
   </ul></li>
-  <li><a href="#validação" id="toc-validação" class="nav-link" data-scroll-target="#validação">2) Validação</a></li>
+  <li><a href="#evitando-data-leaks" id="toc-evitando-data-leaks" class="nav-link" data-scroll-target="#evitando-data-leaks">2) Evitando <em>data leaks</em></a></li>
   <li><a href="#benchmark" id="toc-benchmark" class="nav-link" data-scroll-target="#benchmark">3) Benchmark</a></li>
   </ul>
 </nav>
@@ -258,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="workflow" class="level1">
 <h1>1) Workflow</h1>
-<p>Para esse exercício, será necessário carregar discursos presidenciais feitos por Dilma e Temer em parte de seus mandatos:</p>
+<p>Para esse exercício, será necessário carregar uma base de discursos presidenciais feitos por Dilma Rousseff e Michel Temer em parte de seus mandatos:</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
@@ -329,8 +329,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Repita o exercício c), dessa vez usando a variável <code>planalto</code>, que indica se um discurso foi proferido no Palácio do Planalto, como <em>target</em>.</p>
 </section>
 </section>
-<section id="validação" class="level1">
-<h1>2) Validação</h1>
+<section id="evitando-data-leaks" class="level1">
+<h1>2) Evitando <em>data leaks</em></h1>
 <p>Como vimos, pré-processamento deve ser aplicado <em>antes</em> de fazermos <em>split sample</em> de validação (i.e., criar amostras de teste e de treino). Agora, implemente um <em>workflow</em> que leva isso em conta. Para tanto, você deverá criar uma função que separe textos em treino e teste, que aplique pré-processamento apenas na amostra de treino e que, depois, replique ele na amostra de teste para, então, rodar um algoritmo e calcular alguma métrica de validação.</p>
 </section>
 <section id="benchmark" class="level1">

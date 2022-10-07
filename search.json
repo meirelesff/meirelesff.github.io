@@ -7,25 +7,11 @@
     "text": "Este é website com materias do curso Ciência de Dados e Aprendizado de Máquina em Ciência Política, ministrado no Programa de Pós-Graduação de Ciência Política da Universidade de São Paulo (USP). Neste espaço serão postados, uma semana antes de cada aula, os materiais de apoio que estudaremos em laboratório.\nA ementa do curso pode ser encontrada aqui."
   },
   {
-    "objectID": "index.html#plano-das-aulas",
-    "href": "index.html#plano-das-aulas",
+    "objectID": "index.html#cronograma",
+    "href": "index.html#cronograma",
     "title": "Ciência de Dados e Aprendizado de Máquina em Ciência Política",
-    "section": "Plano das Aulas",
-    "text": "Plano das Aulas\n\n\n\n\n\n\nAviso\n\n\n\nEste é um cronograma inicial sujeito a modificações\n\n\n\n\n\nAula\nData\nTópico\n\n\n\n\n1\n17/08\nApresentação\n\n\n2\n24/08\nIntrodução & Revisão de Programação\n\n\n3\n31/08\nAprendizado Supervisionado: Regressão\n\n\n4\n7/09\nAprendizado Supervisionado: Classificação\n\n\n5\n21/09\nAprendizado Supervisionado: Modelos Lineares\n\n\n6\n28/09\nAprendizado Supervisionado: Modelos Não-Lineares\n\n\n7\n5/10\nEnsemble: Stacking, Bagging, Boosting\n\n\n8\n12/10\nAprendizado Não-Supervisionado\n\n\n9\n19/10\nResampling & Validação\n\n\n10\n26/10\nTuning & Feature Selection\n\n\n11\n2/11\nDeep learning\n\n\n12\n9/11\nRevisão de Trabalhos Finais & Encerramento"
-  },
-  {
-    "objectID": "aulas.html",
-    "href": "aulas.html",
-    "title": "Materiais",
-    "section": "",
-    "text": "flowchart LR\n  A[Pergunta] --> B[Problema]\n  B --> C{Decision}\n  C --> D[Result one]\n  C --> E[Result two]"
-  },
-  {
-    "objectID": "aulas.html#básico",
-    "href": "aulas.html#básico",
-    "title": "Materiais",
-    "section": "Básico",
-    "text": "Básico\n\nRPython\n\n\nfizz_buzz <- function(fbnums = 1:50) {\n  output <- dplyr::case_when(\n    fbnums %% 15 == 0 ~ \"FizzBuzz\",\n    fbnums %% 3 == 0 ~ \"Fizz\",\n    fbnums %% 5 == 0 ~ \"Buzz\",\n    TRUE ~ as.character(fbnums)\n  )\n  print(output)\n}\n\n\ndef fizz_buzz(num):\n  if num % 15 == 0:\n    print(\"FizzBuzz\")\n  elif num % 5 == 0:\n    print(\"Buzz\")\n  elif num % 3 == 0:\n    print(\"Fizz\")\n  else:\n    print(num)"
+    "section": "Cronograma",
+    "text": "Cronograma\n\n\n\n\n\n\nAviso\n\n\n\nEste é um cronograma inicial sujeito a modificações\n\n\n\n\n\nAula\nData\nTópico\n\n\n\n\n1\n17/08\nApresentação\n\n\n2\n24/08\nIntrodução & Revisão de Programação\n\n\n3\n31/08\nAprendizado Supervisionado: Classificação\n\n\n-\n7/09\nSem aula (Feriado)\n\n\n4\n14/09\nAprendizado Supervisionado: Modelos Lineares\n\n\n-\n21/09\nSem aula (ABCP)\n\n\n5\n28/09\nAprendizado Supervisionado: Text as Data\n\n\n6\n5/10\nAprendizado Supervisionado: Modelos Não-Lineares\n\n\n-\n12/10\nSem aula (Feriado)\n\n\n-\n19/10\nSem aula (Anpocs)\n\n\n7\n26/10\nEnsemble: Stacking, Bagging, Boosting\n\n\n-\n2/11\nSem aula (Feriado)\n\n\n8\n9/11\nAprendizado Não-Supervisionado\n\n\n9\n16/11\nResampling & Validação\n\n\n10\n23/11\nTuning & Feature Selection\n\n\n11\n30/11\nDeep learning\n\n\n12\n7/12\nRevisão de Trabalhos Finais & Encerramento"
   },
   {
     "objectID": "ementa.html",
@@ -112,13 +98,6 @@
     "text": "Referências\n\n\nAthey, Susan, e Guido W Imbens. 2019. «Machine learning methods that economists should know about». Annual Review of Economics 11: 685–725.\n\n\nBarberá, Pablo, Amber E Boydstun, Suzanna Linn, Ryan McMahon, e Jonathan Nagler. 2021. «Automated text classification of news articles: A practical guide». Political Analysis 29 (1): 19–42.\n\n\nBroniecki, Philipp, Lucas Leemann, e Reto Wüest. 2022. «Improved Multilevel Regression with Poststratification through Machine Learning (autoMrP)». The Journal of Politics 84 (1): 000–000.\n\n\nCantú, Francisco. 2019. «The fingerprints of fraud: Evidence from Mexico’s 1988 presidential election». American Political Science Review 113 (3): 710–26.\n\n\nChang, Charles, e Michael Masterson. 2020. «Using word order in political text classification with long short-term memory models». Political Analysis 28 (3): 395–411.\n\n\nChen, Ling, e Hao Zhang. 2021. «Strategic Authoritarianism: The Political Cycles and Selectivity of China’s Tax-Break Policy». American Journal of Political Science 65 (4): 845–61.\n\n\nDenny, Matthew J, e Arthur Spirling. 2018. «Text preprocessing for unsupervised learning: Why it matters, when it misleads, and what to do about it». Political Analysis 26 (2): 168–89.\n\n\nErikson, Robert S, e Christopher Wlezien. 2021. «Forecasting the 2020 presidential election: Leading economic indicators, polls, and the vote». PS: Political Science & Politics 54 (1): 55–58.\n\n\nErlich, Aaron, Stefano G Dantas, Benjamin E Bagozzi, Daniel Berliner, e Brian Palmer-Rubin. 2021. «Multi-label Prediction for Political Text-as-data». Political Analysis, 1–18.\n\n\nGrimmer, Justin, Margaret E Roberts, e Brandon M Stewart. 2021. «Machine learning for social science: An agnostic approach». Annual Review of Political Science 24: 395–419.\n\n\nJordan, Soren, Hannah L Paul, e Andrew Q Philips. 2022. «How to Cautiously Uncover the “Black Box” of Machine Learning Models for Legislative Scholars». Legislative Studies Quarterly.\n\n\nKaufman, Aaron Russell, Peter Kraft, e Maya Sen. 2019. «Improving supreme court forecasting using boosted decision trees». Political Analysis 27 (3): 381–87.\n\n\nLi, Yuhui, e Matthew S Shugart. 2016. «The seat product model of the effective number of parties: A case for applied political science». Electoral Studies 41: 23–34.\n\n\nMagyar, Zsuzsanna B. 2022. «What makes party systems different? A principal component analysis of 17 advanced democracies 1970–2013». Political Analysis 30 (2): 250–68.\n\n\nMontgomery, Jacob M, e Santiago Olivella. 2018. «Tree-Based Models for Political Science Data». American Journal of Political Science 62 (3): 729–44.\n\n\nMuchlinski, David, Xiao Yang, Sarah Birch, Craig Macdonald, e Iadh Ounis. 2021. «We need to go deeper: Measuring electoral violence using convolutional neural networks and social media». Political Science Research and Methods 9 (1): 122–39.\n\n\nMueller, Hannes, e Christopher Rauh. 2018. «Reading between the lines: Prediction of political violence using newspaper text». American Political Science Review 112 (2): 358–75.\n\n\nMüller, Stefan. 2022. «The temporal focus of campaign communication». The Journal of Politics 84 (1): 000–000.\n\n\nNeunhoeffer, Marcel, e Sebastian Sternberg. 2019. «How cross-validation can go wrong and what to do about it». Political Analysis 27 (1): 101–6.\n\n\nRaschka, Sebastian. 2018. «Model evaluation, model selection, and algorithm selection in machine learning». arXiv preprint arXiv:1811.12808.\n\n\nSalganik, Matthew J. 2019. Bit by bit: Social research in the digital age. Princeton University Press. https://www.bitbybitbook.com/en/1st-ed/.\n\n\nStreeter, Shea. 2019. «Lethal force in black and white: Assessing racial disparities in the circumstances of police killings». The Journal of Politics 81 (3): 1124–32.\n\n\nZucco Jr, Cesar, e Timothy J Power. 2021. «Fragmentation without cleavages? Endogenous fractionalization in the Brazilian party system». Comparative Politics 53 (3): 477–500."
   },
   {
-    "objectID": "index.html#cronograma",
-    "href": "index.html#cronograma",
-    "title": "Ciência de Dados e Aprendizado de Máquina em Ciência Política",
-    "section": "Cronograma",
-    "text": "Cronograma\n\n\n\n\n\n\nAviso\n\n\n\nEste é um cronograma inicial sujeito a modificações\n\n\n\n\n\nAula\nData\nTópico\n\n\n\n\n1\n17/08\nApresentação\n\n\n2\n24/08\nIntrodução & Revisão de Programação\n\n\n3\n31/08\nAprendizado Supervisionado: Regressão\n\n\n-\n7/09\nSem aula (Feriado)\n\n\n4\n14/09\nAprendizado Supervisionado: Classificação\n\n\n-\n21/09\nSem aula (ABCP)\n\n\n5\n28/09\nAprendizado Supervisionado: Modelos Lineares\n\n\n6\n5/10\nAprendizado Supervisionado: Modelos Não-Lineares\n\n\n-\n12/10\nSem aula (Feriado)\n\n\n-\n19/10\nSem aula (Anpocs)\n\n\n7\n26/10\nEnsemble: Stacking, Bagging, Boosting\n\n\n-\n2/11\nSem aula (Feriado)\n\n\n8\n9/11\nAprendizado Não-Supervisionado\n\n\n9\n16/11\nResampling & Validação\n\n\n10\n23/11\nTuning & Feature Selection\n\n\n11\n30/11\nDeep learning\n\n\n12\n7/12\nRevisão de Trabalhos Finais & Encerramento"
-  },
-  {
     "objectID": "materiais/aula1.html",
     "href": "materiais/aula1.html",
     "title": "Aula 1",
@@ -147,39 +126,11 @@
     "text": "Esta aula cobre as diferenças entre aprendizado de máquia, ou aprendizagem estatística, e outras abordagens de análise de dados. Para quem está habituado a pensar em inferência e propriedades de estimadores, o que veremos é um pouco diferente: nosso objetivo, pelo menos na maioria das nossas aplicações, será predição. A diferença importa e tem a ver, essencialmente, com o tipo de pergunta que poderemos responder.\n\n\nExistem várias definições que poderíamos usar, mas a distinção entre predição e inferência oferica no ITSL é útil. Considere um exemplo hipotético: sabemos quanto candidaturas gastaram em uma eleição, \\(X_{i}\\), e quantos votos obtiveram, \\(Y_{i}\\); com essas informações, poderíamos estimar um modelo como \\(Y_{i} = \\beta X_{i} + \\epsilon_{i}\\). O resultado do modelo estimado nos permitiria, por exemplo, avaliar se o gasto de campanha tem efeito positivo sobre votos, ou para fazer um chute embasado sobre o desempenho de uma candidatura no futuro. No primeiro caso, queremos inferir sobre o processo que deu origem aos dados; no segundo, predizer uma nova ocorrência.\nAlguns exemplos de problemas de inferência:\n\nExaminar se a iluminação pública tem relação com assaltos em São Paulo\nDescobrir quanto um carro desvaloriza com um ano a mais de uso\nSaber se pessoas com ensino superior ganham mais do que as demais\n\nAlguns exemplos de problemas de predição:\n\nA partir de exemplos de um texto de spam, identificar se um texto qualquer é ou não spam\nUsar dados fiscas dos municípios para predizer a votação de uma candidatura específica à reeleição\nOferecer uma sugestão de filme baseada no histórico de usos na Netflix"
   },
   {
-    "objectID": "recursos.html",
-    "href": "recursos.html",
-    "title": "Recursos",
-    "section": "",
-    "text": "Para acompanhar o curso, conhecimentos intermediários em programaçãosão necessários. Nesta página, listo algumas referências e recursos úteis para o aprimoramento desses pré-requisitos."
-  },
-  {
-    "objectID": "recursos.html#programação",
-    "href": "recursos.html#programação",
-    "title": "Recursos",
-    "section": "Programação",
-    "text": "Programação\n\nR\n\nR for Data Science, Garrett Grolemund and Hadley Wickham.\n\nLivro essencial, cobre o básico até o intermediário do uso de R e do tidyverse aplicados à Ciência de Dados\n\nR Cookbook, Winston Chang\n\nLivro prático focado na resolução de problemas comuns\n\nRStudio cheatsheets\n\nGuias práticos para resolução de diferentes problemas com tidyverse\n\nRweekly\n\nNewsletter semanal com novidades sobre R\n\n\n\n\nPython\n\nPython for Data Analysis, Wes McKinney\n\nEm certo sentido, é um livro similar ao R4DS, bom para iniciantes\n\nLearn Python\n\nSite com diversos tutoriais e textos sobre Python\n\nPython cheatsheets\n\nGuias práticos, agora para Python\n\nPycoders\n\nUma das mais lidas newsletters sobre Python"
-  },
-  {
-    "objectID": "temp.html",
-    "href": "temp.html",
-    "title": "Materiais",
-    "section": "",
-    "text": "flowchart LR\n  A[Pergunta] --> B[Problema]\n  B --> C{Decision}\n  C --> D[Result one]\n  C --> E[Result two]"
-  },
-  {
-    "objectID": "temp.html#básico",
-    "href": "temp.html#básico",
-    "title": "Materiais",
-    "section": "Básico",
-    "text": "Básico\n\nRPython\n\n\nfizz_buzz <- function(fbnums = 1:50) {\n  output <- dplyr::case_when(\n    fbnums %% 15 == 0 ~ \"FizzBuzz\",\n    fbnums %% 3 == 0 ~ \"Fizz\",\n    fbnums %% 5 == 0 ~ \"Buzz\",\n    TRUE ~ as.character(fbnums)\n  )\n  print(output)\n}\n\n\ndef fizz_buzz(num):\n  if num % 15 == 0:\n    print(\"FizzBuzz\")\n  elif num % 5 == 0:\n    print(\"Buzz\")\n  elif num % 3 == 0:\n    print(\"Fizz\")\n  else:\n    print(num)"
-  },
-  {
-    "objectID": "exercicios/exercicios1.html",
-    "href": "exercicios/exercicios1.html",
-    "title": "Exercícios",
-    "section": "",
-    "text": "Para esta aula,"
+    "objectID": "materiais/aula2.html#funções",
+    "href": "materiais/aula2.html#funções",
+    "title": "Aula 2",
+    "section": "Funções",
+    "text": "Funções\nCriar funções é algo extremamente útil para se automatizar determinadas rotinas. Neste curso, vamos usar, em alguns casos, funções específicas para facilitar o nosso trabalho. Caso tenha dúvidas, consulte este capítulo do R4DS ou este tutorial do Real Python."
   },
   {
     "objectID": "materiais/aula2.html#controle-de-fluxo",
@@ -196,11 +147,74 @@
     "text": "Frameworks\nVamos queimar várias etapas e ir logo para a aplicação dos frameworks. Nas próximas aulas, daremos vários passos atrás e cobriremos detidamente algoritmos e etapas de um projeto.\n\nTarefas\nEm R, será necessário carregar o pacote mle3 e seguir este tutorial. Tente acompanhar o código e ir modificando ele para ver o que acontece (fique à vontade para usar outros modelos ou outros datasets, como o mtcars, que já vem por padrão no pacote datasets).\nEm python, siga o getting started do Sci-kit learn, também brincando com o código. O exemplo, nesse caso, é mais complexo e cobre mais etapas de uma pipeline."
   },
   {
+    "objectID": "materiais/aula3.html",
+    "href": "materiais/aula3.html",
+    "title": "Aula 3",
+    "section": "",
+    "text": "Programação orientada a objetos\nPara quem usa R, as funções do pacote mlr3 podem parecer um pouco estranhas. Para definir uma tarefa de predição linear, por exemplo, usaríamos o seguinte:\nlibrary(mlr3)\n\nmodelo <- as_task_regr(mpg ~ ., data = mtcars)\nlearner <- lrn(\"regr.lm\")\nlearner$train(modelo)\nEm particular, criamos um objeto learner e depois usamos uma função de dentro dele usando o indexador $ – mais, não salvamos o resultado em lugar algum.\nIsso é possível porque o resultado da função $train() – que é um método do objeto learner – é salvo automaticamento dentro de learner, isto é, ele é salvo in place. Essa é uma das principais características da programação orientada a objetos: objetos têm métodos, isto é, funções internas que, em geral, salvam os resultados de suas chamadas in place.4.4 Nem sempre isso ocorre, mas é uma forma intuitiva de se entender o ponto\nEm Python, isso normalmente é o padrão. Vejamos uma regressão usando sci-kit learn (. é o indexador equivalente de $ nesse contexto):\nfrom sklearn.linear_model import LinearRegression\nimport numpy as np\n\nX = np.array([[1, 1], [1, 2], [2, 2], [2, 3]])\ny = np.dot(X, np.array([1, 2])) + 3\nreg = LinearRegression()\nreg.fit(X, y)\nNão é essencial saber sobre classes, métodos e programação orientada a objetos, de forma geral, para acompanhar esse curso, mas pode ser útil aprender um pouco mais. Em R, a principal referência é essa parte do livro Advanced R. Para Python, esse artigo é útil.\n\n\n\n\n\n\nReferências\n\nStreeter, Shea. 2019. «Lethal force in black and white: Assessing racial disparities in the circumstances of police killings». The Journal of Politics 81 (3): 1124–32."
+  },
+  {
+    "objectID": "materiais/aula4.html",
+    "href": "materiais/aula4.html",
+    "title": "Aula 4",
+    "section": "",
+    "text": "Nesta aula, aplicaremos os frameworks que começamos a ver mais detidamente para problemas de regressão, isto é, problemas nos quais o objetivo é predizer variáveis contínuas. Também precisaremos definir novas métricas de validação, entender um pouco de regularização e lidar com alguns problemas comuns como o de diferentes distribuições nos nossos preditores.\n\n\nComo deve ser familiar para todo mundo neste curso, modelos de regressão normalmente são apresentados da seguinte forma:\n\\[\nY_{i} = \\alpha + \\beta x_{i} + \\epsilon_{i}\n\\]\nonde \\(Y_{i}\\) indica alguma variável dependente contínua, numérica, como votos obtidos em uma eleição; o preço de um produto; a nota em uma prova. Tipicamente, esse modelo é estimado por OLS e, a partir dos coeficientes como \\(\\beta\\), se fazem inferências. O modelo também tem uma série de pressupostos, mas não nos deteremos nisso aqui – em aprendizado de máquina, isso não é tão relevante porque o objetivo não é inferência.\nDo ponto de vista de predição, OLS minimiza uma métrica simples:\n\\[\n\\sum_{i=1}^{n} (\\hat{y_{i}} - y_{i})^{2}\n\\]\nisto é, a soma das diferenças entre predição e valores reais ao quadrado. Há diferentes formas de se obter o melhor modelo usando OLS e, de forma prática, eles resultam em uma função \\(f(x_{i})\\) que faz novas predições a partir dos coeficientes estimados.\n\n\n\n\n\n\nImportante\n\n\n\nEm regressão, não buscamos acurácia, mas sim minimizar erro\n\n\n\n\n\nProblemas de regressão envolvem usar métricas apropriadas para variáveis contínuas. No geral, queremos saber se um dado modelo faz predições numéricas próximas de determinados valores, caso de um modelo OLS. No entanto, há mais do que isso: em algumas aplicações, também precisaremos obter modelos que reduzam a variação na distanção entre \\(\\hat{Y_i}\\) e \\(Y_{i}\\); em outras, precisaremos lidar com outliers. Para essas e outras tarefas, há métricas de validação mais indicadas.\nPara resumir, segue um quadro com exemplos:\n\nMétricas de validação para problemas de regressão\n\n\n\n\n\n\nMétrica\nIndicação\n\n\n\n\nErro médio (ou MAE)\nDá o mesmo peso para quaisquer erros, isto é, outliers; mesma unidade de \\(Y\\)\n\n\nErro quadrático médio (MSE)\nLeva em conta variação nos erros, penalizando outliers\n\n\nRaiz do erro quadrático médio (RMSE)\nTransforma o MSE trazendo ele de volta para a unidade de \\(Y\\), que pode ser interpretado na escala de desvios-padrão\n\n\n\nExemplos: para predizer o total de vendas diárias de um item baseado em seu preço, o melhor talvez seja usar MAE, uma vez que é possível que valores reais de vendas não tenham variações extremas; ao contrário, para predizer a renda de uma pessoa em função de características demográficas, RMSE ou MSE podem ser mais indicadas. No geral, RMSE é preferido em relação a MSE.\nE o R^2 (ou r-quared)? O R^2, apesar de ser uma métrica de ajuste muito comum em aplicações de inferência por indicar a variação explicada em \\(Y\\) a partir dos preditores, não mensura erro diretamente – o que é mais importante para o caso de unseen data. Isso significa que, em alguns casos, RMSE ou outras podem divergir do R^2, dado que são medidas que buscam mensurar coisas diferentes.\n\n\n\nComo vimos, regressão por OLS encontra sempre o modelo modelo minimizando a soma dos erros quadráticos. Embora essa seja uma métrica razoável, caso queiramos usar outras, ou ainda ajustar o nível de complexidade ou reduzir o peso de variáveis que não ajudam nosso modelo, precisaremos de outras soluções. Para esses e outros casos, regularização é a chave.\nEm termos simples, regularização nada mais é do que um conjunto de métodos utilizados para melhorar o poder preditivo de modelos e/ou evitar overffiting e complexidade. Quando usamos regularização, portanto, estamos mirando em ter modelos melhores e, ao mesmo tempo, menos complexos. Lembrem-se do trade-off entre variânecia e viés: queremos um modelo que evite viéses, isto é, que consiga captar bem sinais evitando ruídos, mas queremos evitar overfitting que pode levar a erros de predição em unseen data.\nHá diversas formas de regularização (veremos isso detidamente em aulas futuras), mas algumas mais comuns incluem cross-validation, que tem a ver com o método de validação utilizado; usar subsets dos preditores; ou penalizar coeficientes (L1, L2 e ElasticNet). Aqui, vamos focar no último cenário, que pode ser implementado com ridge ou LASSO. As variações são simples de se entender:\n\\[\nLASSO = \\sum_{i=1}^{n} (y_{i} - \\sum_{j=1}^{m} x_{ij} \\beta_{j})^{2} + \\lambda \\sum_{j=0}^{m} |\\beta_{j}|\n\\]\n\\[\nRIDGE = \\sum_{i=1}^{n} (y_{i} - \\sum_{j=1}^{m} x_{ij} \\beta_{j})^{2} + \\lambda \\sum_{j=0}^{m} \\beta^{2}_{j}\n\\]\nPopularmente, essas funções são conhecidas por outros nomes:\n\nRegularização por L1, implementada por meio de regressão LASSO, que é útil quando temos muitos preditores e queremos que o modelo encontre as mais úteis (i.e., até mesmo eliminando as menos relevantes)\nRegularização por L2, implementada por meio de regressão Ridge, que é útil quando temos muitos preditores potencialmente importantes (mas queremos reduzir overffiting)\n\nComo deve ser possível perceber, os dois tipos são sensíveis à escala dos preditores – se usamos escalas muito diferentes, especialmente L2, a estimação de \\(\\beta\\) e o valor de \\(\\lambda\\) é impactado. Isso nos leva, portanto, a ter que lidar com outro tipo de problema.\n\n\n\nPara evitar que regularização não funcione adequadamente em problemas de regressão (mas isso também é válido para outros tipos de problemas e para um amplo leque de algoritmos), o ideal é sempre transformas, ou estandarizar, variáveis contínuas para que fiquem em escalas próximas. Bom exemplos incluem:\n\nManter variáveis em proporção, variando de 0 a 1\nUsar z-valores, que nada mais é do que subtrair a média de \\(X\\) para cada unidade \\(i\\) e, depois, dividir cada valor pelo desvio-padrão de \\(X\\)"
+  },
+  {
+    "objectID": "materiais/aula5.html",
+    "href": "materiais/aula5.html",
+    "title": "Aula 5",
+    "section": "",
+    "text": "Nesta aula, aplicaremos aprendizado supervisionado para resolver problemas em um dos tipos mais complexos de dado: textos. Em particular, textos são difíceis de serem estudados porque são hiperdimensionais, não-estruturados e, geralmente, volumosos.\nA parte mais importante da aula de hoje consistirá em aprender os principais procedimentos sobre pré-processamento de texto para, então, adaptarmos o workflow que já vimos nas aulas anteriores para classificar discursos presidenciais.\n\n\nComo em qualquer problema em aprendizado de máquina, texto e outras fontes de dados não-estraturadas precisas ser convertidas para números para podermos aplicar algoritmos e pipelines. Há algumas opções mais utilizadas: transformar texto em vetores (word embbedings), algo cada vez mais comum; transformar textos em bag of words (ou bag of n-grams). Bag of words tem a vantagem de ser uma representação simples e que, por resultar em um formato tabular convencional, pode ser utilizado em vários algoritmos.\nResumidamente, bag of words funciona da seguinte forma: listamos todas as (ou um sub-conjunto das) palavras contidas em todos os textos ou documentos que queremos analisar e, para cada texto ou documento, contamos quantas vezes cada uma aparece. O resultado é algo mais ou menos assim:\n\n\n\nBag of Words\n\n\nO grande problema aqui é que, a depender da quantia de textos e dos seus tamanhos, extrapolamos facilmente dezenas de milhares de palavras se formos contabilizar todas – e, ainda assim, a maioria delas vai aparecer em apenas um ou outro documento, criando o que chamamos de matriz esparsa1 Precisamos, portanto, de alternativas.1 Vale notar, também, que bag of words ignora a posição em que palavras ocorrem, o que pode ser importante em algumas aplicações.\n\n\n\nA solução tradicional em aprendizado de máquina para o problema do bag of words é criar matrizes menores fazendo a seleção ativa de apenas algumas palavras para contar. Há várias formas de se fazer isso e, no geral, não há certo ou errado. Para tentar ser mais exaustivo, seguem critérios utizados em pré-processamento de texto:\n\nRemovação de números e/ou caracteres especiais (caso não sejam informativos para determinado contexto);\nRemoção de stopwords, isto é, palavras que não são consideradas informativas para um determinado problema (e.g., artigos, pronomes, etc.);\nNormalização do texto (e.g., lowercase, trimming);\nStemming (também lematização) (e.g., reduzir palavras às suas raízes, como em radical*idade e radical*ização);\nJunção de palavras por similaridade textual (e.g., distância de Jaccard e etc.);\nRemover palavras com mais ou menos que um determinado número de caracteres;\nRemover palavras que ocorrem pouco a) absolutamente, b) relativamente (por proporção, ou quantil); c) por número de documentos únicos em que aparecem;\nRemover palavras indicadoras de contexto (e.g., o nome do autor ou autora de determinado texto);\nEntre outros.\n\nCada uma destas decisões têm impactos diferentes sobre o conjunto final de features utilizados para resolver um problema. De forma geral, no entanto, o importante é sempre mirar no seguinte, via tentativa e erro, para chegar em uma solução adequada: 1) selecionar o mínimo possível de palavras (para sermos eficientes computacionalmente) que discriminem bem valores do nosso target.\n\n\n\n\n\n\nDica\n\n\n\nEm análise de texto, feature selection é algo essencial, diferentemente das aplicações que vimos até agora\n\n\n\n\nEm R, existem alguns frameworks mais bem integrados para análise de texto, mas o próprio mlr3 não oferece suporte específico a essa tarefa. Por essa razão, usaremos uma combinação de duas ferramentas: quanteda e mlr3. Para instalar o primeiro, use:\ninstall.packages(\"quanteda\")\nA partir daí, supondo que temos uma base de textos já carregada chamada df, precisamos seguir três etapas para criar um bag of words: criar um corpus; tokenizar os textos, isto é, separar as palavras; criar um dfm (document-feature matrix) e selecionar as features desejadas:\nlibrary(quanteda)\n\n# 1) Cria um corpus\ncps <- corpus(df, docid_field = \"id\", text_field = \"textos\")\n\n# 2) Tokenizacao\ntks <- cps %>%\n  tokens(remove_punct = TRUE, remove_numbers = TRUE) %>%\n  tokens_tolower() %>%\n  tokens_remove(min_nchar = 5, pattern = stopwords(\"pt\"))\n  \n# 3) Criacao de uma matriz bag-of-words\ntks_dfm <- dfm(tks) %>%\n  dfm_trim(min_docfreq = 5)\n  \n# Etapa final) Transformar o resultado para tibble para o mlr3\ntks_dfm <- tks_dfm %>%\n  as.matrix() %>%\n  as_tibble()\nEm Python, esse processo todo é facilitado pela library sklearn. Com ela, já é possível passar uma lista de textos diretamente para o método fit_transform da função CountVectorizer:\nfrom sklearn.feature_extraction.text import CountVectorizer\n\nvct = CountVectorizer(analyzer='word', ngram_range=(1, 2), min_df=0.1)\nX = vectorizer.fit_transform(X)\nCountVectorizer não é tão flexível quanto toda a suíte do quanteda, mas Python fornece diversas outras ferramentas para pré-processar textos – inclusive muito mais rápidas.\n\n\n\nQuando criamos uma bag of words para treinar um modelo, precisamos usar as mesmas features que encontramos ali para fazer predição em unseen data. Podemos fazer isso em R ou Python com:\n\nRPython\n\n\n# Tokeniza um corpus com textos nao usados para treino\nteste_tks_dfm <- corpus(teste, docid_field = \"id\", text_field = \"textos\") %>%\n  tokens(remove_punct = TRUE, remove_numbers = TRUE) %>%\n  tokens_tolower() %>%\n  tokens_remove(min_nchar = 5, pattern = stopwords(\"pt\")) %>%\n  dfm() %>%\n  dfm_match(featnames(tks_dfm))\n\n\nY = vct.transform(Y)\n\n\n\nFica evidente por esse exemplo como sklearn torna o processo muito mais simples.\n\n\n\nMuitas vezes, bag of words acabam contendo palavras que ocorrem com muita frequência em vários documentos que não são informativas – pense em termos como empresa em documentos corporativos, ou partido em discursos de políticos.\nNestes casos, pode ser útil podenderar o peso das ocorrências de uma palavra pela frequência em que ela aparece em todos os documentos – e aí temos outra medida, TF-IDF.\nA ideia, com isso, é a seguinte: se uma palavra aparece bastante em poucos documentos, provavelmente ela é informativa de alguma similaridade entre eles; ao contrário, se uma palavra aparece pouco ou muito em todos os documentos, possivelmente ela não é informativa.\nPara implementar TF-IDF, podemos usar:\n\nRPython\n\n\ndfm_tfidf(tks_dfm)\n\n\nfrom sklearn.feature_extraction.text import TfidfVectorizer\n\nvct = TfidfVectorizer()\nX = vectorizer.fit_transform(X)\n\n\n\n\n\n\n\nPor definição, matrizes esparsas contém muitos elementos sem nenhuma informação – e é geralmente isso o que ocorre quando usamos bag of words, especialmente quando são analisados textos muito pequenos. A consequência prática é que muitos algoritmos não lidam bem com estruturas esparsas, falhando em convergir ou em otimizar coeficientes.\nUma boa forma de identificar uma matriz esparsa é contar a proporção de zeros em relação ao total de elementos. Em problemas que usam dados em format ode bag of words, facilmente essa métrica passa de 95%.\nPortanto, quando for escolher algoritmos para lidar com problemas que envolvem texto2, considere opções que lidam bem com matrizes esparsas, como naive bayes, KNN, árvores de decisão ou regressões logísticas (lineares com regularização também são boas opções).2 Vamos estudar apenas classificação, mas é possível gerar features a partir de texto para resolver problemas de regressão.\n\n\n\nPré-processamento é parte integrante de uma pipeline porque, ao alterar features utilizadas – ou seus valores, como quando usamos TF-IDF –, o algoritmo e hiper-parâmetros mais adequado para resolver um dado problema pode mudar. É por isso que, em geral, pré-processamento é otimizado em conjunto com outras decisões.\nPara facilitar algumas coisas, poderemos utilizar algumas ferramentas que nos ajudarão a manejar pipelines um pouco mais complexas. Em R, temos como comparar vários modelos simultaneamente com:\n# Cria um grid para comparar modelos\ndesign <- benchmark_grid(\n  tasks = tsk,\n  learners = lrns(c(\"classif.naive_bayes\", \"classif.kknn\"), predict_sets = \"test\"),\n  resamplings = rsmps(\"holdout\", ratio = 0.7)\n)\n\nresultados <- benchmark(design)\nresultados$score(msr(\"classif.fbeta\"))\nJá em Python, uma ferramenta útil é a função Pipeline:\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.naive_bayes import GaussianNB\n\npipe = Pipeline([('texto', CountVectorizer()), ('nb', GaussianNB())])\npipe.fit(X_train, Y_train)\nAlgo importante a notar: a depender do pré-processamento utilizado, como o uso de TF-IDF ou remoção de palavras que ocorrem em poucos documentos, a separação das amostras em treino e teste pode afetar o resultado obtido. Por quê? Se usarmos uma amostra completa para selecionar features, estaremos introduzindo dados que os modelos que serão treinados não deveriam acessar. Algumas pessoas chamam isso de data leaks.\n\n\n\n\n\n\nNota\n\n\n\nPré-processamento deve ser sempre feito antes de introduzirmos uma estratégia de validação"
+  },
+  {
+    "objectID": "materiais/projeto1.html",
+    "href": "materiais/projeto1.html",
+    "title": "Projeto 1",
+    "section": "",
+    "text": "Dados\nPara essa tarefa, vocês terão duas bases de dados: uma com os 350 discursos presidenciais e, outra, com 25 discursos sem indicação de autoria que deverá ser utilizada como amostra de validação.\nPara carregar os dados, basta usar:\n\nRPython\n\n\nlink <- \"https://github.com/FLS-6497/datasets/blob/main/projeto1/discursos_pres_internacionais.csv?raw=true\"\ndiscursos <- readr::read_csv2(link)\n\nlink <- \"https://github.com/FLS-6497/datasets/blob/main/projeto1/discursos_pres_internacionais_validacao.csv?raw=true\"\nvalidacao <- readr::read_csv2(link)\n\n\nimport pandas as pd\n\nlink = 'https://github.com/FLS-6497/datasets/blob/main/projeto1/discursos_pres_internacionais.csv?raw=true'\ndiscursos = pd.read_csv(link, sep=';')\n\nlink = 'https://github.com/FLS-6497/datasets/blob/main/projeto1/discursos_pres_internacionais_validacao.csv?raw=true'\nvalidacao = pd.read_csv(link, sep=';')\n\n\n\n\n\nObjetivo\nO objetivo central dessa atividade é treinar um modelo que performe bem na classificação da autoria dos discursos presidenciais. Para isso, é importante registrar métricas de validação e reportá-las, bem como fazer predições para a amostra de validação que poderemos conferir posteriormente.\n\n\nEntrega\nA entrega deverá ser feita na pasta do GitHub de cada um contendo:\n\nUm notebook ou script com o código utilizado;\nUm documento (pode ser um PDF compilado pelo notebook, mas também pode ser um README.md) detalhando a metodologia utilizada:\n\nModelos testados\nPré-processamento do texto usado\nEstratégia de validação (e.g. ratio no holdout, quantas vezes foi gerada uma nova amostra)\nResumo dos resultados obtidos em alguma métrica de validação (e.g., precisão, recall, F1, etc.)\nPredição para a base de validação com 25 discursos sem indicação de autoria\n\n\nEm aula, poderemos tirar dúvidas sobre o formato da entrega. O importante a notar é que a avaliação não recairá sobre o desempenho dos modelos de vocês na amostra de validação – ela será utilizada apenas para discutirmos os trabalhos de vocês em aula."
+  },
+  {
+    "objectID": "materiais/aula6.html",
+    "href": "materiais/aula6.html",
+    "title": "Aula 6",
+    "section": "",
+    "text": "Modelos lineares, ou extensões deles, geralmente são suficientes para conseguirmos bons desempenhos em problemas de classificação e regressão. No mais das vezes, seu uso é o mais justificado também: eles são mais simples e rápidos para treinar e mais fáceis de diagnosticar e interpretar. No entanto, especialmente para problemas nos quais temos muitos preditores com pouca associação com targets, usar modelos não-lineares pode ser uma boa alternativa, ainda que geralmente ao custo de termos mais tempo de treino e menos controle de diagnóstico.\nNesta aula, estudaremos variações simples de modelos lineares, que permitem fazermos recortes arbitrários nas escalas de variáveis – como spinelines – para, então, começarmos a estudar modelos que combinam diferentes variáveis para aumentar o espaço vetorial das nossas features (ainda que frequentemente ao custo de overfitting. Também avançaremos no uso de pipelines e cobriremos brevemente o que são árvores de decisão, um tipo de algoritmo bastante útil para modelar relações não-lineares e interações complexas.\n\n\nOs principais modelos não-lineares são simples extensões de modelos lineares que diferem principalmente em relação à especificação dos modelos, isto é, à transformação das features que usamos. Isso difere, portanto, do que vimos até aqui: para cada aula, em geral vimos algoritmos e modelos diferentes. Agora, o principal é a preparação e seleção de features, o que costuma ser chamado na área de Ciência de Dados de feature engineering.\n\n\nQuando temos uma relação bivariada que não é linear, o mais comum é usarmos preditores elevados em alguma potência, isto é, polinômios:\n\\[\nY_{i} = \\alpha + \\beta_{1} X_{i} + \\beta_{2} X_{i}^{2} ... + \\beta_{n} X_{i}^{n} + \\epsilon_{i}\n\\]\nRecorrendo aos dados climático de São Bernardo do Campo, que já usamos em aulas anteriores, por exemplo, é possível visualizar a diferença do modelo acima, indicado pela curva azul, em relação a um modelo linear, indicado em vermelho.\n\n\nCódigo\nlink <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ndados <- readr::read_csv(link)\n\nlibrary(tidyverse)\n\ndados %>%\n  ggplot(aes(x = humidity, y = maximum_temprature)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = F, color = \"steelblue\", formula = y ~ x + I(x^2) + I(x^3) + I(x^4)) +\n  geom_smooth(method = \"lm\", se = F, color = \"orangered3\") +\n  hrbrthemes::theme_ft_rc() +\n  labs(subtitle = \"A linha azul é estimada por um polinômio de ordem 4\")\n\n\n\n\n\nTemperatura máxima vs. humidity\n\n\n\n\nÉ possível notar que o modelo não-linear captura melhor o efeito negativo que é potencializado no final da distribuição. Outra possibilidade é dividir a extensão do preditor em intervalos, bins, e usá-los como variáveis categóricas que estimarão a média dos valores do target:\n\n\nCódigo\ndados %>%\n  mutate(humidity = cut_interval(humidity, 6)) %>%\n  ggplot(aes(x = humidity, y = maximum_temprature)) +\n  geom_point() +\n  geom_boxplot() +\n  hrbrthemes::theme_ft_rc() +\n  labs(subtitle = \"Boxplots indicam intervalos da variável humidity\")\n\n\n\n\n\nTemperatura máxima vs. humidity\n\n\n\n\nOu, ainda, é possível combinar as duas abordagens como em aplicações de spinelines, que cortam as features em faixas e, em casa uma, estima polinômios:\n\n\nCódigo\ndados %>%\n  mutate(humidity2 = cut_interval(humidity, 6)) %>%\n  ggplot(aes(x = humidity, y = maximum_temprature, group = humidity2)) +\n  geom_point() +\n  geom_smooth(method = \"lm\", se = F, color = \"orangered3\", formula = y ~ x + I(x^2) + I(x^3) + I(x^4)) +\n  hrbrthemes::theme_ft_rc() +\n  labs(subtitle = \"Polinômios em intervalos da variável humidity\")\n\n\n\n\n\nTemperatura máxima vs. humidity\n\n\n\n\n\n\n\n\nHá alguns algoritmos que implementam, de forma automática, o pré-processamento de variáveis para criar polinômios, bins e interações entre variáveis. No sklearn, por exemplo, existem funções de pré-processamento de polinômios como sklearn.preprocessing.PolynomialFeatures, assim como no mlr3 há o quantilebins, que divide variáveis em espaços categóricos.\nTambém há modelos que trabalham para modelar relações complexas, não-lineares, de forma automatizada. O principal deles é o Multivariate Adaptive Regression Splines (MARS), que automaticamente encontra a melhor forma de criar bins (ou knots) para estimar \\(N\\) modelos lineares. Isso é feito de forma iterativa, o que significa que o modelo minimiza uma função para selecionar melhores knots (em certo sentido, MARS é um tipo de ensemble, que veremos detidamente na próxima aula). Visualmente, o resultado do MARS é mais ou menos esse (em um caso bivariado):\n\n\n\n\nExemplo do MARS\n\n\n\nEm R, é possível implementar o MARS com o algoritmo regr.earth no pacote mlr3. Em Python, é necessário instalar a lib py-earth com sudo pip install sklearn-contrib-py-earth e usar from pyearth import Earth normalmente, como qualquer outro modelo do sklearn.11 É possível que a instalação do Earth dê problemas variados por conta de dependências.\n\n\n\nComo vimos na última aula, pré-processamento é essencial, mas geralmente toma muitas linhas de código, problema que é ainda mais agudo quando queremos comparar o desempenho de diferentes modelos – lembrando que é necessário pré-processar amostras de treino e teste separadamente quando usamos processamentos que introduzem modificações relacionais, que dependem de parâmetros da base como um todo.\nÉ por conta disso que a maioria dos frameworks de aprendizado de máquina incluem funções que facilitam as tarefas de pré-processamento e comparação de modelos. No sklearn, como vimos na última aula, temos a Pipeline que serve para isso e, no mlr3, temos grafos implementados por meio da função po e dos pipe operators.\nNo exemplo abaixo, implementamos uma pipeline para estandarizar variáveis contínuas para, então, treinar modelos lineares:\n\nRPython\n\n\n# Carrega pacotes\nlibrary(tidyverse)\nlibrary(mlr3verse)\n\n# Carrega dados\nlink <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ndados <- readr::read_csv(link) %>%\n  select_if(is.numeric)\n\n# Define a task\ntsk <- as_task_regr(maximum_temprature ~ ., data = dados)\n\n# Cria uma pipeline simples\ngr <- po(\"scale\") %>>%\n  po(\"learner\", learner = lrn(\"regr.lm\")) %>%\n  as_learner()\n  \n# Treina a pipeline com 'benchmark_grid' e calcula metrica de validacao\ndesign <- benchmark_grid(\n  tasks = tsk,\n  learners = list(gr),\n  resamplings = rsmp(\"holdout\", ratio = 0.7)\n)\n\nresultados <- benchmark(design)\nresultados$score(msr(\"regr.rmse\"))\n\n\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.metrics import mean_squared_error\nfrom sklearn.pipeline import Pipeline\nimport pandas as pd\n\n# Carrega dados e separa as amoastras\nlink = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'\ndados = pd.read_csv(link).select_dtypes(['number'])\n\nY = dados['maximum_temprature']\nX = dados.loc[:, dados.columns != 'maximum_temprature']\n\nX_treino, X_teste, Y_treino, Y_teste = train_test_split(X, Y)\n\n# Cria uma pipeline\npipe = Pipeline([('scale', StandardScaler()), ('lm', LinearRegression())])\n\n# Treina o modelo, calcula o RMSE\npipe.fit(X_treino, Y_treino)\nmean_squared_error(Y_teste, pipe.predict(X_teste))\n\n# Treina o modelo na base toda\npipe.fit(X, Y)\n\n\n\nCom esse novo workflow, que é bem próximo do que usamos em aplicações reais (exceto pelo fato de ainda não usarmos estratégias melhores de resampling, de tuning e de pré-processamento), fica fácil encontrar o melhor modelo, treiná-lo na base completa e validá-lo em outra base. Por exemplo, podemos aplicar o novo modelo para predizer a maximum_temprature de Campinas:\n\nRPython\n\n\n# Usa uma amostra de validacao diferente\nvalidacao <- read_csv(\"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/master/web%20scraping/Cleaned%20Data/Brazil_Campinas_Cleaned.csv\")\n\nmodelo <- gr$train(tsk)\npred <- modelo$predict_newdata(validacao)\nvalidacao$pred <- pred$response\npred$score(msr(\"classif.fbeta\"))\n\n\n# Carrega dados de validacao\nlink = '\"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/master/web%20scraping/Cleaned%20Data/Brazil_Campinas_Cleaned.csv\"'\nvalidacao = pd.read_csv(link).select_dtypes(['number'])\n\nY_val = validacao['maximum_temprature']\nX_val = validacao.loc[:, validacao.columns != 'maximum_temprature']\n\n# Faz predicoes na base de validacao\npred = pipe.predict(X_val)\nmean_squared_error(Y_val, pred)\n\n\n\nTambém conseguimos facilmente produzir polinômios:\n\nRPython\n\n\n# Cria uma pipeline com polinomios\ngr2 <- po(\"scale\") %>>%\n  po(\"mutate\") %>>%\n  po(\"learner\", learner = lrn(\"regr.lm\")) %>%\n  as_learner()\n\ngr2$param_set$values$mutate.mutation <- list(\n  teste = ~ cloud_coverage^2 + cloud_coverage^3,\n  teste2 = ~ pressure^2 + pressure^3)\n\n\n# Cria uma pipeline com polinomios\nfrom sklearn.preprocessing import PolynomialFeatures\n\npipe = Pipeline([('scale', StandardScaler()), ('poly', PolynomialFeatures()), ('lm', LinearRegression())])\n\n\n\n\n\n\nÁrvores de decisão partem de um princípio muito simples: elas particionam as features em combinações, ou regiões, e, com base nisso, fazem predições. Tomando a base de passageiros do Titanic (um dataset popular na Ciência de Dados), isso pode ser representado assim:\n\n\n\nRepresentação de uma árvore de decisão\n\n\nEm árvores de decisão, variáveis contínuas são transformadas em bins e combinadas com categoricas a partir de decision rules, ou split rules, que comandam como o algoritmo agrupará variáveis em regiões – pelo diagrama acima, dá para entender o nome do algoritmo. Por conta dessa estrutura flexível, não-paramétrica, árvores conseguem aprender funções mesmo quando estas envolvem interações complexas e não-lineares nos dados, mas isso geralmente vem associado a um maior overfitting e consequente aumento de variação (na próxima aula, veremos como lidar com isso).\nHá diferentes algoritmos que implementam árvores de decisão, bem como diferentes regras de split e hiperparâmetros que configuram essas regras, mas, por hoje, nos deteremos em implementar versões simples: CART, de classification and regression trees, que está disponível no sklearn como sklearn.tree e, no mlr3, como rpart22 Os dois algoritmos, na verdade, são adaptações do algoritmo original. Além deles, há inúmeras outras variações."
+  },
+  {
+    "objectID": "temp.html",
+    "href": "temp.html",
+    "title": "Materiais",
+    "section": "",
+    "text": "flowchart LR\n  A[Pergunta] --> B[Problema]\n  B --> C{Decision}\n  C --> D[Result one]\n  C --> E[Result two]"
+  },
+  {
+    "objectID": "temp.html#básico",
+    "href": "temp.html#básico",
+    "title": "Materiais",
+    "section": "Básico",
+    "text": "Básico\n\nRPython\n\n\nfizz_buzz <- function(fbnums = 1:50) {\n  output <- dplyr::case_when(\n    fbnums %% 15 == 0 ~ \"FizzBuzz\",\n    fbnums %% 3 == 0 ~ \"Fizz\",\n    fbnums %% 5 == 0 ~ \"Buzz\",\n    TRUE ~ as.character(fbnums)\n  )\n  print(output)\n}\n\n\ndef fizz_buzz(num):\n  if num % 15 == 0:\n    print(\"FizzBuzz\")\n  elif num % 5 == 0:\n    print(\"Buzz\")\n  elif num % 3 == 0:\n    print(\"Fizz\")\n  else:\n    print(num)"
+  },
+  {
+    "objectID": "recursos.html",
+    "href": "recursos.html",
+    "title": "Recursos",
+    "section": "",
+    "text": "Para acompanhar o curso, conhecimentos intermediários em programaçãosão necessários. Nesta página, listo algumas referências e recursos úteis para o aprimoramento desses pré-requisitos."
+  },
+  {
+    "objectID": "recursos.html#programação",
+    "href": "recursos.html#programação",
+    "title": "Recursos",
+    "section": "Programação",
+    "text": "Programação\n\nR\n\nR for Data Science, Garrett Grolemund and Hadley Wickham.\n\nLivro essencial, cobre o básico até o intermediário do uso de R e do tidyverse aplicados à Ciência de Dados\n\nR Cookbook, Winston Chang\n\nLivro prático focado na resolução de problemas comuns\n\nRStudio cheatsheets\n\nGuias práticos para resolução de diferentes problemas com tidyverse\n\nRweekly\n\nNewsletter semanal com novidades sobre R\n\n\n\n\nPython\n\nPython for Data Analysis, Wes McKinney\n\nEm certo sentido, é um livro similar ao R4DS, bom para iniciantes\n\nLearn Python\n\nSite com diversos tutoriais e textos sobre Python\n\nPython cheatsheets\n\nGuias práticos, agora para Python\n\nPycoders\n\nUma das mais lidas newsletters sobre Python"
+  },
+  {
     "objectID": "exercicios/exercicios2.html",
     "href": "exercicios/exercicios2.html",
     "title": "Exercícios 2",
     "section": "",
-    "text": "Para esse exercício, será necessário carregar alguns dados climáticos de São Bernardo do Campo (SP):\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'\nc = pd.read_csv(link)\n\n\n\n\n\nAnalise a relação entre entre cobertura de nuvens (cloud_coverage) e temperatura máxima (maximum_temperature). Para isso, plote gráficos com a relação bivariada, use coeficiente de correlação ou um modelo linear (OLS). Descreva os resultados que encontrar.\n\n\n\nExiste alguma outra variável na base com maior correção com a temperatura máxima? Novamente, registre os resultados que encontrar.\n\n\n\nCrie um código que faça um gráfico da relação bivariada entre todas as variáveis contínuas na base e os salve em disco. Dica:\n\nRPython\n\n\nlibrary(tidyverse)\n\np <- ggplot()\nggsave(p, file = paste0(\"grafico.png\"))\n\n\nfrom matplotlib import pyplot as plt\nplt.savefig('grafico.png')\n\n\n\n\n\n\nRode modelos lineares simples (por mínimos quadrados ordinários) para predizer a temperatura máxima diária em São Bernardo do Campo (SP). Use as variáveis que quiser, faça transformações nelas se necessário, e reporte alguns resultados do melhor modelo que encontrar.\n\n\n\nSalve as predições do seu modelo treinado no exercício anterior e compare com os valores reais de temperatura máxima (vale usar gráficos)."
+    "text": "Para esse exercício, será necessário carregar alguns dados climáticos de São Bernardo do Campo (SP):\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'\ndados = pd.read_csv(link)\n\n\n\n\n\nAnalise a relação entre entre cobertura de nuvens (cloud_coverage) e temperatura máxima (maximum_temperature). Para isso, plote gráficos com a relação bivariada, use coeficiente de correlação ou um modelo linear (OLS). Descreva os resultados que encontrar.\n\n\n\nExiste alguma outra variável na base com maior correção com a temperatura máxima? Novamente, registre os resultados que encontrar.\n\n\n\nCrie um código que faça um gráfico da relação bivariada entre todas as variáveis contínuas na base e os salve em disco. Dica:\n\nRPython\n\n\nlibrary(tidyverse)\n\np <- ggplot()\nggsave(p, file = paste0(\"grafico.png\"))\n\n\nfrom matplotlib import pyplot as plt\nplt.savefig('grafico.png')\n\n\n\n\n\n\nRode modelos lineares simples (por mínimos quadrados ordinários) para predizer a temperatura máxima diária em São Bernardo do Campo (SP). Use as variáveis que quiser, faça transformações nelas se necessário, e reporte alguns resultados do melhor modelo que encontrar.\n\n\n\nSalve as predições do seu modelo treinado no exercício anterior e compare com os valores reais de temperatura máxima (vale usar gráficos)."
   },
   {
     "objectID": "exercicios/exercicios2.html#a-umidade",
@@ -210,13 +224,6 @@
     "text": "a) Umidade\nCrie uma função (ou um código) para sortear 1000 observações do banco de dados climáticos, calcular a média de umidade (humidity)."
   },
   {
-    "objectID": "exercicios/exercicios2.html#b-r2",
-    "href": "exercicios/exercicios2.html#b-r2",
-    "title": "Exercícios",
-    "section": "b) R2",
-    "text": "b) R2\nCrie uma função"
-  },
-  {
     "objectID": "exercicios/exercicios2.html#b-histograma",
     "href": "exercicios/exercicios2.html#b-histograma",
     "title": "Exercícios 2",
@@ -224,24 +231,136 @@
     "text": "b) Histograma\nCom a função criada anteriormente, calcule 1000 médias de amostras de humidity e plote a distribuição como um histograma."
   },
   {
-    "objectID": "materiais/aula2.html#funções",
-    "href": "materiais/aula2.html#funções",
-    "title": "Aula 2",
-    "section": "Funções",
-    "text": "Funções\nCriar funções é algo extremamente útil para se automatizar determinadas rotinas. Neste curso, vamos usar, em alguns casos, funções específicas para facilitar o nosso trabalho. Caso tenha dúvidas, consulte este capítulo do R4DS ou este tutorial do Real Python."
-  },
-  {
-    "objectID": "materiais/aula3.html",
-    "href": "materiais/aula3.html",
-    "title": "Aula 3",
-    "section": "",
-    "text": "Nesta aula, nos aprofundaremos no uso de modelos lineares"
-  },
-  {
     "objectID": "exercicios/exercicios2.html#c-modelos-lineares",
     "href": "exercicios/exercicios2.html#c-modelos-lineares",
     "title": "Exercícios 2",
     "section": "c) Modelos lineares",
     "text": "c) Modelos lineares\nModifique a função criada anteriormente para, depois de sortear 1000 observações do banco, rodar um modelo de regressão linear para predizer valores de humidity e extrair o r2 do modelo. Dica:\n\nRPython\n\n\nmodelo <- lm(rnorm(100) ~ rnorm(100))\nsummary(modelo)$r.squared\n\n\nfrom matplotlib import pyplot as plt\nplt.savefig('grafico.png')"
+  },
+  {
+    "objectID": "exercicios/exercicios3.html",
+    "href": "exercicios/exercicios3.html",
+    "title": "Exercícios 3",
+    "section": "",
+    "text": "Para esse exercício, será necessário carregar alguns dados sobre violência policial letal nos Estados Unidos:\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv'\nc = pd.read_csv(link)\n\n\n\nPara quem usa R, também será importante instalar algumas bibliotecas previamente:\ninstall.packages(c(\"mlr3verse\", \"mlr3measures\"))\n\n\nFaça gráficos de barras com a frequência da variável race por cada uma das variáveis officer_ na base de dados. O resultado deve indicar quantas vítimas de mortes por violência letal policial de diferentes raças (whites e blacks) ocorreram em diferentes categorias (e.g., office_offduty). Dica: algumas variáveis precisam ser recategorizadas porque possuem muitas categorias com poucas ocorrências.\n\n\n\nCrie uma nova base de dados que inclua apenas as variáveis mencionadas na Tabela 1 do paper de Streeter. Dica: será necessário criar novas variáveis e descartar outras existentes na base. Para quem usa Python, também é importante recodificar variáveis para o formato de one hot encoding (em R, a maioria das funções de regressão já faz essa conversão por baixo dos panos)."
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#a-criar-função",
+    "href": "exercicios/exercicios3.html#a-criar-função",
+    "title": "Exercícios 3",
+    "section": "a) Criar função",
+    "text": "a) Criar função\nCrie uma função para sortear da base uma amostra de treino e, outra, de teste. Para isso, a função pode retornar uma lista com as duas amostras. Crie também um argumento na função que permita selecionar o percentual de observações na amostra de treino (o default precisará ser 0.7)."
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#b-modelo-com-treino-e-teste",
+    "href": "exercicios/exercicios3.html#b-modelo-com-treino-e-teste",
+    "title": "Exercícios 3",
+    "section": "b) Modelo com treino e teste",
+    "text": "b) Modelo com treino e teste\nCom a função anterior, retreine seu modelo anterior na amostra de treino e, depois, aplique as predições na amostra de teste."
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#c-tamanho-das-amostras-de-treino",
+    "href": "exercicios/exercicios3.html#c-tamanho-das-amostras-de-treino",
+    "title": "Exercícios 3",
+    "section": "c) Tamanho das amostras de treino",
+    "text": "c) Tamanho das amostras de treino\nCom a função anterior, retreine seu modelo usando diferentes tamanhos de amostra de treino, de 0.3 a 0.9 com intervalos de 0.05. Crie um gráfico para reportar alguma métrica de validação (pode ser acurácia ou precisão, ou ainda F1) e, no eixo X, inclua a informação sobre o percentual usado"
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#a-nova-função",
+    "href": "exercicios/exercicios3.html#a-nova-função",
+    "title": "Exercícios 3",
+    "section": "a) Nova função",
+    "text": "a) Nova função\nModifique a função criada anteriormente para que ela já separe a amostra em treino e teste, rode um modelo logístico e retorne alguma métrica de validação."
+  },
+  {
+    "objectID": "exercicios/exercicios3.html#b-cross-validation",
+    "href": "exercicios/exercicios3.html#b-cross-validation",
+    "title": "Exercícios 3",
+    "section": "b) Cross-validation",
+    "text": "b) Cross-validation\nUse a função criada anteriormente para rodar 500 modelos logísticos em diferentes amostras de treino e de teste. Reporte os resultados desse exercício com um histograma dos valores de validação de alguma métrica."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html",
+    "href": "exercicios/exercicios4.html",
+    "title": "Exercícios 4",
+    "section": "",
+    "text": "Para esse exercício, será necessário carregar alguns dados que já vimos sobre o clima em São Bernardo do Campo (SP):\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'\nc = pd.read_csv(link)\n\n\n\nTambém usaremos, de ponta a ponta, os frameworks que estamos estudando. Para rodar um modelo de regressão OLS com partição da amostra entre teste e treino, podemos usar:\n\nRPython\n\n\nlibrary(mlr3verse)\n\n# Seleciona a tarefa e o modelo\ntsk <- as_task_regr(humidity ~ maximum_temprature + wind_speed, data = dados)\nlearner <- lrn(\"regr.lm\")\n\n# Define estrategia de separacao da amostra\nresampling <- rsmp(\"holdout\", ratio = 0.7)\n\n# Treina o modelo\nresultados <- resample(tsk, learner, resampling)\n\n# Avalia predicoes\nmeasure <- msr(c(\"regr.mse\")) # MSE\nresultados$score(measure, ids = FALSE, predict_sets = \"test\")\n\n\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import mean_squared_error\n\n# Seleciona preditores e Y\nX = c[['wind_speed', 'maximum_temprature']]\nY = c.humidity\n\n# Holdout\nX_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3)\n\n# Treina o modelo e checa erros\nreg = LinearRegression().fit(X_train, Y_train)\npred = reg.predict(X_test)\nmean_squared_error(Y_test, pred) # MSE\n\n\n\n\n\nTreine modelos lineares (OLS) usando a combinação de variáveis que você achar melhor.\n\n\n\nUsando o modelo treinado anterioremente, calcule diferentes métricas de validação.\n\n\n\nCrie uma função que rode esse workflow inteiro e retorne apenas uma métrica de validação. Rode essa função 100 vezes e reporte os resultados (como quiser, com gráfico ou outros).\n\n\n\nUsando a função anterior, teste diferentes combinações de variáveis no modelo para achar um que tenha uma boa performance."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#a-regularização",
+    "href": "exercicios/exercicios4.html#a-regularização",
+    "title": "Exercícios 4",
+    "section": "a) Regularização",
+    "text": "a) Regularização\nUsando a mesma base de dados, adapte seu workflow anterior para, em vez de usar regressão linear, estimar modelos LASSO e Ridge."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#b-funções",
+    "href": "exercicios/exercicios4.html#b-funções",
+    "title": "Exercícios 4",
+    "section": "b) Funções",
+    "text": "b) Funções\nCrie uma função para estimar LASSO e Ridge e compare os resultados de 100 execuções."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#a-transformações-básicas",
+    "href": "exercicios/exercicios4.html#a-transformações-básicas",
+    "title": "Exercícios 4",
+    "section": "a) Transformações básicas",
+    "text": "a) Transformações básicas\nCrie uma nova variável que indique o percentual de votos válidos de Bolsonaro (dica: basta dividir votos_bolsonaro_2t_2018 por votos_validos_2t_2018)"
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#b-exploração",
+    "href": "exercicios/exercicios4.html#b-exploração",
+    "title": "Exercícios 4",
+    "section": "b) Exploração",
+    "text": "b) Exploração\nCrie alguns gráficos pra explorar a relação entre a votação de Bolsonaro e algumas das variáveis do banco (faça como quiser, e quantos gráficos quiser)."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#c-modelos",
+    "href": "exercicios/exercicios4.html#c-modelos",
+    "title": "Exercícios 4",
+    "section": "c) Modelos",
+    "text": "c) Modelos\nRode modelos lineares, com e sem regularização, para tentar predizer a votação de Bolsonaro nos municípios usando variáveis como regiao, semiarido, capital, pib_total."
+  },
+  {
+    "objectID": "exercicios/exercicios4.html#d-transformações",
+    "href": "exercicios/exercicios4.html#d-transformações",
+    "title": "Exercícios 4",
+    "section": "d) Transformações",
+    "text": "d) Transformações\nTransforme a variável pib_total para que ela fique estandardizada (vale ser criativo e explorar outras variáveis do banco)."
+  },
+  {
+    "objectID": "exercicios/exercicios5.html",
+    "href": "exercicios/exercicios5.html",
+    "title": "Exercícios 5",
+    "section": "",
+    "text": "2) Evitando data leaks\nComo vimos, pré-processamento deve ser aplicado antes de fazermos split sample de validação (i.e., criar amostras de teste e de treino). Agora, implemente um workflow que leva isso em conta. Para tanto, você deverá criar uma função que separe textos em treino e teste, que aplique pré-processamento apenas na amostra de treino e que, depois, replique ele na amostra de teste para, então, rodar um algoritmo e calcular alguma métrica de validação.\n\n\n3) Benchmark\nUsando as ferramentas que vimos, experimente com os seguintes pré-processamentos:\n\n\nUsando apenas palavras maiores do que 4 caracteres;\n\n\nRemovendo palavras que não ocorrem em, pelo menos, 10 documentos;\n\n\nRemovendo palavras que não ocorrem em, pelo menos, 10% dos documentos;\n\n\nUsando TF-IDF para normalizar os elementos da matriz bag of words;"
+  },
+  {
+    "objectID": "exercicios/exercicios6.html",
+    "href": "exercicios/exercicios6.html",
+    "title": "Exercícios 6",
+    "section": "",
+    "text": "Para esse exercício, precisaremos carregar dados climáticos de São Bernardo do Campo:\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'\ndados = pd.read_csv(link)\n\n\n\n\n\nUsando pipelines, crie três diferentes pré-processamentos para as features numéricas da base: a) uma sem transformações; b) outra fazendo estandardização das variáveis; e, c), outra incluindo alguns polinômios. As pipelines devem usar regressão linear simples como modelo para predizer a variável maximum_temprature.\n\n\n\nCompare as pipelines anteriores rodando 100 vezes cada uma usando holdout com 70% das observações em treino, calculando para cada também o RMSE. Reporte os resultados por meio de um gráfico de boxplot. Dica: use uma função para encapsular pipelines, treino dos modelos e cálculo de métricas de validação.\n\n\n\nSelecione a melhor pipeline do exercício anterior e crie outras três novas em cima dela: uma que regressão por knn em vez de regressão linear; uma que use MARS (o algoritmo earth); e, por fim, uma que use regressão por meio de árvore de decisão (tree ou regr.rpart). Rode 100 vezes cada pipeline e compare novamente os RMSE usando um gráfico de boxplot.\n\n\n\nUsando a melhor pipeline encontrada no exercício anterior, faça validação nas seguintes bases de dados:\n\nRPython\n\n\n# Clima em Campinas\ncampinas <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ncampinas <- readr::read_csv(campinas)\n\n# Clima em Southampton\nsouthampton <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/master/web%20scraping/Cleaned%20Data/United%20Kingdom_Southampton_Cleaned.csv\"\nsouthampton <- readr::read_csv(southampton)\n\n\n# Clima em Campinas\ncampinas = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'\ncampinas = pd.read_csv(campinas)\n\n# Clima em Southampton\nsouthampton = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/master/web%20scraping/Cleaned%20Data/United%20Kingdom_Southampton_Cleaned.csv'\nsouthampton = pd.read_csv(southampton)\n\n\n\n\n\n\nUsando os resultados da melhor pipeline, plote a relação entre predições e valores reais de maximum_temprature nas duas bases de validação."
+  },
+  {
+    "objectID": "exercicios/exercicios6.html#a-pipelines",
+    "href": "exercicios/exercicios6.html#a-pipelines",
+    "title": "Exercícios 6",
+    "section": "a) Pipelines",
+    "text": "a) Pipelines\nUsando pipelines, crie duas pipelines diferentes de pré-processamentos para as os discursos da base: a) uma que só mantenha termos que aparecem em pelo menos 20% dos documentos (ou ao menos em 20 documentos); outra igual a anterior que permita bi-gramas. As pipelines devem usar Naive Bayes como modelo para predizer a variável planalto."
+  },
+  {
+    "objectID": "exercicios/exercicios6.html#b-benchmark-1",
+    "href": "exercicios/exercicios6.html#b-benchmark-1",
+    "title": "Exercícios 6",
+    "section": "b) Benchmark",
+    "text": "b) Benchmark\nRode cada pipeline 10 vezes, calculando o F1 de cada predição do modelo na base de teste que tenha 20% dos discursos. Plote os resultados usando boxplot."
+  },
+  {
+    "objectID": "exercicios/exercicios6.html#c-modelos",
+    "href": "exercicios/exercicios6.html#c-modelos",
+    "title": "Exercícios 6",
+    "section": "c) Modelos",
+    "text": "c) Modelos\nUse a melhor pipeline para criar outra, que em vez de Naive Bayes use árvore de decisão (classif.rpart, no caso do mlr3). Rode 10 vezes cada uma, calcule e reporte o F1 para cada uma."
   }
 ]

@@ -1,413 +1,1080 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+<!DOCTYPE html><html lang="pt" >
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-99.9.9">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.0.0-beta.3 for Hugo" />
+  
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Fernando Meireles" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Fernando Meireles, Doutor e pesquisador em Ciência Política" />
+
+  
+  <link rel="alternate" hreflang="pt" href="https://www.fmeireles.com/" />
+
+  
 
 
-<title>FLS 6497 - Ciência de Dados e Aprendizado de Máquina em Ciência Política</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-<script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 20,
-  "language": {
-    "search-no-results-text": "Nenhum resultado",
-    "search-matching-documents-text": "documentos correspondentes",
-    "search-copy-link-title": "Copiar link para a busca",
-    "search-hide-matches-text": "Esconder correspondências adicionais",
-    "search-more-match-text": "mais correspondência neste documento",
-    "search-more-matches-text": "mais correspondências neste documento",
-    "search-clear-button-title": "Limpar",
-    "search-detached-cancel-button-title": "Cancelar",
-    "search-submit-button-title": "Enviar"
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#8f2a43" />
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&family=Roboto+Mono:wght@400&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&family=Roboto+Mono:wght@400&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.c67e9ac6d0202a8881a92e9f87b811c2.css" />
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80581604-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
   }
-}</script>
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-80581604-1', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
 
 
-<link rel="stylesheet" href="styles.css">
-<meta name="twitter:title" content="FLS 6497 - Ciência de Dados e Aprendizado de Máquina em Ciência Política">
-<meta name="twitter:description" content="Quartas-feiras, das 14 às 18h, Prédio Fil. e C.">
-<meta name="twitter:card" content="summary">
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  
+
+  
+    <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Fernando Meireles" />
+  
+
+  
+    <link rel="manifest" href="/index.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_32x32_fill_lanczos_center_2.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_180x180_fill_lanczos_center_2.png" />
+
+  <link rel="canonical" href="https://www.fmeireles.com/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary" />
+  
+    <meta property="twitter:site" content="@meirelesff" />
+    <meta property="twitter:creator" content="@meirelesff" />
+  
+  <meta property="og:site_name" content="Fernando Meireles" />
+  <meta property="og:url" content="https://www.fmeireles.com/" />
+  <meta property="og:title" content="Fernando Meireles" />
+  <meta property="og:description" content="Fernando Meireles, Doutor e pesquisador em Ciência Política" /><meta property="og:image" content="https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png" />
+    <meta property="twitter:image" content="https://www.fmeireles.com/media/icon_hu3e0553bc4b68601f95bc1fbd126c0e2d_24811_512x512_fill_lanczos_center_2.png" /><meta property="og:locale" content="pt" />
+  
+    
+      <meta property="og:updated_time" content="2019-07-09T00:00:00&#43;00:00" />
+    
+  
+
+  
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.fmeireles.com?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "url": "https://www.fmeireles.com"
+}
+</script>
+
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Fernando Meireles</title>
 </head>
 
-<body class="nav-fixed fullcontent">
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
-      <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">FLS 6497</span>
-  </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page">Home</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./ementa.html">Ementa</a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./recursos.html">Recursos</a>
-  </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-aulas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Aulas</a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-aulas">    
-        <li>
-    <a class="dropdown-item" href="./materiais/aula1.html">
- <span class="dropdown-text">Aula 1</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./materiais/aula2.html">
- <span class="dropdown-text">Aula 2</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./materiais/aula3.html">
- <span class="dropdown-text">Aula 3</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./materiais/aula4.html">
- <span class="dropdown-text">Aula 4</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./materiais/aula5.html">
- <span class="dropdown-text">Aula 5</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./materiais/aula6.html">
- <span class="dropdown-text">Aula 6</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercícios" role="button" data-bs-toggle="dropdown" aria-expanded="false">Exercícios</a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercícios">    
-        <li>
-    <a class="dropdown-item" href="./exercicios/exercicios2.html">
- <span class="dropdown-text">Exercícios 2</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./exercicios/exercicios3.html">
- <span class="dropdown-text">Exercícios 3</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./exercicios/exercicios4.html">
- <span class="dropdown-text">Exercícios 4</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./exercicios/exercicios5.html">
- <span class="dropdown-text">Exercícios 5</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./exercicios/exercicios6.html">
- <span class="dropdown-text">Exercícios 6</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-avaliação" role="button" data-bs-toggle="dropdown" aria-expanded="false">Avaliação</a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-avaliação">    
-        <li>
-    <a class="dropdown-item" href="./materiais/projeto1.html">
- <span class="dropdown-text">Projeto 1</span></a>
-  </li>  
-    </ul>
-  </li>
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="http://www.github.com/meirelesff/materiais"><i class="bi bi-github" role="img">
-</i> 
- </a>
-  </li>  
-</ul>
-              <div id="quarto-search" class="" title="Search"></div>
-          </div> <!-- /navcollapse -->
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-<!-- margin-sidebar -->
-    
-<!-- main -->
-<main class="content" id="quarto-document-content">
+<body id="top" data-spy="scroll" data-offset="70" data-target="#navbar-main" class="page-wrapper   "  >
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Ciência de Dados e Aprendizado de Máquina em Ciência Política</h1>
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-    
-  </div>
   
-<div>
-  <div class="abstract">
-    <div class="abstract-title">DATA E LOCAL</div>
-    Quartas-feiras, das 14 às 18h, Prédio Fil. e C. Sociais, Sala 122
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.b024895df05e271929739bb54886c674.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Pesquisar</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Pesquisar..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Pesquisar...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Alterar navegação">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/cv/"><span>CV</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/publication/"><span>Publication</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/teaching/"><span>Teaching</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/software/"><span>Software</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/data/"><span>Data</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/blog/"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+          
+          <li class="nav-item d-none d-lg-inline-flex">
+            <a class="nav-link" href="https://twitter.com/meirelesff" target="_blank" rel="noopener" aria-label="twitter">
+              <i class="fab fa-twitter" aria-hidden="true"></i>
+            </a>
+          </li>
+        
+      
+
+      
+      
+
+      
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    
+
+
+
+
+
+
+
+
+
+  
+<span class="js-widget-page d-none"></span>
+
+
+
+
+
+  
+  
+  
+  
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+  <section id="about" class="home-section wg-about  "  >
+   <div class="home-section-bg " ></div>
+    <div class="container">
+
+    
+
+      
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-12 col-lg-4">
+    <div id="profile">
+
+      
+      
+      <img class="avatar avatar-circle" src="/autor/fernando-meireles/avatar_huf4d0ce3015084569c42b04aba0abcb0a_15701_270x270_fill_q75_lanczos_center.jpeg" alt="Fernando Meireles">
+      
+
+      <div class="portrait-title">
+        <h2>Fernando Meireles</h2>
+        <h3>Postdoc in Political Science</h3>
+
+        
+        <h3>
+          <a href="https://cebrap.org.br/" target="_blank" rel="noopener">
+          <span>Cebrap/Brazil</span>
+          </a>
+        </h3>
+        
+      </div>
+
+      <ul class="network-icon" aria-hidden="true">
+        
+        
+        
+        
+          
+        
+        
+        
+        
+        
+        <li>
+          <a href="mailto:fmeireles@ufmg.br"  aria-label="envelope">
+            <i class="fas fa-envelope big-icon"></i>
+          </a>
+        </li>
+        
+        
+        
+        
+          
+        
+        
+        
+        
+        
+          
+        
+        <li>
+          <a href="https://twitter.com/meirelesff" target="_blank" rel="noopener" aria-label="twitter">
+            <i class="fab fa-twitter big-icon"></i>
+          </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+          
+        
+        <li>
+          <a href="https://scholar.google.com.br/citations?user=hMma3BsAAAAJ" target="_blank" rel="noopener" aria-label="google-scholar">
+            <i class="ai ai-google-scholar big-icon"></i>
+          </a>
+        </li>
+        
+        
+        
+        
+        
+        
+        
+        
+          
+        
+        <li>
+          <a href="http://orcid.org/0000-0002-7027-2058" target="_blank" rel="noopener" aria-label="orcid">
+            <i class="ai ai-orcid big-icon"></i>
+          </a>
+        </li>
+        
+        
+        
+        
+          
+        
+        
+        
+        
+        
+          
+        
+        <li>
+          <a href="https://www.linkedin.com/in/meirelesff/" target="_blank" rel="noopener" aria-label="linkedin">
+            <i class="fab fa-linkedin big-icon"></i>
+          </a>
+        </li>
+        
+      </ul>
+
+    </div>
+  </div>
+  <div class="col-12 col-lg-7">
+
+    
+    <h1>About</h1>
+
+    <div class="article-style">
+      <p>I am a Postdoctoral Researcher at The Brazilian Center of Analysis and Planning (<a href="https://cebrap.org.br/" target="_blank" rel="noopener">Cebrap/Brazil</a>), where I study comparative politics and political methodology. I am also a Research Associate at the Center for Legislative Studies (<a href="http://www.centroestudoslegislativos.com.br/" target="_blank" rel="noopener">CEL-UFMG</a>) and was previously a Postdoctoral Fellow at the Institute of Social and Political Studies (<a href="http://www.iesp.uerj.br/en/" target="_blank" rel="noopener">IESP-UERJ</a>) and visiting scholar at the <a href="https://www.essex.ac.uk/departments/government" target="_blank" rel="noopener">Department of Government</a> of the University of Essex.</p>
+<p>My research centers on the consequences of political institutions on policy-making and welfare in presidential countries. In my spare time, I also develop open-source <a href="https://fmeireles.com/software" target="_blank" rel="noopener">software for social research</a>. In particular, I have been working mostly on tools to facilitate access to Brazilian public data &ndash; that often comes in unfriendly, poorly documented formats &ndash; to a broader public.</p>
+
+    </div>
+
+
   </div>
 </div>
 
-</header>
 
-<section id="sobre" class="level2">
-<h2 class="anchored" data-anchor-id="sobre">Sobre</h2>
-<p>Este é <em>website</em> com materias do curso <em>Ciência de Dados e Aprendizado de Máquina em Ciência Política</em>, ministrado no Programa de Pós-Graduação de Ciência Política da Universidade de São Paulo (USP). Neste espaço serão postados, uma semana antes de cada aula, os materiais de apoio que estudaremos em laboratório.</p>
-<p>A ementa do curso pode ser encontrada <a href="ementa.html">aqui</a>.</p>
-</section>
-<section id="cronograma" class="level2">
-<h2 class="anchored" data-anchor-id="cronograma">Cronograma</h2>
-<div class="callout-important callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+    
+
+    </div>
+  </section>
+
+
+
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Citação</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copiar
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="callout-caption-container flex-fill">
-Aviso
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Este é um cronograma inicial sujeito a modificações</p>
-</div>
-</div>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Aula</th>
-<th>Data</th>
-<th style="text-align: right;">Tópico</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>17/08</td>
-<td style="text-align: right;">Apresentação</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>24/08</td>
-<td style="text-align: right;">Introdução &amp; Revisão de Programação</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td>31/08</td>
-<td style="text-align: right;">Aprendizado Supervisionado: Classificação</td>
-</tr>
-<tr class="even">
-<td>-</td>
-<td>7/09</td>
-<td style="text-align: right;"><strong>Sem aula</strong> (<em>Feriado</em>)</td>
-</tr>
-<tr class="odd">
-<td>4</td>
-<td>14/09</td>
-<td style="text-align: right;">Aprendizado Supervisionado: Modelos Lineares</td>
-</tr>
-<tr class="even">
-<td>-</td>
-<td>21/09</td>
-<td style="text-align: right;"><strong>Sem aula</strong> (<em>ABCP</em>)</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td>28/09</td>
-<td style="text-align: right;">Aprendizado Supervisionado: Text as Data</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td>5/10</td>
-<td style="text-align: right;">Aprendizado Supervisionado: Modelos Não-Lineares</td>
-</tr>
-<tr class="odd">
-<td>-</td>
-<td>12/10</td>
-<td style="text-align: right;"><strong>Sem aula</strong> (<em>Feriado</em>)</td>
-</tr>
-<tr class="even">
-<td>-</td>
-<td>19/10</td>
-<td style="text-align: right;"><strong>Sem aula</strong> (<em>Anpocs</em>)</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td>26/10</td>
-<td style="text-align: right;">Ensemble: Stacking, Bagging, Boosting</td>
-</tr>
-<tr class="even">
-<td>-</td>
-<td>2/11</td>
-<td style="text-align: right;"><strong>Sem aula</strong> (<em>Feriado</em>)</td>
-</tr>
-<tr class="odd">
-<td>8</td>
-<td>9/11</td>
-<td style="text-align: right;">Aprendizado Não-Supervisionado</td>
-</tr>
-<tr class="even">
-<td>9</td>
-<td>16/11</td>
-<td style="text-align: right;">Resampling &amp; Validação</td>
-</tr>
-<tr class="odd">
-<td>10</td>
-<td>23/11</td>
-<td style="text-align: right;">Tuning &amp; Feature Selection</td>
-</tr>
-<tr class="even">
-<td>11</td>
-<td>30/11</td>
-<td style="text-align: right;">Deep learning</td>
-</tr>
-<tr class="odd">
-<td>12</td>
-<td>7/12</td>
-<td style="text-align: right;">Revisão de Trabalhos Finais &amp; Encerramento</td>
-</tr>
-</tbody>
-</table>
 
+      
 
-</section>
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
 
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
-    }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copiada");
-    setTimeout(function() {
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn) {
-    const config = {
-      allowHTML: true,
-      content: contentFn,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
-    });
-  }
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
-      });
-      return popup.innerHTML;
-    });
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
-    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          // default icon
-          link.classList.add("external");
-      }
-    }
-});
-</script>
-</div> <!-- /content -->
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js"></script>
+        
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    <script src="/js/_vendor/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/pt/js/wowchemy.min.c257e9877da58102e53c3d3d7ff1a9d0.js"></script>
+
+    
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 
 
-</body></html>
+
+</body>
+</html>

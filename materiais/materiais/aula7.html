@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-99.9.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>FLS 6497 - Aula 7</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
+  }
+}</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+<meta name="twitter:title" content="FLS 6497 - Aula 7">
+<meta name="twitter:description" content="Até agora no curso, usamos abordagens simples de aprendizagem supervisionada: treinamos um ou mais modelos, os validamos e, do melhor deles, derivamos predições.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">FLS 6497</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ementa.html">Ementa</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../recursos.html">Recursos</a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-aulas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Aulas</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-aulas">    
+        <li>
+    <a class="dropdown-item" href="../materiais/aula1.html">
+ <span class="dropdown-text">Aula 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula2.html">
+ <span class="dropdown-text">Aula 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula3.html">
+ <span class="dropdown-text">Aula 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula4.html">
+ <span class="dropdown-text">Aula 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula5.html">
+ <span class="dropdown-text">Aula 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula6.html">
+ <span class="dropdown-text">Aula 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../materiais/aula7.html">
+ <span class="dropdown-text">Aula 7</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercícios" role="button" data-bs-toggle="dropdown" aria-expanded="false">Exercícios</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercícios">    
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios2.html">
+ <span class="dropdown-text">Exercícios 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios3.html">
+ <span class="dropdown-text">Exercícios 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios4.html">
+ <span class="dropdown-text">Exercícios 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios5.html">
+ <span class="dropdown-text">Exercícios 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios6.html">
+ <span class="dropdown-text">Exercícios 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios7.html">
+ <span class="dropdown-text">Exercícios 7</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-avaliação" role="button" data-bs-toggle="dropdown" aria-expanded="false">Avaliação</a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-avaliação">    
+        <li>
+    <a class="dropdown-item" href="../materiais/projeto1.html">
+ <span class="dropdown-text">Projeto 1</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="http://www.github.com/meirelesff/materiais"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a></li>
+  <li><a href="#ensembles" id="toc-ensembles" class="nav-link" data-scroll-target="#ensembles">Ensembles</a>
+  <ul class="collapse">
+  <li><a href="#bagging" id="toc-bagging" class="nav-link" data-scroll-target="#bagging">Bagging</a>
+  <ul class="collapse">
+  <li><a href="#random-forest" id="toc-random-forest" class="nav-link" data-scroll-target="#random-forest"><em>Random forest</em></a></li>
+  </ul></li>
+  <li><a href="#stacking" id="toc-stacking" class="nav-link" data-scroll-target="#stacking">Stacking</a></li>
+  <li><a href="#boosting" id="toc-boosting" class="nav-link" data-scroll-target="#boosting">Boosting</a></li>
+  <li><a href="#outros-tipos-de-ensemble" id="toc-outros-tipos-de-ensemble" class="nav-link" data-scroll-target="#outros-tipos-de-ensemble">Outros tipos de ensemble</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Aula 7</h1>
+<p class="subtitle lead">Ensemble: stacking, bagging, boosting</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="introdução" class="level1">
+<h1>Introdução</h1>
+<p>Até agora no curso, usamos abordagens simples de aprendizagem supervisionada: treinamos um ou mais modelos, os validamos e, do melhor deles, derivamos predições. Nesta aula, veremos uma abordagem mais sofisticada: <em>combinar diferentes modelos</em>, o que é chamado de <em>ensemble</em> em aprendizado de máquina.</p>
+<p>Nesta aula, estudaremos as três formas mais comuns de combinação de modelos – <code>bagging</code>, <code>stacking</code> e <code>boosting</code> – e veremos em quais situações cada uma é mais indicada. Abaixo, um quadro com um resumo das abordagens que estudaremos:</p>
+<table class="table">
+<caption>Métodos de <em>ensemble</em> mais comuns</caption>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><em>Ensemble</em></th>
+<th>Descriçao</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>Bagging</em></td>
+<td>Treina-se <span class="math inline">\(N\)</span> modelos em variaçoes da amostra (<em>bootstrap</em>, <em>subsamples</em>, <em>feature bagging</em>, etc.)</td>
+</tr>
+<tr class="even">
+<td><em>Stacking</em></td>
+<td>Treina-se <span class="math inline">\(N\)</span> modelos diferentes, combinados por meio de um segundo modelo (ou <em>blender</em>)</td>
+</tr>
+<tr class="odd">
+<td><em>Boosting</em></td>
+<td>Treina-se <span class="math inline">\(N\)</span> modelos sequencialmente, cada um corrigindo os erros do anterior</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ensembles" class="level1 page-columns page-full">
+<h1>Ensembles</h1>
+<section id="bagging" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="bagging">Bagging</h2>
+<p>Combinar modelos para melhorar predições é algo que, apesar fazer sentido intuitivamente, não é facilmente implementável. Como combinar modelos? Fazemos uma média de diferentes modelos? O quão diferentes precisam ser os modelos? Há uma variedade de respostas a essas perguntas, mas vale começarmos pelo exemplo que exploramos na última aula: usar árvores de decisão para predizer a temperatura máxima diária em São Bernardo do Campo.</p>
+<p>Como vimos, uma árvore de decisão para esse problema poderia fazer predições usando este diagrama:</p>
+<div class="cell" data-fig-width="6">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
+   A(Maximum <br>temprature) --&gt; B{Humidity &gt; 0.3}
+   B --&gt;|Não| H{&lt; 15}
+   B --&gt;|Sim| C{Preassure &gt; 0.5} --&gt;|Sim| G(&lt; 20)
+   C --&gt;|Não| D{&gt; 20}
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+<p></p>
+<p>Árvore hipotética</p>
+</div>
+</div>
+</div>
+<p>Agora imagine que customizamos a regra de <em>splits</em> do modelo e produzimos outra árvore, assim:</p>
+<div class="cell" data-fig-width="6">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-2">flowchart LR
+   A(Maximum <br>temprature) --&gt; B{Preassure &gt; 0.5}
+   B --&gt;|Não| H{&gt; 15}
+   B --&gt;|Sim| C{&lt; 15} 
+</pre>
+<div id="mermaid-tooltip-2" class="mermaidTooltip">
+
+</div>
+<p></p>
+<p>Árvore hipotética II</p>
+</div>
+</div>
+</div>
+<p>Árvores de decisão são boas opções para evitar viés porque, de forma não-paramétrica, encontram relações não-lineares e interações profundas – mas isso ao custo de frequentemente termos <em>overfitting</em> e alta variância, isto é, diferentes árvores treinadas em diferentes amostras podem resultar em modelos muito diferentes que não generalizam bem para <em>unseen data</em>. O exemplo acima, embora fictício, ilustra o problema.</p>
+<p>Mas e se, em vez de treinarmos uma única árvore de decisão, treinarmos <span class="math inline">\(N\)</span>, com diferentes variações, e combinarmos seus resultados tirando uma <em>média</em> de suas predições? Resumidamente, esta é a ideia central por detrás do <em>bagging</em>. Usando <a href="https://pt.wikipedia.org/wiki/Bootstrapping_(estat%C3%ADstica)">bootstrap</a>, sorteamos <span class="math inline">\(N\)</span> observações de uma amostra, onde <span class="math inline">\(N\)</span> é o número de observações na mesma amostra, com substituição e treinamos um árvore para cada. Ao final, usamos cada árvore para fazer predições na amostra de teste e as <em>agregamos</em> por média (caso de problemas de regressão) ou por frequência (caso de problemas de classificação) – <em>averaging</em> e <em>voting</em>, como essas formas de agregação são conhecidas, respectivamente.</p>
+<div class="page-columns page-full"><p>Há variações na implementação do <em>bagging</em>. É possível, por exemplo, usar <em>bootstrap</em> puro, mas também sortear apenas um percentual das observações de uma amostra, o que é chamado de <em>subsampling</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>; para evitar que apenas variáveis importantes pesem na construção de árvores (em geral, estas ocupam o primeiro nó nas árvores), também é comum sortear um sub-conjunto de <em>features</em> para cada <em>split</em>, o que é chamado de <em>feature bagging</em> ou <em>feature sampling</em>. Por ser flexível, o método permite diferentes customizações.</p><div class="no-row-height column-margin column-container"><li id="fn1" role="doc-endnote"><p><sup>1</sup>&nbsp;Algo útil é usar observações que ficaram de fora de cada sorteio, chamadas de <em>out-of-bag</em>, para calcular métricas de valiação; no <code>sklearn</code>, isso é possível diretamente por meio de um dos argumentos de <code>BaggingRegressor</code> ou <code>BaggingClassifier</code>.</p></li></div></div>
+<p>A vantagem principal do <em>bagging</em> é reduzir a variância em predições. Como árvores diferentes, treinadas em partes diferentes de uma amostra, podem captar diferentes padrões ao custo de <em>overfitting</em>, combinar vários significa dar peso a predições que ocorrem na maioria das árvores treinadas. Como resume o ITSL:</p>
+<blockquote class="blockquote">
+<p>Bagging has been demonstrated to give impressive improvements in accuracy by combining together hundreds or even thousands of trees into a single procedure. ITSL, p.&nbsp;341</p>
+</blockquote>
+<p>O resultado disso geralmente é bem visível: melhora em métricas de validação, como podemos ver em um exemplo simples de regressão, usando a nossa já conhecida base de dados climáticos de São Bernardo do Campo:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega pacotes</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3verse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega dados</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv"</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(link) <span class="sc">%&gt;%</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(is.numeric)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a task</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>tsk <span class="ot">&lt;-</span> <span class="fu">as_task_regr</span>(maximum_temprature <span class="sc">~</span> ., <span class="at">data =</span> dados)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria uma pipeline com arvore de decisao</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>gr <span class="ot">&lt;-</span> <span class="fu">po</span>(<span class="st">"scale"</span>) <span class="sc">%&gt;&gt;%</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="at">learner =</span> <span class="fu">lrn</span>(<span class="st">"regr.rpart"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_learner</span>()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria uma pipeline com bagging (sumsample + bootstrap)</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>gr_bagging <span class="ot">&lt;-</span> <span class="fu">po</span>(<span class="st">"subsample"</span>, <span class="at">frac =</span> <span class="dv">1</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;&gt;%</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="at">learner =</span> <span class="fu">lrn</span>(<span class="st">"regr.rpart"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ppl</span>(<span class="st">"greplicate"</span>, ., <span class="dv">10</span>) <span class="sc">%&gt;&gt;%</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">po</span>(<span class="st">"regravg"</span>, <span class="at">innum =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_learner</span>()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Treina as pipelines</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">benchmark_grid</span>(</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">tasks =</span> tsk,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">learners =</span> <span class="fu">list</span>(gr, gr_bagging),</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">resamplings =</span> <span class="fu">rsmp</span>(<span class="st">"holdout"</span>, <span class="at">ratio =</span> <span class="fl">0.7</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">benchmark</span>(design)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>resultados<span class="sc">$</span><span class="fu">score</span>(<span class="fu">msr</span>(<span class="st">"regr.rmse"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeRegressor</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> BaggingRegressor</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega dados e separa as amostras</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web</span><span class="sc">%20s</span><span class="st">craping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> pd.read_csv(link).select_dtypes([<span class="st">'number'</span>])</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> dados[<span class="st">'maximum_temprature'</span>]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> dados.loc[:, dados.columns <span class="op">!=</span> <span class="st">'maximum_temprature'</span>]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>X_treino, X_teste, Y_treino, Y_teste <span class="op">=</span> train_test_split(X, Y)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Treina os modelos</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>arvore <span class="op">=</span> DecisionTreeRegressor().fit(X_treino, Y_treino)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>bagging <span class="op">=</span> BaggingRegressor(</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    base_estimator<span class="op">=</span>DecisionTreeRegressor(),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    n_estimators<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>).fit(X_treino, Y_treino)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula metricas</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>pred_arvore <span class="op">=</span> arvore.predict(X_teste)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>mean_squared_error(Y_teste, pred_arvore)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>pred_bagging <span class="op">=</span> bagging.predict(X_teste)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>mean_squared_error(Y_teste, pred_bagging, squared<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>As grandes novidades aqui são que, em <code>R</code>, usamos <code>po("subsample", frac = 1, replace = TRUE)</code> para criar <em>bootstraps</em> na amostra, <code>ppl("greplicate", ., 10)</code> para replicar o procedimento 10 vezes e, por fim, <code>po("regravg", innum = 10)</code> para agregar diferentes predições. Em <code>Python</code>, o processo é basicamente o mesmo – uma das vantagens do <em>framework</em> ser mais maduro é a consistência de código –, mas usamos <code>BaggingRegressor</code>, que permite usar <em>bootstrap</em>, <em>subsample</em> e <em>feature bagging</em>.</p>
+<p>Como é possível checar na documentação dos <em>frameworks</em> que usamos, <em>bagging</em> permite muitas adaptações: é possível usar diferentes modelos (não apenas árvores), com diferentes hiper-parâmetros e estratégias de <em>resampling</em> as mais variadas.</p>
+<section id="random-forest" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="random-forest"><em>Random forest</em></h3>
+<div class="page-columns page-full"><p>Pela sua popularidade, vale reservar um espaço para detalhar um dos algoritmos de <em>bagging</em>: <em>random forest</em>. Como o nome sugere, elas nada mais são do que árvores, combinadas por meio de <em>ensemble</em>, que são treinadas em variações da amostra (com <em>subsample</em>) e variações de <em>features</em> (<em>feature bagging</em>) simultaneamente. Assim, acabamos com árvores que se especializam em predizer determinadas partes da amostra utilizando diferentes preditores – o que evita que uma ou poucas variáveis acabem resultado em modelos similares, isto é, que tenhamos árvores correlacionadas. Nesse sentido, <em>random forest</em> incentiva a produção de modelos os mais diferentes<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> para, depois, combiná-los.</p><div class="no-row-height column-margin column-container"><li id="fn2" role="doc-endnote"><p><sup>2</sup>&nbsp;Na verdade, há variações do algoritmo que geral <em>splits</em> de forma totalmente aleatória (<em>extreme random forest</em>, por exemplo), mas em geral performam pior.</p></li></div></div>
+<p>Podemos implementar <em>random forest</em> da seguinte forma:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("randomForest")</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3extralearners)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>gr <span class="ot">&lt;-</span> <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="at">learner =</span> <span class="fu">lrn</span>(<span class="st">"regr.randomForest"</span>, <span class="at">ntree =</span> <span class="dv">50</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_learner</span>()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">benchmark_grid</span>(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">tasks =</span> tsk,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">learners =</span> <span class="fu">list</span>(gr),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">resamplings =</span> <span class="fu">rsmp</span>(<span class="st">"holdout"</span>, <span class="at">ratio =</span> <span class="fl">0.7</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">benchmark</span>(design)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>resultados<span class="sc">$</span><span class="fu">score</span>(<span class="fu">msr</span>(<span class="st">"regr.rmse"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>rf <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">50</span>)<span class="op">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    .fit(X_treino, Y_treino)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> rf.predict(X_teste)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>mean_squared_error(Y_teste, pred, squared<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Número de árvores
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ao usar <em>bagging</em> com árvores (o mais comum), considere sempre treinar o maior número de árvores possível</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Estandardização
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Por usar <em>split rules</em> e permitir combinações complexas e não-aleatórias, árvores de decisão geralmente não requerem normalização de variáveis contínuas</p>
+</div>
+</div>
+</section>
+</section>
+<section id="stacking" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="stacking">Stacking</h2>
+<p>Como vimos, <em>bagging</em> agrega predições de diferentes modelos – não apenas árvores, emboras <em>bagged trees</em> seja a aplicação mais comum deste <em>ensemble</em>. Em <em>stacking</em>, fazemos a mesma coisa, usando basicamente o mesmo procedimento, com a exceção de que <em>empregamos um modelo para agregar predições feitas pelos modelos treinados no primeiro estágio</em>. Em vez de calcular uma média ou a moda, portanto, <em>stacking</em> treina um novo modelo para mapear predições dos seus modelos constitutivos.</p>
+<div class="page-columns page-full"><p>Do ponto de vista de implementação, <em>stacking</em> funciona da seguinte forma<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>: separamos três amostras, 2 de treino e uma de teste; treinamos <span class="math inline">\(N\)</span> modelos de nível 0 na primeira amostra de treino; fazemos predições usando esses <span class="math inline">\(N\)</span> modelos para a segunda base de treino; treinamos um modelo de nível 1 para agregar as predições do primeiro estágio; finalmente, fazemos predições para a base de teste e calculamos métricas de validação. Visualmente, isso resulta no seguinte <em>workflow</em>:</p><div class="no-row-height column-margin column-container"><li id="fn3" role="doc-endnote"><p><sup>3</sup>&nbsp;Há variações nessa implementação; com <code>sklearn</code>, por exemplo, o padrão é se usar Kfold cross-validation, algo que veremos em aulas posteriores, para gerar predições para todas as observações na amostra de treino sem muitos <em>leaks</em>. A ideia que está descrita aqui é mais próxima do conceito de <em>blending</em>, popularizada por uma <a href="https://www.researchgate.net/profile/Michael-Jahrer/publication/223460749_The_BigChaos_Solution_to_the_Netflix_Grand_Prize/links/0fcfd5108322324b0d000000/The-BigChaos-Solution-to-the-Netflix-Grand-Prize.pdf">competição criada pela Netflix</a> para melhorar seus algoritmos de recomendação.</p></li></div></div>
+<div class="column-body-outset">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imgs/stackin.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption"><a href="https://www.javatpoint.com/stacking-in-machine-learning">Imagem: javapoint</a></figcaption><p></p>
+</figure>
+</div>
+</div>
+<p>Tradicionalmente, <em>stacking</em> é usado com algoritmos diferentes, às vezes com hiper-parâmetros diferentes, de forma a fazer com que tenham baixa correlação entre si, isto é, que suas predições sejam intencionalmente muito diferentes – o que dá variação suficiente que pode ser útil para criar um <em>ensemble</em> mais complexo. Além disso, é comum usar um <em>blender</em> simples, como regressão linear ou regressão linear com regularização, o que ajuda a dar menor peso para modelos nível 0 que não contribuem muito com a performance do <em>stack ensemble</em>.</p>
+<div class="page-columns page-full"><p>A título de exemplo, podemos montar um <em>ensemble stacking</em> que usa regressão linear simples, KNN e <em>random forest</em><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> para predizer a temparatura máxima em São Bernardo do Campo:</p><div class="no-row-height column-margin column-container"><li id="fn4" role="doc-endnote"><p><sup>4</sup>&nbsp;Como dá para ver, é possível usar um <em>ensemble dentro de outro</em></p></li></div></div>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria modelos que retornam predicoes out-of-sample ("learner_cv")</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>gr <span class="ot">&lt;-</span> <span class="fu">po</span>(<span class="st">"scale"</span>) <span class="sc">%&gt;&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="at">learner =</span> <span class="fu">lrn</span>(<span class="st">"regr.lm"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">po</span>(<span class="st">"learner_cv"</span>, .) </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>gr_kknn <span class="ot">&lt;-</span> <span class="fu">po</span>(<span class="st">"scale"</span>) <span class="sc">%&gt;&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="at">learner =</span> <span class="fu">lrn</span>(<span class="st">"regr.kknn"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">po</span>(<span class="st">"learner_cv"</span>, .) </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>gr_rf <span class="ot">&lt;-</span> <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="at">learner =</span> <span class="fu">lrn</span>(<span class="st">"regr.randomForest"</span>, <span class="at">ntree =</span> <span class="dv">50</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">po</span>(<span class="st">"learner_cv"</span>, .) </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria o ensemble</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>stack <span class="ot">&lt;-</span> <span class="fu">list</span>(gr, gr_kknn, gr_rf) <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gunion</span>() <span class="sc">%&gt;&gt;%</span> <span class="co"># Une os modelos</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">po</span>(<span class="st">"featureunion"</span>) <span class="sc">%&gt;&gt;%</span> <span class="co"># Une as predicoes</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="at">learner =</span> <span class="fu">lrn</span>(<span class="st">"regr.lm"</span>)) <span class="sc">%&gt;%</span> <span class="co"># Faz predicoes finais</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_learner</span>()</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">benchmark_grid</span>(</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">tasks =</span> tsk,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">learners =</span> <span class="fu">list</span>(stack),</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">resamplings =</span> <span class="fu">rsmp</span>(<span class="st">"holdout"</span>, <span class="at">ratio =</span> <span class="fl">0.7</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">benchmark</span>(design)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>resultados<span class="sc">$</span><span class="fu">score</span>(<span class="fu">msr</span>(<span class="st">"regr.rmse"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsRegressor</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Treina os modelos</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>modelos <span class="op">=</span> [(<span class="st">'lm'</span>, LinearRegression()),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>           (<span class="st">'kknn'</span>, KNeighborsRegressor()),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>           (<span class="st">'rf'</span>, RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">50</span>))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>          ]</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>stack <span class="op">=</span> StackingRegressor(estimators<span class="op">=</span>modelos, final_estimator<span class="op">=</span>LinearRegression())<span class="op">\</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    .fit(X_treino, Y_treino)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula metricas</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> stack.predict(X_teste)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>mean_squared_error(Y_teste, pred, squared<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>Em <code>R</code>, como dá para notar, o processo é bem mais complexo do que em <code>Python</code>, razão pela qual pode ser útil <a href="https://mlr3book.mlr-org.com/pipelines.html#pipe-model-ensembles-stacking">consultar a seção específica sobre isso no livro</a> do <em>framework</em>.</p>
+<p>Vale dizer também que o <code>ITSL</code> não cobre <em>stacking</em> – a bem da verdade, poucos livros dedicam muito espaço a ele –, mas é algo útil por ser uma ferramenta extremamente flexível e, também, por ser uma versão similar de outros métodos de <em>ensemble</em> mais avançados, como BMA (<em>Bayesian Model Averaging</em>), que não cobriremos neste curso.</p>
+</section>
+<section id="boosting" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="boosting">Boosting</h2>
+<p>Diferentemente de <em>bagging</em> e <em>stacking</em>, que treinam modelos fracos (<em>weak learners</em>) e combinam suas predições, <em>boosting</em> treina modelos fracos de forma sequencial, com cada novo modelo aprendendo a corrigir os principais erros feitos pelo anterior. Assim, ao final da fase de treino dos <span class="math inline">\(N\)</span> modelos o que temos é um conjunto ordenado de modelos que fazem predições voltadas a reduzir diferentes tipos de erro – consequentemente, minimizando viés e, em certa medida, também variância.</p>
+<div class="page-columns page-full"><p>Em sua versão mais conhecida, chamada de <em>gradient boosting</em>, o processo de treino do <em>ensemble</em> repete algumas vezes o seguinte fluxo: treina-se um modelo qualquer nos dados (árvore de decisão simples é o mais comum), faz-se predição <em>na amostra de treino</em> e calcula-se os resíduos; usando os resíduos como <em>target</em>, treina-se nova árvore. Repetindo esse procedimento algumas vezes, basta somar as predições de cada modelo individual <em>na amostra de teste</em> para se obter uma predição final<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. O diagrama a seguir mostra um exemplo do processo:</p><div class="no-row-height column-margin column-container"><li id="fn5" role="doc-endnote"><p><sup>5</sup>&nbsp;Há outra versão popular de <em>boosting</em>, que é implementada pelo conhecido <a href="https://pt.wikipedia.org/wiki/AdaBoost">AdaBoost</a>, que em vez de usar os resíduos dos modelos usa pesos na estimação de novas predições.</p></li></div></div>
+<div class="column-body-outset">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="imgs/boosting.png" class="img-fluid figure-img"></p>
+<p></p><figcaption aria-hidden="true" class="figure-caption"><a href="https://amueller.github.io/COMS4995-s20/slides/aml-08-gradient-boosting/#1">Imagem: Andreas Muller</a></figcaption><p></p>
+</figure>
+</div>
+</div>
+<p>Assim como no caso do <em>random forest</em>, <em>boosting</em> geralmente é implementado por um algoritmo sem maior necessidade de adaptação de código. Podemos estimar modelos com <em>boosting</em> usando <em>extreme gradient boosting</em>, uma das versões mais rápidas e otimizadas para predição, e implementações comuns de <em>gradient boosting</em> usando:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gr_xgboost <span class="ot">&lt;-</span> <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="at">learner =</span> <span class="fu">lrn</span>(<span class="st">"regr.xgboost"</span>, <span class="at">nrounds =</span> <span class="dv">50</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_learner</span>()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>gr_gbm <span class="ot">&lt;-</span> <span class="fu">po</span>(<span class="st">"learner"</span>, <span class="at">learner =</span> <span class="fu">lrn</span>(<span class="st">"regr.gbm"</span>, <span class="at">n.trees =</span> <span class="dv">50</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_learner</span>()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>design <span class="ot">&lt;-</span> <span class="fu">benchmark_grid</span>(</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">tasks =</span> tsk,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">learners =</span> <span class="fu">list</span>(gr_xgboost, gr_gbm),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">resamplings =</span> <span class="fu">rsmp</span>(<span class="st">"holdout"</span>, <span class="at">ratio =</span> <span class="fl">0.7</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">benchmark</span>(design)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>resultados<span class="sc">$</span><span class="fu">score</span>(<span class="fu">msr</span>(<span class="st">"regr.rmse"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Necessário instalar o xgboost, que não</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># faz parte do sklearn</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> xgboost <span class="im">import</span> XGBRegressor</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> GradientBoostingRegressor</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Treina os modelos</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>gb <span class="op">=</span> GradientBoostingRegressor(n_estimators<span class="op">=</span><span class="dv">50</span>)<span class="op">\</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    .fit(X_treino, Y_treino)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>xgb <span class="op">=</span> XGBRegressor(n_estimators<span class="op">=</span><span class="dv">50</span>)<span class="op">\</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    .fit(X_treino, Y_treino)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula metricas</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> gb.predict(X_teste)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>mean_squared_error(Y_teste, pred, squared<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> xgb.predict(X_teste)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>mean_squared_error(Y_teste, pred, squared<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="outros-tipos-de-ensemble" class="level2">
+<h2 class="anchored" data-anchor-id="outros-tipos-de-ensemble">Outros tipos de ensemble</h2>
+<p>Embora <em>bagging</em>, <em>stacking</em> e <em>boosting</em> sejam, de longe, os tipos mais utilizados de <em>emsemble</em>, existem diversas outras maneiras de se combinar modelos. Um bom material de referência para o <em>Bayesian Averaging</em>, uma aplicação que cresceu na Ciência Política, pode ser vista <a href="https://www.cambridge.org/core/journals/political-analysis/article/improving-predictions-using-ensemble-bayesian-model-averaging/11866974EE2888D4A2988309FC6B602F">aqui.</a></p>
+
+
+</section>
+</section>
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

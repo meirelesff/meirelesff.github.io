@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FLS 6497 - Projeto 1</title>
+<title>FLS 6497 - Exercícios 7</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -119,6 +119,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <link rel="stylesheet" href="../styles.css">
+<meta name="twitter:title" content="FLS 6497 - Exercícios 7">
+<meta name="twitter:description" content="Para esse exercício, precisaremos de novos dados, dessa vez das eleições municípais de 2000.">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed">
@@ -234,21 +237,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Sumário</h2>
+    <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#dados" id="toc-dados" class="nav-link active" data-scroll-target="#dados">Dados</a></li>
-  <li><a href="#objetivo" id="toc-objetivo" class="nav-link" data-scroll-target="#objetivo">Objetivo</a></li>
-  <li><a href="#entrega" id="toc-entrega" class="nav-link" data-scroll-target="#entrega">Entrega</a></li>
+  <li><a href="#bagging" id="toc-bagging" class="nav-link active" data-scroll-target="#bagging">1) <em>Bagging</em></a>
+  <ul class="collapse">
+  <li><a href="#a-exploração" id="toc-a-exploração" class="nav-link" data-scroll-target="#a-exploração">a) Exploração</a></li>
+  <li><a href="#b-criação-de-pipelines-com-bagging" id="toc-b-criação-de-pipelines-com-bagging" class="nav-link" data-scroll-target="#b-criação-de-pipelines-com-bagging">b) Criação de <em>pipelines com bagging</em></a></li>
+  <li><a href="#c-variações" id="toc-c-variações" class="nav-link" data-scroll-target="#c-variações">c) Variações</a></li>
+  <li><a href="#d-random-forest" id="toc-d-random-forest" class="nav-link" data-scroll-target="#d-random-forest">d) <em>Random forest</em></a></li>
+  </ul></li>
+  <li><a href="#stacking" id="toc-stacking" class="nav-link" data-scroll-target="#stacking">2) <em>Stacking</em></a>
+  <ul class="collapse">
+  <li><a href="#a-básico" id="toc-a-básico" class="nav-link" data-scroll-target="#a-básico">a) Básico</a></li>
+  <li><a href="#b-ensemble-em-cima-de-ensemble" id="toc-b-ensemble-em-cima-de-ensemble" class="nav-link" data-scroll-target="#b-ensemble-em-cima-de-ensemble">b) <em>Ensemble</em> em cima de <em>ensemble</em></a></li>
+  </ul></li>
+  <li><a href="#boosting" id="toc-boosting" class="nav-link" data-scroll-target="#boosting">3) <em>Boosting</em></a>
+  <ul class="collapse">
+  <li><a href="#a-gradiente" id="toc-a-gradiente" class="nav-link" data-scroll-target="#a-gradiente">a) Gradiente</a></li>
+  <li><a href="#b-número-de-árvores-em-boosting" id="toc-b-número-de-árvores-em-boosting" class="nav-link" data-scroll-target="#b-número-de-árvores-em-boosting">b) Número de árvores em <em>boosting</em></a></li>
+  </ul></li>
+  <li><a href="#valiação" id="toc-valiação" class="nav-link" data-scroll-target="#valiação">4) Valiação</a></li>
+  <li><a href="#bônus" id="toc-bônus" class="nav-link" data-scroll-target="#bônus">Bônus</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Projeto 1</h1>
+<h1 class="title">Exercícios 7</h1>
+<p class="subtitle lead">Aula 7</p>
 </div>
 
 
@@ -262,55 +282,103 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>Nosso primeiro projeto avaliativo, consistindo em <em>15%</em> da nota final no curso, será uma aplicação de aprendizado supervisionado: classificar discursos presidenciais feitos para audiências internacionais. Ao todo, são <code>350</code> discursos proferidos por Lula, Dilma e Temer que poderão ser utilizados para teste e treino de modelos. Neste trabalho, vocês poderão aplicar o pré-processamento que julgarem mais adequado.</p>
-<section id="dados" class="level1">
-<h1>Dados</h1>
-<p>Para essa tarefa, vocês terão duas bases de dados: uma com os <code>350</code> discursos presidenciais e, outra, com <code>25</code> discursos sem indicação de autoria que deverá ser utilizada como amostra de <em>validação</em>.</p>
-<p>Para carregar os dados, basta usar:</p>
+<section id="bagging" class="level1 page-columns page-full">
+<h1>1) <em>Bagging</em></h1>
+<div class="page-columns page-full"><p>Para esse exercício, precisaremos de novos dados, dessa vez das eleições municípais de 2000. A base que usaremos indica qual partido venceu, se PMDB/PSDB/PFL ou outros, e variáveis econômicas e demográficas (não se esqueça de remover IDs e nome dos municípios, como <code>cod_mun_ibge</code> e <code>nome_municipio</code>; se usar <code>Python</code>, também não se esqueça de transformar/remover as variáveis <code>uf</code> e <code>coligacao</code>):<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn1" role="doc-endnote"><p><sup>1</sup>&nbsp;Dica: se usar árvores de decisão, experimente aumentar o número delas.</p></li></div></div>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://github.com/FLS-6497/datasets/blob/main/projeto1/discursos_pres_internacionais.csv?raw=true"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>discursos <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(link)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://github.com/FLS-6497/datasets/blob/main/projeto1/discursos_pres_internacionais_validacao.csv?raw=true"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>validacao <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula7/eleicoes2000.csv"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(link) <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>cod_mun_ibge, <span class="sc">-</span>nome_municipio) <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, as.factor)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://github.com/FLS-6497/datasets/blob/main/projeto1/discursos_pres_internacionais.csv?raw=true'</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>discursos <span class="op">=</span> pd.read_csv(link, sep<span class="op">=</span><span class="st">';'</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://github.com/FLS-6497/datasets/blob/main/projeto1/discursos_pres_internacionais_validacao.csv?raw=true'</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>validacao <span class="op">=</span> pd.read_csv(link, sep<span class="op">=</span><span class="st">';'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula7/eleicoes2000.csv'</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> pd.read_csv(link, sep<span class="op">=</span><span class="st">';'</span>, decimal<span class="op">=</span><span class="st">","</span>).drop([<span class="st">'cod_mun_ibge'</span>, <span class="st">'nome_municipio'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<section id="a-exploração" class="level2">
+<h2 class="anchored" data-anchor-id="a-exploração">a) Exploração</h2>
+<p>Explore rapidamente a base de dados. Para tanto, você pode criar gráficos com as distribuições do <em>target</em> e de algumas <em>features</em>, com cruzamentos das variáveis ou, ainda, usar correlações. Quais variáveis parecem ter mais relação com o <code>target</code> <code>partido</code>?</p>
+</section>
+<section id="b-criação-de-pipelines-com-bagging" class="level2">
+<h2 class="anchored" data-anchor-id="b-criação-de-pipelines-com-bagging">b) Criação de <em>pipelines com bagging</em></h2>
+<p>Usando <em>pipelines</em>, crie um <em>bagging ensemble</em> combinando quantos e quais modelos você quiser e outra <em>pipeline</em> usando <em>Naive Bayes</em>. Treine e compare os resultados destas <em>pipelines</em>.</p>
+</section>
+<section id="c-variações" class="level2">
+<h2 class="anchored" data-anchor-id="c-variações">c) Variações</h2>
+<p>Agora, crie outros dois <em>bagging ensembles</em>, um deles fazendo <em>subsample</em> dos dados (no <code>mlr3</code>, isso é controlado pelo argumento <code>frac</code> no <code>po</code> com <code>subsample</code>) e, o outro, utilizando um modelo diferente do que você utilizou na <code>bagg</code> anterior. Treine e compare os resultados destas novas <em>pipelines</em>.</p>
+</section>
+<section id="d-random-forest" class="level2">
+<h2 class="anchored" data-anchor-id="d-random-forest">d) <em>Random forest</em></h2>
+<p>Crie uma <em>pipeline</em> agora usando <code>random forest</code> (fique à vontade para customizar ela como achar melhor) e compare seus resultados com o da melhor <em>pipeline</em> que você encontrou no exercício anterior.</p>
+</section>
+</section>
+<section id="stacking" class="level1">
+<h1>2) <em>Stacking</em></h1>
+<section id="a-básico" class="level2">
+<h2 class="anchored" data-anchor-id="a-básico">a) Básico</h2>
+<p>Adaptando o exemplo dos materiais de aula, crie uma <em>pipeline</em> que use <em>stacking</em> para combinar os resultados de três modelos diferentes. Os modelos de nível 0 podem ter tanto etapas de pré-processamento, modelos ou parâmetros diferentes (e.g., é possível treinar 3 árvores diferentes). Como <em>blender</em>, use um modelo de regressão logística simples (no <code>mlr3</code>, <code>classif.log_ref</code>; no <code>sklearn</code>, <code>LogisticRegression</code>). Treine e veja os resultados desta <em>pipeline</em>.</p>
+</section>
+<section id="b-ensemble-em-cima-de-ensemble" class="level2">
+<h2 class="anchored" data-anchor-id="b-ensemble-em-cima-de-ensemble">b) <em>Ensemble</em> em cima de <em>ensemble</em></h2>
+<p>Ao <em>stack</em> anterior, adapte e adicione agora o melhor <em>bagging ensemble</em> que você encontrou no exercício 1. Treine e veja o resultado dessa nova versão.</p>
+</section>
+</section>
+<section id="boosting" class="level1">
+<h1>3) <em>Boosting</em></h1>
+<p>Para quem usa <code>R</code>, neste exercício será necessário converter <em>features</em> categóricas para <em>numeric</em> (o XGboost só aceita variáveis numéricas). Podemos criar uma nova base assim com o seguinte código:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dados2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">model.matrix</span>(partido <span class="sc">~</span> ., dados)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dados2<span class="sc">$</span>partido <span class="ot">&lt;-</span> dados<span class="sc">$</span>partido</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>tsk2 <span class="ot">&lt;-</span> <span class="fu">as_task_classif</span>(partido <span class="sc">~</span> ., <span class="at">data =</span> dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="a-gradiente" class="level2">
+<h2 class="anchored" data-anchor-id="a-gradiente">a) Gradiente</h2>
+<p>Treine dois <em>ensembles</em> com <em>boosting</em>, um usando <em>gradient boosting</em> e, o outro, <em>extreme gradient boosting</em>. Compare os resultados.</p>
+</section>
+<section id="b-número-de-árvores-em-boosting" class="level2">
+<h2 class="anchored" data-anchor-id="b-número-de-árvores-em-boosting">b) Número de árvores em <em>boosting</em></h2>
+<p>Usando <em>extreme boosting</em>, crie três pipelines: uma que treine 10 modelos, outra que treine 100 e, por fim, uma que treine 200. O que acontece com os resultados?</p>
+</section>
+</section>
+<section id="valiação" class="level1 page-columns page-full">
+<h1>4) Valiação</h1>
+<div class="page-columns page-full"><p>Usando o melhor <em>ensemble</em> que você encontrou nessa aula, o valide usando estes dados das eleições de 2004 – que foram um pouco diferentes das de 2000 em termos de desempenho dos partidos (lembre-se de que é preciso treinar do zero o melhor modelo nos dados completos de 2000 antes de fazer a validação).<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p><div class="no-row-height column-margin column-container"><li id="fn2" role="doc-endnote"><p><sup>2</sup>&nbsp;Para quem usa <code>R</code>, também é necessário transformas as variáveis categóricas em numéricas, da mesma forma que fizemos com a base principal antes do treino</p></li></div></div>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula7/eleicoes2004.csv"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(link) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>cod_mun_ibge, <span class="sc">-</span>nome_municipio) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, as.factor)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula7/eleicoes2004.csv'</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> pd.read_csv(link, sep<span class="op">=</span><span class="st">';'</span>, decimal<span class="op">=</span><span class="st">","</span>).drop([<span class="st">'cod_mun_ibge'</span>, <span class="st">'nome_municipio'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="objetivo" class="level1">
-<h1>Objetivo</h1>
-<p>O objetivo central dessa atividade é treinar um modelo que performe bem na classificação da autoria dos discursos presidenciais. Para isso, é importante registrar métricas de validação e reportá-las, bem como fazer predições para a amostra de <code>validação</code> que poderemos conferir posteriormente.</p>
-</section>
-<section id="entrega" class="level1">
-<h1>Entrega</h1>
-<p>A entrega deverá ser feita na pasta do GitHub de cada um contendo:</p>
-<ul>
-<li><p>Um <em>notebook</em> ou <em>script</em> com o código utilizado;</p></li>
-<li><p>Um documento (pode ser um PDF compilado pelo <em>notebook</em>, mas também pode ser um <code>README.md</code>) detalhando a metodologia utilizada:</p>
-<ul>
-<li>Modelos testados</li>
-<li>Pré-processamento do texto usado</li>
-<li>Estratégia de validação (e.g.&nbsp;<em>ratio</em> no <em>holdout</em>, quantas vezes foi gerada uma nova amostra)</li>
-<li>Resumo dos resultados obtidos em alguma métrica de validação (e.g., precisão, recall, F1, etc.)</li>
-<li>Predição para a base de <em>validação</em> com <code>25</code> discursos sem indicação de autoria</li>
-</ul></li>
-</ul>
-<p>Em aula, poderemos tirar dúvidas sobre o formato da entrega. O importante a notar é que a avaliação <em>não</em> recairá sobre o desempenho dos modelos de vocês na amostra de <code>validação</code> – ela será utilizada apenas para discutirmos os trabalhos de vocês em aula.</p>
+<section id="bônus" class="level1">
+<h1>Bônus</h1>
+<p>Tente adaptar o uso de algum <em>ensemble</em> que vimos para o <code>Projeto 1</code> e veja se você consegue melhorar a performance do seu modelo de classificação de discursos presidenciais.</p>
 
 
 </section>
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

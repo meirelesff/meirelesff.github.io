@@ -217,6 +217,13 @@
     "text": "Outros tipos de ensemble\nEmbora bagging, stacking e boosting sejam, de longe, os tipos mais utilizados de emsemble, existem diversas outras maneiras de se combinar modelos. Um bom material de referência para o Bayesian Averaging, uma aplicação que cresceu na Ciência Política, pode ser vista aqui."
   },
   {
+    "objectID": "materiais/aula8.html",
+    "href": "materiais/aula8.html",
+    "title": "Aula 8",
+    "section": "",
+    "text": "Referências\n\nJames, Gareth, Daniela Witten, Trevor Hastie, e Robert Tibshirani. 2013. An introduction to statistical learning. Vol. 112. Springer."
+  },
+  {
     "objectID": "temp.html",
     "href": "temp.html",
     "title": "Materiais",
@@ -432,5 +439,26 @@
     "title": "Exercícios 7",
     "section": "b) Número de árvores em boosting",
     "text": "b) Número de árvores em boosting\nUsando extreme boosting, crie três pipelines: uma que treine 10 modelos, outra que treine 100 e, por fim, uma que treine 200. O que acontece com os resultados?"
+  },
+  {
+    "objectID": "exercicios/exercicios8.html",
+    "href": "exercicios/exercicios8.html",
+    "title": "Exercícios 8",
+    "section": "",
+    "text": "Para esse exercício, usaremos novamente dados das eleições municipais de 2000:\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula7/eleicoes2000.csv\"\ndados <- readr::read_csv2(link) %>%\n  select(-cod_mun_ibge, -nome_municipio) %>%\n  mutate_if(is.character, as.factor)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula7/eleicoes2000.csv'\ndados = pd.read_csv(link, sep=';', decimal=\",\").drop(['cod_mun_ibge', 'nome_municipio'], axis=1)\n\n\n\n\n\nCom os dados, implemente uma pipeline de classificação que use PCA para reduzir o número de features nos dados. Seu objetivo será predizer qual partido governa dado município. Calcule alguma métrica de validação.\n\n\n\nPartindo da pipeline anterior, crie diferentes pipelines alterando o número de dimensões no PCA para 2, 3, 4 e 5. Rode essas pipelines e compare seus resultados.\n\n\n\nChecando a documentação do seu framework, implemente alguma alternativa ao PCA (exemplo: kernel PCA)."
+  },
+  {
+    "objectID": "exercicios/exercicios8.html#a-k-means",
+    "href": "exercicios/exercicios8.html#a-k-means",
+    "title": "Exercícios 8",
+    "section": "a) K-means",
+    "text": "a) K-means\nUse K-means para separar os e as parlamentares em 4 grupos. Adicione essa classificação na base de dados original e a explore para tentar compreender quais são esses grupos."
+  },
+  {
+    "objectID": "exercicios/exercicios8.html#b-alternativas",
+    "href": "exercicios/exercicios8.html#b-alternativas",
+    "title": "Exercícios 8",
+    "section": "b) Alternativas",
+    "text": "b) Alternativas\nUse outro algoritmo de clustering e faça uma nova classificação dos e das parlamentares. Compare com a anterior para examinar as diferenças."
   }
 ]

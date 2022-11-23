@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FLS 6497 - Exercícios 3</title>
+<title>FLS 6497 - Exercícios 9</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,6 +78,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -117,10 +136,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta name="twitter:title" content="FLS 6497 - Exercícios 3">
-<meta name="twitter:description" content="Para esse exercício, será necessário carregar alguns dados sobre violência policial letal nos Estados…">
+<meta name="twitter:title" content="FLS 6497 - Exercícios 9">
+<meta name="twitter:description" content="Para esse exercício, usaremos uma base de dados das candidaturas à Câmara dos Deputados em 2014 que contém, entre outros, variáveis como o sexo, a raça, a escolaridade e o status de reeleição das…">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -256,34 +276,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#dados" id="toc-dados" class="nav-link active" data-scroll-target="#dados">1) Dados</a>
+  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link active" data-scroll-target="#cross-validation">1) Cross-validation</a>
   <ul class="collapse">
-  <li><a href="#a-exploração-de-features" id="toc-a-exploração-de-features" class="nav-link" data-scroll-target="#a-exploração-de-features">a) Exploração de <em>features</em></a></li>
-  <li><a href="#b-nova-base" id="toc-b-nova-base" class="nav-link" data-scroll-target="#b-nova-base">b) Nova base</a></li>
+  <li><a href="#a-básico" id="toc-a-básico" class="nav-link" data-scroll-target="#a-básico">a) Básico</a></li>
+  <li><a href="#b-loo" id="toc-b-loo" class="nav-link" data-scroll-target="#b-loo">b) LOO</a></li>
+  <li><a href="#c-mantendo-balanço" id="toc-c-mantendo-balanço" class="nav-link" data-scroll-target="#c-mantendo-balanço">c) Mantendo balanço</a></li>
+  <li><a href="#d-repetindo-o-processo" id="toc-d-repetindo-o-processo" class="nav-link" data-scroll-target="#d-repetindo-o-processo">d) Repetindo o processo</a></li>
   </ul></li>
-  <li><a href="#classificador-logístico" id="toc-classificador-logístico" class="nav-link" data-scroll-target="#classificador-logístico">2) Classificador logístico</a></li>
-  <li><a href="#treino-e-teste" id="toc-treino-e-teste" class="nav-link" data-scroll-target="#treino-e-teste">3) Treino e teste</a>
+  <li><a href="#workflow-de-validação" id="toc-workflow-de-validação" class="nav-link" data-scroll-target="#workflow-de-validação">Workflow de validação</a>
   <ul class="collapse">
-  <li><a href="#a-criar-função" id="toc-a-criar-função" class="nav-link" data-scroll-target="#a-criar-função">a) Criar função</a></li>
-  <li><a href="#b-modelo-com-treino-e-teste" id="toc-b-modelo-com-treino-e-teste" class="nav-link" data-scroll-target="#b-modelo-com-treino-e-teste">b) Modelo com treino e teste</a></li>
-  <li><a href="#c-tamanho-das-amostras-de-treino" id="toc-c-tamanho-das-amostras-de-treino" class="nav-link" data-scroll-target="#c-tamanho-das-amostras-de-treino">c) Tamanho das amostras de treino</a></li>
+  <li><a href="#a-holdout" id="toc-a-holdout" class="nav-link" data-scroll-target="#a-holdout">a) <em>Holdout</em></a></li>
+  <li><a href="#b-cross-validation" id="toc-b-cross-validation" class="nav-link" data-scroll-target="#b-cross-validation">b) <em>Cross-validation</em></a></li>
   </ul></li>
-  <li><a href="#validação" id="toc-validação" class="nav-link" data-scroll-target="#validação">4) Validação</a>
+  <li><a href="#usando-mais-dados" id="toc-usando-mais-dados" class="nav-link" data-scroll-target="#usando-mais-dados">Usando mais dados</a>
   <ul class="collapse">
-  <li><a href="#a-nova-função" id="toc-a-nova-função" class="nav-link" data-scroll-target="#a-nova-função">a) Nova função</a></li>
-  <li><a href="#b-cross-validation" id="toc-b-cross-validation" class="nav-link" data-scroll-target="#b-cross-validation">b) Cross-validation</a></li>
+  <li><a href="#a-novo-workflow" id="toc-a-novo-workflow" class="nav-link" data-scroll-target="#a-novo-workflow">a) Novo workflow</a></li>
   </ul></li>
-  <li><a href="#comparação-de-modelos" id="toc-comparação-de-modelos" class="nav-link" data-scroll-target="#comparação-de-modelos">5) Comparação de modelos</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exercícios 3</h1>
-<p class="subtitle lead">Aula 3</p>
+<h1 class="title">Exercícios 9</h1>
+<p class="subtitle lead">Aula 9</p>
 </div>
 
 
@@ -297,118 +315,95 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="dados" class="level1">
-<h1>1) Dados</h1>
-<p>Para esse exercício, será necessário carregar alguns dados sobre violência policial letal nos Estados Unidos:</p>
+<section id="cross-validation" class="level1 page-columns page-full">
+<h1>1) Cross-validation</h1>
+<p>Para esse exercício, usaremos uma base de dados das candidaturas à Câmara dos Deputados em 2014 que contém, entre outros, variáveis como o sexo, a raça, a escolaridade e o <em>status</em> de reeleição das candidaturas, bem como uma <em>dummy</em> (<code>resultado</code>) que indica se a candidatura foi (<span class="math inline">\(1\)</span>) ou não (<span class="math inline">\(0\)</span>) eleita <span class="citation" data-cites="machado2020race">(<a href="#ref-machado2020race" role="doc-biblioref">Machado, Campos, e Recch 2020</a>)</span>.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula9/camara_2014.csv"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(link) <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, as.factor)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv'</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> pd.read_csv(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula9/camara_2014.csv'</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> pd.read_csv(link, sep<span class="op">=</span><span class="st">';'</span>, decimal<span class="op">=</span><span class="st">","</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
-<p>Para quem usa <code>R</code>, também será importante instalar algumas bibliotecas previamente:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"mlr3verse"</span>, <span class="st">"mlr3measures"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="a-exploração-de-features" class="level2">
-<h2 class="anchored" data-anchor-id="a-exploração-de-features">a) Exploração de <em>features</em></h2>
-<p>Faça gráficos de barras com a frequência da variável <code>race</code> por cada uma das variáveis <code>officer_</code> na base de dados. O resultado deve indicar quantas vítimas de mortes por violência letal policial de diferentes raças (<code>whites</code> e <code>blacks</code>) ocorreram em diferentes categorias (e.g., <code>office_offduty</code>). Dica: algumas variáveis precisam ser recategorizadas porque possuem muitas categorias com poucas ocorrências.</p>
+<section id="a-básico" class="level2">
+<h2 class="anchored" data-anchor-id="a-básico">a) Básico</h2>
+<p>Crie uma <em>pipeline</em> para estandardizar variáveis numéricas (ou transformar variáveis categóricas em <em>dummies</em>) com algum modelo de classificação da sua escolha e o valide usando <em>K-fold</em> com <span class="math inline">\(K = 5\)</span> e, depois, com <span class="math inline">\(K = 10\)</span>.</p>
 </section>
-<section id="b-nova-base" class="level2">
-<h2 class="anchored" data-anchor-id="b-nova-base">b) Nova base</h2>
-<p>Crie uma nova base de dados que inclua apenas as variáveis mencionadas na Tabela 1 do paper de Streeter. Dica: será necessário criar novas variáveis e descartar outras existentes na base. Para quem usa <code>Python</code>, também é importante recodificar variáveis para o formato de <code>one hot encoding</code> (em <code>R</code>, a maioria das funções de regressão já faz essa conversão por baixo dos panos).</p>
+<section id="b-loo" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="b-loo">b) LOO</h2>
+<div class="page-columns page-full"><p>Sorteie apenas algumas observações do banco completo (50, por exemplo) e, em vez de usar <em>K-fold</em>, desta vez use LOO como estratégia de validação (no <code>mlr3</code>, a função chama-se <code>loo</code>; no <code>sklearn</code>, <code>LeaveOneOut</code>).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn1" role="doc-endnote"><p><sup>1</sup>&nbsp;No <code>R</code> talvez seja necessário usar como métrica de validação a <code>classif.ce</code>.</p></li></div></div>
+</section>
+<section id="c-mantendo-balanço" class="level2">
+<h2 class="anchored" data-anchor-id="c-mantendo-balanço">c) Mantendo balanço</h2>
+<p>Na base de dados, há muito menos candidaturas eleitas do que não-eleitas. Para evitar que amostras de treino e de teste percam esse balanço original, use <em>K-fold</em> estratificado (no <code>mlr3</code>, basta declarar <code>stratum = variavel</code> na <em>task</em>; no <code>sklearn</code>, use <code>StratifiedKFold</code>).</p>
+</section>
+<section id="d-repetindo-o-processo" class="level2">
+<h2 class="anchored" data-anchor-id="d-repetindo-o-processo">d) Repetindo o processo</h2>
+<p>Finalmente, use <em>repeated k-fold</em> para minimizar a variação decorrente do sorteio no particionamento das amostras (no <code>mlr3</code>, com <code>repeated_cv</code>; no <code>sklearn</code>, com <code>RepeatedKFold</code> ou com <code>RepeatedStratifiedKFold</code>).</p>
 </section>
 </section>
-<section id="classificador-logístico" class="level1">
-<h1>2) Classificador logístico</h1>
-<p>Usando um <em>framework</em> (<code>mlr3</code> ou <code>sci-kit</code>), treine um modelo logístico para predizer mortes de <code>blacks</code> (crie uma dummy indicando <code>1</code> para essa ocorrência) usando as variáveis anteriores.</p>
-<p>O código base será mais ou menos o seguinte:</p>
+<section id="workflow-de-validação" class="level1">
+<h1>Workflow de validação</h1>
+<p>Para este exercício, precisaremos separar a nossa amostra de uma forma mais próxima daquela usada em projetos reais: treino, teste e validação. Para tanto:</p>
+<section id="a-holdout" class="level2">
+<h2 class="anchored" data-anchor-id="a-holdout">a) <em>Holdout</em></h2>
+<p>Faça um <em>holdout</em> inicial da base, separando 90% dela para treino e teste e 10% para validação.</p>
+</section>
+<section id="b-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="b-cross-validation">b) <em>Cross-validation</em></h2>
+<p>Com os 90% restanted da base, treine e valide um modelo usando alguma estratégia de <em>cross-validation</em>. Ao final, quando encontrar o melhor modelo, treine ele em todos os 90% das observações e o valide na base de validação com 10% de observações.</p>
+</section>
+</section>
+<section id="usando-mais-dados" class="level1">
+<h1>Usando mais dados</h1>
+<p>Neste exercício, vamos voltar à base de dados climático de São Bernardo do Campo e, com o que aprendemos nas últimas aulas, vamos tentar melhorar nosso desempenho na tarefa de predizer temperatura máxima diária. Carregue a base com:</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3learners)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Treina o modelo</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>tsk <span class="ot">&lt;-</span> <span class="fu">as_task_classif</span>(race <span class="sc">~</span> officer_offduty <span class="sc">+</span> ..., <span class="at">positive =</span> <span class="st">"Black"</span>, <span class="at">data =</span> dados)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"classif.log_reg"</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span><span class="fu">train</span>(tsk)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Avalia predicoes</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> learner<span class="sc">$</span><span class="fu">predict</span>(tsk)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>pred<span class="sc">$</span>confusion</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>measure <span class="ot">&lt;-</span> <span class="fu">msr</span>(<span class="st">"classif.acc"</span>)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>pred<span class="sc">$</span><span class="fu">score</span>(measure)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega os dados</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula3/PKAP_raw_data.csv'</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> pd.read_csv(link, encoding<span class="op">=</span><span class="st">'latin'</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Transforma as variaveis (precisam ser float)</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> pd.get_dummies(c[<span class="st">'race'</span>]).Black</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.get_dummies(c[<span class="st">'officer_offduty'</span>])</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Treina o modelo</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>mod <span class="op">=</span> LogisticRegression()</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>mod.fit(X, Y)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Avalia predicoes</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> mod.predict(X)</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>classification_report(Y, pred)</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>confusion_matrix(Y, pred)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web</span><span class="sc">%20s</span><span class="st">craping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> pd.read_csv(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
-<p>Dica: consulte (de verdade!) a documentação de referência de cada <em>framework</em>; é a melhor maneira de aprender a se virar.</p>
-</section>
-<section id="treino-e-teste" class="level1">
-<h1>3) Treino e teste</h1>
-<section id="a-criar-função" class="level2">
-<h2 class="anchored" data-anchor-id="a-criar-função">a) Criar função</h2>
-<p>Crie uma função para sortear da base uma amostra de treino e, outra, de teste. Para isso, a função pode retornar uma lista com as duas amostras. Crie também um argumento na função que permita selecionar o percentual de observações na amostra de treino (o <em>default</em> precisará ser 0.7).</p>
-</section>
-<section id="b-modelo-com-treino-e-teste" class="level2">
-<h2 class="anchored" data-anchor-id="b-modelo-com-treino-e-teste">b) Modelo com treino e teste</h2>
-<p>Com a função anterior, retreine seu modelo anterior na amostra de treino e, depois, aplique as predições na amostra de teste.</p>
-</section>
-<section id="c-tamanho-das-amostras-de-treino" class="level2">
-<h2 class="anchored" data-anchor-id="c-tamanho-das-amostras-de-treino">c) Tamanho das amostras de treino</h2>
-<p>Com a função anterior, retreine seu modelo usando diferentes tamanhos de amostra de treino, de 0.3 a 0.9 com intervalos de 0.05. Crie um gráfico para reportar alguma métrica de validação (pode ser <code>acurácia</code> ou <code>precisão</code>, ou ainda <code>F1</code>) e, no eixo X, inclua a informação sobre o percentual usado</p>
-</section>
-</section>
-<section id="validação" class="level1">
-<h1>4) Validação</h1>
-<section id="a-nova-função" class="level2">
-<h2 class="anchored" data-anchor-id="a-nova-função">a) Nova função</h2>
-<p>Modifique a função criada anteriormente para que ela já separe a amostra em treino e teste, rode um modelo logístico e retorne alguma métrica de validação.</p>
-</section>
-<section id="b-cross-validation" class="level2">
-<h2 class="anchored" data-anchor-id="b-cross-validation">b) Cross-validation</h2>
-<p>Use a função criada anteriormente para rodar <code>500</code> modelos logísticos em diferentes amostras de treino e de teste. Reporte os resultados desse exercício com um histograma dos valores de validação de alguma métrica.</p>
-</section>
-</section>
-<section id="comparação-de-modelos" class="level1">
-<h1>5) Comparação de modelos</h1>
-<p>Adapte a função criada anteriormente para rodar um outro modelo de classificação binário, como <code>naive bayes</code> ou <code>K-Nearest Neighbors</code> (explore a documentação dos <em>frameworks</em> para descobrir outras opções e saber mais). Com esse novo modelo, rode <code>500</code> vezes e compare os resultados com o do modelo logístico criado anteriormente.</p>
+<section id="a-novo-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="a-novo-workflow">a) Novo workflow</h2>
+<p>Monte um <em>workflow</em> para melhorar o desempenho na tarefa de predizer <code>maximum_temprature</code>. Em particular, considere o seguinte:</p>
+<ul>
+<li>Pré-processar variáveis contínuas (<em>minmax</em> ou estandardização);</li>
+<li>Reduzir dimensionalidade (PCA ou kernelpca);</li>
+<li>Considerar combinações não-lineares (criando polinômios ou usando MARS)</li>
+<li>Usar <em>ensemble</em>, inclusive com <em>stacking</em></li>
+<li>Usar uma estratégia de validação que deixe mais dados para treino (<em>K-fold</em> com um <span class="math inline">\(K=10\)</span> ou <span class="math inline">\(K=20\)</span>)</li>
+<li>Considerar a estrutura temporal dos dados (é possível criar uma variável <em>lag</em> de <code>maximum_temprature</code>, o transformar o problema em um de série temporal e usar <em>walk-forward</em> validation)</li>
+</ul>
+
 
 
 </section>
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-machado2020race" class="csl-entry" role="doc-biblioentry">
+Machado, Carlos Augusto, Luiz Augusto Campos, e Filipe Recch. 2020. <span>«Race and Competitiveness in Brazilian Elections: Evaluating the Chances of Black and Brown Candidates through Quantile Regression Analysis of Brazil’s 2014 Congressional Elections»</span>. <em>Brazilian Political Science Review</em> 13.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";

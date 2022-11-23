@@ -224,6 +224,13 @@
     "text": "Referências\n\nJames, Gareth, Daniela Witten, Trevor Hastie, e Robert Tibshirani. 2013. An introduction to statistical learning. Vol. 112. Springer."
   },
   {
+    "objectID": "materiais/aula9.html",
+    "href": "materiais/aula9.html",
+    "title": "Aula 9",
+    "section": "",
+    "text": "Referências\n\nJames, Gareth, Daniela Witten, Trevor Hastie, e Robert Tibshirani. 2013. An introduction to statistical learning. Vol. 112. Springer.\n\n\nNeunhoeffer, Marcel, e Sebastian Sternberg. 2019. «How cross-validation can go wrong and what to do about it». Political Analysis 27 (1): 101–6."
+  },
+  {
     "objectID": "temp.html",
     "href": "temp.html",
     "title": "Materiais",
@@ -460,5 +467,33 @@
     "title": "Exercícios 8",
     "section": "b) Alternativas",
     "text": "b) Alternativas\nUse outro algoritmo de clustering e faça uma nova classificação dos e das parlamentares. Compare com a anterior para examinar as diferenças."
+  },
+  {
+    "objectID": "exercicios/exercicios9.html",
+    "href": "exercicios/exercicios9.html",
+    "title": "Exercícios 9",
+    "section": "",
+    "text": "Para esse exercício, usaremos uma base de dados das candidaturas à Câmara dos Deputados em 2014 que contém, entre outros, variáveis como o sexo, a raça, a escolaridade e o status de reeleição das candidaturas, bem como uma dummy (resultado) que indica se a candidatura foi (\\(1\\)) ou não (\\(0\\)) eleita (Machado, Campos, e Recch 2020).\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/FLS-6497/datasets/main/aula9/camara_2014.csv\"\ndados <- readr::read_csv2(link) %>%\n  mutate_if(is.character, as.factor)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/FLS-6497/datasets/main/aula9/camara_2014.csv'\ndados = pd.read_csv(link, sep=';', decimal=\",\")\n\n\n\n\n\nCrie uma pipeline para estandardizar variáveis numéricas (ou transformar variáveis categóricas em dummies) com algum modelo de classificação da sua escolha e o valide usando K-fold com \\(K = 5\\) e, depois, com \\(K = 10\\).\n\n\n\nSorteie apenas algumas observações do banco completo (50, por exemplo) e, em vez de usar K-fold, desta vez use LOO como estratégia de validação (no mlr3, a função chama-se loo; no sklearn, LeaveOneOut).11 No R talvez seja necessário usar como métrica de validação a classif.ce.\n\n\n\nNa base de dados, há muito menos candidaturas eleitas do que não-eleitas. Para evitar que amostras de treino e de teste percam esse balanço original, use K-fold estratificado (no mlr3, basta declarar stratum = variavel na task; no sklearn, use StratifiedKFold).\n\n\n\nFinalmente, use repeated k-fold para minimizar a variação decorrente do sorteio no particionamento das amostras (no mlr3, com repeated_cv; no sklearn, com RepeatedKFold ou com RepeatedStratifiedKFold)."
+  },
+  {
+    "objectID": "exercicios/exercicios9.html#a-holdout",
+    "href": "exercicios/exercicios9.html#a-holdout",
+    "title": "Exercícios 9",
+    "section": "a) Holdout",
+    "text": "a) Holdout\nFaça um holdout inicial da base, separando 90% dela para treino e teste e 10% para validação."
+  },
+  {
+    "objectID": "exercicios/exercicios9.html#b-cross-validation",
+    "href": "exercicios/exercicios9.html#b-cross-validation",
+    "title": "Exercícios 9",
+    "section": "b) Cross-validation",
+    "text": "b) Cross-validation\nCom os 90% restanted da base, treine e valide um modelo usando alguma estratégia de cross-validation. Ao final, quando encontrar o melhor modelo, treine ele em todos os 90% das observações e o valide na base de validação com 10% de observações."
+  },
+  {
+    "objectID": "exercicios/exercicios9.html#a-novo-workflow",
+    "href": "exercicios/exercicios9.html#a-novo-workflow",
+    "title": "Exercícios 9",
+    "section": "a) Novo workflow",
+    "text": "a) Novo workflow\nMonte um workflow para melhorar o desempenho na tarefa de predizer maximum_temprature. Em particular, considere o seguinte:\n\nPré-processar variáveis contínuas (minmax ou estandardização);\nReduzir dimensionalidade (PCA ou kernelpca);\nConsiderar combinações não-lineares (criando polinômios ou usando MARS)\nUsar ensemble, inclusive com stacking\nUsar uma estratégia de validação que deixe mais dados para treino (K-fold com um \\(K=10\\) ou \\(K=20\\))\nConsiderar a estrutura temporal dos dados (é possível criar uma variável lag de maximum_temprature, o transformar o problema em um de série temporal e usar walk-forward validation)"
   }
 ]

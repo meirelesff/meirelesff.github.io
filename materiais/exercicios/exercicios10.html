@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>FLS 6497 - Exercícios 5</title>
+<title>FLS 6497 - Exercícios 10</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,6 +78,25 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 
@@ -117,10 +136,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta name="twitter:title" content="FLS 6497 - Exercícios 5">
-<meta name="twitter:description" content="Para esse exercício, será necessário carregar uma base de discursos presidenciais feitos por Dilma Rousseff e Michel Temer em parte de seus…">
+<meta name="twitter:title" content="FLS 6497 - Exercícios 10">
+<meta name="twitter:description" content="Neste exercício usaremos uma base de dados com decisões da Suprema Corte americana que contém informações sobre os casos julgados e posições dos juízes em suas arguições, entre outros (Kaufman…">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -264,25 +284,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#workflow" id="toc-workflow" class="nav-link active" data-scroll-target="#workflow">1) Workflow</a>
-  <ul class="collapse">
-  <li><a href="#a-pré-processamento" id="toc-a-pré-processamento" class="nav-link" data-scroll-target="#a-pré-processamento">a) Pré-processamento</a></li>
-  <li><a href="#b-modelo" id="toc-b-modelo" class="nav-link" data-scroll-target="#b-modelo">b) Modelo</a></li>
-  <li><a href="#c-validação" id="toc-c-validação" class="nav-link" data-scroll-target="#c-validação">c) Validação</a></li>
-  <li><a href="#c-validação-ii" id="toc-c-validação-ii" class="nav-link" data-scroll-target="#c-validação-ii">c) Validação II</a></li>
-  </ul></li>
-  <li><a href="#evitando-data-leaks" id="toc-evitando-data-leaks" class="nav-link" data-scroll-target="#evitando-data-leaks">2) Evitando <em>data leaks</em></a></li>
-  <li><a href="#benchmark" id="toc-benchmark" class="nav-link" data-scroll-target="#benchmark">3) Benchmark</a></li>
+  <li><a href="#tuning" id="toc-tuning" class="nav-link active" data-scroll-target="#tuning">1) <em>Tuning</em></a></li>
+  <li><a href="#tuning-com-text-as-data" id="toc-tuning-com-text-as-data" class="nav-link" data-scroll-target="#tuning-com-text-as-data">2) <em>Tuning</em> com <em>text as data</em></a></li>
+  <li><a href="#melhorando-as-predições-climáticas" id="toc-melhorando-as-predições-climáticas" class="nav-link" data-scroll-target="#melhorando-as-predições-climáticas">3) Melhorando as predições climáticas</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exercícios 5</h1>
-<p class="subtitle lead">Aula 5</p>
+<h1 class="title">Exercícios 10</h1>
+<p class="subtitle lead">Aula 10</p>
 </div>
 
 
@@ -296,105 +310,100 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="workflow" class="level1">
-<h1>1) Workflow</h1>
-<p>Para esse exercício, será necessário carregar uma base de discursos presidenciais feitos por Dilma Rousseff e Michel Temer em parte de seus mandatos:</p>
+<section id="tuning" class="level1 page-columns page-full">
+<h1>1) <em>Tuning</em></h1>
+<div class="page-columns page-full"><p>Neste exercício usaremos uma base de dados com decisões da Suprema Corte americana que contém informações sobre os casos julgados e posições dos juízes em suas arguições, entre outros <span class="citation" data-cites="kaufman2019improving">(<a href="#ref-kaufman2019improving" role="doc-biblioref">Kaufman, Kraft, e Sen 2019</a>)</span>. No <em>paper</em><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, o resultado de acurácia encontrado é de 74% com um AdaBoost. Seu desafio é tentar replicar, e potencialmente superar, esse resultado – ou, melhor, ver se é possível replicar e superar o mesmo resultado montando uma <em>pipeline</em> do zero. Detalhes importantes:</p><div class="no-row-height column-margin column-container"><li id="fn1" role="doc-endnote"><p><sup>1</sup>&nbsp;Que, diga-se, tem alguns problemas que devem ficar nítidos a essa altura ponto do curso.</p></li></div></div>
+<ul>
+<li>Nosso <em>target</em> é a variável <code>winner</code>, que indica se uma dada petição foi vitoriosa no plenário</li>
+<li>Teste outras métricas de validação (note que há o dobro de decisões positivas na base)</li>
+<li>Pense na melhor estratégia de validação a usar (o estudo original usa <em>10-fold cross validation</em>) e justifique sua escolha (em comentários no código)</li>
+<li>Analise as variáveis na base e veja se não é possível pré-processar (ou mesmo remover) algumas que talvez sejam problemáticas</li>
+<li>Teste diferentes <em>pipelines</em>, com diferentes modelos e hiper-parâmetros</li>
+</ul>
+<p>Os dados já limpos estão no GitHub do curso e podem ser carregados com:</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://github.com/FLS-6497/datasets/raw/main/aula5/discursos_presidenciais.csv"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>discursos <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://github.com/FLS-6497/datasets/raw/main/aula10/supreme.csv"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(link) <span class="sc">%&gt;%</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, as.factor)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://github.com/FLS-6497/datasets/raw/main/aula5/discursos_presidenciais.csv'</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>discursos <span class="op">=</span> pd.read_csv(link, sep<span class="op">=</span><span class="st">';'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://github.com/FLS-6497/datasets/raw/main/aula10/supreme.csv'</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> pd.read_csv(link, sep<span class="op">=</span><span class="st">';'</span>, decimal<span class="op">=</span><span class="st">","</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
-<p>Também precisaremos fazer pré-processamento dos textos:</p>
+</section>
+<section id="tuning-com-text-as-data" class="level1">
+<h1>2) <em>Tuning</em> com <em>text as data</em></h1>
+<p>Neste exercício revisitaremos os dados do <code>Projeto 1</code> para aplicar <em>tuning</em> às <em>pipelines</em> que vocês já montaram anteriormente (é possível ir no GitHub consultar seu código). Particularmente, <em>tuning</em> será útil para identificar melhores combinações de hiper-parâmetros de pré-processamento – número ou proporção mínima de ocorrência de palavras, número mínimo de ocorrência de uma palavra entre documentos, tamanho do <span class="math inline">\(N\)</span> em <span class="math inline">\(N-grams\)</span>, etc.</p>
+<p>Carregue os dados com:</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3verse)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) Criar um corpus</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>corpus_disc <span class="ot">&lt;-</span> <span class="fu">corpus</span>(discursos, <span class="at">docid_field =</span> <span class="st">"id"</span>, <span class="at">text_field =</span> <span class="st">"discurso"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) Tokenizacao</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>tks_disc <span class="ot">&lt;-</span> corpus_disc <span class="sc">%&gt;%</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>(<span class="at">remove_punct =</span> <span class="cn">TRUE</span>, <span class="at">remove_numbers =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>()</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Matriz bag-of-words</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>tks_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(tks_disc) <span class="sc">%&gt;%</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm_trim</span>(<span class="at">min_docfreq =</span> <span class="dv">5</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 4) Transforma em tibble e inclui o target</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(tks_dfm) <span class="sc">%&gt;%</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>y <span class="ot">&lt;-</span> discursos<span class="sc">$</span>presidente</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://github.com/FLS-6497/datasets/blob/main/projeto1/discursos_pres_internacionais.csv?raw=true"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>discursos <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv2</span>(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> CountVectorizer</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>vct <span class="op">=</span> CountVectorizer()</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> vct.fit_transform(discursos.discurso)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://github.com/FLS-6497/datasets/blob/main/projeto1/discursos_pres_internacionais.csv?raw=true'</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>discursos <span class="op">=</span> pd.read_csv(link, sep<span class="op">=</span><span class="st">';'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
-<section id="a-pré-processamento" class="level2">
-<h2 class="anchored" data-anchor-id="a-pré-processamento">a) Pré-processamento</h2>
-<p>Usando ferramentas de processamento de texto, implemente uma pequena <em>pipeline</em> para limpar dados e, quando estiver satisfeito com ela, crie uma função que aplique ela em uma nova lista textos.</p>
 </section>
-<section id="b-modelo" class="level2">
-<h2 class="anchored" data-anchor-id="b-modelo">b) Modelo</h2>
-<p>Usando os <em>frameworks</em> de aprendizado de máquina, use a <em>bag of words</em> criada anteriormente para treinar algum modelo de classificação para predizer o nome do ou da presidente que proferiu cada discurso na amostra de teste.</p>
-</section>
-<section id="c-validação" class="level2">
-<h2 class="anchored" data-anchor-id="c-validação">c) Validação</h2>
-<p>Roda o item pedido em b) 100 vezes e salve os resultados de alguma métrica de validação.</p>
-</section>
-<section id="c-validação-ii" class="level2">
-<h2 class="anchored" data-anchor-id="c-validação-ii">c) Validação II</h2>
-<p>Repita o exercício c), dessa vez usando a variável <code>planalto</code>, que indica se um discurso foi proferido no Palácio do Planalto, como <em>target</em>.</p>
-</section>
-</section>
-<section id="evitando-data-leaks" class="level1">
-<h1>2) Evitando <em>data leaks</em></h1>
-<p>Como vimos, pré-processamento deve ser aplicado <em>antes</em> de fazermos <em>split sample</em> de validação (i.e., criar amostras de teste e de treino). Agora, implemente um <em>workflow</em> que leva isso em conta. Para tanto, você deverá criar uma função que separe textos em treino e teste, que aplique pré-processamento apenas na amostra de treino e que, depois, replique ele na amostra de teste para, então, rodar um algoritmo e calcular alguma métrica de validação.</p>
-</section>
-<section id="benchmark" class="level1">
-<h1>3) Benchmark</h1>
-<p>Usando as ferramentas que vimos, experimente com os seguintes pré-processamentos:</p>
-<ul>
-<li><ol type="a">
-<li>Usando apenas palavras maiores do que 4 caracteres;</li>
-</ol></li>
-<li><ol start="2" type="a">
-<li>Removendo palavras que não ocorrem em, pelo menos, 10 documentos;</li>
-</ol></li>
-<li><ol start="3" type="a">
-<li>Removendo palavras que não ocorrem em, pelo menos, 10% dos documentos;</li>
-</ol></li>
-<li><ol start="4" type="a">
-<li>Usando TF-IDF para normalizar os elementos da matriz <em>bag of words</em>;</li>
-</ol></li>
-</ul>
+<section id="melhorando-as-predições-climáticas" class="level1">
+<h1>3) Melhorando as predições climáticas</h1>
+<p>Neste exercício final, usaremos <em>tuning</em> para dar um passo adicional na tarefa de predizer a temparatura máxima diária em São Bernardo do Campo (SP). Para isso, use seu código da última aula e o adapte para fazer <em>tuning</em> de hiper-parâmetros (é possível usar o dicionário do <code>mlr3</code> já com combinações prontas de hiper-parâmetros).</p>
+<p>Carregue os dados com:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv"</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web</span><span class="sc">%20s</span><span class="st">craping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>dados <span class="op">=</span> pd.read_csv(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>Ao final, valide a sua melhor <em>pipeline</em> com dados de Campinas:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>campinas <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Campinas_Cleaned.csv"</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>campinas <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(campinas)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web</span><span class="sc">%20s</span><span class="st">craping/Cleaned%20Data/Brazil_Campinas_Cleaned.csv'</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>campinas <span class="op">=</span> pd.read_csv(campinas)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
 
 
+
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-kaufman2019improving" class="csl-entry" role="doc-biblioentry">
+Kaufman, Aaron Russell, Peter Kraft, e Maya Sen. 2019. <span>«Improving supreme court forecasting using boosted decision trees»</span>. <em>Political Analysis</em> 27 (3): 381–87.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";

@@ -241,7 +241,16 @@ ul.task-list{list-style: none;}
 <h1>Dados</h1>
 <p>Usaremos um conjunto de <code>5000</code> imagens de satélite de locais de votação no Brasil que estão no <a href="https://github.com/FLS-6497/datasets/tree/main/projeto2">GitHub do curso</a>. Baixe eles no seu computador (a maneira mais fácil é clonar o repositório inteiro de <em>datasets</em>, ou então clicar em <em>Download ZIP</em> no botão verde no canto superior direito do repositório).</p>
 <p>A pasta está organizada da seguinte forma:</p>
-<p>mapas └───treino │ └───rural │ └───urbano └───teste │ └───rural │ └───urbano └───validacao │ └───rural │ └───urbano</p>
+<pre><code>mapas
+└───treino
+│   └───rural
+│   └───urbano
+└───teste
+│   └───rural
+│   └───urbano
+└───validacao
+│   └───rural
+│   └───urbano</code></pre>
 <p>Dentro da pasta <code>treino</code> há <code>4000</code> imagens e, dentro de <code>teste</code> e <code>validacao</code>, <code>500</code> em cada. Cada uma dessas pastas está dividida em <code>rural</code> e <code>urbano</code>, indicando o <code>label</code> das imagens. Para carregá-las, basta usar a função <code>image_dataset_from_directory</code> que vimos em aula.</p>
 </section>
 <section id="objetivo" class="level1">

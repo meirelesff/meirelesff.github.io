@@ -235,23 +235,13 @@ ul.task-list{list-style: none;}
 
 </header>
 
-<p>No nosso segunto projeto avaliativo, que corresponderá a <em>20%</em> da nota final do curso, aplicaremos aprendizado profundo com <code>Keras</code> para classificar fotos de satélite de locais de votação no Brasil. Com base em cerca de mil imagens, que poderão ser usadas para treino e teste, o objetivo final é ter um classificador que possa ser utilizado para predizer outra base de cerca de 200 imagens sem <code>labels</code>.</p>
+<p>No nosso segunto projeto avaliativo, que corresponderá a <em>20%</em> da nota final do curso, aplicaremos aprendizado profundo com <code>Keras</code> para classificar fotos de satélite de locais de votação no Brasil. Com base em 5 mil imagens, que poderão ser usadas para treino e teste, o objetivo final é ter um classificador que possa ser utilizado para predizer outra base de validação de 500 imagens.</p>
 <p>Para este projeto, você pode usar a arquitetura de modelo que quiser, com hiper-parâmetros que julgar adequados. O único requisito é usar <code>Keras</code> e não utilizar modelos pré-treinados (<em>transfer learning</em>).</p>
 <section id="dados" class="level1">
 <h1>Dados</h1>
 <p>Usaremos um conjunto de <code>5000</code> imagens de satélite de locais de votação no Brasil que estão no <a href="https://github.com/FLS-6497/datasets/tree/main/projeto2">GitHub do curso</a>. Baixe eles no seu computador (a maneira mais fácil é clonar o repositório inteiro de <em>datasets</em>, ou então clicar em <em>Download ZIP</em> no botão verde no canto superior direito do repositório).</p>
 <p>A pasta está organizada da seguinte forma:</p>
-<pre><code>mapas
-└───treino
-│   └───rural
-│   └───urbano
-└───teste
-│   └───rural
-│   └───urbano
-└───validacao
-│   └───rural
-│   └───urbano
-</code></pre>
+<p>mapas └───treino │ └───rural │ └───urbano └───teste │ └───rural │ └───urbano └───validacao │ └───rural │ └───urbano</p>
 <p>Dentro da pasta <code>treino</code> há <code>4000</code> imagens e, dentro de <code>teste</code> e <code>validacao</code>, <code>500</code> em cada. Cada uma dessas pastas está dividida em <code>rural</code> e <code>urbano</code>, indicando o <code>label</code> das imagens. Para carregá-las, basta usar a função <code>image_dataset_from_directory</code> que vimos em aula.</p>
 </section>
 <section id="objetivo" class="level1">

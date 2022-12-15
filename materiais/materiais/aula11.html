@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-99.9.9">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -53,7 +58,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -66,7 +71,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -96,7 +101,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -121,7 +126,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <link rel="stylesheet" href="../styles.css">
 <meta name="twitter:title" content="FLS 6497 - Aula 11">
-<meta name="twitter:description" content="Na aula de hoje, veremos o básico de um tipo diferente de modelo de aprendizado de máquina que alterou profundamente áreas como em visão computacional e processamento de linguagem natural: modelos…">
+<meta name="twitter:description" content="Deep learning">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -131,9 +136,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">FLS 6497</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -273,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
@@ -290,6 +297,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#processamento-de-imagens" id="toc-processamento-de-imagens" class="nav-link" data-scroll-target="#processamento-de-imagens">Processamento de imagens</a></li>
   <li><a href="#indo-além" id="toc-indo-além" class="nav-link" data-scroll-target="#indo-além">Indo além</a></li>
+  <li><a href="#erros-de-instalação" id="toc-erros-de-instalação" class="nav-link" data-scroll-target="#erros-de-instalação">Erros de instalação</a></li>
   </ul>
 </nav>
     </div>
@@ -319,7 +327,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="imgs/deep.png" class="img-fluid figure-img"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Rede neural com uma camada oculta</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Rede neural com uma camada oculta</figcaption><p></p>
 </figure>
 </div>
 <p><em>Deep learning</em> é um tema vasto e inclui diferentes tipos de arquitetura de redes para atacar diferentes tipos de problema. O que cobriremos para introduzir o tópico, no entanto, é uma aplicação partilar cuja performance ajudou a popularizar o aprendizado profundo: a classificação de imagens. Para isso, veremos redes neurais convolucionais, que têm arquiteturas adaptadas para processar dados de que tem uma estrutura de vizinhança na qual ocorrências adjacentes importam para predizermos uma determinada característica – como a presença de padrões horizontais ou verticais de determinada cor, ou ainda círculos e curvas.</p>
@@ -329,8 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Em sua forma mais simples, redes neurais nada mais são do que um conjunto de funções de ativação que recebem <em>inputs</em> (nossas <em>features</em>), as processam e entregam <em>outputs</em>. O papel de uma função de ativação, por sua vez, é o de multiplicar <em>inputs</em> pelos coeficientes, adicionando também o termo de viés (uma espécie de <em>intercept</em>) e aplicar uma função não-linear nela. Um exemplo de rede, adaptada do <strong>ITSL</strong> para 4 <em>features</em> para um problema de regressão no qual queremos predizer um <span class="math inline">\(Y\)</span>, tem como elemento básico funções de ativação <span class="math inline">\(A\)</span> que transformam os <em>inputs</em> multiplicando eles por pesos e os transformando com funções de ativação (no caso, <span class="math inline">\(\sigma\)</span>):</p>
 <p><span class="math display">\[
 A(X) = \sigma(w_0 + w_1x_1 + w_2x_2 + \dots + w_px_p)
-\]</span></p>
-<p><span class="math display">\[
+\]</span> <span class="math display">\[
 = \sigma\left(w_{0} \sum_{p=1}^P w_{p}x_{p}\right)
 \]</span></p>
 <p>nessa equação, <span class="math inline">\(X\)</span> são os <span class="math inline">\(P\)</span> <em>inputs</em> (e.g., <span class="math inline">\(x_{1}, x_{2}, x_{3}, x_{4}\)</span>); <span class="math inline">\(w_{p}\)</span> indica os pesos ou coeficientes que multiplicarão cada um dos <em>inputs</em>; <span class="math inline">\(w_{0}\)</span> é um peso para viés, como uma espécie de <em>intercept</em>. Se a nossa rede tiver <span class="math inline">\(K=4\)</span> unidades (<em>hidden units</em>) em uma única camada, então a nossa rede terá a seguinte forma</p>
@@ -343,15 +350,15 @@ f(X) = \beta_{0} + \sum_{k=1}^K \beta_{k} A_{k}(X)
 <h2 class="anchored" data-anchor-id="como-redes-são-treinadas">Como redes são treinadas</h2>
 <p>Há diferenças importantes na forma com que treinamos uma rede neural em relação ao que vimos anteriormente neste curso. Em primeiro lugar, no mais das vezes redes neurais usam lotes (ou <em>batches</em>) de uma amostra para treino, isto é, apenas parcelas menores das amostras de treino são passadas para a rede por vez, o que tende a ser mais rápido. Em vez do treino ser feito de uma só vez, portanto, a amostra de treino é passada ao modelo em pequenas parcelas – a volta completa da rede pela amostra de treino é chamada de época (ou <em>epoch</em>). Por conta do número grande parâmetros a serem estimados (cada um dos <span class="math inline">\(w\)</span> e <span class="math inline">\(\beta\)</span> que vimos antes), redes neurais comumente são treinadas usando-se mais de uma época, mas, quando mais épocas são utilizadas, maior o risco de <em>overfitting</em>.</p>
 <p>Em segundo lugar, redes neurais podem usar diferentes algoritmos de otimização para encontrar os melhores parâmetros para uma dada tarefa. A principal especificidade aqui é que o processo de ajuste de parâmetros mais utilizado em aplicações é feito de trás para frente (algo chamado de <em>backpropagation</em>). Após cada <em>batch</em>, a rede faz predições e calcula alguma métrica de validação para avaliar seu desempenho e, do último à primeira camada, vai fazendo ajustes nos parâmetros de forma a corrigir desvios.</p>
-<div class="page-columns page-full"><p>Finalmente, por terem uma estrutura tão mais complexa do que a de modelos tradicionais de aprendizado de máquina, redes neurais acabam dependendo de uma quantidade maior de dados para serem treinados de forma eficiente.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn1" role="doc-endnote"><p><sup>1</sup>&nbsp;Há exceções aqui, além de práticas como a de ajustar modelos base já treinados em bases grandes de dados para resolver tarefas mais específicas, estas passadas a partir de amostras menores. Em aprendizado profundo, essa prática de reutilizar um modelo para uma tarefa diferente daquela em que ele foi originalmente treinado é chamado de <a href="https://keras.io/guides/transfer_learning/">transfer learning</a>.</p></li></div></div>
+<div class="page-columns page-full"><p>Finalmente, por terem uma estrutura tão mais complexa do que a de modelos tradicionais de aprendizado de máquina, redes neurais acabam dependendo de uma quantidade maior de dados para serem treinados de forma eficiente.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;Há exceções aqui, além de práticas como a de ajustar modelos base já treinados em bases grandes de dados para resolver tarefas mais específicas, estas passadas a partir de amostras menores. Em aprendizado profundo, essa prática de reutilizar um modelo para uma tarefa diferente daquela em que ele foi originalmente treinado é chamado de <a href="https://keras.io/guides/transfer_learning/">transfer learning</a>.</p></li></div></div>
 </section>
 </section>
 <section id="novo-framework-keras" class="level1 page-columns page-full">
 <h1>Novo <em>framework</em>: Keras</h1>
-<div class="page-columns page-full"><p>Para esta aula, precisaremos utilizar algum <em>framework</em> específico para aprendizado profundo e, apesar de haver diferentes opções<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, usaremos o <a href="https://www.tensorflow.org/?hl=pt-br">Keras</a>, que é um <em>framework</em> <em>open-source</em> que abstrai diferentes aspectos da criação e treino de modelos profundos, o que facilita bastante o nosso trabalho. Como veremos em seguida, trabalhar com o <code>Keras</code> é bastante similar tanto em <code>R</code> quanto em <code>Python</code> porque, em ambas as implementações, as peças básicas que temos que manipular são módulos, ou blocos, que podemos encaixar de diferentes maneiras para criar diferentes arquiteturas.</p><div class="no-row-height column-margin column-container"><li id="fn2" role="doc-endnote"><p><sup>2</sup>&nbsp;[Tensorflow] e <a href="https://pytorch.org/">Torch</a> são alguns dos mais comuns, mas há também algumas especializadas, como o <a href="https://caffe2.ai/">Caffe2</a>.</p></li></div></div>
+<div class="page-columns page-full"><p>Para esta aula, precisaremos utilizar algum <em>framework</em> específico para aprendizado profundo e, apesar de haver diferentes opções<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, usaremos o <a href="https://www.tensorflow.org/?hl=pt-br">Keras</a>, que é um <em>framework</em> <em>open-source</em> que abstrai diferentes aspectos da criação e treino de modelos profundos, o que facilita bastante o nosso trabalho. Como veremos em seguida, trabalhar com o <code>Keras</code> é bastante similar tanto em <code>R</code> quanto em <code>Python</code> porque, em ambas as implementações, as peças básicas que temos que manipular são módulos, ou blocos, que podemos encaixar de diferentes maneiras para criar diferentes arquiteturas.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;[Tensorflow] e <a href="https://pytorch.org/">Torch</a> são alguns dos mais comuns, mas há também algumas especializadas, como o <a href="https://caffe2.ai/">Caffe2</a>.</p></li></div></div>
 <section id="instalação" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="instalação">Instalação</h2>
-<div class="page-columns page-full"><p>Antes de começarmos a criar e a treinar redes neurais com <code>Keras</code>, precisaremos instalar o <em>framework</em> (a essa altura, espero que todos e todas já tenham feito isso em seus computadores pessoais, mas teremos que fazer o mesmo nos computadores em sala de aula).<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> O processo é bastente simples, embora possa retornar diferentes tipos de erro:</p><div class="no-row-height column-margin column-container"><li id="fn3" role="doc-endnote"><p><sup>3</sup>&nbsp;No <code>R</code>, é também possível instalar o <code>Tensorflow</code> primeiro, biblioteca da qual o <code>Keras</code> depende, mas instalar o <code>Keras</code> diretamente produz o mesmo resultado.</p></li></div></div>
+<div class="page-columns page-full"><p>Antes de começarmos a criar e a treinar redes neurais com <code>Keras</code>, precisaremos instalar o <em>framework</em> (a essa altura, espero que todos e todas já tenham feito isso em seus computadores pessoais, mas teremos que fazer o mesmo nos computadores em sala de aula).<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> O processo é bastente simples, embora possa retornar diferentes tipos de erro:</p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;No <code>R</code>, é também possível instalar o <code>Tensorflow</code> primeiro, biblioteca da qual o <code>Keras</code> depende, mas instalar o <code>Keras</code> diretamente produz o mesmo resultado.</p></li></div></div>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
@@ -376,7 +383,7 @@ f(X) = \beta_{0} + \sum_{k=1}^K \beta_{k} A_{k}(X)
 <section id="uma-rede-simples" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="uma-rede-simples">Uma rede simples</h2>
 <p>Nesta aula, trabalharemos com um dos bancos de dados mais populares na área: o <a href="https://en.wikipedia.org/wiki/MNIST_database">MNIST</a>, que é uma base anotada com 60000 mil imagens de dígitos numéricos escritos a mão. Nosso objetivo, portanto, será o de predizer, a partir de imagens, os dígitos numéricos de representam. Exemplos de imagens do MNIST:</p>
-<div class="page-columns page-full"><p>Para implementar uma rede neural com uma única camada oculta e 32 unidades<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, podemos usar o seguinte código:</p><div class="no-row-height column-margin column-container"><li id="fn4" role="doc-endnote"><p><sup>4</sup>&nbsp;Na verdade, temos uma segunda para comprimir os resultados da primeira.</p></li></div></div>
+<div class="page-columns page-full"><p>Para implementar uma rede neural com uma única camada oculta e 32 unidades<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>, podemos usar o seguinte código:</p><div class="no-row-height column-margin column-container"><li id="fn4"><p><sup>4</sup>&nbsp;Na verdade, temos uma segunda para comprimir os resultados da primeira.</p></li></div></div>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
@@ -488,12 +495,12 @@ f(X) = \beta_{0} + \sum_{k=1}^K \beta_{k} A_{k}(X)
 </section>
 <section id="redes-convolucionais" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="redes-convolucionais">Redes convolucionais</h2>
-<div class="page-columns page-full"><p>Um tipo de arquitetura bastante utilizada para problemas que envolvem imagens é de redes neurais convolucionais (CNN, na sigla em inglês). De específico, essas redes contêm camadas que aplicam transformações de convolução nos <em>inputs</em> que recebem. O processo é mais ou menos este: cada camada possui um número de filtros, que nada mais são do que componentes pequenos que se especializam em detectar determinado padrão, isto é, a isolar partes menores das imagens que recebem como <em>inputs</em><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>; para tanto, o processo de convolução é utilizado para fazer com que os filtros se movimentem em diferentes partes da imagem até encontrar padrões que ajudem a minimizar os erros do modelo. Dessa forma, cada filtro, iniciado com pesos aleatórios, se especializará em determinar determinado tipo específico de padrão que, posteriormente, poderá ser agregado por camadas com número menor de unidades.</p><div class="no-row-height column-margin column-container"><li id="fn5" role="doc-endnote"><p><sup>5</sup>&nbsp;De forma mais técnica, cada camada convolucional precisa especificar o número de filtros que possuirá e as dimensões desses filtros (por exemplo, se será uma matrix <span class="math inline">\(5x\)</span>).</p></li></div></div>
+<div class="page-columns page-full"><p>Um tipo de arquitetura bastante utilizada para problemas que envolvem imagens é de redes neurais convolucionais (CNN, na sigla em inglês). De específico, essas redes contêm camadas que aplicam transformações de convolução nos <em>inputs</em> que recebem. O processo é mais ou menos este: cada camada possui um número de filtros, que nada mais são do que componentes pequenos que se especializam em detectar determinado padrão, isto é, a isolar partes menores das imagens que recebem como <em>inputs</em><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>; para tanto, o processo de convolução é utilizado para fazer com que os filtros se movimentem em diferentes partes da imagem até encontrar padrões que ajudem a minimizar os erros do modelo. Dessa forma, cada filtro, iniciado com pesos aleatórios, se especializará em determinar determinado tipo específico de padrão que, posteriormente, poderá ser agregado por camadas com número menor de unidades.</p><div class="no-row-height column-margin column-container"><li id="fn5"><p><sup>5</sup>&nbsp;De forma mais técnica, cada camada convolucional precisa especificar o número de filtros que possuirá e as dimensões desses filtros (por exemplo, se será uma matrix <span class="math inline">\(5x\)</span>).</p></li></div></div>
 <p>Um exemplo mais intituivo de como filtros em camadas de convolução funcionam pode ser visto abaixo. Na primeira parte da matriz da esquerda (que representa uma imagem), é possível ver que todas as células contêm o valor 10, o que indica uma única cor sólida em toda a área; a matriz de pesos, <span class="math inline">\(3 x 3\)</span>, multiplica cada um desses valores e os agrega, retornando 0; em outra parte da imagem, indicada por vermelho, entretanto, o valor retornado da multiplicação das matrizes é 30, o que indica que há um padrão vertical presente. Em outras palavras, os pesos do filtro <span class="math inline">\(3x3\)</span> do exemplo se especializaram em detectar padrões verticais e, sempre que os encontram, retornam um valor substantivo (que é retornado por uma matriz menor, <span class="math inline">\(4 x 4\)</span>).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="imgs/filtros.png" class="img-fluid figure-img"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption"><a href="https://kharshit.github.io/blog/2018/12/14/filters-in-convolutional-neural-networks">Exemplo de filtros em CNNs</a></figcaption><p></p>
+<p></p><figcaption class="figure-caption"><a href="https://kharshit.github.io/blog/2018/12/14/filters-in-convolutional-neural-networks">Exemplo de filtros em CNNs</a></figcaption><p></p>
 </figure>
 </div>
 <p>Implementar CNNs, portanto, passa por especificar uma camada convolucional com um determinado número de filtros de dimensões específicas. Usando <code>Keras</code>, um exemplo de aplicação de uma rede com essa arquitetura para predizer as imagens do MNIST segue abaixo:</p>
@@ -551,7 +558,7 @@ f(X) = \beta_{0} + \sum_{k=1}^K \beta_{k} A_{k}(X)
 <section id="processamento-de-imagens" class="level1 page-columns page-full">
 <h1>Processamento de imagens</h1>
 <p>Como vimos, é necessário processar imagens em um formato adequado para alimentar as redes. O formato que usamos no exemplo é um <code>array</code>, que é uma estrutura similar a de uma matriz que, de diferente, pode ter um maior número de dimensões – no nosso exemplo, tínhamos 60 mil matrizes com duas dimensões, o que forma um <em>input</em> de 3 dimensões <span class="math inline">\((60000, 28, 28)\)</span>.</p>
-<div class="page-columns page-full"><p>Para facilitar o processo em imagens que temos em disco, o <code>keras</code> já fornece um conjunto de funções voltadas para a tarefa. Para carregar uma imagem do disco em escala de cinza, com uma resolução específica<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, basta usar:</p><div class="no-row-height column-margin column-container"><li id="fn6" role="doc-endnote"><p><sup>6</sup>&nbsp;A imagem, caso não se adeque ao pedido, é transformada. Em alguns casos, no entanto, é melhor manter cores nas imagens, embora o processo de processamento e treino de redes fique mais complexo.</p></li></div></div>
+<div class="page-columns page-full"><p>Para facilitar o processo em imagens que temos em disco, o <code>keras</code> já fornece um conjunto de funções voltadas para a tarefa. Para carregar uma imagem do disco em escala de cinza, com uma resolução específica<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, basta usar:</p><div class="no-row-height column-margin column-container"><li id="fn6"><p><sup>6</sup>&nbsp;A imagem, caso não se adeque ao pedido, é transformada. Em alguns casos, no entanto, é melhor manter cores nas imagens, embora o processo de processamento e treino de redes fique mais complexo.</p></li></div></div>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
@@ -643,6 +650,34 @@ f(X) = \beta_{0} + \sum_{k=1}^K \beta_{k} A_{k}(X)
 <ul>
 <li><a href="https://machinelearningknowledge.ai/different-types-of-keras-layers-explained-for-beginners/">Different Types of Keras Layers Explained for Beginners</a></li>
 </ul>
+<p>Alguns outros materiais didáticos podem ajudar a desenvolver uma intuição sobre como modelos de aprendizado profundo funcionam. Recomendo três:</p>
+<ul>
+<li><p><a href="https://www.youtube.com/watch?v=YRhxdVk_sIs">Vídeo bem legal sobre como redes convolucionais funcionam (indicação da Isabel)</a></p></li>
+<li><p><a href="https://methodsblog.com/2019/11/13/understanding-deep-learning/">Understanding deep learning</a></p></li>
+<li><p><a href="https://www.tychobra.com/posts/2018_10_09_nn_from_scratch/">Tutorial ensinando a fazer uma rede simples do zero usando R</a></p></li>
+</ul>
+</section>
+<section id="erros-de-instalação" class="level1">
+<h1>Erros de instalação</h1>
+<p>Diferentemente dos <em>frameworks</em> que vimos até agora, o <code>Keras</code> depende de muitos outros pedaços de <em>software</em> e compiladores previamente instalados, o que varia de sistema operacional para sistema operacional e de versões dessas dependências. Para quem usa <code>Python</code>, uma forma simples de contornar esses problemas é usar o Google Colab, ferramenta de <em>cloud</em> do Google que permite executar [jupyter notebooks] pelo navegador em instância que contam com GPU. Aqui vai um tutorial de como usá-lo:</p>
+<ul>
+<li><a href="https://neptune.ai/blog/how-to-use-google-colab-for-deep-learning-complete-tutorial">How to Use Google Colab for Deep Learning</a></li>
+</ul>
+<p>Para quem usa <code>R</code>, no entanto, é difícil contornar a necessidade de instalar o <code>Keras</code> localmente. Nesse caso, os requisitos são ter uma instalação do <code>Python</code>, ter compiladores e outras bibliotecas (específicas para cada sistema operacional) e, depois, instalar o <a href="https://www.tensorflow.org/?hl=pt-br">Tensorflow</a>. No processo, alguns erros comuns que podem ocorrer são:</p>
+<ul>
+<li>Erros relacionados ao pacote <code>keras</code> em <code>R</code>, indicando que a sua instalação falhou ou algo do tipo. Possíveis soluções:
+<ul>
+<li>Instalar o pacote usando a versão de desenvolvimento com <code>devtools::install_github("rstudio/keras")</code></li>
+<li>Desinstalar qualquer instalação prévia do <code>Python</code>, reiniciar o computador e tentar <code>devtools::install_github("rstudio/keras")</code></li>
+<li>Instalar antes o <code>Tensorflow</code> e o <code>reticulate</code> com <code>devtools::install_github("rstudio/tensorflow")</code> e <code>devtools::install_github("rstudio/reticulate")</code></li>
+</ul></li>
+<li>Erros quando rodamos <code>keras::install_keras()</code>
+<ul>
+<li>Erros relacionados a dependências (do tipo <code>cannot import X</code>, ou <code>cannot find X</code>) podem ser restos de uma instalação sem sucesso do Anaconda, caso no qual pode ser uma boa desistalar ele e tentar novamente</li>
+<li>Erros relacionados a permissão pode ter a ver com falta de autorização para instalar o <code>keras</code>, o que pode ser contornando abrindo o <code>Rstudio</code> com permissão de administrador</li>
+<li>Erros de conexão (<code>HTTP XXX CONNECTION FAILED</code>) podem ter a ver com <em>proxies</em> ou autorizações do <code>RStudio</code> para se conectar à internet e, nesses casos, uma <a href="https://github.com/rstudio/keras/issues/649#issuecomment-458667831">boa é instalar o Anaconda diretamente</a></li>
+</ul></li>
+</ul>
 
 
 </section>
@@ -651,6 +686,24 @@ f(X) = \beta_{0} + \sum_{k=1}^K \beta_{k} A_{k}(X)
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -700,7 +753,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-99.9.9">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -53,7 +58,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -66,7 +71,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -115,7 +120,7 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -140,7 +145,7 @@ div.csl-indent {
 
 <link rel="stylesheet" href="../styles.css">
 <meta name="twitter:title" content="FLS 6497 - Aula 10">
-<meta name="twitter:description" content="Qualquer problema supervisionado, como vimos ao longe deste curso, está sujeito ao trade-off entre viés e variância: um modelo que aprende a reduzir o viés na estimação de parâmetros a partir de uma…">
+<meta name="twitter:description" content="Tuning">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -150,9 +155,11 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">FLS 6497</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -292,7 +299,7 @@ div.csl-indent {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
@@ -346,7 +353,7 @@ div.csl-indent {
 <p>Dentre as principais estratégias de <em>tuning</em>, três são amplamente utilizadas: <em>grid search</em>, <em>random gridsearch</em> e, mais recentemente, otimização bayesiana. Passaremos por cada uma na sequência.</p>
 <section id="gridsearch" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="gridsearch">Gridsearch</h2>
-<div class="page-columns page-full"><p>O algoritmo mais básico para encontrarmos configurações de <em>pipelines</em> úteis é o <em>grid search</em>, que nada mais é o do que o teste exaustivo de todas as combinações possíveis de hiper-parâmetros pré-especificadas. Um exemplo: imagine que queremos testar diferentes versões de um <a href="../materiais/aula7.html">Random Forest (visto na aula 7)</a>, com proporção maior ou menor de <em>features</em> a reter<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> e com maior ou menor número de árvores a serem treinadas. Com <em>grid search</em>, é fácil implementar este teste tanto em <code>R</code> quanto em <code>Python</code>:</p><div class="no-row-height column-margin column-container"><li id="fn1" role="doc-endnote"><p><sup>1</sup>&nbsp;Como vimos, RF usa um processo de sorteio de variáveis a usar para aumentar a diversidade das árvores fracas, os <em>weak learners</em>.</p></li></div></div>
+<div class="page-columns page-full"><p>O algoritmo mais básico para encontrarmos configurações de <em>pipelines</em> úteis é o <em>grid search</em>, que nada mais é o do que o teste exaustivo de todas as combinações possíveis de hiper-parâmetros pré-especificadas. Um exemplo: imagine que queremos testar diferentes versões de um <a href="../materiais/aula7.html">Random Forest (visto na aula 7)</a>, com proporção maior ou menor de <em>features</em> a reter<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> e com maior ou menor número de árvores a serem treinadas. Com <em>grid search</em>, é fácil implementar este teste tanto em <code>R</code> quanto em <code>Python</code>:</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;Como vimos, RF usa um processo de sorteio de variáveis a usar para aumentar a diversidade das árvores fracas, os <em>weak learners</em>.</p></li></div></div>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
 <div class="tab-content">
@@ -425,7 +432,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div class="page-columns page-full"><p>Há dois detalhes importantes a notar quanto ao procedimento acima. Em primeiro lugar, é necessário especificar quais hiper-parâmetros iremos testar; em <code>R</code>, fazemos isso com a função <code>to_tune</code> e, em <code>Python</code>, usando um dicionário. Isso declarado, a função ou classe de <em>grid search</em> testará todas as combinações possíveis de hiper-parâmetros e retornará <em>scores</em>, de acordo com a métrica de validação definida, para identificarmos qual foi a melhor combinação entre as testadas.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Em segundo lugar, <em>grid search</em> calcula <em>scores</em> com base em alguma estratégia de validação, geralmente <em>K-fold cross validation</em> com <span class="math inline">\(k=5\)</span> por padrão – mas vale notar que essa nem sempre é a melhor estratégia, como vimos na aula anterior.</p><div class="no-row-height column-margin column-container"><li id="fn2" role="doc-endnote"><p><sup>2</sup>&nbsp;Note que, em <code>R</code>, o <code>mlr3</code> retorna as melhores configurações e, ao fim, é necessário retreinar o modelo nos dados completos; em <code>Python</code>, o <code>sklearn</code> já treina as melhores configurações em toda a base ao final se o argumento <code>refit=True</code> for declarado (o que é o <em>default</em>).</p></li></div></div>
+<div class="page-columns page-full"><p>Há dois detalhes importantes a notar quanto ao procedimento acima. Em primeiro lugar, é necessário especificar quais hiper-parâmetros iremos testar; em <code>R</code>, fazemos isso com a função <code>to_tune</code> e, em <code>Python</code>, usando um dicionário. Isso declarado, a função ou classe de <em>grid search</em> testará todas as combinações possíveis de hiper-parâmetros e retornará <em>scores</em>, de acordo com a métrica de validação definida, para identificarmos qual foi a melhor combinação entre as testadas.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Em segundo lugar, <em>grid search</em> calcula <em>scores</em> com base em alguma estratégia de validação, geralmente <em>K-fold cross validation</em> com <span class="math inline">\(k=5\)</span> por padrão – mas vale notar que essa nem sempre é a melhor estratégia, como vimos na aula anterior.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;Note que, em <code>R</code>, o <code>mlr3</code> retorna as melhores configurações e, ao fim, é necessário retreinar o modelo nos dados completos; em <code>Python</code>, o <code>sklearn</code> já treina as melhores configurações em toda a base ao final se o argumento <code>refit=True</code> for declarado (o que é o <em>default</em>).</p></li></div></div>
 </section>
 <section id="random-gridsearch" class="level2">
 <h2 class="anchored" data-anchor-id="random-gridsearch">Random gridsearch</h2>
@@ -469,7 +476,7 @@ div.csl-indent {
 </section>
 <section id="otimização-bayesiana" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="otimização-bayesiana">Otimização bayesiana</h2>
-<div class="page-columns page-full"><p><em>Grid search</em> e <em>random grid search</em>, como dá para perceber pelos exemplos anteriores, não são as formas mais eficientes de se encontrar bons hiper-parâmetros – ambas gastam muito tempo e recursos investigando configurações ruins, isto é, elas não adotam otimização para fazer uma busca eficiente por uma configuração ideal. Há diferentes soluções que atacam este problema mas, tanto por ser mais utilizada quanto por ter implementação fácil em <code>R</code> e <code>Python</code>, uma que estudaremos em maior detalhe agora é a otimização bayesiana.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn3" role="doc-endnote"><p><sup>3</sup>&nbsp;Para quem usa <code>Python</code>, será necessário instalar o pacote <code>scikit-optimize</code> com <code>pip install scikit-optimize</code> no terminal. Para quem usa <code>R</code>, instalaremos o pacote <code>mlr3mbo</code> e o <code>DiceKriging</code> com <code>install.packages(c("mlr3mbo", "DiceKriging"))</code>.</p></li></div></div>
+<div class="page-columns page-full"><p><em>Grid search</em> e <em>random grid search</em>, como dá para perceber pelos exemplos anteriores, não são as formas mais eficientes de se encontrar bons hiper-parâmetros – ambas gastam muito tempo e recursos investigando configurações ruins, isto é, elas não adotam otimização para fazer uma busca eficiente por uma configuração ideal. Há diferentes soluções que atacam este problema mas, tanto por ser mais utilizada quanto por ter implementação fácil em <code>R</code> e <code>Python</code>, uma que estudaremos em maior detalhe agora é a otimização bayesiana.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;Para quem usa <code>Python</code>, será necessário instalar o pacote <code>scikit-optimize</code> com <code>pip install scikit-optimize</code> no terminal. Para quem usa <code>R</code>, instalaremos o pacote <code>mlr3mbo</code> e o <code>DiceKriging</code> com <code>install.packages(c("mlr3mbo", "DiceKriging"))</code>.</p></li></div></div>
 <p>De forma resumida, otimização bayesiana é uma maneira de encontrar, rápida e eficientemente, boas configurações dentro de um espaço de hiper-parâmetros potencialmente grande. Para tanto, a otimização assume um <em>prior</em> vago sobre a função sendo otimizada e, depois de ver dados de validação das primeiras interações, atualiza a <em>posterior</em> para sugerir próximos valores mais promissores a serem testados – o que é diferente de selecionar aleatória ou sequencialmente combinações a serem testadas, como ocorre com <em>random grid search</em> ou <em>grid search</em>, respectivamente. É por isso que, no geral, otimização bayesiana tende a reduzir o tempo de <em>tuning</em>, especialmente quando há um espaço de hiper-parâmetros muito grande e quando a <em>pipeline</em> que usamos é complexa (e lenta para treinar). Implementá-la em <code>R</code> ou em <code>Python</code> é bastante simples utilizando os nossos <em>frameworks</em>:</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Python</a></li></ul>
@@ -613,13 +620,13 @@ div.csl-indent {
 <section id="paralelização" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="paralelização">Paralelização</h2>
 <p><em>Tuning</em> é algo que costuma tomar bastante tempo de processamento. No caso em que utilizamos computadores com mais de um CPU – praticamente qualquer computador hoje em dia – podemos nos valer disso para implementar paralelização, isto é, para dividir o processamento do teste de diferentes combinações de hiper-parâmetros. A depender da capacidade de processamento do seu computador, paralelização pode facilmente reduzir em várias vezes o tempo levado para <em>tuning</em> de um <em>pipeline</em>.</p>
-<div class="page-columns page-full"><p>Com o <code>mlr3</code>, é necessário usar o pacote <code>future</code> para usar paralelização.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Com ele instalado, o processo é simples: basta incluir uma chamada à função <code>plan</code> (<code>workers</code> indica o número de threads a serem usadas):</p><div class="no-row-height column-margin column-container"><li id="fn4" role="doc-endnote"><p><sup>4</sup>&nbsp;Paralelização em <code>R</code>, de forma geral, é algo mais complicado e no mais das vezes requer soluções específicas. Para uma discussão mais detida sobre como o <code>mlr3</code> implementa paralelização, ver o <a href="https://mlr3book.mlr-org.com/technical.html">capítulo 8 do mlr3 book</a>.</p></li></div></div>
+<div class="page-columns page-full"><p>Com o <code>mlr3</code>, é necessário usar o pacote <code>future</code> para usar paralelização.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Com ele instalado, o processo é simples: basta incluir uma chamada à função <code>plan</code> (<code>workers</code> indica o número de threads a serem usadas):</p><div class="no-row-height column-margin column-container"><li id="fn4"><p><sup>4</sup>&nbsp;Paralelização em <code>R</code>, de forma geral, é algo mais complicado e no mais das vezes requer soluções específicas. Para uma discussão mais detida sobre como o <code>mlr3</code> implementa paralelização, ver o <a href="https://mlr3book.mlr-org.com/technical.html">capítulo 8 do mlr3 book</a>.</p></li></div></div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>future<span class="sc">::</span><span class="fu">plan</span>(<span class="st">"multisession"</span>, <span class="at">workers =</span> <span class="dv">4</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Em <code>Python</code>, todas as classes de <em>tuning</em> que vimos contêm um argumento chamado <code>n_jobs</code> para controlar o número de CPUs a serem utilizados (é possível definir <code>n_jobs=-1</code> para usar todos os núcleos disponíveis).</p>
 </section>
 <section id="reprodutibilidade" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="reprodutibilidade">Reprodutibilidade</h2>
-<div class="page-columns page-full"><p><em>Tuning</em> e <em>resampling</em> são processos que envolvem processos aleatórios de sorteios.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Por conta disso, rodar um <em>workflow</em> inteiro duas vezes pode produzir resultados distintos. Para evitar isso, uma boa prática é utilizar <em>seeds</em>, isto é, um número de inicialização que garante a reprodução de um sorteio ou de uma sequência de sorteios.</p><div class="no-row-height column-margin column-container"><li id="fn5" role="doc-endnote"><p><sup>5</sup>&nbsp;Alguns algoritmos também utilizam sorteio para iniciar parâmetros, caso de algoritmos de <em>boosting</em> e <em>bagging</em>, por exemplo.</p></li></div></div>
+<div class="page-columns page-full"><p><em>Tuning</em> e <em>resampling</em> são processos que envolvem processos aleatórios de sorteios.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Por conta disso, rodar um <em>workflow</em> inteiro duas vezes pode produzir resultados distintos. Para evitar isso, uma boa prática é utilizar <em>seeds</em>, isto é, um número de inicialização que garante a reprodução de um sorteio ou de uma sequência de sorteios.</p><div class="no-row-height column-margin column-container"><li id="fn5"><p><sup>5</sup>&nbsp;Alguns algoritmos também utilizam sorteio para iniciar parâmetros, caso de algoritmos de <em>boosting</em> e <em>bagging</em>, por exemplo.</p></li></div></div>
 <p>Em <code>R</code>, é possível definir um <em>seed</em> com <code>set.seed(123)</code>, por exemplo, logo no início de um <em>script</em>. Em <code>Python</code>, é possível usar <code>numpy</code> para definir um <em>seed</em> global com <code>np.random.seed(123)</code>, mas várias classes também possuem um argumento <code>random_state</code> que permitem definir <em>seeds</em> locais, o que também é algo recomendado a se fazer.</p>
 </section>
 </section>
@@ -627,14 +634,14 @@ div.csl-indent {
 <h1>Extra: imagens</h1>
 <p>Para a próxima aula, precisaremos ser capazes de carregar imagens em um formato apropriado para análise – o mais comum, uma base com três dimensões, sendo elas altura, largura e RGB, isto é, posição vertical e horizontal de cada pixel, bem como a sua coloração. Há pacotes específicos para isso em <a href="https://cran.r-project.org/web/packages/magick/vignettes/intro.html">R</a> e em <a href="https://scikit-image.org/">Python</a>, mas, para a nossa comodidade, usaremos funcionalidades nativas no <code>Keras</code> para isso.</p>
 <p>Para quem quiser saber mais antes da aula, ver <a href="https://rpubs.com/spalladino14/653239">este tutorial em R</a> e <a href="https://machinelearningmastery.com/how-to-load-convert-and-save-images-with-the-keras-api/">outro em Python</a>.</p>
-<div class="page-columns page-full"><p>A título de exemplo, trabalharemos para criar um classificador simples para predizer se uma dada seção eleitoral é urbana ou rural a partir de imagens de satélite<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p><div class="no-row-height column-margin column-container"><li id="fn6" role="doc-endnote"><p><sup>6</sup>&nbsp;A classificação de urbano ou rural foi tirada a partir dos polígonos de setores censitários da base de 2010, que foram cruzados com uma base georreferenciada de <a href="https://github.com/fdhidalgo/geocode_br_polling_stations">seções eleitorais</a>.</p></li></div></div>
+<div class="page-columns page-full"><p>A título de exemplo, trabalharemos para criar um classificador simples para predizer se uma dada seção eleitoral é urbana ou rural a partir de imagens de satélite<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p><div class="no-row-height column-margin column-container"><li id="fn6"><p><sup>6</sup>&nbsp;A classificação de urbano ou rural foi tirada a partir dos polígonos de setores censitários da base de 2010, que foram cruzados com uma base georreferenciada de <a href="https://github.com/fdhidalgo/geocode_br_polling_stations">seções eleitorais</a>.</p></li></div></div>
 <div id="secoes" class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="urbano.png" class="img-fluid figure-img"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Seção urbana</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Seção urbana</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -642,7 +649,7 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="rural.png" class="img-fluid figure-img"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Seção rural</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Seção rural</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -661,11 +668,29 @@ div.csl-indent {
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
 <div id="ref-neunhoeffer2019cross" class="csl-entry" role="doc-biblioentry">
-Neunhoeffer, Marcel, e Sebastian Sternberg. 2019. <span>«How cross-validation can go wrong and what to do about it»</span>. <em>Political Analysis</em> 27 (1): 101–6.
+Neunhoeffer, Marcel, e Sebastian Sternberg. 2019. <span>"How cross-validation can go wrong and what to do about it"</span>. <em>Political Analysis</em> 27 (1): 101–6.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -715,7 +740,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);

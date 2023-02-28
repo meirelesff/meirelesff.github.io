@@ -1,0 +1,39 @@
+/* css styles */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap');
+
+body {
+  font-family: Lato;
+}
+
+p {
+  font-family: Lato;
+}
+
+a, a:hover {
+    color: #8f2a43;
+    text-decoration: none;
+    transition: color .6s ease;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+  color: #fff;
+  background-color: #8f2a43;
+}
+
+.sidebar nav[role="doc-toc"] ul > li > a.active {
+  border-left: 1px solid #8f2a43;
+  color: #8f2a43 !important;
+}
+
+.sidebar nav[role="doc-toc"] ul > li > ul > li > a.active {
+  border-left: 1px solid #8f2a43;
+  color: #8f2a43 !important;
+}
+
+#title-block-header.quarto-title-block.default .quarto-title-meta-heading {
+  margin-top: 2em;
+}
+
+#title-block-header.quarto-title-block.default .description, #title-block-header.quarto-title-block.default .abstract {
+  font-size: 18px;
+}

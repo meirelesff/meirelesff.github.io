@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Aula 2 Manipulação I</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="estilo.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Introdução ao R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Aulas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basico.html">Básico</a>
+    </li>
+    <li>
+      <a href="manipulacao.html">Manipulação I</a>
+    </li>
+    <li>
+      <a href="manipulacao2.html">Manipulação II</a>
+    </li>
+    <li>
+      <a href="analise.html">Análise</a>
+    </li>
+    <li>
+      <a href="projetos.html">Projetos</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="avaliacao.html">Avaliação</a>
+</li>
+<li>
+  <a href="materiais.html">Materiais</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Aula 2 Manipulação I</h1>
+
+</div>
+
+
+<p><br></p>
+<div id="introducao" class="section level1">
+<h1>1 Introdução</h1>
+<p>Na última aula, começamos a manipular alguns <code>data.frames</code> simples. Nesta, não só avançaremos nessa tarefa como também aprenderemos a carregar dados de inúmeros formatos. Além disso, como vimos em aula, usaremos <a href="https://bookdown.org/yihui/rmarkdown/notebook.html">notebooks</a> para combinar códigos e texto.</p>
+<p><br></p>
+</div>
+<div id="carregando-dados" class="section level1">
+<h1>2 Carregando dados</h1>
+<p>Uma das grandes vantagens ao se usar R é que, com ele, é possível carregar qualquer (sim, qualquer) tipo de dado: planilhas do Excel, bases em <a href="https://pt.wikipedia.org/wiki/SQL">SQL</a>, texto de <em>websites</em>, <a href="https://pt.wikipedia.org/wiki/JSON">JSON</a>, <a href="https://pt.wikipedia.org/wiki/XML">XML</a>, tabelas em um arquivo PDF, e muito mais. Em alguns casos, carregar dados demanda mais tempo e trabalho, mas, para a imensa maioria dos outros, tudo se resume a uma ou duas linhas de código.</p>
+<p>Precisaremos instalar três pacotes:</p>
+<pre class="r"><code>install.packages(&quot;readxl&quot;) # Para abrir e exportar planilhas de Excel
+install.packages(&quot;readxl&quot;) # Para abrir e exportar SPSS e stata
+install.packages(&quot;rio&quot;) # Para abrir e exportar outros formatos</code></pre>
+<p>Também vamos carregar o <code>tidyverse</code>. Usaremos ele bastante hoje.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<p><br></p>
+<div id="funcoes-de-carregamento" class="section level2">
+<h2>2.1 Funções de carregamento</h2>
+<p>Para carregar arquivos com dados, como planilhas e similares, normalmente o procedimento é simples: utilizamos alguma função apropriada, passamos para ela o caminho do arquivo (e.g., algo como “C:/pasta/arquivo.xlsx”) e, quando necessário, alguns argumentos adicionais, que especificam como o arquivo deve ser lido (e.g., se o nome das variáveis está na primeira linha da tabela ou não, se é necessário pular algumas linhas, etc.).</p>
+<p>A etapa essencial para carregar dados é identificar a função que deve ser usada para cada formato de arquivo. A tabela abaixo, retirada do <a href="http://electionsbr.com/livro/importacao.html">Capítulo 3 do Usando R</a>, relaciona alguns desses formatos com as funções que usaremos para carregá-los.</p>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th>Arquivo</th>
+<th>Extensão</th>
+<th>Pacote</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Texto delimitado</td>
+<td><code>.txt</code></td>
+<td><code>readr</code></td>
+<td><code>read_delim</code></td>
+</tr>
+<tr class="even">
+<td>Texto delimitado</td>
+<td><code>.csv</code></td>
+<td><code>readr</code></td>
+<td><code>read_delim</code>, <code>read_csv</code></td>
+</tr>
+<tr class="odd">
+<td>Planilha do Excel</td>
+<td><code>xls</code>, <code>xlsx</code>, <code>.ods</code></td>
+<td><code>readxl</code>, <code>readODS</code></td>
+<td><code>read_excel</code>, <code>read.ods</code></td>
+</tr>
+<tr class="even">
+<td>Banco de dados do SPSS</td>
+<td><code>.sav</code>, <code>.por</code></td>
+<td><code>haven</code></td>
+<td><code>read_sav</code>, <code>read_por</code></td>
+</tr>
+<tr class="odd">
+<td>Banco de dados do Stata</td>
+<td><code>.dta</code></td>
+<td><code>haven</code></td>
+<td><code>read_dta</code></td>
+</tr>
+<tr class="even">
+<td>Banco de dados do SAS</td>
+<td><code>.sas7bdat</code></td>
+<td><code>haven</code></td>
+<td><code>read_sas</code></td>
+</tr>
+<tr class="odd">
+<td>JSON</td>
+<td><code>.json</code></td>
+<td><code>rio</code></td>
+<td><code>import</code></td>
+</tr>
+<tr class="even">
+<td>R Data</td>
+<td><code>.Rda</code></td>
+<td>-</td>
+<td><code>load</code></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="texto-delimitado" class="section level2">
+<h2>2.2 Texto delimitado</h2>
+<p>Como dá para ver na pasta desta aula, temos vários arquivos denominados ‘municipios_mg.XXX’, cada um deles com uma extensão distinta Estes contém dados (banco de dados, ou planilha) com informações sobre as despesas orçamentarias de 808 municipios mineiros em 2012, retirados do <a href="http://www.tesouro.fazenda.gov.br/contas-anuais">website do Tesouro Nacional</a> (Finbra). Especificamente, temos:</p>
+<ul>
+<li>Uma versão do arquivo em <code>.csv</code>;</li>
+<li>Uma versão do arquivo em <code>.txt</code>;</li>
+<li>Uma versão do arquivo em <code>.xlsx</code> (Excel);</li>
+<li>Uma versão do arquivo em <code>.dta</code> (Stata);</li>
+<li>Uma versão do arquivo em <code>.sav</code> (SPSS);</li>
+<li>E uma versão do arquivo em <code>.Rda</code> (formato nativo do R).</li>
+</ul>
+<p>Vamos aprender a carregar cada um deles, usando, para isso, alguns dos pacotes que instalamos. Por ser o formato mais simples (basicamente texto separado por vírgula ou outro caractere), vamos pelos delimitado por caracteres. Exemplos (consulte o <code>help</code> de cada função e tente alterar os argumentos de cada uma delas):</p>
+<pre class="r"><code># .csv e&#39; um tipo de arquivo delimitado por texto; usamos read_csv ou read_delim para abrilo
+# (mas, se usamos read_delim, precisamos especificar o argumento &#39;delim&#39;)
+banco1 &lt;- read_csv(&quot;municipios_mg.csv&quot;)
+banco2 &lt;- read_delim(&quot;municipios_mg.csv&quot;, delim = &quot;,&quot;)</code></pre>
+<p>Além do <code>.csv</code>, existem outros formatos que armazenam texto delimitado. <code>.txt</code> é o mais comum dele:</p>
+<pre class="r"><code># Le um arquivo .txt separado por TAB (tres espacos):
+banco3 &lt;- read_delim(&quot;municipios_mg.txt&quot;, delim = &quot;   &quot;)
+
+# Se o arquivo for separado por outro caractere (;, ex.), declaramos &#39;sep =&#39;:
+banco4 &lt;- read_delim(&quot;municipios_mg2.txt&quot;, delim = &quot;;&quot;) # Sem delim, o arquivo nao abre</code></pre>
+<p>Antes de prosseguir, lembre-se de alguns dos argumentos mais importantes dessas duas funções:</p>
+<ul>
+<li><code>delim</code>: especifica o caractere delimitador (só na função <code>read_delim</code>);</li>
+<li><code>locale</code>: serve para especificar o <em>encoding</em>, evitando caracteres ilegíveis (e.g., <code>locale = locale(encoding = &quot;latin1&quot;)</code>);</li>
+<li><code>skip</code>: especifica quantas linhas pular antes de começar a ler os dados.</li>
+</ul>
+<p><br></p>
+</div>
+<div id="stata-e-spss" class="section level2">
+<h2>2.3 Stata e SPSS</h2>
+<p>É bem provável que você já tenha trabalhado, ou conhecido alguém que trabalha, com SPSS ou Stata para fazer análises quantitativas. Há pouco tempo, esses ainda eram os formatos mais comuns para se salvar dados em inúmeras áreas de pesquisa (em algumas, como na Economia, Stata ainda é dominante). Inevitavelmente, teremos que abrir esse tipo de arquivo vez ou outra.</p>
+<p>Diferentemente dos arquivos delimitados por texto, precisamos apenas usar a função correta para ler esses arquivos <code>.sav</code> e <code>.dta</code>.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Essas duas, que estão no pacote <code>haven</code>, são: <code>read_spss</code> e <code>read_dta</code>.</p>
+<p>Carregamos o <code>haven</code> (que é parte do <code>tidyverse</code>, embora não seja carregado por ele quando executamos <code>library(tidyverse)</code>):</p>
+<pre class="r"><code>library(haven)</code></pre>
+<p>E carregamos os arquivos passando apenas seus endereços para as funções:</p>
+<pre class="r"><code># Para carregarmos um arquivo do SPSS
+banco6 &lt;- read_spss(&quot;municipios_mg.sav&quot;)
+
+# Para carregarmos um arquivo do Stata
+banco7 &lt;- read_dta(&quot;municipios_mg.dta&quot;)</code></pre>
+<p><br></p>
+</div>
+<div id="excel" class="section level2">
+<h2>2.4 Excel</h2>
+<p>vamos agora carregar um tipo de arquivo bastante comum: <code>.xlsx</code> ou <code>.xls</code>, do Excel. Para tanto, precisamos carregar o pacote <code>readxl</code>:</p>
+<pre class="r"><code>library(readxl)</code></pre>
+<p>O resto é direto:</p>
+<pre class="r"><code>banco8 &lt;- read_excel(&quot;municipios_mg.xlsx&quot;)</code></pre>
+<p>Por padrão, essa função carrega apenas a primeira planilha do arquivo. Caso ele contenha mais de uma, basta especificar ela por meio do argumento <code>sheet</code>:</p>
+<pre class="r"><code>banco9 &lt;- read_excel(&quot;municipios_mg.xlsx&quot;, sheet = 1) # caso fosse a segunda, alterariamos para 2</code></pre>
+<p><br></p>
+</div>
+<div id="rdata" class="section level2">
+<h2>2.4 Rdata</h2>
+<p>No R, a forma mais eficiente de armazenar e carregar dados é usando as funções <code>save</code> e <code>load</code>. Isso cria um arquivo no formato <code>.Rda</code> (Rdata), que economiza espaço e é muito mais rápido para ser lido ou gerado.</p>
+<p>Ao longo dessa nota, criamos muitos objetos (é possível vê-los na aba <em>Environment</em> do RStudio). Para evitar confusões, vamos apagá-los da memória:</p>
+<pre class="r"><code>rm(list = ls()) # apaga tudo na memoria</code></pre>
+<p>Agora, vamos aprender a criar um <code>data.frame</code> para fazer um teste. Para isso, usaremos a função <code>data.frame</code> (é isso mesmo) da seguinte forma:</p>
+<pre class="r"><code>teste &lt;- data.frame(nome = c(&quot;Ana&quot;, &quot;João&quot;, &quot;Maria&quot;), idade = c(42, 32, 28))</code></pre>
+<p>É fácil entender como essa função funciona apenas pelo código. Para deixar claro, <code>data.frame</code> pode receber diversos argumentos, e cada um dele é o nome que queremos dar para nossas variáveis (.e.g, <code>nome</code>). Assim, criamos uma variável chamada <code>nome</code> cujo conteúdo é um vetor com três nomes em texto; e, a outra, uma numérica chamada <code>idade</code>. O único detalhe é que todas precisam ter o mesmo número de elementos.</p>
+<p>Podemos inspecionar nosso <code>data.frame</code> com <code>glimpse</code>:</p>
+<pre class="r"><code>glimpse(teste)</code></pre>
+<p>Para salvá-lo no formato <code>.Rda</code>, apenas usamos:</p>
+<pre class="r"><code>save(teste, file = &quot;teste.Rda&quot;) # &quot;teste.Rda&quot; sera&#39; o nome do arquivo</code></pre>
+<p>Vamos testar para ver se funcionou?</p>
+<pre class="r"><code>rm(teste) # apaga banco da memoria
+load(&quot;teste.Rda&quot;) # carrega banco novamente na memoria</code></pre>
+<p>Esse é formato que usaremos, e que normalmente é usado em materiais de replicação, para salvar dados.</p>
+<p><br></p>
+</div>
+<div id="outros-formatos" class="section level2">
+<h2>2.5 Outros formatos</h2>
+<p>Existem inúmeros outros formatos para armazenar arquivos, mas nós não cobriremos todos eles. Os que vimos são os principais, por isso acredito que não precisamos nos deter mais nesse tópico por enquanto (para quem deseja se aprofundar no R, certamente isso é necessário).</p>
+<p>De qualquer forma, existe uma maneira de carregar diversos formatos – mesmo os que você não conhece – no R: por meio do pacote <code>rio</code>, que funciona como uma espécie de canivete suíço para a importação e exportação de dados para o R. Basta usar sua função <code>import</code> para carregar um arquivo qualquer:</p>
+<pre class="r"><code>banco &lt;- import(&quot;municipios_mg.xlsx&quot;)</code></pre>
+<p>Para ver todos os formatos suportados pelo <code>rio</code>, entre no <em>help</em> da função <code>import</code> com <code>help(import)</code>.</p>
+<p><br></p>
+</div>
+</div>
+<div id="exportacao" class="section level1">
+<h1>3 Exportação</h1>
+<p>A maioria das funções que usamos para ler arquivos têm suas equivalentes de exportação. <code>write_delim</code> cria arquivos de texto delimitados, enquanto que <code>write_dta</code> exporta um <code>data.frame</code> para o formato proprietário do Stata. De forma geral, essas e outras funções funcionam da seguinte maneira: primeiro, passe a elas o nome do objeto com o <code>data.frame</code> (e.g., <code>banco</code>); e, depois, passe o nome, ou o endereço e nome, do arquivo a ser gerado (e.g., <code>meu_banco.dta</code>).</p>
+<p>Já vimos como exportar dados para o formato do R. Para os demais, use:</p>
+<pre class="r"><code>write_delim(banco, &quot;meu_banco.txt&quot;, delim = &quot;;&quot;) # cria um .txt separado por ;
+write_delim(banco, &quot;meu_banco.csv&quot;, delim = &quot;;&quot;) # cria um .csv separado por ;
+write_spss(banco, &quot;meu_banco.sav&quot;,) # cria um .sav
+write_dta(banco, &quot;meu_banco.sav&quot;,) # cria um .dta</code></pre>
+<p>Também podemos usar a função <code>export</code> do <code>rio</code>. Com ela, basta passar o nome do arquivo e de sua extensão que o <code>rio</code> cuida de exportar os dados no formato correto:</p>
+<pre class="r"><code>export(banco, &quot;meu_banco.xlsx&quot;)
+export(banco, &quot;meu_banco.csv&quot;)</code></pre>
+<p>Detalhe importante: no R, endereços de arquivos são compostos por <code>/</code>, e não por <code>\</code>. Na última aula, veremos uma ferramenta que simplifica isso.</p>
+<p><br></p>
+</div>
+<div id="exercicios-i" class="section level1">
+<h1>Exercícios I</h1>
+<div id="carregando-dados-1" class="section level3">
+<h3>Carregando dados</h3>
+<p>Dentro da pasta desta aula, há outra chamada <code>arquivos</code> com alguns dados. Usando as funções que vimos, tente carregar e visualizar cada um deles (use texto no seu Rnotebook para fazer comentários, se precisar).</p>
+</div>
+<div id="exportando-dados" class="section level3">
+<h3>Exportando dados</h3>
+<p>Para esse exercício, você precisará criar um banco de dados chamado <code>selecao_feminina</code>, que deverá ser alimentado com informações da Wiki da <a href="https://pt.wikipedia.org/wiki/Sele%C3%A7%C3%A3o_Brasileira_de_Futebol_Feminino">Seleção Brasileira Feminina de Futebol</a>. Especificamente, vá na tabela <code>Maiores artilheiras</code> e pegue o nome de cada jogadora, o período em que ela jogou e seu número de gols; e salve essas informações nas variáveis <code>jogadora</code>, <code>periodo</code> (sem acentos, lembre-se) e <code>gols</code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Feito isso, exporte esse banco para: <code>.csv</code>, <code>.txt</code>, <code>.sav</code> e <code>.Rda</code>.</p>
+<p><br></p>
+</div>
+</div>
+<div id="manipulacao" class="section level1">
+<h1>4 Manipulação</h1>
+<p>Na aula passada, começamos a manipular alguns <code>data.frames</code>. Usamos <code>select</code> para selecionar variáveis e <code>slice</code> para observações. Agora, vamos desenvolver um pouco mais essa habilidade.</p>
+<p>Em particular, nessa e na próxima aula veremos quatro tipos de operação, ou verbos, que irão expandir nossa caixa de ferramentas:</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>Fatiar (<code>filter</code> e <code>slice</code>, operações horizontais);</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Selecionar (<code>select</code>, operações verticais);</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Modificar (<code>mutate</code> e <code>summarise</code>, para criar e modificar variáveis e observações);</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>Agrupar (<code>group_by</code> e <code>ungroup</code>, para trabalhar com agrupamentos de dados).</li>
+</ol></li>
+</ul>
+<p>Tendo este conteúdo dominado, saberemos como realizar uns 90% de todas as tarefas mais comuns em uma análise de dados.</p>
+<p><br></p>
+<div id="fatiar" class="section level2">
+<h2>4.1 Fatiar</h2>
+<p>Já vimos uma das funções de fatiar, <code>slice</code>. O que não vimos, talvez, foi como usá-la em bancos maiores. Vamos carregar o <code>data.frame</code> de municípios mineiros novamente para fazer isso.</p>
+<pre class="r"><code>banco &lt;- read_csv(&quot;municipios_mg.csv&quot;)</code></pre>
+<p>Usando um pouco do que vimos sobre vetores, podemos filtrar as 5 primeiras observações assim:</p>
+<pre class="r"><code>slice(banco, 1:5) # 5 primeiras observacoes</code></pre>
+<p>Ou a primeira e a décima:</p>
+<pre class="r"><code>slice(banco, c(1, 10))</code></pre>
+<p>E quanto às últimas? No R, podemos saber o número total de observações de um banco com a função <code>ncol</code>. Basta usar essa informação para obter o que queremos (repita esse código mais de uma vez se precisar):</p>
+<pre class="r"><code>ultima &lt;- ncol(banco)
+antepenultima &lt;- ultima - 2
+slice(banco, antepenultima:ultima)</code></pre>
+<p>Outro uso útil de <code>slice</code> é fatiar observações extremas – os 10 mais populosos municípios, ou os 15 que menos gastaram em saúde. Para isso, precisamos usar <code>slice</code> junto de outra função, <code>arrange</code>, que serve para ordenar as observações de um banco pelos valores de uma ou mais variáveis. Se quisermos ordenar os municípios mineiros do menos ao mais populoso, por exemplo, usamos:</p>
+<pre class="r"><code>arrange(banco, populacao)</code></pre>
+<p>Para ordená-los do mais ao menos populoso basta incluir um sinal <code>-</code> na frente do nome da variável (isso será lido como o inverso):</p>
+<pre class="r"><code>arrange(banco, -populacao)</code></pre>
+<p>Agora, selecionar os 10 maiores é fácil:</p>
+<pre class="r"><code>dez_maiores &lt;- arrange(banco, -populacao)
+dez_maiores &lt;- slice(dez_maiores, 1:10) # passamos o objeto &#39;dez_maiores&#39;
+dez_maiores</code></pre>
+<p><br></p>
+<div id="classes-e-vetores" class="section level3">
+<h3>4.1.1 Classes e vetores</h3>
+<p>Precisamos recuar um pouco para entendermos outras operações de fatiamento. Até agora, trabalhos com números, textos e <code>data.frames</code>, e vimos que cada um desses objetos serve para coisas diferentes no R. O que não vimos é que chamamos esses tipos de <code>types</code> (alguns chamam de classes), e que elas são basicamente essas<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th align="center">Armazena</th>
+<th align="center">Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>numeric</td>
+<td align="center">Números reais ou decimais</td>
+<td align="center">2.51</td>
+</tr>
+<tr class="even">
+<td>integer</td>
+<td align="center">Números inteiros</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td>character</td>
+<td align="center">Texto</td>
+<td align="center">“Meu texto”</td>
+</tr>
+<tr class="even">
+<td>logical</td>
+<td align="center">Valores lógicos</td>
+<td align="center">TRUE, FALSE</td>
+</tr>
+</tbody>
+</table>
+<p>Para sabermos o tipo ou classe de um objeto<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, podemos usar a função <code>class</code>:</p>
+<pre class="r"><code>class(1) # numeric
+class(1L) # adicionar um L forca o numero a ser integer
+class(&quot;texto&quot;) # character
+class(TRUE) # logical</code></pre>
+<p>O único que não vimos até agora foi o <code>logical</code>, que serve para fazer testes lógicos no R. Para tanto, usamos operadores lógicos (e.g., <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(&lt;\)</span>, <span class="math inline">\(==\)</span>, <span class="math inline">\(!=\)</span>, etc.):</p>
+<pre class="r"><code>1 &gt; 2 # 1 e&#39; maior que 2?
+5 &lt; 10 # 5 e&#39; menor que 10?
+3 == 1:10 # 3 e&#39; igual a algum dos ementos de 1:10?</code></pre>
+<p><br></p>
+</div>
+<div id="filter" class="section level3">
+<h3>4.1.2 Filter</h3>
+<p>Mas por que isso é útil? Entre outras coisas, podemos usar testes lógicos para filtrar observações. Vamos manter no <code>banco</code> apenas municípios mineiros com mais de 500 mil habitantes:</p>
+<pre class="r"><code>filter(banco, populacao &gt; 500000)</code></pre>
+<p>Pronto. Quer municípios com mais de 300 e menos de 500 mil? Basta combinar dois operadores lógicos:</p>
+<pre class="r"><code>filter(banco, populacao &gt; 300000, populacao &lt; 500000)</code></pre>
+<p>Municípios que não gastaram nenhum real em segurança:</p>
+<pre class="r"><code>filter(banco, despesas_seguranca == 0)</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="selecionar" class="section level2">
+<h2>4.2 Selecionar</h2>
+<p>Também já vimos como selecionar variáveis usando <code>select</code>. No geral, funciona assim:</p>
+<pre class="r"><code>select(banco, populacao) # seleciona a variavel populacao</code></pre>
+<p>Mas podemos combiná-la com algumas funções auxiliares. Basicamente, essas funções procuram por alguma palavra no nome das variáveis e, se as encontra (<code>TRUE</code>) em algum caso, as seleciona. Por exemplo, para selecionar todas as variáveis que tenham a palavra “despesa” no nome, basta usar:</p>
+<pre class="r"><code>select(banco, contains(&quot;despesa&quot;))</code></pre>
+<p>Para uma lista dessas funções, execute <code>help(contains)</code>.</p>
+<p>Por fim, note que podemos combinar <code>filter</code>, <code>slice</code> e <code>select</code> se quisermos, basta salvar os resultados de cada operação toda vez.</p>
+<pre class="r"><code># Primeiro, selecionamos as 100 primeiras observacoes
+banco &lt;- slice(banco, 1:100)
+
+# Depois descartamos aqueles com gasto em seguranca igual a 0
+banco &lt;- filter(banco, despesas_seguranca != 0)
+
+# Por fim, selecionamos apenas algumas variaveis
+banco &lt;- select(banco, municipio, populacao, total_despesas)</code></pre>
+<p>Experimente usar <code>View(banco)</code> para ver como ficou a base após essas transformações.</p>
+<p><br></p>
+</div>
+<div id="transformar" class="section level2">
+<h2>4.3 Transformar</h2>
+<p>Claro, apenas fatiar e selecionar partes de um <code>data.frame</code> não esgota o que precisamos fazer em uma análise – embora seja algo útil. No mais das vezes, precisamos criar novas variáveis, alterar algumas que já temos, combiná-las. Para essas e outras tarefas, usamos a função <code>mutate</code>. Melhor do que explicar o que ela faz, vejamos um exemplo (se quiser, user <code>View</code> depois):</p>
+<pre class="r"><code>banco &lt;- mutate(banco, nova_var = 1)
+glimpse(banco)</code></pre>
+<p>Basicamente, o código acima criou uma nova variável no banco chamada <code>nova_var</code> com todos os seus valores iguais a <code>1</code>. Podemos modificá-la com:</p>
+<pre class="r"><code>banco &lt;- mutate(banco, nova_var = &quot;texto&quot;) # agora ela e&#39; character
+glimpse(banco)</code></pre>
+<p>E, o que é mais útil, podemos usar variáveis que já temos no banco para criar outra. Usando <code>populacao</code> e <code>total_despesas</code>, por exemplo, podemos calcular os gastos <em>per capita</em> de cada um dos municípios no nosso <code>data.frame</code>:</p>
+<pre class="r"><code># Gasto per capita e&#39; igual o total gasto divido pela populacao
+banco &lt;- mutate(banco, gasto_per_capita = total_despesas / populacao)</code></pre>
+<p>Indo além, podemos criar uma versão dessa variável em logaritmo e em logaritmo de base 10 (o que é útil em alguns modelos estatísticos):</p>
+<pre class="r"><code># Quebramos as linhas para facilitar a leitura
+banco &lt;- mutate(banco, 
+                gasto_per_capita_log = log(gasto_per_capita),
+                gasto_per_capita_log10 = log10(gasto_per_capita))</code></pre>
+<p>Usando operadores lógicos, também podemos criar variáveis condicionalmente. Como exemplo, vamos criar uma variável categórica que assume dois valores: “Mais ricos”, para municípios com gasto <em>per capita</em> maior que R$ 2000,00, e “Mais pobres” para o resto; e, para isso, vamos usar a função <code>ifelse</code>, que serve para atribuir valores condicionalmente.</p>
+<pre class="r"><code>banco &lt;- mutate(banco, 
+                nova_var = ifelse(gasto_per_capita &gt; 2000, &quot;Mais ricos&quot;, &quot;Mais pobres&quot;))</code></pre>
+<p>Como dá para perceber, <code>ifelse</code> realiza um teste lógico em cima de cada observação da variável <code>gasto_per_capita</code>; quando o resultado é positivo (<code>TRUE</code>), ela retorna o primeiro valor após a vírgula, “Mais ricos”; caso contrário, retorna “Mais pobres”. Teste isso com esses códigos:</p>
+<pre class="r"><code>x &lt;- 1
+y &lt;- 2
+ifelse(x &gt; y, &quot;x e&#39; maior que y&quot;, &quot;y e&#39; maior ou igual a x&quot;)
+
+x &lt;- 3
+y &lt;- 2
+ifelse(x &gt; y, &quot;x e&#39; maior que y&quot;, &quot;y e&#39; maior ou igual a x&quot;)</code></pre>
+<p>Praticar essas habilidades é essencial para poder limpar dados com fluência. Uma vez que você domine essas ferramentas, arrumar qualquer banco torna-se questão de poucos minutos.</p>
+<p><br></p>
+</div>
+</div>
+<div id="exercicios-ii" class="section level1">
+<h1>Exercícios II</h1>
+<div id="teste-i" class="section level3">
+<h3>Teste I</h3>
+<p>A base de dados nos arquivos <code>municipios_mg</code> que estamos usando contém alguns dados sobre os gastos orçamentários de 808 municipios mineiros em 2012 (em reais). Carregue esse banco usando qualquer função, calcule os gastos <em>per capita</em> em saúde desses municípios e descubra os 10 que mais gastaram.</p>
+</div>
+<div id="teste-ii" class="section level3">
+<h3>Teste II</h3>
+<p>Com a <code>municipios_mg</code> original (carregue-a de novo se precisar), calcule o percentual gasto por todos os municípios em saúde e em segurança. Descubra os 10 mais que gastaram relativamente em cada área – isto é, os 10 que mais gastaram em saúde <em>e</em> os 10 que mais gastaram em segurança.</p>
+</div>
+<div id="teste-iii" class="section level3">
+<h3>Teste III</h3>
+<p>Com a <code>municipios_mg</code> original (carregue-a de novo se precisar), calcule a diferença entre o que cada município gastou assistência social e segurança (i.e., assistência <span class="math inline">\(-\)</span> segurança). Mantenha em uma nova base apenas as variáveis indicando essa diferença e nome do município.</p>
+</div>
+<div id="teste-iv" class="section level3">
+<h3>Teste IV</h3>
+<p>Com essa base anterior recém criada, adicione uma variável que indica se a diferença entre assistência e saúde é negativa ou positiva. Quais são os municípios em que essa diferença é negativa?</p>
+<p><br></p>
+</div>
+</div>
+<div id="homework" class="section level1">
+<h1>Homework</h1>
+<div id="atividade-aula-ii" class="section level3">
+<h3>Atividade (Aula II)</h3>
+<p>Nos materiais do curso, temos um arquivo chamado <code>base_scielo.txt</code>, com todos os artigos públicados no <em>Scielo</em> em um periódico da área da saúde. Como atividade pós-aula, seu trabalho será carregar essa base e realizar as seguintes transformações nela:</p>
+<ul>
+<li>Fique apenas com as observações da variável <code>country</code> que sejam iguais a <code>Brazil</code>;</li>
+<li>Feito isso, delete do banco a variável <code>country</code> (dica: use <code>-</code>);</li>
+<li>Crie duas variáveis no banco, <code>autores_log</code> e <code>autores_quadrado</code>. A primeira deve ser o logaritmo do número de autores; a segunda, o quadrado do número de autores;</li>
+<li>Crie uma variável que indique quando artigos são com autor único ou múltiplos autores;</li>
+<li>Finalmente, crie uma nova variável que some todos os valores de <code>n_pages</code>, isto é, uma variável em que todos os seus elementos sejam iguais ao número total de páginas do banco (dica: use a função sum()).</li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="revisao" class="section level1">
+<h1>Revisão</h1>
+<p>Para essa aula, o material de revisão indicado são as seções 5.1, 5.2, 5.3, 5.4 e 5.5 do Capítulo 5 do livro <a href="https://r4ds.had.co.nz/transform.html">R for Data Science</a>. O material infelizmente só está disponível em inglês, mas é fácil entender seu conteúdo apenas pelos exemplos.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Arquivos do Stata dependem da versão do <em>software</em> na qual ele foi criado, o que às vezes gera problemas de incompatibilidade ao carregá-los no R. Se isso acontecer, tente usar essa outra função: <code>read.dta</code> do pacote <code>feoreign</code> (é preciso carregá-lo).<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Você terá de copiar e colar essas informações, apesar de haver jeitos mais fáceis de se fazer isso no R; se tivermos tempo, veremos um pouco disso na última aula. <a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Não abordaremos algumas, como <code>complex</code> e <code>raw</code>.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>As duas coisas, tipo e classe, se referem a coisas ligeiramente diferentes. Por ser comum usar os dois termos de forma equivalente por aí, também farei isso nessas notas.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

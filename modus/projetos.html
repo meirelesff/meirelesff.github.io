@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Aula 5 Projetos</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="estilo.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Introdução ao R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Aulas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basico.html">Básico</a>
+    </li>
+    <li>
+      <a href="manipulacao.html">Manipulação I</a>
+    </li>
+    <li>
+      <a href="manipulacao2.html">Manipulação II</a>
+    </li>
+    <li>
+      <a href="analise.html">Análise</a>
+    </li>
+    <li>
+      <a href="projetos.html">Projetos</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="avaliacao.html">Avaliação</a>
+</li>
+<li>
+  <a href="materiais.html">Materiais</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Aula 5 Projetos</h1>
+
+</div>
+
+
+<p><br></p>
+<div id="introducao" class="section level1">
+<h1>1 Introdução</h1>
+<p>Começamos esse curso focando em algumas das coisas que o R faz de melhor: leitura, manipulação e análise de dados. Aliado ao <code>tidyverse</code>, vimos que essas tarefas podem ser resumidas em verbos que, combinados, executam complexas sequências de operações. Carregamos arquivos; selecionamos variáveis e observações, criamos e alteramos outras; cruzamos bancos, os reordenamos; entre outros. Falta aprendermos a reportar resultados. É isso o que essa aula cobre, amarrando o conteúdo das anteriores.</p>
+<p><br></p>
+</div>
+<div id="estatisticas" class="section level1">
+<h1>2 Estatísticas</h1>
+<p>Sabemos que <code>mean</code> serve para calcular a média de um vetor ou variável, e que <code>median</code> serve para calcular medianas. Basta fazer isso:</p>
+<pre class="r"><code># Crio um vetor com 100 numeros aleatorios
+v &lt;- rnorm(100)
+
+# Calculo sua media e mediana
+mean(v)
+median(v)</code></pre>
+<p>Isso, no entanto, não é tão útil quanto calcular média e mediana, ou outras estatísticas descritivas simples, de variáveis reais. Nesta aula, trabalharemos com um banco de dados sobre a relação entre a cobertura do programa de transferência condicional de renda Bolsa Família e resultados eleitorais em 5.564 municípios brasileiros. Esses dados foram usados em <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12026">When Payouts Pay Off: Conditional Cash Transfers and Voting Behavior in Brazil 2002–10</a>, <em>paper</em> feito por Cesar Zucco Jr e publicado na <em>American Journal of Political Science</em> em 2013. O banco está no arquivo <code>bolsafamiliadataset.dta</code>.</p>
+<pre class="r"><code># Carrega os pacotes
+library(tidyverse)
+library(haven) # para carregar arquivos do Stata
+
+# Carrega o banco
+bolsa &lt;- read_dta(&quot;bolsafamiliadataset.dta&quot;)</code></pre>
+<p>Com os dados na memória, podemos explorá-los com algumas funções que já usamos antes:</p>
+<pre class="r"><code># Estrutura do banco
+glimpse(bolsa)
+
+# As primeiras linhas
+head(bolsa)</code></pre>
+<p>E também podemos saber o nome de suas 70 variáveis:</p>
+<pre class="r"><code>names(bolsa)</code></pre>
+<p>As variáveis que mais nos interessam aqui, claro, são <code>alcance_2002</code>, <code>alcance_2006</code> e <code>alcance_2010</code>, que registram a proporção de famílias de um dado município beneficiadas pelo Bolsa Família em determinado ano eleitoral.</p>
+<p>Como calculamos estatísticas descritivas para elas? Até agora, usamos <code>summarise</code> para fazer isso:</p>
+<pre class="r"><code># Usamos summarise para calcular estatisticas descritivas
+summarise(bolsa, 
+          media_alcance_2002 = mean(alcance_2002, na.rm = T), 
+          media_alcance_2006 = mean(alcance_2006, na.rm = T),
+          media_alcance_2010 = mean(alcance_2010, na.rm = T)
+          )</code></pre>
+<p>E poderíamos fazer o mesmo com o desvio-padrão:</p>
+<pre class="r"><code>summarise(bolsa, 
+          desvio_alcance_2002 = sd(alcance_2002, na.rm = T), 
+          desvio_alcance_2006 = sd(alcance_2006, na.rm = T),
+          desvio_alcance_2010 = sd(alcance_2010, na.rm = T)
+          )</code></pre>
+<p>Isso é útil para consulta, e também flexível porque nos permite usar várias funções para calcular estatísticas descritivas. Aí vão alguns exemplos de outras funções:</p>
+<pre class="r"><code>summarise(bolsa, 
+          mediana_alcance_2002 = median(alcance_2002, na.rm = T), 
+          maximo_alcance_2002 = max(alcance_2002, na.rm = T),
+          minimo_alcance_2002 = min(alcance_2002, na.rm = T),
+          maximo_alcance_2002 = max(alcance_2002, na.rm = T),
+          quantil_90 = quantile(alcance_2002, 0.9, na.rm = T),
+          quantil_95 = quantile(alcance_2002, 0.95, na.rm = T)
+          )</code></pre>
+<p>Também útil para consulta, podemos usar gráficos – um histograma – para plotar a distribuição dessas variáveis:</p>
+<pre class="r"><code>ggplot(bolsa, aes(x = alcance_2002)) +
+  geom_histogram() +
+  labs(x = &quot;Alcance do progroma (proporção de famílias assistidas)&quot;,
+       y = &quot;Frequência&quot;,
+       title = &quot;Bolsa Família nos municípios em 2002&quot;) +
+  theme_bw() # altera o tema do grafico</code></pre>
+<p><img src="projetos_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><br></p>
+<div id="tabelas-descritivas" class="section level2">
+<h2>2.1 Tabelas descritivas</h2>
+<p>Por mais que esses procedimentos sejam úteis para consulta, há um lado negativo neles: não podemos exportar essas estatísticas e gráficos de forma direta (na aula passada, vimos como exportar gráficos para o arquivo, entretanto).</p>
+<p>Felizmente, existe uma série de pacotes que fazem isso, criando tabelas prontas para serem exportadas para Word ou outros. O que usaremos aqui chama-se <code>stargazer</code>. Vamos instalá-lo:</p>
+<pre class="r"><code># Instala o pacote
+install.packages(&quot;stargazer&quot;)</code></pre>
+<p>A principal funcionalidade dele é pegar um banco de dados e retornar uma tabela com as estatísticas descritivas das variáveis que o compõe:</p>
+<pre class="r"><code># Carregamos o pacote para podermos usar suas funcoes
+library(stargazer)
+
+# Selecionamos apenas algumas variaveis
+bolsa_menor &lt;- select(bolsa, alcance_2002, alcance_2006, alcance_2010)
+bolsa_menor &lt;- as.data.frame(bolsa_menor) # aplicamos isso para forcar uma classe unica (algo padrao)
+
+# Gera uma tabela
+stargazer(bolsa_menor, type = &quot;text&quot;)</code></pre>
+<p>O resultado é uma tabela formatada. Mas e se quisermos exportar ela para Latex?</p>
+<pre class="r"><code>stargazer(bolsa_menor, type = &quot;latex&quot;)</code></pre>
+<p>O mais interessante é que podemos usar o <code>stargazer</code> para criar um arquivo contendo a tabela, basta usar o argumento <code>out</code> especificando o nome do arquivo que queremos criar.</p>
+<pre class="r"><code>stargazer(bolsa_menor, type = &quot;text&quot;, out = &quot;tabela1.txt&quot;)</code></pre>
+<p>Se abrirmos agora o diretorio de trabalho, veremos que temos um arquivo <code>tabela1.txt</code> com a tabela salva. O ponto ruim disso é que essa tabela não pode ser copiada e colada diretamente para Word (afinal, ela pe feita inteiramente de caracteres, sem linhas e separação de colunas).</p>
+<p>Para exportar tabelas para o Word, usaremos outra abordagem, que consiste em exportar a tabela para HTML, abrir ela num navegador (como o Chrome) para, entao, copiar e colar seu conteúdo no Word, sem perder detalhes de formtação</p>
+<pre class="r"><code>stargazer(bolsa_menor, type = &quot;html&quot;, out = &quot;tabela1.html&quot;)</code></pre>
+<p>Para quem usa <em>Rmarkdown</em>, obviamente isso não é necessário: podemos gerar uma tabela dentro de um <em>chunk</em> e mantê-la inteira no documento final que criarmos.</p>
+<p><br></p>
+</div>
+</div>
+<div id="modelos" class="section level1">
+<h1>3 Modelos</h1>
+<p>Modelos de regressão, bivariados ou multivariados, lineares ou generalizados, são úteis para resumir relações nos dados e fazer inferências. O R contém diversas funções e pacotes para rodar esses modelos, e nesta seção cobriremos duas delas: a <code>lm</code>, para modelos lineares, e a <code>glm</code>, para modelos lineares generalizados.</p>
+<p><br></p>
+<div id="modelos-lineares" class="section level2">
+<h2>3.1 Modelos lineares</h2>
+<p>Modelos são específicados no R em formato de fórmula, como em <code>y ~ x</code>, onde <code>y</code> é a variável dependente, que será predita pela variação de <code>x</code>, independente. <code>~</code> estabelece essa relação: a variação de <code>y</code> será explicada <code>~</code> por <code>x</code>.</p>
+<p>A função <code>lm</code> só precisa de mais um argumento para funcionar, <code>data</code>, que é o nome da base. Será que a cobertura do Bolsa Família em 2006 tem relação com a votação do ex-Presidente Lula no segundo turno de 2006 (a variável com essa informação é <code>lula_vs_2006_2</code>)?</p>
+<pre class="r"><code># Usamos lm para modelar a relacao
+lm(lula_vs_2006_2 ~ alcance_2006, data = bolsa)</code></pre>
+<p>O resultado disso, grosso modo, mostra que a variação de <code>alcance_2006</code> de 0 para 1 prediz um aumento de 0.6140595 pontos percentuais na votação do Lula em 2006, segundo turno. Esse resultado normalmente é interpretado por meio da função <code>summary</code>, que reporta outras informações, como:</p>
+<ul>
+<li>R quadrado e R ajustado;</li>
+<li>Número de observações usadas e graus de liberdade;</li>
+<li>Erros-padrão e estatísticas T;</li>
+<li>P-valores.</li>
+</ul>
+<p>Para isso, podemos salvar os resultados do modelo em um objeto, o que facilita sua manipulação. Feito isso, aplicamos <code>summary</code> (não confundir com <code>summarise</code> do <code>tidyverse</code>):</p>
+<pre class="r"><code># Salvamos o modelo
+modelo &lt;- lm(lula_vs_2006_2 ~ alcance_2006, data = bolsa)
+
+# Observamos ele com summary
+summary(modelo)</code></pre>
+<p><br></p>
+</div>
+<div id="modelos-generalizados" class="section level2">
+<h2>3.2 Modelos generalizados</h2>
+<p>Modelos generalizados funcional de forma similar aos lineares. A principal diferença, ao menos em termos de código, está no argumento <code>family</code>, usado para especificar a família do modelo (i.e., a função <em>link</em>) na função <code>glm</code>.</p>
+<p>Para praticarmos, vamos criar uma variável no banco <code>bolsa</code>, que assumirá o valor de 1 nos locais onde Lula teve mais de <code>0.50</code> dos votos válidos no segundo turno de 2006, e 0 caso contrário. Como dá para imaginar, essa é uma tarefa para <code>mutate</code>, uma vez que vamos criar uma nova variável:</p>
+<pre class="r"><code># Adicionamos uma variavel ao banco
+bolsa &lt;- mutate(bolsa, lula = ifelse(lula_vs_2006_2 &gt; 0.5, 1, 0))</code></pre>
+<p>Agora, podemos usá-la como variável dependente em um modelo <em>logit</em>:</p>
+<pre class="r"><code>modelo_logit &lt;- glm(lula ~ alcance_2006, family = binomial(link = &quot;logit&quot;), data = bolsa)</code></pre>
+<p>De novo, podemos exibir seus resultados (com coeficientes em <em>odds ratio</em>) usando <code>summary</code>:</p>
+<pre class="r"><code>summary(modelo_logit)</code></pre>
+<p><br></p>
+</div>
+<div id="exportando-modelos" class="section level2">
+<h2>3.3 Exportando modelos</h2>
+<p>No mais das vezes, precisaremos reportar nossos modelos em artigos ou trabalhos acadêmicos em formato de tabela. Em vez de copiar e colar eles do R para qualquer editor de texto, faremos isso usando o pacote <code>stargazer</code>. O procedimento é bem simples: passamos para função de mesmo nome, <code>stargazer</code>, um a um os modelos que queremos exportar.</p>
+<p>Como exemplo, vamos supor que eu tenha três específicações diferentes de um modelo linear para predizer a votação do Lula no segundo turno de 2006:</p>
+<pre class="r"><code># Meus tres modelos salvos em tres diferentes objetos
+modelo1 &lt;- lm(lula_vs_2006_2 ~ alcance_2006, data = bolsa)
+modelo2 &lt;- lm(lula_vs_2006_2 ~ alcance_2006 + gini_2000 + pop_2002, data = bolsa)
+modelo3 &lt;- lm(lula_vs_2006_2 ~ alcance_2006 + gini_2000 + nonwhite_2000 + pop_2002, data = bolsa)</code></pre>
+<p>Para gerar tabelas a partir dos meus modelos, agora basta usar <code>stargazer</code> da seguinte forma:</p>
+<pre class="r"><code># Produz a tabela com os resultados dos modelos
+stargazer(modelo1, modelo2, modelo3, type = &quot;text&quot;)</code></pre>
+<p>Caso eu queira salvar isso no disco, uso a versão em HTML:</p>
+<pre class="r"><code>stargazer(modelo1, modelo2, modelo3, type = &quot;html&quot;, out = &quot;modelos.html&quot;)</code></pre>
+<p>Isso toca apenas na superfície do que o <code>stargazer</code> é capaz de fazer. Com ele é possível alterar o nome das variáveis na tabela, títulos, notas, estatísticas a serem reportadas, a organização da tabela, entre vários outros. Caso tenha interesse, use <code>help(stargazer)</code> para conferir essas opções.</p>
+<p><br></p>
+</div>
+<div id="plotando-modelos" class="section level2">
+<h2>3.4 Plotando modelos</h2>
+<p>O <code>ggplot2</code> contém alguns <code>geoms</code> que servem para criar gráficos com modelos. Na aula de ontem, por exemplo, usamos <code>geom_smooth</code> para colocar um modelo não-linear em cima dos nossos gráficos de pontos. Vamos fazer isso novamente, agora com os dados sobre a cobertura do Bolsa Família em 2006 e votos no Lula no segundo turno. Começamos com o gráfico de pontos:</p>
+<pre class="r"><code># Grafico de pontos
+ggplot(bolsa, aes(x = alcance_2002, y = lula_vs_2006_2)) +
+  geom_point()</code></pre>
+<p><img src="projetos_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>Parece claramente haver uma associação: onde há maior cobertura, Lula for melhor; onde há menor, Lula se saiu pior. Podemos colocar um modelo linear em cima desses dados usando <code>geom_smooth</code> novamente, adicionando nele, porém, um argumento <code>method = lm</code>.</p>
+<pre class="r"><code># Grafico de pontos
+ggplot(bolsa, aes(x = alcance_2002, y = lula_vs_2006_2)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;)</code></pre>
+<p><img src="projetos_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>E aqui temos exatamente o modelo de regressão que obtivemos anteriormente, salvo em <code>modelo1</code> – só que podemos vê-lo, o que é muito mais fácil de compreender. Com alguns ajustes, esse gráfico fica pronto para ser exportado para algum trabalho acadêmico.</p>
+<pre class="r"><code># Grafico para exportacao
+ggplot(bolsa, aes(x = alcance_2002, y = lula_vs_2006_2)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;, color = &quot;orange&quot;) + # color = &quot;orange&quot; muda a cor da reta
+  labs(x = &quot;Alcance do progroma (proporção de famílias assistidas)&quot;,
+       y = &quot;Proporção de votos do Lula no segundo turno de 2006&quot;) +
+  theme_bw()</code></pre>
+<p><img src="projetos_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><br></p>
+</div>
+</div>
+<div id="exercicios-i" class="section level1">
+<h1>Exercícios I</h1>
+<p>Para esses exercícios, usaremos os dados sobre a cobertura do programa Bolsa Família, disponíveis no arquivo <code>bolsafamiliadataset.dta</code>. Também usaremos funções do <code>tidyverse</code>, especialmente as para criar gráficos.</p>
+<div id="graficos-i" class="section level3">
+<h3>Gráficos I</h3>
+<p>Usando as funções do <code>ggplot2</code>, que é parte do <code>tidyverse</code>, crie um gráfico de pontos (i.e., <em>scatterplot</em>) com a base do Bolsa Família que tenha no eixo X a variável <code>alcance_2002</code> e, no eixo Y, a variável <code>lula_vs_2002_2</code>. Há relação positiva entre cobertura e votos?</p>
+</div>
+<div id="graficos-ii" class="section level3">
+<h3>Gráficos II</h3>
+<p>Agora, crie um gráfico de pontos que tenha no eixo X a variável <code>lula_vs_2002_2</code> e, no eixo Y, a variável <code>lula_vs_2006_2</code>. Há relação entre a votação do Lula nos segundos turnos de 2002 e 2006?</p>
+</div>
+<div id="graficos-iii" class="section level3">
+<h3>Gráficos III</h3>
+<p>Por fim, crie um gráfico de pontos que tenha no eixo X a variável <code>alcance_2002</code> e, no eixo Y, <code>alcance_2006</code>. Em cima desse gráfico, coloque a reta de um modelo linear.</p>
+</div>
+<div id="join" class="section level3">
+<h3>Join</h3>
+<p>Na pasta desta aula, também temos a base que usamos na aula 3, sobre a população dos estados brasileiros. Particularmente, essa base tem uma variável com o código dos estados, assim como a base do Bolsa Família; mas essa última, por sua vez, não tem uma variável com o nome dos estados. Use <code>left_join</code> para criar uma base chamada <code>bolsa2</code> que adicione o conteúdo da base de população dos estados à base do Bolsa Família.</p>
+</div>
+<div id="filtragem" class="section level3">
+<h3>Filtragem</h3>
+<p>Com a base <code>bolsa2</code> criada no exercício anterior, use <code>filter</code> para filtrar apenas as observações do estado de Minas Gerais. Com apenas esses dados, crie um gráfico de pontos que mostre a relação entre <code>alcance_2002</code>, no eixo X, e <code>lula_vs_2006_2</code>, no eixo Y. A relação positiva entre cobertura do Bolsa Família e votação do Lula em 2006 se mantém em Minas Gerais?</p>
+<p><br></p>
+</div>
+</div>
+<div id="homework" class="section level1">
+<h1>Homework</h1>
+<div id="atividade-aula-v" class="section level3">
+<h3>Atividade (Aula V)</h3>
+<p>Para a aula de hoje, a atividade pós-aula consistirá em produzir, usando os dados sobre o programa Bolsa Família do arquivo <code>bolsafamiliadataset.dta</code>, um documento em <em>Rmarkdown</em> contendo pelo menos 4 gráficos diferentes. O documento, que deve ter a extensão <code>.Rmd</code>, pode gerar um <em>R Notebook</em>, HTML, Word, ou qualquer outro. Os gráficos também são inteiramente livres: use as variáveis e os formatos que quiser. O único requisito é que o arquivo compile sem erros para produzir um documento final.</p>
+<p><br></p>
+</div>
+</div>
+<div id="revisao" class="section level1">
+<h1>Revisão</h1>
+<p>Para revisar o material das duas últimas aulas, sobre gráficos e exportação de resultados, vale uma boa olhada no <a href="https://r4ds.had.co.nz/data-visualisation.html">Capítulo 2 do R for Data Science</a>. Esse conteúdo abre a parte substantiva do livro, o que faz sua leitura bem simples – não é sequer necessário saber usar R, já que tudo é explicado passo a passo.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Aula 1 Básico</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="estilo.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 66px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h2 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h3 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h4 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h5 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.section h6 {
+  padding-top: 71px;
+  margin-top: -71px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Introdução ao R</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">Início</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Aulas
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basico.html">Básico</a>
+    </li>
+    <li>
+      <a href="manipulacao.html">Manipulação I</a>
+    </li>
+    <li>
+      <a href="manipulacao2.html">Manipulação II</a>
+    </li>
+    <li>
+      <a href="analise.html">Análise</a>
+    </li>
+    <li>
+      <a href="projetos.html">Projetos</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="avaliacao.html">Avaliação</a>
+</li>
+<li>
+  <a href="materiais.html">Materiais</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Aula 1 Básico</h1>
+
+</div>
+
+
+<p><br></p>
+<div id="introducao" class="section level1">
+<h1>1 Introdução</h1>
+<p><br></p>
+<p>Se você é aluna(o) do curso e está lendo esse material, é bem provável que você já tenha alguma ideia sobre o que o R é e o que ele faz. Também estou assumindo que você já tem o R e o RStudio instalados no seu computador (ou no laboratório). Se isso não for verdade, dê uma olhada na ementa do curso para obter algumas instruções sobre esses detalhes.</p>
+<p>Antes de prosseguir, deixe-me preparar o terreno sobre o que vocês devem esperar: o R é um ambiente de programação, o que significa que não abriremos um banco de dados utilizando um menu de tarefas, tampouco calcularemos quaisquer estatísticas clicando em um botão. Precisaremos programar – mais, precisaremos aprender a fazer pesquisa quantitativa (ou qualitativa) de uma nova forma.</p>
+<p>Se você está nesse curso e leu essa nota até aqui, acho que não preciso reforçar o quanto todo esse esforço valerá à pena.</p>
+<p><br></p>
+<div id="como-usar-essas-notas" class="section level2">
+<h2>1.1 Como usar essas notas</h2>
+<p>Essa e as demais notas do curso devem ser usadas da seguinte forma:</p>
+<ul>
+<li>Leia o texto;</li>
+<li>Tudo o que estiver em uma caixa cinza, com texto destacado por diferentes cores, é código e pode ser executado (copie e cole no R);</li>
+<li>Tudo o que estiver em caixa branca, antecedido por <code>##</code> e sem destaque no texto, é output do R;</li>
+<li>Alguns códigos dependem de códigos anteriores; caso encontre algum erro ao rodar um exemplo, tente voltar atrás e rodar o código anterior.</li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="escrevendo-codigo" class="section level1">
+<h1>2 Escrevendo código</h1>
+<p>Com o RStudio aberto, é possível ver que temos uma janela chamada <em>console</em> aberta. Podemos colocar código nela. Experimente digitar o número <code>2</code>:</p>
+<pre class="r"><code>2</code></pre>
+<p>O R reproduzirá o <code>2</code> seguido de <code>##</code> e <code>[]</code>, geralmente com algum número dentro. Aproveitando a deixa, <code>#</code> indica um comentário: tudo o que vem sucedido de <code>#</code> o R não executará.</p>
+<pre class="r"><code># 2</code></pre>
+<p>E nada acontece. Comentários são úteis para documentar nossos códigos, algo que veremos em seguida. Por enquanto, experimente usar o console como uma calculadora (logo teremos usos mais interessantes, prometo):</p>
+<pre class="r"><code>1 + 1
+2 * 3
+(1 + 1) * 3</code></pre>
+<p><br></p>
+<div id="operadores" class="section level2">
+<h2>2.1 Operadores</h2>
+<p>Note que estamos usando operadores aritméticos: <span class="math inline">\(+\)</span>, <span class="math inline">\(-\)</span>, <span class="math inline">\(*\)</span>, etc. No R, existem outros (tente adaptar os exemplos):</p>
+<pre class="r"><code>3^2
+11 / 5
+11 %/% 5
+11 %% 5</code></pre>
+<p>Para quem teve dificuldades em entender algum dos operadores, são eles (perceba como estou usando os comentários para explicar meu código, e perceba também que não estou usando acentos ou cedilhas):</p>
+<pre class="r"><code>2 + 2 # adicao
+2 - 2 # subtracao
+2 / 2 # divisao
+2 * 2 # multiplicacao
+2^2 # exponenciacao
+3 %/% 2 # divisao sem resto
+3 %% 2 # resto da divisao</code></pre>
+<p>Todos esses operadores são úteis – mas certamente não é por causa deles que o R é tão utilizado.</p>
+<p><br></p>
+</div>
+</div>
+<div id="funcoes" class="section level1">
+<h1>3 Funções</h1>
+<p>Parte da potencialidade do R advém do fato dele conter uma série de funções nativas (e permitir que usemos outras, como mostrarei em seguida) para realizar as mais diversas tarefas de pesquisa. É por isso que ele é considerado um ambiente, e não apenas uma linguagem de programação (embora ele também seja uma).</p>
+<p>Algumas funções úteis para operações aritméticas incluem (tente adaptar os exemplos para ver o que acontece):</p>
+<pre class="r"><code>sqrt(4) # raiz quadrado de 4
+log(4) # logaritmo natural de 4
+sum(3, 3) # soma dois numeros</code></pre>
+<p>Vale relembrar: uma função nada mais é do que uma espécie de ferramenta que recebe uma determinada informação e transforma ela em outra. <code>sum(2, 2)</code> recebe dois números (e.g., <code>2</code> e <code>2</code>) e nos devolve outro, <code>4</code>.</p>
+<p><br></p>
+<div id="usando-funcoes" class="section level2">
+<h2>3.1 Usando funções</h2>
+<p>No R, as informações que passamos para determinada função vão dentro de parêntesis. <code>sum</code>, por exemplo, pode receber mais de uma, todas separadas por vírgula.</p>
+<pre class="r"><code>sum(2 2) # retorna erro</code></pre>
+<pre><code>## Error: &lt;text&gt;:1:7: unexpected numeric constant
+## 1: sum(2 2
+##           ^</code></pre>
+<pre class="r"><code>sum(2, 2) # nao retorna erro</code></pre>
+<p>Cada função normalmente aceita tipos específicos de informação. <code>sum</code>, por exemplo, não recebe texto (afinal, não é possível fazer operações aritméticas com texto).</p>
+<pre class="r"><code>sum(&quot;texto&quot;) # nao funciona</code></pre>
+<pre><code>## Error in sum(&quot;texto&quot;): invalid &#39;type&#39; (character) of argument</code></pre>
+<p>Veja também que a mensagem de erro é bem informativa: <code>&quot;texto&quot;</code> é um <em>invalid ‘type’ of argument</em>.</p>
+<p><br></p>
+</div>
+<div id="ajuda" class="section level2">
+<h2>3.2 Ajuda</h2>
+<p>Para saber quais informações – <code>argumentos</code> ou <code>inputs</code>, como passaremos a chamá-las – cada função recebe, basta usar a função <code>help</code>.</p>
+<pre class="r"><code>help(sum)</code></pre>
+<p>Isso abrirá uma página de ajuda (em inglês) que, entre outras coisas, explica quais argumentos uma função deve receber e o que ela faz. Não posso deixar de mencionar: buscar no <a href="https://www.google.com/">Google</a> às vezes é muito mais simples e rápido (tente procurar por “como calcular logaritmo no R”, por exemplo).</p>
+<p><br></p>
+</div>
+</div>
+<div id="objetos" class="section level1">
+<h1>3 Objetos</h1>
+<p>Tudo no R é um objeto, algo que é armazenado na memória. Criamos objetos com outro operador, o <code>&lt;-</code>, chamado operador de atribuição<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>:</p>
+<pre class="r"><code>x &lt;- 10
+x + x
+x * 5.5</code></pre>
+<p>Começamos a tocar em algo importante: salvando números em um objeto, podemos acessá-lo fazendo apenas referência ao nome dele.</p>
+<pre class="r"><code>x</code></pre>
+<p>Mais ainda, se fizermos alguma operação usando <code>x</code>, ele preservará seu valor original:</p>
+<pre class="r"><code>x + 10 # adiciono 10 ao valor original de x
+x # mas x permanece com o mesmo valor</code></pre>
+<p>Como fazer, então, para salvar o resultado de uma operação? Criando um novo objeto.</p>
+<pre class="r"><code>novo_x &lt;- x + 10
+novo_x # agora sim</code></pre>
+<p>Objetos no R também podem armazenar texto.</p>
+<pre class="r"><code>x &lt;- &quot;texto&quot;
+x</code></pre>
+<p>Ao fazer isso, <code>x</code> é sobrescrito (perdemos o valor antigo dele).</p>
+<p>E, como seria de se esperar, podemos passar objetos para funções. Suponha que eu tenha salvo o valor <code>10</code> dentro do objeto chamado <code>meu_objeto</code> e queira calcular a raiz quadrada dele. Em código:</p>
+<pre class="r"><code>meu_objeto &lt;- 10
+sqrt(meu_objeto)</code></pre>
+<p>Só algumas poucas regras quando criamos objetos: o nome deles não pode começar por números ou caracteres especiais (e.g., <code>1objeto</code>); não pode ter espaço (e.g., <code>meu objeto</code>); e, embora não dê erros na hora, não podem ter nomes de funções do R (e.g., <code>sum</code>). Também é uma boa prática evitar letras maiúsculas e usar <code>_</code> para separar palavras (e.g., <code>meu_objeto</code>).</p>
+<p><br></p>
+<div id="vetores" class="section level2">
+<h2>3.1 Vetores</h2>
+<p>Vimos que podemos salvar números e texto em objetos no R. O que não vimos é que existe uma estrutura em comum por detrás desses exemplos de objetos: os vetores.</p>
+<p>Vetores nada mais são do que conjuntos de elementos do mesmo tipo, que são armazenados na memória como tal pelo R. Uma variável em um banco de dados, por exemplo, pode servir para armazenar a idade de várias pessoas, ou seus nomes. Para o R, mesmo um único dígito, como o número <code>2</code>, é um vetor – um vetor com apenas um elemento, obviamente.</p>
+<p>Criamos vetores com a função <code>c</code> (acrônimo de <em>concatenate</em> ou <em>combine</em>):</p>
+<pre class="r"><code>c(1, 2, 3) # Cria um vetor com tres elementos</code></pre>
+<p>Podemos fazer o mesmo com texto.</p>
+<pre class="r"><code>c(&quot;Cachorro&quot;, &quot;Gato&quot;, &quot;Peixe&quot;, &quot;Rinoceronte&quot;) # um vetor com texto</code></pre>
+<p>Para sequências numéricas, também é possível usar o operador <code>:</code> da seguinte forma:</p>
+<pre class="r"><code>1:10 # produz um vetor numerico com 10 elementos
+10:5</code></pre>
+<p>Ou, ainda, também podemos usar a função <code>seq</code>:</p>
+<pre class="r"><code>seq(1, 10) # uma sequencia de 1 a 10
+seq(10, 5) # uma sequencia de 10 a 5</code></pre>
+<p>Uma das maiores utilidades de trabalhar com vetores (além de combiná-los em bancos de dados) é poder usar vetorização. Melhor do que explicar, veja um exemplo de operação vetorizada:</p>
+<pre class="r"><code>c(2, 2, 2, 2) * 10 # todos os numeros do vetor sao multiplicados por 10</code></pre>
+<p><br></p>
+</div>
+<div id="funcoes-e-vetores" class="section level2">
+<h2>3.2 Funções e vetores</h2>
+<p>Mais interessante que criar vetores, entretanto, é usá-los. Como exemplo, vou criar um vetor com 5 elementos e calcular sua média com <code>mean</code>:</p>
+<pre class="r"><code>meu_vetor &lt;- c(1.01, 0.56, 0.53, 0.63, -2.17)
+mean(meu_vetor)</code></pre>
+<p>Ou seu desvio-padrão e mediana:</p>
+<pre class="r"><code>sd(meu_vetor) # desvio-padrao
+median(meu_vetor) # mediana</code></pre>
+<p>Se tivermos mais um vetor numérico com o mesmo número de elementos (use <code>length()</code> para saber o número de elementos de um vetor), podemos inclusive regredir um em outro.</p>
+<pre class="r"><code># Criamos um novo vetor
+y &lt;- c(-1.17, 0.61, -0.01, -0.12, -2.21)
+
+# E usamos a funcao lm, que estima uma regressao linar
+# (nao se preocupe com os detalhes de como usa-la agora)
+lm(y ~ meu_vetor) </code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="exercicios-i" class="section level1">
+<h1>Exercícios I</h1>
+<p>Tudo pode estar parecendo muito simples, mas, na prática, é preciso prestar bastante atenção às noções básicas que vimos. Para exemplificar esse ponto, nesses exercícios eu vou colocar alguns códigos, <em>todos com erros</em>, e o objetivo será arrumá-los usando o que vimos até aqui.</p>
+<p><br></p>
+<div id="operacoes-aritmeticas" class="section level3 unnumbered">
+<h3>Operações aritméticas</h3>
+<p>Arrume as seguintes operações para que compilem sem erros:</p>
+<pre class="r"><code>&quot;2&quot; + &quot;2&quot;
+(10 + (10)) \ 10
+sum[2, 2]
+&quot;3^3&quot;
+3 x 3</code></pre>
+</div>
+<div id="criacao-de-objetos-i" class="section level3 unnumbered">
+<h3>Criação de objetos I</h3>
+<p>Arrume (ou não) essas atribuições de objetos. Tente entender o que o operador atribuidor faz.</p>
+<pre class="r"><code>texto &lt; - &quot;um texto qualquer&quot;
+outro texto &lt; - &quot;mais um texto&quot;
+x &lt; 2
+y = 0
+z &lt;- &quot;1&quot; </code></pre>
+</div>
+<div id="criacao-de-objetos-ii" class="section level3 unnumbered">
+<h3>Criação de objetos II</h3>
+<p>O que está errado no código abaixo (o objetivo é criar um objeto <code>x</code> que armazene o número <code>100</code>)?</p>
+<pre class="r"><code>dez &lt;- 10
+cinco &lt;- dez - 5
+y &lt;- dez &lt;- cinco
+x &lt;- 10 * dez</code></pre>
+</div>
+<div id="usando-funcoes-1" class="section level3 unnumbered">
+<h3>Usando funções</h3>
+<p>De novo, arrume o código (e, de quebra, aprenda o que cada algumas das seguintes funções faz):</p>
+<pre class="r"><code>print(uma frase qualquer)
+seq(1 5)
+sum(log(-2), sum(2 + 2))
+abs(&quot;-dez&quot;)
+paste(&quot;um&quot;, &quot;exemplo&quot;, &quot;de&quot;, &quot;texto&#39;)
+plot(10, ?)</code></pre>
+</div>
+<div id="vetores-1" class="section level3 unnumbered">
+<h3>Vetores</h3>
+<p>O que há de errado com os exemplos abaixo?</p>
+<pre class="r"><code>c(&quot;1&quot;, 0)
+
+meu_vetor &lt;- c(&quot;texto&quot;, &quot;do,&quot; &quot;vetor&quot;)
+
+c(c(1, 2), c(3, 4), 5:6
+  
+c(-1.3, 
+  -0.3, 
+  -0.6, 
+  -0.6 
+  -0.2)</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="tidyverse" class="section level1">
+<h1>4 Tidyverse</h1>
+<p>O conteúdo que cobrimos até aqui é um fundamento sólido para avançarmos. Em um curso convencional, continuaríamos a ver mais noções de programação propriamente dita: classes, outros operadores, controle de fluxo. Neste, não.</p>
+<p>Daqui até o final deste curso, começaremos a usar o R para fazer o tipo de coisas que você espera dele: abrir e manipular bases de dados, fazer gráficos, transformar variáveis, rodar testes. Para isso, usaremos uma ferramenta que não é nativa do R, um conjunto de pacotes chamado <code>tidyverse</code>.</p>
+<p>Esses pacotes fornecem inúmeras funções e operadores que nos permitem realizar de forma muito, muito simples tarefas complexas no R. O lado negativo de usar essas ferramenas, claro, é que deixamos o R-base um pouco de lado. Esse é um trade-off que compensa. Vocês entenderão o porquê disso na próxima aula.</p>
+<p><br></p>
+<div id="instalando-pacotes" class="section level2">
+<h2>4.1 Instalando pacotes</h2>
+<p>O R é continuamente reformulado por uma comunidade imensa de desenvolvedores que disponibilizam código para que outras pessoas as usem por meio de pacotes, ou libraries. O <code>tidyverse</code> é um desses pacotes e, por isso, não está disponível por padrão no R. Para instalá-lo, usamos a seguinte função<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
+<p>Tudo o que precisamos passar para essa função <code>install.packages</code> é o nome do pacote que queremos instalar entre aspas (um texto). Após algum tempo, o R deve baixar os arquivos necessários e, pronto, o pacote é instalado. Feito isso, não precisamos mais rodar esse código (o pacote está no computador).</p>
+<p>Depois, usamos a função <code>library</code> para carregar o nosso pacote, isto é, para deixar suas funções acessíveis a nossa sessão do R<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>:</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<p>Esse código produzirá algumas mensagens, algo normal. O que realmente importa: sempre que quisermos usar funções de algum pacote que instalamos (e que não é parte do R-base), precisamos carregá-lo; uma vez carregado, podemos usar suas funções normalmente.</p>
+<p><br></p>
+</div>
+<div id="data.frames" class="section level2">
+<h2>4.2 data.frames</h2>
+<p>No R, bancos de dados, ou planilhas, formam um tipo específico de objetos. Já vimos números, texto, e agora veremos esse outro tipo: o <code>data.frame</code>.</p>
+<p>O pacote <code>tidyverse</code> contém um <code>data.frame</code> bem simples que serve como exemplo. Execute:</p>
+<pre class="r"><code>band_members</code></pre>
+<p>Isso retornará algo muito próximo ao que vocês estão acostumados: temos colunas (i.e., variáveis) e linhas (i.e., observações). No nosso caso, temos uma coluna chamada <code>name</code>, que contém os nomes de alguns músicos (Mick, John, Paul); e, a outra, os nomes de suas respectivas bandas (Stones, Beatles, Beatles). Enfim, temos uma planilha igual as que você já deve estar cansada(o) de ver por aí.</p>
+<p>Talvez isso ajude a mostrar que realmente estamos falando de uma planilha:</p>
+<pre class="r"><code>View(band_members)</code></pre>
+<p>A função <code>View</code>, como deve ter ficado claro, abre uma janela (no RStudio, acima da aba <em>console</em>) que nos permite visualizar os dados como se estivéssemos usando Excel ou no SPSS. Normalmente isso é útil para entendermos um <code>data.frame</code>, quais são suas variáveis, quais são suas entradas mais comuns.</p>
+<p>Podemos, também, salvar esse <code>data.frame</code> em um objeto para podermos trabalhar com ele.</p>
+<pre class="r"><code>meu_df &lt;- band_members</code></pre>
+<p>É possível ver que, agora, o RStudio mostra esse objeto na aba <em>Environment</em>, mostrando algumas informações úteis sobre ele.</p>
+<p>Há algumas funções que geralmente usamos para inspecionar <code>data.frames</code> como esses, especialmente quando são grandes (o que pode tornar <code>View(meu_df)</code> lento e ineficiente). O <code>tidyverse</code> contém uma delas, chamada <code>glimpse</code>, que exibe várias informações de uma vez:</p>
+<pre class="r"><code>glimpse(meu_df)</code></pre>
+<p><br></p>
+</div>
+</div>
+<div id="manipulacoes-simples" class="section level1">
+<h1>5 Manipulações simples</h1>
+<p>O <code>tidyverse</code> tem algumas funções que são fundamentais para trabalharmos com <code>data.frames</code>. Digamos que eu queira manter apenas a variável <code>name</code> no <code>df</code> salvo em meu <code>meu_df</code>, por exemplo. A função, nesse caso, é <code>select</code>:</p>
+<pre class="r"><code>select(meu_df, name)</code></pre>
+<p>Essa função recebe dois argumentos, um <code>data.frame</code><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> e o nome sem aspas da variável que queremos selecionar. Podemos selecionar apenas <code>band</code> também.</p>
+<pre class="r"><code>select(meu_df, band)</code></pre>
+<p>E para selecionar algumas linhas? Usamos <code>slice</code>:</p>
+<pre class="r"><code>slice(meu_df, 1)</code></pre>
+<p>Precisamos apenas indicar o número da linha que queremos. Para preservar apenas a segunda:</p>
+<pre class="r"><code>slice(meu_df, 2)</code></pre>
+<p>Como não estamos salvando em um novo objeto os resultados de <code>slice</code>, o <code>meu_df</code> permanece com seu conteúdo original (pode checar digitando e executando <code>meu_df</code> no console). Para salvar essas operações, podemos criar um novo objeto:</p>
+<pre class="r"><code>novo_df &lt;- slice(meu_df, 2)</code></pre>
+<p>Não se preocupe se parecer muita coisa para memorizar agora. Veremos <code>data.frames</code> e manipulação por ainda muito tempo.</p>
+<p><br></p>
+</div>
+<div id="scripts" class="section level1">
+<h1>6 Scripts</h1>
+<p>Antes de terminarmos as notas dessa aula, lembre-se: salve seus códigos em um arquivo com extensão <code>.R</code>. Isso é extremamente útil para documentar tudo o que você fizer. É possível criar um novo arquivo pelo caminho <strong>File &gt; New File &gt; R Script</strong>; ou usando o atalho de teclado <strong>Ctrl + Shift + N</strong>. É uma boa prática não usar acentos, letras maiúsculas e espaço no nome de arquivos. Sempre prefira <code>minha_analise.R</code> em vez de <code>Minha Análise.R</code>.</p>
+<p><br></p>
+</div>
+<div id="exercicios-ii" class="section level1">
+<h1>Exercícios II</h1>
+<p>Vimos muito conteúdo, precisamos praticá-lo antes de passarmos para a próxima aula.</p>
+<div id="vetores-numericos-i" class="section level3 unnumbered">
+<h3>Vetores numéricos I</h3>
+<p>Qual é a média e a mediana dos vetores abaixo?</p>
+<pre class="r"><code>c(1, 45, 67, 2.35, 5.6)
+c(0.275, -0.883, 1.69, -0.589, -0.778, 1.318, -0.235, -2.166)
+c(0.3, 0, 0)
+c(0, -1, 0, -1, 1, NA, -2, 1, 1, -2)</code></pre>
+</div>
+<div id="vetores-numericos-ii" class="section level3 unnumbered">
+<h3>Vetores numéricos II</h3>
+<p>Qual é a somatória (i.e., o valor da soma de todos os elementos) do vetor abaixo? (Dica: use uma função)</p>
+<pre class="r"><code>x &lt;- c(232, 129, 125, 84, 157, 119, 196, 174, 202, 104)</code></pre>
+</div>
+<div id="vetores-numericos-iii" class="section level3 unnumbered">
+<h3>Vetores numéricos III</h3>
+<p>Crie um vetor <code>x</code> com 10 elementos, de 1 a 10. Depois, multiplique esse vetor por 5 e salve seu resultado. Qual é a média dele?</p>
+</div>
+<div id="vetores-numericos-iv" class="section level3 unnumbered">
+<h3>Vetores numéricos IV</h3>
+<p>O que o seguinte código faz (use comentários para escrever sua explicação)?</p>
+<pre class="r"><code>y &lt;- seq(5, 25, by = 5)
+x &lt;- seq(10, 50, by = 10)
+y * x</code></pre>
+</div>
+<div id="manipulacao-i" class="section level3 unnumbered">
+<h3>Manipulação I</h3>
+<p>O R vem por padrão com um <code>data.frame</code> chamado <code>mtcars</code> que contém informações sobre 32 modelos de carros extraídos da revista <em>Motor Trend US</em> de 1974. Usando tanto <code>tidyverse</code> quanto funções do R-base, descubra:</p>
+<ul>
+<li>Quantas variáveis esse banco tem;</li>
+<li>Quantas observações esse banco tem;</li>
+<li>O nome de todas as variáveis.</li>
+</ul>
+<p><br></p>
+</div>
+</div>
+<div id="homework" class="section level1">
+<h1>Homework</h1>
+<p>Para além dos exercícios dessa página, em cada aula teremos algumas atividade que deverão ser realizadas fora do laboratório. Essa primeira é simples, mas envolve alguns desafios – coisas que não vimos diretamente e que, portanto, você terá que descobrir por conta própria. Realize essa tarefa em um novo script. Instruções sobre como me enviar esses exercícios serão dadas durante a aula.</p>
+<div id="atividade-aula-i" class="section level3">
+<h3>Atividade (Aula I)</h3>
+<p>Por padrão, o R vem com um <code>data.frame</code> chamado <code>swiss</code>, que contém dados demográficos e socioeconômicos de 47 províncias francesas da Suíça mensuradas em 1888. Usando o <code>tidyverse</code>, crie um novo <code>data.frame</code> que tenha apenas as variáveis <code>Fertility</code>, <code>Education</code> e <code>Catholic</code>; e apenas as 10 primeiras observações.</p>
+<p><br></p>
+</div>
+</div>
+<div id="revisao" class="section level1">
+<h1>Revisão</h1>
+<p>Também como tarefa pós-aula, sugiro usar o <a href="https://fmeireles.com/r_um_guia_pratico/">R: Um Guia Prático</a> para revisar o conteúdo desta aula – na verdade, ele cobre coisas que ainda não abordamos. Ele foi criado para ser um guia básico sobre a programação em R-base e, portanto, pode funcionar como um complemento para quem não entendeu alguma coisa do material de hoje.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Também é possível usar <code>=</code>, mas evitaremos esse uso para não criar confusões.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Existem pacotes não oficiais (i.e., que não estão hospedados pelo <a href="https://cran.r-project.org/">CRAN</a>), que não são instalados dessa forma. Por enquanto, não vamos nos deter nisso.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Basicamente, isso envolve carregar uma coisa chamada <code>namespace</code> do pacote que estamos carregando, algo que não cobriremos nesse curso. Para saber mais: <a href="http://r-pkgs.had.co.nz/namespace.html" class="uri">http://r-pkgs.had.co.nz/namespace.html</a><a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Ou <code>tibble</code>, como veremos nas próximas aulas.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

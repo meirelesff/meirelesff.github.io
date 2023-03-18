@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.1.189">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fernando Meireles</title>
+<title>Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,16 +30,17 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -48,23 +49,53 @@ ul.task-list li input[type="checkbox"] {
   "type": "overlay",
   "limit": 20,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-name','listing-href','listing-codebook','listing-resumo',{ data: ['index'] },{ data: ['categories'] }],
+      
+      searchColumns: ["listing-name","listing-href","listing-codebook","listing-resumo"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -76,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page">About</a>
+    <a class="nav-link" href="./index.html">About</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./publication.html">Publication</a>
@@ -88,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./software.html">Software</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data.html">Data</a>
+    <a class="nav-link active" href="./data.html" aria-current="page">Data</a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./blog.html">Blog</a>
@@ -103,52 +134,62 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#datasets" id="toc-datasets" class="nav-link active" data-scroll-target="#datasets">Datasets</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<div class="quarto-about-trestles">
-  <div class="about-entity">
-    <img src="img/headshot.jpeg" class="about-image
-  round " style="height: 9em; width: 9em;">
+<main class="content" id="quarto-document-content">
+
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fernando Meireles</h1>
-<p class="subtitle lead">IESP-UERJ</p>
+<h1 class="title">Data</h1>
 </div>
+
+
+
 <div class="quarto-title-meta">
+
+    
+    
   </div>
+  
+
 </header>
-    <div class="about-links">
-  <a href="mailto:fernando.meireles@iesp.uerj.br" class="about-link">
-    <i class="bi bi-envelope-fill"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="https://twitter.com/meirelesff" class="about-link">
-    <i class="bi bi-twitter"></i>
-     <span class="about-link-text"></span>
-  </a>
-  <a href="https://scholar.google.com.br/citations?user=hMma3BsAAAAJ" class="about-link">
-     <span class="about-link-text"><i class="ai  ai-google-scholar" title="" style="color:"></i></span>
-  </a>
-  <a href="http://orcid.org/0000-0002-7027-2058" class="about-link">
-     <span class="about-link-text"><i class="ai  ai-orcid" title="" style="color:"></i></span>
-  </a>
-  <a href="https://github.com/meirelesff" class="about-link">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text"></span>
-  </a>
-</div>
-  </div>
-  <div class="about-contents"><main class="content" id="quarto-document-content">
-<section id="about" class="level1">
-<h1>About</h1>
-<p>I am an Assistant Professor of Political Science at the Institute for Social and Political Studies (<a href="https://iesp.uerj.br/">IESP-UERJ</a>). I am also an Advisor to the Innovation and Technology Board at <a href="http://quaest.com.br/">Quaest</a>, a Brazilian-based public opinion and data analytics company.</p>
-<p>My research examines how political institutions and elections shape representation using a combination of machine learning, causal inference, and survey methods. In addition to my research, I develop <a href="./software.html">open source tools</a> for social science research.</p>
+
+<p class="lead">
+This page contains data I used in several projects
+</p>
+<section id="datasets" class="level2">
+<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
+
 
 
 </section>
-</main></div>
+
+<div class="quarto-listing quarto-listing-container-custom" id="listing-listing">
+<div class="about-links">
+    <h4 class="anchored"><i class="bi bi-graph-up-arrow" style="font-size: 0.8rem"></i> Oversized government coalitions in Latin America</h4>
+    Country-year data on oversized government coalitions in all 14 presidential countries in Latin America, spanning from 1979 to 2012.<br>
+    <a class="btn btn-primary btn-sm" href="https://fmeireles.com/data/Dataset_Meireles.zip" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-download" style="font-size: 0.7rem;"></i> Dataset</a>
+  <a class="btn btn-primary btn-sm" href="https://fmeireles.com/data/bpsr_codebook.txt" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-info-circle" style="font-size: 0.7rem;"></i> Codebook</a>
+    <h4 class="anchored"><i class="bi bi-graph-up-arrow" style="font-size: 0.8rem"></i> Dilma Rousseff's Impeachment in the Brazilian Chamber of Deputies</h4>
+    Data on the rollcall votes cast by all Brazilian Federal Deputies in the Impeachment process of former President Dilma Rousseff, on April 17, 2016.<br>
+    <a class="btn btn-primary btn-sm" href="http://www.gcpp.com.br/wp-content/uploads/2016/04/bd_vot_impeachment.zip" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-download" style="font-size: 0.7rem;"></i> Dataset</a>
+  <a class="btn btn-primary btn-sm" href="http://www.gcpp.com.br/wp-content/uploads/2016/04/bd_impeachment_codebook.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-info-circle" style="font-size: 0.7rem;"></i> Codebook</a>
+    <h4 class="anchored"><i class="bi bi-graph-up-arrow" style="font-size: 0.8rem"></i> PhD theses defended in Brazil (1987--2016)</h4>
+    A tidy dataset of all PhD theses defended between 1987 and 2016 in Brazilian postgraduate programs gathered from the Capes Open Data Portal.<br>
+    <a class="btn btn-primary btn-sm" href="https://github.com/meirelesff/teses_capes/raw/master/teses_capes.Rda" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-download" style="font-size: 0.7rem;"></i> Dataset</a>
 </div>
- <!-- /main -->
+<div class="listing-no-matching d-none">
+Nenhum item correspondente
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -169,6 +210,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const clipboard = new window.ClipboardJS('.code-copy-button', {
     target: function(trigger) {
       return trigger.previousElementSibling;
@@ -182,7 +230,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiada");
     setTimeout(function() {
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');

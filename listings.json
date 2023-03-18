@@ -1,0 +1,24 @@
+[
+  {
+    "listing": "/data.html",
+    "items": []
+  },
+  {
+    "listing": "/software.html",
+    "items": []
+  },
+  {
+    "listing": "/teaching.html",
+    "items": []
+  },
+  {
+    "listing": "/publication.html",
+    "items": []
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/posts/2023-01-23-hello-world/index.html"
+    ]
+  }
+]

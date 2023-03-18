@@ -1,31 +1,146 @@
-/* css styles */
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap');
-
-body {
-  font-family: Lato;
+/* FONTE */
+body, p {
+  font-size: 22px;
 }
 
-p {
-  font-family: Lato;
+p.subtitle, .lead {
+  color: var(--bs-gray-600);
 }
 
-a, a:hover {
-    color: #8f2a43;
-    text-decoration: none;
-    transition: color .6s ease;
+.lead {
+  font-size: 1.35rem;
 }
 
-.dropdown-item:hover, .dropdown-item:focus {
-  color: #fff;
+h1, .h1 {
+  font-size: calc(1.145rem + 1.14vw);
+}
+
+.card-body {
+  font-size: 18px;
+}
+
+.quarto-listing {
+  font-size: 19px;
+}
+
+
+/* PAGINA */
+div.quarto-about-trestles {
+  padding-top: 1em !important;
+  padding-bottom: 0em;
+}
+
+div.quarto-about-trestles .about-entity {
+  margin-top: 2em;
+}
+
+div.quarto-about-trestles .about-contents {
+  border-left: solid 1px #dee2e6;
+  padding-left: 1.5em;
+  margin-right: -4em;
+}
+
+#title-block-header {
+  margin-block-end: 0.4rem;
+}
+
+
+/* MENU */
+.navbar-dark {
+    background-color: var(--quarto-body-bg);
+}
+
+.navbar-dark .navbar-nav .show>.nav-link, 
+.navbar-dark .navbar-nav .nav-link,
+.navbar-dark .navbar-nav .active>.nav-link, 
+.navbar-dark .navbar-nav .nav-link.active {
+    color: var(--quarto-hl-va-color);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: var(--quarto-hl-an-color);
+}
+
+.navbar #quarto-search.type-overlay .aa-Autocomplete svg.aa-SubmitIcon {
+  color: var(--quarto-hl-va-color);
+}
+
+.navbar-expand-lg .navbar-nav-scroll {
+  font-size: 19px;
+}
+
+.navbar-dark .navbar-toggler {
+  border-color: none;
+  border-radius: 20px;
   background-color: #8f2a43;
 }
 
-.sidebar nav[role="doc-toc"] ul > li > a.active {
-  border-left: 1px solid #8f2a43;
-  color: #8f2a43 !important;
+@media (max-width: 991.98px){
+  div.quarto-about-trestles .about-entity .about-links {
+  flex-direction: initial;
+  row-gap: 1em;
+  width: 100%;
+  padding-bottom: 1.5em;
+}
 }
 
-.sidebar nav[role="doc-toc"] ul > li > ul > li > a.active {
+
+/* CORES */
+
+a {
+    color: #8f2a43;
+    text-decoration: none;
+}
+
+
+div.quarto-about-trestles .about-entity .about-link:hover {
+    color: #8f442a;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #8f442a;
+    text-decoration: underline;
+}
+
+div.quarto-about-trestles .about-entity .about-link {
+  color: #8f2a43;
+  text-decoration: none;
+  padding: 1px;
+  border: none;
+  font-size: 1.45em;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:active{
+  color: #8f2a43;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background-color: #8f2a43;
+  border-color: #8f2a43;
+}
+
+.btn-primary:hover {
+  background-color: #8f442a;
+  border-color: #8f442a;
+  text-decoration: none;
+}
+
+.btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+  background-color: #8f442a;
+  border-color: #8f442a;
+  text-decoration: none;
+}
+
+.btn-check:focus + .btn-primary, .btn-primary:focus {
+  background-color: #8f442a;
+  border-color: #8f442a;
+  text-decoration: none;
+}
+
+.sidebar nav[role="doc-toc"] ul > li > a.active {
   border-left: 1px solid #8f2a43;
   color: #8f2a43 !important;
 }

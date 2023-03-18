@@ -1,3 +1,0 @@
-User-agent: *
-
-Sitemap: https://www.fmeireles.com/sitemap.xml

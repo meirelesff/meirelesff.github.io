@@ -17,8 +17,6 @@
   },
   {
     "listing": "/blog.html",
-    "items": [
-      "/posts/2023-01-23-hello-world/index.html"
-    ]
+    "items": []
   }
 ]

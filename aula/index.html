@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Política Distributiva no Brasil</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles" />
+    <script src="slides_files/header-attrs-2.20/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Política Distributiva no Brasil
+]
+.author[
+### Fernando Meireles
+]
+.date[
+### <div class="line-block"><small>IESP-UERJ</small><br> <a href="https://fmeireles.com"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"></path></svg></a> <a href="https://twitter.com/meirelesff"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a> <a href="mailto:fernando.meireles@iesp.uerj.br"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg></a></div>
+]
+
+---
+
+
+
+
+
+ 
+# Um convênio
+
+&lt;br&gt;
+
+&gt; [Por dificuldades em compras, prefeitura de Caxias desiste de convênio que ofereceria capacitação de jovens em vulnerabilidade social](https://gauchazh.clicrbs.com.br/pioneiro/geral/noticia/2023/03/por-dificuldades-em-compras-prefeitura-de-caxias-desiste-de-convenio-que-ofereceria-capacitacao-de-jovens-em-vulnerabilidade-social-clfctdmwk0061016b0i123mrf.html)
+
+- .font85[Rádio Gaúcha]
+
+
+
+---
+# Viés alocativo
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Plano da aula
+
+&lt;br&gt;
+
+Dois objetivos:
+
+- 1) Analisar modelos que explicam esse viés na distribuição de recursos
+
+- 2) Tentar convercer vocês de que ele pode ter consequências positivas
+
+
+---
+count:false
+# Plano da aula
+
+&lt;br&gt;
+
+- 1) Modelos distributivos
+
+- 2) Federalismo, *credit claiming* e alinhamento partidário
+
+- 3) Relações Executivo-Legislativo e Burocracia
+
+
+
+
+---
+# Política distributiva
+
+Definição: 
+
+.font90[
+&gt; [...] *alocação não condicional de bens públicos para regiões delimitadas geograficamente na forma de despesa, com custos dispersos entre contribuintes*
+]
+
+— Weingast (1994)
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #F3F3F3
+
+# Modelos Distributivos
+
+
+---
+# Lindbeck &amp; Weibull
+
+Lindbeck and Weibull (1987) é um modelo simples em que dois partidos competem em uma dimensão redistributiva
+
+.pull-left[
+- Eleitores têm preferências de pico único sobre alíquotas de impostos
+
+- Partidos sabem as preferências do eleitorado
+
+]
+
+
+
+
+---
+# L&amp;W: Equilíbrio
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+count:false
+# L&amp;W: Equilíbrio
+
+Equilíbrios: `convergência` ou `divergência`, caso este em que:
+
+.font90[
+- Não há simetria de preferências ou dimensão única
+
+- Partidos não podem alterar livremente plataformas
+
+- O sistema eleitoral não incentiva a coordenação
+]
+
+
+---
+# *Pork barrel*
+
+Dixit and Londregan (1996) é uma extensão, chamada de `tactical redistribution`
+
+.pull-left[
+- Partidos têm capacidades diferentes de redistribuir (taxar e alocar)
+
+- Grupos têm preferência de ideologia e consumo heterogêneas
+]
+
+--
+
+.pull-right[
+.texto[Equilíbrios]
+.font90[
+`\(\rightarrow\)` Swing voter &lt;br&gt;
+`\(\rightarrow\)` Machine politics
+]
+]
+
+
+---
+count:false
+# *Pork barrel*
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+# *Brokers*
+
+A maioria dos estudos empíricos corrobora variações da *machine politics*. Stokes, Dunning, Nazareno et al. (2013) explica isso: `cabos eleitorais`
+
+
+.pull-left[
+- Estes têm incentivos para mobilizar eleitores
+
+- Usam mobilização pra obter *rents*
+]
+
+.pull-right[
+- Líderes partidários usam recursos para obter apoio de *brokers*
+
+- Eleitores consideram suas necessidades de consumo e de *policy*
+]
+
+
+---
+count:false
+# *Brokers*
+
+.texto[Principais implicações]
+
+.font90[
+.pull-left[
+Para extrair mais *rents*, cabos mobilizam *core voters* que derivam maior utilidade marginal de consumo
+]
+
+.pull-right[
+Choques exógenos na utilidade derivada do consumo pode fazer com que partidos demitam *brokers*
+]
+]
+
+
+
+---
+# Modelos alternativos
+
+
+- *Pork* em distritos alinhados mitiga problemas de *credit claiming* (e.g., Arulampalam, Dasgupta, Dhillon et al., 2009)
+
+- Apoio intrapartidário e coordenação (e.g., Thomas, 2018; Jiang and Zhang, 2020) 
+
+- Uso como sinal de competência de governos locais (e.g., Bracco, Lockwood, Porcelli et al., 2015)
+
+- Etc.
+
+
+
+---
+# *Credit claiming*
+
+Resumo de Arulampalam, Dasgupta, Dhillon et al. (2009):
+
+| Predição | Descrição |
+| --- | --- |
+| `Aligned Swing effect` | *Aligned* e *swing* recebe mais verbas |
+| `Unaligned Swing effect` | *Non-aligned* e *swing* recebe menos verbas se `\(\theta\)` é baixo, e mais se `\(\theta\)` é alto | 
+| `Alignment effect` | *Aligned* recebe mais verbas que *non-aligned*| 
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #F3F3F3
+
+# Federalismo, *credit claiming* e alinhamento partidário
+
+
+
+---
+# Estudos sobre o Brasil
+
+
+1. Alinhamento partidário
+
+2. *Credit claiming*
+
+3. .texto[Competição eleitoral]
+
+
+
+---
+# Mecanismo do alinhamento
+
+.left-column[
+Há dois principais: *top-down* e *bottom-up*
+]
+
+.right-column[
+
+- *Top-down*: Presidentes no Brasil usariam prerrogativas para punir localidades da oposição, obter apoio legislativo ou obter votos diretamente (*alignment effect*)
+
+- *Bottom-up*: Conexões partidárias servem para transferir informações
+]
+
+
+
+
+---
+# Demanda por recursos
+
+O município mediano no Brasil tem:
+
+
+.font90[
+.pull-left[
+
+- `11631` habitantes
+
+- Cerca de `79%` do seu orçamento composto por transferências oriundas de entes federativos
+
+- Déficit orçamentário que dificulta investimentos de capital
+]
+]
+
+--
+
+.font90[
+.pull-right[
+
+- Carência burocrática, patronagem (cf.Brollo, Forquesato, and Gozzi, 2017)
+
+- *Bureaucratic overload* (cf. Dasgupta and Kapur, 2020)
+]
+]
+
+
+---
+# Captação
+
+
+Para municípios que pretendem obter recursos federais, há empecilhos:
+
+
+- Recursos escassos, especialmente em contextos de crise fiscal
+
+- Processo de conveniamento é complexo
+
+- A execução orçamentária depende de ordenadores de despesa, ministérios específicos e Economia
+
+
+
+
+
+---
+# Política distributiva em coalizão
+
+Ao partilhar ministérios com outros partidos, presidentes dividem a política distributiva do executivo. Chamo esse arranjo de `política distributiva da coalizão`
+
+--
+
+&lt;br&gt;
+
+*Alinhamento partidário* `\(\leadsto\)` *Vantagem informacional* `\(\leadsto\)` *Viés alocativo*
+
+
+
+
+---
+# Competição eleitoral
+
+Recente, mas interessante (Frey, 2022):
+
+.pull-left[
+Distribuição de bens não revogáveis, como cisternas, reduz a vulnerabilidade de eleitores e os deixam menos propensos a serem mobilizados por cabos
+]
+
+.pull-right[
+Partidos antecipam isso e alocam cisternas onde `1.` cabos são fracos `2.` cabos são da oposição
+]
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #F3F3F3
+
+# Relações Executivo-Legislativo e Burocracia
+
+
+
+
+---
+# Reformas importantes
+
+- `EC 86/2015` `\(\leadsto\)` redução do controle do Executivo na execução orçamentária
+
+- `ECs 100 e 102/2019` `\(\leadsto\)` redução do controle do Executivo na execução orçamentária
+
+- `EC 105/2019` `\(\leadsto\)` repasses diretos, sem conveniamento
+
+- `RP9 nas LDOs` `\(\leadsto\)` orçamento secreto
+
+
+
+---
+# Propostas submetidas
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Convênios assinados
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Empenhos
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# Empenhos
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Burocracia
+
+Reclamações de municípios e políticos sobre a distribuição de recursos no Brasil é tema recorrente
+
+.font90[
+.pull-left[
+- Falta de informações sobre como acessar programas
+
+- Programas engessados, não raro feitos sob medida via lobby
+]
+
+.pull-right[
+- Muita burocracia
+
+- Falta de coordenação e transferência de informações
+]
+]
+
+
+
+---
+# Dois exemplos
+
+
+.pull-left[
+.texto[Capacidade estatal]
+
+- Rich (2022)
+]
+
+
+.pull-right[
+.texto[Patronagem e agência]
+
+- Toral (2022)
+]
+
+
+
+
+
+---
+# Referências
+
+.font80[
+Arulampalam, W., S. Dasgupta, A. Dhillon, et al. (2009). "Electoral goals and center-state transfers: A theoretical model and empirical
+evidence from India". In: _Journal of Development Economics_ 88.1, pp. 103-119.
+
+Bracco, E., B. Lockwood, F. Porcelli, et al. (2015). "Intergovernmental grants as signals and the alignment effect: Theory and evidence". In:
+_Journal of Public Economics_ 123, pp. 78-91.
+
+Brollo, F., P. Forquesato, and J. C. Gozzi (2017). "To the victor belongs the spoils? Party membership and public sector employment in
+Brazil". In: _Party Membership and Public Sector Employment in Brazil (October 2017)_.
+
+Dasgupta, A. and D. Kapur (2020). "The political economy of bureaucratic overload: Evidence from rural development officials in India". In:
+_American Political Science Review_ 114.4, pp. 1316-1334.
+
+Dixit, A. and J. Londregan (1996). "The determinants of success of special interests in redistributive politics". In: _the Journal of
+Politics_ 58.4, pp. 1132-1155.
+]
+
+
+
+
+&lt;style type="text/css"&gt;
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+&lt;/style&gt;
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>`"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

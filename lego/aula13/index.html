@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>13. Regressão Linear Múltipla</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles" />
+    <script src="slides_files/header-attrs-2.20/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# 13. Regressão Linear Múltipla
+]
+.subtitle[
+## Controle estatístico e inferência
+]
+.author[
+### Fernando Meireles
+]
+.date[
+### <div class="line-block"><small>Lego I | 2023</small><br> <a href="https://fmeireles.com"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"></path></svg></a> <a href="https://twitter.com/meirelesff"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a> <a href="mailto:fernando.meireles@iesp.uerj.br"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg></a></div>
+]
+
+---
+
+
+
+
+
+
+# Roteiro da aula
+
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Revisar o modelo de regressão linear simples
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Especificar e interpretar modelos multivariados
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto[Bônus:] Ferramentas úteis
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Modelo linear simples
+
+
+---
+# Resumo
+
+Vimos como representar um modelo de regressão linear simples na população como:
+
+`\(y_i = \beta_0 + \beta x_i + \epsilon_i\)`
+
+onde: 
+
+.pull-left[
+.font80[
+- `\(\beta_0\)` (ou `\(\alpha\)`)
+  - O valor predito `\(\widehat{y}\)` quando `\(x_i=0\)`
+- `\(\beta_1\)` (ou `\(\beta\)`)
+  - Quanto esperamos que `\(y_i\)` aumente, em média, quando `\(x_i\)` aumenta uma unidade
+]
+]
+
+.pull-right[
+.font80[
+- Usamos .texto[Mínimos Quadrados Ordinários] para calcular a .texto[Soma dos Resíduos Quadrados]
+
+- Na prática, estimamos o valor esperado (média) de `\(Y_i\)` em relação a valores de `\(x_i\)`
+]
+]
+
+
+
+---
+# Distribuição dos resíduos
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+count:false
+# Distribuição dos resíduos
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Variável independente binária
+
+Considerem o caso da aula passada: diferença nas defesas de tese
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Variável independente binária
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# Variável independente binária
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quando temos uma variável independente binária, `\(\hat{\beta_0}\)` indica a média da categoria de referência, `\(\hat{\beta_1}\)` a diferença de médias
+
+
+.pull-left2[
+.texto[Médias]
+
+|Região  |  Teses|
+|:-------|------:|
+|Outros  |  281.5|
+|Sudeste | 1520.7|
+]
+
+--
+
+.pull-right2[
+.texto[Modelo]
+
+```r
+lm(teses ~ regiao)
+```
+
+```
+## 
+## Call:
+## lm(formula = teses ~ regiao)
+## 
+## Coefficients:
+##   (Intercept)  regiaoSudeste  
+##         281.5         1239.2
+```
+]
+
+
+---
+count:false
+# Variável independente binária
+
+
+
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quando temos uma variável independente binária, coeficientes representam a média de cada categoria
+
+
+.pull-left2[
+- `\(\hat{\beta_0}\)` é `281.5`
+- `\(\hat{\beta_1}\)` é `1239.2`
+]
+
+
+.pull-right2[
+- Quando a variável `\(Regiao_i\)` é igual a `\(1\)`, nossa predição `\(\hat{\beta_0} + \hat{\beta_1} 1\)`; `281.5` `\(+\)` `1239.2` `\(=\)` `1520.7`
+
+- Quando é `\(0\)`, nossa predição `\(\hat{\beta_0} + \hat{\beta_1} 0\)` `\(=\)` `281.5`
+]
+
+
+---
+# Inferência
+
+&lt;img src="imgs/tabela2.png" width="560px" style="display: block; margin: auto;" /&gt;
+
+De Daniele, Aassve, and Le Moglie (2023)
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Modelos multivariados
+
+
+
+---
+# Exemplos
+
+Há vários .texto[PGD] nos quais três variáveis são relacionadas:
+
+
+.pull-left[
+.texto[**Teses, universidades, regiões**]
+
+.font90[Mais universidades resultam em mais defesas de tese, mas no sudeste de saída já temos mais univeridades e mais teses]
+]
+
+.pull-right[
+.texto[**Renda, idade e escolaridade**]
+
+.font90[Mais escolaridade pode ter relação positiva com renda, mas pessoas mais velhas podem ter tanto mais renda derivada de experiência profissional quanto maior escolaridade porque viveram mais]
+]
+
+
+---
+# Teses, universidades e regiões
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+# Renda, idade e escolaridade
+
+Podemos simular um .texto[PGD] em que renda seja relacionado tanto com idade quanto com renda para entender o que acontece:
+
+- `\(N=1000\)`
+- `\(Idade_i \sim Bin(N, 0.3)\)`
+- `\(Educ_i \sim Bin(N, 0.1 + 0.3 \times Idade_i)\)`
+- `\(\epsilon_i \sim Normal(N, 50)\)`
+- `\(Y_i = 800 + 100 * Idade_i + 150 * Educ_i + \epsilon_i\)`
+
+*Vamos para o `R`*.
+
+
+---
+# Relações multivariadas
+
+Quando `\(x_i\)` e `\(z_i\)` têm relação entre si e com `\(Y_i\)`, estimar a relação de `\(x_i\)` e `\(Y_i\)` livre do efeitos de `\(z_i\)` é o desafio
+
+- .texto[Controle estatístico]: usamos modelos de regressão multivariada para poder estimar a relação entre `\(z_i\)` e `\(Y_i\)` mantendo constantes os valores de `\(z_i\)`
+
+- .texto[Viés]: Se nosso PGD é `\(Y_i = β_0 + β_1x_i + β_2z_i + ε_i\)`, mas estimamos `\(Y_i = \gamma_0 + \gamma_1x_i + u_i\)`, `\(u_i\)` absorverá o efeito omitido de `\(z_i\)` como `\(u_i = β_2z_i + ε_i\)`
+
+
+---
+# Inferência
+
+Outros pontos importantes em modelos multivariados:
+
+- .texto[Resíduos] são calculados da mesma maneira, `\(Y_i - (\hat{\beta_0} + \hat{\beta_1}x_i + \hat{\beta_2}z_i)\)`
+
+- .texto[Erro-padrão e estatística T]: continuam sendo calculados para cada variável
+
+- .texto[P-valores]: cada variável independente terá um valor associado
+
+
+
+
+---
+# Modelo: regiões e universidades
+
+
+
+
+```r
+library(broom)
+modelo &lt;- lm(teses ~ universidades + regiao)
+tidy(modelo)
+```
+
+```
+## # A tibble: 3 × 5
+##   term          estimate std.error statistic p.value
+##   &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept)       78.7      65.6      1.20 0.252  
+## 2 universidades     48.8      12.4      3.94 0.00170
+## 3 regiaoSudeste    694.      167.       4.14 0.00116
+```
+
+
+---
+count:false
+# Modelo: regiões e universidades
+
+Estimamos `\(Y_i = \beta_0 + \beta_1 Universidades_i + \beta_2 Região_i + \epsilon_i\)`. Interpretação dos resultados:
+
+- `\(\hat{\beta_0}\)` é `78.7` e indica a média de teses fora do Sudeste quando `\(Universidades_i=0\)`
+- `\(\hat{\beta_2}\)` é `693.6` e indica o adicional de teses defendidas no Sudeste quando `\(Universidades_i=0\)`
+- `\(\hat{\beta_0} + \hat{\beta_2}\)`, portanto, nos dá a média de teses defendidas no Sudeste quando `\(Universidades_i=0\)`
+- `\(\hat{\beta_1}\)` indica o quanto de teses defendidas a mais, em média, uma unidade a mais de `\(Universidades_i\)` prediz
+
+
+---
+count:false
+# Modelo: regiões e universidades
+
+
+
+
+Dois exemplos:
+
+.pull-left[
+.texto[Minas Gerais]
+.font90[
+Com `\(x_i=12\)` e `\(z_i=1\)`:
+- `\(= \hat{\beta_0} + \hat{\beta_1}x_i + \hat{\beta_2}z_i\)`
+- `\(= 78.7 + 48.8 \times 12 + 693.6 \times 1\)`
+- `\(= 1357.9\)`
+]
+]
+
+.pull-right[
+.texto[Pernambuco]
+.font90[
+Com `\(x_i=7\)` e `\(z_i=0\)`:
+- `\(= \hat{\beta_0} + \hat{\beta_1}x_i + \hat{\beta_2}z_i\)`
+- `\(= 78.7 + 48.8 \times 7 + 693.6 \times 0\)`
+- `\(= 420.3\)`
+]
+]
+
+
+---
+count:false
+# Modelo: regiões e universidades
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# Modelo: regiões e universidades
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Residualização
+
+Há outra forma de obter uma estimativa de `\(\beta_1\)` controlando efeitos de `\(z_i\)`: .texto[residualização]:
+
+.pull-left[
+Primeiro, estimamos o efeito de `\(z_i\)` em `\(x_i\)`:
+- `\(x_i = \gamma_0 + \gamma_1 z_i + \epsilon_{X|Z,i}\)`
+Depois, estiamos o efeito de `\(z_i\)` em `\(y_i\)`:
+- `\(Y_i = \lambda_0 + \lambda_1 z_i + \epsilon_{Y|Z,i}\)`
+
+]
+
+.pull-right[
+Com isso, temos `\(\epsilon_{X|Z,i}\)` e `\(\epsilon_{Y|Z,i}\)` que são resíduos de `\(x_i\)` e `\(Y_i\)` livres do efeito de `\(z_i\)`. Podemos regredir uma na outra e obtemos o mesmo resultado:
+
+- `\(\epsilon_{Y|Z,i} = \beta_0 + \beta_1 \epsilon_{X|Z,i} + \epsilon_i\)`
+- `\(\hat{\beta_1}\)` deve retornar uma estimativa controlando por `\(z_i\)`
+]
+
+
+---
+count:false
+# Residualização
+
+
+```r
+library(broom)
+res_x &lt;- lm(universidades ~ regiao)$residuals
+res_y &lt;- lm(teses ~ regiao)$residuals
+resid_mod &lt;- lm(res_y ~ res_x)
+tidy(resid_mod) %&gt;%
+  mutate(estimate = round(estimate, 2))
+```
+
+```
+## # A tibble: 2 × 5
+##   term        estimate std.error statistic p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1 (Intercept)      0        35.4 -1.07e-15 1.00   
+## 2 res_x           48.8      11.9  4.09e+ 0 0.00111
+```
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Bônus
+
+
+---
+# Automatizando processos
+
+Há um pacote para o ambiente `R` chamado `performance` que implementa uma série de visualizações que nos ajudam a entender e validar um modelo de regressão linear. Um teste:
+
+
+```r
+library(performance)
+modelo &lt;- lm(teses ~ universidades)
+check_model(modelo)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>`"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

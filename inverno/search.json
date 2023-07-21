@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introdução ao R",
+    "section": "",
+    "text": "Este website contém as notas e exercícios do curso de Introdução ao R da Escola de Inverno do IESP-UERJ. O material é estruturado na sequência de cada uma de nossas aulas, indicadas no menu superior, e cobrem desde noções básicas até soluções para gerir projetos de pesquisa replicáveis. O material disponível aqui foi feito para ser consumido, idealmente, de forma auto-orientada: leia explicações; reproduza e altere os exemplos, especialmente os mais complexos; realize os exercícios e atividades.\nO curso tem como público-alvo cientistas sociais sem conhecimentos prévios sobre R, embora também seja útil para pessoas de outras áreas.\nA ementa do curso está disponível neste link."
+  },
+  {
+    "objectID": "index.html#plano-das-aulas",
+    "href": "index.html#plano-das-aulas",
+    "title": "Introdução ao R",
+    "section": "Plano das aulas",
+    "text": "Plano das aulas\n\n\n\nAula\nTópico\n\n\n\n\n1\nBásico\n\n\n2\nManipulação I\n\n\n3\nManipulação II\n\n\n4\nGráficos e documentos"
+  },
+  {
+    "objectID": "recursos.html",
+    "href": "recursos.html",
+    "title": "Recursos",
+    "section": "",
+    "text": "Consultar fontes complementares é uma boa maneira de aprofundar o conteúdo que veremos. Nesse sentido, esses três livros podem funcionar como complementos:\n\nR for Data Science (o livro essencial sobre tidyverse e R, no geral);\nHands-On Programming with R (o meu favorito);\nUsando R: Um Guia para Cientistas Políticos (autopromoção).\n\nTodos têm versões online gratuitas."
+  },
+  {
+    "objectID": "recursos.html#outros-recursos",
+    "href": "recursos.html#outros-recursos",
+    "title": "Recursos",
+    "section": "Outros recursos",
+    "text": "Outros recursos\nA comunidade por detrás do R é imensa e, por isso mesmo, existem várias outras formas de encontrar exemplos, tutoriais e materiais de aprendizado. Abaixo, segue uma lista livre de algumas coisas que acho interessantes. Sem ordem necessária:\n\nRBloggers: Um agregador de blogs sobre R no mundo todo;\nRWeekly: Uma espécie de jornal mensal com links relevantes no mundo do R na semana (a curadoria é feita pela própria comunidade);\nR-podcast: Para quem ouve podcasts e realmente está aficcionado pelo R;\nDataCamp: Escola online com cursos sobre R;\nRStudio cheatsheets: Coleção de PDFs que resumem, em uma ou duas páginas, tudo o que é preciso saber sobre determinada ferramenta ou pacote;\nRview: Blog do RStudio que mensalmente compila um post chamado “Top 40”, com os 40 melhores pacotes lançados no mês anterior."
+  },
+  {
+    "objectID": "aulas/aula1.html",
+    "href": "aulas/aula1.html",
+    "title": "Aula 1",
+    "section": "",
+    "text": "É bem provável que você já tenha alguma ideia sobre o que o R é e o que ele faz. Também assumo que você já tem o R e o RStudio instalados. Se isso não for o caso, clique nos links anteriores e faça isso – ou peça ajuda em sala de aula.\nAntes de prosseguir, vamos preparar o terreno: o R é um ambiente de programação, o que significa que não abriremos um banco de dados utilizando um menu de tarefas, nem calcularemos estatísticas clicando em um botão. Precisaremos programar, isto é, escrever código de uma forma ordenada, em um arquivo de texto ou terminal, que será executado sequencialmente. Aprender a programar, especialmente no início, pode ser um pouco desafiador, mas acho que não preciso reforçar o quanto todo esse esforço valerá à pena.\n\n\nEsta e as demais notas do curso devem ser usadas da seguinte forma:\n\nLeia o texto;\nTudo o que estiver em uma caixa cinza, com texto destacado por diferentes cores, é código e pode ser executado (copie e cole no R);\nTudo o que estiver em branco, antecedido por [1] ou algo assim, e sem destaque no texto, é output do R;\nAlguns códigos dependem de códigos anteriores; caso encontre algum erro ao rodar um exemplo, tente voltar atrás e rodar o código anterior."
+  },
+  {
+    "objectID": "aulas/aula1.html#operadores",
+    "href": "aulas/aula1.html#operadores",
+    "title": "Aula 1",
+    "section": "Operadores",
+    "text": "Operadores\nNote que estamos usando operadores aritméticos: \\(+\\), \\(-\\), \\(*\\), etc. No R, existem outros (tente adaptar os exemplos):\n\n3^2\n\n[1] 9\n\n11 / 5\n\n[1] 2.2\n\n11 %/% 5\n\n[1] 2\n\n11 %% 5\n\n[1] 1\n\n\nPara quem teve dificuldades em entender algum dos operadores, são eles (perceba como estou usando os comentários para explicar meu código, e perceba também que não estou usando acentos ou cedilhas):\n\n2 + 2 # adicao\n\n[1] 4\n\n2 - 2 # subtracao\n\n[1] 0\n\n2 / 2 # divisao\n\n[1] 1\n\n2 * 2 # multiplicacao\n\n[1] 4\n\n2^2 # exponenciacao\n\n[1] 4\n\n3 %/% 2 # divisao sem resto\n\n[1] 1\n\n3 %% 2 # resto da divisao\n\n[1] 1\n\n\nTodos esses operadores são úteis – mas certamente não é por causa deles que o R é tão utilizado."
+  },
+  {
+    "objectID": "aulas/aula1.html#usando-funções",
+    "href": "aulas/aula1.html#usando-funções",
+    "title": "Aula 1",
+    "section": "Usando funções",
+    "text": "Usando funções\nNo R, as informações que passamos para determinada função vão dentro de parêntesis. sum, por exemplo, pode receber mais de uma, todas separadas por vírgula.\n\nsum(2 2) # retorna erro\n\nError: <text>:1:7: unexpected numeric constant\n1: sum(2 2\n          ^\n\n\n\nsum(2, 2) # nao retorna erro\n\n[1] 4\n\n\nCada função normalmente aceita tipos específicos de informação. sum, por exemplo, não recebe texto (afinal, não é possível fazer operações aritméticas com texto).\n\nsum(\"texto\") # nao funciona\n\nError in sum(\"texto\"): 'type' inválido (character) do argumento\n\n\nVeja também que a mensagem de erro é bem informativa: \"texto\" é um invalid ‘type’ of argument."
+  },
+  {
+    "objectID": "aulas/aula1.html#ajuda",
+    "href": "aulas/aula1.html#ajuda",
+    "title": "Aula 1",
+    "section": "Ajuda",
+    "text": "Ajuda\nPara saber quais informações – argumentos ou inputs, como passaremos a chamá-las – cada função recebe, basta usar a função help.\n\nhelp(sum)\n\nIsso abrirá uma página de ajuda (em inglês) que, entre outras coisas, explica quais argumentos uma função deve receber e o que ela faz. Não posso deixar de mencionar: buscar no Google às vezes é muito mais simples e rápido (tente procurar por “como calcular logaritmo no R”, por exemplo)."
+  },
+  {
+    "objectID": "aulas/aula1.html#vetores",
+    "href": "aulas/aula1.html#vetores",
+    "title": "Aula 1",
+    "section": "Vetores",
+    "text": "Vetores\nVimos que podemos salvar números e texto em objetos no R. O que não vimos é que existe uma estrutura em comum por detrás desses exemplos de objetos: os vetores.\nVetores nada mais são do que conjuntos de elementos do mesmo tipo, que são armazenados na memória como tal pelo R. Uma variável em um banco de dados, por exemplo, pode servir para armazenar a idade de várias pessoas, ou seus nomes. Para o R, mesmo um único dígito, como o número 2, é um vetor – um vetor com apenas um elemento, obviamente.\nCriamos vetores com a função c (acrônimo de concatenate ou combine):\n\nc(1, 2, 3) # Cria um vetor com tres elementos\n\n[1] 1 2 3\n\n\nPodemos fazer o mesmo com texto.\n\nc(\"Cachorro\", \"Gato\", \"Peixe\", \"Rinoceronte\") # um vetor com texto\n\n[1] \"Cachorro\"    \"Gato\"        \"Peixe\"       \"Rinoceronte\"\n\n\nPara sequências numéricas, também é possível usar o operador : da seguinte forma:\n\n1:10 # produz um vetor numerico com 10 elementos\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\n10:5\n\n[1] 10  9  8  7  6  5\n\n\nOu, ainda, também podemos usar a função seq:\n\nseq(1, 10) # uma sequencia de 1 a 10\n\n [1]  1  2  3  4  5  6  7  8  9 10\n\nseq(10, 5) # uma sequencia de 10 a 5\n\n[1] 10  9  8  7  6  5\n\n\nUma das maiores utilidades de trabalhar com vetores (além de combiná-los em bancos de dados) é poder usar vetorização. Melhor do que explicar, veja um exemplo de operação vetorizada:\n\nc(2, 2, 2, 2) * 10 # todos os numeros do vetor sao multiplicados por 10\n\n[1] 20 20 20 20"
+  },
+  {
+    "objectID": "aulas/aula1.html#funções-e-vetores",
+    "href": "aulas/aula1.html#funções-e-vetores",
+    "title": "Aula 1",
+    "section": "Funções e vetores",
+    "text": "Funções e vetores\nMais interessante que criar vetores, entretanto, é usá-los. Como exemplo, vou criar um vetor com 5 elementos e calcular sua média com mean:\n\nmeu_vetor <- c(1.01, 0.56, 0.53, 0.63, -2.17)\nmean(meu_vetor)\n\n[1] 0.112\n\n\nOu seu desvio-padrão e mediana:\n\nsd(meu_vetor) # desvio-padrao\n\n[1] 1.290124\n\nmedian(meu_vetor) # mediana\n\n[1] 0.56\n\n\nSe tivermos mais um vetor numérico com o mesmo número de elementos (use length() para saber o número de elementos de um vetor), podemos inclusive regredir um em outro.\n\n# Criamos um novo vetor\ny <- c(-1.17, 0.61, -0.01, -0.12, -2.21)\n\n# E usamos a funcao lm, que estima uma regressao linar\n# (nao se preocupe com os detalhes de como usa-la agora)\nlm(y ~ meu_vetor) \n\n\nCall:\nlm(formula = y ~ meu_vetor)\n\nCoefficients:\n(Intercept)    meu_vetor  \n    -0.6506       0.6308"
+  },
+  {
+    "objectID": "aulas/aula1.html#instalando-pacotes",
+    "href": "aulas/aula1.html#instalando-pacotes",
+    "title": "Aula 1",
+    "section": "Instalando pacotes",
+    "text": "Instalando pacotes\nO R é continuamente reformulado por uma comunidade imensa de desenvolvedores que disponibilizam código para que outras pessoas as usem por meio de pacotes, ou libraries. O tidyverse é um desses pacotes e, por isso, não está disponível por padrão no R. Para instalá-lo, usamos a seguinte função2:2 Existem pacotes não oficiais (i.e., que não estão hospedados pelo CRAN), que não são instalados dessa forma. Por enquanto, não vamos nos deter nisso.\n\ninstall.packages(\"tidyverse\")\n\nTudo o que precisamos passar para essa função install.packages é o nome do pacote que queremos instalar entre aspas (um texto). Após algum tempo, o R deve baixar os arquivos necessários e, pronto, o pacote é instalado. Feito isso, não precisamos mais rodar esse código (o pacote está no computador).\nDepois, usamos a função library para carregar o nosso pacote, isto é, para deixar suas funções acessíveis a nossa sessão do R3:3 Basicamente, isso envolve carregar uma coisa chamada namespace do pacote que estamos carregando, algo que não cobriremos nesse curso. Para saber mais: http://r-pkgs.had.co.nz/namespace.html\n\nlibrary(tidyverse)\n\n── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──\n✔ ggplot2 3.4.2     ✔ purrr   1.0.1\n✔ tibble  3.1.8     ✔ dplyr   1.1.0\n✔ tidyr   1.3.0     ✔ stringr 1.5.0\n✔ readr   2.1.4     ✔ forcats 1.0.0\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n\n\nEsse código produzirá algumas mensagens, algo normal. O que realmente importa: sempre que quisermos usar funções de algum pacote que instalamos (e que não é parte do R-base), precisamos carregá-lo; uma vez carregado, podemos usar suas funções normalmente."
+  },
+  {
+    "objectID": "aulas/aula1.html#data.frames",
+    "href": "aulas/aula1.html#data.frames",
+    "title": "Aula 1",
+    "section": "data.frames",
+    "text": "data.frames\nNo R, bancos de dados, ou planilhas, formam um tipo específico de objetos. Já vimos números, texto, e agora veremos esse outro tipo: o data.frame.\nO pacote tidyverse contém um data.frame bem simples que serve como exemplo. Execute:\n\nband_members\n\n# A tibble: 3 × 2\n  name  band   \n  <chr> <chr>  \n1 Mick  Stones \n2 John  Beatles\n3 Paul  Beatles\n\n\nIsso retornará algo muito próximo ao que vocês estão acostumados: temos colunas (i.e., variáveis) e linhas (i.e., observações). No nosso caso, temos uma coluna chamada name, que contém os nomes de alguns músicos (Mick, John, Paul); e, a outra, os nomes de suas respectivas bandas (Stones, Beatles, Beatles). Enfim, temos uma planilha igual as que você já deve estar cansada(o) de ver por aí.\nTalvez isso ajude a mostrar que realmente estamos falando de uma planilha:\n\nView(band_members)\n\nA função View, como deve ter ficado claro, abre uma janela (no RStudio, acima da aba console) que nos permite visualizar os dados como se estivéssemos usando Excel ou no SPSS. Normalmente isso é útil para entendermos um data.frame, quais são suas variáveis, quais são suas entradas mais comuns.\nPodemos, também, salvar esse data.frame em um objeto para podermos trabalhar com ele.\n\nmeu_df <- band_members\n\nÉ possível ver que, agora, o RStudio mostra esse objeto na aba Environment, mostrando algumas informações úteis sobre ele.\nHá algumas funções que geralmente usamos para inspecionar data.frames como esses, especialmente quando são grandes (o que pode tornar View(meu_df) lento e ineficiente). O tidyverse contém uma delas, chamada glimpse, que exibe várias informações de uma vez:\n\nglimpse(meu_df)\n\nRows: 3\nColumns: 2\n$ name <chr> \"Mick\", \"John\", \"Paul\"\n$ band <chr> \"Stones\", \"Beatles\", \"Beatles\""
+  }
+]

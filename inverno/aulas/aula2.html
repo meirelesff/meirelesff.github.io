@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introdução ao R - Aula 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+<meta name="twitter:title" content="Introdução ao R - Aula 2">
+<meta name="twitter:description" content="Manipulação de dados">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Introdução ao R</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../recursos.html" rel="" target="">
+ <span class="menu-text">Recursos</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-aulas" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Aulas</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-aulas">    
+        <li>
+    <a class="dropdown-item" href="../aulas/aula1.html" rel="" target="">
+ <span class="dropdown-text">Aula 1</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-exercícios" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Exercícios</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-exercícios">    
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios1.html" rel="" target="">
+ <span class="dropdown-text">Exercícios I</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="http://www.github.com/meirelesff" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a></li>
+  <li><a href="#carregando-dados" id="toc-carregando-dados" class="nav-link" data-scroll-target="#carregando-dados">Carregando dados</a>
+  <ul class="collapse">
+  <li><a href="#funções-de-carregamento" id="toc-funções-de-carregamento" class="nav-link" data-scroll-target="#funções-de-carregamento">Funções de carregamento</a></li>
+  <li><a href="#texto-delimitado" id="toc-texto-delimitado" class="nav-link" data-scroll-target="#texto-delimitado">Texto delimitado</a></li>
+  <li><a href="#stata-e-spss" id="toc-stata-e-spss" class="nav-link" data-scroll-target="#stata-e-spss">Stata e SPSS</a></li>
+  <li><a href="#excel" id="toc-excel" class="nav-link" data-scroll-target="#excel">Excel</a></li>
+  <li><a href="#rdata" id="toc-rdata" class="nav-link" data-scroll-target="#rdata">Rdata</a></li>
+  <li><a href="#outros-formatos" id="toc-outros-formatos" class="nav-link" data-scroll-target="#outros-formatos">Outros formatos</a></li>
+  </ul></li>
+  <li><a href="#exportação" id="toc-exportação" class="nav-link" data-scroll-target="#exportação">Exportação</a></li>
+  <li><a href="#manipulação" id="toc-manipulação" class="nav-link" data-scroll-target="#manipulação">Manipulação</a>
+  <ul class="collapse">
+  <li><a href="#fatiar" id="toc-fatiar" class="nav-link" data-scroll-target="#fatiar">Fatiar</a></li>
+  <li><a href="#classes-e-vetores" id="toc-classes-e-vetores" class="nav-link" data-scroll-target="#classes-e-vetores">Classes e vetores</a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter">Filter</a></li>
+  <li><a href="#selecionar" id="toc-selecionar" class="nav-link" data-scroll-target="#selecionar">Selecionar</a></li>
+  <li><a href="#transformar" id="toc-transformar" class="nav-link" data-scroll-target="#transformar">Transformar</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Aula 2</h1>
+<p class="subtitle lead">Manipulação de dados</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
+<p>Na última aula, começamos a manipular alguns <code>data.frames</code> simples. Nesta, não só avançaremos nessa tarefa como também aprenderemos a carregar dados de inúmeros formatos. Além disso, usaremos <a href="https://bookdown.org/yihui/rmarkdown/notebook.html">notebooks</a> para combinar códigos e texto.</p>
+</section>
+<section id="carregando-dados" class="level2">
+<h2 class="anchored" data-anchor-id="carregando-dados">Carregando dados</h2>
+<p>Uma das grandes vantagens de se usar uma linguagem de programação como o <code>R</code> é que, com ela, é possível carregar qualquer (sim, qualquer) tipo de dado: planilhas do Excel, bases em <a href="https://pt.wikipedia.org/wiki/SQL">SQL</a>, texto de <em>websites</em>, <a href="https://pt.wikipedia.org/wiki/JSON">JSON</a>, <a href="https://pt.wikipedia.org/wiki/XML">XML</a>, tabelas em um arquivo PDF, e muito mais.</p>
+<p>Em alguns casos, carregar dados demanda mais tempo e trabalho, mas, para a imensa maioria dos outros, tudo se resume a uma ou duas linhas de código.</p>
+<p>Precisaremos instalar três pacotes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>) <span class="co"># Para abrir e exportar planilhas de Excel</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>) <span class="co"># Para abrir e exportar SPSS e stata</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rio"</span>) <span class="co"># Para abrir e exportar outros formatos</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Também vamos carregar o <code>tidyverse</code>. Usaremos ele bastante hoje.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="funções-de-carregamento" class="level3">
+<h3 class="anchored" data-anchor-id="funções-de-carregamento">Funções de carregamento</h3>
+<p>Para carregar arquivos com dados, como planilhas e similares, normalmente o procedimento é simples: utilizamos alguma função apropriada, passamos para ela o caminho do arquivo (e.g., algo como “C:/pasta/arquivo.xlsx”) e, quando necessário, alguns argumentos adicionais, que especificam como o arquivo deve ser lido (e.g., se o nome das variáveis está na primeira linha da tabela ou não, se é necessário pular algumas linhas, etc.).</p>
+<p>A etapa essencial para carregar dados é identificar a função que deve ser usada para cada formato de arquivo. A tabela abaixo, retirada do <a href="http://electionsbr.com/livro/importacao.html">Capítulo 3 do Usando R</a>, relaciona alguns desses formatos com as funções que usaremos para carregá-los.</p>
+<table class="table-hover table-sm small table">
+<caption>Funções mais comuns para leitura de arquivos no <code>R</code></caption>
+<colgroup>
+<col style="width: 26%">
+<col style="width: 24%">
+<col style="width: 22%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Arquivo</th>
+<th>Extensão</th>
+<th>Pacote</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Texto delimitado</td>
+<td><code>.txt</code></td>
+<td><code>readr</code></td>
+<td><code>read_delim</code></td>
+</tr>
+<tr class="even">
+<td>Texto delimitado</td>
+<td><code>.csv</code></td>
+<td><code>readr</code></td>
+<td><code>read_delim</code>, <code>read_csv</code></td>
+</tr>
+<tr class="odd">
+<td>Planilha do Excel</td>
+<td><code>xls</code>, <code>xlsx</code>, <code>.ods</code></td>
+<td><code>readxl</code>, <code>readODS</code></td>
+<td><code>read_excel</code>, <code>read.ods</code></td>
+</tr>
+<tr class="even">
+<td>Banco de dados do SPSS</td>
+<td><code>.sav</code>, <code>.por</code></td>
+<td><code>haven</code></td>
+<td><code>read_sav</code>, <code>read_por</code></td>
+</tr>
+<tr class="odd">
+<td>Banco de dados do Stata</td>
+<td><code>.dta</code></td>
+<td><code>haven</code></td>
+<td><code>read_dta</code></td>
+</tr>
+<tr class="even">
+<td>Banco de dados do SAS</td>
+<td><code>.sas7bdat</code></td>
+<td><code>haven</code></td>
+<td><code>read_sas</code></td>
+</tr>
+<tr class="odd">
+<td>JSON</td>
+<td><code>.json</code></td>
+<td><code>rio</code></td>
+<td><code>import</code></td>
+</tr>
+<tr class="even">
+<td>R Data</td>
+<td><code>.Rda</code></td>
+<td>-</td>
+<td><code>load</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="texto-delimitado" class="level3">
+<h3 class="anchored" data-anchor-id="texto-delimitado">Texto delimitado</h3>
+<p>Como dá para ver na pasta desta aula, temos vários arquivos denominados <code>municipios_mg.XXX</code>, cada um deles com uma extensão distinta. Estes contêm informações sobre as despesas orçamentarias de 808 municipios mineiros em 2012, retirados do <a href="http://www.tesouro.fazenda.gov.br/contas-anuais">website do Tesouro Nacional</a> (Finbra). Especificamente, temos:</p>
+<ul>
+<li>Uma versão do arquivo em <code>.csv</code>;</li>
+<li>Uma versão do arquivo em <code>.txt</code>;</li>
+<li>Uma versão do arquivo em <code>.xlsx</code> (Excel);</li>
+<li>Uma versão do arquivo em <code>.dta</code> (Stata);</li>
+<li>Uma versão do arquivo em <code>.sav</code> (SPSS);</li>
+<li>E uma versão do arquivo em <code>.Rda</code> (formato nativo do R).</li>
+</ul>
+<p>Vamos aprender a carregar cada um deles, usando, para isso, alguns dos pacotes que instalamos. Por ser o formato mais simples (basicamente texto separado por vírgula ou outro caractere), vamos pelos delimitado por caracteres. Exemplos (consulte o <code>help</code> de cada função e tente alterar os argumentos de cada uma delas):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .csv e' um tipo de arquivo delimitado por texto; usamos read_csv ou read_delim para abrilo</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (mas, se usamos read_delim, precisamos especificar o argumento 'delim')</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>banco1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"municipios_mg.csv"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>banco2 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"municipios_mg.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Além do <code>.csv</code>, existem outros formatos que armazenam texto delimitado. <code>.txt</code> é o mais comum dele:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Le um arquivo .txt separado por TAB (tres espacos):</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>banco3 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"municipios_mg.txt"</span>, <span class="at">delim =</span> <span class="st">"   "</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Se o arquivo for separado por outro caractere (;, ex.), declaramos 'sep =':</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>banco4 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"municipios_mg2.txt"</span>, <span class="at">delim =</span> <span class="st">";"</span>) <span class="co"># Sem delim, o arquivo nao abre</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Cuidado
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Arquivos delimitados por texto podem ter diferentes extensões, isto é, apenas abrindo o arquivo com editor de texto (como o bloco de notas) para conseguir identificar com certeza como ele é delimitado.</p>
+</div>
+</div>
+<p>Antes de prosseguir, lembre-se de alguns dos argumentos mais importantes dessas duas funções:</p>
+<ul>
+<li><code>delim</code>: especifica o caractere delimitador (só na função <code>read_delim</code>);</li>
+<li><code>locale</code>: serve para especificar o <em>encoding</em>, evitando caracteres ilegíveis (e.g., <code>locale = locale(encoding = "latin1")</code>);</li>
+<li><code>skip</code>: especifica quantas linhas pular antes de começar a ler os dados.</li>
+</ul>
+</section>
+<section id="stata-e-spss" class="level3">
+<h3 class="anchored" data-anchor-id="stata-e-spss">Stata e SPSS</h3>
+<p>É bem provável que você já tenha trabalhado, ou conhecido alguém que trabalha, com SPSS ou Stata para fazer análises quantitativas. Há pouco tempo, esses ainda eram os formatos mais comuns para se salvar dados em inúmeras áreas de pesquisa (em algumas, como na Economia, Stata ainda é muito usado). Inevitavelmente, teremos que abrir esse tipo de arquivo vez ou outra.</p>
+<p>Diferentemente dos arquivos delimitados por texto, precisamos apenas usar a função correta para ler esses arquivos <code>.sav</code> e <code>.dta</code>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Essas duas, que estão no pacote <code>haven</code>, são: <code>read_spss</code> e <code>read_dta</code>.</p>
+<p>Carregamos o <code>haven</code> (que é parte do <code>tidyverse</code>, embora não seja carregado por ele quando executamos <code>library(tidyverse)</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>E carregamos os arquivos passando apenas seus endereços para as funções:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Para carregarmos um arquivo do SPSS</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>banco6 <span class="ot">&lt;-</span> <span class="fu">read_spss</span>(<span class="st">"municipios_mg.sav"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Para carregarmos um arquivo do Stata</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>banco7 <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"municipios_mg.dta"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="excel" class="level3">
+<h3 class="anchored" data-anchor-id="excel">Excel</h3>
+<p>vamos agora carregar um tipo de arquivo bastante comum: <code>.xlsx</code> ou <code>.xls</code>, do Excel. Para tanto, precisamos carregar o pacote <code>readxl</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>O resto é direto:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>banco8 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"municipios_mg.xlsx"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Por padrão, essa função carrega apenas a primeira planilha do arquivo. Caso ele contenha mais de uma, basta especificar ela por meio do argumento <code>sheet</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>banco9 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"municipios_mg.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">1</span>) <span class="co"># caso fosse a segunda, alterariamos para 2</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="rdata" class="level3">
+<h3 class="anchored" data-anchor-id="rdata">Rdata</h3>
+<p>No <code>R</code>, a forma mais eficiente de se armazenar e carregar dados é por meio das funções <code>save</code> e <code>load</code>. Isso cria um arquivo no formato <code>.Rda</code> (Rdata), que economiza espaço e é muito mais rápido para ser lido ou gerado.</p>
+<p>Ao longo dessa nota, criamos muitos objetos (é possível vê-los na aba <em>Environment</em> do RStudio). Para evitar confusões, vamos apagá-los da memória:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co"># apaga tudo na memoria</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Agora, vamos aprender a criar um <code>data.frame</code> para fazer um teste. Para isso, usaremos a função <code>data.frame</code> (é isso mesmo) da seguinte forma:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>teste <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">nome =</span> <span class="fu">c</span>(<span class="st">"Ana"</span>, <span class="st">"João"</span>, <span class="st">"Maria"</span>), <span class="at">idade =</span> <span class="fu">c</span>(<span class="dv">42</span>, <span class="dv">32</span>, <span class="dv">28</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>É fácil entender como essa função funciona apenas pelo código. Para deixar claro, <code>data.frame</code> pode receber diversos argumentos, e cada um dele é o nome que queremos dar para nossas variáveis (.e.g, <code>nome</code>). Assim, criamos uma variável chamada <code>nome</code> cujo conteúdo é um vetor com três nomes em texto; e, a outra, uma numérica chamada <code>idade</code>. O único detalhe é que todas precisam ter o mesmo número de elementos.</p>
+<p>Podemos inspecionar nosso <code>data.frame</code> com <code>glimpse</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(teste)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 3
+Columns: 2
+$ nome  &lt;chr&gt; "Ana", "João", "Maria"
+$ idade &lt;dbl&gt; 42, 32, 28</code></pre>
+</div>
+</div>
+<p>Para salvá-lo no formato <code>.Rda</code>, apenas usamos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(teste, <span class="at">file =</span> <span class="st">"teste.Rda"</span>) <span class="co"># "teste.Rda" sera' o nome do arquivo</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Vamos testar para ver se funcionou?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(teste) <span class="co"># apaga banco da memoria</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"teste.Rda"</span>) <span class="co"># carrega banco novamente na memoria</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Esse é formato que usaremos, e que normalmente é usado em materiais de replicação, para salvar dados.</p>
+</section>
+<section id="outros-formatos" class="level3">
+<h3 class="anchored" data-anchor-id="outros-formatos">Outros formatos</h3>
+<p>Existem inúmeros outros formatos para armazenar arquivos, mas nós não cobriremos todos eles. Os que vimos são os principais e, por isso mesmo, são suficientes para abarcar a imensa maioria dos problemas reais de leitura de dados (para quem deseja se aprofundar no <code>R</code>, certamente será necessário aprender sobre como ingerir outros tipos de dados).</p>
+<p>De qualquer forma, existe uma maneira de carregar diversos formatos – mesmo alguns que você não conhece – no <code>R</code>: por meio do pacote <code>rio</code>, que funciona como uma espécie de canivete suíço para a importação e exportação de dados. Basta usar sua função <code>import</code> para carregar um arquivo qualquer:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"municipios_mg.xlsx"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para facilitar a consulta, segue uma lista com todos os tipos de arquivo atualmente suportados pelo pacote <code>rio</code>:</p>
+<table class="table-striped table-hover table-sm small table">
+<caption>Arquivos que podem ser carregados com o pacote <code>rio</code></caption>
+<thead>
+<tr class="header">
+<th>Formato</th>
+<th>Extensão do arquivo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dados separados por vírgula</td>
+<td><code>.csv</code></td>
+</tr>
+<tr class="even">
+<td>Dados separados por pipe</td>
+<td><code>.psv</code></td>
+</tr>
+<tr class="odd">
+<td>Dados separados por tabulação</td>
+<td><code>.tsv</code></td>
+</tr>
+<tr class="even">
+<td>CSVY (CSV + cabeçalho de metadados YAML)</td>
+<td><code>.csvy</code></td>
+</tr>
+<tr class="odd">
+<td>SAS</td>
+<td><code>.sas7bdat</code></td>
+</tr>
+<tr class="even">
+<td>SPSS</td>
+<td><code>.sav</code></td>
+</tr>
+<tr class="odd">
+<td>SPSS (comprimido)</td>
+<td><code>.zsav</code></td>
+</tr>
+<tr class="even">
+<td>Stata</td>
+<td><code>.dta</code></td>
+</tr>
+<tr class="odd">
+<td>SAS XPORT</td>
+<td><code>.xpt</code></td>
+</tr>
+<tr class="even">
+<td>SPSS Portable</td>
+<td><code>.por</code></td>
+</tr>
+<tr class="odd">
+<td>Excel</td>
+<td><code>.xls</code></td>
+</tr>
+<tr class="even">
+<td>Excel</td>
+<td><code>.xlsx</code></td>
+</tr>
+<tr class="odd">
+<td>Sintaxe R</td>
+<td><code>.R</code></td>
+</tr>
+<tr class="even">
+<td>Objetos R salvos</td>
+<td><code>.RData, .rda</code></td>
+</tr>
+<tr class="odd">
+<td>Objetos R serializados</td>
+<td><code>.rds</code></td>
+</tr>
+<tr class="even">
+<td>Epiinfo</td>
+<td><code>.rec</code></td>
+</tr>
+<tr class="odd">
+<td>Minitab</td>
+<td><code>.mtp</code></td>
+</tr>
+<tr class="even">
+<td>Systat</td>
+<td><code>.syd</code></td>
+</tr>
+<tr class="odd">
+<td>Arquivos de banco de dados “XBASE”</td>
+<td><code>.dbf</code></td>
+</tr>
+<tr class="even">
+<td>Formato de arquivo de relação de atributos Weka</td>
+<td><code>.arff</code></td>
+</tr>
+<tr class="odd">
+<td>Formato de intercâmbio de dados</td>
+<td><code>.dif</code></td>
+</tr>
+<tr class="even">
+<td>Dados Fortran</td>
+<td>sem extensão reconhecida</td>
+</tr>
+<tr class="odd">
+<td>Dados de formato de largura fixa</td>
+<td><code>.fwf</code></td>
+</tr>
+<tr class="even">
+<td>Dados separados por vírgula gzip</td>
+<td><code>.csv.gz</code></td>
+</tr>
+<tr class="odd">
+<td>Apache Arrow (Parquet)</td>
+<td><code>.parquet</code></td>
+</tr>
+<tr class="even">
+<td>EViews</td>
+<td><code>.wf1</code></td>
+</tr>
+<tr class="odd">
+<td>Formato de intercâmbio R/Python Feather</td>
+<td><code>.feather</code></td>
+</tr>
+<tr class="even">
+<td>Armazenamento rápido</td>
+<td><code>.fst</code></td>
+</tr>
+<tr class="odd">
+<td>JSON</td>
+<td><code>.json</code></td>
+</tr>
+<tr class="even">
+<td>Matlab</td>
+<td><code>.mat</code></td>
+</tr>
+<tr class="odd">
+<td>Planilha OpenDocument</td>
+<td><code>.ods</code></td>
+</tr>
+<tr class="even">
+<td>Tabelas HTML</td>
+<td><code>.html</code></td>
+</tr>
+<tr class="odd">
+<td>Documentos XML superficiais</td>
+<td><code>.xml</code></td>
+</tr>
+<tr class="even">
+<td>YAML</td>
+<td><code>.yml</code></td>
+</tr>
+<tr class="odd">
+<td>Área de transferência</td>
+<td><code>tsv</code></td>
+</tr>
+<tr class="even">
+<td><a href="https://www.google.com/sheets/about/">Google Sheets</a></td>
+<td>como dados separados por vírgula</td>
+</tr>
+<tr class="odd">
+<td>Graphpad Prism</td>
+<td><code>.pzfx</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Aviso
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Alguns formatos suportados pelo <code>rio</code> requerem que algum outro pacote seja instalado (mas o <code>rio</code> avisa quando isso acontece).</p>
+</div>
+</div>
+</section>
+</section>
+<section id="exportação" class="level2">
+<h2 class="anchored" data-anchor-id="exportação">Exportação</h2>
+<p>A maioria das funções que usamos para ler arquivos têm suas equivalentes de exportação. <code>write_delim</code> cria arquivos de texto delimitados, enquanto que <code>write_dta</code> exporta um <code>data.frame</code> para o formato proprietário do Stata. De forma geral, essas e outras funções funcionam da seguinte maneira: primeiro, passe a elas o nome do objeto com o <code>data.frame</code> (e.g., <code>banco</code>); e, depois, passe o nome, ou o endereço e nome, do arquivo a ser gerado (e.g., <code>meu_banco.dta</code>).</p>
+<p>Já vimos como exportar dados para o formato do R. Para os demais, use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_delim</span>(banco, <span class="st">"meu_banco.txt"</span>, <span class="at">delim =</span> <span class="st">";"</span>) <span class="co"># cria um .txt separado por ;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_delim</span>(banco, <span class="st">"meu_banco.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>) <span class="co"># cria um .csv separado por ;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write_spss</span>(banco, <span class="st">"meu_banco.sav"</span>,) <span class="co"># cria um .sav</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_dta</span>(banco, <span class="st">"meu_banco.sav"</span>,) <span class="co"># cria um .dta</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Também podemos usar a função <code>export</code> do <code>rio</code>. Com ela, basta passar o nome do arquivo e de sua extensão que o <code>rio</code> cuida de exportar os dados no formato correto:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(banco, <span class="st">"meu_banco.xlsx"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(banco, <span class="st">"meu_banco.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Aviso
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No <code>R</code>, endereços de arquivos são compostos por <code>/</code>, e não por <code>\</code>.</p>
+</div>
+</div>
+</section>
+<section id="manipulação" class="level2">
+<h2 class="anchored" data-anchor-id="manipulação">Manipulação</h2>
+<p>Na aula passada, começamos a manipular alguns <code>data.frames</code>. Usamos <code>select</code> para selecionar variáveis e <code>slice</code> para observações. Agora, vamos desenvolver um pouco mais essa habilidade.</p>
+<p>Em particular, nessa e na próxima aula veremos quatro tipos de operação, ou verbos, que irão expandir nossa caixa de ferramentas:</p>
+<ul>
+<li><ol type="1">
+<li>Fatiar (<code>filter</code> e <code>slice</code>, operações horizontais);</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Selecionar (<code>select</code>, operações verticais);</li>
+</ol></li>
+<li><ol start="3" type="1">
+<li>Modificar (<code>mutate</code> e <code>summarise</code>, para criar e modificar variáveis e observações);</li>
+</ol></li>
+<li><ol start="4" type="1">
+<li>Agrupar (<code>group_by</code> e <code>ungroup</code>, para trabalhar com agrupamentos de dados).</li>
+</ol></li>
+</ul>
+<p>Tendo este conteúdo dominado, saberemos como realizar uns 90% de todas as tarefas mais comuns em uma análise de dados.</p>
+<section id="fatiar" class="level3">
+<h3 class="anchored" data-anchor-id="fatiar">Fatiar</h3>
+<p>Já vimos uma das funções de fatiar, <code>slice</code>. O que não vimos, talvez, foi como usá-la em bancos maiores. Vamos carregar o <code>data.frame</code> de municípios mineiros novamente para fazer isso.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"municipios_mg.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Usando um pouco do que vimos sobre vetores, podemos filtrar as 5 primeiras observações assim:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice</span>(banco, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) <span class="co"># 5 primeiras observacoes</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 10
+   ...1 uf    municipio           populacao total_despesas despesas_legislativas
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;          &lt;dbl&gt;                 &lt;dbl&gt;
+1     1 MG    Abadia dos Dourados      6743      14556417.               674132.
+2     2 MG    Abaete                  22740      32239908.              1096878.
+3     3 MG    Abre Campo              13306      21666788                516725.
+4     4 MG    Acaiaca                  3925      10470382.               389075.
+5     5 MG    Acucena                 10093      13689330.               776842.
+# ℹ 4 more variables: despesas_administrativas &lt;dbl&gt;, despesas_seguranca &lt;dbl&gt;,
+#   despesas_assis_social &lt;dbl&gt;, despesas_saude &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Ou a primeira e a décima:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slice</span>(banco, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">10</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 10
+   ...1 uf    municipio           populacao total_despesas despesas_legislativas
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                   &lt;dbl&gt;          &lt;dbl&gt;                 &lt;dbl&gt;
+1     1 MG    Abadia dos Dourados      6743      14556417.               674132.
+2    10 MG    Aguas Vermelhas         12850      16591827.               664422.
+# ℹ 4 more variables: despesas_administrativas &lt;dbl&gt;, despesas_seguranca &lt;dbl&gt;,
+#   despesas_assis_social &lt;dbl&gt;, despesas_saude &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>E quanto às últimas? No R, podemos saber o número total de observações de um banco com a função <code>ncol</code>. Basta usar essa informação para obter o que queremos (repita esse código mais de uma vez se precisar):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ultima <span class="ot">&lt;-</span> <span class="fu">ncol</span>(banco)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>antepenultima <span class="ot">&lt;-</span> ultima <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">slice</span>(banco, antepenultima<span class="sc">:</span>ultima)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 10
+   ...1 uf    municipio       populacao total_despesas despesas_legislativas
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;               &lt;dbl&gt;          &lt;dbl&gt;                 &lt;dbl&gt;
+1     8 MG    Aguanil              4129      11269795                376652 
+2     9 MG    Aguas Formosas      18575      23760572.              1104696.
+3    10 MG    Aguas Vermelhas     12850      16591827.               664422.
+# ℹ 4 more variables: despesas_administrativas &lt;dbl&gt;, despesas_seguranca &lt;dbl&gt;,
+#   despesas_assis_social &lt;dbl&gt;, despesas_saude &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Outro uso útil de <code>slice</code> é fatiar observações extremas – os 10 mais populosos municípios, ou os 15 que menos gastaram em saúde. Para isso, precisamos usar <code>slice</code> junto de outra função, <code>arrange</code>, que serve para ordenar as observações de um banco pelos valores de uma ou mais variáveis. Se quisermos ordenar os municípios mineiros do menos ao mais populoso, por exemplo, usamos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(banco, populacao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 808 × 10
+    ...1 uf    municipio          populacao total_despesas despesas_legislativas
+   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                  &lt;dbl&gt;          &lt;dbl&gt;                 &lt;dbl&gt;
+ 1   740 MG    Serra da Saudade         807       8633423.               351802.
+ 2   163 MG    Cedro do Abaete         1199       7684621.               348019.
+ 3   296 MG    Grupiara                1373      11917026.               542470.
+ 4   247 MG    Doresopolis             1454       9965495.               625317.
+ 5   516 MG    Paiva                   1549       7911283.               496032.
+ 6    33 MG    Antonio Prado de …      1653       7995453.               336517.
+ 7   195 MG    Consolacao              1732       8730656.               396476.
+ 8   527 MG    Passabem                1739       7974304.               477376.
+ 9   666 MG    Santo Antonio do …      1771       8207188.               350303.
+10   544 MG    Pedro Teixeira          1785       7384735.               398428.
+# ℹ 798 more rows
+# ℹ 4 more variables: despesas_administrativas &lt;dbl&gt;, despesas_seguranca &lt;dbl&gt;,
+#   despesas_assis_social &lt;dbl&gt;, despesas_saude &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Para ordená-los do mais ao menos populoso basta incluir um sinal <code>-</code> na frente do nome da variável (isso será lido como o inverso):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(banco, <span class="sc">-</span>populacao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 808 × 10
+    ...1 uf    municipio          populacao total_despesas despesas_legislativas
+   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                  &lt;dbl&gt;          &lt;dbl&gt;                 &lt;dbl&gt;
+ 1    61 MG    Belo Horizonte       2395785    6917817946.            117191852.
+ 2   781 MG    Uberlandia            619536    1308373532              24731905 
+ 3   196 MG    Contagem              613815    1092061842.             29570662.
+ 4   391 MG    Juiz de Fora          525225    1052445814.             15507234.
+ 5    65 MG    Betim                 388873    1190141919.             43695221.
+ 6   471 MG    Montes Claros         370216     545723569.             10919003.
+ 7   603 MG    Ribeirao das Neves    303029     306671476.              7734594.
+ 8   780 MG    Uberaba               302623     666251559.             19135916.
+ 9   294 MG    Governador Valada…    266190     559832791.              8896911.
+10   336 MG    Ipatinga              243541     531322648.             19045016.
+# ℹ 798 more rows
+# ℹ 4 more variables: despesas_administrativas &lt;dbl&gt;, despesas_seguranca &lt;dbl&gt;,
+#   despesas_assis_social &lt;dbl&gt;, despesas_saude &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Agora, selecionar os 10 maiores é fácil:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>dez_maiores <span class="ot">&lt;-</span> <span class="fu">arrange</span>(banco, <span class="sc">-</span>populacao)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>dez_maiores <span class="ot">&lt;-</span> <span class="fu">slice</span>(dez_maiores, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># passamos o objeto 'dez_maiores'</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>dez_maiores</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 10
+    ...1 uf    municipio          populacao total_despesas despesas_legislativas
+   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                  &lt;dbl&gt;          &lt;dbl&gt;                 &lt;dbl&gt;
+ 1    61 MG    Belo Horizonte       2395785    6917817946.            117191852.
+ 2   781 MG    Uberlandia            619536    1308373532              24731905 
+ 3   196 MG    Contagem              613815    1092061842.             29570662.
+ 4   391 MG    Juiz de Fora          525225    1052445814.             15507234.
+ 5    65 MG    Betim                 388873    1190141919.             43695221.
+ 6   471 MG    Montes Claros         370216     545723569.             10919003.
+ 7   603 MG    Ribeirao das Neves    303029     306671476.              7734594.
+ 8   780 MG    Uberaba               302623     666251559.             19135916.
+ 9   294 MG    Governador Valada…    266190     559832791.              8896911.
+10   336 MG    Ipatinga              243541     531322648.             19045016.
+# ℹ 4 more variables: despesas_administrativas &lt;dbl&gt;, despesas_seguranca &lt;dbl&gt;,
+#   despesas_assis_social &lt;dbl&gt;, despesas_saude &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="classes-e-vetores" class="level3">
+<h3 class="anchored" data-anchor-id="classes-e-vetores">Classes e vetores</h3>
+<p>Precisamos recuar um pouco para entendermos outras operações de fatiamento. Até agora, trabalhos com números, textos e <code>data.frames</code>, e vimos que cada um desses objetos serve para coisas diferentes no R. O que não vimos é que chamamos esses tipos de <code>types</code> (alguns chamam de classes), e que elas são basicamente essas<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<table class="table-hover table-sm small table">
+<caption>Classes no <code>R</code></caption>
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th style="text-align: center;">Armazena</th>
+<th style="text-align: center;">Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>numeric</code></td>
+<td style="text-align: center;">Números reais ou decimais</td>
+<td style="text-align: center;">2.51</td>
+</tr>
+<tr class="even">
+<td><code>integer</code></td>
+<td style="text-align: center;">Números inteiros</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="odd">
+<td><code>character</code></td>
+<td style="text-align: center;">Texto</td>
+<td style="text-align: center;">“Meu texto”</td>
+</tr>
+<tr class="even">
+<td><code>logical</code></td>
+<td style="text-align: center;">Valores lógicos</td>
+<td style="text-align: center;"><code>TRUE</code>, <code>FALSE</code></td>
+</tr>
+</tbody>
+</table>
+<p>Para sabermos o tipo ou classe de um objeto<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, podemos usar a função <code>class</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="dv">1</span>) <span class="co"># numeric</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(1L) <span class="co"># adicionar um L forca o numero a ser integer</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "integer"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="st">"texto"</span>) <span class="co"># character</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="cn">TRUE</span>) <span class="co"># logical</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "logical"</code></pre>
+</div>
+</div>
+<p>O único que não vimos até agora foi o <code>logical</code>, que serve para fazer testes lógicos no R. Para tanto, usamos operadores lógicos (e.g., <span class="math inline">\(&gt;\)</span>, <span class="math inline">\(&lt;\)</span>, <span class="math inline">\(==\)</span>, <span class="math inline">\(!=\)</span>, etc.):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">2</span> <span class="co"># 1 e' maior que 2?</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">10</span> <span class="co"># 5 e' menor que 10?</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">==</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="co"># 3 e' igual a algum dos ementos de 1:10?</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="filter" class="level3">
+<h3 class="anchored" data-anchor-id="filter">Filter</h3>
+<p>Mas por que isso é útil? Entre outras coisas, podemos usar testes lógicos para filtrar observações. Vamos manter no <code>banco</code> apenas municípios mineiros com mais de 500 mil habitantes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(banco, populacao <span class="sc">&gt;</span> <span class="dv">500000</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 10
+   ...1 uf    municipio      populacao total_despesas despesas_legislativas
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;          &lt;dbl&gt;                 &lt;dbl&gt;
+1    61 MG    Belo Horizonte   2395785    6917817946.            117191852.
+2   196 MG    Contagem          613815    1092061842.             29570662.
+3   391 MG    Juiz de Fora      525225    1052445814.             15507234.
+4   781 MG    Uberlandia        619536    1308373532              24731905 
+# ℹ 4 more variables: despesas_administrativas &lt;dbl&gt;, despesas_seguranca &lt;dbl&gt;,
+#   despesas_assis_social &lt;dbl&gt;, despesas_saude &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Pronto. Quer municípios com mais de 300 e menos de 500 mil? Basta combinar dois operadores lógicos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(banco, populacao <span class="sc">&gt;</span> <span class="dv">300000</span>, populacao <span class="sc">&lt;</span> <span class="dv">500000</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 10
+   ...1 uf    municipio          populacao total_despesas despesas_legislativas
+  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                  &lt;dbl&gt;          &lt;dbl&gt;                 &lt;dbl&gt;
+1    65 MG    Betim                 388873    1190141919.             43695221.
+2   471 MG    Montes Claros         370216     545723569.             10919003.
+3   603 MG    Ribeirao das Neves    303029     306671476.              7734594.
+4   780 MG    Uberaba               302623     666251559.             19135916.
+# ℹ 4 more variables: despesas_administrativas &lt;dbl&gt;, despesas_seguranca &lt;dbl&gt;,
+#   despesas_assis_social &lt;dbl&gt;, despesas_saude &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Municípios que não gastaram nenhum real em segurança:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(banco, despesas_seguranca <span class="sc">==</span> <span class="dv">0</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 249 × 10
+    ...1 uf    municipio          populacao total_despesas despesas_legislativas
+   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                  &lt;dbl&gt;          &lt;dbl&gt;                 &lt;dbl&gt;
+ 1     1 MG    Abadia dos Dourad…      6743      14556417.               674132.
+ 2    14 MG    Albertina               2924       9124485.               435056.
+ 3    25 MG    Alvinopolis            15212      19635797.               591043.
+ 4    26 MG    Alvorada de Minas       3549      20424866.               507389.
+ 5    27 MG    Amparo do Serra         4910      10007480                343099 
+ 6    29 MG    Andrelandia            12153      17353942.               498864.
+ 7    31 MG    Antonio Carlos         11151      15179265.               470044.
+ 8    32 MG    Antonio Dias            9493      19399738.               890663.
+ 9    33 MG    Antonio Prado de …      1653       7995453.               336517.
+10    37 MG    Araponga                8188      11839859.               441492.
+# ℹ 239 more rows
+# ℹ 4 more variables: despesas_administrativas &lt;dbl&gt;, despesas_seguranca &lt;dbl&gt;,
+#   despesas_assis_social &lt;dbl&gt;, despesas_saude &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="selecionar" class="level3">
+<h3 class="anchored" data-anchor-id="selecionar">Selecionar</h3>
+<p>Também já vimos como selecionar variáveis usando <code>select</code>. No geral, funciona assim:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(banco, populacao) <span class="co"># seleciona a variavel populacao</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 808 × 1
+   populacao
+       &lt;dbl&gt;
+ 1      6743
+ 2     22740
+ 3     13306
+ 4      3925
+ 5     10093
+ 6     14803
+ 7      2015
+ 8      4129
+ 9     18575
+10     12850
+# ℹ 798 more rows</code></pre>
+</div>
+</div>
+<p>Mas podemos combiná-la com algumas funções auxiliares. Basicamente, essas funções procuram por alguma palavra no nome das variáveis e, se as encontra (<code>TRUE</code>) em algum caso, as seleciona. Por exemplo, para selecionar todas as variáveis que tenham a palavra “despesa” no nome, basta usar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(banco, <span class="fu">contains</span>(<span class="st">"despesa"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 808 × 6
+   total_despesas despesas_legislativas despesas_administrativas
+            &lt;dbl&gt;                 &lt;dbl&gt;                    &lt;dbl&gt;
+ 1      14556417.               674132.                 2038985.
+ 2      32239908.              1096878.                 4444877.
+ 3      21666788                516725.                 1928409.
+ 4      10470382.               389075.                 1009928.
+ 5      13689330.               776842.                 2165173.
+ 6      17321215.               726095.                 2347659.
+ 7      12535291.               685995.                 3047432.
+ 8      11269795                376652                  1696887 
+ 9      23760572.              1104696.                 2034345.
+10      16591827.               664422.                 1481967.
+# ℹ 798 more rows
+# ℹ 3 more variables: despesas_seguranca &lt;dbl&gt;, despesas_assis_social &lt;dbl&gt;,
+#   despesas_saude &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Para uma lista dessas funções, execute <code>help(contains)</code>.</p>
+<p>Por fim, note que podemos combinar <code>filter</code>, <code>slice</code> e <code>select</code> se quisermos, basta salvar os resultados de cada operação toda vez.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Primeiro, selecionamos as 100 primeiras observacoes</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">slice</span>(banco, <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Depois descartamos aqueles com gasto em seguranca igual a 0</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">filter</span>(banco, despesas_seguranca <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Por fim, selecionamos apenas algumas variaveis</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">select</span>(banco, municipio, populacao, total_despesas)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Experimente usar <code>View(banco)</code> para ver como ficou a base após essas transformações.</p>
+</section>
+<section id="transformar" class="level3">
+<h3 class="anchored" data-anchor-id="transformar">Transformar</h3>
+<p>Claro, apenas fatiar e selecionar partes de um <code>data.frame</code> não esgota o que precisamos fazer em uma análise – embora seja algo útil. No mais das vezes, precisamos criar novas variáveis, alterar algumas que já temos, combiná-las. Para essas e outras tarefas, usamos a função <code>mutate</code>. Melhor do que explicar o que ela faz, vejamos um exemplo (se quiser, user <code>View</code> depois):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">mutate</span>(banco, <span class="at">nova_var =</span> <span class="dv">1</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(banco)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 69
+Columns: 4
+$ municipio      &lt;chr&gt; "Abaete", "Abre Campo", "Acaiaca", "Acucena", "Agua Boa…
+$ populacao      &lt;dbl&gt; 22740, 13306, 3925, 10093, 14803, 2015, 4129, 18575, 12…
+$ total_despesas &lt;dbl&gt; 32239908, 21666788, 10470382, 13689330, 17321215, 12535…
+$ nova_var       &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…</code></pre>
+</div>
+</div>
+<p>Basicamente, o código acima criou uma nova variável no banco chamada <code>nova_var</code> com todos os seus valores iguais a <code>1</code>. Podemos modificá-la com:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">mutate</span>(banco, <span class="at">nova_var =</span> <span class="st">"texto"</span>) <span class="co"># agora ela e' character</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(banco)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 69
+Columns: 4
+$ municipio      &lt;chr&gt; "Abaete", "Abre Campo", "Acaiaca", "Acucena", "Agua Boa…
+$ populacao      &lt;dbl&gt; 22740, 13306, 3925, 10093, 14803, 2015, 4129, 18575, 12…
+$ total_despesas &lt;dbl&gt; 32239908, 21666788, 10470382, 13689330, 17321215, 12535…
+$ nova_var       &lt;chr&gt; "texto", "texto", "texto", "texto", "texto", "texto", "…</code></pre>
+</div>
+</div>
+<p>E, o que é mais útil, podemos usar variáveis que já temos no banco para criar outra. Usando <code>populacao</code> e <code>total_despesas</code>, por exemplo, podemos calcular os gastos <em>per capita</em> de cada um dos municípios no nosso <code>data.frame</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gasto per capita e' igual o total gasto divido pela populacao</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">mutate</span>(banco, <span class="at">gasto_per_capita =</span> total_despesas <span class="sc">/</span> populacao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Indo além, podemos criar uma versão dessa variável em logaritmo e em logaritmo de base 10 (o que é útil em alguns modelos estatísticos):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Quebramos as linhas para facilitar a leitura</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">mutate</span>(banco, </span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">gasto_per_capita_log =</span> <span class="fu">log</span>(gasto_per_capita),</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">gasto_per_capita_log10 =</span> <span class="fu">log10</span>(gasto_per_capita))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Usando operadores lógicos, também podemos criar variáveis condicionalmente. Como exemplo, vamos criar uma variável categórica que assume dois valores: “Mais ricos”, para municípios com gasto <em>per capita</em> maior que R$ 2000,00, e “Mais pobres” para o resto; e, para isso, vamos usar a função <code>ifelse</code>, que serve para atribuir valores condicionalmente.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">mutate</span>(banco, </span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">nova_var =</span> <span class="fu">ifelse</span>(gasto_per_capita <span class="sc">&gt;</span> <span class="dv">2000</span>, <span class="st">"Mais ricos"</span>, <span class="st">"Mais pobres"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Como dá para perceber, <code>ifelse</code> realiza um teste lógico em cima de cada observação da variável <code>gasto_per_capita</code>; quando o resultado é positivo (<code>TRUE</code>), ela retorna o primeiro valor após a vírgula, “Mais ricos”; caso contrário, retorna “Mais pobres”. Teste isso com esses códigos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(x <span class="sc">&gt;</span> y, <span class="st">"x e' maior que y"</span>, <span class="st">"y e' maior ou igual a x"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "y e' maior ou igual a x"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ifelse</span>(x <span class="sc">&gt;</span> y, <span class="st">"x e' maior que y"</span>, <span class="st">"y e' maior ou igual a x"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "x e' maior que y"</code></pre>
+</div>
+</div>
+<p>Praticar essas habilidades é essencial para poder limpar dados com fluência. Uma vez que você domine essas ferramentas, arrumar qualquer banco torna-se questão de poucos minutos.</p>
+
+
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Notas de rodapé</h2>
+
+<ol>
+<li id="fn1"><p>Arquivos do Stata dependem da versão do <em>software</em> na qual ele foi criado, o que às vezes gera problemas de incompatibilidade ao carregá-los no <code>R</code>. Se isso acontecer, tente usar essa outra função: <code>read.dta</code> do pacote <code>feoreign</code> (é preciso carregá-lo).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Não abordaremos algumas, como <code>complex</code> e <code>raw</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>As duas coisas, tipo e classe, se referem a coisas ligeiramente diferentes. Por ser comum usar os dois termos de forma equivalente por aí, também farei isso nessas notas.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

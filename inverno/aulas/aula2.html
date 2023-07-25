@@ -137,6 +137,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../aulas/aula1.html" rel="" target="">
  <span class="dropdown-text">Aula 1</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../aulas/aula2.html" rel="" target="">
+ <span class="dropdown-text">Aula 2</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -147,6 +151,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../exercicios/exercicios1.html" rel="" target="">
  <span class="dropdown-text">Exercícios I</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios2.html" rel="" target="">
+ <span class="dropdown-text">Exercícios II</span></a>
   </li>  
     </ul>
   </li>
@@ -191,7 +199,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter">Filter</a></li>
   <li><a href="#selecionar" id="toc-selecionar" class="nav-link" data-scroll-target="#selecionar">Selecionar</a></li>
   <li><a href="#transformar" id="toc-transformar" class="nav-link" data-scroll-target="#transformar">Transformar</a></li>
+  <li><a href="#agrupar" id="toc-agrupar" class="nav-link" data-scroll-target="#agrupar">Agrupar</a></li>
   </ul></li>
+  <li><a href="#utilizando-pipes" id="toc-utilizando-pipes" class="nav-link" data-scroll-target="#utilizando-pipes">Utilizando pipes</a></li>
   </ul>
 </nav>
     </div>
@@ -222,12 +232,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="carregando-dados" class="level2">
 <h2 class="anchored" data-anchor-id="carregando-dados">Carregando dados</h2>
-<p>Uma das grandes vantagens de se usar uma linguagem de programação como o <code>R</code> é que, com ela, é possível carregar qualquer (sim, qualquer) tipo de dado: planilhas do Excel, bases em <a href="https://pt.wikipedia.org/wiki/SQL">SQL</a>, texto de <em>websites</em>, <a href="https://pt.wikipedia.org/wiki/JSON">JSON</a>, <a href="https://pt.wikipedia.org/wiki/XML">XML</a>, tabelas em um arquivo PDF, e muito mais.</p>
+<p>Uma das grandes vantagens de se usar uma linguagem de programação como o <code>R</code> é que, com ela, é possível carregar inúmeros tipos de dado: planilhas do Excel, bases em <a href="https://pt.wikipedia.org/wiki/SQL">SQL</a>, texto de <em>websites</em>, <a href="https://pt.wikipedia.org/wiki/JSON">JSON</a>, <a href="https://pt.wikipedia.org/wiki/XML">XML</a>, tabelas em um arquivo PDF, e muito mais.</p>
 <p>Em alguns casos, carregar dados demanda mais tempo e trabalho, mas, para a imensa maioria dos outros, tudo se resume a uma ou duas linhas de código.</p>
 <p>Precisaremos instalar três pacotes:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>) <span class="co"># Para abrir e exportar planilhas de Excel</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>) <span class="co"># Para abrir e exportar SPSS e stata</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"haven"</span>) <span class="co"># Para abrir e exportar SPSS e stata</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rio"</span>) <span class="co"># Para abrir e exportar outros formatos</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Também vamos carregar o <code>tidyverse</code>. Usaremos ele bastante hoje.</p>
@@ -1010,9 +1020,74 @@ $ nova_var       &lt;chr&gt; "texto", "texto", "texto", "texto", "texto", "texto
 </div>
 </div>
 <p>Praticar essas habilidades é essencial para poder limpar dados com fluência. Uma vez que você domine essas ferramentas, arrumar qualquer banco torna-se questão de poucos minutos.</p>
-
-
 </section>
+<section id="agrupar" class="level3">
+<h3 class="anchored" data-anchor-id="agrupar">Agrupar</h3>
+<p>Além de manipular variáveis diretamente, muitas vezes precisamos realizar operações agrupadas – calcular a média do gasto per capita por porte do município, por exemplo. A função <code>group_by</code> serve exatamente para isso. A título de exemplo, suponha que queremos calcular o gasto <em>per capito</em> médio de municípios ricos e pobres (variável que criamos anteriormente):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(banco, nova_var) <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gasto_pc_medio =</span> <span class="fu">mean</span>(gasto_per_capita))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 69 × 8
+# Groups:   nova_var [2]
+   municipio       populacao total_despesas nova_var    gasto_per_capita
+   &lt;chr&gt;               &lt;dbl&gt;          &lt;dbl&gt; &lt;chr&gt;                  &lt;dbl&gt;
+ 1 Abaete              22740      32239908. Mais pobres            1418.
+ 2 Abre Campo          13306      21666788  Mais pobres            1628.
+ 3 Acaiaca              3925      10470382. Mais ricos             2668.
+ 4 Acucena             10093      13689330. Mais pobres            1356.
+ 5 Agua Boa            14803      17321215. Mais pobres            1170.
+ 6 Agua Comprida        2015      12535291. Mais ricos             6221.
+ 7 Aguanil              4129      11269795  Mais ricos             2729.
+ 8 Aguas Formosas      18575      23760572. Mais pobres            1279.
+ 9 Aguas Vermelhas     12850      16591827. Mais pobres            1291.
+10 Aimores             24937      42297659. Mais pobres            1696.
+# ℹ 59 more rows
+# ℹ 3 more variables: gasto_per_capita_log &lt;dbl&gt;, gasto_per_capita_log10 &lt;dbl&gt;,
+#   gasto_pc_medio &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Como dá para ver, depois de usar <code>group_by</code> todas as operações que realizamos com <code>mutate</code> são aplicadas dentro de cada grupo. Isso nos permite calcular medidas de resumo como média, ou soma, por exemplo.</p>
+<p>Finalmente, também podemos usar <code>group_by</code> com outra função, <code>summarise</code>, para criar novos <code>data.frames</code> com resumos por grupo – a diferença é que, em vez de criar novas colunas, criamos bases menores. Um exemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(banco, nova_var) <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gasto_pc_medio =</span> <span class="fu">mean</span>(gasto_per_capita))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  nova_var    gasto_pc_medio
+  &lt;chr&gt;                &lt;dbl&gt;
+1 Mais pobres          1483.
+2 Mais ricos           2768.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="utilizando-pipes" class="level2">
+<h2 class="anchored" data-anchor-id="utilizando-pipes">Utilizando pipes</h2>
+<p>Nesta aula, usamos bastante o operador pipe (<code>%&gt;%</code>), que serve basicamente para simplificar código. No lugar de aninhar uma função dentro da outra (o que pode tornar um código confuso), o <em>pipe</em> cria uma espécie de cadeia de código:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sem pipe</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>banco_agrupado <span class="ot">&lt;-</span> <span class="fu">group_by</span>(banco, nova_var)</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>banco_resumido <span class="ot">&lt;-</span> <span class="fu">summarise</span>(banco_agrupado, <span class="at">gasto_pc_medio =</span> <span class="fu">mean</span>(gasto_per_capita))</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>banco_final <span class="ot">&lt;-</span> <span class="fu">arrange</span>(banco_resumido, gasto_pc_medio)</span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Com pipe</span></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>banco_final <span class="ot">&lt;-</span> banco <span class="sc">%&gt;%</span></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(nova_var) <span class="sc">%&gt;%</span></span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gasto_pc_medio =</span> <span class="fu">mean</span>(gasto_per_capita)) <span class="sc">%&gt;%</span></span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(gasto_pc_medio)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>O pipe é uma funcionalidade do pacote <code>magrittr</code>, parte do <code>tidyverse</code>. Desde a sua versão 4.1.0, o <code>R</code> agora inclui outra versão do pipe que não depende de carregarmos nenhum pacote – o <code>|&gt;</code>. Adaptando o exemplo anterior:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Novo pipe</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>banco_final <span class="ot">&lt;-</span> banco <span class="sc">|&gt;</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(nova_var) <span class="sc">|&gt;</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gasto_pc_medio =</span> <span class="fu">mean</span>(gasto_per_capita)) <span class="sc">|&gt;</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(gasto_pc_medio)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Qual dos dois usar? Há <a href="https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/">várias razões</a> para preferir um ou outro, mas, até por uma questão de disponibilidade de materiais sobre, usar <code>%&gt;%</code> é uma escolha mais fácil, ao menos no início. É a que adotamos aqui.</p>
+
+
 </section>
 
 

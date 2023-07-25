@@ -1025,8 +1025,9 @@ $ nova_var       &lt;chr&gt; "texto", "texto", "texto", "texto", "texto", "texto
 <h3 class="anchored" data-anchor-id="agrupar">Agrupar</h3>
 <p>Além de manipular variáveis diretamente, muitas vezes precisamos realizar operações agrupadas – calcular a média do gasto per capita por porte do município, por exemplo. A função <code>group_by</code> serve exatamente para isso. A título de exemplo, suponha que queremos calcular o gasto <em>per capito</em> médio de municípios ricos e pobres (variável que criamos anteriormente):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(banco, nova_var) <span class="sc">%&gt;%</span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gasto_pc_medio =</span> <span class="fu">mean</span>(gasto_per_capita))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">group_by</span>(banco, nova_var)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">mutate</span>(banco, <span class="at">gasto_pc_medio =</span> <span class="fu">mean</span>(gasto_per_capita))</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>banco</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 69 × 8
 # Groups:   nova_var [2]
@@ -1050,8 +1051,8 @@ $ nova_var       &lt;chr&gt; "texto", "texto", "texto", "texto", "texto", "texto
 <p>Como dá para ver, depois de usar <code>group_by</code> todas as operações que realizamos com <code>mutate</code> são aplicadas dentro de cada grupo. Isso nos permite calcular medidas de resumo como média, ou soma, por exemplo.</p>
 <p>Finalmente, também podemos usar <code>group_by</code> com outra função, <code>summarise</code>, para criar novos <code>data.frames</code> com resumos por grupo – a diferença é que, em vez de criar novas colunas, criamos bases menores. Um exemplo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(banco, nova_var) <span class="sc">%&gt;%</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gasto_pc_medio =</span> <span class="fu">mean</span>(gasto_per_capita))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">group_by</span>(banco, nova_var) </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(banco, <span class="at">gasto_pc_medio =</span> <span class="fu">mean</span>(gasto_per_capita))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   nova_var    gasto_pc_medio
@@ -1064,7 +1065,7 @@ $ nova_var       &lt;chr&gt; "texto", "texto", "texto", "texto", "texto", "texto
 </section>
 <section id="utilizando-pipes" class="level2">
 <h2 class="anchored" data-anchor-id="utilizando-pipes">Utilizando pipes</h2>
-<p>Nesta aula, usamos bastante o operador pipe (<code>%&gt;%</code>), que serve basicamente para simplificar código. No lugar de aninhar uma função dentro da outra (o que pode tornar um código confuso), o <em>pipe</em> cria uma espécie de cadeia de código:</p>
+<p>Quando trabalhamos com manipulação de dados, é comum termos que fazer várias manipulações e transformações e sequência. Para facilitar esse processo, podemos usar o operador pipe (<code>%&gt;%</code>), que serve basicamente para simplificar código. No lugar de salvar cada resultado intermediário em um novo objeto (o que pode tornar um código confuso), o <em>pipe</em> cria uma espécie de cadeia de código:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sem pipe</span></span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>banco_agrupado <span class="ot">&lt;-</span> <span class="fu">group_by</span>(banco, nova_var)</span>

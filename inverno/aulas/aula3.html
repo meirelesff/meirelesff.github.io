@@ -140,6 +140,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../aulas/aula2.html" rel="" target="">
  <span class="dropdown-text">Aula 2</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../aulas/aula3.html" rel="" target="">
+ <span class="dropdown-text">Aula 3</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -154,6 +158,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../exercicios/exercicios2.html" rel="" target="">
  <span class="dropdown-text">Exercícios II</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../exercicios/exercicios3.html" rel="" target="">
+ <span class="dropdown-text">Exercícios III</span></a>
   </li>  
     </ul>
   </li>
@@ -185,6 +193,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#montando-as-camadas-de-um-gráfico" id="toc-montando-as-camadas-de-um-gráfico" class="nav-link" data-scroll-target="#montando-as-camadas-de-um-gráfico">Montando as camadas de um gráfico</a></li>
   </ul></li>
+  <li><a href="#gráficos-mais-comuns" id="toc-gráficos-mais-comuns" class="nav-link" data-scroll-target="#gráficos-mais-comuns">Gráficos mais comuns</a>
+  <ul class="collapse">
+  <li><a href="#barras" id="toc-barras" class="nav-link" data-scroll-target="#barras">Barras</a></li>
+  <li><a href="#linhas" id="toc-linhas" class="nav-link" data-scroll-target="#linhas">Linhas</a></li>
+  </ul></li>
+  <li><a href="#exportação-de-gráficos" id="toc-exportação-de-gráficos" class="nav-link" data-scroll-target="#exportação-de-gráficos">Exportação de gráficos</a></li>
+  <li><a href="#indo-além" id="toc-indo-além" class="nav-link" data-scroll-target="#indo-além">Indo além</a></li>
   </ul>
 </nav>
     </div>
@@ -211,8 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introdução" class="level2">
 <h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
-<p>A última aula introduziu diversas ferramentas. Entre outras coisas, aprendemos a carregar dados dos formatos mais comuns, e também vimos alguns meios para carregar outros formatos usando o pacote <code>rio</code>; também aprendemos a usar os principais verbos em uma análise dados com o <code>tidyverse</code>, cobrindo o principal que normalmente é necessário para transformar variáveis e organizar linhas e colunas.</p>
-<p>Esta aula dá um passo adiante e introduz noções básicas de visualização de dados em <code>R</code>. Especificamente, estudaremos como compor visualizões, de simples a complexas, usando a gramática implementada pelo pacote <code>ggplot2</code>. Também veremos operações por grupos – o último verbo que não cobrimos ontem – e como cruzar, unir e comparar <code>data.frames</code>, o que nos permitirá resumir mesmo grandes bases de dados.</p>
+<p>Esta aula introduz noções básicas de visualização de dados em <code>R</code>. Especificamente, estudaremos como compor visualizões, de simples a complexas, usando a gramática implementada pelo pacote <code>ggplot2</code>. Também aprofundaremos o estudo de manipulação de dados e veremos como combinar bases, ou <code>data.frames</code>, o que nos permitirá expandir nossa capacidade de fazer análises em <code>R</code>.</p>
 </section>
 <section id="uma-gramática-de-gráficos" class="level2">
 <h2 class="anchored" data-anchor-id="uma-gramática-de-gráficos">Uma gramática de gráficos</h2>
@@ -367,16 +381,233 @@ $ closecollege    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 </div>
 </div>
 <p>Em resumo, todos os gráficos que fizemos seguem um padrão: adicionamos elementos a ele em camadas, somando funções: <code>isto() + aquilo() + etc()</code></p>
-<p>Dentro outros, também vimos que:</p>
+<p>Dentre outros, também vimos que:</p>
 <ul>
 <li>Todo gráfico começa com uma chamada de <code>ggplot</code>, que recebe uma base de dados (primeira camada);</li>
 <li><code>aes()</code> (de <em>aesthetics</em>) é usada para as variáveis (segunda camada);</li>
 <li>as funcoes <code>geom_</code> (de <em>geometry</em>) são usadas para plotar as informações (terceira camada);</li>
 <li>e que outras funções podem ser combinadas (quarta, quinta, sexta, etc, camadas).</li>
 </ul>
-
-
 </section>
+</section>
+<section id="gráficos-mais-comuns" class="level2">
+<h2 class="anchored" data-anchor-id="gráficos-mais-comuns">Gráficos mais comuns</h2>
+<p>Vamos nos concentrar agora em alguns dos tipos mais comuns de gráfico:</p>
+<ul>
+<li><em>Scatterplot</em>, ou gráfico de pontos;</li>
+<li>Gráfico de linhas;</li>
+<li>Gráfico de barras;</li>
+<li>Histograma.</li>
+</ul>
+<p>Existem vários outros tipos úteis para uma análise, mas a mecânica de como criá-los é bastante similar a desses que veremos. Em outras palavras, se nos concentrarmos apenas nesses será mais fácil aprender a criar qualquer outro.</p>
+<p>Já vimos um <em>scatterplot</em> e um histograma antes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Scatterplot</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> urb, <span class="at">y =</span> income)) <span class="sc">+</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aula3_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> urb)) <span class="sc">+</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="aula3_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Para criar outros gráficos, vamos gerar algumas variáveis (veremos a razão disso a seguir):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Usamos mutate para criar duas variaveis</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">mutate</span>(dados,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">mulher =</span> <span class="fu">ifelse</span>(female <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Mulher"</span>, <span class="st">"Homem"</span>),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">ensino =</span> <span class="fu">ifelse</span>(college <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Superior"</span>, <span class="st">"Outros"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="barras" class="level3">
+<h3 class="anchored" data-anchor-id="barras">Barras</h3>
+<p>Gráficos de barras servem principalmente para reportar frequências. Podemos usar ele, por exemplo, para saber a distribuição do ensino entre governantes dos municípios na nossa base:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> ensino)) <span class="sc">+</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aula3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Ensino superior é comum entre as(os) prefeitas(os) da amostra.</p>
+<section id="cruzamentos-usando-barras" class="level4">
+<h4 class="anchored" data-anchor-id="cruzamentos-usando-barras">Cruzamentos usando barras</h4>
+<p>Às vezes precisamos reportar em um gráfico o cruzamento de mais de uma variável. Imagine que queremos ver quantos prefeitos homens e mulheres, separadamente, têm ensino superior. Com <code>aes()</code> do <code>ggplot2</code>, precisamos apenas declarar uma variável adicional para realizar isso: a variavel <code>fill</code>, que indica que queremos separar nossas barras e usar cores diferentes para distingui-las. Demonstração:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> mulher, <span class="at">fill =</span> ensino)) <span class="sc">+</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aula3_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><code>fill</code> serve para incluir uma dimensão de cores em um gráfico. Diferentemente de <code>color</code>, contudo, ela serve para preencher cores, e não para criar contornos. Aqui:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> mulher, <span class="at">color =</span> ensino)) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="co"># Usando color</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aula3_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> mulher, <span class="at">fill =</span> ensino)) <span class="sc">+</span> <span class="fu">geom_bar</span>() <span class="co"># Usando fill</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aula3_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Existe uma função <code>scale_fill</code> que nos permite controlar as cores (para cores, a função é <code>scale_color_manual</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> mulher, <span class="at">fill =</span> ensino)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"gray"</span>)) <span class="co"># Preto e cinza</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aula3_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> mulher, <span class="at">fill =</span> ensino)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"black"</span>)) <span class="co"># Laranja e preto</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aula3_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="linhas" class="level3">
+<h3 class="anchored" data-anchor-id="linhas">Linhas</h3>
+<p>E quanto aos gráficos de linhas? Estes são geralmente usados para visualizar séries temporais, algo que não temos na nossa base de municípios. Podemos carregar uma base com dados de casos de Covid-19 no estado Ceará para ilustrar o ponto:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>link <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/diascarolina/projeto-series-temporais-covid/main/data/dados_covid_ce.csv"</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>covid <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(link)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 471 Columns: 7
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl  (6): novos_casos, novos_obitos, total_casos, total_mortes, semana_epide...
+date (1): data
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<p>Para plotar esta série, basta usar <code>geom_line</code> e passar os eixos X e Y:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(covid, <span class="fu">aes</span>(<span class="at">x =</span> data, <span class="at">y =</span> total_casos)) <span class="sc">+</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aula3_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Podemos fazer um gráfico mais completo usando algumas outras coisas:</p>
+<ul>
+<li>Um tema diferentes, customizando a aparência do gráfico;</li>
+<li>Cores diferentes;</li>
+<li>Títulos e subtítulos.</li>
+</ul>
+<p>O resultado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(covid, <span class="fu">aes</span>(<span class="at">x =</span> data, y </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                  <span class="ot">=</span> total_casos)) <span class="sc">+</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">linewidth =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Covid-19 no Ceará"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Número acumulado de casos"</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total de casos"</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Data"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="aula3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="exportação-de-gráficos" class="level2">
+<h2 class="anchored" data-anchor-id="exportação-de-gráficos">Exportação de gráficos</h2>
+<p>Gráficos também podem ser salvos em objetos. Vamos gerar e salvar o gráfico anterior:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>grafico_covid <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(covid, <span class="fu">aes</span>(<span class="at">x =</span> data, <span class="at">y =</span> total_casos)) <span class="sc">+</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"purple"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Covid-19 no Ceará"</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Número acumulado de casos"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Total de casos"</span>,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Data"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>E, assim também como salvamos bancos de dados para arquivos, podemos usar algumas funções para salvar esses gráficos no disco. A principal e mais útil delas é <code>ggsave</code>. Usamos ela assim:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Salva nosso grafico em PNG no disco</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> grafico_covid, <span class="at">filename =</span> <span class="st">"covid_ceara.png"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para alterar a resolução, usamos os argumentos <code>width</code> (largura) e <code>heigth</code> (altura) em polegadas (podemos alterar para centímetros ou pixels usando o argumento <code>units</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Salva com resolucao de 4 por 7 polegadas</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> grafico_covid, </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">filename =</span> <span class="st">"covid_ceara.png"</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">4</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">7</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Salva com resolucao de 10 por 15 centimetros</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> grafico_covid, </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">filename =</span> <span class="st">"covid_ceara2.png"</span>,</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">10</span>,</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">15</span>,</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">units =</span> <span class="st">"cm"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Especialmente no Windows, apenas isso pode produzir gráficos com distorções (pixels quebrados, linhas granulares, etc). Para evitar isso, usamos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cairo para evitar distorcoes</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">plot =</span> grafico_covid, <span class="at">filename =</span> <span class="st">"grafico_covid3.png"</span>, <span class="at">type =</span> <span class="st">"cairo-png"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="indo-além" class="level2">
+<h2 class="anchored" data-anchor-id="indo-além">Indo além</h2>
+<p>O <code>ggplot2</code> é um pacote que, apesar de simplificar muitas coisas, contém muitas funções e opções de customizações – e é fácil ficar perdido em meio a elas. Dado o escopo deste curso, não conseguiremos nos aprofundar mais, mas, para facilitar consultas futuras, segue um resumo de alguns dos principais argumentos comuns em funções <code>geom_</code>:</p>
+<table class="table-hover table-sm small table">
+<caption>Principais argumentos das funções <code>geom_</code></caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Argumento</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>alpha</code></td>
+<td>Controla a transparência dos elementos; valores variam de 0 (completamente transparente) a 1</td>
+</tr>
+<tr class="even">
+<td><code>colour</code></td>
+<td>Define a cor dos elementos</td>
+</tr>
+<tr class="odd">
+<td><code>fill</code></td>
+<td>Define a cor de preenchimento dos elementos</td>
+</tr>
+<tr class="even">
+<td><code>size</code></td>
+<td>Define o tamanho dos elementos; para pontos, muda o diâmetro; para linhas, largura</td>
+</tr>
+<tr class="odd">
+<td><code>linetype</code></td>
+<td>Controla o tipo de linha (sólida, pontilhada, tracejada, etc.)</td>
+</tr>
+<tr class="even">
+<td><code>shape</code></td>
+<td>Define a forma dos pontos (círculo, triângulo, quadrado, etc.) quando usado com <code>geom_point()</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Mesmo esse quadro, no entanto, consegue fazer justiça ao que o <code>ggplot2</code> é capaz de fazer. Para quem quiser se aprofundar aqui, duas sugestões incontornáveis são:</p>
+<ul>
+<li><a href="https://ggplot2-book.org/">Livro do <code>ggplot2</code></a> escrito pelo criador do pacote, Hadley Wickham</li>
+<li><a href="https://rstudio.github.io/cheatsheets/html/data-visualization.html">Guia resumido</a></li>
+</ul>
+
+
 </section>
 
 

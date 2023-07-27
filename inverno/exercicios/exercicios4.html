@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introdução ao R - Exercícios II</title>
+<title>Introdução ao R - Projetos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,12 +60,10 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta name="twitter:title" content="Introdução ao R - Exercícios II">
-<meta name="twitter:description" content="Manipulação">
+<meta name="twitter:title" content="Introdução ao R - Projetos">
+<meta name="twitter:description" content="Documentos">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -163,23 +161,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#importação-e-exportação" id="toc-importação-e-exportação" class="nav-link active" data-scroll-target="#importação-e-exportação">Importação e exportação</a>
+  <li><a href="#projetos" id="toc-projetos" class="nav-link active" data-scroll-target="#projetos">Projetos</a>
   <ul class="collapse">
-  <li><a href="#carregando-dados" id="toc-carregando-dados" class="nav-link" data-scroll-target="#carregando-dados">Carregando dados</a></li>
-  <li><a href="#dados-da-internet" id="toc-dados-da-internet" class="nav-link" data-scroll-target="#dados-da-internet">Dados da internet</a></li>
-  <li><a href="#exportando-dados" id="toc-exportando-dados" class="nav-link" data-scroll-target="#exportando-dados">Exportando dados</a></li>
-  </ul></li>
-  <li><a href="#manipulação" id="toc-manipulação" class="nav-link" data-scroll-target="#manipulação">Manipulação</a>
-  <ul class="collapse">
-  <li><a href="#teste-i" id="toc-teste-i" class="nav-link" data-scroll-target="#teste-i">Teste I</a></li>
-  <li><a href="#teste-ii" id="toc-teste-ii" class="nav-link" data-scroll-target="#teste-ii">Teste II</a></li>
-  <li><a href="#teste-iii" id="toc-teste-iii" class="nav-link" data-scroll-target="#teste-iii">Teste III</a></li>
-  <li><a href="#teste-iv" id="toc-teste-iv" class="nav-link" data-scroll-target="#teste-iv">Teste IV</a></li>
-  <li><a href="#teste-v" id="toc-teste-v" class="nav-link" data-scroll-target="#teste-v">Teste V</a></li>
-  </ul></li>
-  <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a>
-  <ul class="collapse">
-  <li><a href="#atividade-aula-ii" id="toc-atividade-aula-ii" class="nav-link" data-scroll-target="#atividade-aula-ii">Atividade (Aula II)</a></li>
+  <li><a href="#análise-da-relação-entre-gastos-com-o-bolsa-família-e-votação-do-pt" id="toc-análise-da-relação-entre-gastos-com-o-bolsa-família-e-votação-do-pt" class="nav-link" data-scroll-target="#análise-da-relação-entre-gastos-com-o-bolsa-família-e-votação-do-pt">1) Análise da relação entre gastos com o Bolsa Família e votação do PT</a></li>
+  <li><a href="#análise-da-evolução-dos-gastos-públicos-no-brasil" id="toc-análise-da-evolução-dos-gastos-públicos-no-brasil" class="nav-link" data-scroll-target="#análise-da-evolução-dos-gastos-públicos-no-brasil">2) Análise da evolução dos gastos públicos no Brasil</a></li>
+  <li><a href="#análise-de-indicadores-educacionais-no-brasil" id="toc-análise-de-indicadores-educacionais-no-brasil" class="nav-link" data-scroll-target="#análise-de-indicadores-educacionais-no-brasil">3) Análise de indicadores educacionais no Brasil</a></li>
+  <li><a href="#evolução-da-covid-no-brasil" id="toc-evolução-da-covid-no-brasil" class="nav-link" data-scroll-target="#evolução-da-covid-no-brasil">4) Evolução da Covid no Brasil</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -189,8 +176,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Exercícios II</h1>
-<p class="subtitle lead">Manipulação</p>
+<h1 class="title">Projetos</h1>
+<p class="subtitle lead">Documentos</p>
 </div>
 
 
@@ -205,66 +192,24 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="importação-e-exportação" class="level2">
-<h2 class="anchored" data-anchor-id="importação-e-exportação">Importação e exportação</h2>
-<section id="carregando-dados" class="level3">
-<h3 class="anchored" data-anchor-id="carregando-dados">Carregando dados</h3>
-<p>Dentro da pasta do curso há vários arquivos. Usando as funções que vimos, tente carregar e visualizar todos os arquivos nomeados como <code>municipios_mg</code> – há mais de um deles com diferentes extensões.</p>
+<section id="projetos" class="level2">
+<h2 class="anchored" data-anchor-id="projetos">Projetos</h2>
+<p>Como exercício final, sugiro 4 opções de projetos em <code>R</code> que podemos começar a fazer ainda durante o curso, mas que certamente não terminaremos antes do seu fim. São eles:</p>
+<section id="análise-da-relação-entre-gastos-com-o-bolsa-família-e-votação-do-pt" class="level3">
+<h3 class="anchored" data-anchor-id="análise-da-relação-entre-gastos-com-o-bolsa-família-e-votação-do-pt">1) Análise da relação entre gastos com o Bolsa Família e votação do PT</h3>
+<p>Na base <code>bolsafamiliadataset.dta</code>, temos dados utilizados em um artigo publicado sobre os efeitos eleitorais do programa Bolsa Família que, até hoje, é uma das principais referências no tema. Uma boa possibilidade para praticar <code>R</code> consiste em criar um pequeno relatório em <code>R</code> que carregue esses dados; mostre com diferentes gráficos a relação entre cobertura do programa e a votação do PT em eleições presidenciais por município; faça cruzamentos para ver em quais locais a relação existe e em quais não existe.</p>
 </section>
-<section id="dados-da-internet" class="level3">
-<h3 class="anchored" data-anchor-id="dados-da-internet">Dados da internet</h3>
-<p>No link a seguir, há uma planilha com dados da população dos municípios do Brasil. Tente descobrir como esse arquivo está estruturado e como carregá-lo no <code>R</code> (dica: é possível usar o link):</p>
-<ul>
-<li><a href="https://raw.githubusercontent.com/rdsilva/BrazilPopulation/master/brazil-population-1992-2017.csv" class="uri">https://raw.githubusercontent.com/rdsilva/BrazilPopulation/master/brazil-population-1992-2017.csv</a></li>
-</ul>
+<section id="análise-da-evolução-dos-gastos-públicos-no-brasil" class="level3">
+<h3 class="anchored" data-anchor-id="análise-da-evolução-dos-gastos-públicos-no-brasil">2) Análise da evolução dos gastos públicos no Brasil</h3>
+<p>Utilizando dados do <a href="https://portaldatransparencia.gov.br/">Portal da Transparência</a>, tente analisar a evolução de alguns gastos públicos do Brasil ao longo dos anos, talvez dividindo eles por regiões, estados ou até mesmo por municípios. Nesse projeto, dará pra testar como obter e carregar dados; como combinar dados de diferentes fontes (para calcular gasto per capita, por exemplo); e criação de séries temporais e gráficos de linhas.</p>
 </section>
-<section id="exportando-dados" class="level3">
-<h3 class="anchored" data-anchor-id="exportando-dados">Exportando dados</h3>
-<p>Com a base que você carregou no exercício anterior, a exporte para os seguintes formatos: <code>.csv</code>, <code>.txt</code>, <code>.sav</code> e <code>.Rda</code>.</p>
+<section id="análise-de-indicadores-educacionais-no-brasil" class="level3">
+<h3 class="anchored" data-anchor-id="análise-de-indicadores-educacionais-no-brasil">3) Análise de indicadores educacionais no Brasil</h3>
+<p>Com dados do <a href="https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos">INEP</a>, é possível avaliar diferentes métricas relacionadas ao sistema educacional de diferentes níveis no Brasil. Esse projeto tem um foco essencialmente longitudinal – dado que o mais interessante é saber identificar o que melhorou e o que piorou – e também envolve obter e carregar dados; combinar informações (com <code>group_by</code>) para ter um resumo de indicadores ao longo dos anos; e criar visualizações de tendência.</p>
 </section>
-</section>
-<section id="manipulação" class="level2">
-<h2 class="anchored" data-anchor-id="manipulação">Manipulação</h2>
-<section id="teste-i" class="level3">
-<h3 class="anchored" data-anchor-id="teste-i">Teste I</h3>
-<p>A base de dados nos arquivos <code>municipios_mg</code> que estamos usando contém alguns dados sobre os gastos orçamentários de 808 municipios mineiros em 2012 (em reais). Carregue esse banco usando qualquer função, calcule os gastos <em>per capita</em> em saúde desses municípios e descubra os 10 que mais gastaram.</p>
-</section>
-<section id="teste-ii" class="level3">
-<h3 class="anchored" data-anchor-id="teste-ii">Teste II</h3>
-<p>Com a <code>municipios_mg</code> original (carregue-a de novo se precisar), calcule o percentual gasto por todos os municípios em saúde e em segurança. Descubra os 10 mais que gastaram relativamente em cada área – isto é, os 10 que mais gastaram em saúde <em>e</em> os 10 que mais gastaram em segurança.</p>
-</section>
-<section id="teste-iii" class="level3">
-<h3 class="anchored" data-anchor-id="teste-iii">Teste III</h3>
-<p>Com a <code>municipios_mg</code> original (carregue-a de novo se precisar), calcule a diferença entre o que cada município gastou assistência social e segurança (i.e., assistência <span class="math inline">\(-\)</span> segurança). Mantenha em uma nova base apenas as variáveis indicando essa diferença e nome do município.</p>
-</section>
-<section id="teste-iv" class="level3">
-<h3 class="anchored" data-anchor-id="teste-iv">Teste IV</h3>
-<p>Com essa base anterior recém criada, adicione uma variável que indica se a diferença entre assistência e saúde é negativa ou positiva. Quais são os municípios em que essa diferença é negativa?</p>
-</section>
-<section id="teste-v" class="level3">
-<h3 class="anchored" data-anchor-id="teste-v">Teste V</h3>
-<p>Carregue novamente essa base a seguir:</p>
-<p><a href="https://raw.githubusercontent.com/rdsilva/BrazilPopulation/master/brazil-population-1992-2017.csv" class="uri">https://raw.githubusercontent.com/rdsilva/BrazilPopulation/master/brazil-population-1992-2017.csv</a></p>
-<p>Com ela, faça o seguinte:</p>
-<ul>
-<li>Filtre apenas observações do ano de 2002;</li>
-<li>Agrupe a base resultante por região do país;</li>
-<li>Calcule o número de municípios por região (use a solução que achar mais adequada).</li>
-</ul>
-</section>
-</section>
-<section id="homework" class="level1">
-<h1>Homework</h1>
-<section id="atividade-aula-ii" class="level3">
-<h3 class="anchored" data-anchor-id="atividade-aula-ii">Atividade (Aula II)</h3>
-<p>Nos materiais do curso, temos um arquivo chamado <code>base_scielo.txt</code>, com todos os artigos públicados no <em>Scielo</em> em um periódico da área da saúde. Como atividade pós-aula, seu trabalho será carregar essa base e realizar as seguintes transformações nela:</p>
-<ul>
-<li>Fique apenas com as observações da variável <code>country</code> que sejam iguais a <code>Brazil</code>;</li>
-<li>Feito isso, delete do banco a variável <code>country</code> (dica: use <code>-</code>);</li>
-<li>Crie duas variáveis no banco, <code>autores_log</code> e <code>autores_quadrado</code>. A primeira deve ser o logaritmo do número de autores; a segunda, o quadrado do número de autores;</li>
-<li>Crie uma variável que indique quando artigos são com autor único ou múltiplos autores;</li>
-<li>Finalmente, crie uma nova variável que some todos os valores de <code>n_pages</code>, isto é, uma variável em que todos os seus elementos sejam iguais ao número total de páginas do banco (dica: use a função sum()).</li>
-</ul>
+<section id="evolução-da-covid-no-brasil" class="level3">
+<h3 class="anchored" data-anchor-id="evolução-da-covid-no-brasil">4) Evolução da Covid no Brasil</h3>
+<p>Com dados do <a href="https://brasil.io/dataset/covid19/caso/">brasil.io</a>, site que levanta e divulga dados públicos em formato aberto, é possível analisar tanto longitudinalmente quanto espacialmente a difusão da Covid-19 no país. Obter os dados aqui é algo mais fácil, mas há o desafio de sistematizar um volume maior de dados – e, também, o de aprender sobre como elaborar mapas e espacializar informações.</p>
 
 
 </section>

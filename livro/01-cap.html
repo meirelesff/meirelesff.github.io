@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Usando R: Uma Introdução para Cientistas Sociais - 1&nbsp; Básico</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./index.html" rel="prev">
+<link href="./cover.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+
+<meta name="twitter:title" content="Usando R: Uma Introdução para Cientistas Sociais - 1&nbsp; Básico">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://electionsbr.com/livro/materiais/cap1/r_base.png">
+<meta name="twitter:image-height" content="466">
+<meta name="twitter:image-width" content="629">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-cap.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Básico</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Usando R: Uma Introdução para Cientistas Sociais</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="./Usando-R--Uma-Introdução-para-Cientistas-Sociais.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo de leitor">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-cap.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Básico</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#introducao-ao-r" id="toc-introducao-ao-r" class="nav-link active" data-scroll-target="#introducao-ao-r"><span class="header-section-number">1.1</span> Introdução ao R</a></li>
+  <li><a href="#intalando-o-r-e-rstudio" id="toc-intalando-o-r-e-rstudio" class="nav-link" data-scroll-target="#intalando-o-r-e-rstudio"><span class="header-section-number">1.2</span> Intalando o R e RStudio</a>
+  <ul class="collapse">
+  <li><a href="#o-rstudio" id="toc-o-rstudio" class="nav-link" data-scroll-target="#o-rstudio"><span class="header-section-number">1.2.1</span> O RStudio</a></li>
+  <li><a href="#usando-o-r-e-o-rstudio-pelo-navegador" id="toc-usando-o-r-e-o-rstudio-pelo-navegador" class="nav-link" data-scroll-target="#usando-o-r-e-o-rstudio-pelo-navegador"><span class="header-section-number">1.2.2</span> Usando o R e o RStudio pelo navegador</a></li>
+  </ul></li>
+  <li><a href="#sintaxe-básica-do-r" id="toc-sintaxe-básica-do-r" class="nav-link" data-scroll-target="#sintaxe-básica-do-r"><span class="header-section-number">1.3</span> Sintaxe básica do R</a>
+  <ul class="collapse">
+  <li><a href="#r-como-uma-calculadora" id="toc-r-como-uma-calculadora" class="nav-link" data-scroll-target="#r-como-uma-calculadora"><span class="header-section-number">1.3.1</span> R como uma calculadora</a></li>
+  <li><a href="#operadores" id="toc-operadores" class="nav-link" data-scroll-target="#operadores"><span class="header-section-number">1.3.2</span> Operadores</a></li>
+  </ul></li>
+  <li><a href="#funções" id="toc-funções" class="nav-link" data-scroll-target="#funções"><span class="header-section-number">1.4</span> Funções</a>
+  <ul class="collapse">
+  <li><a href="#usando-funções" id="toc-usando-funções" class="nav-link" data-scroll-target="#usando-funções"><span class="header-section-number">1.4.1</span> Usando funções</a></li>
+  </ul></li>
+  <li><a href="#objetos" id="toc-objetos" class="nav-link" data-scroll-target="#objetos"><span class="header-section-number">1.5</span> Objetos</a>
+  <ul class="collapse">
+  <li><a href="#tipos-de-objeto" id="toc-tipos-de-objeto" class="nav-link" data-scroll-target="#tipos-de-objeto"><span class="header-section-number">1.5.1</span> Tipos de objeto</a></li>
+  <li><a href="#manipulando-objetos" id="toc-manipulando-objetos" class="nav-link" data-scroll-target="#manipulando-objetos"><span class="header-section-number">1.5.2</span> Manipulando objetos</a></li>
+  </ul></li>
+  <li><a href="#pacotes" id="toc-pacotes" class="nav-link" data-scroll-target="#pacotes"><span class="header-section-number">1.6</span> Pacotes</a>
+  <ul class="collapse">
+  <li><a href="#instalando-pacotes" id="toc-instalando-pacotes" class="nav-link" data-scroll-target="#instalando-pacotes"><span class="header-section-number">1.6.1</span> Instalando Pacotes</a></li>
+  <li><a href="#instalação-de-pacotes-do-github" id="toc-instalação-de-pacotes-do-github" class="nav-link" data-scroll-target="#instalação-de-pacotes-do-github"><span class="header-section-number">1.6.2</span> Instalação de pacotes do GitHub</a></li>
+  </ul></li>
+  <li><a href="#scripts" id="toc-scripts" class="nav-link" data-scroll-target="#scripts"><span class="header-section-number">1.7</span> Scripts</a></li>
+  <li><a href="#recomendações" id="toc-recomendações" class="nav-link" data-scroll-target="#recomendações"><span class="header-section-number">1.8</span> Recomendações</a>
+  <ul class="collapse">
+  <li><a href="#estilo" id="toc-estilo" class="nav-link" data-scroll-target="#estilo"><span class="header-section-number">1.8.1</span> Estilo</a></li>
+  </ul></li>
+  <li><a href="#obtendo-ajuda" id="toc-obtendo-ajuda" class="nav-link" data-scroll-target="#obtendo-ajuda"><span class="header-section-number">1.9</span> Obtendo ajuda</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="cap-1" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Básico</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introducao-ao-r" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="introducao-ao-r"><span class="header-section-number">1.1</span> Introdução ao R</h2>
+<p>Este capítulo é o nosso primeiro encontro com o R. Nele, veremos alguns dos principais conceitos necessários para poder usá-lo para análise de dados – que, afinal de contas, é o nosso principal interesse aqui.</p>
+<p>Vale reforçar: esta não é uma introdução formal ao R, comum em outros livros. Este capítulo cobre apenas o fundamental para saltarmos diretamente para o uso de ferramentas mais avançadas, que nos ajudarão a fazer análise de dados e pesquisa acadêmica.</p>
+<p>Antes de começar, no entanto, precisaremos instalar o R. Na verdade, precisaremos instalar dois <em>softwares</em>: o R e o RStudio. O primeiro é de fato o <em>software</em> por detrás da linguagem de programação, mas ele não possui um interface, como o Excel ou outros <em>softwares</em> de armazenamento e análise de dados. É por isso que usaremos o R por meio do segundo <em>software</em>, o RStudio, que é um interface com um conjunto de funcionalidades que nos ajudará a trabalhar com o R. Depois disso, o restante do capítulo introduz noções de como escrever código em R, como salvar e manipular informações na memória, como usar funções e como instalar pacotes.</p>
+</section>
+<section id="intalando-o-r-e-rstudio" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="intalando-o-r-e-rstudio"><span class="header-section-number">1.2</span> Intalando o R e RStudio</h2>
+<p>O R é um programa de código aberto<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> que pode ser baixado gratuitamente em <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a>, o site oficial do projeto que mantém o R. Uma vez no site, basta buscar pela opção <em>download</em> e seguir as instruções específicas para o seu sistema operacional.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> A instalação deverá criar um atalho para o R no seu computador que, uma vez acessado, provavelmente mostrará algo como indica a <a href="#fig-console-r">Figura&nbsp;<span>1.1</span></a>.</p>
+<div id="fig-console-r" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="materiais/cap1/r_base.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption class="figure-caption">Figura&nbsp;1.1: Console do R</figcaption>
+</figure>
+</div>
+<p>Sem uma interface, o R nada mais é do que um console, uma tela textual onde podemos ler e digitar código. Para termos uma interface melhor, podemos agora baixar o RStudio em <a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a>, site da empresa que o mantém – apesar de desenvolverem também outras versões, o RStudio <em>Desktop – Open Source License</em> também é gratuito. Novamente, basta buscar a opção mais adequada para o seu sistema operacional e seguir as intruções de instalação. Abrindo o atalho do RStudio, a visão deverá ser bem melhor.</p>
+<div id="fig-rstudio" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="materiais/cap1/rstudio.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption class="figure-caption">Figura&nbsp;1.2: RStudio</figcaption>
+</figure>
+</div>
+<section id="o-rstudio" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="o-rstudio"><span class="header-section-number">1.2.1</span> O RStudio</h3>
+<p>No RStudio, temos 4 sub-janelas por padrão, isto é, a janela do <em>software</em> é dividida em quatro áreas diferentes, como ilustra a Figura. Um resumo da utilidade de cada uma:</p>
+<ol type="1">
+<li>Janela de <em>script</em> na qual escrevemos e documentamos nossos códigos;</li>
+<li>Console do R, onde podemos executar código e, também, ter retorno de mensagens de erro e avisos;</li>
+<li>Nesta sub-janela tempo duas abas principais:
+<ol type="i">
+<li><em>Environment</em>, na qual visualizamos quais objetos estão na memória do R (e.g., vetores, banco de dados, listas);</li>
+<li><em>History</em>, na qual podemos ver o histórico dos códigos que já executamos;</li>
+</ol></li>
+<li>Aqui temos cinco abas principais:
+<ol type="i">
+<li><em>Files</em>, onde é possível visualizar a lista de arquivo da pasta (área de trabalho, no jargão do R) em que você está trabalhando no seu computador;</li>
+<li><em>Plots</em>, na qual podemos visualizar gráficos criado no R;</li>
+<li><em>Packages</em>, que exibi pacotes de funções instalados no R; e, (d) <em>Help</em>; onde será visualizadas as ajudas solicitadas dentro do próprio programa;</li>
+<li><em>View</em>, usada para visualizar o resultado da execução de certas funções.</li>
+</ol></li>
+</ol>
+<p>De início, o mais importante é pensar no RStudio como uma espécie de pacote Office, mas para o R: é nele que escreveremos nossos códigos, executaremos e visualizaremos os seus resultados.</p>
+</section>
+<section id="usando-o-r-e-o-rstudio-pelo-navegador" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="usando-o-r-e-o-rstudio-pelo-navegador"><span class="header-section-number">1.2.2</span> Usando o R e o RStudio pelo navegador</h3>
+<p>Para quem tem problemas ao instalar o R, ou não pode instalá-los por qualquer razão, há uma alternativa simples pela nuvem: o <a href="https://posit.cloud/">Posit Cloud</a>, uma plataforma mantida pela mesma empresa do RStudio que permite o seu uso diretamente pelo navegador, sem a necessidade de instalação. Para usá-lo, basta criar uma conta no site, selecionar o plano gratuito (<em>Free forever</em>) e começar a usar o R de lá. A tela do seu navegador deverá mostrar algo como na <a href="#fig-console-r-cloud">Figura&nbsp;<span>1.3</span></a>.</p>
+<div id="fig-console-r-cloud" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="materiais/cap1/posit-cloud.png" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption class="figure-caption">Figura&nbsp;1.3: Usando o RStudio do navegador</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="sintaxe-básica-do-r" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="sintaxe-básica-do-r"><span class="header-section-number">1.3</span> Sintaxe básica do R</h2>
+<p>A partir de agora, começaremos a aprender R do jeito mais direto possível: escrevendo e executando códigos. Para tanto, as próximas seções começarão a introduzir exemplos de código que, a princípio, podem parecer confusas. Mas não se preocupe: o objetivo é aprendermos R de forma prática, sem memorizações, entendendo o que cada parte de um código faz.</p>
+<p>Daqui até o final do livro, o seguinte se aplicará:</p>
+<ul>
+<li>Tudo o que estiver em caixa cinza, com texto destacado por cores, é código e pode ser executado no R (basta copiar e colar o código no console do RStudio, janela (2) na <a href="#fig-console-r">Figura&nbsp;<span>1.1</span></a>, e apertar <em>enter</em>);</li>
+<li>Tudo o que estiver logo após precedido de um <code>[1]</code> ou algo do tipo é <em>output</em> do R, isto é, o resultado da execução de um código;</li>
+<li>Alguns códigos dependem de códigos anteriores; caso encontre algum erro ao rodar um código de exemplo neste livro, tente voltar atrás e rodar os códigos anteriores.</li>
+</ul>
+<section id="r-como-uma-calculadora" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="r-como-uma-calculadora"><span class="header-section-number">1.3.1</span> R como uma calculadora</h3>
+<p>Assim como em outras linguagens de programação, podemos usar o R como uma calculadora. Experimento digitar <code>2 + 2</code> no console do RStudio e apertar <em>enter</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+<p>O R reproduzirá o resultado da soma antecedido por <code>[1]</code>. Aproveitando a deixa, <code>#</code> indica um comentário: tudo o que vem sucedido de <code>#</code> o R não executará.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 + 2</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nada acontece. Comentários são úteis para documentar nossos códigos, algo que veremos em seguida. Por enquanto, experimente usar o console como uma calculadora (logo veremos usos mais interessantes do R):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="sc">+</span> <span class="dv">7</span> <span class="co"># Adição (depois do #, nada é executado)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span> <span class="sc">-</span> <span class="dv">7</span> <span class="co"># Subtração (depois do #, nada é executado)</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>Para resolver expressões numéricas, usamos <code>()</code>.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">/</span> (<span class="dv">3</span> <span class="sc">+</span> <span class="dv">5</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="sc">*</span> ((<span class="dv">2</span> <span class="sc">^</span> <span class="dv">5</span>) <span class="sc">/</span> <span class="dv">3</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 42.66667</code></pre>
+</div>
+</div>
+</section>
+<section id="operadores" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="operadores"><span class="header-section-number">1.3.2</span> Operadores</h3>
+<p>Anteriormente, usamos operadores aritméticos, como <code>+</code> e <code>*</code> (você deve ter percebido que <code>*</code> é o operador de multiplicação no R, e não <code>x</code>). No R, existem vários outros (tente adaptar os exemplos):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">^</span><span class="dv">2</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span> <span class="sc">/</span> <span class="dv">5</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span> <span class="sc">%/%</span> <span class="dv">5</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span> <span class="sc">%%</span> <span class="dv">5</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>Caso você não tenha entendido algum apenas pelo seu uso, a <a href="#tbl-operadores">Tabela&nbsp;<span>1.1</span></a> apresenta uma descrição dos principais operadores matemáticos comuns em R.</p>
+<div id="tbl-operadores" class="anchored">
+<table class="table-hover table-sm small table">
+<caption>Tabela&nbsp;1.1: Operadores matemáticos no R</caption>
+<thead>
+<tr class="header">
+<th>Operação</th>
+<th style="text-align: center;">Símbolo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Adição</td>
+<td style="text-align: center;">+</td>
+</tr>
+<tr class="even">
+<td>Subtração</td>
+<td style="text-align: center;">-</td>
+</tr>
+<tr class="odd">
+<td>Divisão</td>
+<td style="text-align: center;">/</td>
+</tr>
+<tr class="even">
+<td>Multiplicação</td>
+<td style="text-align: center;">*</td>
+</tr>
+<tr class="odd">
+<td>Exponenciação</td>
+<td style="text-align: center;">^</td>
+</tr>
+<tr class="even">
+<td>Divisão inteira</td>
+<td style="text-align: center;">%/%</td>
+</tr>
+<tr class="odd">
+<td>Resto da divisão</td>
+<td style="text-align: center;">%%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Além dos operandos matemáticos, existem também operadores lógicos, que usamos para saber se algo é verdadeiro ou falso. Para sermos mais concretos, podemos usar <code>==</code> (dois <code>=</code>) para testar se um número é igual a outro:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">==</span> <span class="dv">1</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>O que o código anterior faz é testar se <code>1</code> é igual a <code>1</code>, retornando <code>TRUE</code>. Um exemplo falso:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>Testes lógicos também nos permitem fazer operações mais complexas. Por exemplo, podemos testar se um número é maior ou menor que outro:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">&gt;</span> <span class="dv">5</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&gt;</span> <span class="dv">1</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>E, indo além, podemos combinar dois testes usando o operador <code>&amp;</code> (que significa E, ou AND):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">10</span> <span class="sc">&gt;</span> <span class="dv">5</span>) <span class="sc">&amp;</span> (<span class="dv">3</span> <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">10</span> <span class="sc">&gt;</span> <span class="dv">5</span>) <span class="sc">&amp;</span> (<span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">2</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+<p>No caso acima, o resultado de cada expressão só será <code>TRUE</code> se ambos os testes forem verdadeiros. Se quisermos que o resultado seja <code>TRUE</code> se pelo menos um dos testes for verdadeiro, usamos o operador <code>|</code> (ou):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">10</span> <span class="sc">&gt;</span> <span class="dv">5</span>) <span class="sc">|</span> (<span class="dv">5</span> <span class="sc">&lt;</span> <span class="dv">2</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Testes lógicos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Testes lógicos sempre retornam <code>TRUE</code> ou <code>FALSE</code>, em maiúsculo.</p>
+</div>
+</div>
+<p>A <a href="#tbl-operadores-logicos">Tabela&nbsp;<span>1.2</span></a> apresenta os operadores lógicos mais comuns:</p>
+<div id="tbl-operadores-logicos" class="anchored">
+<table class="table-hover table-sm small table">
+<caption>Tabela&nbsp;1.2: Operadores lógicos comuns no R</caption>
+<thead>
+<tr class="header">
+<th>Operação</th>
+<th style="text-align: center;">Símbolo</th>
+<th style="text-align: center;">Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Igualdade</td>
+<td style="text-align: center;">==</td>
+<td style="text-align: center;">1 == 1</td>
+</tr>
+<tr class="even">
+<td>Diferença</td>
+<td style="text-align: center;">!=</td>
+<td style="text-align: center;">1 != 1</td>
+</tr>
+<tr class="odd">
+<td>Maior que</td>
+<td style="text-align: center;">&gt;</td>
+<td style="text-align: center;">1 &gt; 1</td>
+</tr>
+<tr class="even">
+<td>Menor que</td>
+<td style="text-align: center;">&lt;</td>
+<td style="text-align: center;">1 &lt; 1</td>
+</tr>
+<tr class="odd">
+<td>Maior ou igual</td>
+<td style="text-align: center;">&gt;=</td>
+<td style="text-align: center;">1 &gt;= 1</td>
+</tr>
+<tr class="even">
+<td>Menor ou igual</td>
+<td style="text-align: center;">&lt;=</td>
+<td style="text-align: center;">1 &lt;= 1</td>
+</tr>
+<tr class="odd">
+<td>E</td>
+<td style="text-align: center;">&amp;</td>
+<td style="text-align: center;">(1 == 1) &amp; (2 == 2)</td>
+</tr>
+<tr class="even">
+<td>OU</td>
+<td style="text-align: center;">|</td>
+<td style="text-align: center;">(1 == 1) | (2 == 2)</td>
+</tr>
+<tr class="odd">
+<td>NÃO</td>
+<td style="text-align: center;">!</td>
+<td style="text-align: center;">!(1 == 1)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Todos esses operadores são úteis – mas certamente não é por causa deles que o R é tão utilizado.</p>
+</section>
+</section>
+<section id="funções" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="funções"><span class="header-section-number">1.4</span> Funções</h2>
+<p>Parte da potencialidade do R advém do fato dele conter uma série de funções nativas para realizar as mais diversas tarefas de pesquisa. É por isso que ele é considerado um ambiente, e não apenas uma linguagem de programação.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Dito de forma simples, funções são códigos que executam uma tarefa específica. A função <code>sqrt()</code>, por exemplo, calcula a raiz quadrada de um número:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">4</span>) <span class="co"># Raiz quadrada do número 4</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>Em R, funções têm uma anatomia específica: o nome da função, seguido de parênteses, dentro dos quais estão os argumentos da função – o <em>input</em> que a função recebe e processa. No caso da função <code>sqrt()</code>, o argumento é o número cuja raiz quadrada queremos calcular.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Vale memorizar: uma função nada mais é do que uma espécie de ferramenta que recebe uma determinada informação e a transforma em outra.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<section id="usando-funções" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="usando-funções"><span class="header-section-number">1.4.1</span> Usando funções</h3>
+<p>No R, as informações que passamos para determinada função vão dentro de parêntesis. A função <code>sum</code>, por exemplo, recebe e soma dois ou mais números, todos separados por vírgula. Se esquecermos de fazer essa separação, obtemos um erro.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="dv">2</span> <span class="dv">2</span>) <span class="co"># retorna erro </span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error: &lt;text&gt;:1:7: unexpected numeric constant
+1: sum(2 2
+          ^</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Erros
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Quando executamos um código que o R não consegue interpretar, ele retorna um erro no console.</p>
+</div>
+</div>
+<p>Para corrigir o código anterior, basta separar os números por vírgula:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="dv">2</span>, <span class="dv">2</span>) <span class="co"># retorna 4</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="objetos" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="objetos"><span class="header-section-number">1.5</span> Objetos</h2>
+<p>Para além de executar código, o R nos permite salvar informações na memória do programa. Essas informações são armazenadas em objetos, que podem ser usados posteriormente. De forma bem simples, objetos são como locais na memória do programa que armazenam valores quaiser. No R esses valores podem ser: números, textos, um vetor de números (isto é, uma sequência de números), um banco de dados e, até mesmo, uma função.</p>
+<p>Podemos armazenar objetos no R com o operador <code>&lt;-</code> (menor que, seguido de hífen). Basicamente, ele diz ao R para armazenar um valor em um objeto para podermos acessá-lo posteriormente. Exemplo: vamos salvar o número 2 em um objeto chamado <code>x</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Tocamos em algo extremamente importante: agora, podemos digitar <code>x</code> no lugar de 2 para realizar outras operações.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>x <span class="sc">/</span> <span class="dv">2</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>E como fazemos para salvar o resultado de uma nova operação, como <code>x + 10</code>, por exemplo? Simples: basta criar um novo objeto.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+</div>
+<p>Algo que ainda não vimos, também é possível armazenar texto em um objeto – note que, para o R reconhecer algo como texto, precisamos colocá-lo entre aspas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>texto <span class="ot">&lt;-</span> <span class="st">"um texto"</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>texto</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "um texto"</code></pre>
+</div>
+</div>
+<p>No R elementos entre aspas, simples ou duplas, são considerados textos.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Criação de objetos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No R também é possível criar objetos usando o símbolo de igualdade, <code>=</code>, como em <code>x = 1</code>. No entanto, não usaremos essa sintaxe neste livro e, por razões de consistência de código, também não recomendamos seu uso.</p>
+</div>
+</div>
+<section id="tipos-de-objeto" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="tipos-de-objeto"><span class="header-section-number">1.5.1</span> Tipos de objeto</h3>
+<p>Números são diferentes de textos e, em R, essa diferença também existe: ela é dada pelas classes de objetos. Classes são como categorias de objetos, isto é, grupos de objetos que compartilham de uma mesma estrutura e, portanto, podem ser manipulados de forma semelhante. O número 1 é um objeto da classe <code>integer</code> (inteiro), assim como os números 2 e 10, que também são inteiros. O número 1,5, ao contrário, é um objeto da classe <code>numeric</code>, dado que não é um número inteiro (por conta da casa decimal). Para saber a classe de um objeto, usamos a função <code>class()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fl">1.5</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>Diferentes funções podem exigir diferentes classes de objetos. Por exemplo, a função <code>sum()</code> exige que os objetos que ela soma sejam da classe <code>numeric</code> ou <code>integer</code>. Se tentarmos somar um objeto da classe <code>character</code>, o R retornará um erro:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="st">"1"</span>, <span class="st">"2"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in sum("1", "2"): 'type' inválido (character) do argumento</code></pre>
+</div>
+</div>
+<p>Para resumir, classes determinam o tipo de informação que diferentes objetos armazenam e o que podemos fazer com elas. Entendido isso, podemos começar a aprender sobre as classes mais comuns no R: <code>integer</code>, <code>numeric</code>, <code>character</code>, <code>factor</code>, <code>matrix</code>, <code>data.frame</code> e <code>list</code>.</p>
+<section id="números-textos-e-categorias" class="level4" data-number="1.5.1.1">
+<h4 data-number="1.5.1.1" class="anchored" data-anchor-id="números-textos-e-categorias"><span class="header-section-number">1.5.1.1</span> Números, textos e categorias</h4>
+<section id="integer" class="level5" data-number="1.5.1.1.1">
+<h5 data-number="1.5.1.1.1" class="anchored" data-anchor-id="integer"><span class="header-section-number">1.5.1.1.1</span> integer</h5>
+<p><code>integer</code> é uma classe de objeto específica para números inteiros.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>exemplo_inteiro <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(exemplo_inteiro)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>Até agora, só criamos objetos com um elemento, mas, quando estamos analisando muitos dados, podemos combiná-los em vetores, ou seja, objetos com mais de um elementos (mais de um caso). Uma forma elementar de criar um vetor é por meio da função <em>combine</em>, <code>c</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria um vetor de números</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">21</span>)</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>x</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18 20 19 25 21</code></pre>
+</div>
+</div>
+</section>
+<section id="numeric" class="level5" data-number="1.5.1.1.2">
+<h5 data-number="1.5.1.1.2" class="anchored" data-anchor-id="numeric"><span class="header-section-number">1.5.1.1.2</span> numeric</h5>
+<p>A classe <code>numeric</code> também é composta por números, mas, diferentemente de <code>integer</code>, armazenam números decimais.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>exemplo_decimal <span class="ot">&lt;-</span> <span class="fl">20.5</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(exemplo_decimal)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<p>Por padrão, o R já atribui classe aos objetos quando os criamos, deduzindo o tipo adequado a partir do nosso código. No caso de <code>integer</code> ou <code>numeric</code>, a escolha está atrelada à quantidade de memória reservada no programa para armazenar as informações: quando temos números decimais, a classe sempre será <code>numeric</code> pois é necessário mais espaço para guardar informações das casas decimais, e todos os números do vetor passaram a ter um decilma, mesmo aqueles que foram declarados (inseridos) sem decimal:<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="fl">65.5</span>, <span class="fl">55.8</span>, <span class="dv">70</span>, <span class="fl">85.6</span>)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(y)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Decimal
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>O R adota o sistema de casas decimais americano, com ponto. Por isso, ao declarar um número decimal no R, usamos o ponto, e não a vírgula.</p>
+</div>
+</div>
+</section>
+<section id="character" class="level5" data-number="1.5.1.1.3">
+<h5 data-number="1.5.1.1.3" class="anchored" data-anchor-id="character"><span class="header-section-number">1.5.1.1.3</span> character</h5>
+<p>Como já dito, <code>character</code> é a classe usada no R para armazenar informações textuais, que devem estar contidas entre aspas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"superior"</span>, <span class="st">"médio"</span>, <span class="st">"fundamental"</span>, <span class="st">"superior"</span>)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(w)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+</div>
+</section>
+<section id="factor" class="level5" data-number="1.5.1.1.4">
+<h5 data-number="1.5.1.1.4" class="anchored" data-anchor-id="factor"><span class="header-section-number">1.5.1.1.4</span> factor</h5>
+<p>Similar a <code>character</code>, <code>factor</code> é uma classe que guarda simulneamente uma informação textual com uma númerica associada – o que costumamos chamar de variável categórica nas Ciências Sociais e similares.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Feminino"</span>, <span class="st">"Masculino"</span>, <span class="st">"Feminino"</span>, <span class="st">"Masculino"</span>, <span class="st">"Feminino"</span>))</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(z)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>z</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Feminino  Masculino Feminino  Masculino Feminino 
+Levels: Feminino Masculino</code></pre>
+</div>
+</div>
+<p>Como podemos ver pelo retorno do R anterior, um vetor da classe <code>factor</code> nos mostra seus <em>levels</em>, ou seja, as categorias da nossa variavel: <code>Feminino</code> e <code>Masculino</code>. Mas, como podemos ver, o R não nos mostra os valores numéricos associados a cada categoria. Para isso, podemos usar a função <code>as.numeric()</code>, que converte objetos de outras classes para <code>numeric</code> (quando essa conversão for possível):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(z)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 2 1 2 1</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="matrizes-e-bancos-de-dados" class="level4" data-number="1.5.1.2">
+<h4 data-number="1.5.1.2" class="anchored" data-anchor-id="matrizes-e-bancos-de-dados"><span class="header-section-number">1.5.1.2</span> Matrizes e bancos de dados</h4>
+<section id="matrix" class="level5" data-number="1.5.1.2.1">
+<h5 data-number="1.5.1.2.1" class="anchored" data-anchor-id="matrix"><span class="header-section-number">1.5.1.2.1</span> matrix</h5>
+<p>A classe <code>matrix</code> é um tipo de objeto bidimensional utilizada principalmente para representar linhas e colunas. De forma geral, matrizes são espécies de tabelas ou planilhas como as que vemos no Excel, mas com uma diferença essencial: todos os elementos devem ser do mesmo tipo, isto é, todos <code>numeric</code>, <code>integer</code>, <code>character</code>, e assim por diante.</p>
+<p>Podemos criar uma matriz com a função <code>matrix</code>, declarando argumentos que indicam quantas linhas e quantas colunas essa matriz deverá ter. Um exemplo de matriz:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>matriz <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>), <span class="at">nrow =</span> <span class="dv">2</span>,  <span class="at">ncol =</span> <span class="dv">3</span>) </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>matriz</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    4    6
+[2,]    3    5    7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(matriz)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "matrix" "array" </code></pre>
+</div>
+</div>
+<p>Note que, no exemplo anterior, criamos uma matriz com 2 linhas e 3 coluna epassamos a ela um vetor com os elementos <code>c(1, 3, 4, 5, 6, 7)</code>. Em outras palavras, os argumentos <code>nrow</code> (i.e., número de linhas) e <code>ncol</code> (i.e., número de colunas) determinam como o conteúdo da matriz será dividido entre linhas e colunas.</p>
+</section>
+<section id="data.frame" class="level5" data-number="1.5.1.2.2">
+<h5 data-number="1.5.1.2.2" class="anchored" data-anchor-id="data.frame"><span class="header-section-number">1.5.1.2.2</span> data.frame</h5>
+<p>Já que matrizes salvam apenas informações da mesma classe, naturalmente precisamos de outra classe se quisermos analisar variáveis, ou colunas, de classes diferentes. <code>data.frame</code> é exatamente a classe que nos permite fazer isso. Especificamente, <code>data.frame</code> também é bidimensional e tabular, como a <code>matrix</code>, mas é mais versátil.</p>
+<p>Vamos criar aqui um banco de dados a partir de vetores com a função <code>data.frame</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Superior"</span>, <span class="st">"Médio"</span>, <span class="st">"Médio"</span>)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">45</span>, <span class="dv">63</span>)</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Feminino"</span>, <span class="st">"Masculino"</span>, <span class="st">"Masculino"</span>)</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">escolaridade =</span> x, <span class="at">idade =</span> y, <span class="at">sexo =</span> z)</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(banco)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "data.frame"</code></pre>
+</div>
+</div>
+<p>Com o banco criado, podemos ver suas informações com a função <code>print</code>, que serve para mostrar no console o conteúdo de um objeto:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(banco)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  escolaridade idade      sexo
+1     Superior    23  Feminino
+2        Médio    45 Masculino
+3        Médio    63 Masculino</code></pre>
+</div>
+</div>
+<p>Para o caso de bancos maiores, podemos usar a função <code>View()</code>, que abrirá uma nova janela no RStudio com o conteúdo do banco de dados.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+data.frames
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para criar matrizes e bancos de dados a partir de vetores, todos eles precisam ter o mesmo número de elementos, caso contrário o R retornará um erro.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="listas" class="level4" data-number="1.5.1.3">
+<h4 data-number="1.5.1.3" class="anchored" data-anchor-id="listas"><span class="header-section-number">1.5.1.3</span> Listas</h4>
+<p>Finalmente, os objetos da classe <code>list</code> são um dos mais complexos que veremos – eles são multimensionais. Em particular, com eles armazenamos objetos de diferentes classes, mas não só vetores do mesmo tamanho como em um <code>data.frame</code>. Ou seja, em um objeto tipo <code>list</code> podemos armazenar vetores de diversos tamanhos, <code>matrix</code> e <code>data.frame</code>, ou mesmo outras listas. Vejamos um exemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria uma lista chamada 'guarda_trecos'</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>guarda_trecos <span class="ot">&lt;-</span> <span class="fu">list</span>(x, y, z, banco)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(guarda_trecos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(guarda_trecos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "Superior" "Médio"    "Médio"   
+
+[[2]]
+[1] 23 45 63
+
+[[3]]
+[1] "Feminino"  "Masculino" "Masculino"
+
+[[4]]
+  escolaridade idade      sexo
+1     Superior    23  Feminino
+2        Médio    45 Masculino
+3        Médio    63 Masculino</code></pre>
+</div>
+</div>
+<p>Como podemos ver cada item (objeto) foi armazendos na lista <code>guarda_trecos</code>, na ordem em que foram colocado dentro da função list().</p>
+</section>
+</section>
+<section id="manipulando-objetos" class="level3" data-number="1.5.2">
+<h3 data-number="1.5.2" class="anchored" data-anchor-id="manipulando-objetos"><span class="header-section-number">1.5.2</span> Manipulando objetos</h3>
+<p>Criamos alguns objetos de distintas classes e exibimos eles por completo no console. Mas e se quisermos apresentar no console apenas um elemento de um objeto? Para isso precisamos nos mover pelos objetos usandos índices. Ao exibir elementos de um objeto no console, o R há nos dá uma dica de como fazer isso: o <code>[1]</code> sempre indica o conteúdo do primeiro elemento. Se quisermos acessá-lo, basta executar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>De forma geral, em objetos unidimensional basta usar <code>objeto[índice]</code>, com a posição desejada em colchetes, para acessar determinado elemento, como o quarto e o quinto, digamos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">4</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">5</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>x[<span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>)] <span class="co"># Podemos outro vetor para acessar mais de um elemento</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4 5</code></pre>
+</div>
+</div>
+<p>Em objetos multidimensionais como um <code>data.frame</code> o modo de acesso de um elemento é um pouco diferente. Por exemplo, no nosso objeto <code>banco</code> criado anteriormente precisamos indexar linhas e colunas, <code>objeto[linhas, colunas]</code>. Para acessar a célula da primeira linha e da terceira coluna, usamos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>banco[<span class="dv">1</span>, <span class="dv">3</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Feminino"</code></pre>
+</div>
+</div>
+<p>No exemplo acima, estamo selecionando o elemento (caso) numero 1 que estar na coluna (variável) 3 que é o sexo. É importante fixar: em objeto bidimensional como um <code>data.frame</code>, antes da virgula nos colchetes temos as linhas e, só depois da virgula, as colunas. Outro caso:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>banco[, <span class="dv">3</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Feminino"  "Masculino" "Masculino"</code></pre>
+</div>
+</div>
+<p>Quando deixamos o do lado esquerdo do colchete vazio, estamos dizendo ao R que retorne um vetor com todas as linhas (casos) da coluna (variável) identificada no lado direito da virgula. Nesse exemplo, temos o sexo de todas as pessoas no <code>banco</code>. Já aqui, pegamos todas as informações da pessoa na segunda linha do banco:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>banco[<span class="dv">2</span>, ]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  escolaridade idade      sexo
+2        Médio    45 Masculino</code></pre>
+</div>
+</div>
+<p>Se quizermos selecionar mais um caso ou variável podemos usar um vetor, também podemos usar vetores usando a função <code>c</code> ou dois pontos, para criar uma sequência de inteiros entre dois números:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>banco[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     escolaridade      sexo
+3           Médio Masculino
+NA           &lt;NA&gt;      &lt;NA&gt;
+NA.1         &lt;NA&gt;      &lt;NA&gt;</code></pre>
+</div>
+</div>
+<p>No exemplo acima estamos selecionando os casos de 3 a 5 (o código <code>3:5</code> cria uma sequência de inteiros de 3 a 5) da base de dados e as variáveis 1 e 3.</p>
+<p>Indexadores também funcionam em listas, mas com uma diferença: como listas são objetos multimensionais, precisamos usar dois conjuntos de colchetes para acessar elementos. Por exemplo, para acessar o primeiro elemento da lista <code>guarda_trecos</code>, usamos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>guarda_trecos[[<span class="dv">1</span>]]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Superior" "Médio"    "Médio"   </code></pre>
+</div>
+</div>
+<p>O primeiro conjunto de colchetes indica que queremos acessar um elemento da lista, enquanto o segundo indica qual elemento queremos acessar. Se quisermos acessar um valor dentro do primeiro elemento da lista, basta adicionar um colchete simples logo depois dos colchetes duplos indicando o índice do elemento desejado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>guarda_trecos[[<span class="dv">1</span>]][<span class="dv">2</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Médio"</code></pre>
+</div>
+</div>
+<p>Com isso, selecionamos o segundo elemento do vetor amarzenado na sublista 1. E se o conteúdo da sublista for um <code>data.frame</code>, como aceso um valor dentro dele? Assim:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>guarda_trecos[[<span class="dv">4</span>]][<span class="dv">1</span>, <span class="dv">3</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Feminino"</code></pre>
+</div>
+</div>
+<p>Para <code>data.frames</code>, há um jeito mais simples de se acessar o conteúdo inteiro de uma variável: por meio do cifrão (<code>$</code>). Por exemplo, para acessar a variável <code>sexo</code> do <code>banco</code>, basta executar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>banco<span class="sc">$</span>sexo</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Feminino"  "Masculino" "Masculino"</code></pre>
+</div>
+</div>
+<p>Como dá para notar, é preciso saber o nome da coluna que queremos acessar para usar esse meio de indexação. Um jeito simples de fazer isso é usando a função <code>names()</code>, que retorna os nomes das colunas de um <code>data.frame</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(banco)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "escolaridade" "idade"        "sexo"        </code></pre>
+</div>
+</div>
+<p>Assim sabemos que a primeira variável se chama “escolaridade”, a segunda “idade”, e assim por diante.</p>
+<p>Combinando o <code>$</code> com os indexadores que vimos há pouco, é fácil obter, por exemplo, o terceiro elemento da variável <code>sexo</code> no objeto <code>banco</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>banco<span class="sc">$</span>sexo[<span class="dv">3</span>]</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Masculino"</code></pre>
+</div>
+</div>
+<p>Manipular objetos no R pode parecer bastante complicado, mas, com o devido tempo e prática, tudo se torna mais simples. Ao final deste capítulo, sugerimos alguns exercícios que ajudarão no processo.</p>
+</section>
+</section>
+<section id="pacotes" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="pacotes"><span class="header-section-number">1.6</span> Pacotes</h2>
+<p>O R já vem com uma série de funcionalidades embutidas nele – como as funções <code>sqrt</code> e <code>sum</code>, que já vimos. Mas, como já dito, uma das grandes vantagens do R é a sua comunidade, que desenvolve novas funcionalidades para a linguagem e, norlamente, as disponibilizam por meio de pacotes, ou bibliotecas. Estes são como extensões do R, que adicionam novas funcionalidades ao programa – pense em um pacote como um livro de receitas ou um manual de instruções, que ensina o R como fazer coisas novas.</p>
+<p>Em R, a principal fonte de pacotes o <em>CRAN (The Comprehensive R Archive Network)</em>, que é uma comunidade de desenvolvedores que mantém o código base do R e os seus pacotes oficiais, aqueles que passaram por uma série de testes e que seguem uma série de protocolos que garantem o seu funcionamento estável e harmônico com outras ferramentas no R.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
+<section id="instalando-pacotes" class="level3" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="instalando-pacotes"><span class="header-section-number">1.6.1</span> Instalando Pacotes</h3>
+<p>Para instalar pacotes que está no CRAN, basta sabermos o seu nome e usar a função <code>install.packages</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"electionsBR"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>No exemplo acima, instalamos o pacote <code>electionsBR</code> e, com ele, damos ao R a capacidade de se conectar ao repositório de dados eleitorais do TSE (Tribunal Superior Eleitoral) para obter informações eleitorais.</p>
+</section>
+<section id="instalação-de-pacotes-do-github" class="level3" data-number="1.6.2">
+<h3 data-number="1.6.2" class="anchored" data-anchor-id="instalação-de-pacotes-do-github"><span class="header-section-number">1.6.2</span> Instalação de pacotes do GitHub</h3>
+<p>Apesar da imensidade de pacotes no CRAN, encontramos outro grande volume de pacotes em outros repositórios não-oficiais, a maioria em densevolvimento. A principal fonte destes pacotes, depois do CRAN, é o GitHub.<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<p>Para instalar pacotes do GitHub, precisamos instalar outro pacote antes, o <code>remotes</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Este pacote contém uma função, <code>install_github</code>, que permite ao R se conectar ao GitHub, obter de lá o código fonte de um pacote e realizar a sua instalação. Para usar esta função, precisamos antes carregar o pacote <code>remotes</code>, isto é, tornar ela acessível ao R, o que fazemos por meio da função <code>library</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(remotes) <span class="co"># Carrega o pacote</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">"silvadenisson/electionsBR"</span>) <span class="co"># Instala o pacote</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Instalar e carregar pacotes são duas tarefas similares, mas suas diferenças são importantes: no primeiro caso, estamos incorporando novas funções no nosso R, assim como instalar o Office no computador nos permite usar o processador de texto Word; no segundo caso, estamos carregando o pacote instalado, assim como quando abrimos o Word pelo seu atalho no computador.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pacotes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pacotes só precisam ser instalados uma vez, mas precisam ser carregados (abertos) no R em cada seção em que precisarmos de suas funções.</p>
+</div>
+</div>
+<p>No exemplo anterior, usamos a função <code>library</code> para carregar o pacote <code>remotes</code>; com este, usamos a função <code>install_github</code> para instalarmos a versão de desenvolvimento do pacote <code>electionsBR</code>.</p>
+</section>
+</section>
+<section id="scripts" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="scripts"><span class="header-section-number">1.7</span> Scripts</h2>
+<p>Trabalhar no console, digitando e executando código diretamente de lá, é algo rápido para tarefas simples, mas inviável para análises mais complicadas. Pior que isso, sem poder salvar nossos códigos em algum lugar, não temos como reproduzir uma análise, ou compartilhar nossos passos com outras pessoas. Justamente para evitar isso, usamos <em>scripts</em>, documentos de texto que servem para documentar e armazenar códigos.</p>
+<p>No Rstudio, podemos criar um <em>script</em> clicando, no menu superior esquerdo, em <em>File &gt; New File &gt; R Script</em>, ou, também no canto superior esquerdo, no símbolo de uma folha em branco acompanhada de um símbolo de mais em verde. Feito isso, uma nova janela será aberta, na qual podemos escrever nosso códigos. Para salvá-los, basta clicar em <em>File &gt; Save</em> e escolher um nome para o arquivo, ou clicar no ícone de disquete ligeiramente acima, ou, ainda, teclar <em>ctrl/command + s</em>. O <em>script</em> salvo aparecerá na sub-janela de gestão de arquivos do RStudio, indicada no item 4 da <a href="#fig-rstudio">Figura&nbsp;<span>1.2</span></a>.</p>
+<p>Para acompanhar o restante deste capítulo e os próximos, acostume-se a criar <em>scripts</em> e use comentários para descrever o que cada linha faz – isso será muito útil para documentar o que estamos aprendendo. A título de exemplo, um <em>script</em> de acompanhamento deste capítulo poderia ter o seguinte início:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Capítulo 1: Introdução ao R</span></span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Este é um comentário. Ele não é executado pelo R, mas serve para documentar o que estamos fazendo.</span></span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Para executar um código, basta clicar na linha e teclar ctrl/command + enter.</span></span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Para executar várias linhas, basta selecioná-las e teclar ctrl/command + enter.</span></span>
+<span id="cb116-6"><a href="#cb116-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-7"><a href="#cb116-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando objetos</span></span>
+<span id="cb116-8"><a href="#cb116-8" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb116-9"><a href="#cb116-9" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb116-10"><a href="#cb116-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-11"><a href="#cb116-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Documentar o script é uma das tarefas mais importantes do densolvimento do seu código. Primeiro porque podes voltar em um outro momento e saber o que exatamente estas tentendo fazer com seu script. Isso pode parecer tolice, mas tenha certeza que não é, principalmente quando chegamos no nível de trabalhar com muitos scripts.</p>
+<p>Esse motivo acima já sería suficiente, no entanto, há outro mais importante para o desenvolvimento de pesquisas científicas que é a replicabilidade. Pois, quando documenta teu código aumenta a capacidade replicativa dele. E replicabilidade é a plavra que chave na ciência, porque não fazemos ciência para ficar na gaveta, ou melhor, em pasta perdida dentro do computador, e sim para que outra pessoa saibam o que fizemos e possam replicar, vamos abordar mais sobre replicação no capítulo 8.</p>
+</section>
+<section id="recomendações" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="recomendações"><span class="header-section-number">1.8</span> Recomendações</h2>
+<p>Podemos criar objetos e realizar operações no R de forma simples, como vimos. No entanto, algumas coisas devem ser evitadas quando escrevemos nosso código, seja para evitar erros ou para facilitar a leitura dele por outras pessoas.</p>
+<p>A recomendação mais básica neste sentido é: evite criar objetos com nomes que comecem com números, caracteres especiais ou nomes de funções. Algumas destas coisas produzirão erros imediatos; outras, podem complicar códigos inteiros. Alguns exemplos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplos de nomes de objetos que produzem erros</span></span>
+<span id="cb117-2"><a href="#cb117-2" aria-hidden="true" tabindex="-1"></a>2x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb117-3"><a href="#cb117-3" aria-hidden="true" tabindex="-1"></a>_x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb117-4"><a href="#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="sc">&amp;</span>x <span class="ot">&lt;-</span> <span class="dv">1</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error: &lt;text&gt;:2:2: unexpected symbol
+1: # Exemplos de nomes de objetos que produzem erros
+2: 2x
+    ^</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplos de nomes de objetos que não produzem erros imediatos</span></span>
+<span id="cb119-2"><a href="#cb119-2" aria-hidden="true" tabindex="-1"></a>sum <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb119-3"><a href="#cb119-3" aria-hidden="true" tabindex="-1"></a>sqrt <span class="ot">&lt;-</span> <span class="dv">1</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Também note que o R é <em>case sensitive</em>, <code>A</code> (maiúsculo) não é a mesma coisa que <code>a</code> (minúsculo).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb120"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(a)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): objeto 'a' não encontrado</code></pre>
+</div>
+</div>
+<p>Sempre que criar um objeto armazenando texto, não esqueça das aspas (outra forma de cometer erros no R bastante comum).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb122"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> Texto</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): objeto 'Texto' não encontrado</code></pre>
+</div>
+</div>
+<p>Por fim, quando abrir parênteses, não esqueça de fechá-los (caso contrário, aparecerá um + no console, indicando que o R espera mais conteúdo). Caso esteja executando um código e não saiba porque apareceu um + no cosole, opte por cancelar a operação e volte ao código para ver o que há de errado.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<section id="estilo" class="level3" data-number="1.8.1">
+<h3 data-number="1.8.1" class="anchored" data-anchor-id="estilo"><span class="header-section-number">1.8.1</span> Estilo</h3>
+<p>Não é algo obrigatóro, mas algumas noções de estilo nos ajudam a compreender e partilhar códigos, tanto nossos quanto os de outras pessoas. Resumidamente, as principais considerações aqui são:</p>
+<ul>
+<li>Use espaços entre objetos, operadores e chamadas a funções;</li>
+<li>Use quebra de linhas para separar blocos de códigos;</li>
+<li>Sempre que possível, crie objetos apenas com letras minúsculas;</li>
+<li>Se precisar separar o nome de um objeto, use _ (underscore);</li>
+<li>Prefira nomes curtos para objetos;</li>
+<li>Prefira o atribuidor &lt;- a = (eles fazem a mesma coisa).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb124"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>y<span class="ot">&lt;-</span><span class="dv">1</span> <span class="co"># Ruim</span></span>
+<span id="cb124-2"><a href="#cb124-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># OK</span></span>
+<span id="cb124-3"><a href="#cb124-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-4"><a href="#cb124-4" aria-hidden="true" tabindex="-1"></a>y<span class="sc">+</span>y<span class="sc">+</span>y<span class="sc">+</span>y <span class="co"># Ruim</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb126"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>y <span class="sc">+</span> y <span class="sc">+</span> y <span class="sc">+</span> y <span class="co"># OK</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb128"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (y) <span class="co"># Ruim</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb130"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y) <span class="co"># OK</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="dv">1</span> <span class="co"># Ruim</span></span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># OK</span></span>
+<span id="cb132-3"><a href="#cb132-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-4"><a href="#cb132-4" aria-hidden="true" tabindex="-1"></a>OBJETO <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># Ruim</span></span>
+<span id="cb132-5"><a href="#cb132-5" aria-hidden="true" tabindex="-1"></a>objeto <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># OK</span></span>
+<span id="cb132-6"><a href="#cb132-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-7"><a href="#cb132-7" aria-hidden="true" tabindex="-1"></a>meu.objeto <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># Ruim</span></span>
+<span id="cb132-8"><a href="#cb132-8" aria-hidden="true" tabindex="-1"></a>meu_objeto <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># OK</span></span>
+<span id="cb132-9"><a href="#cb132-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-10"><a href="#cb132-10" aria-hidden="true" tabindex="-1"></a>objeto_com_nome_excessivamente_grande <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># Ruim</span></span>
+<span id="cb132-11"><a href="#cb132-11" aria-hidden="true" tabindex="-1"></a>objeto <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># OK</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="obtendo-ajuda" class="level2" data-number="1.9">
+<h2 data-number="1.9" class="anchored" data-anchor-id="obtendo-ajuda"><span class="header-section-number">1.9</span> Obtendo ajuda</h2>
+<p>Para a nossa sorte a comunidade em torno do R cresceu muito nos ultimos anos, o que aumentou a quantia de material disponível na internet sobre a linguagem. De toda forma, a maneira mais simples de obter ajuda no R sobre alguma função ou operador é consultando a documentação – em geral, muito boa. Para isso, podemos usar a função help:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(sum)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Esse recurso só é útil quando sabemos o nome exata da função que queremos consultar e, como é possível imaginar, quando essa função pertence a algum pacote e este pacote está instalado e carregado devidamente. Outra forma de consultar documentação é usando um ponto de interrogação antes do nome de uma função:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>?sum</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Quando não sabemos o nome da função que queremos usar, ou até mesmo para saber se existe no R uma função específica para a tarefa que queremos executar, temos recorrer a outras fontes. Antes mesmo de ir para o Google, no entanto, há no próprio R um pacote que faz uma busca por palavras-chave do que há no R, o <code>sos</code>. Para usá-lo, precisamos instalá-lo e, depois, carregá-lo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"sos"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>E, então, usar a função <code>findFn</code>, que tem como argumento principal um texto (<em>string</em>) que será pesquisado. Exemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">findFn</span>(<span class="st">'regresion'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Quando executada, a função irá abrir seu navegador em uma pagina com os resultado, como a <a href="#fig-sos">Figura&nbsp;<span>1.4</span></a> ilustra.</p>
+<div id="fig-sos" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="materiais/cap1/sos.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption class="figure-caption">Figura&nbsp;1.4: Pacote sos</figcaption>
+</figure>
+</div>
+<p>Que nos apresenta o nome do pacote, o nome da funçção que tem algum relação com o termo pesquisado, e uma brece descrição onde podemos clicar e ver mais detalhes da função.</p>
+<p>Alem dessas opções a internete está cheia de material, e acada dia cresce mais, por exemplo nos ultimos anos tem almentado exponencialmente a quantidade de tutoriais no yourtube. Mas, o que vamos destar a aqui é o stackoverflow, R-bloggers, R Brasil - Programadores (Facebook), rbloggersbr (twitter).</p>
+<p>O Primeiro deles é um fórum onde porgramadores de todos os níveis e linguagens publicam problemas e soluções. Originalmente em inglês, mas que agora conta com uma versão para que os problemas e soluções sejam postado em português o que facilita na expansão das linguagens de programções em especial, R. O endereço é https://pt.stackoverflow.com. Para refinar as busca dentro do fórum é necessario antes do termo buscado inserir o nome da linguagem dentro de conchetes.</p>
+<p>Ex.: [R] data.frame</p>
+<p>O R-bloggers é um site que reuni postagens de varios blogs sobre R, ou seja, é concentrador de postagens, assim podemos acompanhar o desenvolvimento da linguagem por um unico canal, é inglês. https://www.r-bloggers.com/tag/rblogs/</p>
+<p>Em português há uma iniciativa no Twitter para agregar as postagens do blogs brasileiros cadastrados, https://twitter.com/rbloggersbr.</p>
+<p>Há também no facebook grupos sobre R, em português o principal deles é o R Brasil - Programadores. Como podemos ver temos varios canais para buscar informações sobre o R. Mas claro caso seja necessario o google está ai para nos ajudar também, para facilitar podemos buscar algo tipo “regressão linear r”, e variações.</p>
+<p>O próximo capítulo começamos aprofundar o que vimos por até aqui. Mas especificamente sobre dados, criar objetos, importação e etc.</p>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Código aberto é uma expressão usada normalmente para se referir a programas com um tipo de licença que permite que qualquer pessoa os usem, modifiquem e compartilhem. O R um desses programas e, portanto, é gratuito.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Para quem usa Linux, é possível instalar o R diretamente pelo terminal, usando o comando <code>sudo apt-get install r-base</code>, por exemplo.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>No R, <code>[]</code> e <code>{}</code> são reservados para outros usos, como veremos em breve.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Embora ele também seja uma linguagem de programação.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Em R, argumentos são os valores que uma função recebe para executar uma tarefa e, como veremos em seguida, há funções que recebem vários argumentos, alguns deles nomeados.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Há funções que não recebem <em>inputs</em>, assim como outros que não retornam <em>outputs</em>, mas esses não são os usos mais comuns de funções.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Na verdade, em R, vetores de inteiros são armazenados como <code>numeric</code>, o que você pode ver por conta própria rodando <code>class(c(1, 2, 3))</code>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Note que, para usar a função <code>View()</code> adequadamente, precisamos que o RStudio esteja instalado no computador.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Enquanto escrevemos este livro, o CRAN se aproxima de 20 mil pacotes oficiais mantidos em seu <em>website</em>. Informação disponível em: <a href="https://cran.r-project.org/web/packages/" class="uri">https://cran.r-project.org/web/packages/</a>.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>GitHub é uma plataforma de armazenamento e versionamento de <em>software</em> criado em cima do Git, um <em>software</em> de código aberto de controle de versões. Atualmente, o GitHub é um dos maiores repositórios de código aberto no mundo. Para acessá-lo, visite <a href="https://github.com" class="uri">https://github.com</a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Estas e outras recomendações comuns para evitar erros podem ser vistas em: http://www.alex-singleton.com/R-Tutorial-Materials/common-error-msg.pdf (em inglês).<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Prefácio</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Usando R, por Fernando Meireles e Denisson Silva</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

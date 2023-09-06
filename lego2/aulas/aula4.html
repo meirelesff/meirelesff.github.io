@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lego II - Aula 2</title>
+<title>Lego II - Aula 4</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -94,14 +113,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta name="twitter:title" content="Lego II - Aula 2">
-<meta name="twitter:description" content="Simulações">
-<meta name="twitter:image" content="aula2_files/figure-html/unnamed-chunk-9-1.png">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lego II - Aula 4">
+<meta name="twitter:description" content="Regressão linear múltipla">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed">
@@ -172,9 +188,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a></li>
-  <li><a href="#distribuições" id="toc-distribuições" class="nav-link" data-scroll-target="#distribuições">Distribuições</a></li>
-  <li><a href="#criando-funções-de-probabilidade" id="toc-criando-funções-de-probabilidade" class="nav-link" data-scroll-target="#criando-funções-de-probabilidade">Criando funções de probabilidade</a></li>
-  <li><a href="#simulando-lançamentos-de-um-dado" id="toc-simulando-lançamentos-de-um-dado" class="nav-link" data-scroll-target="#simulando-lançamentos-de-um-dado">Simulando lançamentos de um dado</a></li>
+  <li><a href="#fixest" id="toc-fixest" class="nav-link" data-scroll-target="#fixest">Fixest</a></li>
+  <li><a href="#tabelas" id="toc-tabelas" class="nav-link" data-scroll-target="#tabelas">Tabelas</a></li>
+  <li><a href="#simulações" id="toc-simulações" class="nav-link" data-scroll-target="#simulações">Simulações</a></li>
   </ul>
 </nav>
     </div>
@@ -183,8 +199,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Aula 2</h1>
-<p class="subtitle lead">Simulações</p>
+<h1 class="title">Aula 4</h1>
+<p class="subtitle lead">Regressão linear múltipla</p>
 </div>
 
 
@@ -201,122 +217,185 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introdução" class="level2">
 <h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
-<p>Em aula, estudamos Processos Geradores de Dados (PGDs) e probabilidade. Nestas notas, veremos agora como podemos usar funções de probabilidade – que, lembrando, servem para atribuir probabilidade a eventos possíveis, que chamamos de <span class="math inline">\(\omega\)</span>, de um espaço amostral, que definimos como <span class="math inline">\(\Omega\)</span> – para simular dados. Isso será particularmente útil nas próximas aulas, mas também nos dará mais experiência com visualização de dados usando <a href="https://ggplot2.tidyverse.org/">ggplot2</a>.</p>
-<p>Antes de começar, vamos carregar o <a href="https://www.tidyverse.org/">tidyverse</a>:</p>
+<p>Estas notas tem um objetivo bem simples: ensinar como usar o pacote <a href="https://cran.r-project.org/web/packages/fixest/index.html">fixest</a> para rodar regressões lineares com efeitos fixos (além de outras utilidades).</p>
+<p>Usaremos como exemplo, novamente, os dados de <span class="citation" data-cites="ross2001does">Ross (<a href="#ref-ross2001does" role="doc-biblioref">2001</a>)</span>. Vamos carregá-los com:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ross <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"doesoil_clean.dta"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="distribuições" class="level2">
-<h2 class="anchored" data-anchor-id="distribuições">Distribuições</h2>
-<p>O <code>R</code> tem diversas funções que nos permitem sortear números de acordo com algumas distribuições. Abaixo, exemplos das mais comuns.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Uniforme</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Bernoulli</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Binomial</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Normal</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Poisson</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<section id="fixest" class="level2">
+<h2 class="anchored" data-anchor-id="fixest">Fixest</h2>
+<p>O <code>fixest</code> serve basicamente para rodar modelos de regressão linear e generalizados de forma rápida – especialmente em bancos grandes, com muitos grupos e ou especificações complexas. O primeiro passo para usá-lo, como sempre, é instalar e carregar o pacote:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sorteia um número entre 0 e 1</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">runif</span>(<span class="dv">1</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.2899019</code></pre>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"fixest"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Isso feito, vamos rodar um modelo simples para regredir <code>regime</code> em <code>oil</code> com a função <code>feols</code>, como viemos fazendo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sorteia 1 com probabilidade 0.5</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">feols</span>(regime <span class="sc">~</span> oil, <span class="at">data =</span> ross)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
+<pre><code>OLS estimation, Dep. Var.: regime
+Observations: 2,708 
+Standard-errors: IID 
+             Estimate Std. Error  t value  Pr(&gt;|t|)    
+(Intercept)  2.403693   0.150973  15.9214 &lt; 2.2e-16 ***
+oil         -0.172361   0.010298 -16.7366 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+RMSE: 7.30456   Adj. R2: 0.09347</code></pre>
 </div>
 </div>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>O resultado é o mesmo que obteríamos com <code>lm</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dez sequências de Bernoulli com prob. 0.5</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(regime <span class="sc">~</span> oil, <span class="at">data =</span> ross)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 6</code></pre>
+<pre><code>
+Call:
+lm(formula = regime ~ oil, data = ross)
+
+Coefficients:
+(Intercept)          oil  
+     2.4037      -0.1724  </code></pre>
 </div>
 </div>
-</div>
-<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>O grande diferencial do <code>fixest</code>, no entanto, é podermos usar uma sintaxe simples para declarar efeitos fixos (<em>within</em>), algo que pode ser feito com:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sorteia um número de uma distribuição normal</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">feols</span>(regime <span class="sc">~</span> oil <span class="sc">|</span> cty_name, <span class="at">data =</span> ross)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.06292999</code></pre>
+<pre><code>OLS estimation, Dep. Var.: regime
+Observations: 2,708 
+Fixed-effects: cty_name: 130
+Standard-errors: Clustered (cty_name) 
+    Estimate Std. Error  t value Pr(&gt;|t|) 
+oil 0.000353   0.011302 0.031206  0.97515 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+RMSE: 3.76654     Adj. R2: 0.746899
+                Within R2: 2.544e-7</code></pre>
 </div>
 </div>
-</div>
-<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p>No código acima, variáveis que aparecem depois do <code>|</code> são entendidas como efeitos fixos, isto é, tratadas como variáveis discretas e que, nesse caso, ocupam o lugar do <em>intercept</em>, indicando a média de <code>regime</code> para cada país quando <code>oil</code> é zero.</p>
+<p>Outra utilidade do <code>fixest</code> é permitir incluirmos erros-padrão por <em>cluster</em> – para sinalizar que nossas observações dentro de um mesmo país não são iid. Fazemos isso com:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sorteia um número de uma distribuição Poisson</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rpois</span>(<span class="dv">1</span>, <span class="at">lambda =</span> <span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">feols</span>(regime <span class="sc">~</span> oil <span class="sc">|</span> cty_name, <span class="at">data =</span> ross, <span class="at">cluster =</span> <span class="sc">~</span> cty_name)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
+<pre><code>OLS estimation, Dep. Var.: regime
+Observations: 2,708 
+Fixed-effects: cty_name: 130
+Standard-errors: Clustered (cty_name) 
+    Estimate Std. Error  t value Pr(&gt;|t|) 
+oil 0.000353   0.011302 0.031206  0.97515 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+RMSE: 3.76654     Adj. R2: 0.746899
+                Within R2: 2.544e-7</code></pre>
 </div>
 </div>
-</div>
-</div>
-</div>
+<p>Note que, embora estimativas não tenham mudado, erros-padrão e p-valores foram alterados.</p>
 </section>
-<section id="criando-funções-de-probabilidade" class="level2">
-<h2 class="anchored" data-anchor-id="criando-funções-de-probabilidade">Criando funções de probabilidade</h2>
-<p>Algumas funções para sortear valores de distribuições mais complexas podem ser construídas a partir de funções mais simples. Por exemplo, podemos usar a uniforme para simular uma distribuição Bernoulli:</p>
+<section id="tabelas" class="level2">
+<h2 class="anchored" data-anchor-id="tabelas">Tabelas</h2>
+<p>Outra utilidade do <code>fixest</code> é permitr a criação e exportação rápida de tabelas padronizadas com resultados de modelos de regressão. Para isso, bastar usarmos a função <code>etable</code>. A título de exemplo, vamos criar três modelos para compará-los em uma tabela:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">1</span>) <span class="sc">&lt;</span> p</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(resultado)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">feols</span>(regime <span class="sc">~</span> oil, <span class="at">data =</span> ross)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">feols</span>(regime <span class="sc">~</span> oil <span class="sc">|</span> cty_name, <span class="at">data =</span> ross)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">feols</span>(regime <span class="sc">~</span> oil <span class="sc">|</span> cty_name <span class="sc">+</span> year, <span class="at">data =</span> ross)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).</code></pre>
+</div>
+</div>
+<p>O primeiro é o nosso modelo simples de <code>regime ~ oil</code>, que é acrescido de efeitos fixos para países e, posteriormente, de efeitos fixos para anos. Para criar a tabela, basta usarmos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(m1, m2, m3)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
+<pre><code>                                 m1              m2              m3
+Dependent Var.:              regime          regime          regime
+                                                                   
+Constant          2.404*** (0.1510)                                
+oil             -0.1724*** (0.0103) 0.0004 (0.0113) 0.0193 (0.0144)
+Fixed-Effects:  ------------------- --------------- ---------------
+cty_name                         No             Yes             Yes
+year                             No              No             Yes
+_______________ ___________________ _______________ _______________
+S.E. type                       IID    by: cty_name    by: cty_name
+Observations                  2,708           2,708           2,708
+R2                          0.09380         0.75905         0.80002
+Within R2                        --         2.54e-7         0.00086
+---
+Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>O que fizemos? Basicamente, realizamos um sorteio a partir de uma distribuição <span class="math inline">\(Uniforme(0, 1)\)</span> e, se ele for maior que <span class="math inline">\(p\)</span>, o resultistribuiçado desse sorteio é convertido para 1, caso contrário, para 0.</p>
-<p>Podemos fazer esse processo mil vezes para visualizar o resultado com um gráfico de barras:</p>
+<p>Por padrão, as tabelas do <code>fixest</code> incluem uma série de informações que não usamos tanto, além de usar os nomes das variáveis brutas nas linhas. Abaixo, segue um exemplo de tabela mais compacta, com um padrão mais próximo do que costuma ser usado em artigos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">1</span>) <span class="sc">&lt;</span> p</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(X)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">X =</span> X) <span class="sc">%&gt;%</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> X)) <span class="sc">+</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="aula2_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(m1, m2, m3, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="st">"r2"</span>, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fitstat =</span> <span class="fu">c</span>(<span class="st">"n"</span>, <span class="st">"g"</span>), </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">se.below =</span> T, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">dict =</span> <span class="fu">c</span>(<span class="at">regime =</span> <span class="st">"Polity"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">oil =</span> <span class="st">"Petróleo (% do PIB)"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">cty_name =</span> <span class="st">"País"</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">year =</span> <span class="st">"Ano"</span>),</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">depvar =</span> F, </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#tex = T, style.tex = style.tex("aer"), # Para PDF!</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">notes =</span> <span class="st">"Notas: modelos de regressão estimados com o pacote fixest."</span>,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Efeito do petróleo no regime"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                          m1       m2       m3
+Constant             2.40***                  
+                    (0.15)                    
+Petróleo (% do PIB) -0.17***    0.00     0.02 
+                    (0.01)     (0.01)   (0.01)
+Fixed-Effects:      -------- -------- --------
+País                     No      Yes      Yes
+Ano                       No       No      Yes
+___________________ ________ ________ ________
+S.E. type                IID by: País by: País
+Observations           2,708    2,708    2,708
+G                      2,706      130      130
+---
+Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
+<p>A maioria dos argumentos acima, como é possível ver, são intuitivos. De toda forma, para uma consulta mais detalhada de todas as possibilidades da função é possível obter ajuda com <code>help(etable)</code>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 </section>
-<section id="simulando-lançamentos-de-um-dado" class="level2">
-<h2 class="anchored" data-anchor-id="simulando-lançamentos-de-um-dado">Simulando lançamentos de um dado</h2>
-<p>Lançamentos de um dado geralmente são simulados a partir de uma distribuição multinomial – mas, já que em um lançamento a probabilidade de tirarmos qualquer face em um sorteio é a mesma (e.g., <span class="math inline">\(p_1 = p_2 = ... p_6\)</span>), podemos criar nossa própria função de probabilidade para simular esse processo usando <code>runif</code> novamente. A ideia é a seguinte:</p>
+<section id="simulações" class="level2">
+<h2 class="anchored" data-anchor-id="simulações">Simulações</h2>
+<p>Em aula, vimos um <em>app</em> simples que simulava um processo gerados de dados com duas variáveis independentes para ilustrar como a seleção de coeficientes afeta os resíduos de um modelo. Para facilitar seu uso, o link para o <em>app</em> segue abaixo:</p>
 <ul>
-<li>Sortearemos um número entre 0 e 6 usando <span class="math inline">\(X \sim Unif(0, 6)\)</span></li>
-<li>Se <span class="math inline">\(0 &lt; x \leq 1\)</span>, o resultado é 1; se <span class="math inline">\(1 &lt; x \leq 2\)</span>, o resultado é 2; e assim por diante</li>
-<li>Repetimos o processo <span class="math inline">\(n\)</span> vezes</li>
+<li><a href="https://rxvckz-fernando-meireles.shinyapps.io/srq_app/">App de resíduos</a></li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">6</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(X)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">X =</span> X) <span class="sc">%&gt;%</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> X)) <span class="sc">+</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">"orangered"</span>) <span class="sc">+</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Frequência"</span>, <span class="at">x =</span> <span class="st">"Face do dado"</span>,</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Simulações de lançamentos de um dado"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="aula2_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
+
 
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-ross2001does" class="csl-entry" role="listitem">
+Ross, Michael L. 2001. <span>«Does oil hinder democracy?»</span> <em>World politics</em> 53 (3): 325–61.
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Notas de rodapé</h2>
+
+<ol>
+<li id="fn1"><p>Vale notar que, para exibir a tabela corretamente em PDF é necessário usar os argumentos <code>tex = T</code> e <code>style.tex = style.tex("aer")</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

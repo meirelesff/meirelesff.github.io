@@ -161,6 +161,10 @@ div.csl-indent {
     <a class="dropdown-item" href="../aulas/aula3.html" rel="" target="">
  <span class="dropdown-text">Aula 3</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../aulas/aula4.html" rel="" target="">
+ <span class="dropdown-text">Aula 4</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -407,7 +411,7 @@ Coefficients:
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula SRQ para cada modelo</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>modelos <span class="ot">&lt;-</span> modelos <span class="sc">%&gt;%</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> <span class="co"># Aplica a função linha a linha</span></span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">srq =</span> <span class="fu">calcula_srq</span>(beta0, beta1, <span class="at">dados =</span> ross)) <span class="sc">%&gt;%</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="co"># Desfaz a operação rowwsise()</span></span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>

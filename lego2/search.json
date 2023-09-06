@@ -28,53 +28,18 @@
     "text": "Este é o website da disciplina de Lego II do IESP-UERJ. Particularmente, alguns recursos e códigos que usaremos nas nossas aulas estarão aqui. Ementa, textos e outros materiais estão nesta pasta no Google Drive."
   },
   {
-    "objectID": "aulas/aula2.html",
-    "href": "aulas/aula2.html",
-    "title": "Aula 2",
-    "section": "",
-    "text": "Em aula, estudamos Processos Geradores de Dados (PGDs) e probabilidade. Nestas notas, veremos agora como podemos usar funções de probabilidade – que, lembrando, servem para atribuir probabilidade a eventos possíveis, que chamamos de \\(\\omega\\), de um espaço amostral, que definimos como \\(\\Omega\\) – para simular dados. Isso será particularmente útil nas próximas aulas, mas também nos dará mais experiência com visualização de dados usando ggplot2.\nAntes de começar, vamos carregar o tidyverse:\n\nlibrary(tidyverse)"
-  },
-  {
-    "objectID": "aulas/aula2.html#introdução",
-    "href": "aulas/aula2.html#introdução",
-    "title": "Aula 2",
-    "section": "",
-    "text": "Em aula, estudamos Processos Geradores de Dados (PGDs) e probabilidade. Nestas notas, veremos agora como podemos usar funções de probabilidade – que, lembrando, servem para atribuir probabilidade a eventos possíveis, que chamamos de \\(\\omega\\), de um espaço amostral, que definimos como \\(\\Omega\\) – para simular dados. Isso será particularmente útil nas próximas aulas, mas também nos dará mais experiência com visualização de dados usando ggplot2.\nAntes de começar, vamos carregar o tidyverse:\n\nlibrary(tidyverse)"
-  },
-  {
-    "objectID": "aulas/aula2.html#distribuições",
-    "href": "aulas/aula2.html#distribuições",
-    "title": "Aula 2",
-    "section": "Distribuições",
-    "text": "Distribuições\nO R tem diversas funções que nos permitem sortear números de acordo com algumas distribuições. Abaixo, exemplos das mais comuns.\n\nUniformeBernoulliBinomialNormalPoisson\n\n\n\n# Sorteia um número entre 0 e 1\nrunif(1, min = 0, max = 1)\n\n[1] 0.9933472\n\n\n\n\n\n# Sorteia 1 com probabilidade 0.5\nrbinom(1, size = 1, prob = 0.5)\n\n[1] 0\n\n\n\n\n\n# Dez sequências de Bernoulli com prob. 0.5\nrbinom(1, size = 10, prob = 0.5)\n\n[1] 3\n\n\n\n\n\n# Sorteia um número de uma distribuição normal\nrnorm(1, mean = 0, sd = 1)\n\n[1] 0.8719198\n\n\n\n\n\n# Sorteia um número de uma distribuição Poisson\nrpois(1, lambda = 1)\n\n[1] 1"
-  },
-  {
-    "objectID": "aulas/aula2.html#criando-funções-de-probabilidade",
-    "href": "aulas/aula2.html#criando-funções-de-probabilidade",
-    "title": "Aula 2",
-    "section": "Criando funções de probabilidade",
-    "text": "Criando funções de probabilidade\nAlgumas funções para sortear valores de distribuições mais complexas podem ser construídas a partir de funções mais simples. Por exemplo, podemos usar a uniforme para simular uma distribuição Bernoulli:\n\np &lt;- 0.5\nresultado &lt;- runif(1, min = 0, max = 1) &lt; p\nas.numeric(resultado)\n\n[1] 0\n\n\nO que fizemos? Basicamente, realizamos um sorteio a partir de uma distribuição \\(Uniforme(0, 1)\\) e, se ele for maior que \\(p\\), o resultistribuiçado desse sorteio é convertido para 1, caso contrário, para 0.\nPodemos fazer esse processo mil vezes para visualizar o resultado com um gráfico de barras:\n\np &lt;- 0.5\nn &lt;- 1000\nX &lt;- runif(n, min = 0, max = 1) &lt; p\nX &lt;- as.numeric(X)\n\ntibble(X = X) %&gt;%\n  ggplot(aes(x = X)) +\n  geom_bar() +\n  theme_minimal()"
-  },
-  {
-    "objectID": "aulas/aula2.html#simulando-lançamentos-de-um-dado",
-    "href": "aulas/aula2.html#simulando-lançamentos-de-um-dado",
-    "title": "Aula 2",
-    "section": "Simulando lançamentos de um dado",
-    "text": "Simulando lançamentos de um dado\nLançamentos de um dado geralmente são simulados a partir de uma distribuição multinomial – mas, já que em um lançamento a probabilidade de tirarmos qualquer face em um sorteio é a mesma (e.g., \\(p_1 = p_2 = ... p_6\\)), podemos criar nossa própria função de probabilidade para simular esse processo usando runif novamente. A ideia é a seguinte:\n\nSortearemos um número entre 0 e 6 usando \\(X \\sim Unif(0, 6)\\)\nSe \\(0 &lt; x \\leq 1\\), o resultado é 1; se \\(1 &lt; x \\leq 2\\), o resultado é 2; e assim por diante\nRepetimos o processo \\(n\\) vezes\n\n\nn &lt;- 1000\nX &lt;- runif(n, min = 0, max = 6)\nX &lt;- ceiling(X)\n\ntibble(X = X) %&gt;%\n  ggplot(aes(x = X)) +\n  geom_bar(width = 0.5, fill = \"orangered\") +\n  theme_minimal() +\n  labs(y = \"Frequência\", x = \"Face do dado\",\n  title = \"Simulações de lançamentos de um dado\")"
-  },
-  {
     "objectID": "aulas/aula3.html",
     "href": "aulas/aula3.html",
     "title": "Aula 3",
     "section": "",
-    "text": "interessante de testar diferentes modelos. Pela teoria, sabemos que um modelo por mínimos quadrados é um bom modelo, e sabemos como ele é calculado (e.g., ). Mas e se quisermos testar outros modelos? Como selecionamos bons modelos?"
+    "text": "Modelos de regressão linear são extremamente úteis para entender a relação entre variáveis. Com ele, podemos examinar a relação linear entre duas variáveis – o que, como vimos, serve como um excelente estimador de valor esperados condicionais, desde que sejam satisfeitas os pressupostos do modelo como o da linearidade.\nPara praticar esse conteúdo, estas notas explicam como baixar e carregar o banco de dados usado por Ross (2001) e, a partir dele, rodar alguns modelos de regressão. Além disso, as notas também oferecem códigos para implementar modelos lineares – não por mínimos quadrados – e visualizá-los usando gggplot2."
   },
   {
     "objectID": "aulas/aula3.html#introdução",
     "href": "aulas/aula3.html#introdução",
     "title": "Aula 3",
-    "section": "Introdução",
-    "text": "Introdução\nModelos de regressão linear são extremamente úteis para entender a relação entre variáveis. Com ele, podemos examinar a relação linear entre duas variáveis – o que, como vimos, serve como um excelente estimador de valor esperados condicionais, desde que sejam satisfeitas os pressupostos do modelo como o da linearidade.\nPara praticar esse conteúdo, estas notas explicam como baixar e carregar o banco de dados usado por Ross (2001) e, a partir dele, rodar alguns modelos de regressão. Além disso, as notas também oferecem códigos para implementar modelos lineares – não por mínimos quadrados – e visualizá-los usando gggplot2."
+    "section": "",
+    "text": "Modelos de regressão linear são extremamente úteis para entender a relação entre variáveis. Com ele, podemos examinar a relação linear entre duas variáveis – o que, como vimos, serve como um excelente estimador de valor esperados condicionais, desde que sejam satisfeitas os pressupostos do modelo como o da linearidade.\nPara praticar esse conteúdo, estas notas explicam como baixar e carregar o banco de dados usado por Ross (2001) e, a partir dele, rodar alguns modelos de regressão. Além disso, as notas também oferecem códigos para implementar modelos lineares – não por mínimos quadrados – e visualizá-los usando gggplot2."
   },
   {
     "objectID": "aulas/aula3.html#baixando-e-carregando-o-banco-de-dados",
@@ -109,7 +74,7 @@
     "href": "aulas/aula3.html#testando-diferentes-modelos",
     "title": "Aula 3",
     "section": "Testando diferentes modelos",
-    "text": "Testando diferentes modelos\nO gráfico anterior abre a possibilidade interessante de testar diferentes modelos. Pela teoria, sabemos que um modelo por mínimos quadrados é um bom modelo, e sabemos o que ele busca minimizar (e.g., \\(\\sum_{i=1}^n (y_i - (\\hat{\\beta_0} + \\hat{\\beta_1} x_i))^2\\)). Mas e se quisermos testar outros modelos? Como selecionamos bons modelos?\nAqui, vamos explorar uma solução comum em aprendizado de máquina: vamos gerar aleatoriamente e testar diferentes modelos e ver qual deles é o melhor. Isso, no entanto, envolve criar uma função – algo que não vimos explicitamente em Lego I (caso queira estudar mais sobre, veja este capítulo do R for Data Science).\nPara começar, vamos criar uma função que faz o seguinte: gera modelos aleatoriamente sorteando valores possíveis de \\(\\beta_0\\) e \\(\\beta_1\\). Aí vai o código:\n\n# Função para gerar modelos\ngera_modelos &lt;- function(n_modelos = 1000){\n\n    beta0 &lt;- runif(n_modelos, min = -10, max = 10)\n    beta1 &lt;- runif(n_modelos, min = -1, max = 1)\n\n    modelo &lt;- tibble(beta0 = beta0, beta1 = beta1)\n\n    return(modelo)\n}\n\nUm exemplo do que o modelo retorna:\n\ngera_modelos(10)\n\n# A tibble: 10 × 2\n    beta0   beta1\n    &lt;dbl&gt;   &lt;dbl&gt;\n 1  5.61   0.707 \n 2  1.07   0.484 \n 3  0.476 -0.553 \n 4  3.61   0.941 \n 5 -2.49   0.435 \n 6 -3.13   0.649 \n 7 -3.89  -0.191 \n 8 -9.71  -0.178 \n 9 -7.51   0.898 \n10 -1.84   0.0554\n\n\nComo dá para ver, em vez de estimar os parâmetros, a função os sorteia aleatoriamente. Podemos usar agora o ggplot2 para visualizar alguns desses modelos em cima dos dados de Ross (2001):\n\n# Gera 5 modelos\nmodelos &lt;- gera_modelos(5)\n\n# Plotando modelos\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_abline(data = modelos, aes(slope = beta1, intercept = beta0)) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\nWarning: Removed 1822 rows containing missing values (`geom_point()`).\n\n\n\n\n\nNenhum destes 5 modelos parece bom. O que podemos fazer, no entanto, é gerar mais modelos e ver se algum deles é comparável a um estimado por mínimos quadrados. Para isso, vamos criar uma função que, para cada modelo, calcula a soma dos resíduos quadráticos (SRQ):\n\n# Função para calcular SRQ\ncalcula_srq &lt;- function(beta0, beta1, dados){\n    \n    # Remove missings (não podemos calcular SRQ com missings)\n    dados &lt;- dados %&gt;%\n        select(regime, oil) %&gt;%\n        na.omit()\n\n    # Calcula a soma dos resíduos quadráticos\n    srq &lt;- sum((dados$regime - (beta0 + beta1 * dados$oil))^2)\n    return(srq)\n}\n\nCom essa função, agora podemos gerar e testar 100 ou 1000 modelos um a uma. O código a seguir faz isso (usando rowwise() e mutate() para aplicar a função a cada linha do banco de dados):\n\n# Gera 1000 modelos\nmodelos &lt;- gera_modelos(1000)\n\n# Calcula SRQ para cada modelo\nmodelos &lt;- modelos %&gt;%\n  rowwise() %&gt;%\n  mutate(srq = calcula_srq(beta0, beta1, dados = ross)) %&gt;%\n  ungroup() # Desfaz a operação rowwsise()\n\n# Visualiza os 5 melhores modelos\nmodelos %&gt;%\n  arrange(srq) %&gt;%\n  head(5)\n\n# A tibble: 5 × 3\n  beta0  beta1     srq\n  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n1  2.53 -0.158 144693.\n2  2.68 -0.161 144857.\n3  1.83 -0.159 145248.\n4  2.98 -0.183 145288.\n5  3.33 -0.215 146716.\n\n\nComparando com o modelo estimado por mínimos quadrados, abaixo, vemos que o resultado não foi nada mal.\n\n# Seleciona os 5 melhores modelos\nmodelos &lt;- modelos %&gt;%\n  arrange(srq) %&gt;%\n  slice(1:5)\n\n# Plota os modelos estimados e o modelo de minimos quadrados\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_abline(data = modelos, aes(slope = beta1, intercept = beta0)) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"purple\", linewidth = 1.2) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: Removed 1822 rows containing non-finite values (`stat_smooth()`).\n\n\nWarning: Removed 1822 rows containing missing values (`geom_point()`).\n\n\n\n\n\nA moral da história é que, assim como há diferentes estimadores possíveis para uma quantia de interesse, também há diferentes formas de estimar um modelo."
+    "text": "Testando diferentes modelos\nO gráfico anterior abre a possibilidade interessante de testar diferentes modelos. Pela teoria, sabemos que um modelo por mínimos quadrados é um bom modelo, e sabemos o que ele busca minimizar (e.g., \\(\\sum_{i=1}^n (y_i - (\\hat{\\beta_0} + \\hat{\\beta_1} x_i))^2\\)). Mas e se quisermos testar outros modelos? Como selecionamos bons modelos?\nAqui, vamos explorar uma solução comum em aprendizado de máquina: vamos gerar aleatoriamente e testar diferentes modelos e ver qual deles é o melhor. Isso, no entanto, envolve criar uma função – algo que não vimos explicitamente em Lego I (caso queira estudar mais sobre, veja este capítulo do R for Data Science).\nPara começar, vamos criar uma função que faz o seguinte: gera modelos aleatoriamente sorteando valores possíveis de \\(\\beta_0\\) e \\(\\beta_1\\). Aí vai o código:\n\n# Função para gerar modelos\ngera_modelos &lt;- function(n_modelos = 1000){\n\n    beta0 &lt;- runif(n_modelos, min = -10, max = 10)\n    beta1 &lt;- runif(n_modelos, min = -1, max = 1)\n\n    modelo &lt;- tibble(beta0 = beta0, beta1 = beta1)\n\n    return(modelo)\n}\n\nUm exemplo do que o modelo retorna:\n\ngera_modelos(10)\n\n# A tibble: 10 × 2\n    beta0   beta1\n    &lt;dbl&gt;   &lt;dbl&gt;\n 1  5.61   0.707 \n 2  1.07   0.484 \n 3  0.476 -0.553 \n 4  3.61   0.941 \n 5 -2.49   0.435 \n 6 -3.13   0.649 \n 7 -3.89  -0.191 \n 8 -9.71  -0.178 \n 9 -7.51   0.898 \n10 -1.84   0.0554\n\n\nComo dá para ver, em vez de estimar os parâmetros, a função os sorteia aleatoriamente. Podemos usar agora o ggplot2 para visualizar alguns desses modelos em cima dos dados de Ross (2001):\n\n# Gera 5 modelos\nmodelos &lt;- gera_modelos(5)\n\n# Plotando modelos\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_abline(data = modelos, aes(slope = beta1, intercept = beta0)) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\nWarning: Removed 1822 rows containing missing values (`geom_point()`).\n\n\n\n\n\nNenhum destes 5 modelos parece bom. O que podemos fazer, no entanto, é gerar mais modelos e ver se algum deles é comparável a um estimado por mínimos quadrados. Para isso, vamos criar uma função que, para cada modelo, calcula a soma dos resíduos quadráticos (SRQ):\n\n# Função para calcular SRQ\ncalcula_srq &lt;- function(beta0, beta1, dados){\n    \n    # Remove missings (não podemos calcular SRQ com missings)\n    dados &lt;- dados %&gt;%\n        select(regime, oil) %&gt;%\n        na.omit()\n\n    # Calcula a soma dos resíduos quadráticos\n    srq &lt;- sum((dados$regime - (beta0 + beta1 * dados$oil))^2)\n    return(srq)\n}\n\nCom essa função, agora podemos gerar e testar 100 ou 1000 modelos um a uma. O código a seguir faz isso (usando rowwise() e mutate() para aplicar a função a cada linha do banco de dados):\n\n# Gera 1000 modelos\nmodelos &lt;- gera_modelos(1000)\n\n# Calcula SRQ para cada modelo\nmodelos &lt;- modelos %&gt;%\n  rowwise() %&gt;% # Aplica a função linha a linha\n  mutate(srq = calcula_srq(beta0, beta1, dados = ross)) %&gt;%\n  ungroup() # Desfaz a operação rowwsise()\n\n# Visualiza os 5 melhores modelos\nmodelos %&gt;%\n  arrange(srq) %&gt;%\n  head(5)\n\n# A tibble: 5 × 3\n  beta0  beta1     srq\n  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n1  2.53 -0.158 144693.\n2  2.68 -0.161 144857.\n3  1.83 -0.159 145248.\n4  2.98 -0.183 145288.\n5  3.33 -0.215 146716.\n\n\nComparando com o modelo estimado por mínimos quadrados, abaixo, vemos que o resultado não foi nada mal.\n\n# Seleciona os 5 melhores modelos\nmodelos &lt;- modelos %&gt;%\n  arrange(srq) %&gt;%\n  slice(1:5)\n\n# Plota os modelos estimados e o modelo de minimos quadrados\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_abline(data = modelos, aes(slope = beta1, intercept = beta0)) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"purple\", linewidth = 1.2) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: Removed 1822 rows containing non-finite values (`stat_smooth()`).\n\n\nWarning: Removed 1822 rows containing missing values (`geom_point()`).\n\n\n\n\n\nA moral da história é que, assim como há diferentes estimadores possíveis para uma quantia de interesse, também há diferentes formas de estimar um modelo."
   },
   {
     "objectID": "aulas/aula3.html#indo-além",
@@ -117,6 +82,83 @@
     "title": "Aula 3",
     "section": "Indo além",
     "text": "Indo além\nPara simular diferentes modelos, usamos alguns recursos mais avançados do tidyverse que só cobriremos ocasionalmente no curso. Se você quiser se aprofundar, recomendo ver principalmente:\n\nR for Data Science, de Hadley Wickham e Garrett Grolemund, livro fundamental para quem quer aprender R e tidyverse"
+  },
+  {
+    "objectID": "aulas/aula2.html",
+    "href": "aulas/aula2.html",
+    "title": "Aula 2",
+    "section": "",
+    "text": "Em aula, estudamos Processos Geradores de Dados (PGDs) e probabilidade. Nestas notas, veremos agora como podemos usar funções de probabilidade – que, lembrando, servem para atribuir probabilidade a eventos possíveis, que chamamos de \\(\\omega\\), de um espaço amostral, que definimos como \\(\\Omega\\) – para simular dados. Isso será particularmente útil nas próximas aulas, mas também nos dará mais experiência com visualização de dados usando ggplot2.\nAntes de começar, vamos carregar o tidyverse:\n\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "aulas/aula2.html#introdução",
+    "href": "aulas/aula2.html#introdução",
+    "title": "Aula 2",
+    "section": "",
+    "text": "Em aula, estudamos Processos Geradores de Dados (PGDs) e probabilidade. Nestas notas, veremos agora como podemos usar funções de probabilidade – que, lembrando, servem para atribuir probabilidade a eventos possíveis, que chamamos de \\(\\omega\\), de um espaço amostral, que definimos como \\(\\Omega\\) – para simular dados. Isso será particularmente útil nas próximas aulas, mas também nos dará mais experiência com visualização de dados usando ggplot2.\nAntes de começar, vamos carregar o tidyverse:\n\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "aulas/aula2.html#distribuições",
+    "href": "aulas/aula2.html#distribuições",
+    "title": "Aula 2",
+    "section": "Distribuições",
+    "text": "Distribuições\nO R tem diversas funções que nos permitem sortear números de acordo com algumas distribuições. Abaixo, exemplos das mais comuns.\n\nUniformeBernoulliBinomialNormalPoisson\n\n\n\n# Sorteia um número entre 0 e 1\nrunif(1, min = 0, max = 1)\n\n[1] 0.2899019\n\n\n\n\n\n# Sorteia 1 com probabilidade 0.5\nrbinom(1, size = 1, prob = 0.5)\n\n[1] 1\n\n\n\n\n\n# Dez sequências de Bernoulli com prob. 0.5\nrbinom(1, size = 10, prob = 0.5)\n\n[1] 6\n\n\n\n\n\n# Sorteia um número de uma distribuição normal\nrnorm(1, mean = 0, sd = 1)\n\n[1] -0.06292999\n\n\n\n\n\n# Sorteia um número de uma distribuição Poisson\nrpois(1, lambda = 1)\n\n[1] 1"
+  },
+  {
+    "objectID": "aulas/aula2.html#criando-funções-de-probabilidade",
+    "href": "aulas/aula2.html#criando-funções-de-probabilidade",
+    "title": "Aula 2",
+    "section": "Criando funções de probabilidade",
+    "text": "Criando funções de probabilidade\nAlgumas funções para sortear valores de distribuições mais complexas podem ser construídas a partir de funções mais simples. Por exemplo, podemos usar a uniforme para simular uma distribuição Bernoulli:\n\np &lt;- 0.5\nresultado &lt;- runif(1, min = 0, max = 1) &lt; p\nas.numeric(resultado)\n\n[1] 1\n\n\nO que fizemos? Basicamente, realizamos um sorteio a partir de uma distribuição \\(Uniforme(0, 1)\\) e, se ele for maior que \\(p\\), o resultistribuiçado desse sorteio é convertido para 1, caso contrário, para 0.\nPodemos fazer esse processo mil vezes para visualizar o resultado com um gráfico de barras:\n\np &lt;- 0.5\nn &lt;- 1000\nX &lt;- runif(n, min = 0, max = 1) &lt; p\nX &lt;- as.numeric(X)\n\ntibble(X = X) %&gt;%\n  ggplot(aes(x = X)) +\n  geom_bar() +\n  theme_minimal()"
+  },
+  {
+    "objectID": "aulas/aula2.html#simulando-lançamentos-de-um-dado",
+    "href": "aulas/aula2.html#simulando-lançamentos-de-um-dado",
+    "title": "Aula 2",
+    "section": "Simulando lançamentos de um dado",
+    "text": "Simulando lançamentos de um dado\nLançamentos de um dado geralmente são simulados a partir de uma distribuição multinomial – mas, já que em um lançamento a probabilidade de tirarmos qualquer face em um sorteio é a mesma (e.g., \\(p_1 = p_2 = ... p_6\\)), podemos criar nossa própria função de probabilidade para simular esse processo usando runif novamente. A ideia é a seguinte:\n\nSortearemos um número entre 0 e 6 usando \\(X \\sim Unif(0, 6)\\)\nSe \\(0 &lt; x \\leq 1\\), o resultado é 1; se \\(1 &lt; x \\leq 2\\), o resultado é 2; e assim por diante\nRepetimos o processo \\(n\\) vezes\n\n\nn &lt;- 1000\nX &lt;- runif(n, min = 0, max = 6)\nX &lt;- ceiling(X)\n\ntibble(X = X) %&gt;%\n  ggplot(aes(x = X)) +\n  geom_bar(width = 0.5, fill = \"orangered\") +\n  theme_minimal() +\n  labs(y = \"Frequência\", x = \"Face do dado\",\n  title = \"Simulações de lançamentos de um dado\")"
+  },
+  {
+    "objectID": "aulas/aula4.html",
+    "href": "aulas/aula4.html",
+    "title": "Aula 4",
+    "section": "",
+    "text": "Estas notas tem um objetivo bem simples: ensinar como usar o pacote fixest para rodar regressões lineares com efeitos fixos (além de outras utilidades).\nUsaremos como exemplo, novamente, os dados de Ross (2001). Vamos carregá-los com:\n\nlibrary(haven)\nross &lt;- read_dta(\"doesoil_clean.dta\")"
+  },
+  {
+    "objectID": "aulas/aula4.html#introdução",
+    "href": "aulas/aula4.html#introdução",
+    "title": "Aula 4",
+    "section": "",
+    "text": "Estas notas tem um objetivo bem simples: ensinar como usar o pacote fixest para rodar regressões lineares com efeitos fixos (além de outras utilidades).\nUsaremos como exemplo, novamente, os dados de Ross (2001). Vamos carregá-los com:\n\nlibrary(haven)\nross &lt;- read_dta(\"doesoil_clean.dta\")"
+  },
+  {
+    "objectID": "aulas/aula4.html#fixest",
+    "href": "aulas/aula4.html#fixest",
+    "title": "Aula 4",
+    "section": "Fixest",
+    "text": "Fixest\nO fixest serve basicamente para rodar modelos de regressão linear e generalizados de forma rápida – especialmente em bancos grandes, com muitos grupos e ou especificações complexas. O primeiro passo para usá-lo, como sempre, é instalar e carregar o pacote:\n\ninstall.packages(\"fixest\")\nlibrary(fixest)\n\nIsso feito, vamos rodar um modelo simples para regredir regime em oil com a função feols, como viemos fazendo:\n\nfeols(regime ~ oil, data = ross)\n\nNOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).\n\n\nOLS estimation, Dep. Var.: regime\nObservations: 2,708 \nStandard-errors: IID \n             Estimate Std. Error  t value  Pr(&gt;|t|)    \n(Intercept)  2.403693   0.150973  15.9214 &lt; 2.2e-16 ***\noil         -0.172361   0.010298 -16.7366 &lt; 2.2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\nRMSE: 7.30456   Adj. R2: 0.09347\n\n\nO resultado é o mesmo que obteríamos com lm:\n\nlm(regime ~ oil, data = ross)\n\n\nCall:\nlm(formula = regime ~ oil, data = ross)\n\nCoefficients:\n(Intercept)          oil  \n     2.4037      -0.1724  \n\n\nO grande diferencial do fixest, no entanto, é podermos usar uma sintaxe simples para declarar efeitos fixos (within), algo que pode ser feito com:\n\nfeols(regime ~ oil | cty_name, data = ross)\n\nNOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).\n\n\nOLS estimation, Dep. Var.: regime\nObservations: 2,708 \nFixed-effects: cty_name: 130\nStandard-errors: Clustered (cty_name) \n    Estimate Std. Error  t value Pr(&gt;|t|) \noil 0.000353   0.011302 0.031206  0.97515 \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\nRMSE: 3.76654     Adj. R2: 0.746899\n                Within R2: 2.544e-7\n\n\nNo código acima, variáveis que aparecem depois do | são entendidas como efeitos fixos, isto é, tratadas como variáveis discretas e que, nesse caso, ocupam o lugar do intercept, indicando a média de regime para cada país quando oil é zero.\nOutra utilidade do fixest é permitir incluirmos erros-padrão por cluster – para sinalizar que nossas observações dentro de um mesmo país não são iid. Fazemos isso com:\n\nfeols(regime ~ oil | cty_name, data = ross, cluster = ~ cty_name)\n\nNOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).\n\n\nOLS estimation, Dep. Var.: regime\nObservations: 2,708 \nFixed-effects: cty_name: 130\nStandard-errors: Clustered (cty_name) \n    Estimate Std. Error  t value Pr(&gt;|t|) \noil 0.000353   0.011302 0.031206  0.97515 \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\nRMSE: 3.76654     Adj. R2: 0.746899\n                Within R2: 2.544e-7\n\n\nNote que, embora estimativas não tenham mudado, erros-padrão e p-valores foram alterados."
+  },
+  {
+    "objectID": "aulas/aula4.html#tabelas",
+    "href": "aulas/aula4.html#tabelas",
+    "title": "Aula 4",
+    "section": "Tabelas",
+    "text": "Tabelas\nOutra utilidade do fixest é permitr a criação e exportação rápida de tabelas padronizadas com resultados de modelos de regressão. Para isso, bastar usarmos a função etable. A título de exemplo, vamos criar três modelos para compará-los em uma tabela:\n\nm1 &lt;- feols(regime ~ oil, data = ross)\n\nNOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).\n\nm2 &lt;- feols(regime ~ oil | cty_name, data = ross)\n\nNOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).\n\nm3 &lt;- feols(regime ~ oil | cty_name + year, data = ross)\n\nNOTE: 1,822 observations removed because of NA values (LHS: 19, RHS: 1,806).\n\n\nO primeiro é o nosso modelo simples de regime ~ oil, que é acrescido de efeitos fixos para países e, posteriormente, de efeitos fixos para anos. Para criar a tabela, basta usarmos:\n\netable(m1, m2, m3)\n\n                                 m1              m2              m3\nDependent Var.:              regime          regime          regime\n                                                                   \nConstant          2.404*** (0.1510)                                \noil             -0.1724*** (0.0103) 0.0004 (0.0113) 0.0193 (0.0144)\nFixed-Effects:  ------------------- --------------- ---------------\ncty_name                         No             Yes             Yes\nyear                             No              No             Yes\n_______________ ___________________ _______________ _______________\nS.E. type                       IID    by: cty_name    by: cty_name\nObservations                  2,708           2,708           2,708\nR2                          0.09380         0.75905         0.80002\nWithin R2                        --         2.54e-7         0.00086\n---\nSignif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nPor padrão, as tabelas do fixest incluem uma série de informações que não usamos tanto, além de usar os nomes das variáveis brutas nas linhas. Abaixo, segue um exemplo de tabela mais compacta, com um padrão mais próximo do que costuma ser usado em artigos:\n\netable(m1, m2, m3, \n    digits = \"r2\", \n    fitstat = c(\"n\", \"g\"), \n    se.below = T, \n    dict = c(regime = \"Polity\",\n            oil = \"Petróleo (% do PIB)\",\n            cty_name = \"País\",\n            year = \"Ano\"),\n    depvar = F, \n    #tex = T, style.tex = style.tex(\"aer\"), # Para PDF!\n    notes = \"Notas: modelos de regressão estimados com o pacote fixest.\",\n    title = \"Efeito do petróleo no regime\")\n\n                          m1       m2       m3\nConstant             2.40***                  \n                    (0.15)                    \nPetróleo (% do PIB) -0.17***    0.00     0.02 \n                    (0.01)     (0.01)   (0.01)\nFixed-Effects:      -------- -------- --------\nPaís                     No      Yes      Yes\nAno                       No       No      Yes\n___________________ ________ ________ ________\nS.E. type                IID by: País by: País\nObservations           2,708    2,708    2,708\nG                      2,706      130      130\n---\nSignif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n\nA maioria dos argumentos acima, como é possível ver, são intuitivos. De toda forma, para uma consulta mais detalhada de todas as possibilidades da função é possível obter ajuda com help(etable).1"
+  },
+  {
+    "objectID": "aulas/aula4.html#simulações",
+    "href": "aulas/aula4.html#simulações",
+    "title": "Aula 4",
+    "section": "Simulações",
+    "text": "Simulações\nEm aula, vimos um app simples que simulava um processo gerados de dados com duas variáveis independentes para ilustrar como a seleção de coeficientes afeta os resíduos de um modelo. Para facilitar seu uso, o link para o app segue abaixo:\n\nApp de resíduos"
+  },
+  {
+    "objectID": "aulas/aula4.html#footnotes",
+    "href": "aulas/aula4.html#footnotes",
+    "title": "Aula 4",
+    "section": "Notas de rodapé",
+    "text": "Notas de rodapé\n\n\nVale notar que, para exibir a tabela corretamente em PDF é necessário usar os argumentos tex = T e style.tex = style.tex(\"aer\").↩︎"
   },
   {
     "objectID": "template.html",

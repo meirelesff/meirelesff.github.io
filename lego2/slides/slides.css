@@ -185,6 +185,10 @@ blockquote {
     color: #8f2a43;
 }
 
+.remark-code-line-highlighted {
+  background-color: #F1BF98;
+}
+
 @media print {
   .has-continuation {
     display: block !important;

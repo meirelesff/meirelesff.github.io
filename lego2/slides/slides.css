@@ -189,6 +189,14 @@ blockquote {
   background-color: #F1BF98;
 }
 
+.alert {
+  padding: 11px;
+  background-color: #ddd;
+  display: inline-block;
+  position: relative;
+  border-radius: 0.25em;
+}
+
 @media print {
   .has-continuation {
     display: block !important;

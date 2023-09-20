@@ -1,0 +1,76 @@
+---
+title: "Petróleo realmente causa democracia?"
+subtitle: "Uma replicação de Ross (2001)"
+date: "20/09/2023"
+author:
+  - name: Fernando
+    email: fernando.meireles@iesp.uerj.br
+abstract: > 
+  Este trabalho é uma replicação do artigo de @ross2001does, que argumenta que a riqueza do petróleo é prejudicial à democracia. Em particular, reavaliamos também os mecanismos hipotetizados por Ross para identificar se, e até que ponto, eles também causam democracia. Os resultados indicam que, a depender da especificação usada, os resultados originais não sugerem que o petróleo é prejudicial à democracia.
+format:
+  pdf:
+    toc: false
+    number-sections: false
+    colorlinks: true
+    fig-pos: 'ht'
+    geometry:
+      - top=25mm
+      - left=20mm
+      - right=20mm
+      - bottom=25mm
+bibliography: referencias.bib
+lang: pt
+header-includes:
+ - \usepackage{fontspec}
+ - \usepackage{pgfplots}
+ - \usepgfplotslibrary{fillbetween}
+ - \usepackage{tikz}
+ - \usepackage{amsmath}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+# Pacotes
+library(modelsummary)
+library(tidyverse)
+library(fixest)
+library(haven)
+
+
+# Carrega a base do ross
+ross <- read_dta("doesoil clean.dta")
+```
+
+
+# Introdução
+
+Petróleo causa democracia? Essa é a pergunta que @ross2001does procura responder em seu artigo clássico, no qual sustena a teoria de que países muito dependentes em petróleo têm suas democracias prejudicadas. Grosso modo, ele hipotetiza que o petróleo prejudica a democracia por meio de três mecanismos: (1) o petróleo reduz a necessidade de impostos, o que reduz a pressão por representação; (2) o petróleo reduz a necessidade de investimento em capital humano, o que reduz a pressão por representação; e (3) o petróleo aumenta a corrupção, o que reduz a pressão por representação.
+
+Neste trabalho, replicamos os resultados de Ross (2001) e também reavaliamos os mecanismos hipotetizados por @ross2001does para identificar se, e até que ponto, eles também causam democracia. Para tanto, avaliamos sua base original e, usando DAGs para identificar variáveis de controle, reestimamos o modelo principal de @ross2001does.
+
+Os resultados indicam que, a depender da especificação usada, os resultados originais não sugerem que o petróleo é prejudicial à democracia. Além disso, por conta de missings e problemas na operacionalização de suas variáveis principais, não é válido interpretar os resultados originais como evidência de que o petróleo prejudica a democracia.
+
+
+# Desenho
+
+Aqui vai uma descrição do desenho. No caso de @ross2001does, ele usa dados de `r length(unique(ross$cty_name))` países entre `r min(ross$year)` e `r max(ross$year)`. A variável dependente é um índice de democracia, que varia de -10 a 10, e a variável principal de interesse é a dependência em petróleo, que é uma variável contínua que vai de 0 a 100 indicando o peso percentual das exportações de petróleo no PIB do país $i$ no ano $t$. Além disso, @ross2001does também controla por... Com isso, ele procura estimar o efeito causal (linear) do petróleo na democracia condicional a essas variáveis de controle. Ele estima modelos lineares da seguinte forma:
+
+$$
+democ_{it} = \alpha + \beta oil_{it} + \boldsymbol{\gamma} \mathbf{X}_{it} + \epsilon_{it}
+$$
+
+onde $democ_{it}$ é o índice de democracia do país $i$ no ano $t$, $oil_{it}$ é a dependência em petróleo do país $i$ no ano $t$, $\mathbf{X}_{it}$ é uma matriz de variáveis de controle, e $\epsilon_{it}$ é o erro aleatório. O efeito causal de interesse é $\beta$.
+
+
+
+# Replicação
+
+
+
+
+### Referências
+
+::: {#refs}
+:::
+

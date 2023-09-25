@@ -1,0 +1,214 @@
+/* Importacoes */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap');
+
+/* Inverse slide */
+  
+.inverse {
+    background-color: #003459;
+}
+
+.inverse .remark-slide-number {
+    opacity: 0;
+    font-size: 0px;
+}
+
+
+.title-slide h2::after, .mline h1::after {
+    background-color: #FFF;
+    color: #FFF;
+    height: 2px;
+    width: 60px;
+}
+
+.mline h1::after {
+    margin: 10px 15px 15px 370px;
+}
+
+
+.pull-left2 {
+  float: left;
+  width: 23%;
+}
+.pull-right2 {
+  float: right;
+  width: 72%;
+}
+
+.footnote {
+  bottom: 1em;
+}
+
+
+/* Corpo */
+.remark-slide-content {
+    background-color: #FFF;
+    border-top: 60px solid #003459;
+    font-size: 26px;
+    color:#222;
+    font-weight:300; 
+}
+
+body {
+    font-family: 'Open Sans','Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+}
+
+/* Slide inicial */
+.title-slide h1 {
+    color: #003459;
+    font-weight: 800;
+    font-size: 49px;
+    padding-top: 280px;
+    margin-bottom: 100px;
+}
+  
+.title-slide {
+    background-color: #FFF;
+    border-top: #FFF;
+    background-size: 105px;
+}
+
+.title-slide h1 {
+    margin-bottom:23px;
+}
+
+.title-slide h2 {
+    line-height: 1.1;
+    margin-bottom: 40px;
+}
+
+.title-slide h3 {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.title-slide h2::after {
+    display:none;
+}
+
+
+/* Fontes */
+.remark-slide-content h1 {
+    font-size: 50px;
+    font-family: 'Open Sans','Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+    
+}
+
+h1 {
+    font-weight: bold;
+    margin-top: -92px;
+    color: #FFF;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.hljs-default .hljs {
+    background: #ecf0f2;
+}
+
+.font85 {
+  font-size: 85%;
+}
+
+
+/* Efeitos */
+
+.left-column {
+    font-weight: 300;
+    padding-right: 1.4em;
+}
+
+
+/* Barra de progresso */
+.remark-slide-number {
+  position: inherit;
+  opacity: 1;
+  font-size: 0px;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #003459;
+}
+
+
+/* Links */
+a:hover, a:focus {
+    color: #8f442a;
+    transform: scale(1.5);
+    border-bottom: none;
+}
+
+
+/* Lista */
+li{
+    list-style-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAGUlEQVR4nGIpKPnNgA0wYRUdtBKAAAAA//97XgHyGfiZywAAAABJRU5ErkJggg==');
+}
+
+
+/* Outros */
+
+.codigo {
+    backgroud: #003459;
+    color: #F3F3F3;
+}
+
+.remark-inline-code {
+    background: #003459;
+    border-radius: 5px;
+    color:#F3F3F3;
+    padding: 1px;
+}
+
+.texto {
+    color: #003459;
+    font-weight:700;
+}
+
+.texto2 {
+    color: #003459;
+    font-weight: 500;
+}
+
+blockquote {
+    border-left: solid 10px #003459;
+    padding-left: 0.8em;
+}
+
+.remark-slide table {
+    border-bottom: none;
+    border-top: none;
+}
+
+.remark-slide table thead th {
+    border-bottom: 1px solid #ddd;
+    color: #003459;
+}
+
+.remark-code-line-highlighted {
+  background-color: #F1BF98;
+}
+
+.alert {
+  padding: 11px;
+  background-color: #ddd;
+  display: inline-block;
+  position: relative;
+  border-radius: 0.25em;
+}
+
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}

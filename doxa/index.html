@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Conjoint Experiment</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles" />
+    <script src="slides_doxa_files/header-attrs-2.23/header-attrs.js"></script>
+    <link href="slides_doxa_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_doxa_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="slides_doxa_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Conjoint Experiment
+]
+.subtitle[
+## Representação e preferências no estado do Rio
+]
+.author[
+### Fernando Meireles
+]
+.date[
+### <div class="line-block"><small>Doxa | 2.2023</small><br></div>
+]
+
+---
+
+
+
+# Resumo
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em termos de preferências, o eleitorado carioca discrimina candidaturas de homossexuais, umbandistas
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Ser mulher e ser pessoa autodeclarada preta aumentam substantivamente a prob. de escolha de uma candidatura
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Ser conta a pena de morte causa o maior aumenta na prob. de escolha de uma candidatura hipotética
+
+
+---
+class: inverse, mline, middle, center
+background-color: #003459
+
+# Representação e Preferências
+
+
+
+---
+# O que sabemos
+
+Há literatura sobre voto no Brasil, há evidências até certo ponto justapostas:
+
+.font90[
+.pull-left[
+- Ideologia parece pesar na decisão de voto presidencial
+
+- Identificação partidária é outro fator importante
+]
+
+.pull-right[
+- Para eleições proporcionais, há evidência de que representação descritiva compensa a falta da ideológica
+
+- Não há evidência causal de que o eleitorado tem viés que prejudica candidaturas de pessoas negras e de mulheres
+]
+]
+
+
+---
+# Nosso *survey*
+
+.pull-left2[
+.texto[Pesquisa]
+
+*Survey* da população eleitora do estado do RJ para investigar Covid-19 + *conjoint*
+]
+
+.pull-right2[
+Avaliamos preferências eleitorais sobre candidaturas em torno de:
+
+- Sexo
+- Cor/raça
+- Orientação sexual
+- Religião
+- Profissão
+- Experiência política prévia
+- Posicionamento sobre pena de morte
+]
+
+
+
+---
+# *Survey experiment*
+
+Um *survey* básico com um experimento normalmente aloca um tratamento `\(D_i \in \{0, 1\}\)` de forma aleatória. Exemplo: perguntar se pessoas votariam em uma candidatura fictícia manipulando *sexo* 
+
+| Atributos              | Candidatura   | 
+|:---------------------- |:-------------:|
+| Sexo                   | .texto2[Homem]         |
+| Cor/raça               | Branca        |
+| Ideologia              | Extrema-direita |
+| Tipo de Candidato      | Militar       |
+| Apoios                 | Comunidade    | 
+
+
+---
+# *Survey experiment*
+
+Um *survey* básico com um experimento normalmente aloca um tratamento `\(D_i \in \{0, 1\}\)` de forma aleatória. Exemplo: perguntar se pessoas votariam em uma candidatura fictícia manipulando *sexo* 
+
+| Atributos              | Candidatura   | 
+|:---------------------- |:-------------:|
+| Sexo                   | .texto2[Mulher]         |
+| Cor/raça               | Branca        |
+| Ideologia              | Extrema-direita |
+| Tipo de Candidato      | Militar       |
+| Apoios                 | Comunidade    | 
+
+
+
+---
+# *Survey experiment*
+
+Um *survey* básico com um experimento normalmente aloca um tratamento `\(D_i \in \{0, 1\}\)` de forma aleatória. Sendo `\(D_i\)` independente dos resultados potenciais, `\(Y_i(D_i)\)`, pela aleatorização, podemos estimar
+
+$$
+`\begin{aligned}
+ATE = \delta = \mathbb{E}[Y_i(1)] - \mathbb{E}[Y_i(0)]
+\end{aligned}`
+$$
+
+usando dados observados:
+
+$$
+`\begin{aligned}
+\hat{\delta} = \mathbb{E}[Y_i | D_i = 1] - \mathbb{E}[Y_i | D_i = 0]
+\end{aligned}`
+$$
+
+---
+# *Factorial experiment*
+
+Quando temos mais do que um tratamento aplicado, chamamos o estudo de *experimento fatorial*. Exemplo:
+
+.pull-left[
+- Tratamento `\(D_i \in \{0, 1\}\)`
+- Tratamento `\(G_i \in \{0, 1\}\)`
+]
+
+.pull-right[
+| Atributos              | Candidatura   | 
+|:---------------------- |:-------------:|
+| Sexo                   | .texto2[Mulher]         |
+| Cor/raça               | Branca        |
+| Ideologia              | Extrema-direita |
+| Tipo de Candidato      | .texto2[Militar]       |
+| Apoios                 | Comunidade    | 
+]
+
+
+---
+# *Factorial experiment*
+
+Quando temos mais do que um tratamento aplicado, chamamos o estudo de *experimento fatorial*. Exemplo:
+
+.pull-left[
+- Tratamento `\(D_i \in \{0, 1\}\)`
+- Tratamento `\(G_i \in \{0, 1\}\)`
+]
+
+.pull-right[
+| Atributos              | Candidatura   | 
+|:---------------------- |:-------------:|
+| Sexo                   | .texto2[Homem]         |
+| Cor/raça               | Branca        |
+| Ideologia              | Extrema-direita |
+| Tipo de Candidato      | .texto2[Pastor]       |
+| Apoios                 | Comunidade    | 
+]
+
+
+
+---
+# *Factorial experiment*
+
+Se `\(D_i\)` e `\(G_i\)` forem binárias e independentes, temos 4 resultados potenciais que podemos representar com `\(Y_i(D_i, G_i)\)`. Quantias de interesse:
+
+.font90[
+.pull-left[
+.texto[Efeito médio]
+
+`\(\delta_{D_i} =\\ \mathbb{E}[Y_i(D_i = 1, G_i=g)]\\ - \mathbb{E}[Y_i(D_i = 0, G_i=g)]\)`
+
+O efeito de `\(D_i\)` é condicional a `\(G_i\)` assumir um valor específico, e.g. `\(0\)`
+]
+
+
+.pull-right[
+.texto[Efeito marginal do componente]
+
+`\(\lambda_{AMCE_{D}} = \frac{1}{|G|} \sum_{g \in G} \delta_{D_i:G_i=g}\)`
+
+Exemplo:
+
+`\(\delta_{D_i:G_i=1} = \mathbb{E}[Y_i(D_i = 1, G_i=1)]\\ - \mathbb{E}[Y_i(D_i = 0, G_i=1)]\)`
+
+`\(\delta_{D_i:G_i=0} = \mathbb{E}[Y_i(D_i = 1, G_i=0)]\\ - \mathbb{E}[Y_i(D_i = 0, G_i=0)]\)`
+]
+]
+
+
+---
+# *Factorial experiment*
+
+Se `\(D_i\)` e `\(G_i\)` forem tratamentos independentes, temos 4 resultados potenciais: `\(Y_i(D_i, G_i)\)`. 
+
+.font90[
+.pull-left[
+.texto[Efeito médio]
+
+`\(\delta_{D_i} =\\ \mathbb{E}[Y_i(D_i = 1, G_i=g)]\\ - \mathbb{E}[Y_i(D_i = 0, G_i=g)]\)`
+
+O efeito de `\(D_i\)` é condicional a `\(G_i\)` assumir um valor específico, e.g. `\(0\)`
+]
+
+
+.pull-right[
+.texto[Efeito marginal do componente]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em palavras, o efeito marginal de `\(D_i\)` é uma média da diferença de ser ou não tratado com `\(D_i\)` sobre todos os resultados potenciais de `\(G_i\)`
+]
+]
+
+
+---
+# Estimador
+
+Dado que os tratamentos `\(D_i\)` e `\(G_i\)` sejam independentementes e binários, regressão por MQO permite estimar o AMCE de forma não-paramétrica (assim como médias por grupo):
+
+
+$$
+`\begin{aligned}
+Y_{i} = \beta_0 + \beta_1 D_{i} + \beta_2 G_{i} + \epsilon_{i}
+\end{aligned}`
+$$
+
+&lt;br&gt;
+
+.centering[
+- `\(\hat{\beta_0}\)`, média de `\(Y_i\)` quando `\(D_i = G_i = 0\)`
+- `\(\hat{\lambda}_{AMCE_{D}} = \hat{\beta_1}\)`
+- `\(\hat{\lambda}_{AMCE_{G}} = \hat{\beta_2}\)`
+]
+
+
+---
+# *Conjoint*
+
+Em um *survey* com um *conjoint experiment*, temos agora vários tratamentos, com diferentes categorias variando aleatória e independentemente. 
+
+| Atributos              | Candidatura   | 
+|:---------------------- |:-------------:|
+| Sexo                   | .texto2[Mulher]|
+| Cor/raça               | .texto2[Branca]|
+| Ideologia              | .texto2[Esquerca] |
+| Tipo de Candidato      | .texto2[Pastor]|
+| Apoios                 | .texto2[Comunidade]| 
+
+
+---
+# *Conjoint*
+
+Temos agora vários tratamentos, com diferentes categorias variando aleatória e independentemente. 
+
+| Atributos              | Candidatura   | 
+|:---------------------- |:-------------:|
+| Sexo                   | .texto2[Homem]|
+| Cor/raça               | .texto2[Parda]|
+| Ideologia              | .texto2[Centro] |
+| Tipo de Candidato      | .texto2[Pastor]|
+| Apoios                 | .texto2[Nenhum]| 
+
+
+---
+# *Conjoint*
+
+Temos agora vários tratamentos, com diferentes categorias variando aleatória e independentemente. Mais: temos um .texto2[par] de candidaturas, `\(j \in \{-1, 1\}\)`, mas só uma será escolhida, i.e., `\(Y_{ij} = 1\)`.
+
+| Atributos              | Candidatura 1 |  Candidatura 2 |  
+|:---------------------- |:-------------:|:-------------:|
+| Sexo                   | .texto2[Homem]| .texto2[Mulher]|
+| Cor/raça               | .texto2[Parda]|.texto2[Preta]|
+| Ideologia              | .texto2[Centro] | .texto2[Centro] |
+| Tipo de Candidato      | .texto2[Pastor]|.texto2[Policial]|
+| Apoios                 | .texto2[Nenhum]| .texto2[Igreja]|
+
+
+---
+# *Conjoint*
+
+Temos agora vários tratamentos, com diferentes categorias variando aleatória e independentemente. Mais: temos um .texto2[par] de candidaturas e a dependente é a escolha de uma em relação a outra.
+
+| Atributos              | Candidatura 1 |  Candidatura 2 |  
+|:---------------------- |:-------------:|:-------------:|
+| Sexo                   | .texto2[Mulher]| .texto2[Homem]|
+| Cor/raça               | .texto2[Branca]|.texto2[Indígena]|
+| Ideologia              | .texto2[Direita] | .texto2[Centro] |
+| Tipo de Candidato      | .texto2[Professor]|.texto2[Nenhuma]|
+| Apoios                 | .texto2[Governador]| .texto2[Nenhum]|
+
+
+
+
+---
+# *Conjoint*
+
+.pull-left[
+.texto[Pros]
+
+- Testar cenários mais complexos e suas interações (Hainmueller et al., 2014)
+
+- Reduzir viés de desejabilidade (Horiuchi et al., 2022)
+
+- Aumentar poder estatístico (Hainmueller et al., 2014)
+]
+
+
+.pull-right[
+.texto[Contras]
+
+- Distribuição de perfis pode não ser realista (Hainmueller et al., 2014)
+
+- AMCE não é uma quantia tão útil (Abramson et al., 2022; Bansak et al., 2023; Leeper et al., 2020)
+]
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #003459
+
+# Amostra
+
+
+---
+# Plano amostral
+
+Um resumo do plano amostral:
+
+.pull-left2[
+- `1266` entrevistas
+- `199` setores censitários
+- `35` municípios
+]
+
+
+.pull-right2[
+- Não-probabilístico em três estágios
+  - Sorteio de `35` municípios por PPT com estratos por região da UF
+  - Sorteio de `199` setores censitários
+  - Seleção de `6` domicílios/pessoas por setor, com cotas
+]
+
+
+---
+# Amostra
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `35` municípios sorteados por PPT (em azul)
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Amostra
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `199` setores sorteados por PPT, `77` na capital
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Distribuições marginais
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #003459
+
+# Resultados
+
+
+
+---
+# Randomização dos atributos
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Sexo
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Sexo
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Sexo
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Sexo
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Cor/Raça
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Cor/Raça
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Cor/Raça
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Cor/Raça
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+---
+# Religião
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Religião
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Religião
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Religião
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+# Apoio
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Apoio
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Apoio
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Apoio
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+
+
+
+
+
+---
+# Orientação
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Orientação
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-23-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Orientação
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-24-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Orientação
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Experiência prévia
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Experiência prévia
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Experiência prévia
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Experiência prévia
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-29-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Pena de morte
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-30-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Pena de morte
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-31-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Pena de morte
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-32-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Pena de morte
+
+&lt;img src="slides_doxa_files/figure-html/unnamed-chunk-33-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #003459
+
+# Projeto
+
+
+---
+# TODO
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Checar melhor pressuspostos (*carryover*, efeito entre cenários, etc.)
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Examinar outros sub-grupos (e.g., voto no 2ºT de 2022, religião do respondente, etc.)
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Examinar efeitos multiplicativos
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Talvez completar com outro desenho (e.g., orientação sexual e votos nos partidos)
+
+
+---
+# Agendas possíveis
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Preferências por orientação sexual das candidaturas e voto
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Preferências por cor/raça x religião (evangélica vs. umbandista, e.g.) e voto
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#003459;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Experiência política prévia como *competence signaling* (parte da vantagem dos incumbentes pode ser isso)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

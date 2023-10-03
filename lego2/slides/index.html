@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>7. Experimentos I</title>
+    <title>8. Experimentos II</title>
     <meta charset="utf-8" />
     <script src="slides_files/header-attrs-2.23/header-attrs.js"></script>
     <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
@@ -14,10 +14,10 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# 7. Experimentos I
+# 8. Experimentos II
 ]
 .subtitle[
-## Desenho e Inferência
+## Extensões
 ]
 .date[
 ### <div class="line-block"><small>Lego II | 2.2023</small><br> <a href="https://fmeireles.com"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"></path></svg></a> <a href="https://twitter.com/meirelesff"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a> <a href="mailto:fernando.meireles@iesp.uerj.br"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg></a></div>
@@ -29,516 +29,911 @@ class: center, middle, inverse, title-slide
 
 
 
-# O que sabemos
+# Recapitulação sobre experimentos
 
-Aprendemos sobre .texto2[Resultados Potenciais]:
+Vimos que experimento significa controle da .texto2[atribuição do tratamento], isto é, controle de parte do PGD.
 
-.pull-left[
-.texto2[Notação]
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Experimentos são o padrão-ouro para identificar efeitos causais
 
-.font90[
-- Amostra de `\(N\)` unidades `\(i = \{1, 2, \dots, N\}\)`
-- `\(D \in \{0, 1\}\)`, tratamento
-- `\(Y_{i}(D_{i} = d)\)` resultado específico
-- `\(Y_i\)`, resultado observado da unidade `\(i\)`; e
-- `\(Y_{i}(1)\)` e `\(Y_{i}(0)\)` são resultados potenciais
-]
-]
-
-
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em geral, queremos saber o efeito médio do tratamento, `\(\tau = \mathbb{E}[Y_i(1) - Y_i(0)]\)`
-]
-
-
----
-# DAGs
-
-Também vimos que .texto2[Gráficos Acíclicos Diretos] (.texto[DAGs]) nos ajudam a formalizar modelos cauais mais complexos, típicos de estudos observacionais:
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-count:false
-# DAGs
-
-Também vimos que .texto2[Gráficos Acíclicos Diretos] (.texto[DAGs]) nos ajudam a formalizar modelos cauais mais complexos, típicos de estudos observacionais:
-
-- Setas indicam relações causais, `\(X \rightarrow Y\)`
-- *Backdoors* são variáveis que ligam `\(D \leftarrow U \rightarrow Y\)`
-- Colisores criam vieses quando controlados, `\(D \rightarrow U \leftarrow Y\)`
-- Mecanismos mediam efeitos, `\(D \rightarrow M \rightarrow Y\)`
-
-
----
-# Objetivos
-
-Estudaremos hoje:
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Desenhos experimentais
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Estimadores e inferência em experimentos
 
 
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
 
-# Aleatorização (ou *randomization*)
+# Blocos e clusters
+
 
 
 ---
-# Desenho experimental
+# Experimentos em blocos ou clusters
 
-A chave para entendermos desenhos de pesquisa nos quais um tratamento `\(D_i \in \{1, 0\}\)` é distribuído aleatoriamente está no conhecimento do PGD:
-
+Na prática de pesquisas experimentais, são comuns dois tipos de experimentos:
 
 .pull-left[
-`\(D_i\)` aleatório fecha portas
+.texto[Notação]
+
+.font90[
+- `\(D_i\)`: Tratamento atribuído à unidade `\(i\)`
+- `\(B_i\)`: Bloco ao qual a unidade `\(i\)` pertence
+- `\(C_i\)`: Cluster ao qual a unidade `\(i\)` pertence
+]
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Tipos de Experimentos]
+
+.font90[
+- .texto[Blocos]: Atribuição de `\(D_i\)` é feita dentro de blocos pré-definidos
+- .texto[Clusters]: Atribuição de `\(D_i\)` é feita em grupos (e.g., escolas, vilas)
+]
+]
+
+
+---
+# Tratamento em blocos
+
+Em *block experiments*, unidades são agrupadas em blocos e o tratamento é atribuído dentro de cada bloco
+
+.pull-left[
+.texto2[Atribuição em bloco]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.texto2[Atribuição]
+
+.font90[
+- `\(D_i(b)\)`: Atribuição de tratamento para unidade `\(i\)` dentro do bloco `\(b\)`
+- `\(p(b)\)`: Probabilidade de tratamento dentro do bloco `\(b\)`
+]
+]
+
+
+---
+count:false
+# Tratamento em blocos
+
+Em *block experiments*, unidades são agrupadas em blocos e o tratamento é atribuído dentro de cada bloco
+
+.pull-left[
+.texto2[Atribuição em bloco]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
+.pull-right[
+.texto2[Atribuição]
+
+.font90[
+- `\(D_i(b)\)`: Atribuição de tratamento para unidade `\(i\)` dentro do bloco `\(b\)`
+- `\(p(b)\)`: Probabilidade de tratamento dentro do bloco `\(b\)`
+]
+]
+
+
+---
+# Tratamento em clusters
+
+Em *cluster experiments*, unidades são agrupadas em clusters e todo o cluster recebe o mesmo tratamento
+
+.pull-left[
+.texto2[Atribuição em cluster]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+] 
 
 .pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em resumo, sabemos a probabilidade de todos os valores possíveis de `\(D_i\)`, `\(\Omega\)`, isto é, sabemos parte do PGD (salvo pressupostos)
+.texto2[Atribuição]
+
+.font90[
+- `\(D_i(c)\)`: Atribuição de tratamento para o *cluster* `\(c\)`
+- `\(p(c)\)`: Probabilidade de tratamento do *cluster* `\(c\)`
+]
+]
+
+
+---
+# Vantagens: Blocos e Clusters
+
+.pull-left[
+.texto[Experimentos em blocos]
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Estimativas mais precisas (menor variação amostral)
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Controle confundidores (sem regressão)
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Facilita a análise de efeitos condicionais
+]
+]
+
+.pull-right[
+.texto[Experimentos em clusters]
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Facilita a logística
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Captura efeitos de grupo
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Adequado para intervenções em grupo
+]
+]
+
+
+---
+# Blocos e variância
+
+.pull-left[
+Imagine um caso simples de *blocking*
+
+.font90[
+- `\(N=4\)` unidades `\(i\)`
+- `\(k=2\)` unidades recebem tratamento
+- Há `\(B=2\)` blocos indicados por `\(B_i\)`
+- Cada bloco tem `\(2\)` unidades
+]
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+| `\(i\)` | `\(B_i\)` | `\(D_i\)` | `\(Y_i(1)\)` | `\(Y_i(0)\)` |
+|-------|--------|--------|------------|------------|
+| 1     | 1      | 1      | 10         | 5          |
+| 2     | 1      | 0      | 9          | 4          |
+| 3     | 2      | 1      | 20         | 15         |
+| 4     | 2      | 0      | 19         | 14         |
+
+]
+
+---
+# Redução de variância
+
+Blocos reduzem o número de combinações possíveis de grupos de tratamento, diminuindo a variância dos estimadores. No caso anterior:
+
+.pull-left[
+.texto2[Aleatorização completa]
+
+.font90[
+Grupos de tratamento possíveis:
+
+$$
+`\begin{aligned}
+\binom{4}{2} = \frac{4!}{2!(4-2)!} =  6
+\end{aligned}`
+$$
+
+]
+]
+
+.pull-right[
+.texto2[Blocos]
+
+.font90[
+Grupos possíveis em cada bloco:
+
+$$
+`\begin{aligned}
+\binom{2}{1} = 2
+\end{aligned}`
+$$
+
+Grupos de tratamento possíveis:
+
+$$
+`\begin{aligned}
+\left( \binom{2}{1} \right)^B =  \left( \binom{2}{1} \right)^2 = 4
+\end{aligned}`
+$$
+
+]
 ]
 
 
 ---
 count:false
-# Desenho experimental
+# Redução de variância
 
-Experimento significa, portanto, controle sobre a .texto2[atribuição do tratamento]
+Um caso mais complexo de *blocking*: `\(N=10\)`, `\(k=5\)`, `\(B=5\)`. 
+
+.pull-left[
+.texto2[Aleatorização completa]
+
+.font90[
+Grupos de tratamento possíveis:
+
+$$
+`\begin{aligned}
+\binom{10}{5} = \frac{10!}{5!(10-5)!} = ?
+\end{aligned}`
+$$
+
+]
+]
+
+.pull-right[
+.texto2[Blocos]
+
+.font90[
+Grupos possíveis em cada bloco:
+
+$$
+`\begin{aligned}
+\binom{2}{1} = 2
+\end{aligned}`
+$$
+
+Grupos de tratamento possíveis:
+
+$$
+`\begin{aligned}
+\left( \binom{2}{1} \right)^5 = ?
+\end{aligned}`
+$$
+
+]
+]
+
+
+
+---
+count:false
+# Redução de variância
+
+Um caso mais complexo de *blocking*: `\(N=10\)`, `\(k=5\)`, `\(B=5\)`. 
+
+.pull-left[
+.texto2[Aleatorização completa]
+
+.font90[
+Grupos de tratamento possíveis:
+
+$$
+`\begin{aligned}
+\binom{10}{5} = \frac{10!}{5!(10-5)!} = 252
+\end{aligned}`
+$$
+
+]
+]
+
+.pull-right[
+.texto2[Blocos]
+
+.font90[
+Grupos possíveis em cada bloco:
+
+$$
+`\begin{aligned}
+\binom{2}{1} = 2
+\end{aligned}`
+$$
+
+Grupos de tratamento possíveis:
+
+$$
+`\begin{aligned}
+\left( \binom{2}{1} \right)^5 = 32
+\end{aligned}`
+$$
+
+]
+]
+
+
+
+---
+# Simulando a redução de variância
+
+.pull-left[
+Um exemplo do caso mais complexo de *blocking*
+
+.font90[
+- `\(N = 10\)` unidades `\(i\)`
+- `\(k = 5\)` unidades recebem tratamento
+- Há `\(B = 5\)` blocos
+- Cada bloco tem `\(2\)` unidades
+]
+]
+
+.pull-right[
+
+.font90[
+
+| `\(i\)`| `\(B_i\)`| `\(D_i\)`| `\(Y_i(1)\)`| `\(Y_i(0)\)`|
+|---:|-----:|-----:|--------:|--------:|
+|   1|     1|     1|       12|        9|
+|   2|     1|     1|       10|        7|
+|   3|     2|     1|       19|       10|
+|   4|     2|     1|       18|       12|
+|   5|     3|     1|       27|       10|
+|   6|     3|     0|       33|       11|
+|   7|     4|     0|       38|       16|
+|   8|     4|     0|       42|       20|
+|   9|     5|     0|       49|       21|
+|  10|     5|     0|       55|       16|
+]
+]
+
+
+---
+# ATE: comparação de métodos
+
+
+
+Comparação entre aleatorização completa e aleatorização em blocos.
 
 .pull-left2[
-Sabemos a prob. de `\(i\)` ser, `\(p_i\)`, ou não, `\(1 - p_i\)`, tratado
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Repetimos 1000 vezes a distribuição de `\(D_i\)` para cada método calculando o efeito médio
+]
 ]
 
 .pull-right2[
-.texto[Requisitos]
-
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A atribuição precisa ser probabilística, i.e. `\(0 &lt; p_i &lt; 1\)` para todos os `\(i\)`
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A atribuição não pode depender de `\((Y_i(0), Y_i(1))\)`
-]
-]
-
-
----
-# Desenhos canônicos
-
-No geral, protocolos experimentais simples alocam tratamento e controle (binário) usando um dos seguintes mecanismos:
-
-.pull-left[
-.texto2[Bernoulli trials]
-
-Sorteio independente para cada unidade `\(i\)` (podemos ter uma amostra só com tratados)
-
-]
-.pull-right[
-.texto2[Aleatorização completa]
-
-Sorteio simultâneo de `\(K\)` (e.g., `\(K=4\)` ) unidades para serem tratadas
-
-
-]
-
-
----
-count:false
-# Desenhos canônicos
-
-Entre os simples, dois mais comuns: *Bernoulli trials* e *aleatorização completa*
-
-.pull-left[
-.texto2[Bernoulli trials]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
-]
-.pull-right[
-.texto2[Aleatorização completa]
-
-]
-
-
-
----
-count:false
-# Desenhos canônicos
-
-Entre os simples, dois mais comuns: *Bernoulli trials* e *aleatorização completa*
-
-.pull-left[
-.texto2[Bernoulli trials]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
-]
-.pull-right[
-.texto2[Aleatorização completa]
-
-]
-
----
-count:false
-# Desenhos canônicos
-
-Entre os simples, dois mais comuns: *Bernoulli trials* e *aleatorização completa*
-
-.pull-left[
-.texto2[Bernoulli trials]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
-]
-.pull-right[
-.texto2[Aleatorização completa]
-
-]
-
-
----
-count:false
-# Desenhos canônicos
-
-Entre os simples, dois mais comuns: *Bernoulli trials* e *aleatorização completa*
-
-.pull-left[
-.texto2[Bernoulli trials]
-
 &lt;img src="slides_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
 ]
-.pull-right[
-.texto2[Aleatorização completa]
-
-]
 
 
 ---
-count:false
-# Desenhos canônicos
+# Estimação
 
-Entre os simples, dois mais comuns: *Bernoulli trials* e *aleatorização completa*
+Apenas com um estimador de diferença de média, o desenho de blocos reduz variância, mas isso pode ser melhorados se usarmos como estimador .texto2[regressão]:
 
-.pull-left[
-.texto2[Bernoulli trials]
+$$
+`\begin{aligned}
+Y_i = \beta_0 + \beta_1 D_i + \beta_2 B_i + \epsilon_i
+\end{aligned}`
+$$
 
+onde `\(\beta_2\)` é o efeito do bloco, que captura o quanto, em média, o bloco afeta `\(Y_i\)`.
+
+--
+
+.alert[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Parte da redução da variância com blocos decorre do controle do fator bloqueado sobre a variável dependete] 
+
+
+---
+# ATE: comparação de métodos
+
+Controlando explicitamente `\(B_i\)` (ou outros), removemos parte da variância de `\(Y_i\)`
+
+
+.pull-left2[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Mais 1000 sorteios do desenho de blocos, mas agora com regressão
+]
+]
+
+.pull-right2[
 &lt;img src="slides_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
 ]
-.pull-right[
-.texto2[Aleatorização completa]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
-
 
 
 ---
-# Consequências da aleatorização
+# Exemplos de *blocking*
 
 .pull-left[
-Quando a aleatorização funciona para atribuir tratamento, temos maior confiança que `\((Y_i(0), Y_i(1)) \perp\!\!\!\perp D_i\)`
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; [Kalla e Broockman (2015)](https://stonecenter.gc.cuny.edu/files/2022/09/Hertel-Fernandez-2.pdf), aleatorizando o envio de e-mails para legisladores (tratamento: revelar que a organização remetente é doadora de campanha)
 ]
 
 .pull-right[
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Fatores que ocorreram antes do tratamento não afetam `\(D_i\)`
-
-&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Uma consequência observável é que os grupos de tratados e não-tratados acabam sendo similares em variáveis pré-tratamento
+.center[
+![](imgs/kalla.png)
 ]
 ]
 
 
 ---
-count:false
-# Consequências da aleatorização
+# Exemplos de *blocking*
 
-.pull-left[
-Imagine um PGD no qual 
-
-$$
-`\begin{aligned}
-Y \sim Normal(Z, 5)\\
-Z = X + D*10\\
-X \sim Normal(0, 1)\\
-D \sim Bernoulli(0.5)
-\end{aligned}`
-$$
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; [Boas et al. (2018)](https://people.bu.edu/tboas/norms_vs_action.pdf) sobre corrupção nos municípios e *accountability* eleitoral
 ]
 
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Uma amostra desse PGD (apenas os 6 primeiros casos)
-
-|     x|  d|     z|      y|
-|-----:|--:|-----:|------:|
-|  1.75|  1| 11.75|  15.47|
-| -0.44|  0| -0.44|  -3.23|
-| -0.34|  1|  9.66|   6.21|
-|  1.25|  1| 11.25|   5.36|
-| -0.30|  0| -0.30| -11.73|
-| -0.67|  0| -0.67|  -1.07|
-]
-
-
-
-
----
-count:false
-# Consequências da aleatorização
-
-.pull-left[
-Imagine um PGD no qual 
-
-$$
-`\begin{aligned}
-Y \sim Normal(Z, 5)\\
-Z = X + D*10\\
-X \sim Normal(0, 1)\\
-D \sim Bernoulli(0.5)
-\end{aligned}`
-$$
-]
-
-.pull-right[
-`\(X\)` e `\(D\)` causam `\(Z\)`, que causa `\(Y\)`
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
-
-Mas `\(D\)` e `\(X\)` são independentes
-]
-
-
----
-count:false
-# Consequências da aleatorização
-
-.pull-left[
-Imagine um PGD no qual 
-
-$$
-`\begin{aligned}
-Y \sim Normal(Z, 5)\\
-Z = X + D*10\\
-X \sim Normal(0, 1)\\
-D \sim Bernoulli(0.5)
-\end{aligned}`
-$$
-]
-
-.pull-right[
-Por serem independentes, esperamos que `\(\mathbb{E}[X | D] = 0\)`
-
-
-|  D| Média de X|
-|--:|----------:|
-|  0|      -0.05|
-|  1|       0.03|
-]
-
----
-count:false
-# Consequências da aleatorização
-
-.pull-left[
-Imagine um PGD no qual 
-
-$$
-`\begin{aligned}
-Y \sim Normal(Z, 5)\\
-Z = X + D*10\\
-X \sim Normal(0, 1)\\
-D \sim Bernoulli(0.5)
-\end{aligned}`
-$$
-]
-
-.pull-right[
-A estimativa de `\(\mathbb{E}[Y | D]\)`
-
-
-|  D| Média de Y|
-|--:|----------:|
-|  0|      -0.24|
-|  1|      10.14|
-]
-
-
-
-
-
----
-# Um passo atrás: SUTVA
-
-O pressuposto de aleatorização é forte, mas não inviolável: estabilidade do tratamento e ausência de contágio. Um resumo do .texto2[Stable Unit Treatment Value Assumption] (.texto[SUTVA]) é:
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Consitência, isto é, tratamentos comparáveis
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Não interferência, isto é, o tratamento de uma unidade não afeta, ou não vaza, para outra
-
----
-count:false
-# Um passo atrás: SUTVA
-
-Quando .texto2[SUTVA] falha, não conseguimos identificar `\(Y_i(D_i)\)`, seja porque o tratamento `\(D_i=1\)` esconde versões diferentes, seja porque os resultados de algumas unidades afetam os de outras. Exemplos:
-
-.pull-left[
-.texto[Falta de consistência]
-
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Queremos analisar o efeito de construir escolas em municípios do interior, mas os no grupo de tratamento acabam recebendo escolas muito diferentes
+.pull-right2[
+.center[
+![](imgs/boas.png)
 ]
 ]
 
 
-.pull-right[
-.texto[*Spillover*]
-
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Queremos analisar o efeito de uma política de saúde pública, mas comunidades no grupo de controle acabam recebendo o tratamento por causa de proximidade geográfica
-]
-]
 
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
 
-# Aleatorização (ou *randomization*)
+# Experimentos de survey
 
 
 ---
-# Identificação
+# *Survey experiments*
 
-Sendo `\(D_i \perp\!\!\!\perp Y_i(D_i)\)`, podemos estimar o efeito médio do tratamento, `\(\tau = \mathbb{E}[Y_i(1)] - \mathbb{E}[Y_i(0)]\)`, com dados observados, basta estimar o valor esperado de `\(Y_i(D_i)\)` para cada `\(d\)`:
+Uma abordagem útil e logisticamente simples é usar experimentos *dentro* de *surveys*
+
+.pull-left[
+.texto[Definição]
+
+.font90[
+- Experimentos em pesquisas são experimentos embutidos em questionários
+- Respondentes recebem aleatoriamente diferentes versões de perguntas ou estímulos
+]
+]
+
+.pull-right[
+.texto[Pesquisas comuns]
+
+- Efeito de mensagens
+- Atitudes em relação a políticas públicas
+- Efeitos de enquadramento (*framing*)
+- Etc. 
+]
+
+---
+# Efeitos médio na amostra (*SATE*)
+
+Dado que *surveys* estudam amostras de uma população, efeitos estimados herdam incerteza amostral
+
+.pull-left[
+.texto[Diferença]
+
+.font90[
+.texto2[SATE] também estima `\(\mathbb{E}[Y_i(1) - Y_i(0)]\)`
+
+Sendo `\(i = \{1, \dots, n\}\)` uma amostra de uma população com `\(N\)` unidades:
+
+- `\(\hat{\tau} = \frac{1}{n} \sum_{i=1}^{n} Y_i(1) - Y_i(0)\)`
+]
+]
+
+.pull-right[
+.texto[Estimador]
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos usar médias ou regressão
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; É importante levar em conta o plano amostral
+]
+]
+
+
+
+---
+# Horvitz-Thompson
+
+Se nossa amostra precisa de pós-ajuste ou seu plano amostral é complexo, precisamos ponderar unidades. Entra um novo estimador.
+
+.pull-left[
+.texto[Definição]
+
+.font90[
+- Trata-se de um estimador de média ponderada
+- `\(\hat{\mu}_{HT} = \frac{1}{N} \sum_{i \in S} \frac{1}{p_i} Y_i\)`
+- `\(p_i\)` é a probabilidade da unidade `\(i\)` ser incluída na amostra, `\(Pr(i \in S)\)`
+]
+]
+
+.pull-right[
+.texto[Vantagens]
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Reduz viés em amostras desproporcionais
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Útil quando há estratos/blocos
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; É uma generalização da diferença de médias (i.e., toda unidade tem peso 1)
+]
+]
+
+
+---
+# Comparação de estimadores
+
+
+
+Considere uma amostra de `\(n=4\)` e 2 estratos, `\(B_i \in \{1, 2\}\)`:
+
+.pull-left2[
+.font90[
+
+| `\(i\)`| `\(B_i\)`| `\(S_i\)`| `\(P_i\)`| `\(Y_i\)`|
+|---:|-----:|-----:|-----:|-----:|
+|   1|     1|     1|  0.33|    10|
+|   2|     1|     1|  0.33|    12|
+|   3|     2|     1|  1.00|    20|
+|   4|     2|     1|  1.00|    22|
+|   5|     1|     0|  0.33|     9|
+|   6|     1|     0|  0.33|    13|
+|   7|     1|     0|  0.33|    14|
+|   8|     1|     0|  0.33|    10|
+]
+]
+
+.pull-right2[
+
+```r
+# Cálculo das estimativas
+y &lt;- Y[1:4]
+p &lt;- P[1:4]
+N &lt;- 8
+
+media_populacao &lt;- mean(Y)
+media &lt;- mean(y)
+*media_ht &lt;- (1 / N) * sum(y / p)
+
+c(media_populacao, media, media_ht)
+```
+
+```
+## [1] 13.75 16.00 13.50
+```
+]
+
+
+---
+# Exemplo
+
+.pull-left2[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Samuels e Zucco (2014) sobre identificação partidária no Brasil
+]
+
+.pull-right2[
+.texto[Exemplo de instrumento]
+
+.font90[
+&gt; *Politicians from different parties supported different positions in last February’s debates about the minimum wage bill. [Some][Some][Members of the PT][Members of the PT] supported the option to increase the minimum wage to R$ 545. [Others][Members of the PSDB][Others][Members of the PSDB] supported the option to increase the minimum wage to R$ 600. With which of these positions do you agree more?*
+]
+]
+
+---
+count:false
+# Exemplo
+
+.pull-left2[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Samuels e Zucco (2014) sobre identificação partidária no Brasil
+]
+
+.pull-right2[
+.center[
+![](imgs/zucco.png)
+]
+]
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Outros desenhos e problemas
+
+
+
+---
+# Vignette
+
+Um *vignette* básico aloca um tratamento `\(D_i \in \{0, 1\}\)` para criar perfis. Exemplo: perguntar se pessoas votariam em uma candidatura fictícia manipulando *sexo* 
+
+| Atributos              | Candidatura   | 
+|:---------------------- |:-------------:|
+| Sexo                   | .texto2[Homem]         |
+| Cor/raça               | Branca        |
+| Ideologia              | Extrema-direita |
+| Tipo de Candidato      | Militar       |
+| Apoios                 | Comunidade    | 
+
+
+---
+count:false
+# Vignette
+
+Um *vignette* básico aloca um tratamento `\(D_i \in \{0, 1\}\)` para criar perfis. Exemplo: perguntar se pessoas votariam em uma candidatura fictícia manipulando *sexo* 
+
+| Atributos              | Candidatura   | 
+|:---------------------- |:-------------:|
+| Sexo                   | .texto2[Mulher]         |
+| Cor/raça               | Branca        |
+| Ideologia              | Extrema-direita |
+| Tipo de Candidato      | Militar       |
+| Apoios                 | Comunidade    |  
+
+
+---
+count:false
+# Vignette
+
+Sendo `\(D_i\)` independente dos resultados potenciais, `\(Y_i(D_i)\)`, pela aleatorização, podemos estimar
 
 $$
-\mathbb{E}[Y_i | D_i = 1] - \mathbb{E}[Y_i | D_i = 0]
+`\begin{aligned}
+ATE = \delta = \mathbb{E}[Y_i(1)] - \mathbb{E}[Y_i(0)]
+\end{aligned}`
 $$
+
+usando dados observados:
+
+$$
+`\begin{aligned}
+\hat{\delta} = \mathbb{E}[Y_i | D_i = 1] - \mathbb{E}[Y_i | D_i = 0]
+\end{aligned}`
+$$
+
+
+---
+# Exemplo de *vignette*
+
+.pull-left2[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Carrera e Vera (2018) sobre candidaturas corruptas na Colômbia
+]
+
+.pull-right2[
+.center[
+![](imgs/carreras.png)
+]
+]
+
+
+
+---
+# *Factorial experiment*
+
+Quando temos mais do que um tratamento aplicado, chamamos o estudo de *experimento fatorial*. Exemplo:
+
+.pull-left[
+- Tratamento `\(D_i \in \{0, 1\}\)`
+- Tratamento `\(G_i \in \{0, 1\}\)`
+]
+
+.pull-right[
+| Atributos              | Candidatura   | 
+|:---------------------- |:-------------:|
+| Sexo                   | .texto2[Mulher]         |
+| Cor/raça               | Branca        |
+| Ideologia              | Extrema-direita |
+| Tipo de Candidato      | .texto2[Militar]       |
+| Apoios                 | Comunidade    | 
+]
+
+
+---
+count:false
+# *Factorial experiment*
+
+Quando temos mais do que um tratamento aplicado, chamamos o estudo de *experimento fatorial*. Exemplo:
+
+.pull-left[
+- Tratamento `\(D_i \in \{0, 1\}\)`
+- Tratamento `\(G_i \in \{0, 1\}\)`
+]
+
+.pull-right[
+| Atributos              | Candidatura   | 
+|:---------------------- |:-------------:|
+| Sexo                   | .texto2[Homem]         |
+| Cor/raça               | Branca        |
+| Ideologia              | Extrema-direita |
+| Tipo de Candidato      | .texto2[Pastor]       |
+| Apoios                 | Comunidade    | 
+]
+
+
+---
+# *Factorial experiment*
+
+Se `\(D_i\)` e `\(G_i\)` forem binárias e independentes, temos 4 resultados potenciais que podemos representar com `\(Y_i(D_i, G_i)\)`. Quantias de interesse:
+
+.font90[
+.pull-left[
+.texto[Efeito médio]
+
+`\(\delta_{D_i} =\\ \mathbb{E}[Y_i(D_i = 1, G_i=g)]\\ - \mathbb{E}[Y_i(D_i = 0, G_i=g)]\)`
+
+O efeito de `\(D_i\)` é condicional a `\(G_i\)` assumir um valor específico, e.g. `\(0\)`
+]
+
+.pull-right[
+.texto[Efeito marginal do componente]
+
+`\(\lambda_{AMCE_{D}} = \frac{1}{|G|} \sum_{g \in G} \delta_{D_i:G_i=g}\)`
+
+Exemplo:
+
+`\(\delta_{D_i:G_i=1} = \mathbb{E}[Y_i(D_i = 1, G_i=1)]\\ - \mathbb{E}[Y_i(D_i = 0, G_i=1)]\)`
+
+`\(\delta_{D_i:G_i=0} = \mathbb{E}[Y_i(D_i = 1, G_i=0)]\\ - \mathbb{E}[Y_i(D_i = 0, G_i=0)]\)`
+]
+]
+
+
+---
+count:false
+# *Factorial experiment*
+
+Se `\(D_i\)` e `\(G_i\)` forem tratamentos independentes, temos 4 resultados potenciais: `\(Y_i(D_i, G_i)\)`. 
+
+.font90[
+.pull-left[
+.texto[Efeito médio]
+
+`\(\delta_{D_i} =\\ \mathbb{E}[Y_i(D_i = 1, G_i=g)]\\ - \mathbb{E}[Y_i(D_i = 0, G_i=g)]\)`
+
+O efeito de `\(D_i\)` é condicional a `\(G_i\)` assumir um valor específico, e.g. `\(0\)`
+]
+
+
+.pull-right[
+.texto[Efeito marginal do componente]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em palavras, o efeito marginal de `\(D_i\)` é uma média da diferença de ser ou não tratado com `\(D_i\)` sobre todos os resultados potenciais de `\(G_i\)`
+]
+]
+
+
+
+---
+# Estimador
+
+Dado que os tratamentos `\(D_i\)` e `\(G_i\)` sejam independentementes e binários, regressão por MQO permite estimar o AMCE de forma não-paramétrica (assim como médias por grupo):
+
+
+$$
+`\begin{aligned}
+Y_{i} = \beta_0 + \beta_1 D_{i} + \beta_2 G_{i} + \epsilon_{i}
+\end{aligned}`
+$$
+
+&lt;br&gt;
+
+.centering[
+- `\(\hat{\beta_0}\)`, média de `\(Y_i\)` quando `\(D_i = G_i = 0\)`
+- `\(\hat{\lambda}_{AMCE_{D}} = \hat{\beta_1}\)`
+- `\(\hat{\lambda}_{AMCE_{G}} = \hat{\beta_2}\)`
+]
+
+---
+count:false
+# *Conjoint*
+
+Temos agora vários tratamentos, com diferentes categorias variando aleatória e independentemente. Mais: temos um .texto2[par] de candidaturas, `\(j \in \{-1, 1\}\)`, mas só uma será escolhida, i.e., `\(Y_{ij} = 1\)`.
+
+| Atributos              | Candidatura 1 |  Candidatura 2 |  
+|:---------------------- |:-------------:|:-------------:|
+| Sexo                   | .texto2[Homem]| .texto2[Mulher]|
+| Cor/raça               | .texto2[Parda]|.texto2[Preta]|
+| Ideologia              | .texto2[Centro] | .texto2[Centro] |
+| Tipo de Candidato      | .texto2[Pastor]|.texto2[Policial]|
+| Apoios                 | .texto2[Nenhum]| .texto2[Igreja]|
+
+
+---
+count:false
+# *Conjoint*
+
+Temos agora vários tratamentos, com diferentes categorias variando aleatória e independentemente. Mais: temos um .texto2[par] de candidaturas e a dependente é a escolha de uma em relação a outra.
+
+| Atributos              | Candidatura 1 |  Candidatura 2 |  
+|:---------------------- |:-------------:|:-------------:|
+| Sexo                   | .texto2[Mulher]| .texto2[Homem]|
+| Cor/raça               | .texto2[Branca]|.texto2[Indígena]|
+| Ideologia              | .texto2[Direita] | .texto2[Centro] |
+| Tipo de Candidato      | .texto2[Professor]|.texto2[Nenhuma]|
+| Apoios                 | .texto2[Governador]| .texto2[Nenhum]|
+
+
+
+
+---
+count:false
+# *Conjoint*
+
+.pull-left[
+.texto[Pros]
+
+- Testar cenários mais complexos e suas interações (Hainmueller et al., 2014)
+
+- Reduzir viés de desejabilidade (Horiuchi et al., 2022)
+
+- Aumentar poder estatístico (Hainmueller et al., 2014)
+]
+
+
+.pull-right[
+.texto[Contras]
+
+- Distribuição de perfis pode não ser realista (Hainmueller et al., 2014)
+
+- AMCE não é uma quantia tão útil (Abramson et al., 2022; Bansak et al., 2023; Leeper et al., 2020)
+]
+
+
+---
+# Exemplo de *conjoint*
+
+
+.pull-left2[
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Yamamoto et al. (2014) sobre decisão de voto para o legislativo americano
+]
+
+.pull-right2[
+.center[
+![](imgs/conjoint.png)
+]
+]
+
+
+
+---
+# Atrito (*attrition*)
+
+Perda de participantes durante o estudo
+
+.pull-left[
+.texto[Problema]
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Participantes desistem ou não completam o estudo
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se a decisão de não seguir com o tratamento tiver relação com resultados potenciais, pode haver viés
+]
+]
+
+
+.pull-right[
+.texto[Algumas saídas]
+
+.font90[
+- Usar outra quantia de interesse: intenção de tratar (.texto2[ITT])
+  - Exemplo: [Pereira et al. (2023)](https://www.cambridge.org/core/services/aop-cambridge-core/content/view/204E3EDCDAC90DF941F140FBEE847BBD/S2052263023000118a.pdf/div-class-title-inoculation-reduces-misinformation-experimental-evidence-from-multidimensional-interventions-in-brazil-div.pdf)
+- Imputar dados faltantes (mais difícil e envolve outros pressupostos)
+]
+]
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Resumo
+
+
+---
+# Uma tentativa de resumo
+
+Experimentos são cada vez mais comuns nas Ciências Sociais, e não por acaso: são uma forma de inferência causal mais simples e direta.
+
+.font90[
+.pull-left[
+- Nossa forma mais rigorosa de assumir `\(D_i \perp\!\!\!\perp (Y_i(0), Y_i(1))\)`
+- .texto2[Controle da atribuição do tratamento] é essencial, seja por blocos/cluster ou não
+  - *Bônus*: usar blocos reduz variância
+- No mais das vezes, estimamos .texto2[ATE]
+]
+
+.pull-right[
+- Em experimentos de *survey*, versões do intrumento/questionário são os tratamentos
+  - Formatos comuns: *vignette*, fatorial, *conjoint*
+- Estimadores: diferença de média, diferença de média ponderada (para *SATE*), regressão
+]
+]
+
+
+---
+# Problema
+
+E se não for possível realizar um experimento (por razões logísticas ou éticas)? Como falar de causalidade?
 
 --
 
-.alert[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Experimentos nos permitem usar a média dos grupos de tratamento e controle para estimar o efeito médio do tratamento]
-
----
-# Estimadores
-
-Há duas formais mais comuns de se estimar o efeito médio do tratamento em experimentos simples:
-
-.pull-left[
-.texto2[Diferenças de médias]
-
-$$
-`\begin{aligned}
-\hat{\tau}_{DM} = \frac{1}{N_1}\sum_{i:D_i=1} D_i Y_i -\\ \frac{1}{N_0}\sum_{i:D_i=0} (1 - D_i) Y_i 
-\end{aligned}`
-$$
-]
-
-.pull-right[
-.texto2[Regressão linear]
-
-$$
-`\begin{aligned}
-\hat{\tau}_{RL} = \beta_0 + \beta_1 D_i + \epsilon_i
-\end{aligned}`
-$$
-]
-
-
----
-# Exemplo: LaLonde (1986)
-
-*National Supported Work Demonstration (NSW)*, programa de treinamento profissional para desempregados nos EUA avaliado em alguns locais experimentalmente
-
-.pull-left2[
-- .texto2[Tratamento] receber o programa
-
-- .texto2[Dependente] salários futuros (em 1978)
-]
-
-.pull-right2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Importante, a pesquisa *Population Survey of Income Dynamics (PSID)* incluia informações similares de trabalhadores que participaram ou não do programa fora dos pilotos experimentais
-]
-
-
----
-count:false
-# Exemplo: LaLonde (1986)
-
-Com o estimador de diferença de médias:
-
-.pull-left2[
-
-.texto2[Estimativas]
-
-
-|D         |      Y|
-|:---------|------:|
-|1         | 6349.1|
-|0         | 4554.8|
-|Diferença | 1794.3|
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
----
-count:false
-# Exemplo: LaLonde (1986)
-
-Com o estimador de regressão:
-
-
-
-```r
-library(fixest)
-
-feols(re78 ~ nsw, data = nsw_exp)
-```
-
-```
-## OLS estimation, Dep. Var.: re78
-## Observations: 445 
-## Standard-errors: IID 
-##             Estimate Std. Error  t value  Pr(&gt;|t|)    
-## (Intercept)  4554.80    408.046 11.16247 &lt; 2.2e-16 ***
-## nsw          1794.34    632.854  2.83532 0.0047875 ** 
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## RMSE: 6,564.7   Adj. R2: 0.015606
-```
-
-
----
-# Inferência e teste de hipóteses
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Com ambos os estimadores, inferência envolve passos básicos para calcular variação das estimativas e checar a probabilidade de um determinado efeito ser compatível com um distribuição nula:
-
-- No estimador de diferença de médias, basta calcular o erro-padrão da estimativa, calcular o T-valor correspondente (ou Z-valor) e comparar com uma distribuição T ou normal
-
-- Na regressão, `\(\hat{\beta_1}\)` já retorna o efeito estimado da diferença e, em `R`, demais estatísticas já são reportadas
-
-
----
-# Exemplos de hoje
-
-.pull-left[
-.texto2[Edelman et al. (2017)]
-
-Experimento de campo no *Airbnb*, manipulando sinalização racial percebida pelo nome de *guests* que pediam agendamentos a *hosts* de diferentes cidades americanas (há um segundo tratamento, mas vamos focar no primeiro)
-]
-
-.pull-right[
-.texto[Hyde (2007)]
-
-Há o chamado .texto2[experimento natarual] (que significa várias coisas) no qual observadores internacionais de eleições foram alocados *as if random* em 2003 na Armênia
-
-]
+.texto[R]: podemos tentar explorar experimentos naturais; é o que estudaremos nas próximas aulas.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

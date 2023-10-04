@@ -215,6 +215,7 @@ div.csl-indent {
   <li><a href="#estimativa-com-dados-observacionais" id="toc-estimativa-com-dados-observacionais" class="nav-link" data-scroll-target="#estimativa-com-dados-observacionais">Estimativa com dados observacionais</a></li>
   </ul></li>
   <li><a href="#estimatr" id="toc-estimatr" class="nav-link" data-scroll-target="#estimatr"><code>estimatr</code></a></li>
+  <li><a href="#efeito-marginal-do-componente-amce" id="toc-efeito-marginal-do-componente-amce" class="nav-link" data-scroll-target="#efeito-marginal-do-componente-amce">Efeito marginal do componente (AMCE)</a></li>
   </ul>
 </nav>
     </div>
@@ -240,7 +241,7 @@ div.csl-indent {
 
 <section id="introdução" class="level2">
 <h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
-<p>Estas notas introduzem análise de experimentos simples em <code>R</code>, o que cobrirá como usar dois estimadores comuns para analisar este tipo de desenho: estimador de diferença de médias e regressão linear por MQO.</p>
+<p>Estas notas introduzem análise de experimentos em <code>R</code>, o que cobrirá como usar dois estimadores comuns para analisar este tipo de desenho: estimador de diferença de médias e regressão linear por MQO.</p>
 <p>Usaremos como exemplo os dados de <span class="citation" data-cites="lalonde1986evaluating">LaLonde (<a href="#ref-lalonde1986evaluating" role="doc-biblioref">1986</a>)</span>, usados em seu <em>paper</em> clássico comparando os resultados de um <em>randomized controlled trial</em> (i.e., um experimento de campo) de treinamento profissional para homens desempregados sobre suas rendas futuras com os resultados de um estudo observacional. Trata-se de um estudo clássico na Economia, e nas Ciências Sociais, de forma geral, por ser um dos primeiros a mostrar que os resultados de um experimento podem ser muito diferentes dos resultados de um estudo observacional, utilizando modelos de regressão saturados.</p>
 <p>Antes de avançar, precisaremos carregar as duas bases, a <a href="../docs/data/nsw_exp.dta">com dados experimentais</a> e a <a href="../docs/data/nsw_obs.dta">com dados observacionais</a>. Para isso, usaremos o pacote <code>haven</code>:</p>
 <div class="cell">
@@ -314,6 +315,7 @@ div.csl-indent {
 </tr>
 </tbody>
 </table>
+<p>Ao final, também analisaremos uma pequena base de <em>survey</em> retirada de <span class="citation" data-cites="ballard2017structure">Ballard-Rosa, Martin, e Scheve (<a href="#ref-ballard2017structure" role="doc-biblioref">2017</a>)</span>, sobre as preferências em relação a diferentes regimes de taxação nos EUA usando um <em>conjoint experiment</em>.</p>
 </section>
 <section id="estimador-de-diferença-de-médias" class="level2">
 <h2 class="anchored" data-anchor-id="estimador-de-diferença-de-médias">Estimador de diferença de médias</h2>
@@ -688,31 +690,36 @@ F-statistic: 3.475 on 7 and 437 DF,  p-value: 0.001234</code></pre>
 <td style="text-align: right;">(0.013)</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">:———–</td>
+<td style="text-align: right;">————:</td>
+<td style="text-align: right;">———-:</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">Num.Obs.</td>
 <td style="text-align: right;">445</td>
 <td style="text-align: right;">445</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">R2</td>
 <td style="text-align: right;">0.018</td>
 <td style="text-align: right;">0.049</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">R2 Adj.</td>
 <td style="text-align: right;">0.016</td>
 <td style="text-align: right;">0.034</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">AIC</td>
 <td style="text-align: right;">9091.5</td>
 <td style="text-align: right;">9089.1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">BIC</td>
 <td style="text-align: right;">9103.8</td>
 <td style="text-align: right;">9126.0</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">RMSE</td>
 <td style="text-align: right;">6564.74</td>
 <td style="text-align: right;">6459.85</td>
@@ -722,6 +729,123 @@ F-statistic: 3.475 on 7 and 437 DF,  p-value: 0.001234</code></pre>
 <p><strong>Note:</strong> ^^ + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</p>
 </div>
 </div>
+</section>
+<section id="efeito-marginal-do-componente-amce" class="level2">
+<h2 class="anchored" data-anchor-id="efeito-marginal-do-componente-amce">Efeito marginal do componente (AMCE)</h2>
+<p>Nesta última seção, veremos rapidamente como aplicar regressão linear para estimar o efeito marginal do componente (AMCE) de um tratamento. Para isso, usaremos uma base de dados retirada de <span class="citation" data-cites="ballard2017structure">Ballard-Rosa, Martin, e Scheve (<a href="#ref-ballard2017structure" role="doc-biblioref">2017</a>)</span>, <a href="../docs/data/taxes.csv">disponível aqui</a>, que contém as preferências de indivíduos em relação a diferentes regimes de taxação nos EUA. A base contém poucas variáveis, mas é para ilustrar o estimador. Começamos carregando os dados que estão em CSV:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega os dados</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>taxes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"taxes.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Podemos ver a estrutura da base com:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostra a estrutura da base</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(taxes)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 32,000
+Columns: 13
+$ chose_plan          &lt;dbl&gt; 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0,…
+$ taxrate1            &lt;chr&gt; "&lt;10k: 5%", "&lt;10k: 0%", "&lt;10k: 15%", "&lt;10k: 15%", …
+$ taxrate2            &lt;chr&gt; "10-35k: 25%", "10-35k: 35%", "10-35k: 25%", "10-3…
+$ taxrate3            &lt;chr&gt; "35-85k: 35%", "35-85k: 5%", "35-85k: 5%", "35-85k…
+$ taxrate4            &lt;chr&gt; "85-175k: 25%", "85-175k: 15%", "85-175k: 25%", "8…
+$ taxrate5            &lt;chr&gt; "175-375k: 15%", "175-375k: 5%", "175-375k: 25%", …
+$ taxrate6            &lt;chr&gt; "&gt;375k: 5%", "&gt;375k: 45%", "&gt;375k: 25%", "&gt;375k: 5…
+$ taxrev              &lt;chr&gt; "95-105%", "105-125%", "95-105%", "75-95%", "105-1…
+$ inequality_aversion &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,…
+$ taxes_harm_economy  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,…
+$ partyid             &lt;chr&gt; "Republican", "Republican", "Republican", "Republi…
+$ ID                  &lt;dbl&gt; 177191531, 177191531, 177191531, 177191531, 177191…
+$ weight              &lt;dbl&gt; 6.828660, 6.828660, 6.828660, 6.828660, 6.828660, …</code></pre>
+</div>
+</div>
+<p>Como dá para ver, temos como variável dependente <code>choose_plan</code>, que indica se um perfil hipotético de política de taxação foi (1) ou não (0) selecionado. Os perfis são definidos por seis componentes iniciados <code>tax</code> (e.g., <code>taxrate1</code>, <code>taxrate2</code>), que indicam a alíquota sugerida para cada faixa de renda anual.</p>
+<p>Isso feito, o estimador do AMCE é apenas uma variação do que já vimos: estimamos um modelo de regressão linear com os diferentes atributos aleatorizados como tratamento. Por exemplo, para estimar o AMCE do componente <code>tax</code> (que é a taxa de imposto), usamos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>cj <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(chose_plan <span class="sc">~</span> taxrate1 <span class="sc">+</span> taxrate2 <span class="sc">+</span> taxrate3 <span class="sc">+</span> taxrate4 <span class="sc">+</span> taxrate5 <span class="sc">+</span> taxrate6, </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">clusters =</span> ID, <span class="at">data =</span> taxes)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>cj</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                          Estimate  Std. Error     t value      Pr(&gt;|t|)
+(Intercept)            0.621875367 0.013123197  47.3874914 1.722575e-315
+taxrate1&lt;10k: 15%     -0.073108439 0.008459878  -8.6417841  1.159886e-17
+taxrate1&lt;10k: 25%     -0.193712404 0.008835955 -21.9231989  4.624763e-95
+taxrate1&lt;10k: 5%      -0.008562999 0.008175335  -1.0474188  2.950413e-01
+taxrate210-35k: 25%   -0.043072217 0.007985812  -5.3935926  7.780535e-08
+taxrate210-35k: 35%   -0.123779054 0.008544427 -14.4865247  3.583595e-45
+taxrate210-35k: 5%    -0.002254620 0.007803330  -0.2889305  7.726663e-01
+taxrate335-85k: 25%   -0.044727169 0.007693865  -5.8133547  7.172618e-09
+taxrate335-85k: 35%   -0.090762797 0.008169538 -11.1099062  8.043787e-28
+taxrate335-85k: 5%    -0.009194678 0.007836756  -1.1732760  2.408336e-01
+taxrate485-175k: 25%  -0.005424936 0.007891790  -0.6874152  4.919060e-01
+taxrate485-175k: 35%  -0.015025665 0.008002930  -1.8775204  6.060145e-02
+taxrate485-175k: 5%   -0.022240453 0.007672150  -2.8988554  3.788648e-03
+taxrate5175-375k: 25%  0.014401264 0.008604154   1.6737571  9.434932e-02
+taxrate5175-375k: 35%  0.038231552 0.008857437   4.3163222  1.671375e-05
+taxrate5175-375k: 45%  0.013157327 0.009096260   1.4464547  1.482212e-01
+taxrate5175-375k: 5%  -0.040737725 0.008604726  -4.7343429  2.366839e-06
+taxrate6&gt;375k: 25%     0.034774843 0.009517663   3.6537164  2.659657e-04
+taxrate6&gt;375k: 35%     0.071922962 0.009670997   7.4369749  1.595445e-13
+taxrate6&gt;375k: 45%     0.088864878 0.010306640   8.6220996  1.425409e-17
+taxrate6&gt;375k: 5%     -0.077717384 0.009479144  -8.1987770  4.601144e-16
+taxrate6&gt;375k: 55%     0.067500551 0.010689116   6.3148864  3.406463e-10
+                          CI Lower      CI Upper       DF
+(Intercept)            0.596136474  0.6476142598 1740.356
+taxrate1&lt;10k: 15%     -0.089700148 -0.0565167299 1885.128
+taxrate1&lt;10k: 25%     -0.211041707 -0.1763831017 1881.361
+taxrate1&lt;10k: 5%      -0.024596696  0.0074706979 1877.659
+taxrate210-35k: 25%   -0.058734224 -0.0274102098 1876.297
+taxrate210-35k: 35%   -0.140536583 -0.1070215244 1884.963
+taxrate210-35k: 5%    -0.017558684  0.0130494438 1886.499
+taxrate335-85k: 25%   -0.059816538 -0.0296377991 1888.578
+taxrate335-85k: 35%   -0.106785090 -0.0747405034 1883.958
+taxrate335-85k: 5%    -0.024564318  0.0061749624 1882.795
+taxrate485-175k: 25%  -0.020902535  0.0100526622 1877.969
+taxrate485-175k: 35%  -0.030721220  0.0006698906 1880.876
+taxrate485-175k: 5%   -0.037287267 -0.0071936401 1882.228
+taxrate5175-375k: 25% -0.002473734  0.0312762613 1829.204
+taxrate5175-375k: 35%  0.020859795  0.0556033096 1828.391
+taxrate5175-375k: 45% -0.004682828  0.0309974829 1827.676
+taxrate5175-375k: 5%  -0.057613856 -0.0238615944 1827.547
+taxrate6&gt;375k: 25%     0.016107861  0.0534418250 1778.383
+taxrate6&gt;375k: 35%     0.052955219  0.0908907050 1774.569
+taxrate6&gt;375k: 45%     0.068650519  0.1090792373 1783.809
+taxrate6&gt;375k: 5%     -0.096308837 -0.0591259307 1775.553
+taxrate6&gt;375k: 55%     0.046536010  0.0884650917 1779.517</code></pre>
+</div>
+</div>
+<p>Vale notar que, como os diferentes tratamentos são independentes uns dos outros, estimar apenas uma versão reduzida do experimento resulta em estimativas similares:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>cj2 <span class="ot">&lt;-</span> <span class="fu">lm_robust</span>(chose_plan <span class="sc">~</span> taxrate1, <span class="at">clusters =</span> ID, <span class="at">data =</span> taxes)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>cj2</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      Estimate  Std. Error     t value     Pr(&gt;|t|)    CI Lower
+(Intercept)        0.568902362 0.005405219 105.2505573 0.000000e+00  0.55830072
+taxrate1&lt;10k: 15% -0.073439341 0.008580787  -8.5585788 2.329752e-17 -0.09026818
+taxrate1&lt;10k: 25% -0.194073702 0.008921331 -21.7538954 8.858244e-94 -0.21157044
+taxrate1&lt;10k: 5%  -0.007065347 0.008268703  -0.8544686 3.929544e-01 -0.02328216
+                      CI Upper       DF
+(Intercept)        0.579504005 1686.775
+taxrate1&lt;10k: 15% -0.056610506 1885.640
+taxrate1&lt;10k: 25% -0.176576959 1881.638
+taxrate1&lt;10k: 5%   0.009151463 1878.486</code></pre>
+</div>
+</div>
+<p>Novamente, podemos fazer um gráfico dos resultados para simplificar a visualização<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>cj <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">str_replace</span>(term, <span class="st">" 5%"</span>, <span class="st">" 05%"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> term, <span class="at">x =</span> estimate, <span class="at">xmin =</span> conf.low, <span class="at">xmax =</span> conf.high)) <span class="sc">+</span> </span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>() <span class="sc">+</span> </span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Estimativa"</span>, <span class="at">y =</span> <span class="st">"Coeficiente"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="topico4_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 
 
 
@@ -729,6 +853,9 @@ F-statistic: 3.475 on 7 and 437 DF,  p-value: 0.001234</code></pre>
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-ballard2017structure" class="csl-entry" role="listitem">
+Ballard-Rosa, Cameron, Lucy Martin, e Kenneth Scheve. 2017. <span>«The structure of American income tax policy preferences»</span>. <em>The Journal of Politics</em> 79 (1): 1–16.
+</div>
 <div id="ref-gerber2012field" class="csl-entry" role="listitem">
 Gerber, Alan S, e Donald P Green. 2012. <span>«Field experiments: Design, analysis, and interpretation»</span>. <em>(No Title)</em>.
 </div>
@@ -743,6 +870,7 @@ LaLonde, Robert J. 1986. <span>«Evaluating the econometric evaluations of train
 <li id="fn3"><p>A título de intuição, quando temos duas amostras independentes o erro-padrão da diferença de estimativas é uma espécie de soma de suas medidas de dispersão. Um exemplo: imagine duas pesquisas eleitorais que dizem que a candidata A tem 20% de intenção de votos, com margem de erro de 2 pontos percentuais; e outra que diz que ela subiu para 22% da intenção de votos, com margem também de 2pp; nesse caso, a diferença entre as estimativas da candidata A pode ser tanto de 2pp (<span class="math inline">\(0.22 - 0.2 = 2pp\)</span>) quanto de 6pp (<span class="math inline">\(0.18 - 0.24 = -6pp\)</span>).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Aqui, os graus de liberdade são indicados por <code>df</code>. Note que diminuímos o número de observações, agora, de 2 dado que <a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>Não cobrimos tanto inferência nesse curso, embora seja um tópico fundamental; de toda forma, erros-padrão robustos são úteis para o caso em que acreditamos (ou temos evidência) de que a variação dos resíduos não é homogênea. Para uma explicação formal, ver <a href="https://en.wikipedia.org/wiki/Heteroskedasticity-consistent_standard_errors">esta página</a>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>O <code>ggplot</code> automaticamente ordenar em orderm alfabética variáveis <code>character</code>, o que é o caso de <code>term</code>; de toda forma, ao fazer isso “5%” é considerado posterior a “25%”; mudaremos isso usando <code>str_replace</code> para trocar ” 5%” por “05%”.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

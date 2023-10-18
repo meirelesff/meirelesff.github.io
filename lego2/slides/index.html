@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>9. RDD</title>
+    <title>10. RDD</title>
     <meta charset="utf-8" />
     <script src="slides_files/header-attrs-2.23/header-attrs.js"></script>
     <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
@@ -14,10 +14,10 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# 9. RDD
+# 10. RDD
 ]
 .subtitle[
-## Introdução e implementação
+## Extensões
 ]
 .date[
 ### <div class="line-block"><small>Lego II | 2.2023</small><br> <a href="https://fmeireles.com"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"></path></svg></a> <a href="https://twitter.com/meirelesff"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a> <a href="mailto:fernando.meireles@iesp.uerj.br"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg></a></div>
@@ -29,340 +29,505 @@ class: center, middle, inverse, title-slide
 
 
 
-# Recapitulando
+# Aula passada
 
-.pull-left2[
-.texto[Experimentos] são desenhos comuns para se responder questões causais quantitativamente
-]
-
-.pull-right2[
-.font90[
-{{content}}
-]
-]
-
---
-
-- Custo é maior, mas temos maior validade interna e podemos usar estimadores simples (teste de médias, e.g.);
-{{content}}
-
---
-
-- Ganhamos precisão com blocos e *clusters* podem ser úteis quando há violações de SUTVA
-{{content}}
-
---
-
-- Alternativas: *survey experiment*, *conjoint experiments*
-{{content}}
-
---
-
-- Principais quantias estimadas: *ATE* e *SATE*
-
-
-
----
-# Hoje
-
-Aprenderemos a interpretar gráficos como esse.
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-count:false
-# Hoje
-
-Aprenderemos a interpretar gráficos como esse outro.
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-count:false
-# Hoje
-
-E esse.
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-count:false
-# Hoje
-
-E mais esse.
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
-
----
-class: inverse, mline, middle, center
-background-color: #8f2a43
-
-# Descontinuidades
-
-
-
----
-# Básico
-
-Regressão Descontínua (RDD) explora pontos de corte que são usados para atribuir um tratamento (e.g., idade mínima para votar)
-.pull-left[
-.texto[Notação]
-
-.font90[
-- `\(c\)`: *cutoff*, ponto de corte que determina a atribuição do tratamento
-- `\(D_i\)`: Tratamento atribuído à unidade `\(i\)`, onde `\(D_i = 1\)` se `\(X_i \geq c\)`, e `\(D_i = 0\)` se `\(X_i &lt; c\)`
-- `\(X_i\)`: Variável que determina a atribuição ao tratamento (*forcing* ou *scoring variable*)
-]
-]
-
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Requisitos de dados]
-
-.font90[
-- A variável de execução `\(X_i\)` deve ser contínua em torno `\(c\)`
-- O tratamento deve ser binário
-]
-]
-
----
-# Intuição
-
-Imagine um programa de bolsas de estudo que beneficia discentes com notas acima de um corte `\(c = 70\)`
-
-.pull-right2[
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-.pull-left2[
-
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Mesmo que por um ponto, pessoas com notas acima de 70 acabam com `\(Y_i\)` maior
-]
-
-]
-
-
-
----
-# Regras como experimentos naturais
-
-Vários tratamentos são atribuídos por meio de notas, *scores* e pontos de corte. Exemplos:
+Vimos que .texto2[RDD] é uma estratégia de identificação que explora descontinuidades na atribuição de um tratamento. Com modelos lineares e não-lineares, globais ou locais, podemos estimar .texto2[LATE]:
 
 .pull-left[
-  .font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Alunas e alunos que tiram mais que determinada nota e passam de ano
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Contribuintes que recebem mais que determinada quantia e passam a pagar mais impostos
-  ]
-]
-
-.pull-right[
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Candidaturas que fazem mais que 50+1% dos votos
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Pessoas com menos que certa renda e que ganham alguma política pública
-]
-]
-
----
-count:false
-# Regras como experimentos naturais
-
-Ao atribuir tratamentos com base nesses pontos de corte (ou *cuttoffs*), criamos uma espécie de experimento natural.
-
-.pull-left[
-- Se um ponto de corte para passar de ano é `70` e eu tiro `6.99` na prova, reprovo
-]
-
-.pull-right[
-O fato de passar ou reprovar pode depender de componentes estocásticos
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; podemos comparar unidades `\(_i\)` ao redor da descontinuidade
-]
-
-
----
-# Tipos de descontinuidade comuns 
-
-- Descontinuidade em notas ([Ozier 2018](https://jhr.uwpress.org/content/53/1/157.short))
-- Descontinuidade na idade para votar ([Bruce e Lima 2019](https://www.sciencedirect.com/science/article/abs/pii/S0304387818304930))
-- Descontinuidade geográfica ([Mattingly 2017](https://journals.sagepub.com/doi/abs/10.1177/0010414015600465)) 
-- Descontinuidade populacional ([Eggers et al. 2017](https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12332))
-- Descontinuidade em eleições ([Bueno 2018](https://journals.sagepub.com/doi/abs/10.1177/0010414017710255))
-
-
-
----
-# Atribuição do tratamento
-
-Visualmente, dizemos que a atribuição do tratamento muda descontínia e deterministicamente em `\(c\)`
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Pressuposto de identificação
-
-O principal: os resultados potenciais `\((Y_i(1), Y_i(0))\)` variam de forma *smooth* ao redor da descontinuidade.
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-count:false
-# Pressuposto de identificação
-
-O principal: os resultados potenciais `\((Y_i(1), Y_i(0))\)` variam de forma *smooth* ao redor da descontinuidade.
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Pressuposto de identificação
-
-Obviamente, não observamos `\((Y_i(1), Y_i(0))\)` para cada unidade `\(_i\)`
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Resultados potenciais
-
-Formalmente, na ausência do tratamento os resultados potenciais precisam ser iguais ao redor da descontinuidade
-
-`\begin{aligned}
-\lim_{X \downarrow c} \mathbb{E}[Y_{i}(D_i) | X_i = x] = \lim_{x \uparrow c} \mathbb{E}[Y_{i}(D_i) | X_i = x]
-\end{aligned}`
-
-Na prática, isso normalmente significa uma coisa: unidades não podem manipular seus *scores*, e nem existir outra descontinuidade em `\(c\)`
-
-
----
-# Resultados potenciais
-
-Para citar o [*Mixtape*](https://mixtape.scunning.com/06-regression_discontinuity#continuity-assumption):
-
-.font90[
-&gt; *I apologize if I’m beating a dead horse, but continuity is a subtle assumption and merits a little more discussion. The continuity assumption means that `\(E[Y^1| X]\)` wouldn’t have jumped at `\(c_0\)`. If it had jumped, then it means something other than the treatment caused it to jump because `\(Y^1\)` is already under treatment.*
-]
-
-
-
----
-class: inverse, mline, middle, center
-background-color: #8f2a43
-
-# Estimação
-
-
----
-# *Local average treatment effect*
-
-Intituitivamente, o efeito causal que estimamos com RDD é a distância vertical entre curvas observadas
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Janela
-
-Regressão local significa considerar apenas algumas observações próximas de `\(c\)`
-
-.pull-left[
-.texto2[Global]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
-
-]
-
-
-.pull-left[
-.texto2[Local], `\(h=0.4\)`
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
-
-]
-
-
-
----
-count:false
-# Janela
-
-Regressão local significa considerar apenas algumas observações próximas de `\(c\)`
-
-.pull-left[
-.texto2[Global]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
-
-]
-
-
-.pull-left[
-.texto2[Local], `\(h=0.2\)`
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
-
-]
-
-
-
-
----
-# Quantia de interesse
-
-.texto[LATE] é local, isto é, só vale para a população de unidades `\(_i\)` próximas de `\(c\)`
-
-`\(\tau = \mathbb{E}[Y_i(1)|X_i = c] - \mathbb{E}[Y_i(0)|X_i = c]\)`
-
-Como não observamos `\((Y_i(1), Y_i(0))\)`, na verdade estimamos:
-
-`\(\tau = \lim_{x \downarrow c} \mathbb{E}[Y_i|X_i = c] - \lim_{x \uparrow c} \mathbb{E}[Y_i|X_i = c]\)`
-
-
----
-# Extrapolação com regressão
-
-Existem algumas formas de estimar .texto2[LATE] com RDD, mas a mais comum é usar regressão linear para estimar duas curvas ao redor da descontinuidade
-
-.pull-left[
-.texto2[MQO global]
-
-.font90[
-
 `\begin{aligned}
 \hat{\tau} = \beta_1 + \beta_2 D_i + \beta_3 (X_i - c) +\\ 
 \beta_4 D_i (X_i - c) + \epsilon_i
 \end{aligned}`
-
 ]
 
-]
 .pull-right[
-.texto2[MQO local]
+- `\(c\)`: ponto de corte
+- `\(D_i\)`: variável binária que indica se `\(X_i &gt; c\)`
+- `\(X_i - c\)`: truque para mudar a interpretação do *intercept*
+- `\(\hat{\tau}\)`: .texto2[LATE]
+]
 
-.font90[
+
+---
+# Aula de hoje
+
+
+
+.left-column[
+&lt;br&gt;
+.texto[Objetivo]
+
+Estudar estimação e teste de pressupostos em RDD
+]
+
+.right-column[
+{{content}}
+]
+
+--
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Como estimar modelos flexíveis (i.e., não-lineares)
+{{content}}
+
+--
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Como selecionar estimadores que minimizem viés
+{{content}}
+
+--
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Como testar o pressuposto de continuidade
+{{content}}
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Polinômios
+
+
+---
+# O que é
+
+O modelo linear que vimos até agora é bastante flexível, mas não é o único possível: podemos usar .texto2[polinômios] para modelar a relação entre `\(X\)` e `\(Y\)`:
 
 `\begin{aligned}
-\hat{\tau}_{[h]} = \beta_1 + \beta_2 D_i + \beta_3 (X_i - c) +\\ 
-\beta_4 D_i (X_i - c) + \epsilon_i\\
-\quad \text{para } |X_i - c| \leq h
+Y_i = \beta_1 + \beta_2 X_i + \beta_3 X_i^2 + \beta_4 X_i^3 + \epsilon_i
 \end{aligned}`
 
+
+---
+# Polinômios
+
+.pull-left[
+.texto2[Polinômios] são uma forma de .texto2[transformação] de variáveis
+
+
+```r
+# Relação não-linear
+x &lt;- 1:20
+y &lt;- 20 + 1.2*x + 0.5*x^2
+```
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Polinômios
+
+.pull-left[
+A ordem de um .texto2[polinômio] indica o maior expoente de `\(X\)` que aparece na equação
+
+
+```r
+# Relação não-linear
+x &lt;- 1:20
+y &lt;- x + 0.5*x^2 - 0.05*x^3
+```
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+# Polinômios em regressão
+
+Polinômios em modelos MQO captam relações não-lineares:
+
+.font85[
+
+```r
+# Relação não-linear
+x &lt;- rnorm(50)
+y &lt;- 10 + 1.2*x + 0.5*x^2 + rnorm(50)
+```
+
+.pull-left[
+
+```r
+# Modelo linear
+lm(y ~ x) %&gt;%
+  tidy() %&gt;%
+  select(1:2)
+```
+
+```
+## # A tibble: 2 × 2
+##   term        estimate
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 (Intercept)    10.5 
+## 2 x               1.43
+```
+]
+
+.pull-right[
+
+```r
+# Modelo com polinômio 2
+lm(y ~ x + I(x^2)) %&gt;%
+  tidy() %&gt;%
+  select(1:2)
+```
+
+```
+## # A tibble: 3 × 2
+##   term        estimate
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 (Intercept)    9.91 
+## 2 x              1.20 
+## 3 I(x^2)         0.600
+```
 ]
 ]
 
-Nos dois casos, `\(\hat{\beta_2}\)` é a estimativa do tratamento em `\(c\)` e `\(h\)` é o que chamamos de janela, ou *bandwidth*
+
+
+
+---
+count:false
+# Polinômios em regressão
+
+Visualmente:
+.pull-left[
+.texto[Linear]
+&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.texto[Polinômio 2]
+&lt;img src="slides_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Viés
+
+
+
+---
+# Potencial de viés
+
+Quando usamos RDD, uma preocupação na especificação de modelos é o potencial de viés: se não modelarmos corretamente os valores esperados de `\(Y\)` dado `\(X\)` (nossa *running variable*), podemos acabar com estimativas de efeitos locais enviesadas
+
+.alert[&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; O potencial de viés é maior quando a relação que temos é não-linear]
+
+
+
+---
+count:false
+# Viés em RDD
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Imagine tentar estimar um .texto2[LATE] nestes resultados potenciais (indicados pelas duas curvas)
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Viés em RDD
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Um .texto2[estimador global linear], em preto, não parece bom
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Viés em RDD
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos usar .texto2[estimadores locais], usando uma janela `\(h\)` em torno do ponto de corte
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Viés em RDD
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; E também podemos reduzir a janela usada
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Viés em RDD
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quanto menor a janela, mais o resultado irá convergir para o .texto2[LATE]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Viés em RDD
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quanto menor a janela, mais o resultado irá convergir para o .texto2[LATE]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Viés em RDD
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Outro exemplo
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Viés em RDD
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Janela `\(h\)`
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Viés em RDD
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Janela `\(\frac{1}{2} h\)`
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Viés em RDD
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Janela `\(\frac{1}{4} h\)`
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+# Polinômios
+
+E se usarmos .texto2[polinômios] para estimar o .texto2[LATE]? O problema, aqui, é que estes podem ser muito sensíveis à especificação usada ([Gelman e Imbens 2019](https://www.tandfonline.com/doi/abs/10.1080/07350015.2017.1366909); [Gelman e Zelizer 2015](https://journals.sagepub.com/doi/full/10.1177/2053168015569830))
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular um PGD sem descontinuidade, mas com muito ruído, com
+
+`\begin{aligned}
+\beta_1 = 1.2\\
+X_i, \epsilon_i \overset{\text{i.i.d.}}{\sim} Normal(0, 10)\\
+Y_i = \beta_1 X_i + \epsilon_i
+\end{aligned}`
+]
+
+.pull-right[
+
+```r
+# Código deste PGD
+n &lt;- 80
+x &lt;- rnorm(n, 0, 10)
+y &lt;- 1.1*x + rnorm(n, 0, 10)
+df &lt;- tibble(x = x, y = y)
+```
+]
+
+
+
+---
+count:false
+# Polinômios
+
+Os dados não mostram nenhuma descontinuidade (e nem deveriam)
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Polinômios
+
+Mas polinômios podem modelar *ruído* e captar .texto2[LATEs] que não existem
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Polinômios
+
+Mas polinômios podem modelar *ruído* e captar .texto2[LATEs] que não existem
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-23-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Solução
+
+Há um *checklist* de recomendações em RDD para evitar viés em estimação:
+
+.font90[
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Preferir modelos locais e testar janelas diferentes
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Evitar polinômios de ordem grande
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Usar erros-padrão adequados
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualizar os dados
+]
+]
+
+
+---
+# Estimador robusto CCT
+
+Por tomar várias decisões de especificação de forma automática, o estimador de [Calonico, Cattaneo e Titiunik (2014)](https://journals.sagepub.com/doi/abs/10.1177/1536867X1401400413) é padrão
+
+.pull-left2[
+Mesmos dados, mas agora com o estimador .texto2[CCT]
+]
+
+
+.pull-right2[
+
+|        |    Local   | 
+|:-------|-----------:|
+| Robust |   11.532   | 
+|        |  (10.826)  | 
+|:-------|-----------:|
+| Kernel | Triangular | 
+| Janela |     2.8    | 
+| N      |     18     | 
+]
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Pressupostos
+
+
+---
+# Pressuposto da continuidade
+
+O principal pressuposto em RDD é simples de entender, mas difícil de testar na prática:
+
+.font90[
+&gt; *[...] the expected potential outcomes change smoothly as a function of the running variable through the cutoff. In words, this means that the only thing that causes the outcome to change abruptly at `\(c\)` is the treatment*
+]
+
+— [Mixtape](https://mixtape.scunning.com/06-regression_discontinuity#challenges-to-identification)
+
+
+---
+# Teste de McCrary (2008)
+
+.pull-left[
+.texto[Problema]
+
+Como saber se unidades `\(_i\)` manipularam seus *scores* para obter tratamento?
+]
+
+.pull-right[
+.texto[Intuição]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se não houve manipulação, a distribuição de `\(X_i\)` deve ser contínua em torno do ponto de corte `\(c\)`
+]
+
+
+
+---
+# Implementação
+
+Podemos implementar uma variante do teste de densidade usando o pacote `rddensity`:
+
+
+```r
+# Carrega o pacote
+library(rddensity)
+
+# Roda o teste
+rddensity(df$y, df$x)
+
+# Plota os resultados
+rdplotdensity(teste, df$x)
+```
+
+
+---
+count:false
+# Implementação
+
+O que deve produzir um resultado como o seguinte:
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
+
+
 
 
 ---

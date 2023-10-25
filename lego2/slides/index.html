@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>10. RDD</title>
+    <title>10. Diferença-em-Diferenças</title>
     <meta charset="utf-8" />
     <script src="slides_files/header-attrs-2.23/header-attrs.js"></script>
     <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
@@ -14,10 +14,10 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# 10. RDD
+# 10. Diferença-em-Diferenças
 ]
 .subtitle[
-## Extensões
+## Introdução
 ]
 .date[
 ### <div class="line-block"><small>Lego II | 2.2023</small><br> <a href="https://fmeireles.com"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"></path></svg></a> <a href="https://twitter.com/meirelesff"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a> <a href="mailto:fernando.meireles@iesp.uerj.br"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg></a></div>
@@ -28,280 +28,516 @@ class: center, middle, inverse, title-slide
 
 
 
+# Experimentos e descontinuidades
 
-# Aula passada
+Nossas aulas anteriores abordaram os dois tipos mais comuns de estratégia de identificação: .texto2[experimentos] e .texto2[descontinuidades]
 
-Vimos que .texto2[RDD] é uma estratégia de identificação que explora descontinuidades na atribuição de um tratamento. Com modelos lineares e não-lineares, globais ou locais, podemos estimar .texto2[LATE]:
+--
+
+Ambos dependem de pressupostos não tão difíceis de defender:
 
 .pull-left[
-`\begin{aligned}
-\hat{\tau} = \beta_1 + \beta_2 D_i + \beta_3 (X_i - c) +\\ 
-\beta_4 D_i (X_i - c) + \epsilon_i
-\end{aligned}`
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt; Aleatorização torna `\(D_i\)` independente de `\((Y_i(0), Y_i(1))\)`
 ]
 
 .pull-right[
-- `\(c\)`: ponto de corte
-- `\(D_i\)`: variável binária que indica se `\(X_i &gt; c\)`
-- `\(X_i - c\)`: truque para mudar a interpretação do *intercept*
-- `\(\hat{\tau}\)`: .texto2[LATE]
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt; `\((Y_i(0), Y_i(1))\)` variam continuamente com `\(D_i\)` e com `\(X_i &gt; c\)` (o que é a mesma coisa)
 ]
 
 
 ---
-# Aula de hoje
+count:false
+# Experimentos e descontinuidades
 
+Nossas aulas anteriores abordaram os dois tipos mais comuns de estratégia de identificação: .texto2[experimentos] e .texto2[descontinuidades]
 
+Exemplos:
 
-.left-column[
-&lt;br&gt;
-.texto[Objetivo]
-
-Estudar estimação e teste de pressupostos em RDD
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Experimento em que controlamos a atribuição do tratamento
 ]
 
-.right-column[
-{{content}}
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Descontinuidade que alocou tratamento e no qual unidades não manipularam seus *scores*
 ]
 
---
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Como estimar modelos flexíveis (i.e., não-lineares)
-{{content}}
+---
+# Problema
 
---
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; E se não tivermos um experimento ou uma descontinuidade?
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Como selecionar estimadores que minimizem viés
-{{content}}
 
---
+---
+# Diferenças em diferenças (DiD)
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Como testar o pressuposto de continuidade
-{{content}}
+Sob certos pressupostos, podemos explorar observações ao longo do tempo para identificar os efeitos de `\(D_i\)` sobre `\(Y_i\)`. Particularmente, precisamos de:
 
+.pull-left[
+- Mais de uma observação para cada unidade `\(_i\)`
+]
+
+.pull-right[
+- Variação entre unidades (*cross-section*) tratadas e não-tratadas
+
+- Variação no tempo (*time-series*) no tratamento *dentro* das mesmas unidades
+]
+
+
+---
+# Roteiro de hoje
+
+Veremos como combinar esses ingredientes para identificar uma nova quantia causal. Pontos da aula:
+
+- 1) *Setup* básico para DiD (i.e., 2 grupos, 2 períodos)
+
+- 2) Quantia de interesse (*ATT*) e pressupostos de identificação
+
+- 3) Estimação com regressão linear 
 
 
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
 
-# Polinômios
+# Básico
 
 
 ---
-# O que é
+# Intuição
 
-O modelo linear que vimos até agora é bastante flexível, mas não é o único possível: podemos usar .texto2[polinômios] para modelar a relação entre `\(X\)` e `\(Y\)`:
+A ideia central em .texto2[DiD] é comparar mudanças ao longo do tempo entre unidades tratadas e não tratadas:
 
-`\begin{aligned}
-Y_i = \beta_1 + \beta_2 X_i + \beta_3 X_i^2 + \beta_4 X_i^3 + \epsilon_i
-\end{aligned}`
+.pull-left2[
+.font90[
+Considere:
 
-
----
-# Polinômios
-
-.pull-left[
-.texto2[Polinômios] são uma forma de .texto2[transformação] de variáveis
-
-
-```r
-# Relação não-linear
-x &lt;- 1:20
-y &lt;- 20 + 1.2*x + 0.5*x^2
-```
+.texto[Grupos:] tratado e controle
+]
 ]
 
-.pull-right[
-&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
 ]
+
 
 
 ---
 count:false
-# Polinômios
+# Intuição
 
-.pull-left[
-A ordem de um .texto2[polinômio] indica o maior expoente de `\(X\)` que aparece na equação
+A ideia central em .texto2[DiD] é comparar mudanças ao longo do tempo entre unidades tratadas e não tratadas:
 
+.pull-left2[
+.font90[
+Considere:
 
-```r
-# Relação não-linear
-x &lt;- 1:20
-y &lt;- x + 0.5*x^2 - 0.05*x^3
-```
+.texto[Grupos:] tratado e controle
+
+.texto[Tempo:] antes e depois do tratamento
+]
 ]
 
-.pull-right[
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Intuição
+
+A ideia central em .texto2[DiD] é comparar mudanças ao longo do tempo entre unidades tratadas e não tratadas:
+
+.pull-left2[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Diferença inicial entre grupos
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+count:false
+# Intuição
+
+A ideia central em .texto2[DiD] é comparar mudanças ao longo do tempo entre unidades tratadas e não tratadas:
+
+.pull-left2[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Diferença final entre grupos
+]
+]
+
+.pull-right2[
 &lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 
 ---
-# Polinômios em regressão
+count:false
+# Intuição
 
-Polinômios em modelos MQO captam relações não-lineares:
+A ideia central em .texto2[DiD] é comparar mudanças ao longo do tempo entre unidades tratadas e não tratadas:
 
-.font85[
+.pull-left2[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Diferença entre diferenças]
+]
+]
 
-```r
-# Relação não-linear
-x &lt;- rnorm(50)
-y &lt;- 10 + 1.2*x + 0.5*x^2 + rnorm(50)
-```
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Intuição
+
+Em resumo, trata-se de usar a série do grupo de controle como referência para a série do grupo tratado
+
+
+.pull-left2[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Outro exemplo, dessa vez com um efeito negativo
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+# Notação
+
+Em .texto2[DiD] com dois períodos, em função de termos que indicar tempo, nossa notação muda:
 
 .pull-left[
+.font90[
+- Dois períodos `\(t \in \{1, 2\}\)`
 
-```r
-# Modelo linear
-lm(y ~ x) %&gt;%
-  tidy() %&gt;%
-  select(1:2)
-```
+- `\(D_i\)`: variável binária que indica .texto2[grupo tratado]
 
-```
-## # A tibble: 2 × 2
-##   term        estimate
-##   &lt;chr&gt;          &lt;dbl&gt;
-## 1 (Intercept)    10.5 
-## 2 x               1.43
-```
+- `\(Y_{it}\)`: variável dependente (e.g., renda)
 ]
+]
+
+--
 
 .pull-right[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quando `\(t = 1\)`, nenhum grupo é tratado
 
-```r
-# Modelo com polinômio 2
-lm(y ~ x + I(x^2)) %&gt;%
-  tidy() %&gt;%
-  select(1:2)
-```
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quando `\(t = 2\)`, unidades `\(D_i = 1\)` são tratadas
 
-```
-## # A tibble: 3 × 2
-##   term        estimate
-##   &lt;chr&gt;          &lt;dbl&gt;
-## 1 (Intercept)    9.91 
-## 2 x              1.20 
-## 3 I(x^2)         0.600
-```
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `\((Y_{i2}(1), Y_{i2}(0))\)` indicam os resultados potenciais no período 2
 ]
 ]
+
 
 
 
 
 ---
 count:false
-# Polinômios em regressão
+# Notação
 
-Visualmente:
+Em .texto2[DiD] com dois períodos, em função de termos que indicar tempo, nossa notação muda:
+
 .pull-left[
-.texto[Linear]
-&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+.font90[
+- Dois períodos `\(t \in \{1, 2\}\)`
+
+- `\(D_i\)`: variável binária que indica .texto2[grupo tratado]
+
+- `\(Y_{it}\)`: variável dependente (e.g., renda)
+]
 ]
 
 .pull-right[
-.texto[Polinômio 2]
-&lt;img src="slides_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+Um exemplo de base:
+
+
+|  i|  t|  D|   Y|
+|--:|--:|--:|---:|
+|  1|  1|  0| 1.0|
+|  1|  2|  0| 1.5|
+|  2|  1|  1| 2.0|
+|  2|  2|  1| 3.5|
 ]
 
 
 
+---
+count:false
+# Notação
+
+Em .texto2[DiD] com dois períodos, em função de termos que indicar tempo, nossa notação muda:
+
+.pull-left[
+.font90[
+- Dois períodos `\(t \in \{1, 2\}\)`
+
+- `\(D_i\)`: variável binária que indica .texto2[grupo tratado]
+
+- `\(Y_{it}\)`: variável dependente (e.g., renda)
+]
+]
+
+.pull-right[
+Com uma *dummy* `\(T_t\)` para indicar `\(t=2\)`
 
 
+|  i|  t|  T|  D|   Y|
+|--:|--:|--:|--:|---:|
+|  1|  1|  0|  0| 1.0|
+|  1|  2|  1|  0| 1.5|
+|  2|  1|  0|  1| 2.0|
+|  2|  2|  1|  1| 3.5|
+]
+
+
+---
+count:false
+# Notação
+
+Em .texto2[DiD] com dois períodos, em função de termos que indicar tempo, nossa notação muda:
+
+.pull-left[
+.font90[
+- Dois períodos `\(t \in \{1, 2\}\)`
+
+- `\(D_i\)`: variável binária que indica .texto2[grupo tratado]
+
+- `\(Y_{it}\)`: variável dependente (e.g., renda)
+]
+]
+
+.pull-right[
+Com um indicador da interação entre `\(D_i\)` e `\(T_t\)`
+
+
+|  i|  t|  T|  D| TD|   Y|
+|--:|--:|--:|--:|--:|---:|
+|  1|  1|  0|  0|  0| 1.0|
+|  1|  2|  1|  0|  0| 1.5|
+|  2|  1|  0|  1|  0| 2.0|
+|  2|  2|  1|  1|  1| 3.5|
+]
+
+
+---
+# Dados em painel
+
+.pull-left[
+Com frequência, temos um .texto[painel] com observações de várias unidades `\(i\)` em cada grupo nos dois períodos `\(t\)`
+
+.alert[&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Paineis são bases de dados com mais de uma observação no tempo para mais de uma unidade]
+]
+
+.pull-right[
+
+|  i|  t|  T|  D| TD|   Y|
+|--:|--:|--:|--:|--:|---:|
+|  1|  1|  0|  0|  0| 1.0|
+|  1|  2|  1|  0|  0| 1.5|
+|  2|  1|  0|  1|  0| 2.0|
+|  2|  2|  1|  1|  1| 3.5|
+|  3|  1|  0|  1|  0| 1.0|
+|  3|  2|  1|  1|  1| 2.0|
+|  4|  1|  0|  0|  0| 3.0|
+|  4|  2|  1|  0|  0| 3.0|
+]
 
 
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
 
-# Viés
+# Identificação
 
 
 
 ---
-# Potencial de viés
+# Quantia de interesse
 
-Quando usamos RDD, uma preocupação na especificação de modelos é o potencial de viés: se não modelarmos corretamente os valores esperados de `\(Y\)` dado `\(X\)` (nossa *running variable*), podemos acabar com estimativas de efeitos locais enviesadas
+Tendo uma notação básica, podemos formalizar o que queremos estimar:
 
-.alert[&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; O potencial de viés é maior quando a relação que temos é não-linear]
-
-
-
----
-count:false
-# Viés em RDD
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Imagine tentar estimar um .texto2[LATE] nestes resultados potenciais (indicados pelas duas curvas)
+.pull-left[
+.texto2[Average Treatment Effect on the Treated (ATT)]: a diferença entre o que teria acontecido com o grupo tratado caso ele fosse (1) ou não (0) tratado em `\(t=2\)`
 ]
 
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+.pull-right[
+Em termos de resultados potenciais,
+
+$$
+`\begin{aligned}
+\tau_{ATT} =\\ \mathbb{E}[Y_{i2}(1) - Y_{i2}(0) | D_i = 1]
+\end{aligned}`
+$$
 ]
 
 
 ---
 count:false
-# Viés em RDD
+# Quantia de interesse
 
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Um .texto2[estimador global linear], em preto, não parece bom
+Algo importante a notar é que o .texto2[ATT] não vale apenas para o grupo tratado: usamos o grupo de controle apenas para estimar o que teria acontecido com o grupo tratado caso ele não tivesse sido tratado
+
+
+.alert[&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; O possível efeito de tratarmos o grupo de controle não é identificado]
+
+
+
+---
+# Resultados potenciais em DiD
+
+.pull-left[
+Algo central em .texto2[DiD] é que, de saída, não assumimos que `\(D_{i} \perp\!\!\!\perp (Y_{i2}(0), Y_{i2}(1))\)`, isto é, sabemos que `\(D_{i}\)` não é independente dos resultados potenciais
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Vale dizer: os resultados potenciais de um grupo podem ser sempre maiores ou menores que os do outro grupo
 ]
 
-.pull-right2[
+.pull-right[
+.font90[
+   .texto[Exemplo]: tratados sempre terão renda maior
+]
 &lt;img src="slides_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+# Pressuposto: trajetórias paralelas
+
+O que precisamos pressupor é outra coisa: que as trajetórias de `\(\mathbb{E}[Y_{it}(0) | D_i = 1]\)` e `\(\mathbb{E}[Y_{it}(0) | D_i = 0]\)` são paralelas
+
+.pull-left2[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Caso o grupo `\(D_i = 1\)` não fosse tratado em `\(t=2\)`, sua renda teria seguido a mesma trajetória do grupo `\(D_i = 0\)`
+]
 ]
 
 
 ---
 count:false
-# Viés em RDD
+# Pressuposto: trajetórias paralelas
+
+O que precisamos pressupor é outra coisa: que as trajetórias de `\(\mathbb{E}[Y_{it}(0) | D_i = 1]\)` e `\(\mathbb{E}[Y_{it}(0) | D_i = 0]\)` são paralelas
 
 .pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos usar .texto2[estimadores locais], usando uma janela `\(h\)` em torno do ponto de corte
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Caso o grupo `\(D_i = 1\)` não fosse tratado em `\(t=2\)`, sua renda teria seguido a mesma trajetória do grupo `\(D_i = 0\)`
+]
 ]
 
+
 .pull-right2[
+.font90[
+  .center[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt; Trajetória paralela
+  ]
+]
+
+
 &lt;img src="slides_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+
 ]
 
 
 ---
 count:false
-# Viés em RDD
+# Pressuposto: trajetórias paralelas
+
+O que precisamos pressupor é outra coisa: que as trajetórias de `\(\mathbb{E}[Y_{it}(0) | D_i = 1]\)` e `\(\mathbb{E}[Y_{it}(0) | D_i = 0]\)` são paralelas
 
 .pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; E também podemos reduzir a janela usada
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Caso o grupo `\(D_i = 1\)` não fosse tratado em `\(t=2\)`, sua renda teria seguido a mesma trajetória do grupo `\(D_i = 0\)`
+]
 ]
 
+
 .pull-right2[
+.font90[
+.center[
+&lt;svg viewBox="0 0 352 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"&gt;&lt;/path&gt;&lt;/svg&gt; Trajetória não paralela
+]
+]
+
 &lt;img src="slides_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+
 ]
+
+
+---
+# Trajetórias paralelas
+
+A ideia do pressuposto em .texto2[DiD] é que, se as trajetórias de `\(\mathbb{E}[Y_{it}(0) | D_i = 1]\)` e `\(\mathbb{E}[Y_{it}(0) | D_i = 0]\)` são paralelas, então a diferença entre elas é constante
+
+$$
+`\begin{aligned}
+\mathbb{E}[Y_{i2}(0) - Y_{i1}(0) | D_i=1] = \mathbb{E}[Y_{i2}(0) - Y_{i1}(0) | D_i=0]
+\end{aligned}`
+$$
+
+
+---
+# Violações
+
+O que pode dar errado? Uma porção de coisas:
+
+.pull-left[
+.font90[
+- Outro fator também em `\(t=2\)` que afete os resultados potenciais
+
+- O tratamento tem efeito antes de `\(t=2\)` (i.e., antecipação)
+]
+]
+
+.pull-right[
+.font90[
+- Unidades manipulam o tratamento
+
+- A trajetória do grupo de controle é afetada por algum outro fator em `\(t=2\)`
+]
+]
+
+--
+
+.center[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Moral da história]: o pressuposto é bem mais forte
+]
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Estimação
 
 
 
 ---
-count:false
-# Viés em RDD
+# Um exemplo
+
+Vamos tomar o exemplo que já usamos: dois grupos, duas unidades, dois períodos
+
 
 .pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quanto menor a janela, mais o resultado irá convergir para o .texto2[LATE]
-]
 
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
-]
+.center[.texto2[Painel]]
 
-
-
----
-count:false
-# Viés em RDD
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quanto menor a janela, mais o resultado irá convergir para o .texto2[LATE]
+|  i|  t|  T|  D| TD|   Y|
+|--:|--:|--:|--:|--:|---:|
+|  1|  1|  0|  0|  0| 1.0|
+|  1|  2|  1|  0|  0| 1.5|
+|  2|  1|  0|  1|  0| 2.0|
+|  2|  2|  1|  1|  1| 3.5|
 ]
 
 .pull-right2[
@@ -309,13 +545,18 @@ count:false
 ]
 
 
-
 ---
 count:false
-# Viés em RDD
+# Um exemplo
+
+Imagine agora que estimamos a regressão linear `\(Y_{it} = \beta_0 + \beta_1 T_t + \epsilon_{it}\)`
+
 
 .pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Outro exemplo
+
+.font90[
+- `\(\hat{\beta_0}\)` Predição de `\(Y_{it}\)` quando `\(T_t=0\)`
+]
 ]
 
 .pull-right2[
@@ -326,10 +567,18 @@ count:false
 
 ---
 count:false
-# Viés em RDD
+# Um exemplo
+
+Indo além, adicionamos o indicador de grupo no modelo, o que vira `\(Y_{it} = \beta_0 + \beta_1 T_t + \beta_2 D_i + \epsilon_{it}\)`
+
 
 .pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Janela `\(h\)`
+
+.font90[
+- `\(\hat{\beta_0}\)` Predição de `\(Y_{it}\)` quando `\(T_t=0\)` e `\(D_i=0\)`
+
+- `\(\hat{\beta_2}\)` Diferença entre grupos
+]
 ]
 
 .pull-right2[
@@ -337,13 +586,17 @@ count:false
 ]
 
 
-
 ---
 count:false
-# Viés em RDD
+# Um exemplo
+
+Finalmente, usamos uma interação entre `\(T_t\)` e `\(D_i\)` com `\(Y_{it} = \beta_0 + \beta_1 T_t + \beta_2 D_i + \beta_3 T_t D_i + \epsilon_{it}\)`
+
 
 .pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Janela `\(\frac{1}{2} h\)`
+.font90[
+- `\(\hat{\tau}_{ATT} = \hat{\beta_3}\)` Diferença entre grupos quando `\(T_t=1\)`
+]
 ]
 
 .pull-right2[
@@ -351,183 +604,215 @@ count:false
 ]
 
 
-
 ---
 count:false
-# Viés em RDD
+# Um exemplo
+
+Finalmente, usamos uma interação entre `\(T_t\)` e `\(D_i\)` com `\(Y_{it} = \beta_0 + \beta_1 T_t + \beta_2 D_i + \beta_3 T_t D_i + \epsilon_{it}\)`
+
 
 .pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Janela `\(\frac{1}{4} h\)`
+.font90[
+- `\(\hat{\tau}_{ATT} = \hat{\beta_3}\)` Diferença entre grupos quando `\(T_t=1\)`
+]
 ]
 
 .pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+```r
+lm(Y ~ D*T, data = df) %&gt;%
+  broom::tidy() %&gt;%
+  select(term, estimate)
+```
+
+```
+## # A tibble: 4 × 2
+##   term        estimate
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 (Intercept)    1    
+## 2 D              1    
+## 3 T              0.500
+## 4 D:T            1
+```
+]
+
+
+
+
+
+
+---
+count:false
+# Interpretação
+
+Combinando nossas estimativas, conseguimos recuperar estimativas para cada grupo em cada período:
+
+
+.pull-left[
+
+.texto2[Estimativas]
+
+.font80[
+|     |      |                          |
+|-----|----------------|---------------------------------|
+|     | `\(T_t=0\)`        | `\(T_t=1\)`                          |
+| `\(D_i=0\)` | `\(\hat{\beta_0}\)` | `\(\hat{\beta_0} + \hat{\beta_1}\)` |
+| `\(D_i=1\)` | `\(\hat{\beta_0} + \hat{\beta_2}\)` | `\(\hat{\beta_0} + \hat{\beta_1} + \hat{\beta_2} + \hat{\beta_3}\)` |
+]
+]
+
+.pull-right[
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O valor para o grupo de controle no primeiro período é `\(\hat{\beta_0} = 1\)` porque é o valor estimado quando todas as variáveis são zero
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O valor para o grupo de controle no segundo período é `\(\hat{\beta_0} + \hat{\beta_1} = 1 + 0.5 = 1.5\)`, quando `\(T_t=1\)`, mas quando `\(D_i=0\)` e `\(D_i*T_i=0\)`
+]
+]
+
+
+
+
+---
+count:false
+# Interpretação
+
+Combinando nossas estimativas, conseguimos recuperar estimativas para cada grupo em cada período:
+
+
+.pull-left[
+
+.texto2[Estimativas]
+
+.font80[
+|     |      |                          |
+|-----|----------------|---------------------------------|
+|     | `\(T_t=0\)`        | `\(T_t=1\)`                          |
+| `\(D_i=0\)` | `\(\hat{\beta_0}\)` | `\(\hat{\beta_0} + \hat{\beta_1}\)` |
+| `\(D_i=1\)` | `\(\hat{\beta_0} + \hat{\beta_2}\)` | `\(\hat{\beta_0} + \hat{\beta_1} + \hat{\beta_2} + \hat{\beta_3}\)` |
+]
+]
+
+.pull-right[
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O valor para o grupo de tratamento no primeiro período é `\(\hat{\beta_0} + \hat{\beta_2} = 1+1 = 2\)` porque, no primeiro período, a diferença entre grupos é `\(\hat{\beta_2}\)` e todos os grupos já partem de `\(\hat{\beta_0}\)`
+]
+]
+
+
+
+---
+count:false
+# Interpretação
+
+Combinando nossas estimativas, conseguimos recuperar estimativas para cada grupo em cada período:
+
+
+.pull-left[
+
+.texto2[Estimativas]
+
+.font80[
+|     |      |                          |
+|-----|----------------|---------------------------------|
+|     | `\(T_t=0\)`        | `\(T_t=1\)`                          |
+| `\(D_i=0\)` | `\(\hat{\beta_0}\)` | `\(\hat{\beta_0} + \hat{\beta_1}\)` |
+| `\(D_i=1\)` | `\(\hat{\beta_0} + \hat{\beta_2}\)` | `\(\hat{\beta_0} + \hat{\beta_1} + \hat{\beta_2} + \hat{\beta_3}\)` |
+]
+]
+
+.pull-right[
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; No último período, o valor do grupo de tratamento é a soma de todos as estimativas: é o valor do primeiro período *mais* o que todos os grupos variaram *mais* a mudança que só ocorreu no grupo de tratamento (único caso em que `\(D_i*T_t=1\)`)
+]
 ]
 
 
 ---
-# Polinômios
+background-color: #FFFFFF
+# Exemplo: Young e Varner (2011)
 
-E se usarmos .texto2[polinômios] para estimar o .texto2[LATE]? O problema, aqui, é que estes podem ser muito sensíveis à especificação usada ([Gelman e Imbens 2019](https://www.tandfonline.com/doi/abs/10.1080/07350015.2017.1366909); [Gelman e Zelizer 2015](https://journals.sagepub.com/doi/full/10.1177/2053168015569830))
+Efeito de aumentar imposto sobre super-ricos em New Jersey:
+
+&lt;img src="imgs/tax.png" width="595" height="376" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+# Interações
+
+A especificação que vimos toca em algo fundamental em regressão: a interação entre variáveis.
 
 .pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular um PGD sem descontinuidade, mas com muito ruído, com
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Na prática, a interação entre `\(T_t\)` e `\(D_i\)` significa deixar a inclinação das retas variarem livremente para cada grupo
+]
 
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `\(\beta_2\)` indica o quanto todos os grupos mudam, em média, quando `\(T_t\)` passa de `\(0\)` para `\(1\)`
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `\(\beta_3\)` indica o quanto apenas o grupo de tratamento muda, em média, quando `\(T_t\)` passa de `\(0\)` para `\(1\)`
+]
+
+
+---
+# Termos interativos
+
+.pull-left[
+Imagine o seguinte PGD:
+
+.font90[
+$$
 `\begin{aligned}
-\beta_1 = 1.2\\
-X_i, \epsilon_i \overset{\text{i.i.d.}}{\sim} Normal(0, 10)\\
-Y_i = \beta_1 X_i + \epsilon_i
+D \sim Binom(1, 0.5)\\
+X, \epsilon \overset{iid}{\sim} Normal(0, 1)\\
+Y \sim 2 + X*2 + D*3 +\\ X*D*-4 + \epsilon
 \end{aligned}`
+$$
+]
 ]
 
 .pull-right[
-
-```r
-# Código deste PGD
-n &lt;- 80
-x &lt;- rnorm(n, 0, 10)
-y &lt;- 1.1*x + rnorm(n, 0, 10)
-df &lt;- tibble(x = x, y = y)
-```
-]
-
-
-
----
-count:false
-# Polinômios
-
-Os dados não mostram nenhuma descontinuidade (e nem deveriam)
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-count:false
-# Polinômios
-
-Mas polinômios podem modelar *ruído* e captar .texto2[LATEs] que não existem
-
 &lt;img src="slides_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
 
 
 ---
 count:false
-# Polinômios
+# Termos interativos
 
-Mas polinômios podem modelar *ruído* e captar .texto2[LATEs] que não existem
+.pull-left[
+Nele, a inclinação das retas depende de `\(D\)`
 
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quando `\(D=0\)`, a inclinação é `\(2\)`
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quando `\(D=1\)`, a inclinação é `\(2-4 = -2\)`
+]
+
+.pull-right[
 &lt;img src="slides_files/figure-html/unnamed-chunk-23-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Solução
-
-Há um *checklist* de recomendações em RDD para evitar viés em estimação:
-
-.font90[
-.pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Preferir modelos locais e testar janelas diferentes
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Evitar polinômios de ordem grande
-]
-
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Usar erros-padrão adequados
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Visualizar os dados
-]
 ]
 
 
----
-# Estimador robusto CCT
-
-Por tomar várias decisões de especificação de forma automática, o estimador de [Calonico, Cattaneo e Titiunik (2014)](https://journals.sagepub.com/doi/abs/10.1177/1536867X1401400413) é padrão
-
-.pull-left2[
-Mesmos dados, mas agora com o estimador .texto2[CCT]
-]
-
-
-.pull-right2[
-
-|        |    Local   | 
-|:-------|-----------:|
-| Robust |   11.532   | 
-|        |  (10.826)  | 
-|:-------|-----------:|
-| Kernel | Triangular | 
-| Janela |     2.8    | 
-| N      |     18     | 
-]
-
-
-
-
----
-class: inverse, mline, middle, center
-background-color: #8f2a43
-
-# Pressupostos
-
-
----
-# Pressuposto da continuidade
-
-O principal pressuposto em RDD é simples de entender, mas difícil de testar na prática:
-
-.font90[
-&gt; *[...] the expected potential outcomes change smoothly as a function of the running variable through the cutoff. In words, this means that the only thing that causes the outcome to change abruptly at `\(c\)` is the treatment*
-]
-
-— [Mixtape](https://mixtape.scunning.com/06-regression_discontinuity#challenges-to-identification)
-
-
----
-# Teste de McCrary (2008)
-
-.pull-left[
-.texto[Problema]
-
-Como saber se unidades `\(_i\)` manipularam seus *scores* para obter tratamento?
-]
-
-.pull-right[
-.texto[Intuição]
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se não houve manipulação, a distribuição de `\(X_i\)` deve ser contínua em torno do ponto de corte `\(c\)`
-]
-
-
-
----
-# Implementação
-
-Podemos implementar uma variante do teste de densidade usando o pacote `rddensity`:
-
-
-```r
-# Carrega o pacote
-library(rddensity)
-
-# Roda o teste
-rddensity(df$y, df$x)
-
-# Plota os resultados
-rdplotdensity(teste, df$x)
-```
 
 
 ---
 count:false
-# Implementação
+# Termos interativos
 
-O que deve produzir um resultado como o seguinte:
+.pull-left[
+Um modelo sem o termo interativo (também chamado de termo multiplicativo) não captaria esse detalhe do PGD
+]
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
-
-
+.pull-right[
+&lt;img src="slides_files/figure-html/unnamed-chunk-24-1.svg" style="display: block; margin: auto;" /&gt;
+]
 
 
 ---

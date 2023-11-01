@@ -297,7 +297,7 @@ Importante
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Para replicar o modelo que usa a votação do Aurora Dourada defasada (i.e., <span class="math inline">\(GD_{t-1}\)</span>, conforme a notação do artigo), será necessário criar essa variável a partir da variável <code>gdvotes</code>.</p>
+<p>Para replicar o modelo que usa a votação do Aurora Dourada defasada (i.e., <span class="math inline">\(GD_{t-1}\)</span>, conforme a notação do artigo), será necessário criar essa variável a partir da variável <code>gdvotes</code>. Uma forma de criá-la é por meio da função <code>lag</code> no <code>tidyverse</code>, que deve ser usada em conjunto com <code>group_by</code> e <code>arrange</code>.</p>
 </div>
 </div>
 </section>

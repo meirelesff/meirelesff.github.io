@@ -130,14 +130,14 @@
     "href": "topicos/topico1.html#distribuições",
     "title": "Simulações",
     "section": "Distribuições",
-    "text": "Distribuições\nO R tem diversas funções que nos permitem sortear números de acordo com algumas distribuições. Abaixo, exemplos das mais comuns.\n\nUniformeBernoulliBinomialNormalPoisson\n\n\n\n# Sorteia um número entre 0 e 1\nrunif(1, min = 0, max = 1)\n\n[1] 0.0319903\n\n\n\n\n\n# Sorteia 1 com probabilidade 0.5\nrbinom(1, size = 1, prob = 0.5)\n\n[1] 1\n\n\n\n\n\n# Dez sequências de Bernoulli com prob. 0.5\nrbinom(1, size = 10, prob = 0.5)\n\n[1] 5\n\n\n\n\n\n# Sorteia um número de uma distribuição normal\nrnorm(1, mean = 0, sd = 1)\n\n[1] 1.420243\n\n\n\n\n\n# Sorteia um número de uma distribuição Poisson\nrpois(1, lambda = 1)\n\n[1] 1"
+    "text": "Distribuições\nO R tem diversas funções que nos permitem sortear números de acordo com algumas distribuições. Abaixo, exemplos das mais comuns.\n\nUniformeBernoulliBinomialNormalPoisson\n\n\n\n# Sorteia um número entre 0 e 1\nrunif(1, min = 0, max = 1)\n\n[1] 0.03154855\n\n\n\n\n\n# Sorteia 1 com probabilidade 0.5\nrbinom(1, size = 1, prob = 0.5)\n\n[1] 0\n\n\n\n\n\n# Dez sequências de Bernoulli com prob. 0.5\nrbinom(1, size = 10, prob = 0.5)\n\n[1] 5\n\n\n\n\n\n# Sorteia um número de uma distribuição normal\nrnorm(1, mean = 0, sd = 1)\n\n[1] 0.07344313\n\n\n\n\n\n# Sorteia um número de uma distribuição Poisson\nrpois(1, lambda = 1)\n\n[1] 1"
   },
   {
     "objectID": "topicos/topico1.html#criando-funções-de-probabilidade",
     "href": "topicos/topico1.html#criando-funções-de-probabilidade",
     "title": "Simulações",
     "section": "Criando funções de probabilidade",
-    "text": "Criando funções de probabilidade\nAlgumas funções para sortear valores de distribuições mais complexas podem ser construídas a partir de funções mais simples. Por exemplo, podemos usar a uniforme para simular uma distribuição Bernoulli:\n\np &lt;- 0.5\nresultado &lt;- runif(1, min = 0, max = 1) &lt; p\nas.numeric(resultado)\n\n[1] 1\n\n\nO que fizemos? Basicamente, realizamos um sorteio a partir de uma distribuição \\(Uniforme(0, 1)\\) e, se ele for maior que \\(p\\), o resultistribuiçado desse sorteio é convertido para 1, caso contrário, para 0.\nPodemos fazer esse processo mil vezes para visualizar o resultado com um gráfico de barras:\n\np &lt;- 0.5\nn &lt;- 1000\nX &lt;- runif(n, min = 0, max = 1) &lt; p\nX &lt;- as.numeric(X)\n\ntibble(X = X) %&gt;%\n  ggplot(aes(x = X)) +\n  geom_bar() +\n  theme_minimal()"
+    "text": "Criando funções de probabilidade\nAlgumas funções para sortear valores de distribuições mais complexas podem ser construídas a partir de funções mais simples. Por exemplo, podemos usar a uniforme para simular uma distribuição Bernoulli:\n\np &lt;- 0.5\nresultado &lt;- runif(1, min = 0, max = 1) &lt; p\nas.numeric(resultado)\n\n[1] 0\n\n\nO que fizemos? Basicamente, realizamos um sorteio a partir de uma distribuição \\(Uniforme(0, 1)\\) e, se ele for maior que \\(p\\), o resultistribuiçado desse sorteio é convertido para 1, caso contrário, para 0.\nPodemos fazer esse processo mil vezes para visualizar o resultado com um gráfico de barras:\n\np &lt;- 0.5\nn &lt;- 1000\nX &lt;- runif(n, min = 0, max = 1) &lt; p\nX &lt;- as.numeric(X)\n\ntibble(X = X) %&gt;%\n  ggplot(aes(x = X)) +\n  geom_bar() +\n  theme_minimal()"
   },
   {
     "objectID": "topicos/topico1.html#simulando-lançamentos-de-um-dado",
@@ -147,46 +147,32 @@
     "text": "Simulando lançamentos de um dado\nLançamentos de um dado geralmente são simulados a partir de uma distribuição multinomial – mas, já que em um lançamento a probabilidade de tirarmos qualquer face em um sorteio é a mesma (e.g., \\(p_1 = p_2 = ... p_6\\)), podemos criar nossa própria função de probabilidade para simular esse processo usando runif novamente. A ideia é a seguinte:\n\nSortearemos um número entre 0 e 6 usando \\(X \\sim Unif(0, 6)\\)\nSe \\(0 &lt; x \\leq 1\\), o resultado é 1; se \\(1 &lt; x \\leq 2\\), o resultado é 2; e assim por diante\nRepetimos o processo \\(n\\) vezes\n\n\nn &lt;- 1000\nX &lt;- runif(n, min = 0, max = 6)\nX &lt;- ceiling(X)\n\ntibble(X = X) %&gt;%\n  ggplot(aes(x = X)) +\n  geom_bar(width = 0.5, fill = \"orangered\") +\n  theme_minimal() +\n  labs(y = \"Frequência\", x = \"Face do dado\",\n  title = \"Simulações de lançamentos de um dado\")"
   },
   {
-    "objectID": "replicacao/replicacao1.html",
-    "href": "replicacao/replicacao1.html",
-    "title": "Replicação I",
+    "objectID": "replicacao/replicacao2.html",
+    "href": "replicacao/replicacao2.html",
+    "title": "Replicação II",
     "section": "",
-    "text": "Para o primeiro exercício avaliativo, replicaremos o estudo de Edelman, Luca, e Svirsky (2017) sobre discriminação racial de hosts no Airbnb em algumas cidades americanas. Em particular, o estudo consiste em um experimento de campo (field experiment), com 20 perfis criados com nomes fictícios distintivos de pessoas afro-americanas e de pessoas brancas, meio a meio, pedindo informação em anúncios selecionados. Dessa forma, o resultado final é que alguns anúncios de hospedagem foram selecionados aleatoriamente para receber um pedido de pessoas com determinada cor/raça inferida pelo nome, enquanto outros, não. Como é possível ver na figura Figura 1, abaixo, o resultado do experimento mostra que pessoas com nomes indicativos de pessoas afro-americanas tiveram 8 pontos percentuais menos respostas positivas aos seus pedidos do que pessoas com nomes indicativos de pessoas brancas.\n\n\n\nFigura 1: Resultados principais do artigo"
+    "text": "Neste segundo exercício avaliativo, replicaremos o trabalho de Fujiwara et al. (2011), que estima o efeito do uso de regra de segundo turno sobre a competição eleitoral nos municípios brasileiros. Como estratégia de identificação, o artigo explora uma descontinuidade na alocação de diferentas regras eleitorais: municípios com 200 mil ou mais eleitores têm segundo turno quando a primeira candidatura ao executivo local não atinge mais de 50% dos votos válidos; municípios com 200 mil ou menos eleitores, ao contrário, têm sempre turno único de votação. Explorando essa descontinuidade, o resultado do artigo sugere que ter uma regra de segundo turno causa um aumento de cerca de 8 pontos percentuais na votação de candidaturas que terminam em terceiro lugar ou pior, isto é, terceiras forças tendem a se sair melhor eleitoralmente. Esse resultado está na figura Figura 1 abaixo.\n\n\n\nFigura 1: Resultados principais do artigo"
   },
   {
-    "objectID": "replicacao/replicacao1.html#tarefa",
-    "href": "replicacao/replicacao1.html#tarefa",
-    "title": "Replicação I",
+    "objectID": "replicacao/replicacao2.html#tarefa",
+    "href": "replicacao/replicacao2.html#tarefa",
+    "title": "Replicação II",
     "section": "",
-    "text": "Para o primeiro exercício avaliativo, replicaremos o estudo de Edelman, Luca, e Svirsky (2017) sobre discriminação racial de hosts no Airbnb em algumas cidades americanas. Em particular, o estudo consiste em um experimento de campo (field experiment), com 20 perfis criados com nomes fictícios distintivos de pessoas afro-americanas e de pessoas brancas, meio a meio, pedindo informação em anúncios selecionados. Dessa forma, o resultado final é que alguns anúncios de hospedagem foram selecionados aleatoriamente para receber um pedido de pessoas com determinada cor/raça inferida pelo nome, enquanto outros, não. Como é possível ver na figura Figura 1, abaixo, o resultado do experimento mostra que pessoas com nomes indicativos de pessoas afro-americanas tiveram 8 pontos percentuais menos respostas positivas aos seus pedidos do que pessoas com nomes indicativos de pessoas brancas.\n\n\n\nFigura 1: Resultados principais do artigo"
+    "text": "Neste segundo exercício avaliativo, replicaremos o trabalho de Fujiwara et al. (2011), que estima o efeito do uso de regra de segundo turno sobre a competição eleitoral nos municípios brasileiros. Como estratégia de identificação, o artigo explora uma descontinuidade na alocação de diferentas regras eleitorais: municípios com 200 mil ou mais eleitores têm segundo turno quando a primeira candidatura ao executivo local não atinge mais de 50% dos votos válidos; municípios com 200 mil ou menos eleitores, ao contrário, têm sempre turno único de votação. Explorando essa descontinuidade, o resultado do artigo sugere que ter uma regra de segundo turno causa um aumento de cerca de 8 pontos percentuais na votação de candidaturas que terminam em terceiro lugar ou pior, isto é, terceiras forças tendem a se sair melhor eleitoralmente. Esse resultado está na figura Figura 1 abaixo.\n\n\n\nFigura 1: Resultados principais do artigo"
   },
   {
-    "objectID": "replicacao/replicacao1.html#replicação",
-    "href": "replicacao/replicacao1.html#replicação",
-    "title": "Replicação I",
+    "objectID": "replicacao/replicacao2.html#replicação",
+    "href": "replicacao/replicacao2.html#replicação",
+    "title": "Replicação II",
     "section": "Replicação",
-    "text": "Replicação\nO exercício de replicação consistirá em reproduzir os resultados da tabela acima (correspondentes à Tabela 2 do paper). Para tanto, deverá ser seguido o template de replicação em Quarto (ver aqui) discutido em aula para produzir um documento final em formato PDF com cerca de 6 páginas (sem contar referências bibliográficas, tabelas e gráficos). O arquivo .qmd usado, com códigos, também deverá ser entregue.\nOs dados (já limpos) necessários para o exercício podem ser obtidos no link a seguir:\n\nReplicação de Edelman, Luca, e Svirsky (2017)\n\nA descrição do material replicação do texto pode ser obtido aqui.\n\nVariáveis\nAs principais variáveis usadas no estudo são as seguintes:\n\nyes, variável dependente usada na Tabela 2\nhost_response, variável dependente com múltiplas categorias\nguest_black, tratamento\nguest_female, tratamento alternativo\nhost_race_black, indicador de raça do host (afro-americano)\nhost_gender_M, host mulher\nmultiple_listings, host com mais de um anúncio\nshared_property, propriedade compartilhada\nten_reviews, host com mais de 10 avaliações\nlog_price, preço da hospedagem (log)\nname_by_city, indicador de nome-cidade (para cluster dos erros)\n\nOutras variáveis não mencionadas acima poderão ser usadas/criadas."
+    "text": "Replicação\nO exercício de replicação consistirá em reproduzir os resultados da tabela acima (correspondentes à Tabela 1 do paper). Para tanto, deverá ser seguido o template de replicação em Quarto (ver aqui) discutido em aula para produzir um documento final em formato PDF com cerca de 6 páginas (sem contar referências bibliográficas, tabelas e gráficos). O arquivo .qmd usado, com códigos, também deverá ser entregue.\nOs dados (já limpos) necessários para o exercício podem ser obtidos no link a seguir:\n\nReplicação de Fujiwara et al. (2011)\n\nA descrição do material replicação e codebook de variáveis pode ser obtido aqui."
   },
   {
-    "objectID": "replicacao/replicacao1.html#critérios-de-avaliação",
-    "href": "replicacao/replicacao1.html#critérios-de-avaliação",
-    "title": "Replicação I",
+    "objectID": "replicacao/replicacao2.html#critérios-de-avaliação",
+    "href": "replicacao/replicacao2.html#critérios-de-avaliação",
+    "title": "Replicação II",
     "section": "Critérios de avaliação",
     "text": "Critérios de avaliação\nA avaliação levará em conta a capacidade de implementar o conhecimento visto no curso e o esforço aplicado na tarefa – e não a obtenção de um resultado específico. Em particular, vale o esforço de tentar testar as medidas escolhidas, o escopo da amostra, estimador e especificação de modelos, seleção de variáveis de controle, etc."
-  },
-  {
-    "objectID": "recursos.html",
-    "href": "recursos.html",
-    "title": "Recursos",
-    "section": "",
-    "text": "R for Data Science - Garrett Grolemund e Hadley Wickham\nCausal Inference: The Mixtape - Scott Cunningham"
-  },
-  {
-    "objectID": "recursos.html#livros",
-    "href": "recursos.html#livros",
-    "title": "Recursos",
-    "section": "",
-    "text": "R for Data Science - Garrett Grolemund e Hadley Wickham\nCausal Inference: The Mixtape - Scott Cunningham"
   },
   {
     "objectID": "template.html",
@@ -231,32 +217,74 @@
     "text": "Replicação\nPara os nossos exercícios de replicação, usaremos o template acima seguindo uma divisão de conteúdo específica: uma breve introdução do trabalho a ser replicado (use a cheatsheet de replicação para extrair os principais elementos da pesquisa); uma descrição dos dados de metodologia; e uma apresentação dos resultados replicados, incluindo algumas estatísticas descritivas das variáveis de interesse.\nUm guia de como organizar esse material, aplicado para a replicação de Ross (2001), pode ser encontrado aqui."
   },
   {
-    "objectID": "replicacao/replicacao2.html",
-    "href": "replicacao/replicacao2.html",
-    "title": "Replicação II",
+    "objectID": "recursos.html",
+    "href": "recursos.html",
+    "title": "Recursos",
     "section": "",
-    "text": "Neste segundo exercício avaliativo, replicaremos o trabalho de Fujiwara et al. (2011), que estima o efeito do uso de regra de segundo turno sobre a competição eleitoral nos municípios brasileiros. Como estratégia de identificação, o artigo explora uma descontinuidade na alocação de diferentas regras eleitorais: municípios com 200 mil ou mais eleitores têm segundo turno quando a primeira candidatura ao executivo local não atinge mais de 50% dos votos válidos; municípios com 200 mil ou menos eleitores, ao contrário, têm sempre turno único de votação. Explorando essa descontinuidade, o resultado do artigo sugere que ter uma regra de segundo turno causa um aumento de cerca de 8 pontos percentuais na votação de candidaturas que terminam em terceiro lugar ou pior, isto é, terceiras forças tendem a se sair melhor eleitoralmente. Esse resultado está na figura Figura 1 abaixo.\n\n\n\nFigura 1: Resultados principais do artigo"
+    "text": "R for Data Science - Garrett Grolemund e Hadley Wickham\nCausal Inference: The Mixtape - Scott Cunningham"
   },
   {
-    "objectID": "replicacao/replicacao2.html#tarefa",
-    "href": "replicacao/replicacao2.html#tarefa",
-    "title": "Replicação II",
+    "objectID": "recursos.html#livros",
+    "href": "recursos.html#livros",
+    "title": "Recursos",
     "section": "",
-    "text": "Neste segundo exercício avaliativo, replicaremos o trabalho de Fujiwara et al. (2011), que estima o efeito do uso de regra de segundo turno sobre a competição eleitoral nos municípios brasileiros. Como estratégia de identificação, o artigo explora uma descontinuidade na alocação de diferentas regras eleitorais: municípios com 200 mil ou mais eleitores têm segundo turno quando a primeira candidatura ao executivo local não atinge mais de 50% dos votos válidos; municípios com 200 mil ou menos eleitores, ao contrário, têm sempre turno único de votação. Explorando essa descontinuidade, o resultado do artigo sugere que ter uma regra de segundo turno causa um aumento de cerca de 8 pontos percentuais na votação de candidaturas que terminam em terceiro lugar ou pior, isto é, terceiras forças tendem a se sair melhor eleitoralmente. Esse resultado está na figura Figura 1 abaixo.\n\n\n\nFigura 1: Resultados principais do artigo"
+    "text": "R for Data Science - Garrett Grolemund e Hadley Wickham\nCausal Inference: The Mixtape - Scott Cunningham"
   },
   {
-    "objectID": "replicacao/replicacao2.html#replicação",
-    "href": "replicacao/replicacao2.html#replicação",
-    "title": "Replicação II",
+    "objectID": "replicacao/replicacao1.html",
+    "href": "replicacao/replicacao1.html",
+    "title": "Replicação I",
+    "section": "",
+    "text": "Para o primeiro exercício avaliativo, replicaremos o estudo de Edelman, Luca, e Svirsky (2017) sobre discriminação racial de hosts no Airbnb em algumas cidades americanas. Em particular, o estudo consiste em um experimento de campo (field experiment), com 20 perfis criados com nomes fictícios distintivos de pessoas afro-americanas e de pessoas brancas, meio a meio, pedindo informação em anúncios selecionados. Dessa forma, o resultado final é que alguns anúncios de hospedagem foram selecionados aleatoriamente para receber um pedido de pessoas com determinada cor/raça inferida pelo nome, enquanto outros, não. Como é possível ver na figura Figura 1, abaixo, o resultado do experimento mostra que pessoas com nomes indicativos de pessoas afro-americanas tiveram 8 pontos percentuais menos respostas positivas aos seus pedidos do que pessoas com nomes indicativos de pessoas brancas.\n\n\n\nFigura 1: Resultados principais do artigo"
+  },
+  {
+    "objectID": "replicacao/replicacao1.html#tarefa",
+    "href": "replicacao/replicacao1.html#tarefa",
+    "title": "Replicação I",
+    "section": "",
+    "text": "Para o primeiro exercício avaliativo, replicaremos o estudo de Edelman, Luca, e Svirsky (2017) sobre discriminação racial de hosts no Airbnb em algumas cidades americanas. Em particular, o estudo consiste em um experimento de campo (field experiment), com 20 perfis criados com nomes fictícios distintivos de pessoas afro-americanas e de pessoas brancas, meio a meio, pedindo informação em anúncios selecionados. Dessa forma, o resultado final é que alguns anúncios de hospedagem foram selecionados aleatoriamente para receber um pedido de pessoas com determinada cor/raça inferida pelo nome, enquanto outros, não. Como é possível ver na figura Figura 1, abaixo, o resultado do experimento mostra que pessoas com nomes indicativos de pessoas afro-americanas tiveram 8 pontos percentuais menos respostas positivas aos seus pedidos do que pessoas com nomes indicativos de pessoas brancas.\n\n\n\nFigura 1: Resultados principais do artigo"
+  },
+  {
+    "objectID": "replicacao/replicacao1.html#replicação",
+    "href": "replicacao/replicacao1.html#replicação",
+    "title": "Replicação I",
     "section": "Replicação",
-    "text": "Replicação\nO exercício de replicação consistirá em reproduzir os resultados da tabela acima (correspondentes à Tabela 1 do paper). Para tanto, deverá ser seguido o template de replicação em Quarto (ver aqui) discutido em aula para produzir um documento final em formato PDF com cerca de 6 páginas (sem contar referências bibliográficas, tabelas e gráficos). O arquivo .qmd usado, com códigos, também deverá ser entregue.\nOs dados (já limpos) necessários para o exercício podem ser obtidos no link a seguir:\n\nReplicação de Fujiwara et al. (2011)\n\nA descrição do material replicação e codebook de variáveis pode ser obtido aqui."
+    "text": "Replicação\nO exercício de replicação consistirá em reproduzir os resultados da tabela acima (correspondentes à Tabela 2 do paper). Para tanto, deverá ser seguido o template de replicação em Quarto (ver aqui) discutido em aula para produzir um documento final em formato PDF com cerca de 6 páginas (sem contar referências bibliográficas, tabelas e gráficos). O arquivo .qmd usado, com códigos, também deverá ser entregue.\nOs dados (já limpos) necessários para o exercício podem ser obtidos no link a seguir:\n\nReplicação de Edelman, Luca, e Svirsky (2017)\n\nA descrição do material replicação do texto pode ser obtido aqui.\n\nVariáveis\nAs principais variáveis usadas no estudo são as seguintes:\n\nyes, variável dependente usada na Tabela 2\nhost_response, variável dependente com múltiplas categorias\nguest_black, tratamento\nguest_female, tratamento alternativo\nhost_race_black, indicador de raça do host (afro-americano)\nhost_gender_M, host mulher\nmultiple_listings, host com mais de um anúncio\nshared_property, propriedade compartilhada\nten_reviews, host com mais de 10 avaliações\nlog_price, preço da hospedagem (log)\nname_by_city, indicador de nome-cidade (para cluster dos erros)\n\nOutras variáveis não mencionadas acima poderão ser usadas/criadas."
   },
   {
-    "objectID": "replicacao/replicacao2.html#critérios-de-avaliação",
-    "href": "replicacao/replicacao2.html#critérios-de-avaliação",
-    "title": "Replicação II",
+    "objectID": "replicacao/replicacao1.html#critérios-de-avaliação",
+    "href": "replicacao/replicacao1.html#critérios-de-avaliação",
+    "title": "Replicação I",
     "section": "Critérios de avaliação",
     "text": "Critérios de avaliação\nA avaliação levará em conta a capacidade de implementar o conhecimento visto no curso e o esforço aplicado na tarefa – e não a obtenção de um resultado específico. Em particular, vale o esforço de tentar testar as medidas escolhidas, o escopo da amostra, estimador e especificação de modelos, seleção de variáveis de controle, etc."
+  },
+  {
+    "objectID": "replicacao/replicacao3.html",
+    "href": "replicacao/replicacao3.html",
+    "title": "Replicação III",
+    "section": "",
+    "text": "Neste último exercício, replicaremos o trabalho de Dinas et al. (2019) sobre a crise dos refugiados na europa e o desempenho eleitoral de partidos de extrema-direita. Explorando o fato de que algumas das 95 ilhas gregas habitáveis no mar Egeu, mais próximas da Turquia, receberam um boom de refugiados sírios pouco antes das eleições de setembro de 2015 e depois de outras realizadas em janeiro do mesmo ano, o estudo investiga o efeito desse choque sobre votos para o partido de extrema-direita Aurora Dourada (Golden Dawn). Empiricamente, o trabalho compara as votações do Autora Dourada em ilhas que receberam mais refugiados com outras que receberam menos, antes e depois da crise. Em outras palavras, a questão do artigo é: o fluxo de refugiados causou aumento na votação do partido de extrema-direita? Os resultados do paper, na Figura 1 abaixo, sugerem que sim, indicando um ATT de 2 pontos percentuais – o que o artigo interpreta como um aumento de 44% na votação do Aurora Dourada decorrente da crise dos refugiados.\n\n\n\nFigura 1: Resultados principais do artigo"
+  },
+  {
+    "objectID": "replicacao/replicacao3.html#tarefa",
+    "href": "replicacao/replicacao3.html#tarefa",
+    "title": "Replicação III",
+    "section": "",
+    "text": "Neste último exercício, replicaremos o trabalho de Dinas et al. (2019) sobre a crise dos refugiados na europa e o desempenho eleitoral de partidos de extrema-direita. Explorando o fato de que algumas das 95 ilhas gregas habitáveis no mar Egeu, mais próximas da Turquia, receberam um boom de refugiados sírios pouco antes das eleições de setembro de 2015 e depois de outras realizadas em janeiro do mesmo ano, o estudo investiga o efeito desse choque sobre votos para o partido de extrema-direita Aurora Dourada (Golden Dawn). Empiricamente, o trabalho compara as votações do Autora Dourada em ilhas que receberam mais refugiados com outras que receberam menos, antes e depois da crise. Em outras palavras, a questão do artigo é: o fluxo de refugiados causou aumento na votação do partido de extrema-direita? Os resultados do paper, na Figura 1 abaixo, sugerem que sim, indicando um ATT de 2 pontos percentuais – o que o artigo interpreta como um aumento de 44% na votação do Aurora Dourada decorrente da crise dos refugiados.\n\n\n\nFigura 1: Resultados principais do artigo"
+  },
+  {
+    "objectID": "replicacao/replicacao3.html#replicação",
+    "href": "replicacao/replicacao3.html#replicação",
+    "title": "Replicação III",
+    "section": "Replicação",
+    "text": "Replicação\nO exercício de replicação consistirá em reproduzir os resultados dos modelos 1 e 3 tabela acima (disponíveis na Tabela 1 do artigo). Para tanto, deverá ser seguido o template de replicação em Quarto (ver aqui) discutido em aula para produzir um documento final em formato PDF com cerca de 6 páginas (sem contar referências bibliográficas, tabelas e gráficos). O arquivo .qmd usado, com códigos, também deverá ser entregue.\nOs dados (já limpos) necessários para o exercício podem ser obtidos no link a seguir:\n\nReplicação de Dinas et al. (2019)\n\nA base possui as seguintes variáveis:\n\nVariáveis da base de dados de replicação\n\n\nVariável\nDescrição\n\n\n\n\nyear\nAno da eleição\n\n\nmunicipality\nMunicípio\n\n\ntownship\nDistrito\n\n\nperfecture\nSubdivisão administrativa\n\n\ntreated_municipalities\nMunicípios tratados\n\n\ntreatment_year\nEleição do tratamento\n\n\ngdvotes\nVotos para o partido Aurora Dourada (%)\n\n\nvalid_votes\nTotal de votos válidos\n\n\nsyriza_votes\nVotos para o partido Syriza (%)\n\n\npasok_votes\nVotos para o partido Pasok (%)\n\n\nturnout\nParticipação eleitoral (prop.)\n\n\n\n\n\n\n\n\n\nImportante\n\n\n\nPara replicar o modelo que usa a votação do Aurora Dourada defasada (i.e., \\(GD_{t-1}\\), conforme a notação do artigo), será necessário criar essa variável a partir da variável gdvotes."
+  },
+  {
+    "objectID": "replicacao/replicacao3.html#critérios-de-avaliação",
+    "href": "replicacao/replicacao3.html#critérios-de-avaliação",
+    "title": "Replicação III",
+    "section": "Critérios de avaliação",
+    "text": "Critérios de avaliação\nA avaliação levará em conta a capacidade de implementar o conhecimento visto no curso e o esforço aplicado na tarefa – e não a obtenção de um resultado específico. Em particular, vale o esforço de tentar testar placebos, como no trabalho original, e usar diferentes estimadores de diferença-em-diferenças."
   },
   {
     "objectID": "topicos/topico2.html",
@@ -291,21 +319,21 @@
     "href": "topicos/topico2.html#visualizando-modelos-lineares-simples",
     "title": "Regressão linear simples",
     "section": "Visualizando modelos lineares simples",
-    "text": "Visualizando modelos lineares simples\nO ggplot2 já nos fornece geometrias que simplificam o processo de criar um gráfico de dispersão com uma linha de regressão. Para isso, basta usar geom_smooth() como uma camada adicional de um gráfico que usa geom_point():\n\nlibrary(tidyverse)\n\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: Removed 1822 rows containing non-finite values (`stat_smooth()`).\n\n\nWarning: Removed 1822 rows containing missing values (`geom_point()`)."
+    "text": "Visualizando modelos lineares simples\nO ggplot2 já nos fornece geometrias que simplificam o processo de criar um gráfico de dispersão com uma linha de regressão. Para isso, basta usar geom_smooth() como uma camada adicional de um gráfico que usa geom_point():\n\nlibrary(tidyverse)\n\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_smooth(method = \"lm\", se = FALSE) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: Removed 1822 rows containing non-finite outside the scale range\n(`stat_smooth()`).\n\n\nWarning: Removed 1822 rows containing missing values or values outside the scale range\n(`geom_point()`)."
   },
   {
     "objectID": "topicos/topico2.html#visualizando-modelos-lineares-arbitrários",
     "href": "topicos/topico2.html#visualizando-modelos-lineares-arbitrários",
     "title": "Regressão linear simples",
     "section": "Visualizando modelos lineares arbitrários",
-    "text": "Visualizando modelos lineares arbitrários\nE se eu tiver um modelo não estimado por mínimos quadrados, como visualizá-lo? Simples: basta trocar geom_smooth() por geom_abline() e passar os coeficientes do modelo como argumentos slope e intercept. Por exemplo, imagine que achamos que o melhor modelo deve ter \\(\\beta_0 = 1\\) e \\(\\beta_1 = -0.2\\):\n\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_abline(slope = -0.2, intercept = 1) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\nWarning: Removed 1822 rows containing missing values (`geom_point()`)."
+    "text": "Visualizando modelos lineares arbitrários\nE se eu tiver um modelo não estimado por mínimos quadrados, como visualizá-lo? Simples: basta trocar geom_smooth() por geom_abline() e passar os coeficientes do modelo como argumentos slope e intercept. Por exemplo, imagine que achamos que o melhor modelo deve ter \\(\\beta_0 = 1\\) e \\(\\beta_1 = -0.2\\):\n\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_abline(slope = -0.2, intercept = 1) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\nWarning: Removed 1822 rows containing missing values or values outside the scale range\n(`geom_point()`)."
   },
   {
     "objectID": "topicos/topico2.html#testando-diferentes-modelos",
     "href": "topicos/topico2.html#testando-diferentes-modelos",
     "title": "Regressão linear simples",
     "section": "Testando diferentes modelos",
-    "text": "Testando diferentes modelos\nO gráfico anterior abre a possibilidade interessante de testar diferentes modelos. Pela teoria, sabemos que um modelo por mínimos quadrados é um bom modelo, e sabemos o que ele busca minimizar (e.g., \\(\\sum_{i=1}^n (y_i - (\\hat{\\beta_0} + \\hat{\\beta_1} x_i))^2\\)). Mas e se quisermos testar outros modelos? Como selecionamos bons modelos?\nAqui, vamos explorar uma solução comum em aprendizado de máquina: vamos gerar aleatoriamente e testar diferentes modelos e ver qual deles é o melhor. Isso, no entanto, envolve criar uma função – algo que não vimos explicitamente em Lego I (caso queira estudar mais sobre, veja este capítulo do R for Data Science).\nPara começar, vamos criar uma função que faz o seguinte: gera modelos aleatoriamente sorteando valores possíveis de \\(\\beta_0\\) e \\(\\beta_1\\). Aí vai o código:\n\n# Função para gerar modelos\ngera_modelos &lt;- function(n_modelos = 1000){\n\n    beta0 &lt;- runif(n_modelos, min = -10, max = 10)\n    beta1 &lt;- runif(n_modelos, min = -1, max = 1)\n\n    modelo &lt;- tibble(beta0 = beta0, beta1 = beta1)\n\n    return(modelo)\n}\n\nUm exemplo do que o modelo retorna:\n\ngera_modelos(10)\n\n# A tibble: 10 × 2\n    beta0   beta1\n    &lt;dbl&gt;   &lt;dbl&gt;\n 1  5.61   0.707 \n 2  1.07   0.484 \n 3  0.476 -0.553 \n 4  3.61   0.941 \n 5 -2.49   0.435 \n 6 -3.13   0.649 \n 7 -3.89  -0.191 \n 8 -9.71  -0.178 \n 9 -7.51   0.898 \n10 -1.84   0.0554\n\n\nComo dá para ver, em vez de estimar os parâmetros, a função os sorteia aleatoriamente. Podemos usar agora o ggplot2 para visualizar alguns desses modelos em cima dos dados de Ross (2001):\n\n# Gera 5 modelos\nmodelos &lt;- gera_modelos(5)\n\n# Plotando modelos\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_abline(data = modelos, aes(slope = beta1, intercept = beta0)) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\nWarning: Removed 1822 rows containing missing values (`geom_point()`).\n\n\n\n\n\nNenhum destes 5 modelos parece bom. O que podemos fazer, no entanto, é gerar mais modelos e ver se algum deles é comparável a um estimado por mínimos quadrados. Para isso, vamos criar uma função que, para cada modelo, calcula a soma dos resíduos quadráticos (SRQ):\n\n# Função para calcular SRQ\ncalcula_srq &lt;- function(beta0, beta1, dados){\n    \n    # Remove missings (não podemos calcular SRQ com missings)\n    dados &lt;- dados %&gt;%\n        select(regime, oil) %&gt;%\n        na.omit()\n\n    # Calcula a soma dos resíduos quadráticos\n    srq &lt;- sum((dados$regime - (beta0 + beta1 * dados$oil))^2)\n    return(srq)\n}\n\nCom essa função, agora podemos gerar e testar 100 ou 1000 modelos um a uma. O código a seguir faz isso (usando rowwise() e mutate() para aplicar a função a cada linha do banco de dados):\n\n# Gera 1000 modelos\nmodelos &lt;- gera_modelos(1000)\n\n# Calcula SRQ para cada modelo\nmodelos &lt;- modelos %&gt;%\n  rowwise() %&gt;% # Aplica a função linha a linha\n  mutate(srq = calcula_srq(beta0, beta1, dados = ross)) %&gt;%\n  ungroup() # Desfaz a operação rowwsise()\n\n# Visualiza os 5 melhores modelos\nmodelos %&gt;%\n  arrange(srq) %&gt;%\n  head(5)\n\n# A tibble: 5 × 3\n  beta0  beta1     srq\n  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n1  2.53 -0.158 144693.\n2  2.68 -0.161 144857.\n3  1.83 -0.159 145248.\n4  2.98 -0.183 145288.\n5  3.33 -0.215 146716.\n\n\nComparando com o modelo estimado por mínimos quadrados, abaixo, vemos que o resultado não foi nada mal.\n\n# Seleciona os 5 melhores modelos\nmodelos &lt;- modelos %&gt;%\n  arrange(srq) %&gt;%\n  slice(1:5)\n\n# Plota os modelos estimados e o modelo de minimos quadrados\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_abline(data = modelos, aes(slope = beta1, intercept = beta0)) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"purple\", linewidth = 1.2) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: Removed 1822 rows containing non-finite values (`stat_smooth()`).\n\n\nWarning: Removed 1822 rows containing missing values (`geom_point()`).\n\n\n\n\n\nA moral da história é que, assim como há diferentes estimadores possíveis para uma quantia de interesse, também há diferentes formas de estimar um modelo."
+    "text": "Testando diferentes modelos\nO gráfico anterior abre a possibilidade interessante de testar diferentes modelos. Pela teoria, sabemos que um modelo por mínimos quadrados é um bom modelo, e sabemos o que ele busca minimizar (e.g., \\(\\sum_{i=1}^n (y_i - (\\hat{\\beta_0} + \\hat{\\beta_1} x_i))^2\\)). Mas e se quisermos testar outros modelos? Como selecionamos bons modelos?\nAqui, vamos explorar uma solução comum em aprendizado de máquina: vamos gerar aleatoriamente e testar diferentes modelos e ver qual deles é o melhor. Isso, no entanto, envolve criar uma função – algo que não vimos explicitamente em Lego I (caso queira estudar mais sobre, veja este capítulo do R for Data Science).\nPara começar, vamos criar uma função que faz o seguinte: gera modelos aleatoriamente sorteando valores possíveis de \\(\\beta_0\\) e \\(\\beta_1\\). Aí vai o código:\n\n# Função para gerar modelos\ngera_modelos &lt;- function(n_modelos = 1000){\n\n    beta0 &lt;- runif(n_modelos, min = -10, max = 10)\n    beta1 &lt;- runif(n_modelos, min = -1, max = 1)\n\n    modelo &lt;- tibble(beta0 = beta0, beta1 = beta1)\n\n    return(modelo)\n}\n\nUm exemplo do que o modelo retorna:\n\ngera_modelos(10)\n\n# A tibble: 10 × 2\n    beta0   beta1\n    &lt;dbl&gt;   &lt;dbl&gt;\n 1  5.61   0.707 \n 2  1.07   0.484 \n 3  0.476 -0.553 \n 4  3.61   0.941 \n 5 -2.49   0.435 \n 6 -3.13   0.649 \n 7 -3.89  -0.191 \n 8 -9.71  -0.178 \n 9 -7.51   0.898 \n10 -1.84   0.0554\n\n\nComo dá para ver, em vez de estimar os parâmetros, a função os sorteia aleatoriamente. Podemos usar agora o ggplot2 para visualizar alguns desses modelos em cima dos dados de Ross (2001):\n\n# Gera 5 modelos\nmodelos &lt;- gera_modelos(5)\n\n# Plotando modelos\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_abline(data = modelos, aes(slope = beta1, intercept = beta0)) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\nWarning: Removed 1822 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\nNenhum destes 5 modelos parece bom. O que podemos fazer, no entanto, é gerar mais modelos e ver se algum deles é comparável a um estimado por mínimos quadrados. Para isso, vamos criar uma função que, para cada modelo, calcula a soma dos resíduos quadráticos (SRQ):\n\n# Função para calcular SRQ\ncalcula_srq &lt;- function(beta0, beta1, dados){\n    \n    # Remove missings (não podemos calcular SRQ com missings)\n    dados &lt;- dados %&gt;%\n        select(regime, oil) %&gt;%\n        na.omit()\n\n    # Calcula a soma dos resíduos quadráticos\n    srq &lt;- sum((dados$regime - (beta0 + beta1 * dados$oil))^2)\n    return(srq)\n}\n\nCom essa função, agora podemos gerar e testar 100 ou 1000 modelos um a uma. O código a seguir faz isso (usando rowwise() e mutate() para aplicar a função a cada linha do banco de dados):\n\n# Gera 1000 modelos\nmodelos &lt;- gera_modelos(1000)\n\n# Calcula SRQ para cada modelo\nmodelos &lt;- modelos %&gt;%\n  rowwise() %&gt;% # Aplica a função linha a linha\n  mutate(srq = calcula_srq(beta0, beta1, dados = ross)) %&gt;%\n  ungroup() # Desfaz a operação rowwsise()\n\n# Visualiza os 5 melhores modelos\nmodelos %&gt;%\n  arrange(srq) %&gt;%\n  head(5)\n\n# A tibble: 5 × 3\n  beta0  beta1     srq\n  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;\n1  2.53 -0.158 144693.\n2  2.68 -0.161 144857.\n3  1.83 -0.159 145248.\n4  2.98 -0.183 145288.\n5  3.33 -0.215 146716.\n\n\nComparando com o modelo estimado por mínimos quadrados, abaixo, vemos que o resultado não foi nada mal.\n\n# Seleciona os 5 melhores modelos\nmodelos &lt;- modelos %&gt;%\n  arrange(srq) %&gt;%\n  slice(1:5)\n\n# Plota os modelos estimados e o modelo de minimos quadrados\nggplot(ross, aes(x = oil, y = regime)) +\n  geom_point(size = 3.4, color = \"red\", alpha = 0.3) +\n  geom_abline(data = modelos, aes(slope = beta1, intercept = beta0)) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"purple\", linewidth = 1.2) +\n  theme_minimal() +\n  labs(x = \"Petróleo (% do PIB)\", y = \"Polity (democracia)\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\nWarning: Removed 1822 rows containing non-finite outside the scale range\n(`stat_smooth()`).\n\n\nWarning: Removed 1822 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\nA moral da história é que, assim como há diferentes estimadores possíveis para uma quantia de interesse, também há diferentes formas de estimar um modelo."
   },
   {
     "objectID": "topicos/topico2.html#indo-além",

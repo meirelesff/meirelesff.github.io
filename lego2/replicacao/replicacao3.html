@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lego II - Replicação I</title>
+<title>Lego II - Replicação III</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -79,11 +79,13 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta name="twitter:title" content="Lego II - Replicação I">
+<meta name="twitter:title" content="Lego II - Replicação III">
 <meta name="twitter:description" content="Exercício avaliativo">
-<meta name="twitter:image" content="rep1.png">
+<meta name="twitter:image" content="rep3.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -186,10 +188,7 @@ div.csl-indent {
    
   <ul>
   <li><a href="#tarefa" id="toc-tarefa" class="nav-link active" data-scroll-target="#tarefa">Tarefa</a></li>
-  <li><a href="#replicação" id="toc-replicação" class="nav-link" data-scroll-target="#replicação">Replicação</a>
-  <ul class="collapse">
-  <li><a href="#variáveis" id="toc-variáveis" class="nav-link" data-scroll-target="#variáveis">Variáveis</a></li>
-  </ul></li>
+  <li><a href="#replicação" id="toc-replicação" class="nav-link" data-scroll-target="#replicação">Replicação</a></li>
   <li><a href="#critérios-de-avaliação" id="toc-critérios-de-avaliação" class="nav-link" data-scroll-target="#critérios-de-avaliação">Critérios de avaliação</a></li>
   </ul>
 </nav>
@@ -199,7 +198,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Replicação I</h1>
+<h1 class="title">Replicação III</h1>
 <p class="subtitle lead">Exercício avaliativo</p>
 </div>
 
@@ -217,52 +216,102 @@ div.csl-indent {
 
 <section id="tarefa" class="level2">
 <h2 class="anchored" data-anchor-id="tarefa">Tarefa</h2>
-<p>Para o primeiro exercício avaliativo, replicaremos o estudo de <span class="citation" data-cites="edelman2017racial">Edelman, Luca, e Svirsky (<a href="#ref-edelman2017racial" role="doc-biblioref">2017</a>)</span> sobre discriminação racial de <em>hosts</em> no Airbnb em algumas cidades americanas. Em particular, o estudo consiste em um experimento de campo (<em>field experiment</em>), com 20 perfis criados com nomes fictícios distintivos de pessoas afro-americanas e de pessoas brancas, meio a meio, pedindo informação em anúncios selecionados. Dessa forma, o resultado final é que alguns anúncios de hospedagem foram selecionados aleatoriamente para receber um pedido de pessoas com determinada cor/raça inferida pelo nome, enquanto outros, não. Como é possível ver na figura <a href="#fig-res">Figura&nbsp;1</a>, abaixo, o resultado do experimento mostra que pessoas com nomes indicativos de pessoas afro-americanas tiveram 8 pontos percentuais menos respostas positivas aos seus pedidos do que pessoas com nomes indicativos de pessoas brancas.</p>
-<div id="fig-res" class="quarto-figure quarto-figure-center anchored">
+<p>Neste último exercício, replicaremos o trabalho de <span class="citation" data-cites="dinas2019waking">Dinas et al. (<a href="#ref-dinas2019waking" role="doc-biblioref">2019</a>)</span> sobre a crise dos refugiados na europa e o desempenho eleitoral de partidos de extrema-direita. Explorando o fato de que algumas das 95 ilhas gregas habitáveis no mar Egeu, mais próximas da Turquia, receberam um <em>boom</em> de refugiados sírios pouco antes das eleições de setembro de 2015 e depois de outras realizadas em janeiro do mesmo ano, o estudo investiga o efeito desse choque sobre votos para o partido de extrema-direita <a href="https://pt.wikipedia.org/wiki/Aurora_Dourada">Aurora Dourada</a> (<em>Golden Dawn</em>). Empiricamente, o trabalho compara as votações do Autora Dourada em ilhas que receberam mais refugiados com outras que receberam menos, antes e depois da crise. Em outras palavras, a questão do artigo é: o fluxo de refugiados causou aumento na votação do partido de extrema-direita? Os resultados do paper, na <a href="#fig-dinas">Figura&nbsp;1</a> abaixo, sugerem que sim, indicando um ATT de 2 pontos percentuais – o que o artigo interpreta como um aumento de 44% na votação do Aurora Dourada decorrente da crise dos refugiados.</p>
+<div id="fig-dinas" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="rep1.png" class="img-fluid figure-img"></p>
+<p><img src="rep3.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Figura&nbsp;1: Resultados principais do artigo</figcaption>
 </figure>
 </div>
 </section>
 <section id="replicação" class="level2">
 <h2 class="anchored" data-anchor-id="replicação">Replicação</h2>
-<p>O exercício de replicação consistirá em reproduzir os resultados da tabela acima (correspondentes à Tabela 2 do <em>paper</em>). Para tanto, deverá ser seguido o <em>template</em> de replicação em Quarto (<a href="../docs/ross.pdf">ver aqui</a>) discutido em aula para produzir um documento final em formato PDF com cerca de <em>6 páginas</em> (sem contar referências bibliográficas, tabelas e gráficos). O arquivo <code>.qmd</code> usado, com códigos, também deverá ser entregue.</p>
+<p>O exercício de replicação consistirá em reproduzir os resultados dos modelos 1 e 3 tabela acima (disponíveis na Tabela 1 do artigo). Para tanto, deverá ser seguido o <em>template</em> de replicação em Quarto (<a href="../docs/ross.pdf">ver aqui</a>) discutido em aula para produzir um documento final em formato PDF com cerca de <em>6 páginas</em> (sem contar referências bibliográficas, tabelas e gráficos). O arquivo <code>.qmd</code> usado, com códigos, também deverá ser entregue.</p>
 <p>Os dados (já limpos) necessários para o exercício podem ser obtidos no link a seguir:</p>
 <ul>
-<li><a href="../docs/airbnb/filtered_data.csv">Replicação de <span class="citation" data-cites="edelman2017racial">Edelman, Luca, e Svirsky (<span>2017</span>)</span></a></li>
+<li><a href="../docs/dinas/dinas2019.csv">Replicação de <span class="citation" data-cites="dinas2019waking">Dinas et al. (<span>2019</span>)</span></a></li>
 </ul>
-<p>A descrição do material replicação do texto pode ser <a href="../docs/airbnb/readme.docx">obtido aqui</a>.</p>
-<section id="variáveis" class="level3">
-<h3 class="anchored" data-anchor-id="variáveis">Variáveis</h3>
-<p>As principais variáveis usadas no estudo são as seguintes:</p>
-<ul>
-<li><code>yes</code>, variável dependente usada na Tabela 2</li>
-<li><code>host_response</code>, variável dependente com múltiplas categorias</li>
-<li><code>guest_black</code>, tratamento</li>
-<li><code>guest_female</code>, tratamento alternativo</li>
-<li><code>host_race_black</code>, indicador de raça do <em>host</em> (afro-americano)</li>
-<li><code>host_gender_M</code>, <em>host</em> mulher</li>
-<li><code>multiple_listings</code>, <em>host</em> com mais de um anúncio</li>
-<li><code>shared_property</code>, propriedade compartilhada</li>
-<li><code>ten_reviews</code>, <em>host</em> com mais de 10 avaliações</li>
-<li><code>log_price</code>, preço da hospedagem (log)</li>
-<li><code>name_by_city</code>, indicador de nome-cidade (para <em>cluster</em> dos erros)</li>
-</ul>
-<p>Outras variáveis não mencionadas acima poderão ser usadas/criadas.</p>
-</section>
+<p>A base possui as seguintes variáveis:</p>
+<table class="table-striped table-hover table-sm small table">
+<caption>Variáveis da base de dados de replicação</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variável</th>
+<th style="text-align: left;">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>year</code></td>
+<td style="text-align: left;">Ano da eleição</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>municipality</code></td>
+<td style="text-align: left;">Município</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>township</code></td>
+<td style="text-align: left;">Distrito</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>perfecture</code></td>
+<td style="text-align: left;">Subdivisão administrativa</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>treated_municipalities</code></td>
+<td style="text-align: left;">Municípios tratados</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>treatment_year</code></td>
+<td style="text-align: left;">Eleição do tratamento</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>gdvotes</code></td>
+<td style="text-align: left;">Votos para o partido Aurora Dourada (%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>valid_votes</code></td>
+<td style="text-align: left;">Total de votos válidos</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>syriza_votes</code></td>
+<td style="text-align: left;">Votos para o partido Syriza (%)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pasok_votes</code></td>
+<td style="text-align: left;">Votos para o partido Pasok (%)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>turnout</code></td>
+<td style="text-align: left;">Participação eleitoral (prop.)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para replicar o modelo que usa a votação do Aurora Dourada defasada (i.e., <span class="math inline">\(GD_{t-1}\)</span>, conforme a notação do artigo), será necessário criar essa variável a partir da variável <code>gdvotes</code>.</p>
+</div>
+</div>
 </section>
 <section id="critérios-de-avaliação" class="level2">
 <h2 class="anchored" data-anchor-id="critérios-de-avaliação">Critérios de avaliação</h2>
-<p>A avaliação levará em conta a capacidade de implementar o conhecimento visto no curso e o esforço aplicado na tarefa – e não a obtenção de um resultado específico. Em particular, vale o esforço de tentar testar as medidas escolhidas, o escopo da amostra, estimador e especificação de modelos, seleção de variáveis de controle, etc.</p>
+<p>A avaliação levará em conta a capacidade de implementar o conhecimento visto no curso e o esforço aplicado na tarefa – e não a obtenção de um resultado específico. Em particular, vale o esforço de tentar testar placebos, como no trabalho original, e usar diferentes estimadores de diferença-em-diferenças.</p>
 
 
 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-edelman2017racial" class="csl-entry" role="listitem">
-Edelman, Benjamin, Michael Luca, e Dan Svirsky. 2017. <span>«Racial discrimination in the sharing economy: Evidence from a field experiment»</span>. <em>American economic journal: applied economics</em> 9 (2): 1–22.
+<div id="ref-dinas2019waking" class="csl-entry" role="listitem">
+Dinas, Elias, Konstantinos Matakos, Dimitrios Xefteris, e Dominik Hangartner. 2019. <span>«Waking up the golden dawn: does exposure to the refugee crisis increase support for extreme-right parties?»</span> <em>Political analysis</em> 27 (2): 244–54.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -1,0 +1,17 @@
+ggplot2
+gganimate
+htmltools
+tidyverse
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+lubridate
+sysfonts
+showtextdb
+showtext
+knitr
+here

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Lego I - Recursos</title>
+<title>Lego I - Template</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -60,14 +113,18 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Lego I - Recursos">
+<meta property="og:title" content="Lego I - Template">
 <meta property="og:description" content="">
+<meta property="og:image" content="docs/template.png">
 <meta property="og:site-name" content="Lego I">
-<meta name="twitter:title" content="Lego I - Recursos">
+<meta name="twitter:title" content="Lego I - Template">
 <meta name="twitter:description" content="">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="docs/template.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed">
@@ -96,11 +153,11 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Ementa</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./template.html" rel="" target="">
+    <a class="nav-link active" href="./template.html" rel="" target="" aria-current="page">
  <span class="menu-text">Template</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./recursos.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="./recursos.html" rel="" target="">
  <span class="menu-text">Recursos</span></a>
   </li>  
 </ul>
@@ -119,8 +176,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#blogs-e-sites" id="toc-blogs-e-sites" class="nav-link active" data-scroll-target="#blogs-e-sites">Blogs e sites</a></li>
-  <li><a href="#livros" id="toc-livros" class="nav-link" data-scroll-target="#livros">Livros</a></li>
+  <li><a href="#template-de-lego-i" id="toc-template-de-lego-i" class="nav-link active" data-scroll-target="#template-de-lego-i">Template de Lego I</a></li>
+  <li><a href="#download" id="toc-download" class="nav-link" data-scroll-target="#download">Download</a></li>
+  <li><a href="#instalação" id="toc-instalação" class="nav-link" data-scroll-target="#instalação">Instalação</a>
+  <ul class="collapse">
+  <li><a href="#instalando-o-quarto" id="toc-instalando-o-quarto" class="nav-link" data-scroll-target="#instalando-o-quarto">1) Instalando o <code>quarto</code></a></li>
+  <li><a href="#instalando-o-tinytex-e-latex" id="toc-instalando-o-tinytex-e-latex" class="nav-link" data-scroll-target="#instalando-o-tinytex-e-latex">2) Instalando o <code>tinytex</code> e LaTex</a></li>
+  <li><a href="#instalando-o-quarto-para-r" id="toc-instalando-o-quarto-para-r" class="nav-link" data-scroll-target="#instalando-o-quarto-para-r">3) Instalando o <code>quarto</code> para <code>R</code></a></li>
+  </ul></li>
+  <li><a href="#usando-o-template-de-lego" id="toc-usando-o-template-de-lego" class="nav-link" data-scroll-target="#usando-o-template-de-lego">Usando o template de Lego</a>
+  <ul class="collapse">
+  <li><a href="#dicas-de-uso" id="toc-dicas-de-uso" class="nav-link" data-scroll-target="#dicas-de-uso">Dicas de uso</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -129,7 +196,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Recursos</h1>
+<h1 class="title">Template</h1>
 </div>
 
 
@@ -144,27 +211,102 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Esta página contém algumas indicações de materiais úteis para quem está começando a aprender R e estatística. Para contemplar diferentes tipos de aprendizagem, há tanto indicação de conteúdos interativos como, também, de livros; blogs; vídeos; e podcasts. A lista não é exaustiva e provavelmente será atualizada ao longo do curso.</p>
-<section id="blogs-e-sites" class="level3">
-<h3 class="anchored" data-anchor-id="blogs-e-sites">Blogs e sites</h3>
+<section id="template-de-lego-i" class="level2">
+<h2 class="anchored" data-anchor-id="template-de-lego-i">Template de Lego I</h2>
+<p>Neste curso, usaremos um <em>template</em> em <a href="https://quarto.org">quarto</a> para realizar listas de exercícios e trabalho final. Diferentemente de um arquivo de <em>Word</em>, este <em>template</em> pode ser editado em qualquer editor de texto usando <a href="https://www.markdownguide.org/basic-syntax/">Markdown</a>; e ele também dispensa termos de usar normas da ABNT; de inserir bibligrafia manualmente; ou de ter de copiar e colar resultados de análises feitas no <code>R</code>. Usando ele, em outras palavras, podemos nos concentrar apenas em escrever e analisar dados.</p>
+</section>
+<section id="download" class="level2">
+<h2 class="anchored" data-anchor-id="download">Download</h2>
+<p>O <em>template</em> pode ser baixado <a href="template_lego.zip">daqui</a> ou <a href="https://github.com/meirelesff/template_lego">deste repositório do GitHub</a>. Extraia os arquivos para uma pasta da sua preferência. Para abrir o <em>template</em> no <a href="https://rstudio.com/products/rstudio/download/">RStudio</a>, abra o arquivo <code>template_quarto.Rproj</code>. Se tudo funcionar, seu projeto será aberto e você deverá ver algo mais ou menos assim:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="docs/template.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Template de Lego no RStudio</figcaption>
+</figure>
+</div>
+</section>
+<section id="instalação" class="level2">
+<h2 class="anchored" data-anchor-id="instalação">Instalação</h2>
+<p>Para usar o <em>template</em>, é necessário ter o <code>R</code> e o <code>quarto</code> instalados, o que podemos fazer seguindo três passos simples.</p>
+<section id="instalando-o-quarto" class="level3">
+<h3 class="anchored" data-anchor-id="instalando-o-quarto">1) Instalando o <code>quarto</code></h3>
+<p>Para instalar especificamente o <code>quarto</code>, busque a versão adequada para o seu sistema operacional em:</p>
 <ul>
-<li><a href="https://rweekly.org/">R Weekly</a> - Newsletter semanal com os principais acontecimentos da comunidade R e vários links para tutoriais, pacotes, etc.</li>
-<li><a href="https://www.r-bloggers.com/">R-bloggers</a> - Agregador de blogs sobre R (há coisas em português também)</li>
+<li><a href="https://quarto.org/docs/get-started/" class="uri">https://quarto.org/docs/get-started/</a></li>
 </ul>
 </section>
-<section id="livros" class="level3">
-<h3 class="anchored" data-anchor-id="livros">Livros</h3>
-<p>Livros indicados para quem quer nunca viu R e quer ter um contato mais aprofundado com o ambiente de programação:</p>
+<section id="instalando-o-tinytex-e-latex" class="level3">
+<h3 class="anchored" data-anchor-id="instalando-o-tinytex-e-latex">2) Instalando o <code>tinytex</code> e LaTex</h3>
+<p>Feito isso, precisamos instalar o <a href="https://yihui.org/tinytex/">tinytex</a>, que é uma distribuição <span class="math inline">\(\LaTeX\)</span> leve e fácil de instalar, rodando o seguinte código diretamente do <code>R</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tinytex"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tinytex<span class="sc">::</span><span class="fu">install_tinytex</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="instalando-o-quarto-para-r" class="level3">
+<h3 class="anchored" data-anchor-id="instalando-o-quarto-para-r">3) Instalando o <code>quarto</code> para <code>R</code></h3>
+<p>Com a etapa anterior concluída, instale o pacote <code>quarto</code> para <code>R</code> com:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"quarto"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="usando-o-template-de-lego" class="level2">
+<h2 class="anchored" data-anchor-id="usando-o-template-de-lego">Usando o template de Lego</h2>
+<p>Para usar o <em>template</em> de Lego em listas de exercícios ou trabalhos, basta abrir o arquivo <code>documento.qmd</code> de dentro <a href="https://rstudio.com/products/rstudio/download/">RStudio</a>, editar seu conteúdo como quiser e clicar no botão <code>Render</code>. O arquivo <code>documento.pdf</code> será gerado.</p>
+<p>Também é possível compilar o arquivo executando o seguinte código em <code>R</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>quarto<span class="sc">::</span><span class="fu">render</span>(<span class="st">"documento.qmd"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="dicas-de-uso" class="level3">
+<h3 class="anchored" data-anchor-id="dicas-de-uso">Dicas de uso</h3>
+<section id="markdown" class="level4">
+<h4 class="anchored" data-anchor-id="markdown">Markdown</h4>
+<p>Títulos e sub-títulos são definidos com <code>#</code> e <code>##</code>, respectivamente. Por exemplo, <code># Título</code> gera um título, e <code>## Sub-título</code> gera um sub-título. Para criar uma lista, use <code>-</code> ou <code>*</code> no início de cada item. Exemplo:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Item 1</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Item 2</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Para criar um parágrafo, basta deixar uma linha em branco entre os parágrafos. Para criar uma citação, use <code>&gt;</code>. Exemplo:</p>
+<blockquote class="blockquote">
+<p>Citação qualquer…</p>
+</blockquote>
+<p>Para destacar um texto com itálito, use <code>*texto*</code>; para negrito, use <code>**texto**</code>; e para negrito e itálico, use <code>***texto***</code>. Finalmente, links podem ser criados com <code>[texto](url)</code>.</p>
+</section>
+<section id="código-em-r" class="level4">
+<h4 class="anchored" data-anchor-id="código-em-r">Código em R</h4>
+<p>Podemos inserir código bruto em <code>R</code> e o <em>template</em> o compilará e o exibirá no documento final. Por exemplo, o código abaixo gerará um gráfico:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Para inserir código, bastar usar três crases seguidas de <code>r</code>, e depois do código três crases novamente. Exemplo:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>```{r}</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plot(x, y)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>```</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="citações" class="level4">
+<h4 class="anchored" data-anchor-id="citações">Citações</h4>
 <ul>
-<li><a href="https://r4ds.had.co.nz/">R for Data Science</a> - Garrett Grolemund e Hadley Wickham</li>
-<li><a href="https://rstudio-education.github.io/hopr/">Hands on Programming with R</a> - Garrett Grolemund</li>
-<li><a href="https://rc2e.com/">R Cookbook</a> - James Long e Paul Teetor</li>
+<li>Para inserir uma citação, use <code>@</code> seguido do nome do código da referência como definido no arquivo <code>referencias.bib</code>. Por exemplo, <code>@ross2001does</code> citará <span class="citation" data-cites="ross2001does">Ross (<a href="#ref-ross2001does" role="doc-biblioref">2001</a>)</span>, e <code>[@ross2001does]</code> citará <span class="citation" data-cites="ross2001does">(<a href="#ref-ross2001does" role="doc-biblioref">Ross 2001</a>)</span>. Para inserir várias citações, separe elas por <code>;</code>. Por exemplo, <code>[@ross2001does; @cunningham2021causal]</code>.</li>
+</ul>
+</section>
+<section id="notação" class="level4">
+<h4 class="anchored" data-anchor-id="notação">Notação</h4>
+<p>Podemos inserir notação matemática usando <span class="math inline">\(\LaTeX\)</span>. Para inserir um símbolo, use <code>$</code> seguido do código <span class="math inline">\(\LaTeX\)</span> e <code>$</code> novamente. Por exemplo, <code>$\beta$</code> gerará <span class="math inline">\(\beta\)</span>.</p>
+<p>Notações que usaremos bastante no curso:</p>
+<ul>
+<li><span class="math inline">\(\beta\)</span> (beta): <code>$\beta$</code></li>
+<li><span class="math inline">\(\beta_i\)</span> (beta sub i): <code>$\beta_i$</code></li>
+<li><span class="math inline">\(\alpha\)</span> (alfa): <code>$\alpha$</code></li>
+<li><span class="math inline">\(\sim\)</span> (sim): <code>$\sim$</code></li>
+<li><span class="math inline">\(\hat{\beta}\)</span> (beta chapéu): <code>$\hat{\beta}$</code></li>
+<li><span class="math inline">\(\sum_{i=1}^n\)</span> (somatório): <code>$\sum_{i=1}^n$</code></li>
+<li><span class="math inline">\(\mathbb{E}[X]\)</span> (valor esperado): <code>$\mathbb{E}[X]$</code></li>
 </ul>
 
 
+
+</section>
+</section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-ross2001does" class="csl-entry" role="listitem">
+Ross, Michael L. 2001. <span>«Does oil hinder democracy?»</span> <em>World politics</em> 53 (3): 325–61.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

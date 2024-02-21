@@ -1,93 +1,65 @@
 [
   {
-    "objectID": "exercicios/exercicios1.html",
-    "href": "exercicios/exercicios1.html",
-    "title": "Exercícios 2",
+    "objectID": "ementa.html",
+    "href": "ementa.html",
+    "title": "Ementa",
     "section": "",
-    "text": "Para esse exercício, será necessário carregar alguns dados climáticos de São Bernardo do Campo (SP):\n\nRPython\n\n\nlink <- \"https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv\"\ndados <- readr::read_csv(link)\n\n\nimport pandas as pd\n\nlink = 'https://raw.githubusercontent.com/jacobwright32/Web_Scraper_AI_Core_Project/bb4865ae568e23ab8fadb6ea58cf117df2164ef3/web%20scraping/Cleaned%20Data/Brazil_Sao%20Bernardo%20Do%20Campo_Cleaned.csv'\ndados = pd.read_csv(link)\n\n\n\n\n\nAnalise a relação entre entre cobertura de nuvens (cloud_coverage) e temperatura máxima (maximum_temperature). Para isso, plote gráficos com a relação bivariada, use coeficiente de correlação ou um modelo linear (OLS). Descreva os resultados que encontrar.\n\n\n\nExiste alguma outra variável na base com maior correção com a temperatura máxima? Novamente, registre os resultados que encontrar.\n\n\n\nCrie um código que faça um gráfico da relação bivariada entre todas as variáveis contínuas na base e os salve em disco. Dica:\n\nRPython\n\n\nlibrary(tidyverse)\n\np <- ggplot()\nggsave(p, file = paste0(\"grafico.png\"))\n\n\nfrom matplotlib import pyplot as plt\nplt.savefig('grafico.png')\n\n\n\n\n\n\nRode modelos lineares simples (por mínimos quadrados ordinários) para predizer a temperatura máxima diária em São Bernardo do Campo (SP). Use as variáveis que quiser, faça transformações nelas se necessário, e reporte alguns resultados do melhor modelo que encontrar.\n\n\n\nSalve as predições do seu modelo treinado no exercício anterior e compare com os valores reais de temperatura máxima (vale usar gráficos)."
+    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 21/02/2024."
   },
   {
-    "objectID": "exercicios/exercicios1.html#a-umidade",
-    "href": "exercicios/exercicios1.html#a-umidade",
-    "title": "Exercícios 2",
-    "section": "a) Umidade",
-    "text": "a) Umidade\nCrie uma função (ou um código) para sortear 1000 observações do banco de dados climáticos, calcular a média de umidade (humidity)."
-  },
-  {
-    "objectID": "exercicios/exercicios1.html#b-histograma",
-    "href": "exercicios/exercicios1.html#b-histograma",
-    "title": "Exercícios 2",
-    "section": "b) Histograma",
-    "text": "b) Histograma\nCom a função criada anteriormente, calcule 1000 médias de amostras de humidity e plote a distribuição como um histograma."
-  },
-  {
-    "objectID": "exercicios/exercicios1.html#c-modelos-lineares",
-    "href": "exercicios/exercicios1.html#c-modelos-lineares",
-    "title": "Exercícios 2",
-    "section": "c) Modelos lineares",
-    "text": "c) Modelos lineares\nModifique a função criada anteriormente para, depois de sortear 1000 observações do banco, rodar um modelo de regressão linear para predizer valores de humidity e extrair o r2 do modelo. Dica:\n\nRPython\n\n\nmodelo <- lm(rnorm(100) ~ rnorm(100))\nsummary(modelo)$r.squared\n\n\nfrom matplotlib import pyplot as plt\nplt.savefig('grafico.png')"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Lego I",
+    "objectID": "template.html",
+    "href": "template.html",
+    "title": "Template",
     "section": "",
-    "text": "Este é website com materias da disciplina de Lego I, ministrada pelo Programa de Pós-Graduação de Ciência Política do Instituto de Estudos Sociais e Políticos e Universidade do Estado do Rio de Janeiro (IESP-UERJ). A ementa do curso pode ser encontrada aqui."
+    "text": "Neste curso, usaremos um template em quarto para realizar listas de exercícios e trabalho final. Diferentemente de um arquivo de Word, este template pode ser editado em qualquer editor de texto usando Markdown; e ele também dispensa termos de usar normas da ABNT; de inserir bibligrafia manualmente; ou de ter de copiar e colar resultados de análises feitas no R. Usando ele, em outras palavras, podemos nos concentrar apenas em escrever e analisar dados."
   },
   {
-    "objectID": "index.html#cronograma",
-    "href": "index.html#cronograma",
-    "title": "Lego I",
-    "section": "Cronograma",
-    "text": "Cronograma\n\n\n\n\n\n\nAviso\n\n\n\nEste é um cronograma inicial sujeito a modificações\n\n\n\n\n\nAula\nData\nTópico\n\n\n\n\n1\n17/08\nNivelamento I\n\n\n2\n-\nNivelamento II\n\n\n3\n-\nNivelamento III"
-  },
-  {
-    "objectID": "materiais/aula1.html",
-    "href": "materiais/aula1.html",
-    "title": "Aula 1",
+    "objectID": "template.html#template-de-lego-i",
+    "href": "template.html#template-de-lego-i",
+    "title": "Template",
     "section": "",
-    "text": "…"
+    "text": "Neste curso, usaremos um template em quarto para realizar listas de exercícios e trabalho final. Diferentemente de um arquivo de Word, este template pode ser editado em qualquer editor de texto usando Markdown; e ele também dispensa termos de usar normas da ABNT; de inserir bibligrafia manualmente; ou de ter de copiar e colar resultados de análises feitas no R. Usando ele, em outras palavras, podemos nos concentrar apenas em escrever e analisar dados."
   },
   {
-    "objectID": "materiais/nivelamento1.html",
-    "href": "materiais/nivelamento1.html",
-    "title": "Nivelamento I",
-    "section": "",
-    "text": "Em vez de explicar o que é o R, é melhor começar por entender o ele faz. Aqui vão alguns exemplos:\n\nCarregar e manipular bases de dados\nEstimar modelos estatísticos\nCriar gráficos, até mesmo interativos\nCriar websites e dezenas de tipos de documentos\nExtrair dados de redes sociais ou de websites\n\nFormalmente, o R é um ambiente de programação e é por isso que é possível fazer tanto com ele. Adiante, veremos mais detidamente o que tudo isso significa, mas, por hora, o importante a gravar é isso: o R é muito mais do que um software estatístico como o Excel ou o SPSS."
+    "objectID": "template.html#download",
+    "href": "template.html#download",
+    "title": "Template",
+    "section": "Download",
+    "text": "Download\nO template pode ser baixado daqui ou deste repositório do GitHub. Extraia os arquivos para uma pasta da sua preferência. Para abrir o template no RStudio, abra o arquivo template_quarto.Rproj. Se tudo funcionar, seu projeto será aberto e você deverá ver algo mais ou menos assim:\n\n\n\nTemplate de Lego no RStudio"
   },
   {
-    "objectID": "materiais/nivelamento1.html#r-na-nuvem",
-    "href": "materiais/nivelamento1.html#r-na-nuvem",
-    "title": "Nivelamento I",
-    "section": "R na nuvem",
-    "text": "R na nuvem\nNão é necessário instalar o R para começar a usá-lo. Há uma alternativa mais fácil que nos poupar tempo: ir diretamente para o site rstudio.cloud e criar uma conta, o que nos dará acesso a uma instalação do R (e do RStudio, uma interface mais amigável para o R) diretamente do nosso navegador. Um passo a passo:\n\nEntre no site rstudio.cloud e crie uma conta no plano Free;\nFaça login na sua conta e entre em Posit cloud\nClique em New project e, depois, em New RStudio project\nPronto, se tudo der certo, você estará com o RStudio aberto e com uma instalação do R pronta para ser usada como mostra a Figura 1 a seguir  \n\n\n\n\n\nFigura 1: RStudio Cloud"
+    "objectID": "template.html#instalação",
+    "href": "template.html#instalação",
+    "title": "Template",
+    "section": "Instalação",
+    "text": "Instalação\nPara usar o template, é necessário ter o R e o quarto instalados, o que podemos fazer seguindo três passos simples.\n\n1) Instalando o quarto\nPara instalar especificamente o quarto, busque a versão adequada para o seu sistema operacional em:\n\nhttps://quarto.org/docs/get-started/\n\n\n\n2) Instalando o tinytex e LaTex\nFeito isso, precisamos instalar o tinytex, que é uma distribuição \\(\\LaTeX\\) leve e fácil de instalar, rodando o seguinte código diretamente do R:\ninstall.packages(\"tinytex\")\ntinytex::install_tinytex()\n\n\n3) Instalando o quarto para R\nCom a etapa anterior concluída, instale o pacote quarto para R com:\ninstall.packages(\"quarto\")"
   },
   {
-    "objectID": "materiais/nivelamento1.html#usando-o-rstudio",
-    "href": "materiais/nivelamento1.html#usando-o-rstudio",
-    "title": "Nivelamento I",
-    "section": "Usando o RStudio",
-    "text": "Usando o RStudio\nA imagem abaixo resume o principal sobre o RStudio. Como dá para ver, cada painel tem uma utilidade, e iremos explorar algumas delas nesta aula.\n\n\n\n\nFigura 2: Identificando o console e o botação para criar scripts\n\n\n\nA primeira coisa que vamos usar é o console – que nada mais é do que uma caixa de texto onde podemos escrever e executar códigos indicada na Figura 2 . Experimente digitar, por exemplo, 2 ali.\n\n2\n\n[1] 2\n\n\nO R reproduzirá o 2 digitado seguido de # e [], geralmente com algum número dentro. No primeiro caso, # indica um comentário: tudo o que vem sucedido de # o R não executará.\n\n# Isto é um comentário\n\n# O 2, abaixo, não é um comentário\n2\n\n[1] 2\n\n\nO R também serve como calculadora: basta usar operadores matemáticos e números. Aqui vão alguns exemplos (tente outros).\n\n2 + 2 # adição\n\n[1] 4\n\n2 - 2 # subtração\n\n[1] 0\n\n2 / 2 # divisão\n\n[1] 1\n\n2 * 2 # multiplicação\n\n[1] 4\n\n\nMais útil do que digitar código diretamente no console é salvá-lo em scripts – pequenos documentos de texto que nos permitem salvar, documentar e reutilizar um mesmo código várias e várias vezes.\nPara criar um script, clique no botão com um símbolo de adição em verde (indicado na Figura 2) e, em seguida, clique na primeira opção, R Script. Você verá um painel novo onde é possível escrever seus códigos. Para salvar o arquivo, clique no ícone de disquete (ou use Ctrl/Command + S), coloque um nome para o arquivo (como meu_script) e o salve. Isso feito, o novo script deverá aparecer no painel de arquivos do RStudio como na Figura 3:\n\n\n\n\nFigura 3: Salvando um script\n\n\n\nPara rodar códigos a partir de um script, basta colocar o cursor na linha onde está o código que você quer executar e acionar Ctrl/Command + Enter."
-  },
-  {
-    "objectID": "materiais/nivelamento1.html#pacotes-e-funções",
-    "href": "materiais/nivelamento1.html#pacotes-e-funções",
-    "title": "Nivelamento I",
-    "section": "Pacotes e funções",
-    "text": "Pacotes e funções\nPara termos mais funcionalidades, como a de fazer gráficos ou a de carregar dados a partir arquivos, é útil instalar alguns pacotes. Estes nada mais são do que coleções de funções que, uma vez instalados e carregados, nos dão mais recursos.\nUm primeiro pacote útil para instalar é o tidyverse, que é um mega-pacote que contém vários outros cujo objetivo é facilitar a análise de dados e que segue uma filosofia comum (os tidy principles). Para instalar um pacote, basta rodar no console:\n\ninstall.packages(\"tidyverse\")\n\nDepois disso, você verá no console uma série de mensagens em vermelho ou outra cor, o que é normal. Assim que isso cessar, é possível carregar as funções do tidyverse usando a função library (adicione a seguinte linha no seu script:\n\nlibrary(tidyverse)\n\n── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──\n✔ ggplot2 3.4.1     ✔ purrr   1.0.1\n✔ tibble  3.1.8     ✔ dplyr   1.1.0\n✔ tidyr   1.3.0     ✔ stringr 1.5.0\n✔ readr   2.1.4     ✔ forcats 1.0.0\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n\n\nUma série de mensagens novamente vai aparecer indicando quais pacotes que compõem o tidyverse foram carregados."
-  },
-  {
-    "objectID": "materiais/nivelamento1.html#explorando-dados",
-    "href": "materiais/nivelamento1.html#explorando-dados",
-    "title": "Nivelamento I",
-    "section": "Explorando dados",
-    "text": "Explorando dados"
+    "objectID": "template.html#usando-o-template-de-lego",
+    "href": "template.html#usando-o-template-de-lego",
+    "title": "Template",
+    "section": "Usando o template de Lego",
+    "text": "Usando o template de Lego\nPara usar o template de Lego em listas de exercícios ou trabalhos, basta abrir o arquivo documento.qmd de dentro RStudio, editar seu conteúdo como quiser e clicar no botão Render. O arquivo documento.pdf será gerado.\nTambém é possível compilar o arquivo executando o seguinte código em R:\nquarto::render(\"documento.qmd\")\n\nDicas de uso\n\nMarkdown\nTítulos e sub-títulos são definidos com # e ##, respectivamente. Por exemplo, # Título gera um título, e ## Sub-título gera um sub-título. Para criar uma lista, use - ou * no início de cada item. Exemplo:\n- Item 1\n- Item 2\nPara criar um parágrafo, basta deixar uma linha em branco entre os parágrafos. Para criar uma citação, use &gt;. Exemplo:\n\nCitação qualquer…\n\nPara destacar um texto com itálito, use *texto*; para negrito, use **texto**; e para negrito e itálico, use ***texto***. Finalmente, links podem ser criados com [texto](url).\n\n\nCódigo em R\nPodemos inserir código bruto em R e o template o compilará e o exibirá no documento final. Por exemplo, o código abaixo gerará um gráfico:\nx &lt;- 1:10\ny &lt;- x^2\nplot(x, y)\nPara inserir código, bastar usar três crases seguidas de r, e depois do código três crases novamente. Exemplo:\n```{r}\nplot(x, y)\n```\n\n\nCitações\n\nPara inserir uma citação, use @ seguido do nome do código da referência como definido no arquivo referencias.bib. Por exemplo, @ross2001does citará Ross (2001), e [@ross2001does] citará (Ross 2001). Para inserir várias citações, separe elas por ;. Por exemplo, [@ross2001does; @cunningham2021causal].\n\n\n\nNotação\nPodemos inserir notação matemática usando \\(\\LaTeX\\). Para inserir um símbolo, use $ seguido do código \\(\\LaTeX\\) e $ novamente. Por exemplo, $\\beta$ gerará \\(\\beta\\).\nNotações que usaremos bastante no curso:\n\n\\(\\beta\\) (beta): $\\beta$\n\\(\\beta_i\\) (beta sub i): $\\beta_i$\n\\(\\alpha\\) (alfa): $\\alpha$\n\\(\\sim\\) (sim): $\\sim$\n\\(\\hat{\\beta}\\) (beta chapéu): $\\hat{\\beta}$\n\\(\\sum_{i=1}^n\\) (somatório): $\\sum_{i=1}^n$\n\\(\\mathbb{E}[X]\\) (valor esperado): $\\mathbb{E}[X]$"
   },
   {
     "objectID": "recursos.html",
     "href": "recursos.html",
     "title": "Recursos",
     "section": "",
-    "text": "Lista de recursos úteis para aprender R."
+    "text": "Esta página contém algumas indicações de materiais úteis para quem está começando a aprender R e estatística. Para contemplar diferentes tipos de aprendizagem, há tanto indicação de conteúdos interativos como, também, de livros; blogs; vídeos; e podcasts. A lista não é exaustiva e provavelmente será atualizada ao longo do curso.\n\nBlogs e sites\n\nR Weekly - Newsletter semanal com os principais acontecimentos da comunidade R e vários links para tutoriais, pacotes, etc.\nR-bloggers - Agregador de blogs sobre R (há coisas em português também)\n\n\n\nLivros\nLivros indicados para quem quer nunca viu R e quer ter um contato mais aprofundado com o ambiente de programação:\n\nR for Data Science - Garrett Grolemund e Hadley Wickham\nHands on Programming with R - Garrett Grolemund\nR Cookbook - James Long e Paul Teetor"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Lego I",
+    "section": "",
+    "text": "Este é o website da disciplina de Lego I do IESP-UERJ contendo recursos e outras informações úteis para o andamento do curso.\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n26/2\nAula 1 – Introdução ao R\n\n\n27/2\nAula 2 – Importação de dados\n\n\n28/2\nAula 3 – Manipulação de dados\n\n\n29/2\nAula 4 – Visualização de dados\n\n\n1/3\nAula 5 – Estatísticas descritivas e regressão\n\n\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n6/3\nSem aula\n\n\n13/3\nAula 1 – Fundamentos da pesquisa quantitativa\n\n\n20/3\nAula 2 – Desenho de pesquisa e mensuração\n\n\n27/3\nAula 3 – Visualização de dados\n\n\n3/4\nAula 4 – Manipulação de dados\n\n\n10/4\nAula 5 – Importação e combinação de bases de dados\n\n\n17/4\nAula 6 – Indicadores e estatísticas descritivas"
+  },
+  {
+    "objectID": "index.html#sobre",
+    "href": "index.html#sobre",
+    "title": "Lego I",
+    "section": "",
+    "text": "Este é o website da disciplina de Lego I do IESP-UERJ contendo recursos e outras informações úteis para o andamento do curso.\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n26/2\nAula 1 – Introdução ao R\n\n\n27/2\nAula 2 – Importação de dados\n\n\n28/2\nAula 3 – Manipulação de dados\n\n\n29/2\nAula 4 – Visualização de dados\n\n\n1/3\nAula 5 – Estatísticas descritivas e regressão\n\n\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n6/3\nSem aula\n\n\n13/3\nAula 1 – Fundamentos da pesquisa quantitativa\n\n\n20/3\nAula 2 – Desenho de pesquisa e mensuração\n\n\n27/3\nAula 3 – Visualização de dados\n\n\n3/4\nAula 4 – Manipulação de dados\n\n\n10/4\nAula 5 – Importação e combinação de bases de dados\n\n\n17/4\nAula 6 – Indicadores e estatísticas descritivas"
   }
 ]

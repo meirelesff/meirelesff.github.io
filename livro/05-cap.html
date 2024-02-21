@@ -1,0 +1,2813 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Usando R - 5&nbsp; Análise</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./referencias.html" rel="next">
+<link href="./04-cap.html" rel="prev">
+<link href="./icon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Usando R - 5&nbsp; Análise">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://electionsbr.com/livro/data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iLTAuMTkiIHk9IjcuNDQiIHdpZHRoPSI3LjUyIiBoZWlnaHQ9IjQuMjIiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iNy4zMyIgeT0iNS4zMyIgd2lkdGg9IjcuNTIiIGhlaWdodD0iNi4zMyIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIxNC44NSIgeT0iNS4zMyIgd2lkdGg9IjcuNTIiIGhlaWdodD0iNi4zMyIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIyMi4zNyIgeT0iMy4yMiIgd2lkdGg9IjcuNTIiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIyOS44OSIgeT0iOS41NSIgd2lkdGg9IjcuNTIiIGhlaWdodD0iMi4xMSIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIzNy40MSIgeT0iMTEuNjYiIHdpZHRoPSI3LjUyIiBoZWlnaHQ9IjAuMDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iNDQuOTMiIHk9IjkuNTUiIHdpZHRoPSI3LjUyIiBoZWlnaHQ9IjIuMTEiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PC9nPjwvc3ZnPg==">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-cap.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Análise</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Usando R</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="./Usando-R.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo de leitor">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Básico</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importação</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipulação</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Visualização</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-cap.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Análise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#estatísticas-descritivas" id="toc-estatísticas-descritivas" class="nav-link active" data-scroll-target="#estatísticas-descritivas"><span class="header-section-number">5.1</span> Estatísticas descritivas</a>
+  <ul class="collapse">
+  <li><a href="#calculando-múltiplas-estatísticas-descritivas" id="toc-calculando-múltiplas-estatísticas-descritivas" class="nav-link" data-scroll-target="#calculando-múltiplas-estatísticas-descritivas"><span class="header-section-number">5.1.1</span> Calculando múltiplas estatísticas descritivas</a></li>
+  <li><a href="#estatísticas-descritivas-por-grupo" id="toc-estatísticas-descritivas-por-grupo" class="nav-link" data-scroll-target="#estatísticas-descritivas-por-grupo"><span class="header-section-number">5.1.2</span> Estatísticas descritivas por grupo</a></li>
+  <li><a href="#transformando-tabelas-de-estatísticas-descritivas" id="toc-transformando-tabelas-de-estatísticas-descritivas" class="nav-link" data-scroll-target="#transformando-tabelas-de-estatísticas-descritivas"><span class="header-section-number">5.1.3</span> Transformando tabelas de estatísticas descritivas</a></li>
+  <li><a href="#exportando-resultados" id="toc-exportando-resultados" class="nav-link" data-scroll-target="#exportando-resultados"><span class="header-section-number">5.1.4</span> Exportando resultados</a></li>
+  <li><a href="#criando-tabelas-automaticamente-com-modelsummary" id="toc-criando-tabelas-automaticamente-com-modelsummary" class="nav-link" data-scroll-target="#criando-tabelas-automaticamente-com-modelsummary"><span class="header-section-number">5.1.5</span> Criando tabelas automaticamente com <code>modelsummary</code></a></li>
+  </ul></li>
+  <li><a href="#modelos-de-regressão-linear-simples" id="toc-modelos-de-regressão-linear-simples" class="nav-link" data-scroll-target="#modelos-de-regressão-linear-simples"><span class="header-section-number">5.2</span> Modelos de regressão linear simples</a>
+  <ul class="collapse">
+  <li><a href="#mínimos-quadrados-ordinários" id="toc-mínimos-quadrados-ordinários" class="nav-link" data-scroll-target="#mínimos-quadrados-ordinários"><span class="header-section-number">5.2.1</span> Mínimos quadrados ordinários</a></li>
+  <li><a href="#modelo-linear-simples" id="toc-modelo-linear-simples" class="nav-link" data-scroll-target="#modelo-linear-simples"><span class="header-section-number">5.2.2</span> Modelo linear simples</a></li>
+  <li><a href="#reportando-resultados-de-modelos" id="toc-reportando-resultados-de-modelos" class="nav-link" data-scroll-target="#reportando-resultados-de-modelos"><span class="header-section-number">5.2.3</span> Reportando resultados de modelos</a></li>
+  </ul></li>
+  <li><a href="#resumo-do-capítulo" id="toc-resumo-do-capítulo" class="nav-link" data-scroll-target="#resumo-do-capítulo"><span class="header-section-number">5.3</span> Resumo do capítulo</a></li>
+  <li><a href="#indo-além" id="toc-indo-além" class="nav-link" data-scroll-target="#indo-além"><span class="header-section-number">5.4</span> Indo além</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap5" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Análise</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Depois de carregar, manipular e visualizar as informações de uma base de dados, temos uma boa noção do que ela nos tem a dizer: sabemos quais são as suas variáveis, como se distribuem e como se relacionam. Em pesquisas acadêmicas, entretanto, isso raramente basta. Frequentemente, precisamos quantificar as características de nossos dados e testar hipóteses sobre as relações entre as variáveis observadas. Produzir esses resumos quantitativos usando R é o que cobriremos neste capítulo final.</p>
+<p>Começaremos o nosso percurso passando brevemente pelo básico sobre estatísticas descritivas, isto é, medidas numéricas que servem para resumir as características de uma variável. Em seguida, veremos como estimar modelos de regressão linear simples em R para testar hipóteses sobre a relação entre duas variáveis. Por fim, mostraremos algumas ferramentas que facilitam a exibição e exportação dessas e de outras análises. Seguindo nossa abordagem geral, focaremos no uso de prático de algumas poucas ferramentas que, por serem versáteis, podem ser usadas em uma grande variedade de projetos de análise de dados.</p>
+<p>Antes de avançar, certifique-se de ter os pacotes e bases de dados necessários. Para criar e exportar tabelas em formato adequado para publicações, usaremos os pacotes <code>gt</code> e <code>modelsummary</code>, que podem ser instalados com o seguinte código:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"modelsummary"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"gt"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para carregar os pacotes que usaremos, basta executar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Como forma de aplicar os conceitos que veremos neste capítulo, usaremos uma pequena base de dados que contém os votos válidos e o percentual de gastos de campanha de candidaturas aos governos estaduais em 2022 no primeiro turno em alguns estados específicos (GO, MG, RJ e PR). Esta base está disponível no repositório de dados deste livro em formato delimitado por ponto e vírgula (<code>governadores.csv</code>). Para carregá-la, podemos usar a função <code>read_csv2()</code> do pacote:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>gov <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"governadores.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Executado o código, a base carregada salva no objeto <code>gov</code> tem 14 linhas com as seguintes variáveis:</p>
+<ul>
+<li><code>uf</code>: unidade da federação;</li>
+<li><code>candidatura</code>: nome da(o) candidata(o);</li>
+<li><code>partido</code>: partido da candidatura;</li>
+<li><code>pct_gastos</code>: percentual gasto na campanha da candidatura em relação às demais candidaturas;</li>
+<li><code>pct_votos</code>: percentual de votos válidos no 1º turno da eleição para governo do estado.</li>
+</ul>
+<section id="estatísticas-descritivas" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="estatísticas-descritivas"><span class="header-section-number">5.1</span> Estatísticas descritivas</h2>
+<p>Como vimos no capítulo anterior, uma das primeiras coisas que fazemos ao analisar um conjunto de dados é inspecionar suas características, o que pode ser feito por meio de gráficos. Há um problema, no entanto: gráficos não nos oferecem descrições precisas das características de uma variável – o que normalmente é demandado em publicações acadêmicas. Embora gráficos sejam ferramentas essenciais em qualquer projeto, saber como resumir as características de uma variável de forma precisa é um complemento necessário.</p>
+<p>A chave para descrever de forma precisa nossas variáveis é usarmos algumas medidas numéricas que resumam a distribuição dos valores que elas assumem. Pense, por exemplo, em uma variável que meça a altura de um grupo de pessoas. Os valores dessa variável poderiam ser estes:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-pessoas" class="anchored">
+<table class="table table-striped table-hover table-sm small" data-quarto-postprocess="true" data-tbl-colwidths="[40,60]">
+<caption>Tabela&nbsp;5.1: Altura fictícia de 6 pessoas (em metros)</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Pessoa</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Altura (metros)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.60</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1.70</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1.80</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1.85</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1.90</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<p>Uma forma de descrever essa informação seria, naturalmente, listar cada uma das alturas individuais, isto é, dizer que a pessoa 1 tem 1,60, a 2 tem 1,70, e assim por diante. Caso tenhamos muitas observações, contudo, a descrição deixa de fazer sentido e, no lugar, precisamos de algo mais sintético. Um exemplo? Note que a altura máxima que vimos acima é 1.9 e a mínima é 1.6. Essas duas medidas já nos dão uma ideia geral de que todas as informações estão contidas entre estes limites mínimo e máximo. Mais, podemos calcular a média das alturas, que é 1.8, para ter uma ideia de qual é altura “típica” de uma pessoa da turma; e, finalmente, podemos calcular o desvio padrão, que é 0.11, para ter uma ideia do quanto as alturas individuais se distanciam da média. Munido dessas informações, temos uma boa ideia da distribuição das alturas do grupo de pessoas, tenha ele 6 ou 600 integrantes.</p>
+<p>Na Estatística, tais medidas são conhecidas como <em>estatísticas descritivas</em> e são usadas tanto para descrever tendências centrais (e.g., média, mediana, moda) quanto para descrever a dispersão dos valores (e.g., desvio padrão, variância, mínimo, máximo, etc.). A depender do tipo de variável que estamos analisando, algumas dessas medidas são mais adequadas que outras: para variáveis numéricas (i.e., contínuas), por exemplo, a média e o desvio padrão são medidas geralmente são utilizadas; já para variáveis categóricas (e.g., sexo), a moda, isto é, o valor mais frequente, é uma medida útil.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Estatísticas descritivas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Uma <em>estatística descritiva</em> é um número único que condensa uma propriedade de uma variável <span class="citation" data-cites="kellstedt2018fundamentals">(<a href="referencias.html#ref-kellstedt2018fundamentals" role="doc-biblioref">Kellstedt e Whitten 2018, cap. 6</a>)</span>. Estatísticas descritivas comuns incluem a média, a mediana, a moda, o desvio padrão, a variância, o valor mínimo, o valor máximo, entre outros.</p>
+</div>
+</div>
+<p>Em R, podemos calcular essas e outras estatísticas descritivas usando funções específicas. Para exemplificar, vamos calcular algumas estatísticas descritivas para a variável <code>pct_gastos</code> da base <code>gov</code>. Para calcular a média, que já vimos no <a href="03-cap.html"><span>Capítulo&nbsp;3</span></a>, usamos a função <code>mean()</code>:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(gov<span class="sc">$</span>pct_gastos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 27.10714</code></pre>
+</div>
+</div>
+<p>Outras estatísticas descritivas podem ser calculadas de forma similar. Seguem algumas das mais comuns:</p>
+<ul>
+<li><code>median()</code>: mediana, que é o valor que divide a distribuição em duas partes iguais;</li>
+<li><code>var()</code>: variância, que é a média dos quadrados dos desvios em relação à média;</li>
+<li><code>sd()</code>: desvio padrão, que é a raiz quadrada da variância;</li>
+<li><code>min()</code>: mínimo;</li>
+<li><code>max()</code>: máximo;</li>
+<li><code>range()</code>: intervalo, que é a diferença entre o máximo e o mínimo;</li>
+</ul>
+<p>Por exemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(gov<span class="sc">$</span>pct_gastos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 27.84</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(gov<span class="sc">$</span>pct_gastos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 15.68703</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(gov<span class="sc">$</span>pct_gastos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.62</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(gov<span class="sc">$</span>pct_gastos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 61.72</code></pre>
+</div>
+</div>
+<p>Com esse conjunto de estatísticas calculadas, já temos uma boa ideia da distribuição da variável <code>pct_gastos</code> da base <code>gov</code>. Para termos uma ideia mais completa, podemos usar a função <code>summary()</code>, que calcula várias estatísticas descritivas de uma variável de uma só vez:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gov<span class="sc">$</span>pct_gastos)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   2.62   16.25   27.84   27.11   36.35   61.72 </code></pre>
+</div>
+</div>
+<p>Os números anteriores formam uma espécie de retrato: média e mediana indicam que o centro da distribuição está em torno de 27, isto é, candidaturas típicas tendem a gastar em torno desse valor percentual; valores mínimo e máximo são de 2.62 e 61.72, respectivamente, o que nos mostra os limites de gastos registrados nos nossos dados; e, finalmente, os primeiro e terceiro quantis mostram que a maioria dos gastos percentuais registrados na nossa base está situada entre os valores de 16.245 e 36.355.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Quantis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><em>Quantis</em>, ou <em>quartis</em>, são estatísticas descritivas que dividem uma distribuição em quatro partes. O <em>primeiro quartil</em>, às vezes chamado de Q1, divide todos os valores de uma variável em duas partes iguais, sendo que 25% dos valores estão abaixo dele e, 75%, acima; Q3, por sua vez, é o valor que divide a distribuição com 75% dos valores abaixo dele e 25% acima; e, finalmente, o Q2 é a mediana, que divide a distribuição com 50% dos valores acima, e 50% abaixo, dela.</p>
+</div>
+</div>
+<section id="calculando-múltiplas-estatísticas-descritivas" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="calculando-múltiplas-estatísticas-descritivas"><span class="header-section-number">5.1.1</span> Calculando múltiplas estatísticas descritivas</h3>
+<p>Calcular várias estatísticas de uma só vez é algo normal em pesquisas. Por exemplo, suponha que queremos calcular a média e o desvio padrão das variáveis <code>pct_gastos</code> e <code>pct_votos</code> da base <code>gov</code>. Para tanto, podemos usar a função <code>summarise()</code> do pacote <code>dplyr</code>, que já vimos no <a href="03-cap.html"><span>Capítulo&nbsp;3</span></a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>gov <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">media_gastos =</span> <span class="fu">mean</span>(pct_gastos),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">desvio_gastos =</span> <span class="fu">sd</span>(pct_gastos),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">media_votos =</span> <span class="fu">mean</span>(pct_votos),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">desvio_votos =</span> <span class="fu">sd</span>(pct_votos))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  media_gastos desvio_gastos media_votos desvio_votos
+         &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+1         27.1          15.7        28.2         22.8</code></pre>
+</div>
+</div>
+</section>
+<section id="estatísticas-descritivas-por-grupo" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="estatísticas-descritivas-por-grupo"><span class="header-section-number">5.1.2</span> Estatísticas descritivas por grupo</h3>
+<p>Outra tarefa comum é calcular estatísticas descritivas de uma variável para grupos específicos. Imagine, por exemplo, que queremos calcular a média e desvio padrão das variáveis <code>pct_gastos</code> e <code>pct_votos</code> para cada um dos três estados incluídos na base <code>gov</code>. Como fazemos isso? Simples: por meio das funções <code>group_by()</code> e <code>summarise()</code> do pacote <code>dplyr</code>, que já vimos no <a href="03-cap.html"><span>Capítulo&nbsp;3</span></a>. Depois de agruparmos a base por <code>uf</code>, calculamos as estatísticas para cada grupo com <code>summarise</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>gov <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(uf) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">media_gastos =</span> <span class="fu">mean</span>(pct_gastos),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">desvio_gastos =</span> <span class="fu">sd</span>(pct_gastos),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">media_votos =</span> <span class="fu">mean</span>(pct_votos),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">desvio_votos =</span> <span class="fu">sd</span>(pct_votos))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  uf    media_gastos desvio_gastos media_votos desvio_votos
+  &lt;chr&gt;        &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+1 GO            24.6          14.6        24.7         19.6
+2 MG            28.9          11.6        32.8         24.6
+3 PR            31.7          26.0        32.6         34.2
+4 RJ            24.8          16.5        24.8         24.6</code></pre>
+</div>
+</div>
+<p>Note que a principal diferença aqui foi o uso de <code>group_by(uf)</code> para dizer ao R que operações de resumo deveriam ser feitas para cada um dos grupos definidos pela variável <code>uf</code>.</p>
+</section>
+<section id="transformando-tabelas-de-estatísticas-descritivas" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="transformando-tabelas-de-estatísticas-descritivas"><span class="header-section-number">5.1.3</span> Transformando tabelas de estatísticas descritivas</h3>
+<p>Quando calculamos estatísticas descritivas para grupos, o resultado é uma tabela com uma linha para cada grupo e uma coluna para cada estatística calculada. Se quisermos alterar essa disposição de informações, podemos usar os princípios <em>tidy</em> que vimos no <a href="03-cap.html"><span>Capítulo&nbsp;3</span></a>. Por exemplo, para obtermos uma tabela com uma linha para cada estatística calculada e uma coluna para cada grupo, podemos usar as funções <code>pivot_longer()</code> e <code>pivot_wider()</code> do pacote <code>tidyr</code> em duas etapas. Primeiro, usamos <code>pivot_longer()</code> para alongar as colunas com estatísticas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tab_longa <span class="ot">&lt;-</span> gov <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(uf) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">media_gastos =</span> <span class="fu">mean</span>(pct_gastos),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">desvio_gastos =</span> <span class="fu">sd</span>(pct_gastos),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">media_votos =</span> <span class="fu">mean</span>(pct_votos),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">desvio_votos =</span> <span class="fu">sd</span>(pct_votos)) <span class="sc">|&gt;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>uf, <span class="at">names_to =</span> <span class="st">"estatistica"</span>, <span class="at">values_to =</span> <span class="st">"valor"</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>tab_longa</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 3
+   uf    estatistica   valor
+   &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;
+ 1 GO    media_gastos   24.6
+ 2 GO    desvio_gastos  14.6
+ 3 GO    media_votos    24.7
+ 4 GO    desvio_votos   19.6
+ 5 MG    media_gastos   28.9
+ 6 MG    desvio_gastos  11.6
+ 7 MG    media_votos    32.8
+ 8 MG    desvio_votos   24.6
+ 9 PR    media_gastos   31.7
+10 PR    desvio_gastos  26.0
+11 PR    media_votos    32.6
+12 PR    desvio_votos   34.2
+13 RJ    media_gastos   24.8
+14 RJ    desvio_gastos  16.5
+15 RJ    media_votos    24.8
+16 RJ    desvio_votos   24.6</code></pre>
+</div>
+</div>
+<p>Tudo o que fizemos aqui foi indicar que queremos manter a coluna <code>uf</code> e alongar as demais (<code>cols = -uf</code>) para que cada uma delas vire uma linha (<code>names_to = "estatistica"</code>) e que seus valores sejam posicionados em uma nova coluna (<code>values_to = "valor"</code>). Isso feito, podemos usar <code>pivot_wider()</code> para transformar a coluna <code>uf</code> em múltiplas colunas, uma para cada estado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>tab_final <span class="ot">&lt;-</span> tab_longa <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> uf, <span class="at">values_from =</span> valor)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>tab_final</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 5
+  estatistica      GO    MG    PR    RJ
+  &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 media_gastos   24.6  28.9  31.7  24.8
+2 desvio_gastos  14.6  11.6  26.0  16.5
+3 media_votos    24.7  32.8  32.6  24.8
+4 desvio_votos   19.6  24.6  34.2  24.6</code></pre>
+</div>
+</div>
+<p>Nem sempre é intuitivo saber quando usar <code>pivot_longer()</code> e <code>pivot_wider()</code>, e em qual ordem, mas, com um pouco de prática, é fácil pegar os padrões mais recorrentes de transformação de acordo com os princípios <em>tidy</em> – caso queira praticar mais um pouco, os exercícios do <a href="03-cap.html"><span>Capítulo&nbsp;3</span></a> são um bom lugar para começar.</p>
+</section>
+<section id="exportando-resultados" class="level3" data-number="5.1.4">
+<h3 data-number="5.1.4" class="anchored" data-anchor-id="exportando-resultados"><span class="header-section-number">5.1.4</span> Exportando resultados</h3>
+<p>Uma vez calculadas algumas estatísticas descritivas, a sequência natural é exportá-las para um arquivo de texto ou planilha para uso posterior. Uma forma fácil de fazer isso é por meio da função <code>write_csv()</code> do pacote <code>readr</code>, que já vimos no <a href="02-cap.html"><span>Capítulo&nbsp;2</span></a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tab_final <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_csv</span>(<span class="st">"minha_tabela.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>O ponto negativo dessa abordagem é que, por padrão, a função <code>write_csv()</code> não aplica nenhuma formatação ao resultado. É por essa razão que sugerimos usar o pacote <code>gt</code> – um pacote que facilita a criação modular de tabelas em HTML, LaTeX ou documentos de texto – para salvar estatísticas descritivas. Exportar a tabela anterior com <code>gt</code> é questão de aplicar a função <code>gt()</code>, para criar um objeto <code>gt</code>, e, em seguida, usar a função <code>gtsave()</code> para exportá-lo em formato HTML:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>tab_final <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gtsave</span>(<span class="st">"minha_tabela.html"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Abrindo o arquivo <code>minha_tabela.html</code> em um navegador de internet (clicando no arquivo com o botão direito do <em>mouse</em> e selecionando a opção “Abrir com…”), obtemos o seguinte resultado:</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<div id="nixybxepjc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nixybxepjc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#nixybxepjc thead, #nixybxepjc tbody, #nixybxepjc tfoot, #nixybxepjc tr, #nixybxepjc td, #nixybxepjc th {
+  border-style: none;
+}
+
+#nixybxepjc p {
+  margin: 0;
+  padding: 0;
+}
+
+#nixybxepjc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#nixybxepjc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#nixybxepjc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#nixybxepjc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nixybxepjc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nixybxepjc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nixybxepjc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nixybxepjc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nixybxepjc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#nixybxepjc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#nixybxepjc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nixybxepjc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nixybxepjc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nixybxepjc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nixybxepjc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nixybxepjc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#nixybxepjc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#nixybxepjc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#nixybxepjc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nixybxepjc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#nixybxepjc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nixybxepjc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nixybxepjc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nixybxepjc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nixybxepjc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nixybxepjc .gt_left {
+  text-align: left;
+}
+
+#nixybxepjc .gt_center {
+  text-align: center;
+}
+
+#nixybxepjc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nixybxepjc .gt_font_normal {
+  font-weight: normal;
+}
+
+#nixybxepjc .gt_font_bold {
+  font-weight: bold;
+}
+
+#nixybxepjc .gt_font_italic {
+  font-style: italic;
+}
+
+#nixybxepjc .gt_super {
+  font-size: 65%;
+}
+
+#nixybxepjc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#nixybxepjc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#nixybxepjc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#nixybxepjc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#nixybxepjc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#nixybxepjc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#nixybxepjc .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="estatistica">estatistica</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="GO">GO</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MG">MG</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="PR">PR</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="RJ">RJ</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="estatistica" class="gt_row gt_left">media_gastos</td>
+<td headers="GO" class="gt_row gt_right">24.56250</td>
+<td headers="MG" class="gt_row gt_right">28.87333</td>
+<td headers="PR" class="gt_row gt_right">31.74667</td>
+<td headers="RJ" class="gt_row gt_right">24.84750</td></tr>
+    <tr><td headers="estatistica" class="gt_row gt_left">desvio_gastos</td>
+<td headers="GO" class="gt_row gt_right">14.62260</td>
+<td headers="MG" class="gt_row gt_right">11.61861</td>
+<td headers="PR" class="gt_row gt_right">25.97810</td>
+<td headers="RJ" class="gt_row gt_right">16.50908</td></tr>
+    <tr><td headers="estatistica" class="gt_row gt_left">media_votos</td>
+<td headers="GO" class="gt_row gt_right">24.70000</td>
+<td headers="MG" class="gt_row gt_right">32.83000</td>
+<td headers="PR" class="gt_row gt_right">32.65000</td>
+<td headers="RJ" class="gt_row gt_right">24.85000</td></tr>
+    <tr><td headers="estatistica" class="gt_row gt_left">desvio_votos</td>
+<td headers="GO" class="gt_row gt_right">19.55345</td>
+<td headers="MG" class="gt_row gt_right">24.55244</td>
+<td headers="PR" class="gt_row gt_right">34.23450</td>
+<td headers="RJ" class="gt_row gt_right">24.60989</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+<p>A tabela exportada tem uma boa formatação, ainda que falte ajustar detalhes como o excesso de casas decimais e a ausência de título e fonte. Para esses e outros ajustes finos, o pacote <code>gt</code> oferece uma série de funções auxiliares. Por exemplo, para manter apenas uma casa decimal e adicionar títulos, podemos usar as funções <code>fmt_number()</code>, <code>tab_header()</code> e <code>tab_source_note()</code> da seguinte forma:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tab_final <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fmt_number</span>(<span class="at">decimals =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Estatísticas descritivas de gastos e votos por estado"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_source_note</span>(<span class="at">source_note =</span> <span class="st">"Fonte: TSE."</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div id="cgsaedvixc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cgsaedvixc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#cgsaedvixc thead, #cgsaedvixc tbody, #cgsaedvixc tfoot, #cgsaedvixc tr, #cgsaedvixc td, #cgsaedvixc th {
+  border-style: none;
+}
+
+#cgsaedvixc p {
+  margin: 0;
+  padding: 0;
+}
+
+#cgsaedvixc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#cgsaedvixc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cgsaedvixc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#cgsaedvixc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cgsaedvixc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cgsaedvixc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cgsaedvixc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cgsaedvixc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cgsaedvixc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#cgsaedvixc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#cgsaedvixc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cgsaedvixc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cgsaedvixc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cgsaedvixc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cgsaedvixc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cgsaedvixc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cgsaedvixc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#cgsaedvixc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#cgsaedvixc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cgsaedvixc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cgsaedvixc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cgsaedvixc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cgsaedvixc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cgsaedvixc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cgsaedvixc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cgsaedvixc .gt_left {
+  text-align: left;
+}
+
+#cgsaedvixc .gt_center {
+  text-align: center;
+}
+
+#cgsaedvixc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cgsaedvixc .gt_font_normal {
+  font-weight: normal;
+}
+
+#cgsaedvixc .gt_font_bold {
+  font-weight: bold;
+}
+
+#cgsaedvixc .gt_font_italic {
+  font-style: italic;
+}
+
+#cgsaedvixc .gt_super {
+  font-size: 65%;
+}
+
+#cgsaedvixc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#cgsaedvixc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cgsaedvixc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cgsaedvixc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cgsaedvixc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cgsaedvixc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cgsaedvixc .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="5" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Estatísticas descritivas de gastos e votos por estado</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="estatistica">estatistica</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="GO">GO</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MG">MG</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="PR">PR</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="RJ">RJ</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="estatistica" class="gt_row gt_left">media_gastos</td>
+<td headers="GO" class="gt_row gt_right">24.6</td>
+<td headers="MG" class="gt_row gt_right">28.9</td>
+<td headers="PR" class="gt_row gt_right">31.7</td>
+<td headers="RJ" class="gt_row gt_right">24.8</td></tr>
+    <tr><td headers="estatistica" class="gt_row gt_left">desvio_gastos</td>
+<td headers="GO" class="gt_row gt_right">14.6</td>
+<td headers="MG" class="gt_row gt_right">11.6</td>
+<td headers="PR" class="gt_row gt_right">26.0</td>
+<td headers="RJ" class="gt_row gt_right">16.5</td></tr>
+    <tr><td headers="estatistica" class="gt_row gt_left">media_votos</td>
+<td headers="GO" class="gt_row gt_right">24.7</td>
+<td headers="MG" class="gt_row gt_right">32.8</td>
+<td headers="PR" class="gt_row gt_right">32.6</td>
+<td headers="RJ" class="gt_row gt_right">24.9</td></tr>
+    <tr><td headers="estatistica" class="gt_row gt_left">desvio_votos</td>
+<td headers="GO" class="gt_row gt_right">19.6</td>
+<td headers="MG" class="gt_row gt_right">24.6</td>
+<td headers="PR" class="gt_row gt_right">34.2</td>
+<td headers="RJ" class="gt_row gt_right">24.6</td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="5">Fonte: TSE.</td>
+    </tr>
+  </tfoot>
+  
+</table>
+</div>
+</div>
+</div>
+<p>E, usando um pouco de manipulação de dados, conseguimos renomear a coluna de <code>estatisticas</code> e seus valores para algo mais adequado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>tab_formatada <span class="ot">&lt;-</span> tab_final <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(Estatística <span class="ot">=</span> estatistica) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(Estatística <span class="ot">=</span> <span class="fu">case_when</span>(Estatística <span class="sc">==</span> <span class="st">"media_gastos"</span> <span class="sc">~</span> <span class="st">"Média de gastos"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                                       Estatística <span class="sc">==</span> <span class="st">"desvio_gastos"</span> <span class="sc">~</span> <span class="st">"Desvio de gastos"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                                       Estatística <span class="sc">==</span> <span class="st">"media_votos"</span> <span class="sc">~</span> <span class="st">"Média de votos"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>                                       Estatística <span class="sc">==</span> <span class="st">"desvio_votos"</span> <span class="sc">~</span> <span class="st">"Desvio de votos"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fmt_number</span>(<span class="at">decimals =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="st">"Estatísticas descritivas de gastos e votos por estado"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tab_source_note</span>(<span class="at">source_note =</span> <span class="st">"Fonte: TSE."</span>) </span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>tab_formatada</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div id="xwzewjgktd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xwzewjgktd table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#xwzewjgktd thead, #xwzewjgktd tbody, #xwzewjgktd tfoot, #xwzewjgktd tr, #xwzewjgktd td, #xwzewjgktd th {
+  border-style: none;
+}
+
+#xwzewjgktd p {
+  margin: 0;
+  padding: 0;
+}
+
+#xwzewjgktd .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#xwzewjgktd .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#xwzewjgktd .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#xwzewjgktd .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#xwzewjgktd .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#xwzewjgktd .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#xwzewjgktd .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#xwzewjgktd .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#xwzewjgktd .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#xwzewjgktd .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#xwzewjgktd .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#xwzewjgktd .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#xwzewjgktd .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#xwzewjgktd .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#xwzewjgktd .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xwzewjgktd .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#xwzewjgktd .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#xwzewjgktd .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#xwzewjgktd .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xwzewjgktd .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#xwzewjgktd .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xwzewjgktd .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#xwzewjgktd .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xwzewjgktd .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#xwzewjgktd .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#xwzewjgktd .gt_left {
+  text-align: left;
+}
+
+#xwzewjgktd .gt_center {
+  text-align: center;
+}
+
+#xwzewjgktd .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#xwzewjgktd .gt_font_normal {
+  font-weight: normal;
+}
+
+#xwzewjgktd .gt_font_bold {
+  font-weight: bold;
+}
+
+#xwzewjgktd .gt_font_italic {
+  font-style: italic;
+}
+
+#xwzewjgktd .gt_super {
+  font-size: 65%;
+}
+
+#xwzewjgktd .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#xwzewjgktd .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#xwzewjgktd .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#xwzewjgktd .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#xwzewjgktd .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#xwzewjgktd .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#xwzewjgktd .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    <tr class="gt_heading">
+      <td colspan="5" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Estatísticas descritivas de gastos e votos por estado</td>
+    </tr>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Estatística">Estatística</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="GO">GO</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="MG">MG</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="PR">PR</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="RJ">RJ</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="Estatística" class="gt_row gt_left">Média de gastos</td>
+<td headers="GO" class="gt_row gt_right">24.6</td>
+<td headers="MG" class="gt_row gt_right">28.9</td>
+<td headers="PR" class="gt_row gt_right">31.7</td>
+<td headers="RJ" class="gt_row gt_right">24.8</td></tr>
+    <tr><td headers="Estatística" class="gt_row gt_left">Desvio de gastos</td>
+<td headers="GO" class="gt_row gt_right">14.6</td>
+<td headers="MG" class="gt_row gt_right">11.6</td>
+<td headers="PR" class="gt_row gt_right">26.0</td>
+<td headers="RJ" class="gt_row gt_right">16.5</td></tr>
+    <tr><td headers="Estatística" class="gt_row gt_left">Média de votos</td>
+<td headers="GO" class="gt_row gt_right">24.7</td>
+<td headers="MG" class="gt_row gt_right">32.8</td>
+<td headers="PR" class="gt_row gt_right">32.6</td>
+<td headers="RJ" class="gt_row gt_right">24.9</td></tr>
+    <tr><td headers="Estatística" class="gt_row gt_left">Desvio de votos</td>
+<td headers="GO" class="gt_row gt_right">19.6</td>
+<td headers="MG" class="gt_row gt_right">24.6</td>
+<td headers="PR" class="gt_row gt_right">34.2</td>
+<td headers="RJ" class="gt_row gt_right">24.6</td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="5">Fonte: TSE.</td>
+    </tr>
+  </tfoot>
+  
+</table>
+</div>
+</div>
+</div>
+<p>A tabela resultante tem uma formatação muito melhor. Podemos agora exportá-la para um documento de texto, no formato RTF:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>tab_formatada <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gtsave</span>(<span class="st">"minha_tabela.rtf"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>O arquivo salvo adapta a formatação que vimos acima para o formato de texto que pode ser aberto em qualquer editor – o que facilita o trabalho de incluir resultados do R em um documento de Word, por exemplo.</p>
+</section>
+<section id="criando-tabelas-automaticamente-com-modelsummary" class="level3" data-number="5.1.5">
+<h3 data-number="5.1.5" class="anchored" data-anchor-id="criando-tabelas-automaticamente-com-modelsummary"><span class="header-section-number">5.1.5</span> Criando tabelas automaticamente com <code>modelsummary</code></h3>
+<p>O pacote <code>gt</code>, visto anteriormente, permite inúmeras customizações em uma tabela, várias delas que sequer mostramos<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> – o custo é ter de aprender a usar uma série de funções e argumentos. Para quem não quer se preocupar com isso, uma alternativa econômica é usar o pacote <code>modelsummary</code>, que calcula estatísticas descritivas e cria tabelas automaticamente a partir de uma base de dados. Para criar uma tabela descritiva da base <code>gov</code>, por exemplo, basta usar a função <code>datasummary_skim()</code> como fizemos abaixo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(gov)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Unique (#)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Missing (%)</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">SD</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Min</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Median</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Max</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pct_gastos</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">27.1</td>
+<td style="text-align: right;">15.7</td>
+<td style="text-align: right;">2.6</td>
+<td style="text-align: right;">27.8</td>
+<td style="text-align: right;">61.7</td>
+<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iLTAuMTkiIHk9IjcuNDQiIHdpZHRoPSI3LjUyIiBoZWlnaHQ9IjQuMjIiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iNy4zMyIgeT0iNS4zMyIgd2lkdGg9IjcuNTIiIGhlaWdodD0iNi4zMyIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIxNC44NSIgeT0iNS4zMyIgd2lkdGg9IjcuNTIiIGhlaWdodD0iNi4zMyIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIyMi4zNyIgeT0iMy4yMiIgd2lkdGg9IjcuNTIiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIyOS44OSIgeT0iOS41NSIgd2lkdGg9IjcuNTIiIGhlaWdodD0iMi4xMSIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIzNy40MSIgeT0iMTEuNjYiIHdpZHRoPSI3LjUyIiBoZWlnaHQ9IjAuMDAiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PHJlY3QgeD0iNDQuOTMiIHk9IjkuNTUiIHdpZHRoPSI3LjUyIiBoZWlnaHQ9IjIuMTEiIHN0eWxlPSJzdHJva2Utd2lkdGg6IDAuMzg7IGZpbGw6ICMwMDAwMDA7Ij48L3JlY3Q+PC9nPjwvc3ZnPg==" class="svglite img-fluid"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pct_votos</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">28.2</td>
+<td style="text-align: right;">22.8</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">25.7</td>
+<td style="text-align: right;">69.6</td>
+<td style="text-align: right;"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjbGFzcz0ic3ZnbGl0ZSIgd2lkdGg9IjQ4LjAwcHQiIGhlaWdodD0iMTIuMDBwdCIgdmlld2JveD0iMCAwIDQ4LjAwIDEyLjAwIj48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPgogICAgLnN2Z2xpdGUgbGluZSwgLnN2Z2xpdGUgcG9seWxpbmUsIC5zdmdsaXRlIHBvbHlnb24sIC5zdmdsaXRlIHBhdGgsIC5zdmdsaXRlIHJlY3QsIC5zdmdsaXRlIGNpcmNsZSB7CiAgICAgIGZpbGw6IG5vbmU7CiAgICAgIHN0cm9rZTogIzAwMDAwMDsKICAgICAgc3Ryb2tlLWxpbmVjYXA6IHJvdW5kOwogICAgICBzdHJva2UtbGluZWpvaW46IHJvdW5kOwogICAgICBzdHJva2UtbWl0ZXJsaW1pdDogMTAuMDA7CiAgICB9CiAgICAuc3ZnbGl0ZSB0ZXh0IHsKICAgICAgd2hpdGUtc3BhY2U6IHByZTsKICAgIH0KICA8L3N0eWxlPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBzdHlsZT0ic3Ryb2tlOiBub25lOyBmaWxsOiBub25lOyI+PC9yZWN0PjxkZWZzPjxjbGlwcGF0aCBpZD0iY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3Ij48cmVjdCB4PSIwLjAwIiB5PSIwLjAwIiB3aWR0aD0iNDguMDAiIGhlaWdodD0iMTIuMDAiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd3TGpBd2ZERXlMakF3KSI+CjwvZz48ZGVmcz48Y2xpcHBhdGggaWQ9ImNwTUM0d01IdzBPQzR3TUh3eUxqZzRmREV5TGpBdyI+PHJlY3QgeD0iMC4wMCIgeT0iMi44OCIgd2lkdGg9IjQ4LjAwIiBoZWlnaHQ9IjkuMTIiPjwvcmVjdD48L2NsaXBwYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY3BNQzR3TUh3ME9DNHdNSHd5TGpnNGZERXlMakF3KSI+PHJlY3QgeD0iMC40MSIgeT0iMy4yMiIgd2lkdGg9IjYuNTgiIGhlaWdodD0iOC40NCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSI2Ljk5IiB5PSI5Ljk3IiB3aWR0aD0iNi41OCIgaGVpZ2h0PSIxLjY5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjEzLjU3IiB5PSI2LjYwIiB3aWR0aD0iNi41OCIgaGVpZ2h0PSI1LjA3IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjIwLjE0IiB5PSI5Ljk3IiB3aWR0aD0iNi41OCIgaGVpZ2h0PSIxLjY5IiBzdHlsZT0ic3Ryb2tlLXdpZHRoOiAwLjM4OyBmaWxsOiAjMDAwMDAwOyI+PC9yZWN0PjxyZWN0IHg9IjI2LjcyIiB5PSIxMS42NiIgd2lkdGg9IjYuNTgiIGhlaWdodD0iMC4wMCIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIzMy4zMCIgeT0iNi42MCIgd2lkdGg9IjYuNTgiIGhlaWdodD0iNS4wNyIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48cmVjdCB4PSIzOS44OCIgeT0iOS45NyIgd2lkdGg9IjYuNTgiIGhlaWdodD0iMS42OSIgc3R5bGU9InN0cm9rZS13aWR0aDogMC4zODsgZmlsbDogIzAwMDAwMDsiPjwvcmVjdD48L2c+PC9zdmc+" class="svglite img-fluid"></td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Como é possível notar, <code>datasummary_skim()</code> automaticamente detecta quais colunas na nossa base são numéricas e, partir disso, calcula e reporta uma série de estatísticas úteis, como número de linhas; números de <em>missings</em>; média; entre outas. Para termos mais controle sobre o resultado, podemos usar a função <code>datasummary()</code> especificando quais variáveis e quais estatísticas queremos calcular:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary</span>(pct_gastos <span class="sc">+</span> pct_votos <span class="sc">~</span> Mean <span class="sc">+</span> Median, <span class="at">data =</span> gov)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Median</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pct_gastos</td>
+<td style="text-align: right;">27.11</td>
+<td style="text-align: right;">27.84</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pct_votos</td>
+<td style="text-align: right;">28.19</td>
+<td style="text-align: right;">25.72</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>No código anterior, usamos <code>pct_gastos + pct_votos</code> para indicar quais variáveis da base <code>gov</code> deveriam ser incluídas na tabela, e <code>Mean + Median</code> para indicar quais estatísticas deveriam ser calculadas para cada uma delas. Adaptando um pouco essa fórmula, podemos criar uma tabela com estatísticas descritivas para cada um dos estados da base <code>gov</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary</span>(pct_gastos <span class="sc">+</span> pct_votos <span class="sc">~</span> Mean <span class="sc">*</span> uf, <span class="at">data =</span> gov)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">GO</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">MG</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">PR</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">RJ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">pct_gastos</td>
+<td style="text-align: right;">24.56</td>
+<td style="text-align: right;">28.87</td>
+<td style="text-align: right;">31.75</td>
+<td style="text-align: right;">24.85</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pct_votos</td>
+<td style="text-align: right;">24.70</td>
+<td style="text-align: right;">32.83</td>
+<td style="text-align: right;">32.65</td>
+<td style="text-align: right;">24.85</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>O resultado, agora, é uma tabela com uma linha para cada estado e uma coluna para cada estatística calculada. Para exportar essa tabela para um arquivo de texto, usamos apenas um argumento adicional, <code>output</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary</span>(pct_gastos <span class="sc">+</span> pct_votos <span class="sc">~</span> Mean <span class="sc">*</span> uf, <span class="at">data =</span> gov, <span class="at">output =</span> <span class="st">"tabela.txt"</span>) <span class="co"># Texto</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary</span>(pct_gastos <span class="sc">+</span> pct_votos <span class="sc">~</span> Mean <span class="sc">*</span> uf, <span class="at">data =</span> gov, <span class="at">output =</span> <span class="st">"tabela.rtf"</span>) <span class="co"># RTF</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary</span>(pct_gastos <span class="sc">+</span> pct_votos <span class="sc">~</span> Mean <span class="sc">*</span> uf, <span class="at">data =</span> gov, <span class="at">output =</span> <span class="st">"tabela.html"</span>) <span class="co"># HTML</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Uma nota final: ainda que tenha opções de customização que não cobrimos aqui, <code>modelsummary</code> não produz resultados iniciais tão bem acabados quanto o <code>gt</code>, mas é uma boa ferramenta para criar tabelas descritivas de forma rápida. A depender do uso, uma opção é começar a exploração de dados usando <code>datasummary()</code> para, se preciso, refinar resultados para exportação com <code>gt()</code> e suas funções auxiliares.</p>
+</section>
+</section>
+<section id="modelos-de-regressão-linear-simples" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="modelos-de-regressão-linear-simples"><span class="header-section-number">5.2</span> Modelos de regressão linear simples</h2>
+<p>Em análises de dados, é algo comum querermos investigar se existe relação entre duas ou mais variáveis numéricas. Um exemplo: será que quem gasta mais em sua campanha eleitoral faz mais votos? Com os dados das eleições para governos de estado na base <code>gov</code>, podemos ilustrar essa relação com um gráfico de dispersão:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>gov <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> pct_gastos, <span class="at">y =</span> pct_votos)) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Gastos (%)"</span>, <span class="at">y =</span> <span class="st">"Votos (%)"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="05-cap_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Como se depreende do gráfico, parece haver uma associação positiva entre gasto de campanha e votos: pontos com maiores valores na variável <code>pct_gastos</code> têm maiores valores em <code>pct_votos</code>, no geral. Essa é uma relação sugestiva, mas quão forte ela é? Será que é algo que aconteceu por acaso?</p>
+<p>Ainda que gráficos sejam úteis para nos ajudar a detectar padrões em meio a pontos dispersos, o fato é que eles não servem para responder a questões como as feitas acima. Em vez disso, precisamos de uma ferramenta para estimar, de forma precisa, o efeito predito de gastar mais ou menos na campanha no número de votos obtidos pelas candidaturas. Dito de outro modo, precisamos de um modelo.</p>
+<p>Antes de entrarmos em maiores detalhes, vamos supor que um bom modelo, nesse caso, seja uma reta. Podemos começar traçando uma arbitrariamente nos dados para ver o resultado.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-regressao" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="05-cap_files/figure-html/fig-regressao-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figura&nbsp;5.1: Relação entre gastos de campanha e votos</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>este exemplo, usamos a geometria <code>geom_abline</code> para desenhar uma reta a partir dos argumentos <code>slope</code> e <code>intercept</code>, que indicam, respectivamente, a inclinação e o ponto em que a reta cruza o valor de 0 no eixo X. Em termos mais simples: <code>intercept</code> indica qual é o valor de Y (<code>pct_votos</code>) quando X é zero (<code>pct_gastos = 0</code>); <code>slope</code> indica o quanto Y aumenta ou diminui quando X aumenta em uma unidade. No nosso exemplo, a reta que desenhamos tem inclinação de 2.3 e intercepta o eixo Y em -3, indicando que o valor de Y quando X é zero é -3 e que, a cada unidade que X aumenta, Y aumenta 2.3 unidades. Assim, podemos dizer, com base nesse modelo, que candidaturas que gastaram 20% de todas as receitas de campanha no seu estado esperariam, em média, obter 40% dos votos – basta acompanhar a reta para encontrar esses valores, ou fazer a conta:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>(<span class="sc">-</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fl">2.3</span> <span class="sc">*</span> <span class="dv">20</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 43</code></pre>
+</div>
+</div>
+<p>A reta que desenhamos parece acompanhar a relação entre gastos de campanha e votos. Candidaturas que gastaram mais tiveram mais votos, no geral, e a inclinação ascendente da reta que traçamos captura essa tendência. De qualquer forma, muitos pontos estão distantes dessa reta arbitrária que criamos e, mais que isso, a disposição dos pontos no gráficos sugere que uma menor inclinação seria melhor. Não é necessário treinamento quantitativo para perceber que não temos um bom modelo.</p>
+<section id="mínimos-quadrados-ordinários" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="mínimos-quadrados-ordinários"><span class="header-section-number">5.2.1</span> Mínimos quadrados ordinários</h3>
+<p>Para conseguir um modelo melhor, precisamos de uma reta que esteja mais próxima da maioria dos pontos, ou seja, que minimize a distância entre os pontos no gráfico e a reta. Podemos pensar, por exemplo, em um critério simples: calcular a distância vertical entre os pontos e a reta, isto é, a distância de cada ponto no eixo Y em relação à reta que traçamos. Em termos visuais, esse critério equivaleria a avaliar a nossa reta arbitrária da seguinte forma.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-distancia-mqo" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="05-cap_files/figure-html/fig-distancia-mqo-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figura&nbsp;5.2: Distância vertical entre pontos e reta</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Com esse gráfico, vemos a distância de cada ponto em relação à reta que usamos como nosso modelo, reforçando a visão de que ele não resume adequadamente a relação entre gastos de campanha e votos. Precisamos, portanto, de um método para minimizar essas distâncias. É aqui que entra a regressão por <em>Mínimos Quadrados Ordinários</em> (MQO), que relaciona duas variáveis de forma a encontrar uma reta que minimize a distância entre pontos e a reta encontrada.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>A ideia central aqui é encontrarmos um intercepto (o valor de Y quando X é igual a 0) e uma inclinação (quanto ela aumenta ou diminui quando andamos uma casa no eixo X) que minimize a distância que vimos entre pontos e reta – na verdade, como o nome do modelo indica (Mínimos Quadrados), ele faz isso calculando a distância de cada ponto no eixo Y em relação à reta ao quadrado, penalizando observações mais distantes na hora de estimar o melhor modelo.</p>
+<p>Em R, a principal função que usaremos para estimar modelos lineares é a <code>lm</code>, de <em>linear model</em>. Ela já vem por padrão em qualquer instalação do R e pode ser usada com apenas dois argumentos: a fórmula do nosso modelo, estipulando qual variável é a dependente (e.g., qual variável queremos predizer) e qual, ou quais, variáveis usaremos para predizer a variação na dependente (às vezes essas variáveis também são chamadas de preditores); e o banco de dados os estão essas variáveis. Vamos ver mais detidamente cada argumento.</p>
+<p>Uma fórmula, em primeiro lugar, é o meio que usamos para especificar a relação entre variáveis. No nosso exemplo hipotético da relação entre gastos de campanha e votos, uma fórmula que explicita nosso modelo seria o seguinte:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>pct_votos <span class="sc">~</span> pct_gastos</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>O que pode ser lido como: votos válidos de cada candidato ou candidata é predita pelo quanto ele(a) gastou em sua campanha. Para dizer de outro modo, tudo o que vem depois de <code>~</code> serve para explicar o que vem antes. Em R, expressões como estas, que já vimos em outros lugares deste livro, são chamadas de <em>fórmulas</em> e são usadas para especificar modelos de regressão linear simples e múltipla (experimente rodar <code>?formula</code> para saber mais sobre elas).</p>
+<p>Esse jeito de expressar fórmulas é direto: <code>pct_votos</code> é nossa variável dependente porque ela vem antes do <code>~</code>; dado que <code>pct_gastos</code> segue depois disso, ela é nossa variável independente. Declarar essa relação dessa maneira tem uma implicação: assumimos uma ordem, com uma variável antecedendo a outra. Com um modelo estimado, dessa forma, conseguimos predizer quantos votos uma candidatura hipotética teria se soubermos quanto ela gastou.</p>
+<p>Para estimar um modelo linear simples usando a função <code>lm</code>, basta passar a fórmula e o banco de dados para a função:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(pct_votos <span class="sc">~</span> pct_gastos, <span class="at">data =</span> gov)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>mod</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = pct_votos ~ pct_gastos, data = gov)
+
+Coefficients:
+(Intercept)   pct_gastos  
+     -5.832        1.255  </code></pre>
+</div>
+</div>
+<p>O <em>output</em> da função, salvo no objeto <code>mod</code>, pode parecer confuso à primeira vista, mas é fácil interpretá-lo. Em primeiro lugar, temos abaixo de <code>Call:</code> uma cópia do código que usamos para estimar nosso modelo, onde podemos ver a fórmula empregada, <code>pct_votos ~ pct_gastos</code>. Em segundo lugar, temos na linha seguinte temos, abaixo de <code>Coefficients:</code>, os valores estimados dos parâmetros do nosso modelo – que é tudo o que precisamos saber para traçarmos uma reta. Nessa parte, podemos ver que o valor indicado por <code>(Intercept)</code> é igual a -5.8317262, sugerindo que o valor predito de votos por um candidato ou candidata que gastou zero reais em campanha é de cerca de -6. De forma similar, o valor estimado do efeito predito de <code>pct_gastos</code> sugere que cada ponto percentual gasto em campanha prediz um retorno médio de cerca de 1 votos válidos.</p>
+<p>A título de ilustração, podemos comparar as retas dos modelos que trabalhamos até aqui: o nosso modelo arbitrário e o estimado pela função <code>lm</code>, em vermelho:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-modelos" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="05-cap_files/figure-html/fig-modelos-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figura&nbsp;5.3: Comparação entre modelos</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="modelo-linear-simples" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="modelo-linear-simples"><span class="header-section-number">5.2.2</span> Modelo linear simples</h3>
+<p>O modelo do exemplo anterior, com apenas duas variáveis – uma dependente e, a outra, independente – normalmente é chamado de <em>modelo linear simples</em>. Apesar do nome, ele é extremamente flexível e muito utilizado não só em pesquisas, para resumir relações entre duas variáveis, mas também em diversas outras aplicações. Formalmente, estes podem ser descritos por equações da seguinte forma geral:</p>
+<p><span class="math inline">\(Y_{i} = \alpha + \beta X_{i} + \epsilon_{i}\)</span></p>
+<p>onde:</p>
+<ul>
+<li><span class="math inline">\(i\)</span> indexa cada observação no banco de dados, <span class="math inline">\(i = 1, 2, 3, ... N\)</span> (onde <span class="math inline">\(N\)</span> indica o total de observações no banco);</li>
+<li><span class="math inline">\(Y_{i}\)</span> indica nossa variável dependente;</li>
+<li><span class="math inline">\(X_{i}\)</span> indica nossa variável independente;</li>
+<li><span class="math inline">\(\epsilon_{i}\)</span> é um termo de erro (a distância entre o valor predito e o valor real de <span class="math inline">\(Y_{i}\)</span>);</li>
+<li><span class="math inline">\(\alpha\)</span> é o intercepto do modelo; e</li>
+<li><span class="math inline">\(\beta\)</span> é o coeficiente de inclinação, ou <em>slope</em>.</li>
+</ul>
+<p>Usando MQO, nosso objetivo é estimar valores para os parâmetros <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> para encontrar uma reta que melhor se ajuste aos dados. O critério, como vimos, é o de minimizar a distância ao quadrado entre valores preditos e reais de <span class="math inline">\(Y_{i}\)</span>. Com isso, achamos estimativas dos parâmetros do modelo, <span class="math inline">\(\hat{\alpha}\)</span> e <span class="math inline">\(\hat{\beta}\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> A seguir, veremos alguns desses elementos de um modelo em maior detalhe.</p>
+<section id="coeficientes" class="level4" data-number="5.2.2.1">
+<h4 data-number="5.2.2.1" class="anchored" data-anchor-id="coeficientes"><span class="header-section-number">5.2.2.1</span> Coeficientes</h4>
+<p>A primeira informação relevante de um modelo linear, e normalmente a mais usada em pesquisas, são as estimativas de <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span>, também chamados de <em>coeficientes</em>. Com elas, identificamos se a relação entre variável independente (e.g., gasto de campanha) e a variável dependente (e.g., votos) é positiva ou negativa e, além disso, sua magnitude. Como salvamos os resultados do nosso modelo no objeto <code>mod</code>, coeficientes podem ser acessados diretamente (o objeto <code>mod</code> é uma espécie de lista, com vários elementos, e <code>coefficients</code> é um deles):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>mod<span class="sc">$</span>coefficients</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)  pct_gastos 
+  -5.831726    1.255031 </code></pre>
+</div>
+</div>
+<p>O que esses números significam? Novamente, que o aumento de uma unidade de <code>pct_gastos</code> prediz um acréscimo médio de 1.26 unidades de <code>pct_votos</code>. Por sua vez, o intercepto indica que o valor predito de <code>pct_votos</code> quando <code>pct_gastos</code> é zero é de -5.83 – o que não faz sentido, neste caso, dado que não é possível ter um percentual negativo de votos. Isso é algo a se ter em mente: interceptos podem ser interpretados como valores preditos de <span class="math inline">\(Y_{i}\)</span> quando <span class="math inline">\(X_{i}\)</span> é zero, mas nem sempre indicam valores reais.</p>
+</section>
+<section id="inferência" class="level4" data-number="5.2.2.2">
+<h4 data-number="5.2.2.2" class="anchored" data-anchor-id="inferência"><span class="header-section-number">5.2.2.2</span> Inferência</h4>
+<p>Nossas estimativas salvas em <code>mod</code> contêm informações adicionais: com elas, podemos fazer inferência, isto é, testar hipóteses sobre a relação entre variáveis. Por exemplo, podemos testar se o efeito predito de <code>pct_gastos</code> é estatisticamente diferente de zero. Podemos obter um resumo dessas e outras informações usando a função <code>summary</code> da seguinte maneira:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = pct_votos ~ pct_gastos, data = gov)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-23.9070  -5.5258   0.3822   8.9111  15.3246 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   -5.832      6.517  -0.895    0.388    
+pct_gastos     1.255      0.210   5.977 6.44e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 11.88 on 12 degrees of freedom
+Multiple R-squared:  0.7486,    Adjusted R-squared:  0.7276 
+F-statistic: 35.73 on 1 and 12 DF,  p-value: 6.436e-05</code></pre>
+</div>
+</div>
+<p>A primeira informação que nos interessa, agora, é <code>Std. Error</code>, que indica o erro-padrão de cada coeficiente do nosso modelo. Essa informação pode ser entendida como a variação de nossa estimativa – e quão maior ele for em relação à escala dos nossos coeficientes, menos precisa é nossa estimativa. Por essa razão, estimativas de incerteza são reportadas em pesquisas acadêmicas para que outras pessoas possam avaliar nossas inferências. Nas colunas à direita, temos também os T-values e os p-values de cada coeficiente: o <code>t value</code> é calculado dividindo o valor do coeficiente pelo seu erro-padrão, e o <code>p-value</code> é a probabilidade de obtermos um T-valor igual ou mais extremo do que o observado se a hipótese nula for verdadeira.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> No nosso caso, o p-value de <code>pct_gastos</code> é 6.4360651^{-5}, o que indica que a probabilidade de obtermos um valor igual ou mais extremo do que o observado se a hipótese nula for verdadeira é irrisória. Como esse valor é muito menor que 0.05, normalmente usado como limiar para rejeitar a hipótese nula, não podemos rejeitar a hipótese de que o efeito de <code>pct_gastos</code> é igual a zero. Dizendo de outra forma, dificilmente veríamos a relação entre <code>pct_gastos</code> e <code>pct_votos</code> por fruto de mero acaso.</p>
+<p>Com essas informações do nosso modelo estimado, podemos também calcular intervalos de confiança para nossas estimativas. Obtemos estes intervalos facilmente usando a função <code>confint</code>:<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(mod, , <span class="at">level =</span> <span class="fl">0.95</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                  2.5 %   97.5 %
+(Intercept) -20.0301902 8.366738
+pct_gastos    0.7975635 1.712498</code></pre>
+</div>
+</div>
+<p>No exemplo acima, <code>level = 0.95</code> estipula que o intervalo de confiança calculado é de 95%, isto é, com probabilidade de 95% de conter o valor real dos nossos parâmetros. Uma vez mais, os resultados desse exercício reforça o que já sabíamos: <code>pct_gastos</code> possui relação com <code>pct_votos</code>, uma vez que seu efeito predito varia de um mínimo de 0.7975635 a um máximo de 1.712498. Desse modo, ainda que possa ser maior ou menor, ele certamente é positivo.</p>
+</section>
+<section id="predições" class="level4" data-number="5.2.2.3">
+<h4 data-number="5.2.2.3" class="anchored" data-anchor-id="predições"><span class="header-section-number">5.2.2.3</span> Predições</h4>
+<p>Tendo estimado os coeficientes de um modelo, podemos usá-los para fazer predições. Vamos voltar ao nosso modelo estimado, salvo em <code>mod</code>. Para extrair apenas as estimativas dos coeficientes dele, vamos usar agora a função <code>coef</code>, que é uma outra maneira simples de fazer isso.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(mod)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)  pct_gastos 
+  -5.831726    1.255031 </code></pre>
+</div>
+</div>
+<p>Com essas estimativas, podemos fazer predições para qualquer observação. Aqui, o método consiste no seguinte: precisamos “plugar” as estimativas com valores de <code>x</code>, <code>pct_gastos</code>. Em primeiro lugar, sabemos que quando <code>pct_gastos</code> é zero o valor predito de <code>pct_votos</code> para qualquer observação é igual a -5.8317262, que é o valor do intercepto. Segundo, sabemos que uma unidade a mais de <code>pct_gastos</code> prediz um aumento de 1.2550307 na variável <code>pct_Votos</code>. Dessa forma, plugar esses resultados é uma questão de somar o valor do intercepto e multiplicar o valor de <span class="math inline">\(\hat{\beta}\)</span> pelo valor <code>pct_gastos</code> que quisermos predizer. Um exemplo: para predizer quantos votos válidos uma candidatura que gastou 20% de todas as receitas de campanha no seu estado teria, basta fazer a conta:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">5.831726</span> <span class="sc">+</span> <span class="fl">1.255031</span> <span class="sc">*</span> <span class="dv">20</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19.26889</code></pre>
+</div>
+</div>
+<p>O R tem uma função que faz isso automaticamente, <code>predict</code>, que pode ser usada da seguinte forma:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>dados_ficticios <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pct_gastos =</span> <span class="dv">20</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod, <span class="at">newdata =</span> dados_ficticios)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1 
+19.26889 </code></pre>
+</div>
+</div>
+<p>Aqui, o essencial é que criamos um novo banco de dados, salvo em <code>dados_ficticios</code>, com apenas uma observação, <code>pct_gastos = 20</code> – note que esse banco precisa ter o nome das variáveis que usamos para estimar o modelo, <code>pct_gastos</code>. Com essa base fictícia, passamos o modelo estimado para a função <code>predict</code> e, em seguida, o banco criado para o argumento <code>newdata</code>. O resultado é o mesmo que obtivemos acima, mas a função <code>predict</code> é útil para fazer predições para várias observações de uma só vez. Veja:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>dados_ficticios2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pct_gastos =</span> <span class="fu">seq</span>(<span class="dv">20</span>, <span class="dv">80</span>, <span class="dv">10</span>))</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(mod, <span class="at">newdata =</span> dados_ficticios2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       1        2        3        4        5        6        7 
+19.26889 31.81920 44.36950 56.91981 69.47012 82.02043 94.57073 </code></pre>
+</div>
+</div>
+<p>Como é possível ver, com apenas uma chamada da função conseguimos usar nosso modelo para predizer quantos votos válidos candidaturas com diferentes percentuais de gastos de campanha teriam.</p>
+</section>
+<section id="ajuste-do-modelo" class="level4" data-number="5.2.2.4">
+<h4 data-number="5.2.2.4" class="anchored" data-anchor-id="ajuste-do-modelo"><span class="header-section-number">5.2.2.4</span> Ajuste do modelo</h4>
+<p>Alguns modelos são melhores que outros ao explicar a variação de nossa variável dependente, o que afeta diretamente nossa capacidade de fazer predições. Para avaliarmos o desempenho de um modelo isso, temos algumas alternativas. Em primeiro lugar, o objeto do resultado de <code>summary</code> contém uma estatística útil para fazermos isso: o R-quadrado.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">summary</span>(mod)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>resultados<span class="sc">$</span>r.squared</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7485839</code></pre>
+</div>
+</div>
+<p>O código anterior retorna uma métrica que varia de 0 a 1, onde 1 indica que nossas variáveis independentes explicam perfeitamente a variação de Y.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> No nosso exemplo, o R-quadrado retornou um número de cerca de 0.7, o que indica que nosso modelo explica boa parcela da variação de <code>pct_votos</code>. Embora não seja uma métrica definitiva, nos dá uma boa ideia geral de desempenho.</p>
+<p>Além dessa métrica, também podemos usar o resultado do teste F do nosso modelo para avaliá-lo. O que ele faz? Em síntese, ele teste a hipótese nula de que nosso modelo completo, com variáveis independentes, explica a mesma variância do que um modelo modelo sem variáveis (apenas com o intercepto, <span class="math inline">\(\alpha\)</span>), que seria o mesmo que usar a média de <code>y</code> para predizer seus valores. O P-valor desse teste pode ser acessado na última linha do resultado de <code>summary</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = pct_votos ~ pct_gastos, data = gov)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-23.9070  -5.5258   0.3822   8.9111  15.3246 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   -5.832      6.517  -0.895    0.388    
+pct_gastos     1.255      0.210   5.977 6.44e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 11.88 on 12 degrees of freedom
+Multiple R-squared:  0.7486,    Adjusted R-squared:  0.7276 
+F-statistic: 35.73 on 1 and 12 DF,  p-value: 6.436e-05</code></pre>
+</div>
+</div>
+<p>No caso, como ele é menor que 0.05, rejeitamos a hipótese nula: nosso modelo com <code>pct_gastos</code> é melhor que um modelo sem essa informação.</p>
+</section>
+</section>
+<section id="reportando-resultados-de-modelos" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="reportando-resultados-de-modelos"><span class="header-section-number">5.2.3</span> Reportando resultados de modelos</h3>
+<p>Uma vez estimado um modelo, o próximo passo é reportar seus resultados em um artigo ou documento. Para isso, podemos usar a função <code>modelsummary</code>, do pacote de mesmo nome, que já vimos nas seções anteriores. Para usá-lo, basta passar os modelos que queremos reportar para a função:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(mod)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">-5.832</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(6.517)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pct_gastos</td>
+<td style="text-align: center;">1.255</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.210)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Num.Obs.</td>
+<td style="text-align: center;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R2</td>
+<td style="text-align: center;">0.749</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R2 Adj.</td>
+<td style="text-align: center;">0.728</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: center;">112.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BIC</td>
+<td style="text-align: center;">114.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Log.Lik.</td>
+<td style="text-align: center;">-53.429</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">35.730</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RMSE</td>
+<td style="text-align: center;">10.99</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Por padrão, <code>modelsummary()</code> reporta modelos como colunas e uma tabela nas quais as linhas indicam os coeficientes, como o do intercepto e da variável independente <code>pct_gastos</code>, no caso do nosso exemplo. Além disso, a tabela exportada também indica o erro-padrão de cada coeficiente em parenteses, logo abaixo de cada estimativa. Finalmente, para modelos lineares simples por mínimos quadrados, como o nosso, a tabela uma série de estatísticas, como o R-quadrado, o R-quadrado ajustado (uma medida que penaliza modelos com muitas variáveis independentes), a estatística F e algumas outras medidas de ajustes que podem ser úteis para determinados casos. Para deixar a tabela menor, mantendo apenas informações mais utilizadas, <code>modelsummary()</code> reserva o argumento <code>got_map</code>, que pode ser usado para indicar quais estatísticas queremos reportar. Para manter apenas o R-quadrado e o número de observações utilizadas na estimação do modelo, podemos usar o seguinte:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(mod, <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: center;">-5.832</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(6.517)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pct_gastos</td>
+<td style="text-align: center;">1.255</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.210)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Num.Obs.</td>
+<td style="text-align: center;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R2</td>
+<td style="text-align: center;">0.749</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Para facilitar a leitura da tabela, <code>modelsummary()</code> também permite que renomeemos os coeficientes e estatísticas de um modelo. Para isso, basta passar um vetor com os nomes que queremos usar no lugar dos originais para o argumento <code>coef_map</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>nomes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Intercepto"</span>, </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>           <span class="st">"pct_gastos"</span> <span class="ot">=</span> <span class="st">"Gastos (%)"</span>,</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Num.Obs."</span> <span class="ot">=</span> <span class="st">"Observações"</span>)</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(mod, <span class="at">coef_map =</span> nomes, <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Intercepto</td>
+<td style="text-align: center;">-5.832</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;">(6.517)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gastos (%)</td>
+<td style="text-align: center;">1.255</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
+<td style="text-align: center; box-shadow: 0px 1.5px;">(0.210)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Num.Obs.</td>
+<td style="text-align: center;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R2</td>
+<td style="text-align: center;">0.749</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Assim como fizemos com a função <code>datasummary()</code>, exportar o resultado de <code>modelsummary()</code> pode ser feito com o argumento <code>output</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(mod, <span class="at">coef_map =</span> nomes, <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>), <span class="at">output =</span> <span class="st">"tabela.txt"</span>) <span class="co"># Texto</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(mod, <span class="at">coef_map =</span> nomes, <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>), <span class="at">output =</span> <span class="st">"tabela.rtf"</span>) <span class="co"># RTF</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(mod, <span class="at">coef_map =</span> nomes, <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>), <span class="at">output =</span> <span class="st">"tabela.html"</span>) <span class="co"># HTML</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="resumo-do-capítulo" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="resumo-do-capítulo"><span class="header-section-number">5.3</span> Resumo do capítulo</h2>
+<p>Este capítulo final introduziu alguns conceitos básicos para análise de dados quantitativos. Começamos com uma breve introdução sobre o que são estatísticas descritivas e vimos como calcular algumas das mais comuns usando tanto funções do <code>tidyverse</code> quanto com <code>modelsummary</code>. Em seguida, introduzimos modelos de regressão linear simples e, usando R, mostramos como obter e interpretar alguns de seus resultados. Por fim, vimos como reportar resultados de modelos de regressão linear simples usando a função <code>modelsummary</code>.</p>
+</section>
+<section id="indo-além" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="indo-além"><span class="header-section-number">5.4</span> Indo além</h2>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-kellstedt2018fundamentals" class="csl-entry" role="listitem">
+Kellstedt, Paul M, e Guy D Whitten. 2018. <em>The fundamentals of political science research</em>. Cambridge University Press.
+</div>
+<div id="ref-wooldridge2010econometric" class="csl-entry" role="listitem">
+Wooldridge, Jeffrey M. 2010. <em>Econometric analysis of cross section and panel data</em>. MIT press.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Usamos o indexador <code>$</code> para acessar a variável <code>pct_gastos</code> da base <code>gov</code>. Caso tenha dúvidas sobre esse operador, veja a seção correspondente no <a href="01-cap.html"><span>Capítulo&nbsp;1</span></a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Para saber mais sobre todas as funcionalidades do <code>gt</code>, nossa recomendação é consultar a documentação oficial do pacote em https://gt.rstudio.com.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Para uma explicação intuitiva de como funciona o método de MQO, ver <span class="citation" data-cites="kellstedt2018fundamentals">Kellstedt e Whitten (<a href="referencias.html#ref-kellstedt2018fundamentals" role="doc-biblioref">2018</a>)</span>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>A notação com <span class="math inline">\(\hat{}\)</span> é reservada, neste contexto, para falar de estimativas já feitas.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Para mais detalhes sobre o cálculo de T-values e p-values, ver <span class="citation" data-cites="kellstedt2018fundamentals">Kellstedt e Whitten (<a href="referencias.html#ref-kellstedt2018fundamentals" role="doc-biblioref">2018</a>)</span>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Como não é nosso objetivo cobrir em profundidade o estimador por MQO, não nos deteremos sobre como são calculadas algumas estatísticas que implementaremos no R daqui para frente. Para mais detalhes sobre modelos lineares, ver <span class="citation" data-cites="wooldridge2010econometric">Wooldridge (<a href="referencias.html#ref-wooldridge2010econometric" role="doc-biblioref">2010</a>)</span>, por exemplo.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Particularmente, o R-quadrado é uma razão entre a soma dos quadrados dos resíduos do modelo (a distância entre os valores preditos e reais de Y) e a soma total dos quadrados (a distância entre os valores reais de Y e a média de Y).Na prática, isso nos dá uma ideia de quanto um modelo linear é melhor do que uma simples média para predizer valores de Y.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./04-cap.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Visualização</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./referencias.html" class="pagination-link">
+        <span class="nav-page-text">Referências</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Usando R, por Fernando Meireles e Denisson Silva</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

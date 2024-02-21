@@ -9,7 +9,7 @@
 <meta name="author" content="Fernando Meireles">
 <meta name="author" content="Denisson Silva">
 
-<title>Usando R: Uma Introdução para Cientistas Sociais</title>
+<title>Usando R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -33,7 +52,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./01-cap.html" rel="next">
-<link href="./cover.png" rel="icon" type="image/png">
+<link href="./icon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -65,10 +84,9 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta name="twitter:title" content="Usando R: Uma Introdução para Cientistas Sociais">
-<meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://electionsbr.com/livro/data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Usando R">
+<meta name="twitter:description" content="Uma introdução para cientistas sociais">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-sidebar floating">
@@ -95,9 +113,9 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Usando R: Uma Introdução para Cientistas Sociais</a> 
+      <a href="./">Usando R</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="./Usando-R--Uma-Introdução-para-Cientistas-Sociais.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="./Usando-R.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
     <div class="dropdown">
       <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -144,8 +162,32 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">References</span></a>
+  <a href="./02-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importação</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipulação</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Visualização</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Análise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
   </div>
 </li>
     </ul>
@@ -161,11 +203,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#prefácio" id="toc-prefácio" class="nav-link active" data-scroll-target="#prefácio">Prefácio</a></li>
   <li><a href="#introdução" id="toc-introdução" class="nav-link" data-scroll-target="#introdução">Introdução</a>
   <ul class="collapse">
-  <li><a href="#um-exemplo" id="toc-um-exemplo" class="nav-link" data-scroll-target="#um-exemplo">Um exemplo</a></li>
-  <li><a href="#a-nossa-filosofia-de-trabalho" id="toc-a-nossa-filosofia-de-trabalho" class="nav-link" data-scroll-target="#a-nossa-filosofia-de-trabalho">A nossa filosofia de trabalho</a></li>
-  <li><a href="#para-quem-é-este-livro" id="toc-para-quem-é-este-livro" class="nav-link" data-scroll-target="#para-quem-é-este-livro">Para quem é este livro?</a></li>
+  <li><a href="#nossa-filosofia" id="toc-nossa-filosofia" class="nav-link" data-scroll-target="#nossa-filosofia">Nossa filosofia</a></li>
+  <li><a href="#para-quem-este-livro-é-indicado" id="toc-para-quem-este-livro-é-indicado" class="nav-link" data-scroll-target="#para-quem-este-livro-é-indicado">Para quem este livro é indicado?</a></li>
   <li><a href="#como-usar-o-livro" id="toc-como-usar-o-livro" class="nav-link" data-scroll-target="#como-usar-o-livro">Como usar o livro</a></li>
-  <li><a href="#começando" id="toc-começando" class="nav-link" data-scroll-target="#começando">Começando</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -175,35 +215,22 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Usando R: Uma Introdução para Cientistas Sociais</h1>
+<h1 class="title">Usando R</h1>
+<p class="subtitle lead">Uma introdução para cientistas sociais</p>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Autores</div>
-  <div class="quarto-title-meta-heading">Afiliações</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Fernando Meireles <a href="https://orcid.org/0000-0002-7027-2058" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-    <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            IESP-UERJ
-          </p>
-      </div>
-      <div class="quarto-title-meta-contents">
-    <p class="author">Denisson Silva <a href="https://orcid.org/0000-0002-7027-2058" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-  </div>
-    <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            FGV
-          </p>
-      </div>
-    </div>
 
 <div class="quarto-title-meta">
 
-      
+    <div>
+    <div class="quarto-title-meta-heading">Autores</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fernando Meireles </p>
+             <p>Denisson Silva </p>
+          </div>
+  </div>
+    
   
     
   </div>
@@ -215,32 +242,42 @@ ul.task-list li input[type="checkbox"] {
 <h1 class="unnumbered">Prefácio</h1>
 <p>Este é um manuscrito em desenvolvimento. A medida em que os capítulos forem concluídos, serão incluídos aqui. Dúvidas e sugestões podem ser enviadas para nossos e-mails.</p>
 <p>Para ver a proposta mais geral do livro, <a href="http://electionsbr.com/livro/proposta.pdf">clique aqui</a>.</p>
-<p>Obs: bases de dados usadas nos capítulos estão disponíveis <a href="http://electionsbr.com/livro/materiais/materiais.zip">aqui</a>.</p>
+<p>Bases de dados usadas nos capítulos estão disponíveis <a href="http://electionsbr.com/livro/materiais/materiais.zip">aqui</a>.</p>
 </section>
 <section id="introdução" class="level1 unnumbered">
 <h1 class="unnumbered">Introdução</h1>
-<p>Antes de prosseguir, vamos preparar o terreno: o R é um ambiente de programação, o que significa que não abriremos um banco de dados utilizando um menu de tarefas, nem calcularemos estatísticas clicando em um botão. Em vez disso, precisaremos programar, isto é, escrever código de forma ordenada que será executado sequencialmente pelo computador. Aprender a programar, especialmente no início, pode ser um pouco difícil, mas acho que não preciso reforçar o quanto todo o esforço envolvido valerá à pena.</p>
-<section id="um-exemplo" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="um-exemplo">Um exemplo</h2>
-<p>Em Desenvolvimento</p>
+<p>…</p>
+<p>Antes de prosseguir, vamos preparar o terreno: o R é um ambiente de programação, o que significa que não abriremos um banco de dados utilizando um menu de tarefas, nem calcularemos estatísticas clicando em um botão. Em vez disso, precisaremos programar, isto é, escrever código de forma ordenada para que o computador o execute sequencialmente. Aprender a programar, especialmente no início, pode ser um pouco difícil, mas acho que não precisamos reforçar o quanto todo o esforço envolvido valerá à pena.</p>
+<section id="nossa-filosofia" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="nossa-filosofia">Nossa filosofia</h2>
+<p>O mote do livro: ensinar a usar R para resolver problemas aplicados de pesquisa social e de análise de dados, e não necessariamente para aprender lógica de programação. No fundo, acreditamos que ir o mais rapidamente possível para a prática é a melhor forma de entender o potencial do R. É por essa razão que não cobrimos de forma aprofundada tópicos considerados essenciais em livros introdutórios de programação, como estruturas de repetição e condicionais e princípios de programação orientada a objetos.</p>
+<p>Além da opção geral por um livro prático, procuramos seguir alguns princípios menores na escrita desse livro. São eles:</p>
+<ul>
+<li><p>Priorizamos código fácil de ler, mesmo que ele seja um pouco mais extenso;</p></li>
+<li><p>Preferimos usar ferramentas simples e versáteis para resolver problemas, e não necessariamente as mais eficientes e especializadas;</p></li>
+<li><p>Organizamos tarefas de análise de dados em módulos independentes, como importação de dados e manipulação, de forma que cada parte possa ser reutilizada em outros projetos;</p></li>
+<li><p>Partimos do pressuposto de que, sempre que possível, análises devem ser replicáveis – qualquer pessoa familiarizada com o R deve ser capaz de reproduzir nossos códigos.</p></li>
+</ul>
 </section>
-<section id="a-nossa-filosofia-de-trabalho" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="a-nossa-filosofia-de-trabalho">A nossa filosofia de trabalho</h2>
-<p>Em Desenvolvimento</p>
-</section>
-<section id="para-quem-é-este-livro" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="para-quem-é-este-livro">Para quem é este livro?</h2>
-<p>Em Desenvolvimento</p>
+<section id="para-quem-este-livro-é-indicado" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="para-quem-este-livro-é-indicado">Para quem este livro é indicado?</h2>
+<p>Recomendamos este livro sobretudo para cientistas sociais, economistas e pessoas de áreas próximas que estão dando seus primeiros passos no mundo da metodologia quantitativa e da análise de dados. Nossa ideia é que ele seja um atalho para o aprendizado de R e que, a partir dele, a leitura de livros e manuais mais avançados, como os <span class="citation" data-cites="wickham2023r">Wickham, Çetinkaya-Rundel, e Grolemund (<a href="referencias.html#ref-wickham2023r" role="doc-biblioref">2023</a>)</span> ou o de <span class="citation" data-cites="de2014r">Aquino (<a href="referencias.html#ref-de2014r" role="doc-biblioref">2014</a>)</span>, seja mais fácil e proveitosa.</p>
+<p>Vamos enfatizar: este não é um livro de programação, pelo menos não em sentido estrito. Antes, ele é um guia introdutório para o uso aplicado do R em pesquisa social quantitativa. Respondendo à pergunta do sub-título, este livro é indicado principalmente para quem quer aprender rapidamente a usar o R para resolver problemas reais de pesquisa.</p>
 </section>
 <section id="como-usar-o-livro" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="como-usar-o-livro">Como usar o livro</h2>
-<p>Em Desenvolvimento</p>
-</section>
-<section id="começando" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="começando">Começando</h2>
-<p>Em Desenvolvimento</p>
+<p>Pensamos este livro como um complemento para um curso de R de curta duração, com cinco aulas. Dessa forma, cada capítulo corresponde a um dia de trabalho: antes dos encontros, alunas e alunos idealmente lerão um capítulo para cobrir o conteúdo exposto em aula e, no turno oposto, praticam o que foi visto com os exercícios disponíveis ao final do mesmo capítulo.</p>
+<p>Os capítulos do livro podem ser lidos ou consultados de forma independente, mas seguem um percurso planejado: começamos com o básico sobre como instalar e usar o R e o RStudio e concluímos com modelos de regressão linear simples e multivariados. Por conta disso, para estudo individual sugerimos que cada capítulo seja lido seguindo a sequência em que são apresentados.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-de2014r" class="csl-entry" role="listitem">
+Aquino, Jakson Alves de. 2014. <span>«R para cientistas sociais»</span>. EDITUS-Editora da UESC.
+</div>
+<div id="ref-wickham2023r" class="csl-entry" role="listitem">
+Wickham, Hadley, Mine Çetinkaya-Rundel, e Garrett Grolemund. 2023. <em>R for data science</em>. " O’Reilly Media, Inc.".
+</div>
+</div>
 </section>
 </section>
 

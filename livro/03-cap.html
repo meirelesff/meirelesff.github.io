@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Usando R - 3&nbsp; Manipulação</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04-cap.html" rel="next">
+<link href="./02-cap.html" rel="prev">
+<link href="./icon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+
+<meta name="twitter:title" content="Usando R - 3&nbsp; Manipulação">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://electionsbr.com/livro/materiais/cap3/filter.png">
+<meta name="twitter:image-height" content="230">
+<meta name="twitter:image-width" content="449">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-cap.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipulação</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Usando R</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="./Usando-R.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Alternar modo de leitor">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Básico</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importação</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-cap.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipulação</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Visualização</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-cap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Análise</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./referencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referências</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#sec-tidy-data" id="toc-sec-tidy-data" class="nav-link active" data-scroll-target="#sec-tidy-data"><span class="header-section-number">3.1</span> Tidy data</a>
+  <ul class="collapse">
+  <li><a href="#espalhar-e-reunir" id="toc-espalhar-e-reunir" class="nav-link" data-scroll-target="#espalhar-e-reunir"><span class="header-section-number">3.1.1</span> Espalhar e reunir</a></li>
+  </ul></li>
+  <li><a href="#sec-dplyr" id="toc-sec-dplyr" class="nav-link" data-scroll-target="#sec-dplyr"><span class="header-section-number">3.2</span> Operacões básicas de manipulação de dados</a>
+  <ul class="collapse">
+  <li><a href="#filtrar-linhas" id="toc-filtrar-linhas" class="nav-link" data-scroll-target="#filtrar-linhas"><span class="header-section-number">3.2.1</span> Filtrar linhas</a></li>
+  <li><a href="#selecionar-colunas" id="toc-selecionar-colunas" class="nav-link" data-scroll-target="#selecionar-colunas"><span class="header-section-number">3.2.2</span> Selecionar colunas</a></li>
+  <li><a href="#criar-e-modificar-variáveis" id="toc-criar-e-modificar-variáveis" class="nav-link" data-scroll-target="#criar-e-modificar-variáveis"><span class="header-section-number">3.2.3</span> Criar e modificar variáveis</a></li>
+  <li><a href="#agrupar-e-resumir" id="toc-agrupar-e-resumir" class="nav-link" data-scroll-target="#agrupar-e-resumir"><span class="header-section-number">3.2.4</span> Agrupar e resumir</a></li>
+  <li><a href="#modificando-múltiplas-variáveis-com-mutate-e-summarise" id="toc-modificando-múltiplas-variáveis-com-mutate-e-summarise" class="nav-link" data-scroll-target="#modificando-múltiplas-variáveis-com-mutate-e-summarise"><span class="header-section-number">3.2.5</span> Modificando múltiplas variáveis com <code>mutate</code> e <code>summarise</code></a></li>
+  <li><a href="#encadeando-operações-com-pipes" id="toc-encadeando-operações-com-pipes" class="nav-link" data-scroll-target="#encadeando-operações-com-pipes"><span class="header-section-number">3.2.6</span> Encadeando operações com <em>pipes</em></a></li>
+  <li><a href="#outras-operações-úteis-ordernar-renomear-e-sortear" id="toc-outras-operações-úteis-ordernar-renomear-e-sortear" class="nav-link" data-scroll-target="#outras-operações-úteis-ordernar-renomear-e-sortear"><span class="header-section-number">3.2.7</span> Outras operações úteis: ordernar, renomear e sortear</a></li>
+  <li><a href="#manipulando-bases-muito-grandes" id="toc-manipulando-bases-muito-grandes" class="nav-link" data-scroll-target="#manipulando-bases-muito-grandes"><span class="header-section-number">3.2.8</span> Manipulando bases muito grandes</a></li>
+  </ul></li>
+  <li><a href="#sec-joins" id="toc-sec-joins" class="nav-link" data-scroll-target="#sec-joins"><span class="header-section-number">3.3</span> Cruzar e combinar dados</a>
+  <ul class="collapse">
+  <li><a href="#cruzamentos-e-colunas-chave" id="toc-cruzamentos-e-colunas-chave" class="nav-link" data-scroll-target="#cruzamentos-e-colunas-chave"><span class="header-section-number">3.3.1</span> Cruzamentos e colunas-chave</a></li>
+  <li><a href="#funções-_join" id="toc-funções-_join" class="nav-link" data-scroll-target="#funções-_join"><span class="header-section-number">3.3.2</span> Funções <code>_join</code></a></li>
+  <li><a href="#controlando-o-comportamento-das-funções-_join" id="toc-controlando-o-comportamento-das-funções-_join" class="nav-link" data-scroll-target="#controlando-o-comportamento-das-funções-_join"><span class="header-section-number">3.3.3</span> Controlando o comportamento das funções <code>_join</code></a></li>
+  <li><a href="#empilhando-bases" id="toc-empilhando-bases" class="nav-link" data-scroll-target="#empilhando-bases"><span class="header-section-number">3.3.4</span> Empilhando bases</a></li>
+  </ul></li>
+  <li><a href="#resumo-do-capítulo" id="toc-resumo-do-capítulo" class="nav-link" data-scroll-target="#resumo-do-capítulo"><span class="header-section-number">3.4</span> Resumo do capítulo</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-cap3" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Manipulação</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>É raro trabalharmos numa base de dados que já esteja, digamos, pronta. Ter de transformar valores de uma variável, excluir outros, remover ou incluir observações é algo quase compulsório em uma análise de dados. Apesar disso, esse processo essencial em qualquer pesquisa acadêmica ou análise de dados é algo quase ausente em livros de metodologia – normalmente já pressupondo que alguma base de dados existe e que não é necessário modificá-la.</p>
+<p>Nossa abordagem é diferente. Assumimos que manipular e limpar bases de dados são etapas fundamentais em uma análise. Também acreditamos que essas etapas não precisam consumir tanto tempo, tampouco exigir esforço manual repetitivo. Mostraremos neste capítulo que é possível realizar diferentes operações de transformação em uma base de dados com poucas ferramentas; e que, como vantagem desse método de manipulação, qualquer pessoa poderá replicar nossos procedimentos desde os menores detalhes – normalmente não documentados.</p>
+<p>O trajeto que faremos até o fim deste capítulo também envolverá aprender a pensar numa base de dados de forma um pouco diferente do que estamos habituados. Simplesmente empilhar células numa planilha, ou criar tabelas estruturadas de forma arbitrária, não será suficiente. Isso é o que cobrimos na <a href="#sec-tidy-data"><span>Seção&nbsp;3.1</span></a>. A partir daí, aprenderemos na <a href="#sec-dplyr"><span>Seção&nbsp;3.2</span></a> a usar quatro das mais comuns operações de manipulação de dados: <em>filtrar</em>, <em>selecionar</em>, <em>modificar</em> e <em>agrupar/resumir</em>, quer se aplicam mesmo em bases massivas, que não cabem na memória RAM do computador. Finalmente, cobriremos como combinar e cruzar bases de dados na seção <a href="#sec-joins"><span>Seção&nbsp;3.3</span></a>.</p>
+<p>Neste capítulo, trabalharemos com coisas como <code>tibbles</code>, importação de dados e manipulação de vetores; caso não tenha familiaridade com estes tópicos, veja o <a href="01-cap.html"><span>Capítulo&nbsp;1</span></a> e o <a href="02-cap.html"><span>Capítulo&nbsp;2</span></a>. Para acompanhar o material a seguir, também será necessário usar os pacotes <code>dplyr</code> e <code>tidyr</code>, ambos partes do <code>tidyverse</code> voltados para a manipulação de dados, que precisaremos carregar com o comando <code>library(tidyverse)</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="sec-tidy-data" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-tidy-data"><span class="header-section-number">3.1</span> Tidy data</h2>
+<p>Qualquer pessoa minimamente familiarizadas com metodologia de pesquisa sabe que bases com problemas podem invalidar uma análise: esquecer de deflacionar séries de preços em análises históricas, por exemplo, é um problema porque sabemos que R$ 100,00 de hoje não vale o mesmo que R$ 100,00 em 1998. Ainda assim, duas ou mais pessoas minimamente familiarizadas com análise de dados podem divergir sobre como estruturar uma base. Imagine, por exemplo, que tenhamos um pequeno banco de dados com a quantidade de votos de partidos políticos fictícios. Uma forma razoável de organizar estes dados seria assim:</p>
+<div id="tbl-tidy-data" class="cell tbl-parent quarto-layout-panel anchored">
+<div class="panel-caption table-caption">
+<p>Tabela&nbsp;3.1: Exemplos de bases de dados com votos de partidos políticos</p>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div id="tbl-tidy-data-1" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-tidy-data" style="flex-basis: 50.0%;justify-content: center;">
+<table class="table table-sm table-striped small">
+<caption>(a) Tidy</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Partido</th>
+<th style="text-align: right;">Votos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">234</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">451</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">200</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tbl-tidy-data-2" class="quarto-layout-cell quarto-layout-cell-subref anchored" data-ref-parent="tbl-tidy-data" style="flex-basis: 50.0%;justify-content: center;">
+<table class="table table-sm table-striped small">
+<caption>(b) Não-tidy</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;">A</th>
+<th style="text-align: right;">B</th>
+<th style="text-align: right;">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">234</td>
+<td style="text-align: right;">451</td>
+<td style="text-align: right;">200</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Se repararmos bem, ambas as formas de disposição dos dados são consistentes. Cada linha ou coluna contém apenas o mesmo tipo de informação – partido ou votos – e é fácil identificar a estrutura de cada base: na primeira, cada linha indica os atributos de um único partido; já na segunda, cada coluna indica a votação do respectivo partido. Temos exemplos destes dois métodos inclusive em bases que já carregamos no <a href="02-cap.html"><span>Capítulo&nbsp;2</span></a>: o arquivo <code>exemplo.csv</code> está organizado da primeira forma, enquanto que o arquivo <code>populacao_brasil.xls</code> está organizado da segunda.</p>
+<p>Ainda que a segunda forma seja útil em determinadas aplicações, daqui até o final do livro trabalharemos com a primeira forma, popularizada pelo estatístico e desenvolvedor de <code>R</code> Hadley como <em>tidy data</em>, ou <em>dados arrumados</em> <span class="citation" data-cites="wickham2014">(<a href="referencias.html#ref-wickham2014" role="doc-biblioref">Wickham 2014</a>)</span>. Nesta estrutura, basicamente três regras são seguidas:</p>
+<ol type="1">
+<li>Cada variável é uma coluna;</li>
+<li>Cada observação é uma linha;</li>
+<li>Cada valor está numa única célula.</li>
+</ol>
+<p>Exposto dessa forma, não é óbvio o significado de cada uma dessas regras. Em primeiro lugar, o conjunto desses princípios nos indica que as colunas são compostas por variáveis, que são simplesmente atributos de cada observação. Voltando à nossa tabela inicial, “votos” é uma variável e, portanto, está em uma coluna, pois representa a votação de cada partido. O mesmo vale para o nome do partido, na coluna “partido”, e também para outros atributos do partido, como número de filiados, número de deputados, entre outros. Em outras palavras, uma variável é uma característica de uma observação e, portanto, deve estar em uma coluna.</p>
+<p>Em segundo lugar, as linhas indicam os indivíduos ou observações que temos – cada um dos partidos na nossa base, como na tabela anterior. Podemos pensar na observação como a nossa <em>unidade de análise</em>. Poderíamos ter observações repetidas de um mesmo indivíduo ao longo do tempo, como o partido A em 2003 e o partido A em 2004; neste caso, o ano seria uma nova variável na nossa base. Por fim, cada atributo de cada unidade de análise – partidos no nosso caso – está em uma única célula, o que significa que não temos informações repetidas ou ausentes. É o que vemos na tabela anterior: cada partido tem apenas um nome, uma votação e uma sigla.</p>
+<p>A <a href="#tbl-tidy-data">Tabela&nbsp;<span>3.2</span></a>, a seguir, resume a ideia por detrás das regras de <em>tidy data</em>:</p>
+<div id="tbl-tidy-data" class="anchored">
+<table class="table-sm table-hover table-striped small table">
+<caption>Tabela&nbsp;3.2: Princípios de <em>tidy data</em></caption>
+<colgroup>
+<col style="width: 26%">
+<col style="width: 39%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Regra</th>
+<th style="text-align: left;">Significado</th>
+<th style="text-align: left;">Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Cada variável é uma coluna</td>
+<td style="text-align: left;">Cada coluna deve armazenar apenas informações de um mesmo atributo</td>
+<td style="text-align: left;">Votação dos partidos</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cada observação é uma linha</td>
+<td style="text-align: left;">Cada linha representa uma unidade de análise ou um indivíduo</td>
+<td style="text-align: left;">Partido A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cada valor está numa única célula</td>
+<td style="text-align: left;">Cada célula contém apenas um valor</td>
+<td style="text-align: left;">234</td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="espalhar-e-reunir" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="espalhar-e-reunir"><span class="header-section-number">3.1.1</span> Espalhar e reunir</h3>
+<p>Duas operação resumem tudo o que precisamos fazer para estruturar uma base no formato <em>tidy</em>: alongar e reunir. No <code>R</code>, essas operações podem ser feitas usando o pacote <code>tidyr</code>, com a função <code>pivot_wide</code> servindo para alongar valores de uma coluna e, por sua vez, a função <code>pivot_wider</code> para reunir numa única coluna valores dispersos em várias.</p>
+<p>Para aprendermos a usar ambas as funções, trabalharemos com um banco de dados contendo informações sobre o número de homicídios ocorridos anualmente nos estados brasileiros entre 2000 e 2009, conforme disponibilizado pelo Ipeadata<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> com base nos dados originais do Datasus<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Os dados estão na pasta de materiais complementares deste livro em uma planilha de Excel chamada <code>homicidios_uf.xls</code>. Para carregá-la (ver o <a href="02-cap.html"><span>Capítulo&nbsp;2</span></a>), usaremos a função <code>read_excel</code> do pacote <code>readxl</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>homic <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"homicidios_uf.xls"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Com a função <code>head</code>, podemos visualizar as primeiras observações deste banco.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(homic)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 13
+  Sigla Codigo Estado   `2000` `2001` `2002` `2003` `2004` `2005` `2006` `2007`
+  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AC    12     Acre        108    122    151    135    115    125    155    133
+2 AL    27     Alagoas     724    836    989   1041   1034   1211   1617   1839
+3 AM    13     Amazonas    559    478    512    561    523    598    697    711
+4 AP    16     Amapá       155    184    181    190    173    196    203    171
+5 BA    29     Bahia      1223   1573   1735   2155   2255   2823   3276   3608
+6 CE    23     Ceará      1229   1298   1443   1560   1538   1692   1793   1936
+# ℹ 2 more variables: `2008` &lt;dbl&gt;, `2009` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>É possível perceber que a estrutura do banco <code>homic</code> não é <em>tidy</em>: temos várias colunas com alguns anos (que são atributos do momento em que um indivíduo é observado), em vez de uma coluna com número de homicídios e uma coluna para anos. O que gostaríamos de ter, portanto, seria algo mais ou menos assim:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  Sigla Codigo Estado Ano   Homicidios
+  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+1 AC    12     Acre   2000         108
+2 AC    12     Acre   2001         122
+3 AC    12     Acre   2002         151
+4 AC    12     Acre   2003         135
+5 AC    12     Acre   2004         115
+6 AC    12     Acre   2005         125</code></pre>
+</div>
+</div>
+<p>Como fazer essa transformação? Usamos a função <code>pivot_longer</code>, para alongar a base <code>homic</code> que é originalmente larga. Seu uso é simples e requer apenas que passemos a ela o nome do objeto onde está o banco que queremos modificar; e o nome das variáveis que queremos alongar ou preservar como estão no banco. Aplicamos <code>pivot_longer</code> da seguinte forma:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega o pacote tidyverse</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Reune as variaveis de ano espalhadas pela base 'homic'</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>homic2 <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(homic, <span class="sc">-</span><span class="fu">c</span>(Sigla, Codigo, Estado), <span class="at">names_to =</span> <span class="st">"Ano"</span>, <span class="at">values_to =</span> <span class="st">"Homicidios"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Verifica as primeiras observacoes do novo banco</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(homic2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  Sigla Codigo Estado Ano   Homicidios
+  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+1 AC    12     Acre   2000         108
+2 AC    12     Acre   2001         122
+3 AC    12     Acre   2002         151
+4 AC    12     Acre   2003         135
+5 AC    12     Acre   2004         115
+6 AC    12     Acre   2005         125</code></pre>
+</div>
+</div>
+<p>O resultado da aplicação de <code>pivot_longer</code> é uma base <em>tidy</em>. De forma mais detalhada, a função <code>pivot_longer</code> possui dois argumentos obrigatórios: <code>data</code>, que é o nome do objeto onde está o banco; e <code>cols</code>, que indica quais colunas devem ser alongadas (no nosso exemplo, as colunas <code>2000</code>, <code>2001</code>, etc.). O mais importante do código anterior é que declaramos as variáveis a manter como estavam (pois já estavam no formato <em>tidy</em>) com o uso de <code>-c()</code>. Podemos fazer o inverso: indicar quais variáveis devem ser alongadas, em vez de quais devem ser mantidas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reune as variaveis de ano espalhadas pela base 'homic'</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>homic3 <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(homic, <span class="st">`</span><span class="at">2000</span><span class="st">`</span><span class="sc">:</span><span class="st">`</span><span class="at">2009</span><span class="st">`</span>, <span class="at">names_to =</span> <span class="st">"Ano"</span>, <span class="at">values_to =</span> <span class="st">"Homicidios"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(homic3)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  Sigla Codigo Estado Ano   Homicidios
+  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;
+1 AC    12     Acre   2000         108
+2 AC    12     Acre   2001         122
+3 AC    12     Acre   2002         151
+4 AC    12     Acre   2003         135
+5 AC    12     Acre   2004         115
+6 AC    12     Acre   2005         125</code></pre>
+</div>
+</div>
+<p>No exemplo, usamos <code>2000`:`2009</code> para indicar o nome de todas as variáveis que queríamos alongar, o que deve ser lido como “selecione todas as variáveis entre <code>2000</code> e <code>2009</code>” (não se preocupe se esse uso de <code>:</code> para selecionar variáveis não fez sentido agora, veremos isso adiante).</p>
+<p>A função <code>pivot_longer</code> também possui dois argumentos opcionais: <code>names_to</code>, que é o nome que iremos dar à variável que armazenará o nome das variáveis reunidas (neste caso, “Ano”); e <code>values_to</code>, que é o nome da variável que armazenará os valores das variáveis reunidas. Note que não é necessário declarar os argumentos <code>names_to</code> e <code>values_to</code>, caso no qual a função <code>pivot_longer</code> atribui às novas variáveis os nomes <code>name</code> e <code>value</code>, respectivamente.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reune as variaveis de ano espalhadas pela base 'homic'</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>homic4 <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(homic, <span class="sc">-</span><span class="fu">c</span>(Sigla, Codigo, Estado))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(homic4)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  Sigla Codigo Estado name  value
+  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;
+1 AC    12     Acre   2000    108
+2 AC    12     Acre   2001    122
+3 AC    12     Acre   2002    151
+4 AC    12     Acre   2003    135
+5 AC    12     Acre   2004    115
+6 AC    12     Acre   2005    125</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Sobrescrevendo objetos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ao restruturar a base <code>homic</code>, criamos novos objetos <code>homic2</code>, <code>homic3</code> e <code>homic4</code> para não sobrescrever o conteúdo do <code>tibble</code> <code>homic</code> original. Dito de outra maneira, executar <code>homic &lt;- pivot_longer(homic, -c(Sigla, Codigo, Estado))</code> faria com que o objeto <code>homic</code> original fosse substituído pelo resultado de <code>pivot_longer</code>.</p>
+</div>
+</div>
+<p>Para desfazer a operação de alongamento, usamos a função inversa, que é <code>pivot_wider</code>. Precisamos passar para ela apenas o nome das variáveis que queremos espalhar em diferentes colunas (vamos usar o <code>tibble</code> <code>homic2</code> aqui, criado algumas linhas atrás):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Espalha as variaveis de ano reunidas pela base 'homic'</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>homic5 <span class="ot">&lt;-</span> <span class="fu">pivot_wider</span>(homic2, <span class="at">names_from =</span> Ano, <span class="at">values_from =</span> Homicidios)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(homic5)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 13
+  Sigla Codigo Estado   `2000` `2001` `2002` `2003` `2004` `2005` `2006` `2007`
+  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 AC    12     Acre        108    122    151    135    115    125    155    133
+2 AL    27     Alagoas     724    836    989   1041   1034   1211   1617   1839
+3 AM    13     Amazonas    559    478    512    561    523    598    697    711
+4 AP    16     Amapá       155    184    181    190    173    196    203    171
+5 BA    29     Bahia      1223   1573   1735   2155   2255   2823   3276   3608
+6 CE    23     Ceará      1229   1298   1443   1560   1538   1692   1793   1936
+# ℹ 2 more variables: `2008` &lt;dbl&gt;, `2009` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Diferentemente de <code>pivot_longer</code>, com <code>pivot_wider</code> temos que passar dois argumentos obrigatórios: <code>names_from</code>, que é o nome da variável que armazena os nomes das variáveis que queremos espalhar; e <code>values_from</code>, que é o nome da variável que armazena os valores das variáveis que queremos espalhar, sem aspas.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>Com estas duas funções podemos tanto colocar em várias colunas valores que estavam agrupados numa única (último exemplo) quanto colocar numa mesma coluna valores que estavam espalhados por várias outras (primeiro exemplo). Na sequência, começaremos a usar o pacote <code>dplyr</code> para manipular bases de dados, mas, quando necessário, recorreremos às funções <code>pivot_</code> para estruturar inicialmente elas em formato <em>tidy</em>.</p>
+</section>
+</section>
+<section id="sec-dplyr" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-dplyr"><span class="header-section-number">3.2</span> Operacões básicas de manipulação de dados</h2>
+<p>Com uma base estruturada de forma adequada, podemos realizar outras operações nela (na verdade, frequentemente precisamos realizar operações <em>tidy</em> em várias etapas de limpeza de dados). Neste capítulo, vamos nos concentrar em quatro operações, que chamaremos de verbos:</p>
+<ul>
+<li><p><em>filtrar</em>, para escolher observações (linhas) para manter ou excluir com base em algum critério;</p></li>
+<li><p><em>selecionar</em>, para escolher colunas a manter, reordenar ou remover;</p></li>
+<li><p><em>modificar</em>, para criar ou alterar variáveis e observações; e</p></li>
+<li><p><em>agrupar</em>, para realizar modificações ou resumos de informações por grupo.</p></li>
+</ul>
+<p>Melhor do que explicar, a <a href="#fig-dplyr-verbs">Figura&nbsp;<span>3.1</span></a> ilustra visualmente o que cada um desses verbos faz em uma base de dados.</p>
+<div id="fig-dplyr-verbs" class="quarto-layout-panel">
+<figure class="figure">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-filter" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="materiais/cap3/filter.png" class="img-fluid figure-img" data-ref-parent="fig-dplyr-verbs"></p>
+<figcaption class="figure-caption">(a) Filtrar linhas</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-select" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="materiais/cap3/select.png" class="img-fluid figure-img" data-ref-parent="fig-dplyr-verbs"></p>
+<figcaption class="figure-caption">(b) Selecionar colunas</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-mutate" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="materiais/cap3/mutate.png" class="img-fluid figure-img" data-ref-parent="fig-dplyr-verbs"></p>
+<figcaption class="figure-caption">(c) Criar/modificar colunas</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-summarise" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="materiais/cap3/summarise.png" class="img-fluid figure-img" data-ref-parent="fig-dplyr-verbs"></p>
+<figcaption class="figure-caption">(d) Resumir por grupo</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figura&nbsp;3.1: Principais verbos de manipulação de dados do pacote <code>dplyr</code></figcaption><p></p>
+</figure>
+</div>
+<p>Enquanto que <code>slice</code> e <code>filter</code> fazem operações horizontais (elas cortam linhas de um banco de dados), <code>select</code> faz operações verticais (ela corta, ou reordena, colunas); <code>mutate</code>, por sua vez, faz operações dos dois tipos, já que podemos usá-la para modificar apenas algumas observações de uma variável quanto adicionar, ou remover, colunas a uma base. Por fim, <code>group_by</code> serve para agrupar observações em um banco, algo útil para calcular estatísticas de um grupo, algo que fazemos com <code>summarise</code>.</p>
+<p>Para exemplificar esses principais verbos de manipulação, trabalharemos com alguns dados sobre as despesas realizadas por todas as capitais brasileiras no ano de 2012, disponibilizados pela Secretaria do Tesouro Nacional em seu <em>website</em>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> A base está no arquivo <code>capitais.Rda</code> nos materiais complementares do livro e pode ser carregada com <code>load</code>. Feito isto, ela ficará salva na memória no objeto <code>capitais</code> no formato <code>tibble</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"capitais.Rda"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="filtrar-linhas" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="filtrar-linhas"><span class="header-section-number">3.2.1</span> Filtrar linhas</h3>
+<p>A base <code>capitais</code> tem 26 observações e 8 variáveis (lembre-se: você pode usar as funções <code>View</code>, <code>nrow</code> e <code>ncol</code> para checar isso). Começaremos a usar o pacote <code>dplyr</code> para selecionar e filtrar observações. Para fazer isso indicando apenas a posição das linhas, usamos a função <code>slice</code> - passamos um vetor para a função indicando a posição das linhas que queremos remover. Veja alguns exemplos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtra apenas as cinco primeiras observações do banco capitais</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice</span>(capitais, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+  regiao       uf    capital      populacao despesa_total despesa_assistencia_…¹
+  &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;                  &lt;dbl&gt;
+1 Nordeste     SE    ARACAJU         587701   1150364953.              31383656.
+2 Norte        PA    BELEM          1410430   2110549149               58105215 
+3 Sudeste      MG    BELO HORIZO…   2395785   6917817946.             172347581.
+4 Norte        RR    BOA VISTA       296959    491953689.              14018664.
+5 Centro-Oeste MS    CAMPO GRANDE    805397   2290844087.              39604187.
+# ℹ abbreviated name: ¹​despesa_assistencia_social
+# ℹ 2 more variables: despesa_saude &lt;dbl&gt;, despesa_educacao &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtra apenas a primeira e a quinta observações do banco capitais</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice</span>(capitais, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 8
+  regiao       uf    capital      populacao despesa_total despesa_assistencia_…¹
+  &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;                  &lt;dbl&gt;
+1 Nordeste     SE    ARACAJU         587701   1150364953.              31383656.
+2 Centro-Oeste MS    CAMPO GRANDE    805397   2290844087.              39604187.
+# ℹ abbreviated name: ¹​despesa_assistencia_social
+# ℹ 2 more variables: despesa_saude &lt;dbl&gt;, despesa_educacao &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove as 10 primeiras observacoes do banco capitais</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># e salva o resultado no objeto 'cap'</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>cap <span class="ot">&lt;-</span> <span class="fu">slice</span>(capitais, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cap)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  regiao   uf    capital     populacao despesa_total despesa_assistencia_social
+  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;                      &lt;dbl&gt;
+1 Nordeste PB    JOAO PESSOA    742478   1535075866.                  27579724.
+2 Norte    AP    MACAPA         415554    506401565.                   6743489.
+3 Nordeste AL    MACEIO         953393   1530192466.                  22125734.
+4 Norte    AM    MANAUS        1861838   2962009189.                 101830120.
+5 Nordeste RN    NATAL          817590   1325168010.                  42486957.
+6 Norte    TO    PALMAS         242070    584961477.                  20624102.
+# ℹ 2 more variables: despesa_saude &lt;dbl&gt;, despesa_educacao &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Enquanto que <code>slice</code> remove linhas baseadas nas suas posições, a outra função para cortar horizontalmente, <code>filter</code>, é muito mais flexível. Com ela, podemos especificar condições para remover observações (e.g., remover observações de <code>capitais</code> cuja despesa total no ano de 2012 seja maior ou menor que algum valor) ou combinações de várias condições. Ela é útil, portanto, para filtrar observações com base em um ou mais critérios, como mostram os exemplos a seguir.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtra observacoes com populacao maior que 2 milhoes habitantes</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(capitais, populacao <span class="sc">&gt;</span> <span class="dv">2000000</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+  regiao   uf    capital        populacao despesa_total despesa_assistencia_so…¹
+  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;                    &lt;dbl&gt;
+1 Sudeste  MG    BELO HORIZONTE   2395785   6917817946.               172347581.
+2 Nordeste CE    FORTALEZA        2500194   4137588203.                78034074.
+3 Sudeste  RJ    RIO DE JANEIRO   6390290  18702324296.               565052833.
+4 Nordeste BA    SALVADOR         2710968   3618049094.                40981531.
+5 Sudeste  SP    SAO PAULO       11376685  36400104976.               919021471.
+# ℹ abbreviated name: ¹​despesa_assistencia_social
+# ℹ 2 more variables: despesa_saude &lt;dbl&gt;, despesa_educacao &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtra observacoes da regiao sul e cria um novo objeto</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>sul <span class="ot">&lt;-</span> <span class="fu">filter</span>(capitais, regiao <span class="sc">==</span> <span class="st">"Sul"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>sul</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 8
+  regiao uf    capital       populacao despesa_total despesa_assistencia_social
+  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;             &lt;dbl&gt;         &lt;dbl&gt;                      &lt;dbl&gt;
+1 Sul    PR    CURITIBA        1776761   5115609915.                 117962804.
+2 Sul    SC    FLORIANOPOLIS    433158   1080743166.                  33082667.
+3 Sul    RS    PORTO ALEGRE    1416714   4122115448.                 146233833.
+# ℹ 2 more variables: despesa_saude &lt;dbl&gt;, despesa_educacao &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>O primeiro argumento recebido por <code>filter</code>, assim como <code>slice</code>, é o nome do objeto com a base de dados (um <code>data.frame</code> ou <code>tibble</code>) e, depois, os critérios usados para filtragem. Algo essencial aqui é que podemos usar qualquer operador lógico (como <code>==</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>!=</code>) para criar condições de filtragem, incluindo combinações de condições, o que é feito com o operador <code>&amp;</code> (e) ou <code>,</code>. Por exemplo, para filtrar observações com população maior que 500 mil e menor que 1 milhão, podemos usar qualquer uma das duas alternativas a seguir:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtra observacoes com populacao maior que 500 mil e menor que 1 milhao</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(capitais, populacao <span class="sc">&gt;</span> <span class="dv">500000</span> <span class="sc">&amp;</span> populacao <span class="sc">&lt;</span> <span class="dv">1000000</span>) <span class="co"># ou</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(capitais, populacao <span class="sc">&gt;</span> <span class="dv">500000</span>, populacao <span class="sc">&lt;</span> <span class="dv">1000000</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Um uso mais comum de <code>filter</code> é o de combinar critérios com base em diferentes variáveis. Imagine, por exemplo, que queremos filtrar apenas capitais que gastaram mais de R$ 250 milhões em saúde e mais de R$ 300 milhões em educação em 2012. Para isso, usamos <code>filter</code> da seguinte forma:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(capitais, </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>       despesa_saude <span class="sc">&gt;</span> <span class="dv">250000000</span>, </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>       despesa_educacao <span class="sc">&gt;</span> <span class="dv">300000000</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note que, por fazer testes lógicos (que retornam <code>TRUE</code> ou <code>FALSE</code>, geralmente feitos com os operadores lógicos vistos no <a href="01-cap.html"><span>Capítulo&nbsp;1</span></a>), <code>filter</code> pode ser usada para realizar tarefas como remover observações com <em>missings</em> (função <code>is.na()</code>) ou valores extremos. Por exemplo, para remover observações com <em>missings</em> em <code>despesa_saude</code>, podemos usar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(capitais, <span class="sc">!</span><span class="fu">is.na</span>(despesa_saude))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finalmente, um uso de <code>filter</code> que não podemos deixar de mencionar é o de manter apenas observações cujos valores de uma variável pertencem a um conjunto de valores – usando, para isso, o operador <code>%in%</code> (visto no <a href="01-cap.html"><span>Capítulo&nbsp;1</span></a>). Por exemplo, para manter apenas capitais que pertencem às regiões Sul ou Sudeste, podemos usar:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(capitais, regiao <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Sul"</span>, <span class="st">"Sudeste"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Combinando diferentes operadores lógicos e variáveis, podemos realizar uma série de operações de filtragem. Teste as seguintes operações de filtragem para entender melhor algumas dessas possibilidades:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(capitais, <span class="sc">!</span>uf <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"RS"</span>, <span class="st">"SP"</span>, <span class="st">"MG"</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(capitais, regiao <span class="sc">==</span> <span class="st">"Sul"</span> <span class="sc">|</span> regiao <span class="sc">==</span> <span class="st">"Sudeste"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(capitais, regiao <span class="sc">==</span> <span class="st">"Nordeste"</span> <span class="sc">&amp;</span> populacao <span class="sc">&lt;</span> <span class="dv">1000000</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(capitais, <span class="sc">!</span>(regiao <span class="sc">==</span> <span class="st">"Nordeste"</span> <span class="sc">&amp;</span> populacao <span class="sc">&lt;</span> <span class="dv">1000000</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="selecionar-colunas" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="selecionar-colunas"><span class="header-section-number">3.2.2</span> Selecionar colunas</h3>
+<p>Selecionar colunas é algo que usamos com frequência para manter, reordenar ou remover variáveis em uma análise. Para realizar este tipo de operação, usamos a função <code>select</code><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> do pacote <code>dplyr</code> (que é parte do <code>tidyverse</code> e, portanto, é carregado automaticamente quando executamos <code>library(tidyverse)</code>). Um exemplo de como usar <code>select</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleciona apenas as variaveis uf, capital e populacao do banco</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>cap1 <span class="ot">&lt;-</span> <span class="fu">select</span>(capitais, uf, capital, populacao)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cap1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  uf    capital        populacao
+  &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;
+1 SE    ARACAJU           587701
+2 PA    BELEM            1410430
+3 MG    BELO HORIZONTE   2395785
+4 RR    BOA VISTA         296959
+5 MS    CAMPO GRANDE      805397
+6 MT    CUIABA            561329</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove a variavel populacao</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>cap2 <span class="ot">&lt;-</span> <span class="fu">select</span>(capitais, <span class="sc">-</span>populacao)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cap2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  regiao       uf    capital  despesa_total despesa_assistencia_…¹ despesa_saude
+  &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;            &lt;dbl&gt;                  &lt;dbl&gt;         &lt;dbl&gt;
+1 Nordeste     SE    ARACAJU    1150364953.              31383656.    391263344.
+2 Norte        PA    BELEM      2110549149               58105215     595930546 
+3 Sudeste      MG    BELO HO…   6917817946.             172347581.   2029533813.
+4 Norte        RR    BOA VIS…    491953689.              14018664.    105492562.
+5 Centro-Oeste MS    CAMPO G…   2290844087.              39604187.    734214086.
+6 Centro-Oeste MT    CUIABA     1302650057.              32016290.    366936045.
+# ℹ abbreviated name: ¹​despesa_assistencia_social
+# ℹ 1 more variable: despesa_educacao &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>O primeiro argumento da função <code>select</code> é o banco de dados que queremos manipular, seguido do nome das variáveis que queremos manter, sem aspas e separadas por vírgula; se quisermos excluir uma variável, colocamos um sinal de subtração, <code>-</code>, antes do seu nome. Além destes usos, também podemos selecionar colunas com <code>select</code> com base na posição delas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mantem apenas a 1a e a 3a colunas</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(capitais, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Exclui a 1a e a 3a colunas</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(capitais, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">3</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(capitais, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)) <span class="co"># Mesmo resultado</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para diminuir a quantidade de código que precisamos escrever, também podemos usar dois pontos, <code>:</code>, como em vetores, para selecionar colunas, o que deve ser lido como “selecione todas as colunas contidas entre a variável A e B (A:B)”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mantem as colunas entre uf e despesa_total</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(capitais, uf<span class="sc">:</span>despesa_total)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mantem as colunas entre uf e populacao e a coluna despesa_saude</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(capitais, uf<span class="sc">:</span>populacao, despesa_saude)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Dado que podemos selecionar colunas com <code>select</code>, é fácil perceber que podemos reordenar, ou mesmo duplicar, colunas com ela. Para isso, basta passar para <code>select</code> as colunas na ordem desejada:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reordena as colunas do banco capitais</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(capitais, populacao, uf, capital)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Duplica a variavel populacao</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(capitais, populacao, uf, capital, populacao)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverte a ordem das colunas</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(capitais, <span class="dv">8</span><span class="sc">:</span><span class="dv">1</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="funções-auxiliares-a-select" class="level4" data-number="3.2.2.1">
+<h4 data-number="3.2.2.1" class="anchored" data-anchor-id="funções-auxiliares-a-select"><span class="header-section-number">3.2.2.1</span> Funções auxiliares a select</h4>
+<p>E se tivermos uma base de dados muito grande, com centenas de variáveis? Como selecionar as que queremos manter sem ter que escrever o nome ou a posição de cada uma? Para casos assim, o <code>dplyr</code> nos fornece funções auxiliares para selecionar colunas. Destas, as principais são:</p>
+<ul>
+<li><code>starts_with()</code> e <code>ends_with()</code>, para selecionar apenas variáveis cujos nomes contenham algum prefixo ou sufixo.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleciona apenas variaveis que comecem com 'despesa'</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>cap1 <span class="ot">&lt;-</span> <span class="fu">select</span>(capitais, <span class="fu">starts_with</span>(<span class="st">"despesa"</span>))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cap1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  despesa_total despesa_assistencia_social despesa_saude despesa_educacao
+          &lt;dbl&gt;                      &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;
+1   1150364953.                  31383656.    391263344.       156571174.
+2   2110549149                   58105215     595930546        360221999 
+3   6917817946.                 172347581.   2029533813.      1169885015.
+4    491953689.                  14018664.    105492562.       110284325.
+5   2290844087.                  39604187.    734214086.       484548412.
+6   1302650057.                  32016290.    366936045.       277989807.</code></pre>
+</div>
+</div>
+<ul>
+<li><code>contains()</code>, para selecionar apenas variáveis cujos nomes contenham alguma palavra ou caracteres.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleciona apenas variaveis que contenham 'acao'</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>cap1 <span class="ot">&lt;-</span> <span class="fu">select</span>(capitais, <span class="fu">contains</span>(<span class="st">"acao"</span>))</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cap1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  populacao despesa_educacao
+      &lt;dbl&gt;            &lt;dbl&gt;
+1    587701       156571174.
+2   1410430       360221999 
+3   2395785      1169885015.
+4    296959       110284325.
+5    805397       484548412.
+6    561329       277989807.</code></pre>
+</div>
+</div>
+<ul>
+<li><code>where()</code>, para selecionar variáveis com base em alguma condição (e.g., manter apenas variáveis numéricas).<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleciona apenas variaveis numericas</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(capitais, <span class="fu">where</span>(is.numeric))</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleciona variaveis numericas e 'capital'</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(capitais, capital, <span class="fu">where</span>(is.numeric))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="criar-e-modificar-variáveis" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="criar-e-modificar-variáveis"><span class="header-section-number">3.2.3</span> Criar e modificar variáveis</h3>
+<p>O <code>dplyr</code> não serve apenas para filtrar e selecionar observações e variáveis. Com <code>mutate</code>, podemos alterar variáveis ou adicionar novas a um banco (elas são incluídas no fim do banco, logo após todas as demais). Podemos usá-la, por exemplo, para calcular a despesa total per capita das capitais brasileiras em 2012 – que é igual a despesas total dividida pelo número de habitantes de cada capital.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria a variavel despesa_per_capita</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>cap1 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(capitais, <span class="at">despesa_per_capita =</span> despesa_total <span class="sc">/</span> populacao)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(cap1, capital, despesa_total, populacao, despesa_per_capita)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 4
+   capital        despesa_total populacao despesa_per_capita
+   &lt;chr&gt;                  &lt;dbl&gt;     &lt;dbl&gt;              &lt;dbl&gt;
+ 1 ARACAJU          1150364953.    587701              1957.
+ 2 BELEM            2110549149    1410430              1496.
+ 3 BELO HORIZONTE   6917817946.   2395785              2887.
+ 4 BOA VISTA         491953689.    296959              1657.
+ 5 CAMPO GRANDE     2290844087.    805397              2844.
+ 6 CUIABA           1302650057.    561329              2321.
+ 7 CURITIBA         5115609915.   1776761              2879.
+ 8 FLORIANOPOLIS    1080743166.    433158              2495.
+ 9 FORTALEZA        4137588203.   2500194              1655.
+10 GOIANIA          2952160894.   1333767              2213.
+# ℹ 16 more rows</code></pre>
+</div>
+</div>
+<p>Como mostra o exemplo anterior, só precisamos passar o nome do banco para a função, o nome da nova variável a ser criada, sem aspas, e o conteúdo dela – que pode ser o resultado de alguma operação aritmética em cima de uma das variáveis do banco. Além da economia de caracteres, a função <code>mutate</code> consegue usar as variáveis já existentes do banco para criar uma nova. Intuitivamente, o que ela faz é nos dar acesso às demais variáveis de forma vetorizada: se quisermos criar uma nova variável que seja igual a o logaritmo natural da variável população, portanto, <code>mutate</code> aplicará o <code>log</code> a cada elemento da variável <code>populacao</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria uma variavel que e' igual ao log de populacao</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>cap_log <span class="ot">&lt;-</span> <span class="fu">mutate</span>(capitais, <span class="at">log_populacao =</span> <span class="fu">log</span>(populacao))</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(cap_log, capital, log_populacao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 2
+   capital        log_populacao
+   &lt;chr&gt;                  &lt;dbl&gt;
+ 1 ARACAJU                 13.3
+ 2 BELEM                   14.2
+ 3 BELO HORIZONTE          14.7
+ 4 BOA VISTA               12.6
+ 5 CAMPO GRANDE            13.6
+ 6 CUIABA                  13.2
+ 7 CURITIBA                14.4
+ 8 FLORIANOPOLIS           13.0
+ 9 FORTALEZA               14.7
+10 GOIANIA                 14.1
+# ℹ 16 more rows</code></pre>
+</div>
+</div>
+<p>Com <code>mutate</code>, também podemos criar mais de uma variável por vez:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria tres variaveis de uma so vez</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(capitais,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">despesa_saude_per_capita =</span> despesa_saude <span class="sc">/</span> populacao,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">despesa_educacao_per_capita =</span> despesa_educacao <span class="sc">/</span> populacao,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">despesa_assistencia_social =</span> despesa_assistencia_social <span class="sc">/</span> populacao</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>       )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Além de criar, podemos modificar variáveis que já temos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Substitui a variavel de populacao</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(capitais, <span class="at">populacao =</span> populacao <span class="sc">/</span> <span class="dv">1000</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Sobrescrevendo variáveis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ao criar uma variável com o mesmo nome de outra que já existe em uma base de dados, <code>mutate</code> sobrescreve a variável original (desde que o resultado seja salvo no mesmo objeto). Para evitar isso, podemos salvar o resultado de <code>mutate</code> em um novo objeto.</p>
+</div>
+</div>
+<p>Para além desses usos, <code>mutate</code> também pode ser usada para criar variáveis que tenham algum valor único, isto é, que se repete para todas as observações. Imagine, por exemplo, que queremos criar uma variável que indique o ano à nossa base <code>capitais</code>. Para isso, podemos usar <code>mutate</code> da seguinte forma:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria uma variavel indicando o ano</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(capitais, <span class="at">ano =</span> <span class="dv">2012</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Como você já deve ter notado, <code>mutate</code> sempre retorna todas as variáveis da base original e adiciona as recém-criadas no final do banco. Podemos alterar esse comportamento por meio de dois argumentos: <code>.keep</code>, que indica quais variáveis queremos manter (o padrão é <code>all</code>); e <code>.before</code> ou <code>.after</code>. Para manter apenas as variáveis criadas, por exemplo, podemos usar <code>.keep = "none"</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(capitais, </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">ano =</span> <span class="dv">2012</span>, </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">populacao =</span> populacao <span class="sc">/</span> <span class="dv">1000</span>, </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.keep =</span> <span class="st">"none"</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 2
+   populacao   ano
+       &lt;dbl&gt; &lt;dbl&gt;
+ 1      588.  2012
+ 2     1410.  2012
+ 3     2396.  2012
+ 4      297.  2012
+ 5      805.  2012
+ 6      561.  2012
+ 7     1777.  2012
+ 8      433.  2012
+ 9     2500.  2012
+10     1334.  2012
+# ℹ 16 more rows</code></pre>
+</div>
+</div>
+<p>E, para posicionar as novas variáveis antes do nome de alguma variável, usamos <code>.before</code> (<code>.after</code> funciona de maneira similar):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(capitais, <span class="at">ano =</span> <span class="dv">2012</span>, <span class="at">.before =</span> regiao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 9
+     ano regiao     uf    capital populacao despesa_total despesa_assistencia_…¹
+   &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;         &lt;dbl&gt;                  &lt;dbl&gt;
+ 1  2012 Nordeste   SE    ARACAJU    587701   1150364953.              31383656.
+ 2  2012 Norte      PA    BELEM     1410430   2110549149               58105215 
+ 3  2012 Sudeste    MG    BELO H…   2395785   6917817946.             172347581.
+ 4  2012 Norte      RR    BOA VI…    296959    491953689.              14018664.
+ 5  2012 Centro-Oe… MS    CAMPO …    805397   2290844087.              39604187.
+ 6  2012 Centro-Oe… MT    CUIABA     561329   1302650057.              32016290.
+ 7  2012 Sul        PR    CURITI…   1776761   5115609915.             117962804.
+ 8  2012 Sul        SC    FLORIA…    433158   1080743166.              33082667.
+ 9  2012 Nordeste   CE    FORTAL…   2500194   4137588203.              78034074.
+10  2012 Centro-Oe… GO    GOIANIA   1333767   2952160894.              15382878.
+# ℹ 16 more rows
+# ℹ abbreviated name: ¹​despesa_assistencia_social
+# ℹ 2 more variables: despesa_saude &lt;dbl&gt;, despesa_educacao &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<section id="criando-variáveis-condicionalmente" class="level4" data-number="3.2.3.1">
+<h4 data-number="3.2.3.1" class="anchored" data-anchor-id="criando-variáveis-condicionalmente"><span class="header-section-number">3.2.3.1</span> Criando variáveis condicionalmente</h4>
+<p>Outro uso importante de <code>mutate</code> é em operações condicionais, como quando queremos criar uma variável que assume um determinado valor se uma condição for verdadeira (e.g., a população do município no banco <code>capitais</code> é maior que 500 mil habitantes) e outro valor, caso esta condicação seja falsa. Para tanto, usamos <code>mutate</code> em conjunto com <code>if_else</code><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>, que também é uma função do pacote <code>dplyr</code>. Um exemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria uma variavel que indica municipios com mais de 500 mil habitantes</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(capitais, <span class="at">capitais_grandes =</span> <span class="fu">if_else</span>(populacao <span class="sc">&gt;</span> <span class="dv">500000</span>, <span class="st">"Capital de grande porte"</span>, <span class="st">"Capital de menor porte"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para os casos em que temos múltiplas condições para testar – imagine, por exemplo, termos de criar uma variável que indique o porte das capitais em cinco faixas –, podemos usar <code>case_when</code>, que é uma espécie de combinação de vários <code>if_else</code>. Para usá-la, passamos para ela uma sequência de condições e valores, separados por vírgula, que são testadas em sequência – note que o primeiro valor que satisfizer a condição será atribuído à nova variável. Um exemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria uma variavel que indica o porte das capitais</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>porte <span class="ot">&lt;-</span> <span class="fu">mutate</span>(capitais, <span class="at">porte =</span> <span class="fu">case_when</span>(</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  populacao <span class="sc">&lt;</span> <span class="dv">500000</span> <span class="sc">~</span> <span class="st">"Capital de menor porte"</span>,</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  populacao <span class="sc">&lt;</span> <span class="dv">1000000</span> <span class="sc">~</span> <span class="st">"Capital de porte intermediario"</span>,</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  populacao <span class="sc">&lt;</span> <span class="dv">2000000</span> <span class="sc">~</span> <span class="st">"Capital de grande porte"</span>,</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  populacao <span class="sc">&lt;</span> <span class="dv">5000000</span> <span class="sc">~</span> <span class="st">"Capital de grande porte II"</span>,</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">.default =</span> <span class="st">"Capital de grande porte III"</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(porte, capital, populacao, porte)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 3
+   capital        populacao porte                         
+   &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;                         
+ 1 ARACAJU           587701 Capital de porte intermediario
+ 2 BELEM            1410430 Capital de grande porte       
+ 3 BELO HORIZONTE   2395785 Capital de grande porte II    
+ 4 BOA VISTA         296959 Capital de menor porte        
+ 5 CAMPO GRANDE      805397 Capital de porte intermediario
+ 6 CUIABA            561329 Capital de porte intermediario
+ 7 CURITIBA         1776761 Capital de grande porte       
+ 8 FLORIANOPOLIS     433158 Capital de menor porte        
+ 9 FORTALEZA        2500194 Capital de grande porte II    
+10 GOIANIA          1333767 Capital de grande porte       
+# ℹ 16 more rows</code></pre>
+</div>
+</div>
+<p>Duas coisas a notar: para cada condição declarada em <code>case_when</code>, usamos o operador <code>~</code> para indicar o valor que a variável deve assumir caso a condição seja verdadeira, ou seja, <code>TRUE</code>; e usamos <code>.default</code> para indicar o valor que a variável deve assumir caso nenhuma das condições declaradas seja verdadeira.</p>
+</section>
+</section>
+<section id="agrupar-e-resumir" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="agrupar-e-resumir"><span class="header-section-number">3.2.4</span> Agrupar e resumir</h3>
+<p><code>summarise</code>, assim como <code>mutate</code>, é usada para modificar variáveis num banco. Mas, diferentemente desta última, ela agrega as informações, retornando um resumo dos dados numa única observação. Um exemplo: calcular a população total das capitais estaduais brasileiras em 2012:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula a populacao total das capitais</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(capitais, <span class="at">populacao_total =</span> <span class="fu">sum</span>(populacao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  populacao_total
+            &lt;dbl&gt;
+1        43578158</code></pre>
+</div>
+</div>
+<p>A sintaxe desta função é semelhante a da função <code>mutate</code>: como de praxe, passamos o nome do banco de dados para a função e, depois, o nome da variável que queremos criar seguida do seu conteúdo. Deve ficar nítido, contudo, que <code>summarise</code> colapsa informações em uma única linha – esse é a sua utilidade. Podemos somar valores de variáveis, calcular estatísticas descritivas (média e desvio-padrão, por exemplo), entre outros:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula estatisticas da populacao das capitais estaduais em 2012</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(capitais, </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">media_populacao =</span> <span class="fu">mean</span>(populacao),</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">mediana_populacao =</span> <span class="fu">median</span>(populacao),</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">desvio_populacao =</span> <span class="fu">sd</span>(populacao)</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>          )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  media_populacao mediana_populacao desvio_populacao
+            &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;
+1         1676083            891812         2345416.</code></pre>
+</div>
+</div>
+<section id="operações-dentro-de-grupos" class="level4" data-number="3.2.4.1">
+<h4 data-number="3.2.4.1" class="anchored" data-anchor-id="operações-dentro-de-grupos"><span class="header-section-number">3.2.4.1</span> Operações dentro de grupos</h4>
+<p>Com frequência, em vez de resumir todas as informações de um banco em uma única linha, queremos resumir as informações por grupos. Para ilustrar esse uso, vamos calcular agora a população total das capitais estaduais por região do país, isto é, somaremos a população de todas as capitais que pertencem à mesma região (i.e., o mesmo grupo). Para tanto, usamos <code>group_by</code>, que é uma função do <code>dplyr</code> que agrupa as observações de um banco de dados com base em alguma variável:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Agrupa as observacoes por regiao</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>capitais_regiao <span class="ot">&lt;-</span> <span class="fu">group_by</span>(capitais, regiao)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula a populacao total por regiao</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(capitais_regiao, <span class="at">populacao_total =</span> <span class="fu">sum</span>(populacao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  regiao       populacao_total
+  &lt;chr&gt;                  &lt;dbl&gt;
+1 Centro-Oeste         2700493
+2 Nordeste            11737204
+3 Norte                5017906
+4 Sudeste             20495922
+5 Sul                  3626633</code></pre>
+</div>
+</div>
+<p>A base retornada é bem menor, e preserva apenas uma observação por região (para quem usa outros <em>softwares</em> de análise de dados, isto é o equivalente a agregar informações). Fundamental nesse exemplo, para calcular a população total por região usamos <code>summarise</code> em conjunto com <code>group_by</code>. Isso é necessário porque, se usássemos apenas <code>summarise(capitais, populacao_total = sum(populacao))</code>, o <code>R</code> somaria a população de todas as capitais, sem considerar a região a que elas pertencem. Dizendo de outra forma, <code>group_by</code> indica para a função <code>summarise</code> que qualquer operação de resumo de variáveis devem ser feitas <em>dentro dos grupos</em> indicados por ela.</p>
+<p>Por si só, <code>group_by</code> não altera nada na base de dados usada, isto é, nenhuma observação ou coluna é alterada. Ao contrário, o que ela faz é um tipo de modificação interna em uma base: é como se ela dividisse um banco em vários sub-bancos especificados por uma ou mais variáveis. Para ver se uma base foi agrupada, basta executar o seu objeto:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>capitais_agrupadas_regiao <span class="ot">&lt;-</span> <span class="fu">group_by</span>(capitais, regiao)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>capitais_agrupadas_regiao</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 8
+# Groups:   regiao [5]
+   regiao       uf    capital     populacao despesa_total despesa_assistencia_…¹
+   &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;                  &lt;dbl&gt;
+ 1 Nordeste     SE    ARACAJU        587701   1150364953.              31383656.
+ 2 Norte        PA    BELEM         1410430   2110549149               58105215 
+ 3 Sudeste      MG    BELO HORIZ…   2395785   6917817946.             172347581.
+ 4 Norte        RR    BOA VISTA      296959    491953689.              14018664.
+ 5 Centro-Oeste MS    CAMPO GRAN…    805397   2290844087.              39604187.
+ 6 Centro-Oeste MT    CUIABA         561329   1302650057.              32016290.
+ 7 Sul          PR    CURITIBA      1776761   5115609915.             117962804.
+ 8 Sul          SC    FLORIANOPO…    433158   1080743166.              33082667.
+ 9 Nordeste     CE    FORTALEZA     2500194   4137588203.              78034074.
+10 Centro-Oeste GO    GOIANIA       1333767   2952160894.              15382878.
+# ℹ 16 more rows
+# ℹ abbreviated name: ¹​despesa_assistencia_social
+# ℹ 2 more variables: despesa_saude &lt;dbl&gt;, despesa_educacao &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>A segunda linha do <em>output</em> indica que a base está agrupada pela variável <code>regiao</code> (<code>Groups: regiao [5]</code>), o que significa que qualquer operação de resumo retornará uma linha para cada região do país:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(capitais_agrupadas_regiao, </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">media_populacao =</span> <span class="fu">mean</span>(populacao),</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">mediana_populacao =</span> <span class="fu">median</span>(populacao),</span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">desvio_populacao =</span> <span class="fu">sd</span>(populacao)</span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>          )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  regiao       media_populacao mediana_populacao desvio_populacao
+  &lt;chr&gt;                  &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;
+1 Centro-Oeste         900164.           805397           394843.
+2 Nordeste            1304134.           953393           787062.
+3 Norte                716844.           415554           644916.
+4 Sudeste             5123980.          4393038.         4868088.
+5 Sul                 1208878.          1416714           695496.</code></pre>
+</div>
+</div>
+<p>Embora <code>group_by</code> seja mais frequentemente usada em conjunto com <code>summarise</code>, podemos combiná-la com <code>mutate</code>. Imagine, por exemplo, que seja necessário adicionar uma variável à base <code>capitais</code> que seja igual à população das capitais de cada região, isto é, uma variável que some a população de todas as capitais de cada região (e.g., população de Porto Alegre + população de Curitiba + população de Florianópolis para a região Sul). Como fazemos isso? Usamos <code>group_by</code> junto de <code>mutate</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Agrupa o banco capitais por regiao</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>cap_regiao <span class="ot">&lt;-</span> <span class="fu">group_by</span>(capitais, regiao)</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Soma a populacao das capitais</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>cap_regiao <span class="ot">&lt;-</span> <span class="fu">mutate</span>(cap_regiao, <span class="at">pop_regiao =</span> <span class="fu">sum</span>(populacao))</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultado (usando select para selecionar algumas variaveis)</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(cap_regiao, regiao, capital, pop_regiao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 3
+# Groups:   regiao [5]
+   regiao       capital        pop_regiao
+   &lt;chr&gt;        &lt;chr&gt;               &lt;dbl&gt;
+ 1 Nordeste     ARACAJU          11737204
+ 2 Norte        BELEM             5017906
+ 3 Sudeste      BELO HORIZONTE   20495922
+ 4 Norte        BOA VISTA         5017906
+ 5 Centro-Oeste CAMPO GRANDE      2700493
+ 6 Centro-Oeste CUIABA            2700493
+ 7 Sul          CURITIBA          3626633
+ 8 Sul          FLORIANOPOLIS     3626633
+ 9 Nordeste     FORTALEZA        11737204
+10 Centro-Oeste GOIANIA           2700493
+# ℹ 16 more rows</code></pre>
+</div>
+</div>
+<p>Enquanto uma base estiver agrupada, todas as operações que realizarmos nela serão feitas nos grupos. Para evitar isto, usamos <code>ungroup</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Agrupa o banco capitais por regiao</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>cap_regiao <span class="ot">&lt;-</span> <span class="fu">group_by</span>(capitais, regiao)</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Soma a populacao das capitais</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>cap_regiao <span class="ot">&lt;-</span> <span class="fu">mutate</span>(cap_regiao, <span class="at">pop_regiao =</span> <span class="fu">sum</span>(populacao))</span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Desagrupa o banco</span></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>cap_regiao <span class="ot">&lt;-</span> <span class="fu">ungroup</span>(cap_regiao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Desagrupando bases resumidas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Se usarmos <code>summarise</code> para criar uma base resumida por grupo, podemos usar o argumento <code>.groups = "drop"</code> para desagrupar a base resultante, sem a necessidade de usar <code>ungroup</code>. Exemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>cap_regiao <span class="ot">&lt;-</span> <span class="fu">group_by</span>(capitais, regiao)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(cap_regiao, <span class="at">pop_regiao =</span> <span class="fu">sum</span>(populacao), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="modificando-múltiplas-variáveis-com-mutate-e-summarise" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="modificando-múltiplas-variáveis-com-mutate-e-summarise"><span class="header-section-number">3.2.5</span> Modificando múltiplas variáveis com <code>mutate</code> e <code>summarise</code></h3>
+<p>Os exemplos anteriores mostram como alterar ou resumir variáveis, agrupando elas ou não, de forma individual. No mais das vezes, é isso o que precisamos: transformar apenas uma ou duas variáveis, ou ainda resumir múltiplas informações usando <code>group_by</code>. Em outros casos, porém, precisaremos alterar inúmeras variáveis ao mesmo tempo: imagine, por exemplo, ter de transformar em logaritmo 50 variáveis; com o que vimos anteriormente, isso equivaleria a repetir essa transformação também 50 vezes, uma para cada variável. Algo mais ou menos assim:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Processo para transformar 50 variaveis (exemplo hipotetico)</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">mutate</span>(df, <span class="at">var1 =</span> <span class="fu">log</span>(var1),</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">var2 =</span> <span class="fu">log</span>(var2),</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">var3 =</span> <span class="fu">log</span>(var3),</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>             ... <span class="co"># O codigo continuaria ate chegarmos em var50</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para evitar as repetições de código, o <code>dplyr</code> oferece uma função auxiliar chamada <code>across</code> para aplicar uma operação a múltiplas variáveis. Seu uso é ligeiramente diferente do que vimos até agora:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transforma em logaritmo todas as variaveis numericas</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>cap <span class="ot">&lt;-</span> <span class="fu">mutate</span>(capitais, <span class="fu">across</span>(<span class="fu">where</span>(is.numeric), log))</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(cap, <span class="fu">where</span>(is.numeric))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26 × 5
+   populacao despesa_total despesa_assistencia_…¹ despesa_saude despesa_educacao
+       &lt;dbl&gt;         &lt;dbl&gt;                  &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;
+ 1      13.3          20.9                   17.3          19.8             18.9
+ 2      14.2          21.5                   17.9          20.2             19.7
+ 3      14.7          22.7                   19.0          21.4             20.9
+ 4      12.6          20.0                   16.5          18.5             18.5
+ 5      13.6          21.6                   17.5          20.4             20.0
+ 6      13.2          21.0                   17.3          19.7             19.4
+ 7      14.4          22.4                   18.6          20.8             20.5
+ 8      13.0          20.8                   17.3          19.2             19.3
+ 9      14.7          22.1                   18.2          21.0             20.4
+10      14.1          21.8                   16.5          20.7             20.2
+# ℹ 16 more rows
+# ℹ abbreviated name: ¹​despesa_assistencia_social</code></pre>
+</div>
+</div>
+<p>Em vez de especificar o nome de cada variável que será criada ou modificada, <code>across</code> aplica uma operação a todas as variáveis que satisfaçam uma determinada condição. De forma esquemática, toda chamada da função <code>across</code> contém duas partes: primeiro, indicamos quais variáveis serão modificadas (no exemplo, usamos <code>where(is.numeric)</code> para selecionar todas as variáveis numéricas da base); segundo, indicamos qual operação faremos nas variáveis selecionadas (no caso, usamos <code>log</code>).</p>
+<p><code>across</code> é flexível o suficiente para permitir, também, usá-la para resumir variáveis de um banco. Podemos, por exemplo, calcular a média de todas as variáveis numérica da base <code>capitais</code> com:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula a media de todas as variaveis numericas</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(capitais, <span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+  populacao despesa_total despesa_assistencia_s…¹ despesa_saude despesa_educacao
+      &lt;dbl&gt;         &lt;dbl&gt;                   &lt;dbl&gt;         &lt;dbl&gt;            &lt;dbl&gt;
+1   1676083   4176143826.              102628661.    949270809.       798449762.
+# ℹ abbreviated name: ¹​despesa_assistencia_social</code></pre>
+</div>
+</div>
+<p><code>across</code>, como dá para imaginar, também pode ser usada junto de <code>group_by</code> para resumir variáveis por grupo. Para calcular a média de todas as variáveis numéricas da base <code>capitais</code> por região, por exemplo, usamos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>cap <span class="ot">&lt;-</span> <span class="fu">group_by</span>(capitais, regiao)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(cap, <span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 6
+  regiao       populacao despesa_total despesa_assistencia_social despesa_saude
+  &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;                      &lt;dbl&gt;         &lt;dbl&gt;
+1 Centro-Oeste   900164.   2181885013.                  29001118.    693170960.
+2 Nordeste      1304134.   2235820825.                  37825580.    664463187.
+3 Norte          716844.   1159226954.                  34821304.    264852902.
+4 Sudeste       5123980.  15869659949.                 424970795.   3077616245.
+5 Sul           1208878.   3439489509.                  99093101.    818974725.
+# ℹ 1 more variable: despesa_educacao &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Indo além, <code>across</code> não está limitada a usarmos <code>where</code> para selecionar variáveis – é possível usar qualquer lógica de seleção válida para a função <code>select</code>, que vimos anteriormente. Desse modo, todos os seguintes usos são válidos (teste cada um deles):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transforma em logaritmo todas as variaveis que comecem com 'despesa'</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(capitais, <span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">"despesa"</span>), log))</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Resume apenas variaveis selecionadas pelo nome</span></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(capitais, <span class="fu">across</span>(<span class="fu">c</span>(populacao, despesa_total), median))</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcula valores per capita das variaveis de despesa</span></span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(capitais, <span class="fu">across</span>(<span class="fu">contains</span>(<span class="st">"despesa"</span>), \(x) x <span class="sc">/</span> populacao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>No último exemplo, usamos o que é chamado de <em>função anônima</em> para aplicar uma operação a todas as variáveis que satisfazem uma determinada condição, usando <code>x</code> como uma espécie de coringa – o que o R interpreta como sendo cada uma das variáveis selecionadas por <code>contains("despesa")</code>.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> Aqui, o <code>\(x)</code> sempre deve ser colocado para indicar que queremos aplicar uma operação a cada uma das variáveis selecionadas. Para entender melhor como isso funciona, teste o seguinte código:</p>
+</section>
+<section id="encadeando-operações-com-pipes" class="level3" data-number="3.2.6">
+<h3 data-number="3.2.6" class="anchored" data-anchor-id="encadeando-operações-com-pipes"><span class="header-section-number">3.2.6</span> Encadeando operações com <em>pipes</em></h3>
+<p>TODO.</p>
+</section>
+<section id="outras-operações-úteis-ordernar-renomear-e-sortear" class="level3" data-number="3.2.7">
+<h3 data-number="3.2.7" class="anchored" data-anchor-id="outras-operações-úteis-ordernar-renomear-e-sortear"><span class="header-section-number">3.2.7</span> Outras operações úteis: ordernar, renomear e sortear</h3>
+<p>Embora não seja o objetivo do capítulo cobrir todas as possibilidades de manipulação de bancos de dados, o <code>dplyr</code> contém algumas funções que podem ser extremamente úteis em determinadas situações. Reordenar observações de acordo com os valores de uma variável (por exemplo, ordenando o banco <code>capitais</code> pelo tamanho de suas populações) poderia ser uma delas. Selecionar aleatoriamente apenas algumas observações de um banco para ter uma amostra, outra. Longe de esgotar as possibilidades do pacote, listamos aqui algumas funções que nos ajudam a resolver estes e outros problemas específicos (é recomendável reproduzir esses exemplos para fixar as funções de interesse). Seguem:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># arrange() serve para ordenar as observacoes de um banco</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">arrange</span>(capitais, populacao))</span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="co"># rename() serve para renomear uma variavel (nome atual vem na frente, seguido do nome antigo)</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(capitais) <span class="co"># nomes atuais</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-7"><a href="#cb78-7" aria-hidden="true" tabindex="-1"></a>capitais <span class="sc">|&gt;</span> </span>
+<span id="cb78-8"><a href="#cb78-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">populacao_novo =</span> populacao)</span>
+<span id="cb78-9"><a href="#cb78-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(capitais) <span class="co"># novos nomes</span></span>
+<span id="cb78-10"><a href="#cb78-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-11"><a href="#cb78-11" aria-hidden="true" tabindex="-1"></a>capitais <span class="sc">|&gt;</span> </span>
+<span id="cb78-12"><a href="#cb78-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">populacao =</span> populacao_novo, <span class="at">SAUDE =</span> despesa_saude)</span>
+<span id="cb78-13"><a href="#cb78-13" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(capitais) <span class="co"># nomes novos 2</span></span>
+<span id="cb78-14"><a href="#cb78-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-15"><a href="#cb78-15" aria-hidden="true" tabindex="-1"></a><span class="co"># sample_n() sorteia apenas algumas obsvervacoes de um banco</span></span>
+<span id="cb78-16"><a href="#cb78-16" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_frac</span>(capitais, <span class="dv">2</span>) <span class="co"># sorteia duas capitais</span></span>
+<span id="cb78-17"><a href="#cb78-17" aria-hidden="true" tabindex="-1"></a><span class="fu">sample_frac</span>(capitais, <span class="dv">3</span>) <span class="co"># sorteia tres capitais</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="manipulando-bases-muito-grandes" class="level3" data-number="3.2.8">
+<h3 data-number="3.2.8" class="anchored" data-anchor-id="manipulando-bases-muito-grandes"><span class="header-section-number">3.2.8</span> Manipulando bases muito grandes</h3>
+<p>E se quisermos manipular grandes bases de dados, grandes o suficiente para não caberem na memória RAM do computador? No <a href="02-cap.html"><span>Capítulo&nbsp;2</span></a>, vimos que podemos usar o pacote <code>DBI</code> junto do <code>duckdb</code> para ler essas bases em instâncias intermediárias – bancos de dados relacionais gerenciados pelo DuckDB. A grande vantagem dessa solução é que ela é totalmente integrada ao <code>tidyverse</code>: uma vez importando via DuckDB, podemos manipular uma base usando todas as funções<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a> do <code>dplyr</code>. Para ilustrar, vamos importar novamente a base de microdados de pessoas do Censo de 2010 <span class="citation" data-cites="censobr">(<a href="referencias.html#ref-censobr" role="doc-biblioref">Pereira e Barbosa 2023</a>)</span> usando <code>DBI</code> e <code>duckdb</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>())</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>censo <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">"2010_population_v0.2.0.parquet"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Com o banco importado para o DuckDB, podemos manipulá-lo normalmente com <code>dplyr</code> – que traduzirá nosso código em R para algo que o DuckDB entenda. Para selecionar apenas as três primeiras colunas da base de microdados, por exemplo, podemos usar <code>select</code> assim:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(censo, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Source:   SQL [?? x 3]
+# Database: DuckDB v0.9.2 [fmeireles@Linux 6.6.6-100.fc38.x86_64:R 4.3.2/:memory:]
+   code_muni code_state abbrev_state
+   &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;       
+ 1 1100015   11         RO          
+ 2 1100015   11         RO          
+ 3 1100015   11         RO          
+ 4 1100015   11         RO          
+ 5 1100015   11         RO          
+ 6 1100015   11         RO          
+ 7 1100015   11         RO          
+ 8 1100015   11         RO          
+ 9 1100015   11         RO          
+10 1100015   11         RO          
+# ℹ more rows</code></pre>
+</div>
+</div>
+<p>Ou, outro exemplo, podemos usar <code>summarise</code> para calcular o tamanho da população brasileira em 2010 de acordo com os dados do Censo de 2010 (usando a variável <code>V0010</code> da base, que contém os pesos amostrais, isto é, o quanto cada linha representa em termos de habitantes):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(censo, <span class="at">populacao =</span> <span class="fu">sum</span>(V0010))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Source:   SQL [1 x 1]
+# Database: DuckDB v0.9.2 [fmeireles@Linux 6.6.6-100.fc38.x86_64:R 4.3.2/:memory:]
+   populacao
+       &lt;dbl&gt;
+1 190755799.</code></pre>
+</div>
+</div>
+<p>Se quisermos saber a população de cada região, basta incluir antes uma chamada à função <code>group_by</code>, para agrupar a base:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>censo <span class="sc">|&gt;</span> </span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(name_region) <span class="sc">|&gt;</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">populacao =</span> <span class="fu">sum</span>(V0010))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Source:   SQL [5 x 2]
+# Database: DuckDB v0.9.2 [fmeireles@Linux 6.6.6-100.fc38.x86_64:R 4.3.2/:memory:]
+  name_region  populacao
+  &lt;chr&gt;            &lt;dbl&gt;
+1 Norte        15864454.
+2 Sudeste      80364410.
+3 Centro-oeste 14058094.
+4 Nordeste     53081950.
+5 Sul          27386891.</code></pre>
+</div>
+</div>
+<p>Em todos os casos, se quisermos salvar o resultado das operações em um objeto é necessário usar a função <code>collect</code>. A razão disso decorre do fato de que, ao usar <code>dplyr</code> com bancos de dados, o resultado das operações não é salvo na memória RAM, mas sim no DuckDB. Usando <code>collect</code> para trazer o resultado para a memória RAM, o código anterior ficaria assim:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>consulta <span class="ot">&lt;-</span> censo <span class="sc">|&gt;</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(name_region) <span class="sc">|&gt;</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">populacao =</span> <span class="fu">sum</span>(V0010)) <span class="sc">|&gt;</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect</span>()</span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-6"><a href="#cb86-6" aria-hidden="true" tabindex="-1"></a>consulta</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  name_region  populacao
+  &lt;chr&gt;            &lt;dbl&gt;
+1 Norte        15864454.
+2 Nordeste     53081950.
+3 Sul          27386891.
+4 Centro-oeste 14058094.
+5 Sudeste      80364410.</code></pre>
+</div>
+</div>
+<p>Como se percepe pelo <em>output</em> do R, o objeto exibido agora é um <code>tibble</code> com o resultado da operação.</p>
+</section>
+</section>
+<section id="sec-joins" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-joins"><span class="header-section-number">3.3</span> Cruzar e combinar dados</h2>
+<p>Até aqui, cobrimos algumas das principais operações de manipulação de dados: sabemos como chegar ao formato <code>tidy</code> e como filtrar linhas e selecionar, criar, modificar e resumir colunas de uma base. O que ainda não vimos é como cruzar dados de diferentes bases – algo geralmente necessário em pesquisas reais.</p>
+<p>Para aprendermos a fazer cruzamentos, usaremos duas bases de dados com informações sobre as cinco regiões do país. Para carregar as duas bases, chamadas de <code>regioes</code> e <code>territorio</code> e que estão no arquivo <code>regioes.Rda</code><a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>, pode usar a função <code>load</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"regioes.Rda"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Executando os objetos no console, você verá que cada <code>tibble</code> contém uma coluna chamada <code>regiao</code>, que indica o nome de cada uma das regiões do país. Importante para os nossos exemplos, a base <code>territorio</code> tem uma linha a menos, pois não contém a região Sul. Além disso, a grafia da região Centro-Oeste está diferente nas duas bases: na base <code>regioes</code>, usa-se hífen; na <code>territorio</code>, não.</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>regioes</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  regiao       populacao
+  &lt;chr&gt;            &lt;dbl&gt;
+1 Norte         15864454
+2 Nordeste      53081950
+3 Centro-Oeste  14058094
+4 Sudeste       80364410
+5 Sul           27386891</code></pre>
+</div>
+</div>
+<div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>territorio</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  regiao           km2
+  &lt;chr&gt;          &lt;dbl&gt;
+1 Norte        3853840
+2 Nordeste     1554291
+3 Centro Oeste 1606234
+4 Sudeste       924608</code></pre>
+</div>
+</div>
+</div>
+</div>
+<section id="cruzamentos-e-colunas-chave" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="cruzamentos-e-colunas-chave"><span class="header-section-number">3.3.1</span> Cruzamentos e colunas-chave</h3>
+<p>Para cruzar dados de diferentes bases, usamos as funções <code>_join</code> do pacote <code>dplyr</code>, como <code>left_join</code>, <code>inner_join</code>, <code>full_join</code> e <code>right_join</code>. A diferença entre elas é a forma de combinar as informações das bases. Para entender melhor, vamos cruzar as duas bases de dados que temos usando <code>left_join</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(regioes, territorio, <span class="at">by =</span> <span class="fu">join_by</span>(regiao <span class="sc">==</span> regiao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  regiao       populacao     km2
+  &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+1 Norte         15864454 3853840
+2 Nordeste      53081950 1554291
+3 Centro-Oeste  14058094      NA
+4 Sudeste       80364410  924608
+5 Sul           27386891      NA</code></pre>
+</div>
+</div>
+<p>A explicação do código é a seguinte: <code>left_join</code> combina as informações de duas bases de dados, mantendo todas as linhas da base à esquerda (no caso, <code>regioes</code>) e adicionando as informações da base à direita (no caso, <code>territorio</code>) quando houver correspondência entre as variáveis usadas para cruzar as bases (no caso, usamos <code>regiao == regiao</code>, passado no argumento <code>by = join_by(regiao == regiao)</code>, para dizer que a informação contida na coluna <code>regiao</code> de uma base tem correspondência na coluna <code>regiao</code> da outra). Em outras palavras, para cada região do país na base <code>regiões</code>, a sua correspondente foi buscada na base <code>territorio</code> e, se encontrada, as informações da coluna <code>km2</code> foram adicionadas à base <code>regioes</code> como uma nova coluna.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<p>O resultado do cruzamento das bases <code>regioes</code> e <code>territorio</code> também ilustra o que acontece quando falta correspondência entre valores. Como a base <code>territorio</code> não contém a região Sul, a linha correspondente a essa região na base <code>regioes</code> ficou com valores faltantes na coluna <code>km2</code>; adicionalmente, dado que a grafia da região Centro-Oeste estava diferente nas duas bases, <code>left_join</code> não encontrou um valor de <code>km2</code> na base <code>territorios</code> para preencher.</p>
+<p>O que podemos tirar de lição geral do exemplo de <code>left_join</code> é que para adicionarmos variáveis a um banco de dados a partir de informações específicas (Sudeste com Sudeste, Norte com Norte, etc.) precisamos de variáveis que possuam valores comuns em duas bases. Isso significa que não podemos combinar duas bases que não partilhem informações comuns, chamadas convencionalmente de <em>colunas-chave</em>: só foi possível cominar as bases <code>regioes</code> e <code>territorio</code> porque ambas têm uma variável com o nome das macrorregiões do Brasil, e é a partir delas que junção das bases foi feita: como <code>Sudeste</code> em uma das bases é igual a <code>Sudeste</code> na outra, o <code>R</code> entende que as linhas que contêm essa informação devem ser mantidas lado a lado. O que a função <code>left_join</code> faz, portanto, é combinar bases a partir de valores comuns de variáveis de ambas.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Colunas-chave e cruzamentos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para cruzar duas bases de dados, precisamos de variáveis que possuam valores comuns em ambas, as <em>colunas-chave</em>, que podem ser nomeadas de formas diferentes nas duas bases – mas precisam ser da mesma classe.</p>
+</div>
+</div>
+</section>
+<section id="funções-_join" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="funções-_join"><span class="header-section-number">3.3.2</span> Funções <code>_join</code></h3>
+<p>De forma prática, a função <code>left_join</code> (e as demais funções <code>_join</code>) possui três argumentos principais. O primeiro indica a primeira base de dados usada na junção dos dados; a segunda, a outra base que será unida à primeira; por fim, usamos o argumento <code>by</code> para indicar quais variáveis são comuns nas duas bases. Esse último argumento é o principal da função, já que é com ele que informamos ao <code>R</code> como unir as variáveis.</p>
+<p><code>left_join</code>, contudo, é apenas uma das funções contidas no pacote <code>dplyr</code>. Além disso, ela realiza essa operação de forma específica: como o <code>left_</code> indica, ela cruza valores da segunda base passada à função para a primeira. A consequência desse procedimento, desse modo, é que todas as observações do primeiro banco (<code>regioes</code>) são preservadas, e as da segunda base são usadas para preencher os casos comuns.</p>
+<p>E se quisermos manter todas as observações da base <code>territorio</code> e usar as da base <code>regioes</code> para preencher valores de população? Para além da solução mais óbvia (trocar <code>territorio</code> e <code>regioes</code> de lugar), podemos usar <code>right_join</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(regioes, territorio, <span class="at">by =</span> <span class="fu">join_by</span>(regiao <span class="sc">==</span> regiao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  regiao       populacao     km2
+  &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+1 Norte         15864454 3853840
+2 Nordeste      53081950 1554291
+3 Sudeste       80364410  924608
+4 Centro Oeste        NA 1606234</code></pre>
+</div>
+</div>
+<p>O resultado é autoexplicativo. O <code>dplyr</code> também possui outras variantes de <code>_join</code> úteis. Considere essas duas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(regioes, territorio, <span class="at">by =</span> <span class="fu">join_by</span>(regiao <span class="sc">==</span> regiao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  regiao   populacao     km2
+  &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;
+1 Norte     15864454 3853840
+2 Nordeste  53081950 1554291
+3 Sudeste   80364410  924608</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">full_join</span>(regioes, territorio, <span class="at">by =</span> <span class="fu">join_by</span>(regiao <span class="sc">==</span> regiao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  regiao       populacao     km2
+  &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+1 Norte         15864454 3853840
+2 Nordeste      53081950 1554291
+3 Centro-Oeste  14058094      NA
+4 Sudeste       80364410  924608
+5 Sul           27386891      NA
+6 Centro Oeste        NA 1606234</code></pre>
+</div>
+</div>
+<p>Como é possível depreender, <code>inner_join</code> e <code>full_join</code> cruzam dados de formas inteiramente diferentes: no primeiro caso, apenas linhas que possuem correspondência nas duas bases são mantidas; no segundo, todas as linhas são mantidas, mesmo que não haja correspondência entre as bases.</p>
+<p>Em vez de termos de memorizar cada nome de função, uma forma mais intuitiva de entender suas diferentes utilidades é por meio de um diagrama de Venn como o que segue. Nele, cada círculo representa uma base de dados, e as interseções entre eles indicam as observações que serão mantidas em cada função. O que fica patente é que <code>left_join</code> e <code>right_join</code> são complementares: o que uma função mantém, a outra exclui, assim como <code>inner_join</code> e <code>full_join</code>. A depender do caso – e do que queremos manter –, uma ou outra função será mais útil.</p>
+<div id="fig-joins" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="materiais/cap3/joins.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figura&nbsp;3.2: Usos das funções <code>_join</code></figcaption>
+</figure>
+</div>
+</section>
+<section id="controlando-o-comportamento-das-funções-_join" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="controlando-o-comportamento-das-funções-_join"><span class="header-section-number">3.3.3</span> Controlando o comportamento das funções <code>_join</code></h3>
+<p>Na maioria das vezes, o que cobrimos é o suficiente para cruzar duas bases. Algo que não vimos em maior detalhe é que, quando os nomes das colunas-chave em duas bases são diferentes, precisamos usar o argumento <code>by</code> de forma diferente. Para entender como, imagine que temos agora uma base chamada <code>regioes2</code> que contém as mesmas informações de <code>regioes</code>, mas com o nome da coluna-chave diferente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>regioes2 <span class="ot">&lt;-</span> regioes <span class="sc">|&gt;</span></span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">regiao2 =</span> regiao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Se tentarmos cruzar <code>regioes2</code> com <code>territorio</code> usando o código que já vimos anteriormente, teremos um erro:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(regioes2, territorio, <span class="at">by =</span> <span class="fu">join_by</span>(regiao <span class="sc">==</span> regiao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `left_join()`:
+! Join columns in `x` must be present in the data.
+✖ Problem with `regiao`.</code></pre>
+</div>
+</div>
+<p>Nestes casos, precisamos usar o argumento <code>by</code> de forma diferente. Em vez de passar uma expressão <code>regiao == regiao</code>, vamos precisar indicar que a coluna <code>regiao2</code> da base <code>regioes2</code> é igual à coluna <code>regiao</code> da base <code>territorio</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(regioes2, territorio, <span class="at">by =</span> <span class="fu">join_by</span>(regiao2 <span class="sc">==</span> regiao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  regiao2      populacao     km2
+  &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+1 Norte         15864454 3853840
+2 Nordeste      53081950 1554291
+3 Centro-Oeste  14058094      NA
+4 Sudeste       80364410  924608
+5 Sul           27386891      NA</code></pre>
+</div>
+</div>
+<p>O resultado, agora, não retorna erro – exatamente porque especifica quais colunas têm correspondência entre as bases.</p>
+<p>Outro alerta comum ao usar funções <code>_join</code> é o de <em>multiple matches</em>, que ocorrem quando há mais de uma correspondência entre as bases, isto é, quando uma mesma observação da base à esquerda tem mais de uma correspondência na base à direita. Para entender melhor o ponto, vamos criar uma base de dados chamada <code>regioes3</code> que contém duas observações para a região Sudeste (transformando a região Sul em Sudeste com <code>if_else</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>regioes3 <span class="ot">&lt;-</span> regioes <span class="sc">|&gt;</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">regiao =</span> <span class="fu">if_else</span>(regiao <span class="sc">==</span> <span class="st">"Sul"</span>, <span class="st">"Sudeste"</span>, regiao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Se tentarmos cruzar <code>regioes3</code> com <code>territorio</code>, não teremos erro:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(territorio, regioes3, <span class="at">by =</span> <span class="fu">join_by</span>(regiao <span class="sc">==</span> regiao))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  regiao           km2 populacao
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;
+1 Norte        3853840  15864454
+2 Nordeste     1554291  53081950
+3 Centro Oeste 1606234        NA
+4 Sudeste       924608  80364410
+5 Sudeste       924608  27386891</code></pre>
+</div>
+</div>
+<p>O código roda sem problemas e, como resultado, as duas linhas da região Sudeste são mantidas – mas, se você rodou o código localmente, verá que o <code>R</code> emite uma mensagem avisando que há múltiplas correspondências. Caso esse seja o resultado que você espera da operação, basta usar o argumento <code>relationship = "many-to-many"</code>, ou <code>relationship = "one-to-many"</code>, para indicar que todas as correspondências devem ser mantidas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(regioes3, territorio, <span class="at">by =</span> <span class="fu">join_by</span>(regiao <span class="sc">==</span> regiao), <span class="at">relationship =</span> <span class="st">"many-to-many"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  regiao       populacao     km2
+  &lt;chr&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+1 Norte         15864454 3853840
+2 Nordeste      53081950 1554291
+3 Centro-Oeste  14058094      NA
+4 Sudeste       80364410  924608
+5 Sudeste       27386891  924608</code></pre>
+</div>
+</div>
+<p>Caso isso não seja o que você espera, é necessário investigar o que está acontecendo – em geral, avisos de múltiplas correspondências podem indicar linhas duplicadas ou outros problemas em uma base quando não esperamos o aviso.</p>
+</section>
+<section id="empilhando-bases" class="level3" data-number="3.3.4">
+<h3 data-number="3.3.4" class="anchored" data-anchor-id="empilhando-bases"><span class="header-section-number">3.3.4</span> Empilhando bases</h3>
+<p>Para fechar esta seção sobre cruzamentos, vamos falar sobre outro tipo comum de combinar bases: o empilhamento, isto é, quando queremos combinar duas bases que possuem as mesmas variáveis, mas com observações diferentes. Em casos assim, usamos a função <code>bind_rows</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bind_rows</span>(regioes, regioes3)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   regiao       populacao
+   &lt;chr&gt;            &lt;dbl&gt;
+ 1 Norte         15864454
+ 2 Nordeste      53081950
+ 3 Centro-Oeste  14058094
+ 4 Sudeste       80364410
+ 5 Sul           27386891
+ 6 Norte         15864454
+ 7 Nordeste      53081950
+ 8 Centro-Oeste  14058094
+ 9 Sudeste       80364410
+10 Sudeste       27386891</code></pre>
+</div>
+</div>
+<p>O resultado é uma base de dados empilhada, que contém todas as observações de <code>regioes</code> e <code>regioes2</code> – algo útil quando queremos, por exemplo, combinar dados de diferentes anos, ou de diferentes estados, em uma única base.</p>
+</section>
+</section>
+<section id="resumo-do-capítulo" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="resumo-do-capítulo"><span class="header-section-number">3.4</span> Resumo do capítulo</h2>
+<p>Este capítulo sobre manipulação de dados começou com uma breve introdução sobre o formato <code>tidy</code>, que é o formato ideal para a maioria das operações de manipulação de dados. Em seguida, vimos como filtrar linhas de uma base de dados com <code>filter</code>, selecionar colunas com <code>select</code>, criar e modificar variáveis com <code>mutate</code> e resumir informações com <code>summarise</code>. Também vimos como agrupar e resumir informações com <code>group_by</code> e <code>summarise</code>, e como modificar múltiplas variáveis com <code>across</code>. Por fim, vimos como cruzar dados de diferentes bases com <code>left_join</code>, <code>right_join</code>, <code>inner_join</code> e <code>full_join</code>, e como empilhar bases com <code>bind_rows</code>.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-censobr" class="csl-entry" role="listitem">
+Pereira, Rafael H. M., e Rogério J. Barbosa. 2023. <em>censobr: Download Data from Brazil’s Population Census</em> (versão v0.2.0). <a href="https://CRAN.R-project.org/package=censobr">https://CRAN.R-project.org/package=censobr</a>.
+</div>
+<div id="ref-spector2008" class="csl-entry" role="listitem">
+Spector, Phil. 2008. <em>Data manipulation with R</em>. Springer Science &amp; Business Media.
+</div>
+<div id="ref-wickham2014" class="csl-entry" role="listitem">
+Wickham, Hadley. 2014. <span>«Tidy data»</span>. <em>Journal of Statistical Software</em> 59 (10): 1–23.
+</div>
+<div id="ref-wickham2023r" class="csl-entry" role="listitem">
+Wickham, Hadley, Mine Çetinkaya-Rundel, e Garrett Grolemund. 2023. <em>R for data science</em>. " O’Reilly Media, Inc.".
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Estes dados podem ser obtidos diretamente pelo <em>website</em> do Ipeadata: http://www.ipeadata.gov.br/.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>O <em>website</em> do Datasus, do qual estes dados também podem ser obtidos, é: http://datasus.saude.gov.br/.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Muitas vezes é confuso o uso ou não de aspas ao passar o nome de variáveis para alguma função em R. Via de regra, funções do <code>tidyverse</code> dispensam as aspas, algo chamado de <em>tidy evaluation</em> e que tem como objetivo facilitar a escrita de código.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Os dados completos podem ser obtidos no endereço: http://www.tesouro.fazenda.gov.br/pt_PT/contas-anuais.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Não raro podemos ter alguns problemas ao usar a função <code>select</code> quando estamos com o pacote <code>MASS</code> carregado: ambos possuem uma função chamada <code>select</code>, o que pode gerrar erros como <code>Error in select(...) : unused argument (...)</code>. Nestes casos, temos duas opções: (1) descarregar o pacote <code>MASS</code> com <code>detach("package:MASS", unload = T)</code>, ou, (2), usar a função <code>select</code> com <code>dplyr::select</code>.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Em versões anteriores do <code>dplyr</code>, a função <code>select_if</code> era usada como padrão para selecionar colunas com base em alguma condição. A partir da versão 1.0.0, no entanto, a função <code>where</code> passou a ser o padrão recomendado para esse tipo de uso.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Existe outra função, <code>ifelse</code>, no <code>R-base</code> que cumpre a mesma função de <code>if_else</code>, mas é de forma geralmente mais lenta que esta. Para uma dicussão deste e de outros problemas de <code>ifelse</code>, ver <span class="citation" data-cites="spector2008">Spector (<a href="referencias.html#ref-spector2008" role="doc-biblioref">2008</a>)</span>.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Entender como <code>across</code> e <code>mutate</code> funcionam por meio de funções anônimas envolve estudar tópicos como controle de fluxo e programação funcional, algo que extrapola os objetivos deste livro. Para quem quiser aprender sobre, o melhor lugar para começar é o capítulo 26 da segunda edição do livro <em>R for Data Science</em>, de <span class="citation" data-cites="wickham2023r">Wickham, Çetinkaya-Rundel, e Grolemund (<a href="referencias.html#ref-wickham2023r" role="doc-biblioref">2023</a>)</span>.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Algumas funções específicas do <code>dplyr</code>, na verdade, não possuem equivalentes que podem ser traduzidos para SQL, a linguagem de consulta utilizada pela maioria dos sistemas de gerenciamento de bancos relacionais. Para uma visão geral sobre os casos em que é possível usar <code>dplyr</code> com bancos de dados, ver a documentação do pacote <a href="https://dbplyr.tidyverse.org/">dbplyr</a>, responsável por traduzir código em R para SQL.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>É possível salvar mais de um objeto ou base de dados em um arquivo <code>.Rda</code>. Para isso, basta separar os objetos por vírgula na hora de salvá-los (e.g., <code>save(df1, df2, df3, file = "dados.Rda")</code>).<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Um <em>insight</em> útil da documentação do pacote <code>dplyr</code> é o de que as funções <code>_join</code> são chamadas de <em>mutate join</em> justamente porque funcionam como <code>mutate()</code>, adicionando novas colunas a uma base. Ver, por exemplo, a documentação de <code>left_join</code> com <code>?left_join</code>.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02-cap.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importação</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04-cap.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Visualização</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Usando R, por Fernando Meireles e Denisson Silva</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

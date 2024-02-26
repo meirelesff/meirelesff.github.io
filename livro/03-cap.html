@@ -389,7 +389,7 @@ div.csl-indent {
 </div>
 <section id="espalhar-e-reunir" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="espalhar-e-reunir"><span class="header-section-number">3.1.1</span> Espalhar e reunir</h3>
-<p>Duas operação resumem tudo o que precisamos fazer para estruturar uma base no formato <em>tidy</em>: alongar e reunir. No <code>R</code>, essas operações podem ser feitas usando o pacote <code>tidyr</code>, com a função <code>pivot_wide</code> servindo para alongar valores de uma coluna e, por sua vez, a função <code>pivot_wider</code> para reunir numa única coluna valores dispersos em várias.</p>
+<p>Duas operação resumem tudo o que precisamos fazer para estruturar uma base no formato <em>tidy</em>: alongar e reunir. No <code>R</code>, essas operações podem ser feitas usando o pacote <code>tidyr</code>, com a função <code>pivot_longer</code> servindo para alongar valores de uma coluna e, por sua vez, a função <code>pivot_wider</code> para reunir numa única coluna valores dispersos em várias.</p>
 <p>Para aprendermos a usar ambas as funções, trabalharemos com um banco de dados contendo informações sobre o número de homicídios ocorridos anualmente nos estados brasileiros entre 2000 e 2009, conforme disponibilizado pelo Ipeadata<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> com base nos dados originais do Datasus<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Os dados estão na pasta de materiais complementares deste livro em uma planilha de Excel chamada <code>homicidios_uf.xls</code>. Para carregá-la (ver o <a href="02-cap.html"><span>Capítulo&nbsp;2</span></a>), usaremos a função <code>read_excel</code> do pacote <code>readxl</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
@@ -1260,10 +1260,10 @@ Desagrupando bases resumidas
   name_region  populacao
   &lt;chr&gt;            &lt;dbl&gt;
 1 Norte        15864454.
-2 Sudeste      80364410.
-3 Centro-oeste 14058094.
-4 Nordeste     53081950.
-5 Sul          27386891.</code></pre>
+2 Nordeste     53081950.
+3 Sul          27386891.
+4 Centro-oeste 14058094.
+5 Sudeste      80364410.</code></pre>
 </div>
 </div>
 <p>Em todos os casos, se quisermos salvar o resultado das operações em um objeto é necessário usar a função <code>collect</code>. A razão disso decorre do fato de que, ao usar <code>dplyr</code> com bancos de dados, o resultado das operações não é salvo na memória RAM, mas sim no DuckDB. Usando <code>collect</code> para trazer o resultado para a memória RAM, o código anterior ficaria assim:</p>
@@ -1279,10 +1279,10 @@ Desagrupando bases resumidas
   name_region  populacao
   &lt;chr&gt;            &lt;dbl&gt;
 1 Norte        15864454.
-2 Nordeste     53081950.
-3 Sul          27386891.
-4 Centro-oeste 14058094.
-5 Sudeste      80364410.</code></pre>
+2 Sudeste      80364410.
+3 Centro-oeste 14058094.
+4 Nordeste     53081950.
+5 Sul          27386891.</code></pre>
 </div>
 </div>
 <p>Como se percepe pelo <em>output</em> do R, o objeto exibido agora é um <code>tibble</code> com o resultado da operação.</p>

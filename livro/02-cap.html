@@ -266,6 +266,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#resumo-do-capítulo" id="toc-resumo-do-capítulo" class="nav-link" data-scroll-target="#resumo-do-capítulo"><span class="header-section-number">2.8</span> Resumo do capítulo</a></li>
   <li><a href="#indo-além" id="toc-indo-além" class="nav-link" data-scroll-target="#indo-além"><span class="header-section-number">2.9</span> Indo além</a></li>
+  <li><a href="#exercícios" id="toc-exercícios" class="nav-link" data-scroll-target="#exercícios">Exercícios</a></li>
   </ul>
 </nav>
     </div>
@@ -356,8 +357,8 @@ div.csl-indent {
 <tr class="odd">
 <td>Planilha do Excel</td>
 <td><code>xls</code>, <code>xlsx</code>, <code>.ods</code></td>
-<td><code>readxl</code>, <code>readODS</code></td>
-<td><code>read_excel</code>, <code>read.ods</code></td>
+<td><code>readxl</code>, <code>openxlsx</code>, <code>readODS</code></td>
+<td><code>read_excel</code>, <code>read.xlsx</code>, <code>read.ods</code></td>
 </tr>
 <tr class="even">
 <td>Banco de dados do SPSS</td>
@@ -695,30 +696,36 @@ RDS
 <td><code>write_delim</code></td>
 </tr>
 <tr class="odd">
+<td>Planilha do Excel</td>
+<td><code>.xlsx</code></td>
+<td><code>openxlsx</code></td>
+<td><code>write.xlsx</code></td>
+</tr>
+<tr class="even">
 <td>SPSS</td>
 <td><code>.sav</code></td>
 <td><code>haven</code></td>
 <td><code>write_sav</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Stata</td>
 <td><code>.dta</code></td>
 <td><code>haven</code></td>
 <td><code>write_dta</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>SAS</td>
 <td><code>.sas7bdat</code></td>
 <td><code>haven</code></td>
 <td><code>write_sas</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Outros</td>
 <td>-</td>
 <td><code>rio</code></td>
 <td><code>export</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Outros</td>
 <td>-</td>
 <td><code>rio</code></td>
@@ -942,7 +949,7 @@ Drivers
 </section>
 <section id="indo-além" class="level2" data-number="2.9">
 <h2 data-number="2.9" class="anchored" data-anchor-id="indo-além"><span class="header-section-number">2.9</span> Indo além</h2>
-<p>Importar dados é uma tarefa complexa, e muitas vezes uma receita pronta, como as que vimos aqui, não servirá. Conforme você aprenda mais sobre o R e comece a trabalhar em projetos específicos, é possível que se depare com a necessidade de buscar outras soluções, ou mesmo de ter de criar ou adaptar alguma para uso próprio. Neste sentido, vale a pena conhecer alguns pacotes que podem ser úteis para importar dados de formatos mais específicos.</p>
+<p>Importar dados é uma tarefa complexa, e muitas vezes uma receita pronta, como as que vimos aqui, não servirá. Conforme você aprenda mais sobre o R e comece a trabalhar em projetos específicos, é possível que se depare com a necessidade de buscar outras soluções, ou mesmo de ter que criar ou adaptar alguma para uso próprio. Neste sentido, vale a pena conhecer alguns pacotes que podem ser úteis para importar dados de formatos mais específicos.</p>
 <p>…</p>
 <p>Há diversos pacotes em R que servem para justamente importar dados de diferentes fontes diretamente no R. Alguns deles, que podem ajudar principalmente a obter dados sobre o Brasil, são:</p>
 <ul>
@@ -951,6 +958,63 @@ Drivers
 <li><code>electionsBR</code></li>
 <li><code>PNADcIBGE</code></li>
 <li><code>sidrar</code></li>
+</ul>
+</section>
+<section id="exercícios" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercícios">Exercícios</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Arquivos necessários
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Para realizar estes exercícios, será necessário baixar os arquivos que estão na pasta de materiais complementares deste livro e salvá-los na pasta de trabalho do R.</p>
+</div>
+</div>
+<section id="carregando-arquivos-simples-i" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-simples-i">1. Carregando arquivos simples I</h4>
+<p>Carregue o arquivo <code>pessoas.csv</code>, que contém informações de algumas pessoas fictícias, e salve seu conteúdo no objeto <code>pessoas</code>. Depois de carregado os dados, use a função <code>head</code> para pré-visualizar as primeiras linhas do <code>data.frame</code> <code>pessoas</code>. Use comentários para explicar como você descobriu a forma correta de carrergar o arquivo.</p>
+</section>
+<section id="carregando-arquivos-simples-ii" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-simples-ii">2. Carregando arquivos simples II</h4>
+<p>Carregue um arquivo <code>pesquisa_satisfacao.txt</code>, que contém os resultados de uma pesquisa de satisfação de cinco clientes de uma loja (as notas variam de 1 a 5). Salve o conteúdo do arquivo no objeto <code>satisfacao</code>. Depois de carregado os dados, use a função <code>head</code> para pré-visualizar as primeiras linhas do <code>data.frame</code> <code>satisfacao</code>. Use comentários para explicar como você descobriu a forma correta de carrergar o arquivo.</p>
+</section>
+<section id="carregando-arquivos-simples-iii" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-simples-iii">3. Carregando arquivos simples III</h4>
+<p>Carregue o arquivo <code>inventario.tab</code>, que contém informações de um inventário de produtos da loja do exercício anterior. A base inclui informações como o nome do produto, quantidade em estoque e preço. Detalhe: algumas células do banco estão vazias, indicando itens sem preço definido. Depois de carregado o arquivo, use comentários para explicar como você descobriu a forma correta de carrergar o arquivo <em>e o nome dos itens que estão sem preço definido</em>.</p>
+</section>
+<section id="carregando-arquivos-simples-iv" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-simples-iv">4. Carregando arquivos simples IV</h4>
+<p>Carregue o arquivo <code>casos_registrados.csv</code>, que contém um relatório de casos de uma patologia específica em bairros da zona norte do Rio de Janeiro, e salve or esultado no objeto <code>casos</code>. Certifique-se de carregar apenas o conteúdo das colunas <code>Bairro</code>, <code>Casos</code>, e <code>Internações</code>. Use comentários para explicar qual dificuldade você encontrou ao carregar o arquivo e como a contornou.</p>
+</section>
+<section id="carregando-arquivos-delimitados" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-delimitados">5. Carregando arquivos delimitados</h4>
+<p>Para este exercício, carregue dados do Censo de 1872, o primeiro realizado no Brasil, disponíveis no seguinte link:<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a></p>
+<ul>
+<li><a href="https://raw.githubusercontent.com/izabelflores/Censo_1872/main/Censo_1872_dados_tidy_versao2.csv">https://raw.githubusercontent.com/izabelflores/Censo_1872/main/Censo_1872_dados_tidy_versao2.csv</a></li>
+</ul>
+<p>Salve o resultado no objeto <code>censo</code>. Depois de carregado o arquivo, use a função <code>head</code> para pré-visualizar as primeiras linhas do <code>data.frame</code> <code>censo</code>.</p>
+</section>
+<section id="carregando-arquivos-de-outros-formatos-i" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-de-outros-formatos-i">6. Carregando arquivos de outros formatos I</h4>
+<p>É comum que dados de pesquisas de opinião, i.e.&nbsp;<em>surveys</em>, sejam armazenados em arquivos <code>SPSS</code> ou <code>Stata</code>, criados pelos <em>softwares</em> de mesmo nome. Neste exercício, sua tarefa será carregar um arquivo <code>SPSS</code> e um <code>Stata</code> com dados da pesquisa do <a href="https://www.worldvaluessurvey.org"><em>World Values Survey</em></a>, principal fonte de dados sobre valores, crenças e comportamentos das populações de diferentes países. Os dados do Brasil estão no arquivo <code>wvs.sav</code> e <code>wvs.dta</code>. Carregue ambos os arquivos e salve os resultados nos objetos <code>wvs_spss</code> e <code>wvs_stata</code>, respectivamente.<a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref"><sup>21</sup></a></p>
+</section>
+<section id="carregando-arquivos-de-outros-formatos-ii" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-de-outros-formatos-ii">7. Carregando arquivos de outros formatos II</h4>
+<p>Algo para a prática de pesquisas replicáveis – isto é, pesquisas cujos resultados podem ser reproduzidos por outras pessoas – é a disponibilização de dados brutos. Internacionalmente, a principal plataforma para a disponibilização de dados para replicação é o <a href="https://dataverse.harvard.edu/">Harvard Dataverse</a>, uma plataforma de repositório de dados de pesquisa que permite que pesquisadores publiquem, compartilhem, documentem e citem dados.<a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref"><sup>22</sup></a></p>
+<p>Neste exercício, sua tarefa será obter e carregar no R um arquivo de dados brutos de um repositório do Harvard Dataverse. Em particular, baixaremos dados de anúncios do Airbnb, serviço de hospedagem que permite que pessoas anunciem e reservem acomodações em todo o mundo, em pequenas cidades do Brasil. Os dados estão <a href="https://doi.org/10.7910/DVN/TQSTAN">neste repositório</a>, com uma planilha de Excel para cada uma das cidades listadas. Escolha uma das cidades, baixe seu arquivo correspondente e carregue-o no R. Salve o resultado no objeto <code>airbnb</code> e use a função <code>head</code> para pré-visualizar as primeiras linhas do <code>data.frame</code>.</p>
+</section>
+<section id="carregando-microdados-administrativos" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="carregando-microdados-administrativos">8. Carregando microdados administrativos</h4>
+<p>Diferentes órgãos públicos no Brasil disponibilizam seus microdados administrativos para acesso. Um deles é o <a href="https://www.gov.br/inep">INEP</a>, que tem uma página dedicada para <em>download</em> de bases de dados com informações sobre os exames e pesquisas que conduz.<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a></p>
+<p>Neste exercício, sua tarefa será obter e carregar no R alguns microdados do <a href="https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/censo-da-educacao-superior">Censo da Educação Superior de 2022</a>, levantamento anual do INEP que coleta informações sobre as instituições de ensino superior, cursos de graduação e estudantes no Brasil todo. Os dados que deverão ser baixados são <em>os referentes ao ano de 2022</em>, que poderão ser baixados <a href="https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-da-educacao-superior">desta página do INEP</a>. Os dados estão em formato compactado (zipado) e deverão ser descompactados no diretório local do R antes de serem carregados. Uma vez descompactados, carregue o arquivo <code>MICRODADOS_ED_SUP_IES_2022.CSV</code> e salve o resultado no objeto <code>alunos</code>. Feito isso, reporte o seguinte:</p>
+<ul>
+<li>O nome das colunas do <code>data.frame</code> <code>alunos</code>;</li>
+<li>O número de linhas e de colunas do <code>data.frame</code> <code>alunos</code>.</li>
 </ul>
 
 
@@ -968,6 +1032,7 @@ Pereira, Rafael H. M., e Rogério J. Barbosa. 2023. <em>censobr: Download Data f
 Wickham, Hadley, Mine Çetinkaya-Rundel, e Garrett Grolemund. 2023. <em>R for data science</em>. " O’Reilly Media, Inc.".
 </div>
 </div>
+</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
@@ -991,6 +1056,10 @@ Wickham, Hadley, Mine Çetinkaya-Rundel, e Garrett Grolemund. 2023. <em>R for da
 <li id="fn17"><p>Para mais detalhes sobre como usar o <code>DBI</code> com outros bancos relacionais, ver: https://db.rstudio.com/.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn18"><p>Para mais detalhes sobre o SQLite, ver: https://www.sqlite.org/index.html.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn19"><p>Para mais detalhes sobre como usar o <code>DBI</code> com outros bancos relacionais, ver: https://db.rstudio.com/.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn20"><p>Esses dados foram organizados e disponibilizados por Izabel Flores e estão disponíveis em: <a href="https://github.com/izabelflores/Censo_1872">https://github.com/izabelflores/Censo_1872</a>.<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn21"><p>Os dados originais podem ser obtidos em <a href="https://www.worldvaluessurvey.org/WVSDocumentationWV7.jsp">https://www.worldvaluessurvey.org/WVSDocumentationWV7.jsp</a>.<a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn22"><p>Para mais detalhes sobre o Harvard Dataverse, ver: https://dataverse.harvard.edu/.<a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn23"><p>A página de <em>download</em> de dados do INEP está disponível em <a href="https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados">https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados</a>.<a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

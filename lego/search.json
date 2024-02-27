@@ -1,10 +1,31 @@
 [
   {
-    "objectID": "ementa.html",
-    "href": "ementa.html",
-    "title": "Ementa",
+    "objectID": "dados.html",
+    "href": "dados.html",
+    "title": "Dados",
     "section": "",
-    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 23/02/2024."
+    "text": "Para praticar análise de dados, usaremos diferentes bancos ao longo do curso. Estes podem ser obtidos nesta pasta do Drive:\n\nDatasets de Lego 1\n\nO arquivo datasets.zip contém todos os arquivos. Descompacte-o em um local de sua preferência e lembre-se de usar este mesmo local como diretório de trabalho para os exercícios."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Lego I",
+    "section": "",
+    "text": "Este é o website da disciplina de Lego I do IESP-UERJ contendo recursos e outras informações úteis para o andamento do curso.\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n26/2\nAula 1 – Introdução ao R\n\n\n27/2\nAula 2 – Importação de dados\n\n\n28/2\nAula 3 – Manipulação de dados\n\n\n29/2\nAula 4 – Visualização de dados\n\n\n1/3\nAula 5 – Estatísticas descritivas e regressão\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n6/3\nSem aula\n\n\n13/3\nAula 1 – Fundamentos da pesquisa quantitativa\n\n\n20/3\nAula 2 – Desenho de pesquisa e mensuração (1º lista)\n\n\n27/3\nAula 3 – Visualização de dados\n\n\n3/4\nAula 4 – Manipulação de dados\n\n\n10/4\nAula 5 – Importação e combinação de bases de dados\n\n\n17/4\nAula 6 – Indicadores e estatísticas descritivas (2º lista)"
+  },
+  {
+    "objectID": "index.html#sobre",
+    "href": "index.html#sobre",
+    "title": "Lego I",
+    "section": "",
+    "text": "Este é o website da disciplina de Lego I do IESP-UERJ contendo recursos e outras informações úteis para o andamento do curso.\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n26/2\nAula 1 – Introdução ao R\n\n\n27/2\nAula 2 – Importação de dados\n\n\n28/2\nAula 3 – Manipulação de dados\n\n\n29/2\nAula 4 – Visualização de dados\n\n\n1/3\nAula 5 – Estatísticas descritivas e regressão\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n6/3\nSem aula\n\n\n13/3\nAula 1 – Fundamentos da pesquisa quantitativa\n\n\n20/3\nAula 2 – Desenho de pesquisa e mensuração (1º lista)\n\n\n27/3\nAula 3 – Visualização de dados\n\n\n3/4\nAula 4 – Manipulação de dados\n\n\n10/4\nAula 5 – Importação e combinação de bases de dados\n\n\n17/4\nAula 6 – Indicadores e estatísticas descritivas (2º lista)"
+  },
+  {
+    "objectID": "recursos.html",
+    "href": "recursos.html",
+    "title": "Recursos",
+    "section": "",
+    "text": "Esta página contém algumas indicações de materiais úteis para quem está começando a aprender R e estatística. Para contemplar diferentes tipos de aprendizagem, há tanto indicação de conteúdos interativos como, também, de livros; blogs; vídeos; e podcasts. A lista não é exaustiva e provavelmente será atualizada ao longo do curso.\n\nBlogs e sites\n\nR Weekly - Newsletter semanal com os principais acontecimentos da comunidade R e vários links para tutoriais, pacotes, etc.\nR-bloggers - Agregador de blogs sobre R (há coisas em português também)\n\n\n\nLivros\nLivros indicados para quem quer nunca viu R e quer ter um contato mais aprofundado com o ambiente de programação:\n\nR for Data Science - Garrett Grolemund e Hadley Wickham\nHands on Programming with R - Garrett Grolemund\nR Cookbook - James Long e Paul Teetor"
   },
   {
     "objectID": "template.html",
@@ -42,24 +63,10 @@
     "text": "Usando o template de Lego\nPara usar o template de Lego em listas de exercícios ou trabalhos, basta abrir o arquivo documento.qmd de dentro RStudio, editar seu conteúdo como quiser e clicar no botão Render. O arquivo documento.pdf será gerado.\nTambém é possível compilar o arquivo executando o seguinte código em R:\nquarto::render(\"documento.qmd\")\n\nDicas de uso\n\nMarkdown\nTítulos e sub-títulos são definidos com # e ##, respectivamente. Por exemplo, # Título gera um título, e ## Sub-título gera um sub-título. Para criar uma lista, use - ou * no início de cada item. Exemplo:\n- Item 1\n- Item 2\nPara criar um parágrafo, basta deixar uma linha em branco entre os parágrafos. Para criar uma citação, use &gt;. Exemplo:\n\nCitação qualquer…\n\nPara destacar um texto com itálito, use *texto*; para negrito, use **texto**; e para negrito e itálico, use ***texto***. Finalmente, links podem ser criados com [texto](url).\n\n\nCódigo em R\nPodemos inserir código bruto em R e o template o compilará e o exibirá no documento final. Por exemplo, o código abaixo gerará um gráfico:\nx &lt;- 1:10\ny &lt;- x^2\nplot(x, y)\nPara inserir código, bastar usar três crases seguidas de r, e depois do código três crases novamente. Exemplo:\n```{r}\nplot(x, y)\n```\n\n\nCitações\n\nPara inserir uma citação, use @ seguido do nome do código da referência como definido no arquivo referencias.bib. Por exemplo, @ross2001does citará Ross (2001), e [@ross2001does] citará (Ross 2001). Para inserir várias citações, separe elas por ;. Por exemplo, [@ross2001does; @cunningham2021causal].\n\n\n\nNotação\nPodemos inserir notação matemática usando \\(\\LaTeX\\). Para inserir um símbolo, use $ seguido do código \\(\\LaTeX\\) e $ novamente. Por exemplo, $\\beta$ gerará \\(\\beta\\).\nNotações que usaremos bastante no curso:\n\n\\(\\beta\\) (beta): $\\beta$\n\\(\\beta_i\\) (beta sub i): $\\beta_i$\n\\(\\alpha\\) (alfa): $\\alpha$\n\\(\\sim\\) (sim): $\\sim$\n\\(\\hat{\\beta}\\) (beta chapéu): $\\hat{\\beta}$\n\\(\\sum_{i=1}^n\\) (somatório): $\\sum_{i=1}^n$\n\\(\\mathbb{E}[X]\\) (valor esperado): $\\mathbb{E}[X]$"
   },
   {
-    "objectID": "recursos.html",
-    "href": "recursos.html",
-    "title": "Recursos",
+    "objectID": "ementa.html",
+    "href": "ementa.html",
+    "title": "Ementa",
     "section": "",
-    "text": "Esta página contém algumas indicações de materiais úteis para quem está começando a aprender R e estatística. Para contemplar diferentes tipos de aprendizagem, há tanto indicação de conteúdos interativos como, também, de livros; blogs; vídeos; e podcasts. A lista não é exaustiva e provavelmente será atualizada ao longo do curso.\n\nBlogs e sites\n\nR Weekly - Newsletter semanal com os principais acontecimentos da comunidade R e vários links para tutoriais, pacotes, etc.\nR-bloggers - Agregador de blogs sobre R (há coisas em português também)\n\n\n\nLivros\nLivros indicados para quem quer nunca viu R e quer ter um contato mais aprofundado com o ambiente de programação:\n\nR for Data Science - Garrett Grolemund e Hadley Wickham\nHands on Programming with R - Garrett Grolemund\nR Cookbook - James Long e Paul Teetor"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Lego I",
-    "section": "",
-    "text": "Este é o website da disciplina de Lego I do IESP-UERJ contendo recursos e outras informações úteis para o andamento do curso.\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n26/2\nAula 1 – Introdução ao R\n\n\n27/2\nAula 2 – Importação de dados\n\n\n28/2\nAula 3 – Manipulação de dados\n\n\n29/2\nAula 4 – Visualização de dados\n\n\n1/3\nAula 5 – Estatísticas descritivas e regressão\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n6/3\nSem aula\n\n\n13/3\nAula 1 – Fundamentos da pesquisa quantitativa\n\n\n20/3\nAula 2 – Desenho de pesquisa e mensuração (1º lista)\n\n\n27/3\nAula 3 – Visualização de dados\n\n\n3/4\nAula 4 – Manipulação de dados\n\n\n10/4\nAula 5 – Importação e combinação de bases de dados\n\n\n17/4\nAula 6 – Indicadores e estatísticas descritivas (2º lista)"
-  },
-  {
-    "objectID": "index.html#sobre",
-    "href": "index.html#sobre",
-    "title": "Lego I",
-    "section": "",
-    "text": "Este é o website da disciplina de Lego I do IESP-UERJ contendo recursos e outras informações úteis para o andamento do curso.\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n26/2\nAula 1 – Introdução ao R\n\n\n27/2\nAula 2 – Importação de dados\n\n\n28/2\nAula 3 – Manipulação de dados\n\n\n29/2\nAula 4 – Visualização de dados\n\n\n1/3\nAula 5 – Estatísticas descritivas e regressão\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n6/3\nSem aula\n\n\n13/3\nAula 1 – Fundamentos da pesquisa quantitativa\n\n\n20/3\nAula 2 – Desenho de pesquisa e mensuração (1º lista)\n\n\n27/3\nAula 3 – Visualização de dados\n\n\n3/4\nAula 4 – Manipulação de dados\n\n\n10/4\nAula 5 – Importação e combinação de bases de dados\n\n\n17/4\nAula 6 – Indicadores e estatísticas descritivas (2º lista)"
+    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 27/02/2024."
   }
 ]

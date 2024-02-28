@@ -119,7 +119,7 @@ div.csl-indent {
 
 <meta name="twitter:title" content="Usando R - 4&nbsp; Visualização">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://electionsbr.com/livro/04-cap_files/figure-html/unnamed-chunk-2-1.png">
+<meta name="twitter:image" content="https://electionsbr.com/livro/04-cap_files/figure-html/unnamed-chunk-4-1.png">
 <meta name="twitter:image-height" content="960">
 <meta name="twitter:image-width" content="1344">
 <meta name="twitter:card" content="summary_large_image">
@@ -279,24 +279,29 @@ div.csl-indent {
 </section>
 <section id="fundamentos-do-ggplot2" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="fundamentos-do-ggplot2"><span class="header-section-number">4.2</span> Fundamentos do <code>ggplot2</code></h2>
-<p>O que precisamos para fazer um gráfico no ggplot2<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>? Considerando o ggplot, precisamos apenas determinar quais são os nosso dados e a geometria que vamos usar. e. g.:</p>
+<p>De longe o pacote mais utilizado para produzir visualizações em R, o <code>ggplot2</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> é baseado na gramática de gráficos, que é uma forma de descrever visualizações por meio de camadas. A ideia é que cada camada representa um elemento do gráfico: os dados usados para produzir formas e determinar escalas dos eixos, geometria, coordenadas, facetas e temas. Essa lógica separa, portanto, diferentes partes da produção de um gráfico, o que abre um universo de possibilidades de combinações entre essas camadas.</p>
+<p>O que precisamos para fazer um gráfico no ggplot2? Basicamente, penas determinar quais são os nosso dados e a geometria que vamos usar. Para dar um exemplo inicial, usaremos dados de uma das mais tradicionais pesquisas de opinião do Brasil, o Estudo Eleitoral Brasileiro (ESEB), que é realizada periodicamente após eleições nacionais pelo <a href="https://www.cesop.unicamp.br/">Centro de Estudos de Opinião Pública (CESOP)</a>, da Universidade Estadual de Campinas (UNICAMP).<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> A base de dados que usaremos é a do ESEB 2022, disponível no formato SPSS no arquivo <code>eseb2022.sav</code> na pasta de materiais complementares deste livro. Para carregar o arquivo, podemos usar a função <code>read_sav</code> do pacote <code>haven</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># carregando o pacote</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregando pacotes</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># carregando os dados</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"data/eseb_2022/eseb2022.sav"</span>, </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">encoding =</span> <span class="st">"latin1"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># meu primeiro grafico</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(D01A_FX_ID)) <span class="sc">+</span> </span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregando dados</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"eseb_2022/eseb2022.sav"</span>, <span class="at">encoding =</span> <span class="st">"latin1"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Se inspecionarmos a base (com <code>View(dados)</code>), veremos que os <em>labels</em> das variáveis não estão disponíveis. Isso acontece porque a função <code>read_sav</code> carrega apenas os códigos das categorias das variáveis, e não os <em>labels</em> que as descrevem, como vimos no <a href="02-cap.html"><span>Capítulo&nbsp;2</span></a>. Para usar os <em>labels</em>, podemos usar a função <code>as_factor</code>, também do pacote <code>haven</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Com os dados carregados e com <em>labels</em> atribuídos, podemos fazer o seguinte gráfico usando o ggplot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Um grafico com ggplot</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(D01A_FX_ID)) <span class="sc">+</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04-cap_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<p><img src="04-cap_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Para gerar o gráfico acima utilizamos a base de dados do ESEB 2022<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Como variável utilizamos “D01a_FX_ID” que é faixa de idade do entrevistado. Na sequência com auxilio do “+” agregamos uma camada de geometria que no caso foi a barra. Perceba que a função ggplot mapeou a base de dados e entendeu que todas variáveis dela agora faz parte do “ambiente” ggplot assim podemos usá-las sem indexar ao objeto <em>dados</em> (dados$D01A_FX_ID). Esse mapeamento já identificou os eixos que nesse caso só foi informado o eixo X na estética (Aesthetic - função <em>aes</em>).</p>
+<p>No código anterior, utilizamos a variável <code>D01a_FX_ID</code>, que indica a faixa de idade do entrevistado. Na sequência com auxilio do “+” agregamos uma camada de geometria que no caso foi a barra. Perceba que a função ggplot mapeou a base de dados e entendeu que todas variáveis dela agora faz parte do “ambiente” ggplot assim podemos usá-las sem indexar ao objeto <em>dados</em> (dados$D01A_FX_ID). Esse mapeamento já identificou os eixos que nesse caso só foi informado o eixo X na estética (Aesthetic - função <em>aes</em>).</p>
 <p>Por sua vez, a camada geometria <em>geom_bar</em> por padrão faz uma contagem dos itens dentro da variável informada, que nesse caso é a faixa de idade, então ela vai fazer a contagem de quantos entrevistados tem em cada faixa. Ou seja, para fazer um gráfico de barras com a contagem de algo podemos informar os dados bruto, sem precisar fazer uma tabela de frequência previamente.</p>
 <p>Podemos melhora a capacidade de informar desse gráfico, para isso Temos 5 elementos que consititui a lógica de fazer gráficos no R com ggplot, ou melhor a gramática de gráficos, já usamos dois primeiros, são eles:</p>
 <ol type="1">
@@ -310,28 +315,9 @@ div.csl-indent {
 <p>Dito isto, vamos editar nosso gráfico.</p>
 <p>Podemos usar uma camada scale_ para exbir os valores (códigos) de todas as faixas de idade. Por exemplo scale_x_contiunous que serve para editar a escala do eixo x quando ele é continuo, no caso varia 1 a 7.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(D01A_FX_ID)) <span class="sc">+</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="04-cap_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Embora já seja possível ver no eixo x todos codigos 1 a 7 referente as categorias de faixa de idade, não é possível saber a qual catergoria de fato correspondem esses códigos. Essa base de dados que estamos trabalhando foi construida originalmente com spss, que para variáveis catégoricas é atribuido um código e um label, por padrão com fução read_sav são carregados os códigos dessas váriaveis. Nesse capítulo não vamos tratar de questões referente a manipulação/tratamento de dados, mas com a função <strong>print_labels</strong> do pacote <em>haven</em> podemos saber quais são os labels de cada categoria.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_labels</span>(dados<span class="sc">$</span>D01A_FX_ID)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Labels:
- value        label
-     1 16 e 17 anos
-     2 18 a 24 anos
-     3 25 a 34 Anos
-     4 35 a 44 Anos
-     5 45 a 54 Anos
-     6 55 a 64 anos
-     7    65 e mais</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(D01A_FX_ID)) <span class="sc">+</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Podemos usar essa informação para editar nosso gráfico. Para isso dentro do aes vamos transformar nossa variável de interesse em texto, e no lugar de usar uma escala continua vamos usar uma escala discreta para alterar os valores do eixo x.</p>
 <div class="cell">
@@ -344,9 +330,6 @@ Labels:
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"5"</span> <span class="ot">=</span> <span class="st">"45-54"</span>,</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"6"</span> <span class="ot">=</span> <span class="st">"55-64"</span>,</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"7"</span> <span class="ot">=</span> <span class="st">"65+"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="04-cap_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
-</div>
 </div>
 <p>Para altera nomes dos eixos, títulos e subtítulos, por exemplo, podemos usar a função <strong>labs</strong> em mais uma camada.</p>
 <div class="cell">
@@ -363,9 +346,6 @@ Labels:
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"ESEB - 2022"</span>,</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Faixa de Idade"</span>,</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"N"</span>) </span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="04-cap_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
-</div>
 </div>
 <p>Essa grade por trás das barras não traz nenhuma informação relevante para esse gráfico, assim como a cor de fundo. Então podemos retirar esses elementos deixando o gráfico mais limpo em termos de informação desnecessaria, para isso podemos aplicar um tema diferente do padrão do ggplot.</p>
 <div class="cell">
@@ -383,9 +363,6 @@ Labels:
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Faixa de Idade"</span>,</span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"N"</span>) <span class="sc">+</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="04-cap_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
-</div>
 </div>
 <p>Dependendo do uso que vamos fazer, é preferivél ter os valores da quantidade de entrevistados direto em cada barra, assim, podemos aplicar mais uma camada com a função <strong>geom_text</strong></p>
 <div class="cell">
@@ -405,9 +382,6 @@ Labels:
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat =</span> <span class="st">"count"</span>, <span class="fu">aes</span>(<span class="at">label =</span> ..count..), </span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust=</span><span class="sc">-</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="04-cap_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
-</div>
 </div>
 <p>Com estamos usando os micro-dados e toda operação aritmética está sendo feita dentro do ambiente do ggplot, é necessário informa na função <em>geom_text</em> qual é a estatística que está sendo feita que nesse caso é contagem (o padrão da função <em>geom_bar</em>). Nesse caso a estética é o valor dessa contagem que é recuperado pelo operador “..count..”, foi também adcionado um ajustamento vertical, que quando é possitivo os valores são plotados mais próximo do eixo x e negativo mais longe do eixo de referência (vjust eixo x, hjust eixo y).</p>
 <p>Suponha que em seu projeto de visualização de dados as informações do eixo y sejam desnecessária uma vez que já está direto acima da barra. Podemos usar nossa função genérica <strong>theme</strong> para fazer essa edição. Como ja estamos usando um tema, a camada com a função genérica vai logo após o tema em uso.</p>
@@ -432,9 +406,6 @@ Labels:
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="04-cap_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
-</div>
 </div>
 <p>Observem que mesmo mantendo na função <em>labs</em> y = “N”, esse elemento não fica no gráfico porque foi subtituído na função <em>theme</em> por um elemento em branco - <em>element_blanc</em> no argumento <em>axis.title.y</em>. Bem, todos elementos de exibição do gráfico pode ser controlado por essa função <em>theme</em>, inclusive pode ser usada para você criar o próprio tema.</p>
 <p>Vamos agora fazer um novo gráfico com a mesma geometria (barra), sendo que com os dados já agregado em algum nível. Para isso vamos usar os dados do tamanho da população do Brasil por Estado, a partir da parcial do censo 2022<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
@@ -453,7 +424,7 @@ Labels:
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line.y =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04-cap_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="04-cap_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Repetimos basicamente o mesmo código do gráfico com os dados do ESEB. As principais alterações foram: 1) no aes, foi incluir um valor para y (POPULACAO), e 2) na geometria (geom_bar) incluir o argumento stat igual a “identity”, que informa que não é necessário fazer qualquer transformação no dado, ele vai ser usado do jeito que veio.</p>
@@ -487,7 +458,7 @@ GGPLOT - Extensões
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"#56B1F7"</span>, <span class="at">high =</span>  <span class="st">"#132B43"</span>) <span class="sc">+</span></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="04-cap_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="04-cap_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Com essa geometria <em>geom_sf</em> não precisamos atribuir um x ou um y na <em>aes</em>, pois, x e y serão as coordenadas geográficas contidas na variável “geometry” do nosso objeto <strong>estados</strong> que é da class <em>sf</em>. Então atribuímos apenas um <em>fill</em> para colorir os estados, neste caso, em uma escala continua porque a váriavel população é continua. Se fosse uma variável categórica o ggplot compreenderia que a escala de cores seria discreta, uma cor para cada categoria.</p>
@@ -614,8 +585,8 @@ Wilkinson, Leland. 2012. <em>The grammar of graphics</em>. Springer.
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>normalmente só falamos ggplot quando estamos falando do pacote ggplot2<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Disponibilizadas pelo https://www.cesop.unicamp.br/<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Normalmente mencionamos <code>ggplot</code> quando estamos falando do pacote <code>ggplot2</code>, utilizado para produzir gráficos.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>O ESEB é conduzido desde 2002 e é vinculado ao <em>Comparative Study of Electoral Systems Project (CSES)</em>, projeto global de pesquisas pós-eleitorais. Para saber mais sobre o ESEB, ver <a href="https://www.cesop.unicamp.br/por/eseb">https://www.cesop.unicamp.br/por/eseb</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Lançada pelo IBGE em junho de 2023<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>https://exts.ggplot2.tidyverse.org/gallery/<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>

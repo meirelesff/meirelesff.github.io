@@ -1299,10 +1299,10 @@ Desagrupando bases resumidas
   name_region  populacao
   &lt;chr&gt;            &lt;dbl&gt;
 1 Norte        15864454.
-2 Nordeste     53081950.
-3 Sul          27386891.
-4 Centro-oeste 14058094.
-5 Sudeste      80364410.</code></pre>
+2 Centro-oeste 14058094.
+3 Sudeste      80364410.
+4 Nordeste     53081950.
+5 Sul          27386891.</code></pre>
 </div>
 </div>
 <p>Em todos os casos, se quisermos salvar o resultado das operações em um objeto é necessário usar a função <code>collect</code>. A razão disso decorre do fato de que, ao usar <code>dplyr</code> com bancos de dados, o resultado das operações não é salvo na memória RAM, mas sim no DuckDB. Usando <code>collect</code> para trazer o resultado para a memória RAM, o código anterior ficaria assim:</p>
@@ -1317,11 +1317,11 @@ Desagrupando bases resumidas
 <pre><code># A tibble: 5 × 2
   name_region  populacao
   &lt;chr&gt;            &lt;dbl&gt;
-1 Norte        15864454.
-2 Nordeste     53081950.
-3 Sul          27386891.
-4 Centro-oeste 14058094.
-5 Sudeste      80364410.</code></pre>
+1 Sudeste      80364410.
+2 Norte        15864454.
+3 Nordeste     53081950.
+4 Sul          27386891.
+5 Centro-oeste 14058094.</code></pre>
 </div>
 </div>
 <p>Como se percepe pelo <em>output</em> do R, o objeto exibido agora é um <code>tibble</code> com o resultado da operação.</p>

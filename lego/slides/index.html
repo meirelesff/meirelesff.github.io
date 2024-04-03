@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>3. Visualização</title>
+    <title>4. Manipulação de dados</title>
     <meta charset="utf-8" />
     <meta name="author" content="Fernando Meireles" />
     <script src="slides_files/header-attrs-2.23/header-attrs.js"></script>
@@ -15,10 +15,10 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# 3. Visualização
+# 4. Manipulação de dados
 ]
 .subtitle[
-## Distribuições e elementos gráficos
+## Verbos, cruzamentos e pivotagem
 ]
 .author[
 ### Fernando Meireles
@@ -41,302 +41,347 @@ Onde estamos no curso:
 &lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
 
 
+---
+# Manipulação de dados
+
+Revisitaremos hoje um conjunto de funções que nos ajudarão a:
+
+.pull-left[
+- Criar e modificar variáveis
+
+- Agrupar e resumir variáveis
+
+- Combinar diferentes bases de dados
+
+- Pivotar e reestruturar bases
+]
+
+.pull-right[
+![](https://2953482177-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/assets%2F-M38c0s4s0YCM6dGwrz1%2F-M7RetZBh2Wf7TnfLhKs%2F-M7RkjP-fqIgI8ZsDmKh%2Ftidyverse2.png?alt=media&amp;token=73bf5842-1ae0-4ca4-8622-ec2ae9063a7a)
+]
+
 
 ---
-background-color: #FFFFFF
-# Hoje
+# Formato de uma base
 
-Veremos princípios gerais por detrás de visualizações como essa:
+Também vamos aplicar a terminologia de organização de dados, com notação, para `R`:
 
-&lt;img src="imgs/polarization.webp" height="400" style="display: block; margin: auto;" /&gt;
-
-
-
----
-background-color: #FFFFFF
-cunt:false
-# Hoje
-
-Ou como essa, de [Tynan deBolde](https://tynandebold.com/) para o WSJ:
-
-&lt;img src="imgs/sarampo.png" width="1232" height="500" style="display: block; margin: auto;" /&gt;
-
+- `Observação`, a célula `\(i \in \{1, 2, ...N\}\)`
+- `Unidade`, cada país `\(j \in \{1, 2,... J\}\)`, e.g.
 
 
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
 
-# Distribuições
+# Funções básicas
 
 
 
 ---
-# Visualizando variáveis
+# `mutate`
 
-Visualizações são uma forma de conseguirmos analisar, rapidamente, variáveis com muitos elementos:
+`mutate` permite criar ou modificar variáveis:
 
-.pull-left2[
 
 ```r
-x &lt;- c(1, 4, 
-       4, 4, 
-       3, 4, 
-       3, 3, 
-       3, 3, 
-       1, 1, 
-       2, 4)
+dados &lt;- tibble(x = 1:5, y = 5:1)
+
+dados %&gt;% 
+  mutate(z = x + y)
 ```
-]
 
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
----
-# Distribuições
-
-O objetivo central de visualizar uma única variável é entender quais são seus .texto2[valores]; se alguns são mais .texto2[frequentes] que outros; se há algum padrão de .texto2[centralidade] ou .texto2[dispersão]; entre outros.
-
---
-
-.alert[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#777777;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; *Distribuição de uma variável* é a expressão normalmente usada para falar dessas carecterísticas de uma variável]
-
+```
+## # A tibble: 5 × 3
+##       x     y     z
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1     1     5     6
+## 2     2     4     6
+## 3     3     3     6
+## 4     4     2     6
+## 5     5     1     6
+```
 
 ---
-# Variáveis discretas
+# `group_by` e `summarise`
 
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Quanto temos categorias, como `religião`, `estado`, etc., gráficos de barras são a alternativa padrão
-]
+Usamos `group_by` para agrupar, `summarise` para resumir:
 
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
-]
 
+```r
+dados &lt;- 
+  tibble(uf = c("SP", "SP", "RJ", "RJ", "MG", "MG"),
+         cidade = c("Itu", "Jaú", "Magé", "Angra", "Araxá", "Ubá"),
+         pop = c(175, 152, 248, 210, 108, 117))
+```
 
----
-# Frequência relativa
+```r
+dados %&gt;%
+  group_by(uf) %&gt;%
+  summarise(total = sum(pop))
+```
 
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos também usar a frequência relativa; mudamos apenas a escala do eixo `y`
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
----
-# Variáveis contínuas
-
-Para variáveis contínuas, como `idade`, `renda`, etc., não temos valores finitos que podem ser exibidos em barras. Se soubermos os valores máximo e mínimo, podemos fazer algo similar:
-
-- 1) Dividimos o intervalo em `\(k\)` partes iguais (*bins*)
-- 2) Contamos quantos elementos `\(i\)` estão contido em cada parte
-- 3) Fazemos um gráfico de barras, com cada barra representando uma parte `\(k\)`
-
----
-# Histogramas
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O histograma de uma distribuição fictícia de altura de pessoas (em cm)
-
-.font90[
-- `\(n = 300\)`
-- `\(bins = 10\)`
-]
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
----
-count:false
-# Histogramas
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O histograma de uma distribuição fictícia de altura de pessoas (em cm)
-
-.font90[
-- `\(n = 300\)`
-- `\(bins = 20\)`
-]
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
-
----
-count:false
-# Histogramas
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O histograma de uma distribuição fictícia de altura de pessoas (em cm)
-
-.font90[
-- `\(n = 300\)`
-- `\(bins = 30\)`
-]
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
----
-# Relações bivariadas
-
-Quando temos duas variáveis discretas, podemos contrastar barras:
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Relações bivariadas
-
-E alterar qual é a variável de interesse:
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-count:false
-# Relações bivariadas
-
-Podemos comparar frequências relativas (mas veremos que isso requer cautela):
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Comparando grupos
-
-Se tivermos variáveis discretas e contínuas, algo como `escolaridade` e `renda`, podemos comparar distribuições:
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
-count:false
-# Comparando grupos
-
-Uma alternativa mais informativa:
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
-
----
-# Relações entre contínuas
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Com variáveis contínuas, usamos gráficos de dispersão (*scatterplots*)
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
----
-# Relações multivariadas
-
-Usando outras camadas, podemos fazer ainda mais constrastes:
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# `ggplot2`
-
-Usando a gramática de gráficos, há diferentes formas de produzir contrastes:
-
-.pull-left[
-.texto[Elementos gráficos]
-
-- Formas (`shape` e `linetype`)
-- Cores (`color` e `fill`)
-- Tamanho (`size`, `height`, `width` e `linewidth`)
-- Transparência (`alpha`)
-]
-
-.pull-right[
-.texto[Posicionamento]
-
-- `position` (`dodge`, `fill`, `stack`)
-- `facet` (`grid`, `wrap`)
-]
-
-
----
-# Resumo
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Usamos visualizações para entender como variáveis se .texto2[distribuem], isto é, para identificar padrões de .texto2[centralidade] e .texto2[dispersão], entre outros
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Para variáveis discretas únicas, usamos preferencialmente .texto2[barras]; para contínuas, .texto2[histogramas]
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em relações bivariadas, nosso objetivo sempre é .texto2[constrastar] informações, mas é necessário especificar o que queremos mostrar
 
 
 ---
 # Teste I
 
-&gt; Imagine uma variável `renda` com a distribuição abaixo. Qual é o grupo de renda mais comum?
+&gt; O que o código abaixo faz?
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+
+```r
+resultado &lt;- dados %&gt;%
+  group_by(uf) %&gt;%
+  summarise(x = mean(pop),
+            s = sd(pop))
+```
 
 --
 
-.texto[R:] Com renda de cerca de R$ 0.
+
+```r
+resultado
+```
+
+```
+## # A tibble: 3 × 3
+##   uf        x     s
+##   &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 MG     112.  6.36
+## 2 RJ     229  26.9 
+## 3 SP     164. 16.3
+```
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+
+# Combinando bases
+
+
+---
+# Combinar informações
+
+Algo comum na pesquisa quantitativa é combinar bases de dados. Exemplo:
+
+.pull-left[
+|municipio|populacao|
+|---------|--------:|
+|São Paulo|  12325232|
+|Rio de Janeiro| 6718903|
+|Belo Horizonte| 2521564|
+]
+
+.pull-right[
+|municipio|pibpc|
+|---------|--------:|
+|São Paulo|  R$ 60750,00|
+|Rio de Janeiro| R$ 49537,00|
+|Belo Horizonte| R$ 38679,00|
+]
+
+
+---
+count:false
+# Combinar informações
+
+Algo extremamente comum na pesquisa quantitativa é combinar bases de dados. Um exemplo:
+
+
+|municipio|populacao|pibpc|
+|---------|---------|--------:|
+|São Paulo|  12325232| R$ 60750,00|
+|Rio de Janeiro| 6718903| R$ 49537,00|
+|Belo Horizonte| 2521564| R$ 38679,00|
+
+
+---
+# Exemplo de `_join`
+
+.pull-left[
+
+```r
+# Criamos 'dados1'
+dados1 &lt;- 
+  tibble(id = c(43, 42, 12),
+         uf = c("RS", "SC", "AC"))
+dados1
+```
+
+```
+## # A tibble: 3 × 2
+##      id uf   
+##   &lt;dbl&gt; &lt;chr&gt;
+## 1    43 RS   
+## 2    42 SC   
+## 3    12 AC
+```
+]
+
+.pull-right[
+
+```r
+# Criamos 'dados2'
+dados2 &lt;- 
+  tibble(id = c(43, 42, 12),
+         regiao = c("Sul", "Sul", "Norte"))
+dados2
+```
+
+```
+## # A tibble: 3 × 2
+##      id regiao
+##   &lt;dbl&gt; &lt;chr&gt; 
+## 1    43 Sul   
+## 2    42 Sul   
+## 3    12 Norte
+```
+]
+
+---
+count:false
+# Exemplo de `_join`
+
+
+```r
+# Combinação das bases
+dados3 &lt;- left_join(dados1, dados2, by = "id")
+dados3
+```
+
+```
+## # A tibble: 3 × 3
+##      id uf    regiao
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+## 1    43 RS    Sul   
+## 2    42 SC    Sul   
+## 3    12 AC    Norte
+```
+
+
+---
+# Fórmula do `_join`
+
+Um `_join` tem a seguinte estrutura geral:
+
+.pull-left[
+`_join(tabela1, tabela2, by = "variavel_chave")`
+]
+
+.pull-right[
+- A variável-chave precisa ter a mesma classe nas duas bases
+- Nomes diferentes são aceitos (`by = c("var1" = "var2")`)
+- Possível incluir mais de uma variável (`by = c("var1", "var2", "var3")`)
+]
+
+
+
+---
+# Tipos de `_join`
+
+`_joins` em `dplyr` é inspirado em SQL:
+
+&lt;img src="https://miro.medium.com/max/1024/1*MqAitzoKfQOPPLPhUZpbIA.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# `_join`
+
+As funções `_join` mais utilizadas são:
+
+- `left_join` mantém todas as linhas da tabela na esquerda e adiciona as correspondentes na tabela da direita
+- `right_join` o oposto de `left_join`
+- `full_join` mantém todas as linhas de todas as tabelas (o que não tiver correspondência é *missing*)
+- `inner_join` mantém apenas linhas que aparecem em todas as tabelas
+
+
+
 
 
 
 ---
 # Teste II
 
-&gt; Neste outro histograma, qual é a faixa de valores mais comum?
+&gt; Qual `_join` você usaria pra manter todas as informações das duas tabelas?
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
 
---
 
-.texto[R:] Há duas: uma em 3 e, a outra, em 5.
+```r
+pessoas &lt;- 
+  tibble(id_dept = c(101, 101, 103, 105),
+         nome = c("Ana", "Carla", "Daniel", "Maria"))
+
+departamentos &lt;- 
+  tibble(id_dept = c(101, 103),
+         dept_nome = c("RH", "Marketing"))
+```
+
+
+
+---
+count:false
+# Teste II
+
+&gt; Qual `_join` você usaria pra manter todas as informações das duas tabelas?
+
+
+
+```r
+full_join(pessoas, departamentos, by = "id_dept")
+```
+
+```
+## # A tibble: 4 × 3
+##   id_dept nome   dept_nome
+##     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
+## 1     101 Ana    RH       
+## 2     101 Carla  RH       
+## 3     103 Daniel Marketing
+## 4     105 Maria  &lt;NA&gt;
+```
 
 
 
 ---
 # Teste III
 
-&gt; Compare os dois boxplots abaixo. As distribuições são diferentes?
+&gt; Qual `_join` você usaria pra manter apenas pessoas com departamento identificado?
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+```r
+pessoas &lt;- 
+  tibble(id_dept = c(101, 101, 103, 105),
+         nome = c("Ana", "Carla", "Daniel", "Maria"))
+
+departamentos &lt;- 
+  tibble(id_dept = c(101, 103),
+         dept_nome = c("RH", "Marketing"))
+```
 
 
 ---
 count:false
 # Teste III
 
-&gt; Compare os dois boxplots abaixo. As distribuições são diferentes?
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
+&gt; Qual `_join` você usaria pra manter todas as informações das duas tabelas?
 
 
-.texto[R]: Cuidado ao tirar conclusões de gráficos, especialmente com poucos dados.
+
+```r
+right_join(pessoas, departamentos, by = "id_dept")
+```
+
+```
+## # A tibble: 3 × 3
+##   id_dept nome   dept_nome
+##     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;    
+## 1     101 Ana    RH       
+## 2     101 Carla  RH       
+## 3     103 Daniel Marketing
+```
+
 
 
 
@@ -344,286 +389,159 @@ count:false
 class: inverse, mline, middle, center
 background-color: #8f2a43
 
-# Princípios
-
-
+# Pivotagem
 
 ---
-# Problemas comuns
+# Estrutura de uma base
 
-
-Há três problemas gerais que, se não seguidos, tornam um gráfico ruim (Healy, 2018):
-
-1. Falta de senso estético (.texto2[*the ugly*])
-
-2. Dados ou geometrias erradas (.texto2[*the bad*])
-
-3. Mau uso de elementos e perspectiva (.texto2[*the confusing*])
-
-
----
-# *The ugly*
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O primeiro é o mais simples: um gráfico deve ser esteticamente agradável, sem poluição visual
-]
-
-.pull-right2[
-&lt;img src="imgs/ugly.jpg" width="1707" height="450" style="display: block; margin: auto;" /&gt;
-] 
-
-
----
-count:false
-# *The ugly*
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Às vezes, poluição nos dados torna um gráfico problemático
-]
-
-.pull-right2[
-&lt;img src="imgs/spaghetti.png" width="895" height="450" style="display: block; margin: auto;" /&gt;
-] 
-
-
----
-background-color: #FFFFFF
-# *The bad*
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O segundo princípio é mais complexo: um gráfico deve representar corretamente dados e informações
-
-.font80[
-- [Artigo no NYT](https://www.nytimes.com/2016/11/29/world/americas/western-liberal-democracy.html)
-]
-]
-
-.pull-right2[
-&lt;img src="imgs/bad.png" width="948" height="380" style="display: block; margin: auto;" /&gt;
-]
-
-
----
-background-color: #FFFFFF
-# *The better*
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Nesse caso, operacionalização da variável é essencial
-]
-
-.pull-right2[
-&lt;img src="imgs/less_bad.png" width="953" height="380" style="display: block; margin: auto;" /&gt;
-]
-
-
----
-background-color: #FFFFFF
-# *The confusing*
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Terceiro: um gráfico deve ser claro e não provocar distorções
-]
-
-.pull-right2[
-&lt;img src="imgs/axis.png" width="925" height="310" style="display: block; margin: auto;" /&gt;
-]
-
-
----
-background-color: #FFFFFF
-count:false
-# *The confusing*
+Há várias maneiras de salvar informações em uma base. Considere essas:
 
 .pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Falta de perspectiva deve ser evitada
-
-- i.e., *número de mortes por Covid está caindo ou subindo?*
+|nome      |2020|2021|
+|----------|-----:|-----:|
+|João      |  3000|  2500|
+|Maria   |  5000|  4500|
+|Antônio   |  2000|  1500|
 ]
 
 .pull-right[
-&lt;img src="imgs/covid.jpg" width="1439" height="500" style="display: block; margin: auto;" /&gt;
+|nome      |ano |salario|
+|----------|---:|-----------:|
+|João      |2020|        3000|
+|Maria   |2020|        5000|
+|Antônio   |2020|        2000|
+|João      |2021|        2500|
+|Maria   |2021|        4500|
+|Antônio   |2021|        1500|
 ]
 
 
 ---
-background-color: #FFFFFF
+# Formato longo (`wide` ou `tidy`)
+
+.left-column[
+O formato padrão em análises quantitativas é o conhecido como *longo*
+]
+
+.right-column[
+- Variáveis contêm medidas de um mesmo .texto2[atributo]
+- Cada linha corresponde a uma .texto2[observação] de dada unidade, e.g. estado `\(j\)` no ano `\(t\)`
+- Observações formam um conjunto de medidas de uma mesma unidade (geralmente, há um *ID*)
+]
+
+
+
+---
+# `pivot_longer`
+
+
+
+```r
+# Dados no formato largo
+dados &lt;- tibble(
+  nome = c("João", "Maria", "Antônio"),
+  `2020` = c(3000, 5000, 2000),
+  `2021` = c(2500, 4500, 1500)
+)
+
+dados
+```
+
+```
+## # A tibble: 3 × 3
+##   nome    `2020` `2021`
+##   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1 João      3000   2500
+## 2 Maria     5000   4500
+## 3 Antônio   2000   1500
+```
+
+---
 count:false
-# *The confusing*
+# `pivot_longer`
 
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Elementos redundantes ou sem significado não ajudam
 
-- i.e., *o que significa branco na escala?*
-]
+```r
+# Transformando largo para longo
+longo &lt;- dados %&gt;%
+  pivot_longer(cols = c(`2020`, `2021`),
+               names_to = "ano",
+               values_to = "salario")
 
-.pull-right2[
-&lt;img src="imgs/cores.png" width="951" height="300" style="display: block; margin: auto;" /&gt;
-]
+longo
+```
 
+```
+## # A tibble: 6 × 3
+##   nome    ano   salario
+##   &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;
+## 1 João    2020     3000
+## 2 João    2021     2500
+## 3 Maria   2020     5000
+## 4 Maria   2021     4500
+## 5 Antônio 2020     2000
+## 6 Antônio 2021     1500
+```
 
 
 
 
 ---
-# *Tufte's principles*
+# `pivot_wider`
 
-Princípios gerais de visualização de dados:
+
+
+```r
+# De volta para largo
+longo %&gt;%
+  pivot_wider(names_from = ano,
+              values_from = salario)
+```
+
+```
+## # A tibble: 3 × 3
+##   nome    `2020` `2021`
+##   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1 João      3000   2500
+## 2 Maria     5000   4500
+## 3 Antônio   2000   1500
+```
+
+
+---
+# Dinâmica do `pivot_`
 
 .pull-left[
-- Foque em mostrar dados
+## `pivot_longer`
 
-- Maximize a relação dados/tinta
-
-- Remova elementos que não são dados
+- Selecionar variáveis para serem transformadas
+- Definir uma variável para armazenar os nomes das colunas selecionadas (`names_to =`)
+- Outra para armazenar os valores das colunas selecionadas (`values_to =`)
 ]
 
 .pull-right[
-- Use elementos multifuncionais
+## `pivot_longer`
 
-- Compare e constraste
-
-- Use etiquetas (*labels*)
-]
-
-
----
-background-color: #FFFFFF
-# Exemplo: quarteto de Anscombe
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Bons gráficos resumem grandes quantidades de dados de forma clara e concisa
-
-&lt;img src="imgs/ascombe1.png" width="1103" height="460" style="display: block; margin: auto;" /&gt;
-
-
----
-background-color: #FFFFFF
-count:false
-# Exemplo: quarteto de Anscombe
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Bons gráficos resumem grandes quantidades de dados de forma clara e concisa
-
-&lt;img src="imgs/ascombe2.png" width="965" height="460" style="display: block; margin: auto;" /&gt;
-
-
----
-background-color: #FFFFFF
-# Exemplo: John Snow e a cólera
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Gráficos devem relevar padrões e relações nos dados
-]
-
-.pull-right2[
-&lt;img src="imgs/snow.png" width="530" height="540" style="display: block; margin: auto;" /&gt;
+- Definir a variável com os nomes das novas variáveis (`names_from =`)
+- Definir a variável com os valores das novas colunas (`values_from =`)
 ]
 
 
 
 ---
-background-color: #FFFFFF
-# Exemplo: Charles Minard
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Bons gráficos contam uma história
-
-&lt;img src="imgs/minard.png" width="770" height="480" style="display: block; margin: auto;" /&gt;
-
-
-
----
-class: inverse, mline, middle, center
-background-color: #8f2a43
-
-# Uso de cores
-
-
----
-background-color: #FFFFFF
-# Cores
-
-Há tipos específicos de paletas para determinados objetivos, como:
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto[Qualitativas], para categorias
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Sequenciais], para ordem
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Divergentes], para comparação
-]
-.font80[Ver mais em: [ColorBrewer](https://colorbrewer2.org/)]
-]
-
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-33-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
----
-count:false
-background-color: #FFFFFF
-# Cores
-
-Há tipos específicos de paletas para determinados objetivos, como:
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Qualitativas], para categorias
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto[Sequenciais], para ordem
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Divergentes], para comparação
-]
-.font80[Ver mais em: [ColorBrewer](https://colorbrewer2.org/)]
-]
-
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-34-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
----
-count:false
-background-color: #FFFFFF
-# Cores
-
-Há tipos específicos de paletas para determinados objetivos, como:
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Qualitativas], para categorias
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Sequenciais], para ordem
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto[Divergentes], para comparação
-]
-.font80[Ver mais em: [ColorBrewer](https://colorbrewer2.org/)]
-]
-
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-35-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
----
-background-color: #FFFFFF
-# Acessibilidade
+# Formato e `joins`
 
 .pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Cerca de 4% da população mundial tem daltonismo, o que pode afetar a interpretação de gráficos
+.alert[
+&lt;svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#777777;height:1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; É importante notar que, no mais das vezes, precisamos de bases de dados no mesmo formato *longo* para fazer `joins`
+]
+]
 
 .font90[
-- Use outros elementos visuais para constrastar grupos e variáveis
-- Use escalas de cinza 
-]
-]
-
 .pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Há paletas de cores específicas para pessoas com daltonismo, como a `viridis`:
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-36-1.svg" style="display: block; margin: auto;" /&gt;
+- Variável-chave precisa ser da mesma classe nas duas bases
+- Erro comum: esquecer de incluir alguma variável-chave
+]
 ]
 
 
@@ -632,17 +550,21 @@ background-color: #FFFFFF
 class: inverse, mline, middle, center
 background-color: #8f2a43
 
-# `ggplot2`
+# Sessão prática
+
 
 
 
 ---
-# `ggplot2`
+# `tidyverse`
 
 
 Seguiremos com no `R`. Materiais:
 
-- [Script e dados](https://fmeireles.com/lego/materiais.zip)
+- [Script e dados](https://fmeireles.com/lego/plots.zip)
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

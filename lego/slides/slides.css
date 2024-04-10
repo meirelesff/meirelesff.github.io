@@ -27,11 +27,11 @@
 
 .pull-left2 {
   float: left;
-  width: 23%;
+  width: 25%;
 }
 .pull-right2 {
   float: right;
-  width: 72%;
+  width: 62%;
 }
 
 
@@ -194,6 +194,11 @@ blockquote {
 .remark-code-line-highlighted {
   background-color: #F1BF98;
 }
+
+.remark-code-span-highlighted {
+    background-color: #F1BF98;
+    padding: 1px 2px 2px 2px;
+  }
 
 .alert {
   padding: 11px;

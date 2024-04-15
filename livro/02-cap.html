@@ -266,7 +266,6 @@ div.csl-indent {
   </ul></li>
   <li><a href="#resumo-do-capítulo" id="toc-resumo-do-capítulo" class="nav-link" data-scroll-target="#resumo-do-capítulo"><span class="header-section-number">2.8</span> Resumo do capítulo</a></li>
   <li><a href="#indo-além" id="toc-indo-além" class="nav-link" data-scroll-target="#indo-além"><span class="header-section-number">2.9</span> Indo além</a></li>
-  <li><a href="#exercícios" id="toc-exercícios" class="nav-link" data-scroll-target="#exercícios">Exercícios</a></li>
   </ul>
 </nav>
     </div>
@@ -357,8 +356,8 @@ div.csl-indent {
 <tr class="odd">
 <td>Planilha do Excel</td>
 <td><code>xls</code>, <code>xlsx</code>, <code>.ods</code></td>
-<td><code>readxl</code>, <code>openxlsx</code>, <code>readODS</code></td>
-<td><code>read_excel</code>, <code>read.xlsx</code>, <code>read.ods</code></td>
+<td><code>readxl</code>, <code>readODS</code></td>
+<td><code>read_excel</code>, <code>read.ods</code></td>
 </tr>
 <tr class="even">
 <td>Banco de dados do SPSS</td>
@@ -606,47 +605,39 @@ Erros na importação de arquivos
 <figcaption class="figure-caption">Figura&nbsp;2.6: Base de dados do survey</figcaption>
 </figure>
 </div>
-<p>Às vezes, pode ser útil usar os <em>labels</em> diretamente, em vez de usar a codificação numérica das variáveis (e.g., “Masculino” em vez de 1, “Feminino” em vez de 2; isso é chamado também de máscara). Para isto, podemos usar a função <code>as_factor</code> do pacote <code>haven</code> para converter as variáveis para fatores, o que preserva os <em>labels</em> originais. O exemplo a seguir faz exatamente isto.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega o arquivo</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"sleep.sav"</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Converte as variáveis para fatores</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">as_factor</span>(dados)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="json" class="level3" data-number="2.4.5">
 <h3 data-number="2.4.5" class="anchored" data-anchor-id="json"><span class="header-section-number">2.4.5</span> JSON</h3>
 <p>Outro formato popular, ainda que pouco utilizado na academia, é o <em>JSON</em> (<em>JavaScript Object Notation</em>) – que pode ser encontrado cada vez mais em sites e API’s, como a de Dados Abertos do Governo Federal.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> O formato é bastante simples: chaves armazenam valores separados por dois pontos (e.g., <code>{'valor' : 10, 23, 44}</code>). A estrutura pode conter muitos valores separados por vírgula e, também, chaves dentro de chaves, ou ainda chaves dentro de <code>[]</code> (<em>arrays</em>), o que dá flexibilidade para aramanzenar diferentes tipos de informação. Um exemplo fictício para armazenar informações de preferências partidárias de algumas pessoas:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"nome"</span><span class="fu">:</span> <span class="st">"João"</span><span class="fu">,</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"idade"</span><span class="fu">:</span> <span class="dv">35</span><span class="fu">,</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"partido"</span><span class="fu">:</span> <span class="st">"PT"</span><span class="fu">,</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"partidos_preferidos"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"PT"</span><span class="ot">,</span> <span class="st">"PSB"</span><span class="ot">,</span> <span class="st">"MDB"</span><span class="ot">]</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="ot">,</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"nome"</span><span class="fu">:</span> <span class="st">"Maria"</span><span class="fu">,</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"idade"</span><span class="fu">:</span> <span class="dv">32</span><span class="fu">,</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"partido"</span><span class="fu">:</span> <span class="st">"MDB"</span><span class="fu">,</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"partidos_preferidos"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"MDB"</span><span class="ot">,</span> <span class="st">"PSDB"</span><span class="ot">,</span> <span class="st">"DEM"</span><span class="ot">]</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"nome"</span><span class="fu">:</span> <span class="st">"João"</span><span class="fu">,</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"idade"</span><span class="fu">:</span> <span class="dv">35</span><span class="fu">,</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"partido"</span><span class="fu">:</span> <span class="st">"PT"</span><span class="fu">,</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"partidos_preferidos"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"PT"</span><span class="ot">,</span> <span class="st">"PSB"</span><span class="ot">,</span> <span class="st">"MDB"</span><span class="ot">]</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span><span class="ot">,</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">{</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"nome"</span><span class="fu">:</span> <span class="st">"Maria"</span><span class="fu">,</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"idade"</span><span class="fu">:</span> <span class="dv">32</span><span class="fu">,</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"partido"</span><span class="fu">:</span> <span class="st">"MDB"</span><span class="fu">,</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"partidos_preferidos"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"MDB"</span><span class="ot">,</span> <span class="st">"PSDB"</span><span class="ot">,</span> <span class="st">"DEM"</span><span class="ot">]</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="ot">]</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Para importar este tipo de arquivo no R, podemos usar a função <code>import</code> do pacote <code>rio</code> (abreviação de <em>R Imput/Output</em>; veremos outras utilidades dele adiante). O arquivo de exemplo vem da página da Transparência Internacional, da pesquisa <em>Corruption Perceptions Index 2015</em>.<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega o pacote rio</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega o banco de dados do CPI 2015</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>cpi <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"cpi-data.json"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega o pacote rio</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega o banco de dados do CPI 2015</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>cpi <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"cpi-data.json"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="r-data" class="level3" data-number="2.4.6">
 <h3 data-number="2.4.6" class="anchored" data-anchor-id="r-data"><span class="header-section-number">2.4.6</span> R Data</h3>
 <p>Por fim, temos o formato nativo do R, o <em>R Data</em>, para salvar dados. O deixamos por último por um motivo especial: ele é o formato mais adequado para salvar dados no R, tanto por simplicidade quanto por eficiência. Em primeiro lugar, e diferentemente de formatos de texto como <code>.csv</code> e <code>.tab</code>, arquivos <code>.Rda</code> são binários – o que, traduzindo, permite que se guarde muito mais informação em menos espaço, inclusive forçando a compressão dos dados. Em segundo lugar, ler e salvar estes arquivos pelo R é geralmente mais rápido, e isto apesar da compressão. Por fim, o formato salva e carrega objetos de um jeito mais intuitivo, como mostra o exemplo a seguir.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega os mesmos dados da CPI 2015, agora em formato .Rda</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"cpi2015.Rda"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega os mesmos dados da CPI 2015, agora em formato .Rda</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"cpi2015.Rda"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Não é preciso carregar nenhum pacote, nem realizar nenhuma configuração: o objeto carregado vai direto para a memória do R, onde pode ser visto na aba <code>Environment</code> do <em>RStudio</em>. Outra vantagem do formato é que ele pode armazenar, de uma só vez, vários <code>data.frames</code> ou objetos quaisquer, facilitando a transposição de um projeto inteiro de um computador para outro – como quando temos precisamos analisar mais de uma base de dados.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -668,12 +659,12 @@ RDS
 <p>Embora tenhamos visto como abrir os tipos de arquivos mais comuns – delimitados por texto, planilhas e de outros <em>softwares</em>, entre outros – existe uma infinidade de formas de se armazenar dados em arquivos e, muitas vezes, precisaremos recorrer a alguma ferramenta diferente das que estudamos. Quando isso acontecer, no entanto, há uma opção mais simples: o pacote <code>rio</code>.</p>
 <p>Resumidamente, o <code>rio</code> funciona como uma espécie de canivete suíço para a importação e exportação de dados: basta passar para a função <code>import</code> o nome do arquivo que queremos abrir. A partir disto, o <code>rio</code> identifica o formato do arquivo que estamos tentando abrir e chama internamente a função e especificações mais adequadas para tanto. Entre outros, os arquivos suportados pelo pacote incluem: <code>.csv</code>, <code>.tsv</code>, <code>.fst</code>, <code>.psv</code>, <code>.fwf</code>, <code>.Rda</code>, <code>.Rds</code>, <code>.json</code>, <code>.dta</code>, <code>.sav</code>, <code>.xls</code>, <code>.mpt</code>, <code>.dif</code>, entre outros<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>. Exemplo de funcionamento da função <code>import</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega o pacote rio</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Importa alguns dados</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"exemplo.csv"</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>dados2 <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"sleep.sav"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega o pacote rio</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Importa alguns dados</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"exemplo.csv"</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>dados2 <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"sleep.sav"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -704,36 +695,30 @@ RDS
 <td><code>write_delim</code></td>
 </tr>
 <tr class="odd">
-<td>Planilha do Excel</td>
-<td><code>.xlsx</code></td>
-<td><code>openxlsx</code></td>
-<td><code>write.xlsx</code></td>
-</tr>
-<tr class="even">
 <td>SPSS</td>
 <td><code>.sav</code></td>
 <td><code>haven</code></td>
 <td><code>write_sav</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Stata</td>
 <td><code>.dta</code></td>
 <td><code>haven</code></td>
 <td><code>write_dta</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>SAS</td>
 <td><code>.sas7bdat</code></td>
 <td><code>haven</code></td>
 <td><code>write_sas</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Outros</td>
 <td>-</td>
 <td><code>rio</code></td>
 <td><code>export</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Outros</td>
 <td>-</td>
 <td><code>rio</code></td>
@@ -743,34 +728,34 @@ RDS
 </table>
 <p>Para exportar um <code>data.frame</code> qualquer, o procedimento básico é mais ou menos esse: o primeiro argumento que passamos para a função é o nome do objeto seguido do nome do arquivo que queremos criar entre aspas (não podemos esquecer de incluir a extensão do arquivo, que, no exemplo a seguir, é <code>.txt</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega o pacote readr</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria um data.frame com duas variaveis</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Exporta ele para um arquivo .txt</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write_delim</span>(banco, <span class="st">"banco.txt"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega o pacote readr</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Cria um data.frame com duas variaveis</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Exporta ele para um arquivo .txt</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write_delim</span>(banco, <span class="st">"banco.txt"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Exemplos das outras funções de exportação:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Outros pacotes</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Exporta para .sav</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sav</span>(banco, <span class="st">"banco.sav"</span>)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Exporta para .dta</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write_dta</span>(banco, <span class="st">"banco.dta"</span>)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Exporta para .json (e' preciso declarar 'file =')</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(banco, <span class="st">"banco.json"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Outros pacotes</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Exporta para .sav</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sav</span>(banco, <span class="st">"banco.sav"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Exporta para .dta</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write_dta</span>(banco, <span class="st">"banco.dta"</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Exporta para .json (e' preciso declarar 'file =')</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(banco, <span class="st">"banco.json"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ainda usando o pacote <code>rio</code>, também podemos converter diretamente um arquivo de um formato para outro, o que nos poupa o trabalho de, primeiro, ler o arquivo para, então, exportá-lo. Como exemplo, vamos converter o arquivo <code>exemplo.csv</code>, que está na pasta de materiais complementares deste livro, para <code>.sav</code>, formato do SPSS:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converte o arquivo 'exemplo.csv' para .sav</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">convert</span>(<span class="st">"exemplo.csv"</span>, <span class="st">"exemplo.sav"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Converte o arquivo 'exemplo.csv' para .sav</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">convert</span>(<span class="st">"exemplo.csv"</span>, <span class="st">"exemplo.sav"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Para esta função, tudo o que precisamos fazer é passar o nome, ou o endereço com o nome, do arquivo que queremos converter e, como segundo argumento, o nome do arquivo que queremos criar – com a nova extensão. A depender do tamanho do arquivo, em poucos segundos a conversão é concluída. Mais tipos de conversão que a função <code>convert</code> executa podem ser vistos digitando <code>?convert</code> no console.</p>
 </section>
@@ -782,14 +767,14 @@ RDS
 <p>Em arquivos delimitados de texto, talvez o erro mais comum é o de especificar de forma errada o delimitador: passar uma vírgula quando ele é, na verdade, ponto e vírgula; ou passar ponto e vírgula quando ele é outra coisa. Aqui o truque é quase banal: tentar abrir o arquivo com um editor de texto simples para olhar os dados. Na maioria das vezes, isto já permite localizar o identificador adequado. O problema desta solução é que isto pode não dar certo se o arquivo for muito grande (e o editor de texto não conseguir abri-lo).</p>
 <p>Outra solução é ir na tentativa e erro. Por exemplo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Se isto nao der certo...</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"exemplo_ponto_virgula.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tentamos isto...</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"exemplo_ponto_virgula.csv"</span>, <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">ab"</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co"># E se tambem nao der, tentamos isto</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"exemplo_ponto_virgula.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Se isto nao der certo...</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"exemplo_ponto_virgula.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tentamos isto...</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"exemplo_ponto_virgula.csv"</span>, <span class="at">delim =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">ab"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># E se tambem nao der, tentamos isto</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>banco <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"exemplo_ponto_virgula.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="células-vazias" class="level3" data-number="2.6.2">
@@ -802,16 +787,16 @@ RDS
 <p>Explicar por que isto acontece foge muito do escopo deste livro, mas é útil entender que cada sistema possui um conjunto de caracteres válidos para se escrever texto: em português, temos alguns acentos; em inglês, não. Assim, quando informações escritas usando um conjunto de caracteres particular, que chamamos de <em>encoding</em>, é trasposto para outro conjunto, coisas como estas ocorrem. E trocar de sistema operacional, abrir arquivos criados por um <em>software</em> em outro, entre outros, são situações onde isto pode acontecer.</p>
 <p>Em português, usamos principalmente os <em>encodings</em> <code>UTF-8</code> e <code>latin1</code> (mas existem outros, alguns mais específicos) e, portanto, nossa primeira tentativa de corrigir estes erros é passando estes <em>encodings</em> para as funções que usamos para carregar dados que possam conter acentos usados em português. No caso da função <code>read_delim</code>, isto seria feito da seguinte forma:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Caso o arquivo 'exemplo.csv' tivesse erro de encoding, tentariamos...</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"exemplo.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ou tentariamos...</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"exemplo.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"latin1"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Caso o arquivo 'exemplo.csv' tivesse erro de encoding, tentariamos...</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"exemplo.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Ou tentariamos...</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"exemplo.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"latin1"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Às vezes, isto não resolve: o <em>encoding</em> do arquivo não é nenhum dos dois. Para a nossa sorte, o pacote <code>readr</code> possui uma função chamada <code>guess_encoding</code> que tenta descobrir o <em>encoding</em> de um arquivo. Caso <code>UTF-8</code> e <code>latin1</code> não sirvam, portanto, tente o seguinte:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(<span class="st">"exemplo.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">guess_encoding</span>(<span class="st">"exemplo.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -837,13 +822,13 @@ RDS
 <p>O <code>DBI</code> é uma interface para conectar o R a bancos de dados relacionais como o MySQL, o Postgres, o SQLite, entre outros.<a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a> Podemos pensar no <code>DBI</code> da seguinte forma: em vez de carregar e manipular dados que não cabem na memória do computador, o <code>DBI</code> tira essa tarefa do R e a delega para um banco de dados relacional, que é capaz de lidar com arquivos muito grandes.</p>
 <p>Podemos instalar o <code>DBI</code> com o nosso conhecido <code>install.packages</code> e, depois, carregá-lo com <code>library</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"DBI"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"DBI"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>No lugar de usar alguma função <code>read_</code>, o carro-chefe do <code>DBI</code> é a função <code>dbConnect</code>, que serve para conectar o R a um banco de relacional. A razão de usarmos esse procedimento é simples: bancos de dados, no mais das vezes, não são arquivos que existem localmente, como uma planilha de Excel; antes, são servidores que armazenam e gerenciam informações – o que queremos fazer, portanto, é nos conectarmos a esse servidores para poder passar a ele instruções, via R, de como manipular os dados que estão armazenados nele. Um exemplo genérico de como usaríamos <code>dbConnect</code>, que será detalhado na sequência:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conecta o R a um banco de dados relacional</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conecta o R a um banco de dados relacional</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="duckdb" class="level3" data-number="2.7.2">
@@ -852,27 +837,27 @@ RDS
 <p>O DuckDB é um banco de dados relativamente novo, mas que tem ganhado popularidade por ser rápido para tarefas típicas de análise de dados, como a leitura e manipulação de colunas com até mesmo centenas de milhões de linhas. Especialmente útil, o DuckDB contém funcionalidades para importação de grandes arquivos, como arquivos de texto delimitados; arquivos de Excel; e arquivos no formato <code>parquet</code>, outro formato que discutiremos em seguida. Por todas essas razões é que, neste livro, sugerimos o uso do DuckDB para fazer o carregamento e manipulação de arquivos muito grandes, que não poderiam ser carregados diretamente na memória do computador via R.</p>
 <p>Para instalar o DuckDB, não precisamos de nada além de <code>install.packages</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"duckdb"</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(duckdb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"duckdb"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(duckdb)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Com o pacote instalado, para criar e nos conectarmos a um banco de dados DuckDB, que fará o carregamento propriamente de arquivos muitos grandes, usamos a linha que já vimos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Neste código, o argumento <code>duckdb::duckdb()</code> serve para estabelecer que a função <code>dbConnect</code> deverá criar e se conectar a um banco de dados DuckDB – com isso, já temos a infraestrutura necessária em ação para carregar arquivos muito grandes. Imagine, por exemplo, que tenhamos um arquivo <code>CSV</code> com 8gb de tamanho chamado <code>exemplo.csv</code>. Para carregá-lo, passamos o objeto <code>con</code> criado há pouco para a função <code>tbl</code> do pacote <code>dplyr</code> (parte do <code>tidyverse</code>), que usaremos para importar os dados:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregamos o pacote tidyverse </span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">"exemplo.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carregamos o pacote tidyverse </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">"exemplo.csv"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>O código acima é similar ao que usamos para carregar outros tipos de arquivos: passamos o endereço do arquivo que queremos carregar para a função <code>tbl</code>, que serve para ler uma tabela a partir de um banco de dados relacional ao qual nos conectamos, e criamos o objeto <code>df</code>, que armazenará o resultado dessa tabela. Na maioria das vezes, sequer precisamos especificar o delimitador de colunas, pois o DuckDB é capaz de identificá-lo automaticamente.<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a></p>
 <p>O processo de importação de dados com <code>DBI</code> e <code>duckdb</code> é mais ou menos esse, exceto por um detalhe: o arquivo <code>exemplo.csv</code> não foi efetivamente carregado na memória do computador; em vez disso, o que temos é um atalho para o arquivo que será manipulado pelo banco de dados relacional criado com o DuckDB. Desse modo, acionamos o DuckDB para que ele carregue o arquivo <code>exemplo.csv</code> e nos dê um atalho para manipulá-lo a partir do disco rígido. Se quisermos pré-visualizar o conteúdo do arquivo importado via DuckDB, basta executar o objeto <code>df</code> no console:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;pessoas&gt; [10 x 2]
-# Database: DuckDB v0.9.2 [fmeireles@Linux 6.7.5-100.fc38.x86_64:R 4.3.2/:memory:]
+# Database: DuckDB v0.10.1 [fmeireles@Linux 6.7.11-100.fc38.x86_64:R 4.3.3/:memory:]
    nome     idade
    &lt;chr&gt;    &lt;dbl&gt;
  1 João        35
@@ -894,14 +879,14 @@ RDS
 <p>Além de carregar arquivos delimitados, o DuckDB também é capaz de carregar arquivos no formato <code>parquet</code>, um formato estruturado de armazenamento de dados orientado por colunas, que é especialmente útil para tarefas de análises de dados.<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></p>
 <p>Como exemplo da potencialidade dos pacotes <code>DBI</code> e <code>duckdb</code>, carregaremos como exemplo a base de microdados de pessoas do Censo de 2010, disponibilizada na internet em formato <code>parquet</code> no repositório do pacote de R <a href="https://ipeagit.github.io/censobr/">censobr</a> <span class="citation" data-cites="censobr">(<a href="referencias.html#ref-censobr" role="doc-biblioref">Pereira e Barbosa 2023</a>)</span>.<a href="#fn16" class="footnote-ref" id="fnref16" role="doc-noteref"><sup>16</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>censo <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">"2010_population_v0.2.0.parquet"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>censo <span class="ot">&lt;-</span> <span class="fu">tbl</span>(con, <span class="st">"2010_population_v0.2.0.parquet"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Isso feito, podemos pré-visualizar as informações do objeto como fizemos antes:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>censo</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>censo</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;data/2010_population_v0.2.0.parquet&gt; [?? x 251]
-# Database: DuckDB v0.9.2 [fmeireles@Linux 6.7.5-100.fc38.x86_64:R 4.3.2/:memory:]
+# Database: DuckDB v0.10.1 [fmeireles@Linux 6.7.11-100.fc38.x86_64:R 4.3.3/:memory:]
    code_muni code_state abbrev_state name_state code_region name_region
    &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;      
  1 1100015   11         RO           Rondônia   1           Norte      
@@ -930,10 +915,10 @@ RDS
 <p>Bancos de dados relacionais são comuns em diferentes áreas, e há diferentes alternativas específicas para análise de dados. Para quem já tem alguma experiência com eles, o <code>DBI</code> oferece uma interface unificada para integrar o R a outros bancos relacionais, como o MySQL, o Postgres, o SQLite, para ficar apenas entre alguns mais populares.<a href="#fn17" class="footnote-ref" id="fnref17" role="doc-noteref"><sup>17</sup></a> O procedimento é similar ao que vimos para o DuckDB: precisamos instalar o <em>driver</em> do banco de dados que queremos usar e, depois, nos conectarmos a ele com a função <code>dbConnect</code>.</p>
 <p>Talvez a segunda alternativa mais fácil, e de menor custo de configuração depois do DuckDB, seja o SQLite, um banco de dados relacional que roda localmente, no seu computador, e que não precisa de nenhum <em>driver</em> adicional para ser usado no R.<a href="#fn18" class="footnote-ref" id="fnref18" role="doc-noteref"><sup>18</sup></a> Para usá-lo, precisamos instalar o pacote <code>RSQLite</code> e, depois, nos conectarmos a ele com a função <code>dbConnect</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RSQLite"</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RSQLite"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>())</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -957,7 +942,7 @@ Drivers
 </section>
 <section id="indo-além" class="level2" data-number="2.9">
 <h2 data-number="2.9" class="anchored" data-anchor-id="indo-além"><span class="header-section-number">2.9</span> Indo além</h2>
-<p>Importar dados é uma tarefa complexa, e muitas vezes uma receita pronta, como as que vimos aqui, não servirá. Conforme você aprenda mais sobre o R e comece a trabalhar em projetos específicos, é possível que se depare com a necessidade de buscar outras soluções, ou mesmo de ter que criar ou adaptar alguma para uso próprio. Neste sentido, vale a pena conhecer alguns pacotes que podem ser úteis para importar dados de formatos mais específicos.</p>
+<p>Importar dados é uma tarefa complexa, e muitas vezes uma receita pronta, como as que vimos aqui, não servirá. Conforme você aprenda mais sobre o R e comece a trabalhar em projetos específicos, é possível que se depare com a necessidade de buscar outras soluções, ou mesmo de ter de criar ou adaptar alguma para uso próprio. Neste sentido, vale a pena conhecer alguns pacotes que podem ser úteis para importar dados de formatos mais específicos.</p>
 <p>…</p>
 <p>Há diversos pacotes em R que servem para justamente importar dados de diferentes fontes diretamente no R. Alguns deles, que podem ajudar principalmente a obter dados sobre o Brasil, são:</p>
 <ul>
@@ -966,59 +951,6 @@ Drivers
 <li><code>electionsBR</code></li>
 <li><code>PNADcIBGE</code></li>
 <li><code>sidrar</code></li>
-</ul>
-</section>
-<section id="exercícios" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="exercícios">Exercícios</h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Arquivos necessários
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Para realizar estes exercícios, será necessário baixar os arquivos que estão na pasta de materiais complementares deste livro e salvá-los na pasta de trabalho do R.</p>
-</div>
-</div>
-<section id="carregando-arquivos-simples-i" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-simples-i">1. Carregando arquivos simples I</h4>
-<p>Carregue o arquivo <code>pessoas.csv</code>, que contém informações de algumas pessoas fictícias, e salve seu conteúdo no objeto <code>pessoas</code>. Depois de carregado os dados, use a função <code>head</code> para pré-visualizar as primeiras linhas do <code>data.frame</code> <code>pessoas</code>. Use comentários para explicar como você descobriu a forma correta de carrergar o arquivo.</p>
-</section>
-<section id="carregando-arquivos-simples-ii" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-simples-ii">2. Carregando arquivos simples II</h4>
-<p>Carregue um arquivo <code>pesquisa_satisfacao.txt</code>, que contém os resultados de uma pesquisa de satisfação de cinco clientes de uma loja (as notas variam de 1 a 5). Salve o conteúdo do arquivo no objeto <code>satisfacao</code>. Depois de carregado os dados, use a função <code>head</code> para pré-visualizar as primeiras linhas do <code>data.frame</code> <code>satisfacao</code>. Use comentários para explicar como você descobriu a forma correta de carrergar o arquivo.</p>
-</section>
-<section id="carregando-arquivos-simples-iii" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-simples-iii">3. Carregando arquivos simples III</h4>
-<p>Carregue o arquivo <code>casos_registrados.csv</code>, que contém um relatório de casos de uma patologia específica em bairros da zona norte do Rio de Janeiro, e salve or esultado no objeto <code>casos</code>. Certifique-se de carregar apenas o conteúdo das colunas <code>Bairro</code>, <code>Casos</code>, e <code>Internações</code>. Use comentários para explicar qual dificuldade você encontrou ao carregar o arquivo e como a contornou.</p>
-</section>
-<section id="carregando-arquivos-delimitados" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-delimitados">4. Carregando arquivos delimitados</h4>
-<p>Para este exercício, carregue dados do Censo de 1872, o primeiro realizado no Brasil, disponíveis no seguinte link:<a href="#fn20" class="footnote-ref" id="fnref20" role="doc-noteref"><sup>20</sup></a></p>
-<ul>
-<li><a href="https://raw.githubusercontent.com/izabelflores/Censo_1872/main/Censo_1872_dados_tidy_versao2.csv">https://raw.githubusercontent.com/izabelflores/Censo_1872/main/Censo_1872_dados_tidy_versao2.csv</a></li>
-</ul>
-<p>Salve o resultado no objeto <code>censo</code>. Depois de carregado o arquivo, use a função <code>head</code> para pré-visualizar as primeiras linhas do <code>data.frame</code> <code>censo</code>.</p>
-</section>
-<section id="carregando-arquivos-de-outros-formatos-i" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-de-outros-formatos-i">5. Carregando arquivos de outros formatos I</h4>
-<p>É comum que dados de pesquisas de opinião, i.e.&nbsp;<em>surveys</em>, sejam armazenados em arquivos <code>SPSS</code> ou <code>Stata</code>, criados pelos <em>softwares</em> de mesmo nome. Neste exercício, sua tarefa será carregar um arquivo <code>SPSS</code> e um <code>Stata</code> com dados da pesquisa do <a href="https://www.worldvaluessurvey.org"><em>World Values Survey</em></a>, principal fonte de dados sobre valores, crenças e comportamentos das populações de diferentes países. Os dados do Brasil estão no arquivo <code>wvs.sav</code> e <code>wvs.dta</code>. Carregue ambos os arquivos e salve os resultados nos objetos <code>wvs_spss</code> e <code>wvs_stata</code>, respectivamente.<a href="#fn21" class="footnote-ref" id="fnref21" role="doc-noteref"><sup>21</sup></a></p>
-</section>
-<section id="carregando-arquivos-de-outros-formatos-ii" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="carregando-arquivos-de-outros-formatos-ii">6. Carregando arquivos de outros formatos II</h4>
-<p>Algo para a prática de pesquisas replicáveis – isto é, pesquisas cujos resultados podem ser reproduzidos por outras pessoas – é a disponibilização de dados brutos. Internacionalmente, a principal plataforma para a disponibilização de dados para replicação é o <a href="https://dataverse.harvard.edu/">Harvard Dataverse</a>, uma plataforma de repositório de dados de pesquisa que permite que pesquisadores publiquem, compartilhem, documentem e citem dados.<a href="#fn22" class="footnote-ref" id="fnref22" role="doc-noteref"><sup>22</sup></a></p>
-<p>Neste exercício, sua tarefa será obter e carregar no R um arquivo de dados brutos de um repositório do Harvard Dataverse. Em particular, baixaremos dados de anúncios do Airbnb, serviço de hospedagem que permite que pessoas anunciem e reservem acomodações em todo o mundo, em pequenas cidades do Brasil. Os dados estão <a href="https://doi.org/10.7910/DVN/TQSTAN">neste repositório</a>, com uma planilha de Excel para cada uma das cidades listadas. Escolha uma das cidades, baixe seu arquivo correspondente e carregue-o no R. Salve o resultado no objeto <code>airbnb</code> e use a função <code>head</code> para pré-visualizar as primeiras linhas do <code>data.frame</code>.</p>
-</section>
-<section id="carregando-microdados-administrativos" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="carregando-microdados-administrativos">7. Carregando microdados administrativos</h4>
-<p>Diferentes órgãos públicos no Brasil disponibilizam seus microdados administrativos para acesso. Um deles é o <a href="https://www.gov.br/inep">INEP</a>, que tem uma página dedicada para <em>download</em> de bases de dados com informações sobre os exames e pesquisas que conduz.<a href="#fn23" class="footnote-ref" id="fnref23" role="doc-noteref"><sup>23</sup></a></p>
-<p>Neste exercício, sua tarefa será obter e carregar no R alguns microdados do <a href="https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/censo-da-educacao-superior">Censo da Educação Superior de 2022</a>, levantamento anual do INEP que coleta informações sobre as instituições de ensino superior, cursos de graduação e estudantes no Brasil todo. Os dados que deverão ser baixados são <em>os referentes ao ano de 2022</em>, que poderão ser baixados <a href="https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/censo-da-educacao-superior">desta página do INEP</a>. Os dados estão em formato compactado (zipado) e deverão ser descompactados no diretório local do R antes de serem carregados. Uma vez descompactados, carregue o arquivo <code>MICRODADOS_ED_SUP_IES_2022.CSV</code> e salve o resultado no objeto <code>alunos</code>. Feito isso, reporte o seguinte:</p>
-<ul>
-<li>O nome das colunas do <code>data.frame</code> <code>alunos</code>;</li>
-<li>O número de linhas e de colunas do <code>data.frame</code> <code>alunos</code>.</li>
 </ul>
 
 
@@ -1036,7 +968,6 @@ Pereira, Rafael H. M., e Rogério J. Barbosa. 2023. <em>censobr: Download Data f
 Wickham, Hadley, Mine Çetinkaya-Rundel, e Garrett Grolemund. 2023. <em>R for data science</em>. " O’Reilly Media, Inc.".
 </div>
 </div>
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
@@ -1060,10 +991,6 @@ Wickham, Hadley, Mine Çetinkaya-Rundel, e Garrett Grolemund. 2023. <em>R for da
 <li id="fn17"><p>Para mais detalhes sobre como usar o <code>DBI</code> com outros bancos relacionais, ver: https://db.rstudio.com/.<a href="#fnref17" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn18"><p>Para mais detalhes sobre o SQLite, ver: https://www.sqlite.org/index.html.<a href="#fnref18" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn19"><p>Para mais detalhes sobre como usar o <code>DBI</code> com outros bancos relacionais, ver: https://db.rstudio.com/.<a href="#fnref19" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn20"><p>Esses dados foram organizados e disponibilizados por Izabel Flores e estão disponíveis em (baixe e salve o arquivo para a pasta de trabalho do R): <a href="https://github.com/izabelflores/Censo_1872">https://github.com/izabelflores/Censo_1872</a>.<a href="#fnref20" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn21"><p>Os dados originais podem ser obtidos em <a href="https://www.worldvaluessurvey.org/WVSDocumentationWV7.jsp">https://www.worldvaluessurvey.org/WVSDocumentationWV7.jsp</a>.<a href="#fnref21" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn22"><p>Para mais detalhes sobre o Harvard Dataverse, ver: https://dataverse.harvard.edu/.<a href="#fnref22" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn23"><p>A página de <em>download</em> de dados do INEP está disponível em <a href="https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados">https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados</a>.<a href="#fnref23" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

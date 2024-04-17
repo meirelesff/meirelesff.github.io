@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>5. Importação</title>
+    <title>6. Estatísticas descritivas</title>
     <meta charset="utf-8" />
     <meta name="author" content="Fernando Meireles" />
     <script src="slides_files/header-attrs-2.23/header-attrs.js"></script>
@@ -15,10 +15,7 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# 5. Importação
-]
-.subtitle[
-## Big data em R
+# 6. Estatísticas descritivas
 ]
 .author[
 ### Fernando Meireles
@@ -42,566 +39,326 @@ Onde estamos no curso:
 
 
 
+
 ---
-# Plano
+# Motivação
 
-Veremos ferramentas que nos ajudarão a carregar e a manipular grandes bases de dados, mesmo que não caibam na memória do computador. São elas:
+Duas empresas estão empregando. Uma delas paga, em média, R$ 5.000,00, com desvio-padrão de R$ 1000,00. Na outra, o salário mediano é de R$ 4.000,00, com desvio-padrão de R$ 500,00. 
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Bases relacionais e interação com R
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `dbplyr`
-
---
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Antes, começaremos abordando alguns tópicos mais avançados de importação, como especificação de argumentos e de diretórios
+Se tivesse que optar, *em qual delas você preferiria trabalhar?*
 
 
 
 ---
-class: inverse, mline, middle, center
-background-color: #8f2a43
+# Hoje
 
-# Importação de arquivos
+Estudaremos estatísticas descritivas para aprender a resumir propriedades de uma variável. Cobriremos:
 
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Medidas de tendência central (*aka* localização)
 
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Medidas de dispersão
 
----
-# Fórmula geral
-
-A fórmula geral para importação de arquivos que vimos é:
-
-```
-arquivo &lt;- read_*("arquivo.*")
-```
-
-Nosso maior desafio é sempre identificar a extensão do arquivo a ser utilizada no lugar do `*`, o que nos permitirá escolher a função correta para a importação
-
-
----
-# Arquivos delimitados
-
-No mais das vezes, carregaremos arquivos de texto delimitados. Para isso, usamos a função `read_delim` do pacote `readr`
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"&gt;&lt;/path&gt;&lt;/svg&gt; Um arquivo delimitado por `;`:
-]
-
-```
-pais;ano;pib
-Brasil;2020;7.4
-Argentina;2020;2.5
-```
-]
-
-.pull-right2[
-
-```r
-read_delim("pib.csv", delim = ";")
-```
-
-
-```
-## # A tibble: 2 × 3
-##   pais        ano   pib
-##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 Brasil     2020   7.4
-## 2 Argentina  2020   2.5
-```
-]
-
-
-
-
-
----
-count:false
-# Arquivos delimitados
-
-No mais das vezes, carregaremos arquivos de texto delimitados. Para isso, usamos a função `read_delim` do pacote `readr`
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"&gt;&lt;/path&gt;&lt;/svg&gt; Um arquivo delimitado por `|`:
-]
-
-```
-pais|ano|pib
-Brasil|2020|7.4
-Argentina|2020|2.5
-```
-]
-
-.pull-right2[
-
-```r
-read_delim("pib.csv", delim = "|")
-```
-
-
-```
-## # A tibble: 2 × 3
-##   pais        ano   pib
-##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 Brasil     2020   7.4
-## 2 Argentina  2020   2.5
-```
-]
-
-
-
----
-count:false
-# Arquivos delimitados
-
-No mais das vezes, carregaremos arquivos de texto delimitados. Para isso, usamos a função `read_delim` do pacote `readr`
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"&gt;&lt;/path&gt;&lt;/svg&gt; Um arquivo delimitado por `,`:
-]
-
-```
-pais,ano,pib
-Brasil,2020,7.4
-Argentina,2020,2.5
-```
-]
-
-.pull-right2[
-
-```r
-read_delim("pib.csv", delim = ",")
-```
-
-
-```
-## # A tibble: 2 × 3
-##   pais        ano   pib
-##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 Brasil     2020   7.4
-## 2 Argentina  2020   2.5
-```
-]
-
-
-
----
-# Cabeçalhos
-
-Se precisarmos pular algumas linhas do arquivo, usamos `skip`
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"&gt;&lt;/path&gt;&lt;/svg&gt; Um arquivo com uma linha de cabeçalho
-
-]
-
-```
-Fonte: Banco Mundial
-pais;ano;pib
-Brasil;2020;7.4
-Argentina;2020;2.5
-```
-]
-
-.pull-right2[
-&lt;svg viewBox="0 0 352 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"&gt;&lt;/path&gt;&lt;/svg&gt; Sem `skip`
-
-```r
-read_csv2("pib.csv")
-```
-
-
-```
-## # A tibble: 3 × 1
-##   `Fonte: Banco Mundial`
-##   &lt;chr&gt;                 
-## 1 pais;ano;pib          
-## 2 Brasil;2020;7.4       
-## 3 Argentina;2020;2.5
-```
-]
-
-
----
-count:false
-# Cabeçalhos
-
-Se precisarmos pular algumas linhas do arquivo, usamos `skip`
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"&gt;&lt;/path&gt;&lt;/svg&gt; Um arquivo com uma linha de cabeçalho
-
-]
-
-```
-Fonte: Banco Mundial
-pais;ano;pib
-Brasil;2020;7.4
-Argentina;2020;2.5
-```
-]
-
-.pull-right2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#50C878;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"&gt;&lt;/path&gt;&lt;/svg&gt; Com `skip`
-
-```r
-read_csv2("pib.csv", skip = 1)
-```
-
-
-```
-## # A tibble: 2 × 3
-##   pais        ano   pib
-##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 Brasil     2020   7.4
-## 2 Argentina  2020   2.5
-```
-]
-
-
-
-
----
-# Nomes das colunas
-
-Se não tivermos o nome das colunas na primeira linha, usamos `col_names`
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"&gt;&lt;/path&gt;&lt;/svg&gt; Um arquivo sem nome das colunas
-]
-
-```
-Brasil;2020;7.4
-Argentina;2020;2.5
-```
-]
-
-.pull-right2[
-
-```r
-read_csv2("pib.csv", 
-          col_names = FALSE)
-```
-
-
-```
-## # A tibble: 2 × 3
-##   X1           X2    X3
-##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 Brasil     2020   7.4
-## 2 Argentina  2020   2.5
-```
-]
-
-
-
-
----
-# Nomeando colunas
-
-Se não tivermos o nome das colunas na primeira linha, usamos `col_names`
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"&gt;&lt;/path&gt;&lt;/svg&gt; Um arquivo sem nome das colunas
-]
-
-```
-Brasil;2020;7.4
-Argentina;2020;2.5
-```
-]
-
-.pull-right2[
-
-```r
-colunas &lt;- c("pais", "ano", "pib")
-read_csv2("pib.csv", 
-          col_names = colunas)
-```
-
-
-```
-## # A tibble: 2 × 3
-##   pais        ano   pib
-##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 Brasil     2020   7.4
-## 2 Argentina  2020   2.5
-```
-]
-
-
-
-
----
-# *Encoding*
-
-Se o arquivo que estamos abrindo não está em UTF-8, podemos especificar o *encoding* com `locale`
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"&gt;&lt;/path&gt;&lt;/svg&gt; Um arquivo salvo usando `UTF-8`
-]
-
-
-```
-Brasil;2020;7.4
-Argentina;2020;2.5
-Bol�via;2020;1.5
-```
-]
-
-.pull-right2[
-
-```r
-read_csv2("pib.csv", 
-          locale = locale(encoding = "UTF-8"))
-```
-
-
-```
-## # A tibble: 3 × 3
-##   pais        ano   pib
-##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 Brasil     2020   7.4
-## 2 Argentina  2020   2.5
-## 3 Bolívia    2020   1.5
-```
-]
-
-
----
-# Outros formatos
-
-Um resumo de opções para carregar outros tipos de arquivo comuns:
-
-.font90[
-Extenção | Função | Pacotes
---- | --- | ---
-`.Rda` | `load` | `base`
-`.xlsx` | `read_excel` | `readxl`
-`.sav` | `read_sav` | `haven`
-`.dta` | `read_dta` | `haven`
-`.rds` | `readRDS` | `base`
-`.json` | `fromJSON` | `jsonlite`
-Vários | `import` | `rio`
-]
-
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Alguma intuição sobre distribuições
 
 
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
 
-# Diretórios
+# Centralidade
+
+
+---
+# Duas variáveis
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Imagine que estamos comparando a renda de 500 pessoas de dois bairros diferentes no Rio
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Duas variáveis
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Como identificar o valor típico de renda em cada bairro? Como quantificar a variabilidade das rendas?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
-# Diretório corrente
+# Tendência central
 
-Assim como outras ferramentas de terminal, o R tem um diretório corrente, i.e. o local onde ele procura arquivos por padrão. Podemos ver o diretório corrente com `getwd()`
+.left-column[
+Medidas de tendência central são valores que indicam valores típicos ou comuns de uma distribuição
+]
 
+.right-column[
+.texto2[Medidas mais comuns]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Média (ou média aritmética)
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Mediana (ou percentil 50)
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Moda (ou valor mais frequente)
+]
+
+
+---
+# Média
+
+Vamos definir uma variável `\(x\)` com `\(N\)` observações. A média é dada por:
+
+$$
+\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
+$$
+
+Em palavras, isso significa somar todos os `\(x_i\)` e dividir por `\(N\)`.
+
+
+
+---
+# Visualizando médias
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Voltando à renda de 500 pessoas de dois bairros diferentes no Rio
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Centralidade
+
+Normalmente chamamos `\(x_i - \bar{x}\)` de resíduo, i.e. a diferença entre um valor observado, `\(x_i\)`, e a média, `\(\bar{x}\)`
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Centralidade
+
+O centro obtido pela .texto2[média] equilibra a distribuição de valores
+
+.pull-left[
 
 ```r
-getwd()
+x &lt;- 1:5
+media &lt;- mean(x)
+x - media
 ```
 
 ```
-## [1] "/home/fmeireles/Team Dropbox/Fernando Meireles/iesp/Disciplinas/2024/Lego I/Aulas/5_importacao"
+## [1] -2 -1  0  1  2
 ```
 
-.font90[
-.pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O resultado de `getwd()` é sempre o endereço absoluto do diretório atual, isto é, começando da raiz do sistema de arquivos
+```r
+sum(x - media)
+```
+
+```
+## [1] 0
+```
 ]
 
 .pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; No Windows, o diretório corrente geralmente é algo como ```C:/users/user/Documents```; em Linux, em ```/home/user```; em macOS, ```/Users/user/```
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A soma dos desvios em relação à média deverá ser sempre zero
+
+$$
+\sum_{i=1}^{N} (x_i - \bar{x}) = 0
+$$
 ]
-]
+
 
 
 ---
-# Árvores de diretórios
+count:false
+# Centralidade
 
-Pense na estrutura de diretórios como uma árvore, com um diretório raiz e subdiretórios
-
-.pull-right2[
-```
-C:/
-  |--- users/
-        |--- user/
-              |--- Documents/
-                    |--- Lego/
-                    |--- Mestrado/
-              |--- Downloads/
-              |--- Desktop/
-```
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A média minimiza a soma dos quadrados dos desvios, o que é útil em várias aplicações
 ]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos pensar nisso como um ponto de equilíbrio, um centro de gravidade, um jogo de cabo de guerra
+]
+
+
+
+---
+# Média e *outliers*
+
+
+
+A média não é uma medida robusta de centralidade: ela é sensível a valores extremos
 
 .pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O diretório raiz é sempre o diretório dentro do qual todos os outros estão contidos
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Renda de 30 pessoas, média de R$ 100,00
+
+.font90[
+- Média original: 99.53
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 
 ---
-# Tipos de endereço
+count:false
+# Média e *outliers*
 
-Existem dois tipos de endereços que podemos usar para acessar arquivos: endereços absolutos e endereços relativos
+A média não é uma medida robusta de centralidade: ela é sensível a valores extremos
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Renda de 30 pessoas, média de R$ 100,00
+
+.font90[
+- Média original: 99.53
+- Adicionamos R$ 1000,00
+- Média com outlier: 128.58
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Média e *outliers*
+
+A média não é uma medida robusta de centralidade: ela é sensível a valores extremos
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Renda de 30 pessoas, média de R$ 100,00
+
+.font90[
+- Média original: 99.53
+- Adicionamos R$ 5000,00
+- Média com outlier: 257.61
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+# Mediana
+
+Dados `\(x\)` com `\(N\)` observações ordenadas da menor para a maior, a mediana é 
+
+`\(med(x) = \begin{cases} x_{(N+1)/2} &amp; \text{se}~N~\text{for ímpar} \\ \frac{1}{2} (x_{(N/2)} + x_{(N/2 + 1)}) &amp; \text{se}~N~\text{for par} \end{cases}\)`
+
+Em palavras, ordenamos os valores e pegamos o valor do meio; se `\(N\)` for par, pegamos a média dos dois valores centrais
+
+
+---
+# Exemplo de cálculo
 
 .pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Endereços absolutos] são aqueles que começam na raiz do sistema de arquivos e ditam o caminho completo para o arquivo:
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto[Caso ímpar]
 
-```
-C:/users/user/Documents/
-Lego/lego.csv
-```
+Dado um variável com valores como
+
+`\(x = \{1, 2, 3, 4, 5\}\)`
+
+A mediana é o valor central, `\(med(x) = x_{(3)} = 3\)`
 ]
 
 .pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Endereços relativos] são aqueles que começam no diretório corrente e ditam o caminho para o arquivo a partir dele:
-```
-Lego/lego.csv
-```
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto[Caso par]
+
+Em uma variável com `\(N\)` valores pares, como a abaixo
+
+`\(x = \{1, 2, 3, 4\}\)`
+
+A mediana é a média dos dois valores centrais, `\(med(x) = \frac{x_{(2)} + x_{(3)}}{2} = \frac{2 + 3}{2}\\ = 2.5\)`
 ]
 
+Nos dois casos, `\(x_{(i)}\)` indica posição ordenada do valor `\(x_i\)`
 
 
 ---
-# Acessando arquivos
+# Visualizando medianas
 
-Dada uma pasta qualquer, acessar arquivos é uma questão de especificar seu caminho absoluto correto:
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Exemplo anterior, agora com linhas sólidas indicando .texto2[medianas]
 
-
-.font90[
-
-```bash
-C:/
-  |--- users/
-        |--- user/
-              |--- Documents/
-                    |--- `lego.csv`
-                    |--- Mestrado/
-              |--- Downloads/
-              |--- Desktop/
-```
-]
-
-
-```r
-read_csv("C:/users/user/Documents/lego.csv")
-```
+&lt;img src="slides_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
-count:false
-# Acessando arquivos
+# Propriedades da mediana
 
-Se o R estiver, por exemplo, na pasta `user`, podemos acessar o arquivo `lego.csv` com um endereço relativo.
+Diferentemente da média, a mediana é uma medida robusta de centralidade: ela não é sensível a valores extremos
 
+.pull-left[
+- Quando média e mediana são iguais, a distribuição da variável tende a ser simétrica
 
-.font90[
-
-```bash
-C:/
-  |--- users/
-*       |--- user/
-              |--- Documents/
-                    |--- `lego.csv`
-                    |--- Mestrado/
-              |--- Downloads/
-              |--- Desktop/
-```
+    - e.g., distribuição normal
 ]
 
+.pull-right[
+- Quando média e mediana são diferentes, a distribuição da variável tende a ser assimétrica
 
-```r
-read_csv("Documents/lego.csv")
-```
-
+    - e.g., distribuição beta
+]
 
 
 ---
-count:false
-# Acessando arquivos
+# Usos
 
-Se o R estiver na mesma pasta que o arquivo, podemos acessá-lo com um endereço relativo ainda mais simples:
+Quando usar média ou mediana?
 
 .font90[
+.pull-left[
 
-```bash
-C:/
-  |--- users/
-        |--- user/
-*             |--- Documents/
-                    |--- `lego.csv`
-                    |--- Mestrado/
-              |--- Downloads/
-              |--- Desktop/
-```
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Média é uma medida compreensiva de centralidade, dando uma noção de peso central; muito útil como estimador (i.e., para inferência)
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Desvantagem: não é robusta; pode não fazer sentido para variáveis discretas
 ]
 
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Mediana é mais robusta a valores extremos e tem fácil interpretação
 
-```r
-read_csv("lego.csv")
-```
-
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Desvantagem: não é tão informativa quanto a média; não faz sentido com variáveis discretas binárias
+]
+]
 
 
 ---
-count:false
-# Alterando o diretório corrente
+# Outras medidas de centralidade
 
-E se o R estiver em uma pasta diferente daquela onde está o arquivo? Podemos mudar o diretório corrente com `setwd()`
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Moda]: valor mais frequente
 
-.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Média ponderada]: média de valores escalados por pesos (útil para pós-ajuste em *surveys*)
 
-```bash
-C:/
-  |--- users/
-        |--- user/
-              |--- Documents/
-                    |--- `lego.csv`
-                    |--- Mestrado/
-              |--- Downloads/
-*             |--- Desktop/
-```
-]
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Média truncada]: média de valores excluindo extremos
 
-
-```r
-setwd("C:/users/user/Documents")
-read_csv("lego.csv")
-```
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Média *Winsorizada*]: média de valores com extremos substituídos por valores próximos
 
 
 ---
 # Teste I
 
-&gt; Supondo que o R esteja conectado à pasta destacada, qual endereço precisamos especificar para acessar o arquivo `lego.csv`?
+&gt; Vendo a distribuição a seguir, qual você acha que é maior: média ou mediana?
 
-.font90[
+&lt;img src="slides_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
 
-```bash
-C:/
-* |--- Materiais/
-        |--- Curso de R;
-        |--- Exercícios/
-            |--- aula1.R
-        |--- Dados/
-            |--- dados.csv
-            |--- `lego.csv`
-```
-]
 
---
+---
+count:false
+# Teste I
 
-.texto[R:] `Dados/lego.csv`
+&gt; Vendo a distribuição a seguir, qual você acha que é maior: média ou mediana?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+
+.texto[R:] Média de 0.32, mediana de 0.28
 
 
 
@@ -609,25 +366,43 @@ C:/
 ---
 # Teste II
 
-&gt; Supondo que o R esteja conectado à pasta destacada, qual endereço precisamos especificar para acessar o arquivo `lego.csv`?
+&gt; Vendo a distribuição a seguir, qual você acha que é maior: média ou mediana?
 
-.font90[
+&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
 
-```bash
-C:/
-  |--- Curso de R/  
-        |--- Dados/
-            |--- dados.csv
-            |--- `lego.csv`
-*           |--- Dados brutos/
-                |--- lego_original.csv
-```
-]
+
+---
+count:false
+# Teste II
+
+&gt; Vendo a distribuição a seguir, qual você acha que é maior: média ou mediana?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
+
+.texto[R:] Média de 0.5, mediana de 0.49
+
+
+---
+# Teste III
+
+&gt; Para a distribuição a seguir, qual medida você usaria para resumir a centralidade?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
 
 --
 
-.texto[R:] `C:/Materiais/Dados/lego.csv` ou `../Dados/lego.csv`
+.texto[R:] Média (distribuição simétrica)
 
+
+
+---
+# Teste IV
+
+&gt; Perguntamos para 5 pessoas da sala se elas entregaram (1) ou não (0) um trabalho final. Coletamos as seguintes respostas: `\(\{1, 1, 0, 1, 1\}\)`. Qual medida você usaria para resumir a centralidade da distribuição? (Pense no que cada medida significa).
+
+--
+
+.texto[R:] Média indica proporção; moda e mediana indicam a reposta mais frequente.
 
 
 
@@ -635,285 +410,286 @@ C:/
 class: inverse, mline, middle, center
 background-color: #8f2a43
 
-# Bases relacionais
+# Dispersão
+
 
 
 ---
-# Bases relacionais
+# Outras duas variáveis
 
-Bases relacionais são aquelas que possuem tabelas que se relacionam entre si. Imagine que temos uma tabela de `Alunos` e outra de `Cursos`
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Imagine agora a renda de 500 pessoas de dois novos bairros do Rio
 
-.pull-left[
-.center[.texto2[Alunos]]
-
-| id|nome     | curso_id|
-|--:|:--------|--------:|
-|  1|Fernando |        1|
-|  2|João     |        2|
-|  3|Maria    |        1|
-]
-
-.pull-right[
-.center[.texto2[Cursos]]
-
-| id|nome        |
-|--:|:-----------|
-|  1|Estatística |
-|  2|Matemática  |
-]
+&lt;img src="slides_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
 count:false
-# Bases relacionais
+# Outras duas variáveis
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A tabela `alunos` possui uma coluna `curso_id` que se relaciona com a tabela `cursos`. 
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Imagine agora a renda de 500 pessoas de dois novos bairros do Rio
 
-.pull-left[
-.center[.texto2[Alunos]]
-
-| id|nome     | curso_id|
-|--:|:--------|--------:|
-|  1|Fernando |        1|
-|  2|João     |        2|
-|  3|Maria    |        1|
-]
-
-.pull-right[
-.center[.texto2[Cursos]]
-
-| id|nome        |
-|--:|:-----------|
-|  1|Estatística |
-|  2|Matemática  |
-]
-
+&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
-# Modelo relacional
+# Dispersão e centralidade
 
-Esse modelo de organização de tabelas e relações é conhecido como modelo relacional
+Medidas de dispersão são valores que indicam a variabilidade dos dados em torno de uma medida de centralidade
 
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Tabelas são compostas por cabeçalhos e linhas
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Chaves primárias são colunas que identificam unicamente cada linha em uma tabela
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Chaves estrangeiras são colunas que se relacionam com chaves primárias de outras tabelas
-
-
-
----
-count:false
-background-color: #FFFFFF
-# Modelo relacional
-
-Um exemplo de banco de dados relacional
-
-&lt;img src="imgs/relacional.png" width="1867" style="display: block; margin: auto;" /&gt;
-
-
----
-# Utilidade
-
-Para os nossos propósitos, usar bancos de dados relacionais é útil quando temos bases de dados que não cabem na memória do computador
-
-.pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos usar o pacote `DBI` para se conectar a bancos de dados relacionais
-]
-
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos usar o pacote `dbplyr` para manipular tabelas em bancos de dados relacionais como se fossem tabelas do R, sem precisarmos carregá-las na memória
-]
-
-
----
-# Processo
-
-Queremos que o R manipule o gerenciador de do banco de dados, sem precisar carregar dados na memória
-
-&lt;img src="imgs/dbi.png" width="1724" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Usando `DBI`
-
-Se tivermos um banco de dados [SQLite](https://) chamado `lego.db`, podemos nos conectar a ele com:
-
-
-```r
-library(DBI)
-con &lt;- dbConnect(RSQLite::SQLite(), "lego.db")
-```
-
-E acessar a tabela `paises` com:
-
-
-```r
-dbGetQuery(con, "SELECT * FROM paises")
-```
-
-```
-##        pais  ano pib
-## 1    Brasil 2020 7.4
-## 2 Argentina 2020 2.5
-```
-
-
----
-# `DBI` + `dplyr`
-
-Há um pacote que facilita a manipulação dos dados de um banco relacional mais facilmente em R: `dbplyr`
-
-.left-column[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `dbplyr` traduz as operações do R para SQL
-]
-
-.right-column[
-
-```r
-con &lt;- dbConnect(RSQLite::SQLite(), "lego.db")
-paises &lt;- tbl(con, "paises")
-paises
-```
-
-```
-## # Source:   table&lt;paises&gt; [2 x 3]
-## # Database: sqlite 3.41.2 [/home/fmeireles/Team Dropbox/Fernando Meireles/iesp/Disciplinas/2024/Lego I/Aulas/5_importacao/lego.db]
-##   pais        ano   pib
-##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 Brasil     2020   7.4
-## 2 Argentina  2020   2.5
-```
-]
-
-
----
-count:false
-# `DBI` + `dplyr`
-
-Uma vez estabelecida uma conexão via `DBI`, podemos usar funções como `mutate` ou `summarise`
-
-
-
-```r
-con &lt;- dbConnect(RSQLite::SQLite(), "lego.db")
-paises &lt;- tbl(con, "paises")
-
-# Calcula o total do PIB em 2020
-paises %&gt;%
-  filter(ano == 2020) %&gt;%
-  summarise(total_pib = sum(pib))
-```
-
-```
-## # Source:   SQL [1 x 1]
-## # Database: sqlite 3.41.2 [/home/fmeireles/Team Dropbox/Fernando Meireles/iesp/Disciplinas/2024/Lego I/Aulas/5_importacao/lego.db]
-##   total_pib
-##       &lt;dbl&gt;
-## 1       9.9
-```
-
-
----
-# Importando arquivos grandes
-
-Se quisermos carregar e manipular um arquivo que não cabe na memória, portanto, podemos usar `DBI` e `dbplyr` juntos a partir de uma base de dados relacional. Opções:
-
-.pull-left[
 .font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Conectar a um servidor existente (MySQL, Google Big Query, etc.)
+- .texto2[Amplitude]: diferença entre o maior e o menor valor
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Criar um banco de dados local (SQLite)
-]
-]
+- .texto2[Percentis]: valores que dividem a distribuição em partes iguais
 
-.pull-right[
-A opção que usaremos: [duckdb](https://duckdb.org/), um banco de dados em disco que é muito rápido e que não depende de instalação específica. Basta instalar o pacote em R:
+- .texto2[Variância]: média dos quadrados dos desvios em relação à média
 
-
-```r
-install.packages("duckdb")
-```
+- .texto2[Desvio-padrão]: raiz quadrada da variância
 ]
 
 
 ---
-# Usando `duckdb`
+# Dispersão como média dos resíduos
 
-Para criar e manipular um banco de dados `duckdb` e carregar um arquivo CSV, fazemos:
-
-
-```r
-library(duckdb)
-
-con &lt;- dbConnect(duckdb::duckdb())
-tbl(con, "paises.csv") %&gt;%
-    group_by(pais) %&gt;%
-    summarise(total_pib = sum(pib)) %&gt;%
-    collect()
-```
-
-No exemplo, usamos `collect` para trazer os resultados para o R
-
-
----
-# Fomartos suportados
-
-O `duckdb` suporta arquivos nos formatos `.csv` e `.parquet`, um tipo de arquivo binário que é muito eficiente para leitura e escrita de dados. Um exemplo com microdados do Censo de 2022:
-
-
-```r
-con &lt;- dbConnect(duckdb::duckdb())
-tbl(con, "tracts22.parquet") %&gt;% 
-    group_by(name_region) %&gt;%
-    summarise(populacao = sum(V0001)) %&gt;%
-    collect()
-```
-
-```
-## # A tibble: 5 × 2
-##   name_region  populacao
-##   &lt;chr&gt;            &lt;dbl&gt;
-## 1 Norte         17354884
-## 2 Sudeste       84840113
-## 3 Nordeste      54658515
-## 4 Sul           29937706
-## 5 Centro-oeste  16289538
-```
-
-
-
----
-# Pacotes de dados
-
-Alguns pacotes servem especificamente para extrair dados públicos brasileiros, geralmente em formato `tibble` ou `data.frame`:
+Uma forma de pensar em dispersão é pensar em uma espécie de média dos resíduos
 
 .pull-left[
-- [censobr](https://ipeagit.github.io/censobr): Dados do Censo Demográfico do IBGE
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Dado que a soma dos resíduos é sempre zero, podemos transformar resíduos em positivos elevando eles ao quadrado
+]
 
+.pull-right[
 
 ```r
-library(censobr)
+x &lt;- 1:5
+residuos &lt;- x - mean(x)
+sum(residuos)
+```
 
-read_households(year = 2010)
+```
+## [1] 0
+```
+
+```r
+soma_r &lt;- sum(residuos^2)
+soma_r
+```
+
+```
+## [1] 10
+```
+]
+
+
+---
+# Variância
+
+Variância, ou `\(var(x)\)`, é a média dos quadrados dos desvios em relação à média
+
+$$
+var(x) = \frac{1}{N} \sum_{i=1}^{N} (x_i - \bar{x})^2
+$$
+
+--
+
+&lt;br&gt;
+.alert[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#777777;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; Ao elevar os resíduos ao quadrado, a variância deixa de ser interpretável na mesma escala da variável]
+
+
+---
+# Variância e *outliers*
+
+Assim como uma média, a variância é sensível a valores extremos, especialmente porque eleva os resíduos ao quadrado, potencializando valores extremos
+
+.pull-left[
+
+```r
+x &lt;- 1:5
+x - mean(x)
+```
+
+```
+## [1] -2 -1  0  1  2
+```
+
+```r
+(x - mean(x))^2
+```
+
+```
+## [1] 4 1 0 1 4
 ```
 ]
 
 .pull-right[
-- [electionsBR](https://electionsbr.com/novo/): Dados eleitorais do TSE
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Média absoluta dos resíduos  `1.2`
 
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Variância `2.5`
+]
+
+
+---
+# Retornando à escala original
+
+E se quisermos uma medida de dispersão que seja interpretável na mesma escala da variável?
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos trazer resíduos quadrados à escala original tirando a raiz quadrada da variância
+]
+
+.pull-right2[
 
 ```r
-library(electionsBR)
+x &lt;- 1:5
+variancia &lt;- var(x)
+sqrt(variancia)
+```
 
-elections_tse(year = 2022, 
-              type = "vote_mun_zone")
+```
+## [1] 1.581139
 ```
 ]
 
+
+---
+# Desvio-padrão
+
+Desvio-padrão, ou `\(sd(x)\)`, é a raiz quadrada da variância
+
+$$
+sd(x) = \sqrt{var(x)}
+$$
+
+.font90[
+.pull-left[
+.texto2[Interpretação]
+
+É a média dos desvios em relação à média, mas na mesma escala da variável
+]
+
+.pull-right[
+.texto2[Centralidade]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; Desvio-padrão não muda a posição central da distribuição
+]
+]
+
+
+---
+# Localização e dispersão
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Duas variáveis podem ter a mesma média, mas variâncias diferentes
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Localização e dispersão
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Duas variáveis podem ter a mesma média, mas variâncias diferentes
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-23-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# Localização e dispersão
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Assim como podemos ter variáveis com médias diferentes, mas variância similar
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-24-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Localização e dispersão
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Assim como podemos ter variáveis com médias diferentes, mas variância similar
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Localização e dispersão
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Medidas de .texto2[centralidade], ou de .texto2[localização], indicam o centro de uma distribuição em relação a uma escala
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Medidas de .texto2[dispersão] indicam a variabilidade dos dados em torno de uma medida de centralidade
+]
+
+
+---
+# Percentis
+
+Diferentemente da variância e do desvio-padrão, percentis têm similaridade com a mediana, indicando valores que dividem a distribuição em partes iguais
+
+.font90[
+.pull-left[
+- .texto2[Quartis]: percentis 25, 50 e 75
+
+- .texto2[Decis]: percentis 10, 20, ..., 90
+
+- .texto2[Percentis]: percentis 1, 2, ..., 99
+]
+
+.pull-right[
+.texto2[Interpretação]
+
+*percentil 25* indica que 25% dos valores estão abaixo dele
+
+
+```r
+x &lt;- c(1, 2, 3, 4, 5)
+quantile(x, 0.25)
+```
+
+```
+## 25% 
+##   2
+```
+]
+]
+
+
+---
+# Retomando
+
+Duas empresas estão empregando. Uma delas paga, em média, R$ 5.000,00, com desvio-padrão de R$ 1000,00. Na outra, o salário mediano é de R$ 4.000,00, com desvio-padrão de R$ 500,00. 
+
+Se tivesse que optar, *em qual delas você preferiria trabalhar?*
+
+
+
+---
+count:false
+# Retomando
+
+Podemos tentar imaginar as duas distribuições (embora não saibamos suas formas exatas)
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Retomando
+
+Poderia ser assim também (médias e variâncias similares)
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Distribuições
+
+Para podemos entender melhor a variabilidade dos dados, precisamos entender a forma da distribuição
+
+--
+
+Veremos isso quando estudarmos .texto2[distribuições de probabilidade], conectando o que vimos hoje sobre centralidade e dispersão
 
 
 
@@ -922,55 +698,6 @@ class: inverse, mline, middle, center
 background-color: #8f2a43
 
 # Prática em `R`
-
-
-
----
-# Importação
-
-Para praticar o que vimos, vamos importar e manipular três grandes bases que podem ser baixadas nos links a seguir:
-
-- [Base amostral desidentificada do CadÚnico](https://dados.gov.br/dados/conjuntos-dados/cadastro-nacional-da-pessoa-juridica---cnpj)
-
-    - [Codebook da base](https://aplicacoes.mds.gov.br/sagirmps/noticias/arquivos/files/Dicionario_base_desidentificada_pt.xlsx)
-
-
----
-count:false
-# Importação
-
-Usando o que já vimos no curso, é possível automatizar o *download* dos arquivos com o pacote `httr`:
-
-
-```r
-# Pacote
-library(httr)
-
-# Link 
-link &lt;- "https://www.mds.gov.br/webarquivos/publicacao/sagi/microdados/01_cadastro_unico/base_amostra_cad_201812.zip"
-
-# Download
-GET(link, write_disk("cadunico2018.zip"), progress())
-```
-
-
----
-count:false
-# Importação
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Usando coisas que já vimos, é possível automatizar a extração dos arquivos. Um exemplo simples:
-
-
-```r
-# Links
-anos &lt;- 2017:2018
-links &lt;- paste0("https://www.mds.gov.br/webarquivos/publicacao/sagi/microdados/01_cadastro_unico/base_amostra_cad_", anos, "12.zip")
-
-# Download
-for (i in 1:2) {
-  GET(links[i], write_disk(paste0("cadunico", anos[i], ".zip")), progress())
-}
-```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

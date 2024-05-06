@@ -191,6 +191,14 @@ blockquote {
     color: #8f2a43;
 }
 
+.remark-slide table {
+    margin: auto;
+    border-top: none;
+    border-bottom: none;
+    width: 50%;
+    table-layout: fixed;
+}  
+
 .remark-code-line-highlighted {
   background-color: #F1BF98;
 }

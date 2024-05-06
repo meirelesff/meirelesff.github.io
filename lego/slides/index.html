@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>6. Estatísticas descritivas</title>
+    <title>7. Amostragem</title>
     <meta charset="utf-8" />
     <meta name="author" content="Fernando Meireles" />
     <script src="slides_files/header-attrs-2.23/header-attrs.js"></script>
@@ -15,7 +15,10 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# 6. Estatísticas descritivas
+# 7. Amostragem
+]
+.subtitle[
+## Lei dos Grandes Números e Teorema Central do Limite
 ]
 .author[
 ### Fernando Meireles
@@ -29,7 +32,42 @@ class: center, middle, inverse, title-slide
 
 
 
+# Problema
 
+.pull-left[
+Imagine que você precisa saber quantas pessoas no Brasil têm o hábito de ler notícias diariamente.
+
+- *Como descobrir esse percentual?*
+]
+
+.pull-right[
+.texto[Considere]:
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; É praticamente impossível entrevistar todo mundo (nem o Censo consegue isso)
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Tempo e logística: mesmo que fosse possível, seria caro e demorado
+]
+]
+
+---
+# Solução
+
+.texto[Amostragem] é o processo utilizado para selecionar probabilisticamente um subconjunto de uma população para inferir características sobre o todo. É o que estudaremos nesta aula:
+
+--
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Como a amostragem funciona
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Por que amostragem funciona
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Estimação pontual
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Bônus]: amostragem não-probabilística
+]
+
+
+---
 # Trajeto
 
 Onde estamos no curso:
@@ -39,665 +77,623 @@ Onde estamos no curso:
 
 
 
-
----
-# Motivação
-
-Duas empresas estão empregando. Uma delas paga, em média, R$ 5.000,00, com desvio-padrão de R$ 1000,00. Na outra, o salário mediano é de R$ 4.000,00, com desvio-padrão de R$ 500,00. 
-
-Se tivesse que optar, *em qual delas você preferiria trabalhar?*
-
-
-
----
-# Hoje
-
-Estudaremos estatísticas descritivas para aprender a resumir propriedades de uma variável. Cobriremos:
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Medidas de tendência central (*aka* localização)
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Medidas de dispersão
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Alguma intuição sobre distribuições
-
-
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
-
-# Centralidade
+# Amostragem
 
 
 ---
-# Duas variáveis
+# Amostragem: como funciona
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Imagine que estamos comparando a renda de 500 pessoas de dois bairros diferentes no Rio
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
 
-
 ---
 count:false
-# Duas variáveis
+# Amostragem: como funciona
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Como identificar o valor típico de renda em cada bairro? Como quantificar a variabilidade das rendas?
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
 
 
-
 ---
-# Tendência central
+count:false
+# Amostragem: como funciona
 
-.left-column[
-Medidas de tendência central são valores que indicam valores típicos ou comuns de uma distribuição
-]
-
-.right-column[
-.texto2[Medidas mais comuns]
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Média (ou média aritmética)
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Mediana (ou percentil 50)
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Moda (ou valor mais frequente)
-]
-
-
----
-# Média
-
-Vamos definir uma variável `\(x\)` com `\(N\)` observações. A média é dada por:
-
-$$
-\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
-$$
-
-Em palavras, isso significa somar todos os `\(x_i\)` e dividir por `\(N\)`.
-
-
-
----
-# Visualizando médias
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Voltando à renda de 500 pessoas de dois bairros diferentes no Rio
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
 count:false
-# Centralidade
+# Amostragem: como funciona
 
-Normalmente chamamos `\(x_i - \bar{x}\)` de resíduo, i.e. a diferença entre um valor observado, `\(x_i\)`, e a média, `\(\bar{x}\)`
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
-# Centralidade
+count:false
+# Amostragem: como funciona
 
-O centro obtido pela .texto2[média] equilibra a distribuição de valores
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
-.pull-left[
+&lt;img src="slides_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
 
-```r
-x &lt;- 1:5
-media &lt;- mean(x)
-x - media
-```
 
-```
-## [1] -2 -1  0  1  2
-```
+---
+count:false
+# Amostragem: como funciona
 
-```r
-sum(x - media)
-```
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
-```
-## [1] 0
-```
-]
-
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A soma dos desvios em relação à média deverá ser sempre zero
-
-$$
-\sum_{i=1}^{N} (x_i - \bar{x}) = 0
-$$
-]
+&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
 count:false
-# Centralidade
+# Amostragem: como funciona
 
-.pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A média minimiza a soma dos quadrados dos desvios, o que é útil em várias aplicações
-]
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos pensar nisso como um ponto de equilíbrio, um centro de gravidade, um jogo de cabo de guerra
-]
-
-
-
----
-# Média e *outliers*
-
-
-
-A média não é uma medida robusta de centralidade: ela é sensível a valores extremos
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Renda de 30 pessoas, média de R$ 100,00
-
-.font90[
-- Média original: 99.53
-]
-]
-
-.pull-right2[
 &lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
-]
 
 
 ---
 count:false
-# Média e *outliers*
+# Amostragem: como funciona
 
-A média não é uma medida robusta de centralidade: ela é sensível a valores extremos
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Renda de 30 pessoas, média de R$ 100,00
-
-.font90[
-- Média original: 99.53
-- Adicionamos R$ 1000,00
-- Média com outlier: 128.58
-]
-]
-
-.pull-right2[
 &lt;img src="slides_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
-]
 
 
 ---
 count:false
-# Média e *outliers*
+# Amostragem: como funciona
 
-A média não é uma medida robusta de centralidade: ela é sensível a valores extremos
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Renda de 30 pessoas, média de R$ 100,00
-
-.font90[
-- Média original: 99.53
-- Adicionamos R$ 5000,00
-- Média com outlier: 257.61
-]
-]
-
-.pull-right2[
 &lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
-]
 
 
 
 ---
-# Mediana
+count:false
+# Amostragem: como funciona
 
-Dados `\(x\)` com `\(N\)` observações ordenadas da menor para a maior, a mediana é 
-
-`\(med(x) = \begin{cases} x_{(N+1)/2} &amp; \text{se}~N~\text{for ímpar} \\ \frac{1}{2} (x_{(N/2)} + x_{(N/2 + 1)}) &amp; \text{se}~N~\text{for par} \end{cases}\)`
-
-Em palavras, ordenamos os valores e pegamos o valor do meio; se `\(N\)` for par, pegamos a média dos dois valores centrais
-
-
----
-# Exemplo de cálculo
-
-.pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto[Caso ímpar]
-
-Dado um variável com valores como
-
-`\(x = \{1, 2, 3, 4, 5\}\)`
-
-A mediana é o valor central, `\(med(x) = x_{(3)} = 3\)`
-]
-
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto[Caso par]
-
-Em uma variável com `\(N\)` valores pares, como a abaixo
-
-`\(x = \{1, 2, 3, 4\}\)`
-
-A mediana é a média dos dois valores centrais, `\(med(x) = \frac{x_{(2)} + x_{(3)}}{2} = \frac{2 + 3}{2}\\ = 2.5\)`
-]
-
-Nos dois casos, `\(x_{(i)}\)` indica posição ordenada do valor `\(x_i\)`
-
-
----
-# Visualizando medianas
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Exemplo anterior, agora com linhas sólidas indicando .texto2[medianas]
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
 
-
 ---
-# Propriedades da mediana
+count:false
+# Amostragem: como funciona
 
-Diferentemente da média, a mediana é uma medida robusta de centralidade: ela não é sensível a valores extremos
-
-.pull-left[
-- Quando média e mediana são iguais, a distribuição da variável tende a ser simétrica
-
-    - e.g., distribuição normal
-]
-
-.pull-right[
-- Quando média e mediana são diferentes, a distribuição da variável tende a ser assimétrica
-
-    - e.g., distribuição beta
-]
-
-
----
-# Usos
-
-Quando usar média ou mediana?
-
-.font90[
-.pull-left[
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Média é uma medida compreensiva de centralidade, dando uma noção de peso central; muito útil como estimador (i.e., para inferência)
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Desvantagem: não é robusta; pode não fazer sentido para variáveis discretas
-]
-
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Mediana é mais robusta a valores extremos e tem fácil interpretação
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Desvantagem: não é tão informativa quanto a média; não faz sentido com variáveis discretas binárias
-]
-]
-
-
----
-# Outras medidas de centralidade
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Moda]: valor mais frequente
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Média ponderada]: média de valores escalados por pesos (útil para pós-ajuste em *surveys*)
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Média truncada]: média de valores excluindo extremos
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Média *Winsorizada*]: média de valores com extremos substituídos por valores próximos
-
-
----
-# Teste I
-
-&gt; Vendo a distribuição a seguir, qual você acha que é maior: média ou mediana?
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
 count:false
-# Teste I
+# Amostragem: como funciona
 
-&gt; Vendo a distribuição a seguir, qual você acha que é maior: média ou mediana?
+Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
 
-.texto[R:] Média de 0.32, mediana de 0.28
-
-
-
 
 ---
-# Teste II
+# Amostragem: como funciona
 
-&gt; Vendo a distribuição a seguir, qual você acha que é maior: média ou mediana?
+Podemos repetir o processo, sorteandos novos dados, mas o padrão se manterá
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
-count:false
-# Teste II
+# Amostragem: como funciona
 
-&gt; Vendo a distribuição a seguir, qual você acha que é maior: média ou mediana?
+Podemos repetir o processo, sorteandos novos dados, mas o padrão se manterá
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
 
-.texto[R:] Média de 0.5, mediana de 0.49
-
 
 ---
-# Teste III
+# Amostragem: como funciona
 
-&gt; Para a distribuição a seguir, qual medida você usaria para resumir a centralidade?
+Podemos repetir o processo, sorteandos novos dados, mas o padrão se manterá
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
 
---
 
-.texto[R:] Média (distribuição simétrica)
+
 
 
 
 ---
-# Teste IV
+# Um passo atrás
 
-&gt; Perguntamos para 5 pessoas da sala se elas entregaram (1) ou não (0) um trabalho final. Coletamos as seguintes respostas: `\(\{1, 1, 0, 1, 1\}\)`. Qual medida você usaria para resumir a centralidade da distribuição? (Pense no que cada medida significa).
+Para entender como a amostragem funciona, precisamos entender dois conceitos fundamentais:
 
---
+.pull-left[
+.texto[População]: o conjunto completo de pessoas ou elementos que definiem a totalidade do que está sendo estudado
 
-.texto[R:] Média indica proporção; moda e mediana indicam a reposta mais frequente.
+- *Exemplo*: eleitorado brasileiro
+]
+
+.pull-right[
+.texto[Amostra]: subconjunto da população
+
+- *Exemplo*: 2000 pessoas entrevistadas
+]
+
+
+---
+# Métodos de seleção
+
+Existem dois tipos principais de métodos de seleção de amostra:
+
+
+.pull-left[
+.texto[Amostragem não-probabilística]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A probabilidade de seleção de um membro da população é desconhecida
+
+.font90[
+- Amostragem por *snowball*
+- Amostragem por cotas
+]
+]
+
+
+.pull-right[
+.texto[Amostragem probabilística]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Cada pessoa na população tem uma *probabilidade conhecida e diferente de zero* de ser selecionado para a amostra 
+
+.font90[
+- Amostragem aleatória simples
+- Amostragem estratificada
+- Amostragem por conglomerados
+]
+]
+
+
+---
+# Seleção probabilística
+
+A seleção aleatória de elementos da população é a chave da amostragem probabilística
+
+.pull-left[
+.texto[Ausência de viés]
+
+Amostragem probabilística garante que cada membro da população tenha uma chance de ser incluído na amostra
+]
+
+.pull-right[
+.texto[Convergência]
+
+A variabilidade natural das amostras se equilibra à medida que N aumenta, levando a média amostral a se aproximar da verdadeira média da população.
+]
 
 
 
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
-
-# Dispersão
-
+# Por que amostragem funciona?
 
 
 ---
-# Outras duas variáveis
+# A Lei dos Grandes Números (LGN)
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Imagine agora a renda de 500 pessoas de dois novos bairros do Rio
+.pull-left[
+A .texto2[LGN] é um princípio da teoria da probabilidade que descreve o comportamento da média de uma amostra à medida que ela aumenta
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
+- `\(x_i\)`: observação do elemento sorteado `\(i\)` 
+- `\(n\)` (minúsculo): tamanho da amostra
+- `\(\bar{x}\)`: média da amostra
+- `\(\mu\)`: média da população com `\(N\)` elementos
+]
+
+
+.pull-right[
+.texto2[O que a LGN implica]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Diferenças entre `\(\bar{x}\)` e `\(\mu\)` diminuem à medida que `\(N\)` aumenta
+]
+
 
 
 
 ---
 count:false
-# Outras duas variáveis
+# Lei dos Grandes Números (LGN)
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Imagine agora a renda de 500 pessoas de dois novos bairros do Rio
+À medida que o `\(N\)` aumenta, a média da amostra se aproxima da média da população, isto é, `\(\bar{x} \rightarrow \mu\)` quando `\(N \rightarrow \infty\)`
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
 
----
-# Dispersão e centralidade
-
-Medidas de dispersão são valores que indicam a variabilidade dos dados em torno de uma medida de centralidade
-
+.pull-left2[
 .font90[
-- .texto2[Amplitude]: diferença entre o maior e o menor valor
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Exemplo: .texto2[1000] amostras de .texto2[10] pessoas para saber a altura média da população (170cm)
+]
+]
 
-- .texto2[Percentis]: valores que dividem a distribuição em partes iguais
-
-- .texto2[Variância]: média dos quadrados dos desvios em relação à média
-
-- .texto2[Desvio-padrão]: raiz quadrada da variância
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 
 ---
-# Dispersão como média dos resíduos
+count:false
+# Lei dos Grandes Números (LGN)
 
-Uma forma de pensar em dispersão é pensar em uma espécie de média dos resíduos
+À medida que o `\(N\)` aumenta, a média da amostra se aproxima da média da população, isto é, `\(\bar{x} \rightarrow \mu\)` quando `\(N \rightarrow \infty\)`
+
+
+.pull-left2[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Exemplo: .texto2[1000] amostras de .texto2[100] pessoas para saber a altura média da população (170cm)
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Lei dos Grandes Números (LGN)
+
+À medida que o `\(N\)` aumenta, a média da amostra se aproxima da média da população, isto é, `\(\bar{x} \rightarrow \mu\)` quando `\(N \rightarrow \infty\)`
+
+
+.pull-left2[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Exemplo: .texto2[1000] amostras de .texto2[1000] pessoas para saber a altura média da população (170cm)
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Lei dos Grandes Números (LGN)
+
+.texto[Intuição:] em uma amostra pequena, um único sorteio extremo pode distorcer a média amostral
 
 .pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Dado que a soma dos resíduos é sempre zero, podemos transformar resíduos em positivos elevando eles ao quadrado
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em uma amostra maior, sorteios extremos se equilibram, levando a média amostral a se aproximar da média da população
+
+.font90[
+- Para fins práticos, `\(N \geq 100\)` reduz bastante a influência de *outliers* no exemplo anterior
 ]
+]
+
 
 .pull-right[
-
-```r
-x &lt;- 1:5
-residuos &lt;- x - mean(x)
-sum(residuos)
-```
-
-```
-## [1] 0
-```
-
-```r
-soma_r &lt;- sum(residuos^2)
-soma_r
-```
-
-```
-## [1] 10
-```
+.alert[&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#777777;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Médias são sensíveis a *outliers*, especialmente em amostras pequenas]
 ]
+
+
 
 
 ---
-# Variância
+# Teste I
 
-Variância, ou `\(var(x)\)`, é a média dos quadrados dos desvios em relação à média
-
-$$
-var(x) = \frac{1}{N} \sum_{i=1}^{N} (x_i - \bar{x})^2
-$$
+&gt; Você quer comprar um produto na Amazon, mas não sabe se ele é bom. Lendo a descrição do produto, você descobre que, com 6 avaliações, ele tem nota 5 em um máximo de 5. Outro produto similar, no entanto, tem nota de 4,7 em 142 avaliações. Sabendo apenas isso, qual dos dois você compraria?
 
 --
 
 &lt;br&gt;
-.alert[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#777777;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; Ao elevar os resíduos ao quadrado, a variância deixa de ser interpretável na mesma escala da variável]
-
-
----
-# Variância e *outliers*
-
-Assim como uma média, a variância é sensível a valores extremos, especialmente porque eleva os resíduos ao quadrado, potencializando valores extremos
-
-.pull-left[
-
-```r
-x &lt;- 1:5
-x - mean(x)
-```
-
-```
-## [1] -2 -1  0  1  2
-```
-
-```r
-(x - mean(x))^2
-```
-
-```
-## [1] 4 1 0 1 4
-```
-]
-
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Média absoluta dos resíduos  `1.2`
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Variância `2.5`
-]
-
-
----
-# Retornando à escala original
-
-E se quisermos uma medida de dispersão que seja interpretável na mesma escala da variável?
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos trazer resíduos quadrados à escala original tirando a raiz quadrada da variância
-]
-
-.pull-right2[
-
-```r
-x &lt;- 1:5
-variancia &lt;- var(x)
-sqrt(variancia)
-```
-
-```
-## [1] 1.581139
-```
-]
-
-
----
-# Desvio-padrão
-
-Desvio-padrão, ou `\(sd(x)\)`, é a raiz quadrada da variância
-
-$$
-sd(x) = \sqrt{var(x)}
-$$
-
-.font90[
-.pull-left[
-.texto2[Interpretação]
-
-É a média dos desvios em relação à média, mas na mesma escala da variável
-]
-
-.pull-right[
-.texto2[Centralidade]
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; Desvio-padrão não muda a posição central da distribuição
-]
-]
-
-
----
-# Localização e dispersão
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Duas variáveis podem ter a mesma média, mas variâncias diferentes
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+.texto2[Intuição:] não é possível saber o que é melhor, mas, pela LGN, a média de 142 avaliações é mais estável do que a média de 6 avaliações (embora outros fatores importem)
 
 
 ---
 count:false
-# Localização e dispersão
+# Teste I
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Duas variáveis podem ter a mesma média, mas variâncias diferentes
+&lt;img src="slides_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Outra explicação
+
+Imagine o seguinte exemplo agora: jogamos dois dados e somamos os valores obtidos
+
+
+```r
+for(i in 1:95) {
+  dados &lt;- sample(1:6, 2, replace = TRUE)
+  print(sum(dados))
+}
+```
+
+
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; 95 resultados possíveis
+
+5, 9, 11, 8, 8, 12, 3, 8, 4, 8, 6, 10, 9, 8, 4, 10, 5, 6, 6, 7, 7, 10, 11, 10, 4, 11, 7, 11, 6, 8, 2, 9, 6, 5, 3, 3, 6, 5, 11, 6, 4, 8, 7, 9, 10, 7, 5, 3, 4, 12, 7, 9, 4, 7, 7, 4, 2, 2, 5, 4, 12, 8, 4, 5, 4, 9, 12, 8, 7, 6, 6, 2, 3, 6, 9, 9, 5, 7, 6, 10, 11, 9, 9, 6, 7, 5, 4, 9, 9, 2, 5, 8, 7, 8, 5
+]
+
+
+
+---
+# Matriz das somas possíveis
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Outra forma de visualizar o problema: nas linhas, os valores possíveis de um dado; nas colunas, os valores possíveis do outro dado
+
+
+|  |   1 |   2 |   3 |   4 |   5 |   6 |
+|---|---|---|---|---|---|---|
+| .texto2[1] |  2  |  3  |  4  |  5  |  6  |  7  |
+| .texto2[2] |  3  |  4  |  5  |  6  |  7  |  8  |
+| .texto2[3] |  4  |  5  |  6  |  7  |  8  |  9  |
+| .texto2[4] |  5  |  6  |  7  |  8  |  9  | 10  | 
+| .texto2[5] |  6  |  7  |  8  |  9  | 10  | 11  | 
+| .texto2[6] |  7  |  8  |  9  | 10  | 11  | 12  |
+
+
+
+---
+count:false
+# Matriz das somas possíveis
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Note como algumas somas podem ser obtidas de mais de uma forma
+
+
+|  |   1 |   2 |   3 |   4 |   5 |   6 |
+|---|---|---|---|---|---|---|
+| .texto2[1] |  2  |  3  |  4  |  5  |  `6`  |  `7`  |
+| .texto2[2] |  3  |  4  |  5  |  `6`  |  `7`  |  `8`  |
+| .texto2[3] |  4  |  5  |  `6`  |  `7`  |  `8`  |  9  |
+| .texto2[4] |  5  |  `6`  |  `7`  |  `8`  |  9  | 10  | 
+| .texto2[5] |  `6`  |  `7`  |  `8`  |  9  | 10  | 11  | 
+| .texto2[6] |  `7`  |  `8`  |  9  | 10  | 11  | 12  |
+
+
+---
+# Matriz das somas possíveis
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Outras somas, no entanto, ocorrem com menos frequência da combinação de dois dados
+
+
+|  |   1 |   2 |   3 |   4 |   5 |   6 |
+|---|---|---|---|---|---|---|
+| .texto2[1] |  `2`  |  `3`  |  4  |  5  |  6  |  7  |
+| .texto2[2] |  `3`  |  4  |  5  |  6  |  7  |  8  |
+| .texto2[3] |  4  |  5  |  6  |  7  |  8  |  9  |
+| .texto2[4] |  5  |  6  |  7  |  8  |  9  | 10  | 
+| .texto2[5] |  6  |  7  |  8  |  9  | 10  | `11`  | 
+| .texto2[6] |  7  |  8  |  9  | 10  | `11`  | `12`  |
+
+
+
+
+
+---
+# Distribuição da soma de dados
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Os resultados possíveis de uma soma de dois dados formam uma distribuição
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# Sorteando somas de dados
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular a soma de .texto2[2] dados .texto2[10 mil vezes]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-23-1.svg" style="display: block; margin: auto;" /&gt;
 
 
-
 ---
 count:false
-# Localização e dispersão
+# Sorteando somas de dados
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Assim como podemos ter variáveis com médias diferentes, mas variância similar
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular a soma de .texto2[3] dados .texto2[10 mil vezes]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-24-1.svg" style="display: block; margin: auto;" /&gt;
 
-
 ---
 count:false
-# Localização e dispersão
+# Sorteando somas de dados
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Assim como podemos ter variáveis com médias diferentes, mas variância similar
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular a soma de .texto2[5] dados .texto2[10 mil vezes]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
 count:false
-# Localização e dispersão
+# Sorteando somas de dados
 
-.pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Medidas de .texto2[centralidade], ou de .texto2[localização], indicam o centro de uma distribuição em relação a uma escala
-]
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular a soma de .texto2[20] dados .texto2[10 mil vezes]
 
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Medidas de .texto2[dispersão] indicam a variabilidade dos dados em torno de uma medida de centralidade
-]
-
-
----
-# Percentis
-
-Diferentemente da variância e do desvio-padrão, percentis têm similaridade com a mediana, indicando valores que dividem a distribuição em partes iguais
-
-.font90[
-.pull-left[
-- .texto2[Quartis]: percentis 25, 50 e 75
-
-- .texto2[Decis]: percentis 10, 20, ..., 90
-
-- .texto2[Percentis]: percentis 1, 2, ..., 99
-]
-
-.pull-right[
-.texto2[Interpretação]
-
-*percentil 25* indica que 25% dos valores estão abaixo dele
-
-
-```r
-x &lt;- c(1, 2, 3, 4, 5)
-quantile(x, 0.25)
-```
-
-```
-## 25% 
-##   2
-```
-]
-]
-
-
----
-# Retomando
-
-Duas empresas estão empregando. Uma delas paga, em média, R$ 5.000,00, com desvio-padrão de R$ 1000,00. Na outra, o salário mediano é de R$ 4.000,00, com desvio-padrão de R$ 500,00. 
-
-Se tivesse que optar, *em qual delas você preferiria trabalhar?*
+&lt;img src="slides_files/figure-html/unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
 count:false
-# Retomando
+# Sorteando somas de dados
 
-Podemos tentar imaginar as duas distribuições (embora não saibamos suas formas exatas)
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular a soma de .texto2[50] dados .texto2[10 mil vezes]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
 
 
----
-count:false
-# Retomando
 
-Poderia ser assim também (médias e variâncias similares)
+
+---
+# Teorema Central do Limite
+
+O exemplo da soma de dois dados ilustra uma ideia fundamental: a do .texto2[Teorema Central do Limite (TCL)] 
+
+.alert[*A distribuição da soma (ou média) de variáveis aleatórias independentes tende a uma distribuição normal à medida que o número de variáveis aumenta, independentemente da distribuição original das variáveis*]
+
+---
+# Exemplo: abstenção eleitoral
+
+.font90[
+Considere uma população onde 30% das pessoas não votaram na última eleição. Coletamos .texto2[1000] amostras de .texto2[10] pessoas dessa população.
+]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
 
 
+
 ---
-# Distribuições
+# Exemplo: ensino superior
 
-Para podemos entender melhor a variabilidade dos dados, precisamos entender a forma da distribuição
+.font90[
+Considere agora uma população com 50% de pessoas com ensino superior. Mais .texto2[1000] amostras de .texto2[10] pessoas.
+]
 
---
+&lt;img src="slides_files/figure-html/unnamed-chunk-29-1.svg" style="display: block; margin: auto;" /&gt;
 
-Veremos isso quando estudarmos .texto2[distribuições de probabilidade], conectando o que vimos hoje sobre centralidade e dispersão
+
+---
+# Exemplo: ensino superior
+
+.font90[
+Considere agora uma população com 50% de pessoas com ensino superior. Mais .texto2[1000] amostras, dessa vez com .texto2[1000] pessoas.
+]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-30-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# TCL e LGN
+
+.pull-left[
+.texto[LGN]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt;  O ponto aqui é a .texto2[convergência pontual] da média amostral para a média populacional à medida que `\(N\)` aumenta, isto é, a precisão da estimativa
+]
+
+.pull-right[
+.texto[TCL]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O foco é .texto2[convergência da distribuição] das médias amostrais para uma distribuição normal, independentemente da distribuição original; estamos falando, portanto, da distribuição de várias amostras
+]
+
+
+
+---
+# Amostragem aleatória
+
+A validade do TCL e a precisão da inferência estatística dependem de uma amostra probabilística
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A amostragem aleatória é fundamental para evitar viés de seleção (i.e., sobre ou subestimar a média da população)
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A amostragem aleatória é a base para a aplicação do TCL e da LGN
+]
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+# Estimação pontual
+
+
+---
+# Inferência
+
+.texto[Inferência estatística] é isso: tirar conclusões sobre uma população a partir de dados amostrais (ou observações disponíveis)
+
+.font90[
+.pull-left[
+.texto[LGN e TCL]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; TCL diz que a distribuição das médias amostrais se aproxima de uma distribuição normal à medida que `\(n\)` aumenta, o que significa que podemos usar mostras para estimar parâmetros populacionais (localização ou dispersão)
+]
+
+
+.pull-right[
+.texto[TCL]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Além da convergência, TCL garante que a distribuição das médias amostrais se aproximará de uma distribuição normal, o que é fundamental para quantificarmos a incerteza associada a uma estimativa
+]
+]
+
+
+---
+# Notação
+
+Quando falamos em estatística inferencial, é importante ter em mente a diferença entre .texto2[população] e .texto2[amostra]:
+
+.font90[
+.pull-left[
+.texto[População]
+
+- `\(N\)`: tamanho da população 
+- `\(\mu\)`: média da população
+- `\(\sigma^2\)`: variância da população
+- Parâmetros são características fixas da população (e.g., `\(\mu\)`, `\(\sigma^2\)`)
+]
+
+.pull-right[
+.texto[Amostra]
+
+- `\(n\)`: tamanho da amostra
+- `\(\bar{X}\)`: média da amostra
+- `\(s^2\)`: variância da amostra
+- Estatísticas (i.e., estimativas) são calculadas a partir da amostra (e.g., `\(\bar{X}\)`, `\(s^2\)`).
+]
+]
+
+
 
 
 
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
+# Amostragem não-probabilística
 
-# Prática em `R`
+
+
+---
+# Seleção não-probabilística
+
+Quando selecionamos uma amostra para refletir certas características (cotas) da população, não estamos mais falando de uma amostra probabilística 
+
+.font90[
+.pull-left[
+.texto[Prós]
+
+- .texto2[Custo e tempo:] é muito mais fácil, rápido e barato selecionar uma amostra por cotas (exceto em RDD)
+- .texto2[Disponibilidade de dados:] ausência de listagens de pessoas ou endereços
+]
+
+.pull-right[
+.texto[Contras]
+
+- .texto2[Viés de seleção:] a seleção dos pessoas dentro das cotas pode ser enviesada, afetando estimativas
+- .texto2[Inferência limitada:] em vários casos, é difícil generalizar os resultados para a população
+]
+]
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

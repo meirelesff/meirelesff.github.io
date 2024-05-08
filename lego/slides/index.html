@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>7. Amostragem</title>
+    <title>8. Inferência randomizada</title>
     <meta charset="utf-8" />
     <meta name="author" content="Fernando Meireles" />
     <script src="slides_files/header-attrs-2.23/header-attrs.js"></script>
@@ -15,10 +15,7 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# 7. Amostragem
-]
-.subtitle[
-## Lei dos Grandes Números e Teorema Central do Limite
+# 8. Inferência randomizada
 ]
 .author[
 ### Fernando Meireles
@@ -32,256 +29,353 @@ class: center, middle, inverse, title-slide
 
 
 
-# Problema
+# LGN e TCL
+
+Vimos na aula passada que, para uma amostra suficientemente grande, ambos se aplicam:
 
 .pull-left[
-Imagine que você precisa saber quantas pessoas no Brasil têm o hábito de ler notícias diariamente.
-
-- *Como descobrir esse percentual?*
+- Estimativas da média convergem para a média populacional (i.e., .texto2[Lei dos Grandes Números])
 ]
 
 .pull-right[
-.texto[Considere]:
-
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; É praticamente impossível entrevistar todo mundo (nem o Censo consegue isso)
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Tempo e logística: mesmo que fosse possível, seria caro e demorado
-]
-]
-
----
-# Solução
-
-.texto[Amostragem] é o processo utilizado para selecionar probabilisticamente um subconjunto de uma população para inferir características sobre o todo. É o que estudaremos nesta aula:
-
---
-
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Como a amostragem funciona
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Por que amostragem funciona
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Estimação pontual
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Bônus]: amostragem não-probabilística
+- A distribuição amostral da média assume uma distribuição normal (i.e., .texto2[Teorema Central do Limite])
 ]
 
 
 ---
-# Trajeto
+# Convergência
 
-Onde estamos no curso:
-&lt;br&gt;
-&lt;br&gt;
+Exemplo: amostras de uma população na qual 30% das pessoas têm ensino superior
+
 &lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
-class: inverse, mline, middle, center
-background-color: #8f2a43
-# Amostragem
+# Distribuição
 
-
----
-# Amostragem: como funciona
-
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+`\(1000\)` amostras com `\(n=3\)` de uma população na qual 30% das pessoas têm ensino superior
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
 
+
+
 ---
 count:false
-# Amostragem: como funciona
+# Distribuição
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+`\(1000\)` amostras com `\(n=5\)` de uma população na qual 30% das pessoas têm ensino superior
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
 
 
+
 ---
 count:false
-# Amostragem: como funciona
+# Distribuição
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+`\(1000\)` amostras com `\(n=10\)` de uma população na qual 30% das pessoas têm ensino superior
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" style="display: block; margin: auto;" /&gt;
 
 
+
+
 ---
 count:false
-# Amostragem: como funciona
+# Distribuição
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+`\(1000\)` amostras com `\(n=100\)` de uma população na qual 30% das pessoas têm ensino superior
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
 
 
+
+
 ---
 count:false
-# Amostragem: como funciona
+# Distribuição
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+`\(1000\)` amostras com `\(n=1000\)` de uma população na qual 30% das pessoas têm ensino superior
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
 
 
+
 ---
-count:false
-# Amostragem: como funciona
+# Inferência
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Veremos nesta aula que, usando aleatorização (ou *randomização*), podemos aprender algumas outras coisas sobre uma população a partir de amostras
 
+
+
+---
+# Hoje
+
+A aula de hoje é uma tentativa de explicar de forma simples alguns ingredientes de inferência estatística, como distribuição nula e P-valor. Cobriremos apenas um tópico:
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Inferência randomizada
+
+
+
+---
+# Trajeto
+
+Apertem os cintos:
+&lt;br&gt;
+&lt;br&gt;
 &lt;img src="slides_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
-count:false
-# Amostragem: como funciona
+class: inverse, mline, middle, center
+background-color: #8f2a43
+# *Lady tasting tea*
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+# O experimento
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Nos idos de 1920, Ronald Fisher montou um teste para descobrir se sua colega em Cambridge, Muriel Bristol, conseguia distinguir o método de preparo de um chá apenas pelo seu sabor
+]
+
+.pull-right[
+&lt;img src="imgs/cover.jpg" width="360px" height="500px" style="display: block; margin: auto;" /&gt;
+]
 
 
 ---
 count:false
-# Amostragem: como funciona
+# O experimento
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O problema de inferência estatística: Fisher queria saber se Muriel conseguiria identificar corretamente o modo de preparo de chá com base em uma amostra de 8 xícaras
+
+
+.pull-left[
+.texto2[Experimento]
+- `\(n=8\)` xícaras de chá
+- `\(k=4\)` xícaras preparadas com leite antes do chá
+]
+
+.pull-right[
+.texto2[Formas de escolher as xícaras]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
+] 
+
 
 
 ---
 count:false
-# Amostragem: como funciona
+# O experimento
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O problema de inferência estatística: Fisher queria saber se Muriel conseguiria identificar corretamente o modo de preparo de chá com base em uma amostra de 8 xícaras
+
+
+.pull-left[
+.texto2[Experimento]
+- `\(n=8\)` xícaras de chá
+- `\(k=4\)` xícaras preparadas com leite antes do chá
+]
+
+.pull-right[
+.texto2[Formas de escolher as xícaras]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
-
+] 
 
 
 ---
 count:false
-# Amostragem: como funciona
+# O experimento
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O problema de inferência estatística: Fisher queria saber se Muriel conseguiria identificar corretamente o modo de preparo de chá com base em uma amostra de 8 xícaras
+
+
+.pull-left[
+.texto2[Experimento]
+- `\(n=8\)` xícaras de chá
+- `\(k=4\)` xícaras preparadas com leite antes do chá
+]
+
+.pull-right[
+.texto2[Formas de escolher as xícaras]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
+] 
+
+
 
 ---
 count:false
-# Amostragem: como funciona
+# O experimento
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O problema de inferência estatística: Fisher queria saber se Muriel conseguiria identificar corretamente o modo de preparo de chá com base em uma amostra de 8 xícaras
+
+
+.pull-left[
+.texto2[Experimento]
+- `\(n=8\)` xícaras de chá
+- `\(k=4\)` xícaras preparadas com leite antes do chá
+]
+
+.pull-right[
+.texto2[Formas de escolher as xícaras]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
+] 
+
 
 
 ---
 count:false
-# Amostragem: como funciona
+# O experimento
 
-Indo direto ao ponto: imagine lançar `\(N\)` dados e calcular a média dos valores obtidos
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O problema de inferência estatística: Fisher queria saber se Muriel conseguiria identificar corretamente o modo de preparo de chá com base em uma amostra de 8 xícaras
+
+
+.pull-left[
+.texto2[Experimento]
+- `\(n=8\)` xícaras de chá
+- `\(k=4\)` xícaras preparadas com leite antes do chá
+]
+
+.pull-right[
+.texto2[Formas de escolher as xícaras]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
+] 
 
 
 ---
-# Amostragem: como funciona
+# Contando combinações
 
-Podemos repetir o processo, sorteandos novos dados, mas o padrão se manterá
+Para saber de quantas formas diferentes podemos distribuir as xícaras, podemos usar o .texto2[coeficiente binomial]. Um exemplo simples:
 
+.pull-left[
+- `\(n=2\)` xícaras
+- `\(k=1\)` xícara preparadas com leite antes
+- Há `\(2\)` combinações possíveis
+]
+
+.pull-right[
 &lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
 
 
 ---
-# Amostragem: como funciona
+count:false
+# Contando combinações
 
-Podemos repetir o processo, sorteandos novos dados, mas o padrão se manterá
+Para saber de quantas formas diferentes podemos distribuir as xícaras, podemos usar o .texto2[coeficiente binomial]. Um exemplo simples:
 
+.pull-left[
+- `\(n=2\)` xícaras
+- `\(k=1\)` xícara preparadas com leite antes
+- Há `\(2\)` combinações possíveis
+]
+
+.pull-right[
 &lt;img src="slides_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Amostragem: como funciona
-
-Podemos repetir o processo, sorteandos novos dados, mas o padrão se manterá
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
-
-
-
----
-# Um passo atrás
-
-Para entender como a amostragem funciona, precisamos entender dois conceitos fundamentais:
-
-.pull-left[
-.texto[População]: o conjunto completo de pessoas ou elementos que definiem a totalidade do que está sendo estudado
-
-- *Exemplo*: eleitorado brasileiro
-]
-
-.pull-right[
-.texto[Amostra]: subconjunto da população
-
-- *Exemplo*: 2000 pessoas entrevistadas
 ]
 
 
 ---
-# Métodos de seleção
+count:false
+# Contando combinações
 
-Existem dois tipos principais de métodos de seleção de amostra:
+Calculamos o coeficiente binomial com:
 
+$$
+\binom{n}{k} = \frac{n \times (n - 1) \times  \dots \times (n - k + 1)}{k \times (k - 1) \times \dots \times 1}
+$$
 
-.pull-left[
-.texto[Amostragem não-probabilística]
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A probabilidade de seleção de um membro da população é desconhecida
 
 .font90[
-- Amostragem por *snowball*
-- Amostragem por cotas
-]
+- O numerador indica o número de formas de escolher `\(k\)` elementos de um conjunto de `\(n\)`
+- O denominador é o número de formas diferentes de ordenar `\(k\)` elementos
+- No exemplo anterior, `\(\binom{2}{1} = 2\)`
 ]
 
-
-.pull-right[
-.texto[Amostragem probabilística]
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Cada pessoa na população tem uma *probabilidade conhecida e diferente de zero* de ser selecionado para a amostra 
-
-.font90[
-- Amostragem aleatória simples
-- Amostragem estratificada
-- Amostragem por conglomerados
-]
-]
 
 
 ---
-# Seleção probabilística
+count:false
+# Contando combinações
 
-A seleção aleatória de elementos da população é a chave da amostragem probabilística
+No experimento de Fisher, temos o seguinte:
+
+$$
+\binom{8}{4} = \frac{8 \times 7 \dots \times 1}{4 \times 3 \times 2 \times 1} = \frac{40320}{576} = 70
+$$
+
+&lt;br&gt;
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Muriel poderia ter escolhido `\(4\)` de `\(8\)` xícaras de chá de `\(70\)` formas diferentes
+
+
+
+---
+# Coeficiente binomial
+
+Normalmente, o coeficiente binomial é calculado usando fatorial:
+
 
 .pull-left[
-.texto[Ausência de viés]
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O numerador, `\(n!\)`, indica o número de formas de ordenar `\(n\)` elementos
 
-Amostragem probabilística garante que cada membro da população tenha uma chance de ser incluído na amostra
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O denominador, `\(k!(n-k)!\)`, é o número de formas de ordenar `\(k\)` elementos em um conjunto de `\(n\)` (removendo as `\(k!\)` redundâncias)
 ]
 
 .pull-right[
-.texto[Convergência]
+$$
+\binom{n}{k} = \frac{n!}{k!(n-k)!}
+$$
+]
 
-A variabilidade natural das amostras se equilibra à medida que N aumenta, levando a média amostral a se aproximar da verdadeira média da população.
+---
+# Simulação
+
+Outra forma de entender o experimento de Fisher é com simulação: sorteamos `\(4\)` xícaras aleatoriamente `\(1000\)` e contamos quantas acertamos:
+
+.pull-left[
+
+```r
+xicaras &lt;- c(1, 1, 1, 1, 
+             0, 0, 0, 0)
+
+# Um sorteio
+sample(xicaras, 4, 
+       replace = FALSE)
+```
+
+```
+## [1] 0 1 0 1
+```
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+# O que aprendemos com isso?
+
+A ideia original de Fisher é que a chance de Muriel acertar a ordem das xícaras seria de `\(1/70\)`, ou de cerca de 1.4%
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Embora não dê pra saber se Muriel sempre acertará, a chance dela ter acertado `\(4\)` de `\(8\)` xícaras por acaso é muito baixa
+]
+
+.pull-right2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em outras palavras, Fisher *rejeitou a hipótese de que Muriel acertou as xícaras preparadas com leite primeiro*
 ]
 
 
@@ -289,78 +383,176 @@ A variabilidade natural das amostras se equilibra à medida que N aumenta, levan
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
-# Por que amostragem funciona?
+# Hipótese e distribuição nulas
+
 
 
 ---
-# A Lei dos Grandes Números (LGN)
+# A hipótese de Fisher
+
+Algo importante no experimento de Fisher é a ideia de contrastar duas hipóteses:
 
 .pull-left[
-A .texto2[LGN] é um princípio da teoria da probabilidade que descreve o comportamento da média de uma amostra à medida que ela aumenta
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Chute: Muriel não conseguiria identificar as xícaras preparadas com leite antes do chá
+]
 
-- `\(x_i\)`: observação do elemento sorteado `\(i\)` 
-- `\(n\)` (minúsculo): tamanho da amostra
-- `\(\bar{x}\)`: média da amostra
-- `\(\mu\)`: média da população com `\(N\)` elementos
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Habilidade: Muriel conseguiria identificar as xícaras preparadas com leite antes do chá
+]
+
+---
+# Hipóteses
+
+Em geral, os cenários anteriores podem ser resumidos em dois grandes grupos:
+
+.pull-left[
+- Hipótese nula, `\(H_0\)` : o cenário que esperaríamos encontrar por acaso (Muriel acertou chutando)
+]
+
+.pull-right[
+- Hipótese alternativa, `\(H_1\)` : o cenário que queremos testar, no qual há algum efeito (Muriel acertou por mérito)
+]
+
+
+---
+# Distribuição nula
+
+A .texto2[distribuição nula] é a distribuição que esperaríamos encontrar por acaso. No experimento de Fisher, a nula assume uma coisa:
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se formos chutar, há `\(70\)` combinações igualmente prováveis de serem sorteadas
+]
+
+.pull-right2[
+Mesmo chutando, há uma chance razoável de acertar 2 ou 3 xícaras; a distribuição nula é justamente uma forma de quantificar o quão provável são esses resultados ao acaso
+]
+
+
+---
+# Exemplo: promoções
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; [IMS1](https://openintro-ims.netlify.app/) dão outro exemplo:
+
+.font90[
+&gt; The participants in this study were 48 bank supervisors who identified as male [...] in 1972. They were asked to assume the role of the personnel director of a bank and were given a personnel file to judge whether the person should be promoted to a branch manager position. The files given to the participants were identical, .texto2[except that half of them indicated the candidate identified as male and the other half indicated the candidate identified as female.] These files were randomly assigned to the bank managers.
+]
+
+
+---
+count:false
+# Exemplo: promoções
+
+Os resultados foram os seguintes: 0.875 dos homens foram promovidos, contra 0.583 das mulheres (diferença de 29%)
+
+| Sex    | Promoted | Not promoted | Total |
+|--------|----------|--------------|-------|
+| Male   | 21       | 3            | 24    |
+| Female | 14       | 10           | 24    |
+| Total  | 35       | 13           | 48    |
+
+
+
+---
+count:false
+# Exemplo: promoções
+
+Usando inferência randomizada, podemos enunciar o problema da seguinte forma:
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `\(H_0\)` : sexo não afeta promoções
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `\(H_1\)` : mulheres têm menos chances de serem promovidas
+]
+
+
+---
+count:false
+# Exemplo: promoções
+
+Quão provável é vermos a diferença de 29% ocorrer por acaso?
+
+.font90[
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A chave para construírmos a distribuição nula é imaginar um cenário no qual o sexo não afeta promoções
+
+- Podemos redistribuir aleatoriamente as promoções e calcular a diferença entre homens e mulheres novamente
+]
+
+.pull-right[
+.texto2[Procedimento]
+
+* 1) Sorteamos `\(35\)` das `\(48\)` pessoas aleatoriamente e as promovemos
+* 2) Calculamos a prop. de promoções para homens e para mulheres
+* 3) Calculamos a diferença entre as duas prop.
+* 4) Repetimos isso `\(10000\)` vezes
+]
+]
+
+
+---
+count:false
+# Exemplo: promoções
+
+.texto2[R]: a diferença maior ou igual a 29% ocorreu apenas .texto2[0.59% das vezes]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+---
+# Exemplo: juris americanos
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Juris americanos devem ser selecionados de forma imparcial. Isso, contudo, nem sempre é seguido:
+
+.font90[
+&gt; *Avery v. Georgia (1953): not a single Black person selected from a jury panel of approximately 60 names drawn from a box containing names of prospective white jurors, printed on white tickets, and names of prospective Black jurors, printed on yellow tickets*
+
+&gt; — [Race and the Jury](https://eji.org/report/race-and-the-jury/a-history-of-discrimination-in-jury-selection/#chapter-1)
+]
+
+
+---
+# Robert Swain, Alabama, 1965
+
+[Robert Swain apelou à Suprema Corte](https://en.wikipedia.org/wiki/Swain_v._Alabama) pela ausência pessoas negras no juri do seu julgamento (que o condenou à pena de morte)
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; No painel de possíveis jurados, havia .texto2[26%] de pessoas negras
 ]
 
 
 .pull-right[
-.texto2[O que a LGN implica]
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Diferenças entre `\(\bar{x}\)` e `\(\mu\)` diminuem à medida que `\(N\)` aumenta
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; No seu caso, .texto2[8 de 100] jurados negros foram indicados (os 8 ainda foram removidos depois)
 ]
-
 
 
 
 ---
-count:false
-# Lei dos Grandes Números (LGN)
+# Robert Swain, Alabama, 1965
 
-À medida que o `\(N\)` aumenta, a média da amostra se aproxima da média da população, isto é, `\(\bar{x} \rightarrow \mu\)` quando `\(N \rightarrow \infty\)`
+Usando inferência randomizada, podemos enunciar o problema da seguinte forma:
 
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `\(H_0\)` raça não afeta a seleção de jurados
 
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Exemplo: .texto2[1000] amostras de .texto2[10] pessoas para saber a altura média da população (170cm)
-]
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `\(H_1\)` pessoas negras têm são menos indicadas para juris
 ]
 
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
+.pull-right[
+Para termos uma distribuição nula aqui, podemos sortear várias amostras com `\(n=100\)` nas quais pessoas negras tenham 0.26 de prob. de inclusão
 ]
 
 
 ---
 count:false
-# Lei dos Grandes Números (LGN)
-
-À medida que o `\(N\)` aumenta, a média da amostra se aproxima da média da população, isto é, `\(\bar{x} \rightarrow \mu\)` quando `\(N \rightarrow \infty\)`
-
+# Robert Swain, Alabama, 1965
 
 .pull-left2[
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Exemplo: .texto2[1000] amostras de .texto2[100] pessoas para saber a altura média da população (170cm)
-]
-]
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Resultados de 10 mil amostras sorteadas:
 
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
----
-count:false
-# Lei dos Grandes Números (LGN)
-
-À medida que o `\(N\)` aumenta, a média da amostra se aproxima da média da população, isto é, `\(\bar{x} \rightarrow \mu\)` quando `\(N \rightarrow \infty\)`
-
-
-.pull-left2[
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Exemplo: .texto2[1000] amostras de .texto2[1000] pessoas para saber a altura média da população (170cm)
-]
+- Exatas 0 amostras, `\(n=100\)`, com 8 ou menos pessoas negras sorteadas
 ]
 
 .pull-right2[
@@ -368,332 +560,90 @@ count:false
 ]
 
 
-
----
-count:false
-# Lei dos Grandes Números (LGN)
-
-.texto[Intuição:] em uma amostra pequena, um único sorteio extremo pode distorcer a média amostral
-
-.pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em uma amostra maior, sorteios extremos se equilibram, levando a média amostral a se aproximar da média da população
-
-.font90[
-- Para fins práticos, `\(N \geq 100\)` reduz bastante a influência de *outliers* no exemplo anterior
-]
-]
-
-
-.pull-right[
-.alert[&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#777777;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; Médias são sensíveis a *outliers*, especialmente em amostras pequenas]
-]
-
-
-
-
----
-# Teste I
-
-&gt; Você quer comprar um produto na Amazon, mas não sabe se ele é bom. Lendo a descrição do produto, você descobre que, com 6 avaliações, ele tem nota 5 em um máximo de 5. Outro produto similar, no entanto, tem nota de 4,7 em 142 avaliações. Sabendo apenas isso, qual dos dois você compraria?
-
---
-
-&lt;br&gt;
-&lt;br&gt;
-.texto2[Intuição:] não é possível saber o que é melhor, mas, pela LGN, a média de 142 avaliações é mais estável do que a média de 6 avaliações (embora outros fatores importem)
-
-
----
-count:false
-# Teste I
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Outra explicação
-
-Imagine o seguinte exemplo agora: jogamos dois dados e somamos os valores obtidos
-
-
-```r
-for(i in 1:95) {
-  dados &lt;- sample(1:6, 2, replace = TRUE)
-  print(sum(dados))
-}
-```
-
-
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; 95 resultados possíveis
-
-5, 9, 11, 8, 8, 12, 3, 8, 4, 8, 6, 10, 9, 8, 4, 10, 5, 6, 6, 7, 7, 10, 11, 10, 4, 11, 7, 11, 6, 8, 2, 9, 6, 5, 3, 3, 6, 5, 11, 6, 4, 8, 7, 9, 10, 7, 5, 3, 4, 12, 7, 9, 4, 7, 7, 4, 2, 2, 5, 4, 12, 8, 4, 5, 4, 9, 12, 8, 7, 6, 6, 2, 3, 6, 9, 9, 5, 7, 6, 10, 11, 9, 9, 6, 7, 5, 4, 9, 9, 2, 5, 8, 7, 8, 5
-]
-
-
-
----
-# Matriz das somas possíveis
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Outra forma de visualizar o problema: nas linhas, os valores possíveis de um dado; nas colunas, os valores possíveis do outro dado
-
-
-|  |   1 |   2 |   3 |   4 |   5 |   6 |
-|---|---|---|---|---|---|---|
-| .texto2[1] |  2  |  3  |  4  |  5  |  6  |  7  |
-| .texto2[2] |  3  |  4  |  5  |  6  |  7  |  8  |
-| .texto2[3] |  4  |  5  |  6  |  7  |  8  |  9  |
-| .texto2[4] |  5  |  6  |  7  |  8  |  9  | 10  | 
-| .texto2[5] |  6  |  7  |  8  |  9  | 10  | 11  | 
-| .texto2[6] |  7  |  8  |  9  | 10  | 11  | 12  |
-
-
-
----
-count:false
-# Matriz das somas possíveis
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Note como algumas somas podem ser obtidas de mais de uma forma
-
-
-|  |   1 |   2 |   3 |   4 |   5 |   6 |
-|---|---|---|---|---|---|---|
-| .texto2[1] |  2  |  3  |  4  |  5  |  `6`  |  `7`  |
-| .texto2[2] |  3  |  4  |  5  |  `6`  |  `7`  |  `8`  |
-| .texto2[3] |  4  |  5  |  `6`  |  `7`  |  `8`  |  9  |
-| .texto2[4] |  5  |  `6`  |  `7`  |  `8`  |  9  | 10  | 
-| .texto2[5] |  `6`  |  `7`  |  `8`  |  9  | 10  | 11  | 
-| .texto2[6] |  `7`  |  `8`  |  9  | 10  | 11  | 12  |
-
-
----
-# Matriz das somas possíveis
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Outras somas, no entanto, ocorrem com menos frequência da combinação de dois dados
-
-
-|  |   1 |   2 |   3 |   4 |   5 |   6 |
-|---|---|---|---|---|---|---|
-| .texto2[1] |  `2`  |  `3`  |  4  |  5  |  6  |  7  |
-| .texto2[2] |  `3`  |  4  |  5  |  6  |  7  |  8  |
-| .texto2[3] |  4  |  5  |  6  |  7  |  8  |  9  |
-| .texto2[4] |  5  |  6  |  7  |  8  |  9  | 10  | 
-| .texto2[5] |  6  |  7  |  8  |  9  | 10  | `11`  | 
-| .texto2[6] |  7  |  8  |  9  | 10  | `11`  | `12`  |
-
-
-
-
-
----
-# Distribuição da soma de dados
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Os resultados possíveis de uma soma de dois dados formam uma distribuição
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-# Sorteando somas de dados
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular a soma de .texto2[2] dados .texto2[10 mil vezes]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-23-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-count:false
-# Sorteando somas de dados
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular a soma de .texto2[3] dados .texto2[10 mil vezes]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-24-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-count:false
-# Sorteando somas de dados
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular a soma de .texto2[5] dados .texto2[10 mil vezes]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-count:false
-# Sorteando somas de dados
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular a soma de .texto2[20] dados .texto2[10 mil vezes]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
-count:false
-# Sorteando somas de dados
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Podemos simular a soma de .texto2[50] dados .texto2[10 mil vezes]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
-
----
-# Teorema Central do Limite
-
-O exemplo da soma de dois dados ilustra uma ideia fundamental: a do .texto2[Teorema Central do Limite (TCL)] 
-
-.alert[*A distribuição da soma (ou média) de variáveis aleatórias independentes tende a uma distribuição normal à medida que o número de variáveis aumenta, independentemente da distribuição original das variáveis*]
-
----
-# Exemplo: abstenção eleitoral
-
-.font90[
-Considere uma população onde 30% das pessoas não votaram na última eleição. Coletamos .texto2[1000] amostras de .texto2[10] pessoas dessa população.
-]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Exemplo: ensino superior
-
-.font90[
-Considere agora uma população com 50% de pessoas com ensino superior. Mais .texto2[1000] amostras de .texto2[10] pessoas.
-]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-29-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Exemplo: ensino superior
-
-.font90[
-Considere agora uma população com 50% de pessoas com ensino superior. Mais .texto2[1000] amostras, dessa vez com .texto2[1000] pessoas.
-]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-30-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# TCL e LGN
-
-.pull-left[
-.texto[LGN]
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt;  O ponto aqui é a .texto2[convergência pontual] da média amostral para a média populacional à medida que `\(N\)` aumenta, isto é, a precisão da estimativa
-]
-
-.pull-right[
-.texto[TCL]
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O foco é .texto2[convergência da distribuição] das médias amostrais para uma distribuição normal, independentemente da distribuição original; estamos falando, portanto, da distribuição de várias amostras
-]
-
-
-
----
-# Amostragem aleatória
-
-A validade do TCL e a precisão da inferência estatística dependem de uma amostra probabilística
-
-.pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A amostragem aleatória é fundamental para evitar viés de seleção (i.e., sobre ou subestimar a média da população)
-]
-
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A amostragem aleatória é a base para a aplicação do TCL e da LGN
-]
-
-
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
-# Estimação pontual
+# Ingredientes da inferência
 
 
 ---
-# Inferência
+# Probabilidade da nula
 
-.texto[Inferência estatística] é isso: tirar conclusões sobre uma população a partir de dados amostrais (ou observações disponíveis)
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A distribuição nula é uma forma de quantificar resultados possíveis: no exemplo de Fisher, a prob. de acertar 4 de 8 xícaras por acaso é de 1.4%. Essa prob. também é conhecida como
+
+.alert[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#777777;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; P-valor é a probabilidade de observar um resultado tão extremo quanto um observado assumindo que a hipótese nula é verdadeira]
+
+- *Rationale*: se um P-valor é pequeno, a hipótese nula é improvável e pode ser rejeitada
+
+---
+# P-valor
+
+Uma maneira intuitiva de ler .texto2[P-valores] é pensar neles da seguinte forma:
 
 .font90[
-.pull-left[
-.texto[LGN e TCL]
+- Em um mundo no qual diferenças entre homens e mulheres não afetam promoções, qual é a probabilidade de vermos uma diferença de 29% em taxas de promoção? .texto2[R:] muito baixa
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; TCL diz que a distribuição das médias amostrais se aproxima de uma distribuição normal à medida que `\(n\)` aumenta, o que significa que podemos usar mostras para estimar parâmetros populacionais (localização ou dispersão)
+- Em um mundo no qual raça não afeta a seleção de jurados, qual é a probabilidade de vermos 8 jurados em 100 sorteados de uma lista com 26% de pessoas negras? .texto2[R:] muito baixa
+]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Não se trata de confirmar hipóteses alternativas, *mas de rejeitar hipóteses nulas*
+
+
+
+---
+# Resumo
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A .texto2[inferência] randomizada é uma forma simples de testar hipóteses e depende apenas de sorteios aleatórios (e programação, talvez)  
 ]
 
 
 .pull-right[
-.texto[TCL]
+.font90[
+.texto2[Procedimento]
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Além da convergência, TCL garante que a distribuição das médias amostrais se aproximará de uma distribuição normal, o que é fundamental para quantificarmos a incerteza associada a uma estimativa
+* 1) Formular as hipóteses (e.g., `\(H_0 : \bar{x} = 0\)` )
+* 2) Selecionamos uma estatística (e.g., `\(\bar{x}\)` )
+* 3) Simulamos a distribuição nula
+* 4) Calculamos a probabilidade de observar o valor observado da estatística sob a distribuição nula (*aka* P-valor)
 ]
 ]
 
 
 ---
-# Notação
+count:false
+# Resumo
 
-Quando falamos em estatística inferencial, é importante ter em mente a diferença entre .texto2[população] e .texto2[amostra]:
+Notação e conceitos importantes:
 
 .font90[
 .pull-left[
-.texto[População]
-
-- `\(N\)`: tamanho da população 
-- `\(\mu\)`: média da população
-- `\(\sigma^2\)`: variância da população
-- Parâmetros são características fixas da população (e.g., `\(\mu\)`, `\(\sigma^2\)`)
+- `\(H_0\)`: hipótese nula 
+- `\(H_1\)`: hipótese alternativa
+- `\(\alpha\)`: nível de significância (i.e., 0.05)
+- .texto2[P-valor]: prob. de observar uma estatística tão extrema quanto a observada assumindo `\(H_0\)`
 ]
 
 .pull-right[
-.texto[Amostra]
-
-- `\(n\)`: tamanho da amostra
-- `\(\bar{X}\)`: média da amostra
-- `\(s^2\)`: variância da amostra
-- Estatísticas (i.e., estimativas) são calculadas a partir da amostra (e.g., `\(\bar{X}\)`, `\(s^2\)`).
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; *Randomização*, no fim, nada mais é do que gerar estatísticas reorganizando aleatoriamente os dados, assumindo `\(H_0\)`, para comparar com uma estatística observada
 ]
 ]
 
 
 
 
-
 ---
-class: inverse, mline, middle, center
-background-color: #8f2a43
-# Amostragem não-probabilística
+# Inferência paramétrica
 
+Partindo do que vimos do .texto2[TCL], podemos inferir sobre a população a partir de uma única amostra usando outra abordagem
 
-
----
-# Seleção não-probabilística
-
-Quando selecionamos uma amostra para refletir certas características (cotas) da população, não estamos mais falando de uma amostra probabilística 
-
-.font90[
 .pull-left[
-.texto[Prós]
-
-- .texto2[Custo e tempo:] é muito mais fácil, rápido e barato selecionar uma amostra por cotas (exceto em RDD)
-- .texto2[Disponibilidade de dados:] ausência de listagens de pessoas ou endereços
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; No exemplo das promoções, poderíamos ver o quanto a diferença de promoções de 29% é improvável de ocorrer por acaso usando uma .texto2[distribuição de probabilidade]
 ]
 
 .pull-right[
-.texto[Contras]
-
-- .texto2[Viés de seleção:] a seleção dos pessoas dentro das cotas pode ser enviesada, afetando estimativas
-- .texto2[Inferência limitada:] em vários casos, é difícil generalizar os resultados para a população
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Pra isso, precisamos assumir pressupostos, como veremos na próxima aula
 ]
-]
-
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

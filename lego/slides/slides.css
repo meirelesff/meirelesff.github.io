@@ -195,8 +195,7 @@ blockquote {
     margin: auto;
     border-top: none;
     border-bottom: none;
-    width: 50%;
-    table-layout: fixed;
+    width: 65%;
 }  
 
 .remark-code-line-highlighted {

@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v3.6.5"><!-- <link rel="preload" as="image" href={src} alt="Hero" /> --><title>Escola de Inverno | IESP-UERJ</title><link rel="canonical" href="https://fmeireles.com/escola"><meta name="description" content="Astroship is a starter website template for Astro built with TailwindCSS."><meta name="robots" content="index, follow"><meta property="og:title" content="Astroship - Starter Template for Astro"><meta property="og:type" content="website"><meta property="og:image" content="https://fmeireles.com/opengraph.jpg"><meta property="og:url" content="https://fmeireles.com/escola"><meta property="og:image:url" content="https://fmeireles.com/opengraph.jpg"><meta property="og:image:alt" content="Astroship Homepage Screenshot"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@web3templates"><meta name="twitter:creator" content="@surjithctly"><link rel="stylesheet" href="/escola/_astro/about.5a950a1e.css" /></head> <body> <div class="max-w-screen-xl mx-auto px-5">  <header class="flex flex-col lg:flex-row justify-end items-center my-5 gap-8">  <div class="flex w-full lg:w-auto items-end justify-end"> <div class="block lg:hidden"> <button id="astronav-menu" aria-label="Toggle Menu">  <svg fill="currentColor" class="w-4 h-4 text-[#444444]" width="24" height="24" viewBox="0 0 24 24" xmlns="https://www.w3.org/2000/svg"> <title>Toggle Menu</title> <path class="astronav-close-icon astronav-toggle hidden" fill-rule="evenodd" clip-rule="evenodd" d="M18.278 16.864a1 1 0 01-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 01-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 011.414-1.414l4.829 4.828 4.828-4.828a1 1 0 111.414 1.414l-4.828 4.829 4.828 4.828z"></path> <path class="astronav-open-icon astronav-toggle" fill-rule="evenodd" d="M4 5h16a1 1 0 010 2H4a1 1 0 110-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2zm0 6h16a1 1 0 010 2H4a1 1 0 010-2z"></path> </svg>  </button> </div> </div> <nav class="astronav-items astronav-toggle hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0 justify-end">  <ul class="flex flex-col lg:flex-row lg:gap-3"> <li> <a href="/" class="flex lg:px-3 py-2 items-center text-[#444444] hover:text-secondary"> <span> Início</span>  </a> </li><li> <a href="/cursos" class="flex lg:px-3 py-2 items-center text-[#444444] hover:text-secondary"> <span> Cursos</span>  </a> </li><li> <a href="/inscricao" class="flex lg:px-3 py-2 items-center text-[#444444] hover:text-secondary"> <span> Inscrição e preços</span>  </a> </li><li> <a href="/bolsas" class="flex lg:px-3 py-2 items-center text-[#444444] hover:text-secondary"> <span> Bolsas de estudo</span>  </a> </li><li> <a href="/contact" class="flex lg:px-3 py-2 items-center text-[#444444] hover:text-secondary"> <span> Contato</span>  </a> </li> </ul> <div class="lg:hidden flex items-center mt-3 gap-4 border-primary"> <a href="#" class="rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 w-full px-4 py-2 bg-black text-white hover:bg-gray-800  border-2 border-transparent">Inscrever-se </a> </div>  </nav>  <script>(function(){const closeOnClick = false;
+
+["DOMContentLoaded", "astro:after-swap"].forEach((event) => {
+  document.addEventListener(event, addListeners);
+});
+
+// Function to clone and replace elements
+function cloneAndReplace(element) {
+  const clone = element.cloneNode(true);
+  element.parentNode.replaceChild(clone, element);
+}
+
+function addListeners() {
+  // Clean up existing listeners
+  const oldMenuButton = document.getElementById("astronav-menu");
+  if (oldMenuButton) {
+    cloneAndReplace(oldMenuButton);
+  }
+
+  const oldDropdownMenus = document.querySelectorAll(".astronav-dropdown");
+  oldDropdownMenus.forEach((menu) => {
+    cloneAndReplace(menu);
+  });
+
+  // Mobile nav toggle
+  const menuButton = document.getElementById("astronav-menu");
+  menuButton && menuButton.addEventListener("click", toggleMobileNav);
+
+  // Dropdown menus
+  const dropdownMenus = document.querySelectorAll(".astronav-dropdown");
+  dropdownMenus.forEach((menu) => {
+    const button = menu.querySelector("button");
+    button &&
+      button.addEventListener("click", (event) =>
+        toggleDropdownMenu(event, menu, dropdownMenus)
+      );
+
+    // Handle Submenu Dropdowns
+    const dropDownSubmenus = menu.querySelectorAll(
+      ".astronav-dropdown-submenu"
+    );
+
+    dropDownSubmenus.forEach((submenu) => {
+      const submenuButton = submenu.querySelector("button");
+      submenuButton &&
+        submenuButton.addEventListener("click", (event) => {
+          event.stopImmediatePropagation();
+          toggleSubmenuDropdown(event, submenu);
+        });
+    });
+  });
+
+  // Clicking away from dropdown will remove the dropdown class
+  document.addEventListener("click", closeAllDropdowns);
+
+  if (closeOnClick) {
+    handleCloseOnClick();
+  }
+}
+
+function toggleMobileNav() {
+  [...document.querySelectorAll(".astronav-toggle")].forEach((el) => {
+    el.classList.toggle("hidden");
+  });
+}
+
+function toggleDropdownMenu(event, menu, dropdownMenus) {
+  toggleMenu(menu);
+
+  // Close one dropdown when selecting another
+  Array.from(dropdownMenus)
+    .filter((el) => el !== menu && !menu.contains(el))
+    .forEach(closeMenu);
+
+  event.stopPropagation();
+}
+
+function toggleSubmenuDropdown(event, submenu) {
+  event.stopPropagation();
+  toggleMenu(submenu);
+
+  // Close sibling submenus at the same nesting level
+  const siblingSubmenus = submenu
+    .closest(".astronav-dropdown")
+    .querySelectorAll(".astronav-dropdown-submenu");
+  Array.from(siblingSubmenus)
+    .filter((el) => el !== submenu && !submenu.contains(el))
+    .forEach(closeMenu);
+}
+
+function closeAllDropdowns(event) {
+  const dropdownMenus = document.querySelectorAll(".dropdown-toggle");
+  const dropdownParent = document.querySelectorAll(
+    ".astronav-dropdown, .astronav-dropdown-submenu"
+  );
+  const isButtonInsideDropdown = [
+    ...document.querySelectorAll(
+      ".astronav-dropdown button, .astronav-dropdown-submenu button, #astronav-menu"
+    ),
+  ].some((button) => button.contains(event.target));
+  if (!isButtonInsideDropdown) {
+    dropdownMenus.forEach((d) => {
+      // console.log("I ran", d);
+      // if (!d.contains(event.target)) {
+      d.classList.remove("open");
+      d.removeAttribute("open");
+      d.classList.add("hidden");
+      // }
+    });
+    dropdownParent.forEach((d) => {
+      d.classList.remove("open");
+      d.removeAttribute("open");
+      d.setAttribute("aria-expanded", "false");
+    });
+  }
+}
+
+function toggleMenu(menu) {
+  menu.classList.toggle("open");
+  const expanded = menu.getAttribute("aria-expanded") === "true";
+  menu.setAttribute("aria-expanded", expanded ? "false" : "true");
+  menu.hasAttribute("open")
+    ? menu.removeAttribute("open")
+    : menu.setAttribute("open", "");
+
+  const dropdownToggle = menu.querySelector(".dropdown-toggle");
+  const dropdownExpanded = dropdownToggle.getAttribute("aria-expanded");
+  dropdownToggle.classList.toggle("hidden");
+  dropdownToggle.setAttribute(
+    "aria-expanded",
+    dropdownExpanded === "true" ? "false" : "true"
+  );
+}
+
+function closeMenu(menu) {
+  // console.log("closing", menu);
+  menu.classList.remove("open");
+  menu.removeAttribute("open");
+  menu.setAttribute("aria-expanded", "false");
+  const dropdownToggles = menu.querySelectorAll(".dropdown-toggle");
+  dropdownToggles.forEach((toggle) => {
+    toggle.classList.add("hidden");
+    toggle.setAttribute("aria-expanded", "false");
+  });
+}
+
+function handleCloseOnClick() {
+  const navMenuItems = document.querySelector(".astronav-items");
+  const navToggle = document.getElementById("astronav-menu");
+  const navLink = navMenuItems && navMenuItems.querySelectorAll("a");
+
+  const MenuIcons = navToggle.querySelectorAll(".astronav-toggle");
+
+  navLink &&
+    navLink.forEach((item) => {
+      item.addEventListener("click", () => {
+        navMenuItems?.classList.add("hidden");
+        MenuIcons.forEach((el) => {
+          el.classList.toggle("hidden");
+        });
+      });
+    });
+}
+})();</script> <div> <div class="hidden lg:flex items-center gap-4"> <a href="#" class="rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-4 py-2 bg-black text-white hover:bg-gray-800  border-2 border-transparent border-primary hover:border-secondary rounded-sm">Inscreva-se </a> </div> </div> </header>  </div>  <div class="max-w-screen-xl mx-auto px-5">  <section class="grid lg:grid-cols-2 place-items-center pt-16 pb-8 md:pt-12 md:pb-24 mx-auto"> <div class="py-6 lg:order-1 hidden lg:block"> <picture> <source srcset="/escola/_astro/bg.32985943_b7Bmn.svg 200w, /escola/_astro/bg.32985943_Zzjl3Y.svg 400w" type="image/svg" sizes="(max-width: 300) 90vw, 400px"> <img src="/escola/_astro/bg.32985943_Zzjl3Y.svg" srcset="/escola/_astro/bg.32985943_b7Bmn.svg 200w, /escola/_astro/bg.32985943_Zzjl3Y.svg 400w" alt="Logo de inverno" sizes="(max-width: 300) 90vw, 400px" loading="eager" width="340" height="443" decoding="async"> </picture> </div> <div> <h1 class="text-primary text-5xl lg:text-5xl xl:text-6xl font-extrabold lg:tracking-tight xl:tracking-tighter mb-4 uppercase text-center lg:text-left">
+Escola de Inverno
+</h1> <h2 class="text-secondary text-3xl lg:text-4xl lg:tracking-tight xl:tracking-tighter mb-1 uppercase text-center lg:text-left">
+IESP-UERJ
+</h2> <h4 class="text-[#444444] font-light text-lg lg:tracking-tight xl:tracking-tighter mb-10 text-center lg:text-left">
+9º edição, 1 a 12 de julho de 2023
+</h4> <p class="text-2xl font-light mb-8 max-w-xl text-[#333333] text-center lg:text-left">
+Amparados pela tradição de quatro décadas de excelência no ensino, oferecemos treinamento intensivo em teorias, conceitos e métodos de pesquisa em Ciências Sociais
+</p> <div class="mt-14 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"> <a href="/#fazemos" rel="noopener" class="rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2.5 bg-black text-white hover:bg-gray-800  border-2 border-transparent flex gap-1 rounded-sm border-primary hover:border-secondary">
+Saiba mais
+ </a> </div> </div> </section> <section id="fazemos" class="container content-center w-4/5 md:w-3/4 mx-auto"> <div class="mt-16 md:mt-2"> <h2 class="text-4xl lg:text-5xl text-primary font-bold lg:tracking-tight">
+O que fazemos?
+</h2> <p class="text-2xl mt-4 font-light text-[#333333]">
+A <span class="font-bold text-secondary">Escola de Inverno</span> é o braço de formação intensiva em métodos, conceitos e teorias sociais do <a href="#" target="_blank">IESP-UERJ</a>, centro de pesquisa pioneiro nas Ciências Sociais brasileiras. Nossa missão é elevar a qualidade produção e do consumo de pesquisa social para moldar o futuro do campo e do debate público no país.</p> </div> <div class="grid sm:grid-cols-2 mt-16 gap-8"> <div class="flex gap-4 items-start"> <div class="mt-1 bg-black rounded-full p-2 w-14 h-4 shrink-0"> <svg viewBox="0 0 24 24" class="text-primary" astro-icon="bx:bxs-briefcase"><path fill="currentColor" d="M20 6h-3V4c0-1.103-.897-2-2-2H9c-1.103 0-2 .897-2 2v2H4c-1.103 0-2 .897-2 2v3h20V8c0-1.103-.897-2-2-2zM9 4h6v2H9V4zm5 10h-4v-2H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-8v2z"/></svg> </div> <div> <h3 class="font-semibold text-2xl text-primary">Formação profissional</h3>  <p class="text-[#333333] font-light mt-2 text-xl leading-relaxed">Ofertamos cursos intensivos, com certificação, sobre diferentes ferramentas e habilidades valorizadas no mercado de trabalho, como programação em R e Python, ciência de dados e aprendizado de máquina, pesquisa de survey, métodos qualitativos de análise de dados, entre outros</p> </div> </div><div class="flex gap-4 items-start"> <div class="mt-1 bg-black rounded-full p-2 w-14 h-4 shrink-0"> <svg viewBox="0 0 24 24" class="text-primary" astro-icon="bx:bxs-book-open"><path fill="currentColor" d="M21 3h-7a2.98 2.98 0 0 0-2 .78A2.98 2.98 0 0 0 10 3H3a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h5.758a2.01 2.01 0 0 1 1.414.586l1.121 1.121c.009.009.021.012.03.021.086.08.182.15.294.196h.002a.996.996 0 0 0 .762 0h.002c.112-.046.208-.117.294-.196.009-.009.021-.012.03-.021l1.121-1.121A2.01 2.01 0 0 1 15.242 20H21a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zm-1 15h-4.758a4.03 4.03 0 0 0-2.242.689V6c0-.551.448-1 1-1h6v13z"/></svg> </div> <div> <h3 class="font-semibold text-2xl text-primary">Imersão teórica</h3>  <p class="text-[#333333] font-light mt-2 text-xl leading-relaxed">Por meio de workshops de dois dias de duração, ajudamos pessoas de diferentes áreas a adquirir conhecimento especializado sobre o estado da arte em Políticas Públicas, Teoria Política, Estudos Raciais e de Gênero, entre vários outros temas relevantes no mundo atual</p> </div> </div><div class="flex gap-4 items-start"> <div class="mt-1 bg-black rounded-full p-2 w-14 h-4 shrink-0"> <svg viewBox="0 0 24 24" class="text-primary" astro-icon="bx:bxs-user-voice"><path fill="currentColor" d="M8 12.052c1.995 0 3.5-1.505 3.5-3.5s-1.505-3.5-3.5-3.5-3.5 1.505-3.5 3.5 1.505 3.5 3.5 3.5zM9 13H7c-2.757 0-5 2.243-5 5v1h12v-1c0-2.757-2.243-5-5-5zm9.364-10.364L16.95 4.05C18.271 5.373 19 7.131 19 9s-.729 3.627-2.05 4.95l1.414 1.414C20.064 13.663 21 11.403 21 9s-.936-4.663-2.636-6.364z"/><path fill="currentColor" d="M15.535 5.464 14.121 6.88C14.688 7.445 15 8.198 15 9s-.312 1.555-.879 2.12l1.414 1.416C16.479 11.592 17 10.337 17 9s-.521-2.592-1.465-3.536z"/></svg> </div> <div> <h3 class="font-semibold text-2xl text-primary">Docentes</h3>  <p class="text-[#333333] font-light mt-2 text-xl leading-relaxed">Nossos professores e professoras são pesquisadores com ampla experiência em suas áreas de atuação, com formação em instituições de excelência no Brasil e no exterior, e com vasta produção acadêmica e profissional</p> </div> </div><div class="flex gap-4 items-start"> <div class="mt-1 bg-black rounded-full p-2 w-14 h-4 shrink-0"> <svg viewBox="0 0 24 24" class="text-primary" astro-icon="bx:bxs-award"><path fill="currentColor" d="M5 8.999a6.99 6.99 0 0 0 2.879 5.646l.001.001a6.972 6.972 0 0 0 1.881.979l.051.019a6.906 6.906 0 0 0 1.163.271 6.79 6.79 0 0 0 1.024.085H12c.35 0 .69-.034 1.027-.084l.182-.028c.336-.059.664-.139.981-.243l.042-.016C17 14.693 19 12.078 19 8.999 19 5.14 15.86 2 12 2S5 5.14 5 8.999zM12 4c2.756 0 5 2.242 5 4.999h-2A3.003 3.003 0 0 0 12 6V4zM7.521 16.795V22L12 20.5l4.479 1.5.001-5.205a8.932 8.932 0 0 1-8.959 0z"/></svg> </div> <div> <h3 class="font-semibold text-2xl text-primary">Inclusividade</h3>  <p class="text-[#333333] font-light mt-2 text-xl leading-relaxed">Seguindo a experiência pioneira da UERJ em ações afirmativas, destinamos 30% das nossas vagas para pessoas negras e/ou com deficiência, além de adotarmos formato 100% remoto ou híbrido nos nossos cursos, garantindo que sejam acessíveis a alunos e alunas de diferentes backgrounds e regiões do país</p> </div> </div><div class="flex gap-4 items-start"> <div class="mt-1 bg-black rounded-full p-2 w-14 h-4 shrink-0"> <svg viewBox="0 0 24 24" class="text-primary" astro-icon="bx:bxs-network-chart"><path fill="currentColor" d="M19.5 3A2.502 2.502 0 0 0 17 5.5c0 .357.078.696.214 1.005l-1.955 2.199A3.977 3.977 0 0 0 13 8c-.74 0-1.424.216-2.019.566L8.707 6.293l-.023.023C8.88 5.918 9 5.475 9 5a3 3 0 1 0-3 3c.475 0 .917-.12 1.316-.316l-.023.023L9.567 9.98A3.956 3.956 0 0 0 9 12c0 .997.38 1.899.985 2.601l-2.577 2.576A2.472 2.472 0 0 0 6.5 17C5.122 17 4 18.121 4 19.5S5.122 22 6.5 22 9 20.879 9 19.5c0-.321-.066-.626-.177-.909l2.838-2.838c.421.15.867.247 1.339.247 2.206 0 4-1.794 4-4 0-.636-.163-1.229-.428-1.764l2.117-2.383c.256.088.526.147.811.147C20.879 8 22 6.879 22 5.5S20.879 3 19.5 3zM13 14c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2z"/></svg> </div> <div> <h3 class="font-semibold text-2xl text-primary">Monitorias</h3>  <p class="text-[#333333] font-light mt-2 text-xl leading-relaxed">Nossos cursos formativos são acompanhados de monitorias e tutoriais nos contraturnos, que ajuda a praticar conteúdos e a desenvolver habilidades práticas, além de oferecer um espaço de troca e aprendizado entre estudantes</p> </div> </div> </div> </section> <section class="container content-center w-4/5 md:w-3/4 mx-auto"> <h2 class="text-4xl lg:text-5xl text-primary font-bold lg:tracking-tight mt-16 md:mt-20">
+Nossos cursos
+</h2> <p class="text-2xl mt-4 font-light text-[#333333]">
+Nesta 9º edição, a <span class="font-bold text-secondary">Escola</span> reforça sua marca ao oferecer dois grandes eixos de formação: workshops sobre teoria e conceitos. Confira alguns dos cursos que serão oferecidos este ano.</p> <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16"> <a href="/cursos/introducao-r" class="relative group"> <div class="w-60 h-60 bg-white rounded-lg shadow-lg overflow-hidden group-hover:shadow-xl transition-shadow duration-300 mx-auto"> <div class="absolute inset-0 flex flex-col items-center justify-center"> <p class="text-md mt-4 mb-2 w-1/2 text-center text-primary font-light"> Curso intensivo </p> <h3 class="text-2xl w-2/3 my-auto text-center text-primary font-bold group-hover:text-secondary transition-colors duration-300"> Introdução à Ciência de Dados em Python </h3> <p class="text-xl mt-4 mb-4 w-2/3 my-2 text-center text-primary font-light"> Matheus Pestana </p> </div> </div> </a><a href="/cursos/introducao-r" class="relative group"> <div class="w-60 h-60 bg-white rounded-lg shadow-lg overflow-hidden group-hover:shadow-xl transition-shadow duration-300 mx-auto"> <div class="absolute inset-0 flex flex-col items-center justify-center"> <p class="text-md mt-4 mb-2 w-1/2 text-center text-primary font-light"> Curso intensivo </p> <h3 class="text-2xl w-2/3 my-auto text-center text-primary font-bold group-hover:text-secondary transition-colors duration-300"> Introdução ao R </h3> <p class="text-xl mt-4 mb-4 w-2/3 my-2 text-center text-primary font-light"> Fernando Meireles </p> </div> </div> </a><a href="/cursos/introducao-r" class="relative group"> <div class="w-60 h-60 bg-white rounded-lg shadow-lg overflow-hidden group-hover:shadow-xl transition-shadow duration-300 mx-auto"> <div class="absolute inset-0 flex flex-col items-center justify-center"> <p class="text-md mt-4 mb-2 w-1/2 text-center text-primary font-light"> Workshop </p> <h3 class="text-2xl w-2/3 my-auto text-center text-primary font-bold group-hover:text-secondary transition-colors duration-300"> Políticas Públicas </h3> <p class="text-xl mt-4 mb-4 w-2/3 my-2 text-center text-primary font-light"> Argelina Figueiredo e Celina Souza </p> </div> </div> </a><a href="/cursos/introducao-r" class="relative group"> <div class="w-60 h-60 bg-white rounded-lg shadow-lg overflow-hidden group-hover:shadow-xl transition-shadow duration-300 mx-auto"> <div class="absolute inset-0 flex flex-col items-center justify-center"> <p class="text-md mt-4 mb-2 w-1/2 text-center text-primary font-light"> Curso intensivo </p> <h3 class="text-2xl w-2/3 my-auto text-center text-primary font-bold group-hover:text-secondary transition-colors duration-300"> Text Mining </h3> <p class="text-xl mt-4 mb-4 w-2/3 my-2 text-center text-primary font-light"> Fernando Meireles </p> </div> </div> </a><a href="/cursos/introducao-r" class="relative group"> <div class="w-60 h-60 bg-white rounded-lg shadow-lg overflow-hidden group-hover:shadow-xl transition-shadow duration-300 mx-auto"> <div class="absolute inset-0 flex flex-col items-center justify-center"> <p class="text-md mt-4 mb-2 w-1/2 text-center text-primary font-light"> Curso intensivo </p> <h3 class="text-2xl w-2/3 my-auto text-center text-primary font-bold group-hover:text-secondary transition-colors duration-300"> Entrevista e Trabalho de Campo </h3> <p class="text-xl mt-4 mb-4 w-2/3 my-2 text-center text-primary font-light"> A Definir </p> </div> </div> </a><a href="/cursos/introducao-r" class="relative group"> <div class="w-60 h-60 bg-white rounded-lg shadow-lg overflow-hidden group-hover:shadow-xl transition-shadow duration-300 mx-auto"> <div class="absolute inset-0 flex flex-col items-center justify-center"> <p class="text-md mt-4 mb-2 w-1/2 text-center text-primary font-light"> Workshop </p> <h3 class="text-2xl w-2/3 my-auto text-center text-primary font-bold group-hover:text-secondary transition-colors duration-300"> Escrita acadêmica </h3> <p class="text-xl mt-4 mb-4 w-2/3 my-2 text-center text-primary font-light"> A definir </p> </div> </div> </a> </div> <div class="mt-14 flex flex-col sm:flex-row gap-3 justify-center"> <a href="/cursos" rel="noopener" class="rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2.5 bg-black text-white hover:bg-gray-800  border-2 border-transparent flex gap-1 rounded-sm border-primary hover:border-secondary">
+Veja mais cursos
+ </a> </div> </section> <section id="sobre" class="container w-5/6 md:w-4/5 mx-auto py-20"> <h2 class="text-4xl lg:text-5xl text-primary font-bold lg:tracking-tight sm:mb-8 mx-auto">Nossa história</h2> <div class="flex flex-col lg:flex-row-reverse"> <div class="inset-0 lg:w-1/2 pl-4 mb-8 lg:mb-0 rounded-lg overflow-hidden my-4 drop-shadow-xl"> <picture> <source srcset="https://espec.iesp.uerj.br/wp-content/uploads/2017/10/fachada.jpg 200w, https://espec.iesp.uerj.br/wp-content/uploads/2017/10/fachada.jpg 600w" type="image/webp" sizes="(max-width: 600px) 100vw, 550px"> <img src="https://espec.iesp.uerj.br/wp-content/uploads/2017/10/fachada.jpg" srcset="https://espec.iesp.uerj.br/wp-content/uploads/2017/10/fachada.jpg 200w, https://espec.iesp.uerj.br/wp-content/uploads/2017/10/fachada.jpg 600w" alt="Fachada do IESP-UERJ" class="mx-auto rounded-xl drop-shadow-xl" sizes="(max-width: 600px) 100vw, 550px" loading="eager" width="550" height="380" decoding="async"> </picture> </div> <div class="lg:w-1/2 my-auto"> <p class="text-2xl font-light text-[#333333] my-0">A <span class="font-bold text-secondary">Escola de Inverno</span> é realizada pelo <a class="text-[#9e7a22]" href="https://iesp.uerj.br/" target="_blank">Instituto de Estudos Sociais e Políticos (IESP)</a> da UERJ, um centro de excelência em pesquisa e ensino de pós-graduação em Ciência Política e Sociologia, sucessor do antigo IUPERJ e reconhecido em toda a América Latina. O <a class="text-[#9e7a22]" href="https://iesp.uerj.br/" target="_blank">IESP-UERJ</a> foi pioneiro no Brasil ao oferecer, em 1969, o primeiro mestrado em Ciência Política e, desde então, formou gerações de cientistas sociais que atuam em universidades, instituições governamentais e privadas no Brasil e no exterior.</p> </div> </div> </section> <section id="sobre2" class="container w-5/6 md:w-4/5 mx-auto py-20"> <div class="flex flex-col lg:flex-row"> <div class="inset-0 lg:w-1/2 mb-8 lg:mb-0 rounded-xl overflow-hidden my-0 drop-shadow-lg"> <picture> <source srcset="https://iesp.uerj.br/wp-content/uploads/2023/09/151-_MG_1447-683x1024.jpg 200w, https://iesp.uerj.br/wp-content/uploads/2023/09/151-_MG_1447-683x1024.jpg 400w" type="image/webp" sizes="(max-width: 400) 100vw, 400px"> <img src="https://iesp.uerj.br/wp-content/uploads/2023/09/151-_MG_1447-683x1024.jpg" srcset="https://iesp.uerj.br/wp-content/uploads/2023/09/151-_MG_1447-683x1024.jpg 200w, https://iesp.uerj.br/wp-content/uploads/2023/09/151-_MG_1447-683x1024.jpg 400w" alt="Biblioteca do IESP-UERJ" class="mx-auto rounded-xl drop-shadow-lg" sizes="(max-width: 400) 100vw, 400px" loading="eager" width="400" height="400" decoding="async"> </picture> </div> <div class="lg:w-1/2 my-0 text-left"> <p class="text-2xl mt-4 font-light text-[#333333]">Neste ano, <span class="font-bold text-secondary">Escola de Inverno</span> chega à sua nona edição. Voltada inicialmente para o ensino de técnicas quantitativas e qualitativas, atualmente a <span class="font-bold text-secondary">Escola</span> também oferta treinamento em temas substantivos nos quais o <a class="text-[#9e7a22]" href="https://iesp.uerj.br/" target="_blank">IESP-UERJ</a> é referência. Desde 2022, também ampliamos a oferta de cursos e de vagas disponíveis, o que nos permitiu, na última edição, atrair alunos e alunas de diferentes instituições e especialidades. </p> </div> </div> </section> <div class="bg-primary p-8 md:px-20 md:py-20 mt-20 mx-auto max-w-5xl rounded-lg flex flex-col items-center text-center"> <h2 class="text-white2 text-4xl md:text-6xl tracking-tight mb-6">
+Inscrições abertas só até 21/6!
+</h2> <p class="text-gray2 mt-4 text-lg md:text-xl w-4/5">
+Garanta sua vaga nos cursos e <span class="font-italic">workshops</span> da 9º Edição da Escola de Inverno do IESP-UERJ. Vagas são limitadas pelo tamanho máximo das turmas.
+</p> <div class="flex text-primary font-bold mt-14 gap-1 items-center justify-center rounded-md bg-white2"> <a href="#" class="rounded text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200 px-5 py-2.5 bg-black text-white hover:bg-gray-800  border-2 border-transparent">Inscreva-se já! </a> </div> </div>  </div>  <footer class="my-20"> <p class="text-center text-sm text-[#444444]">
+© 2024 IESP-UERJ.
+</p>  </footer>  </body> </html>

@@ -1,4 +1,0 @@
-User-agent: *
-Disallow:
-
-Sitemap: https://fmeireles.com/sitemap-index.xml

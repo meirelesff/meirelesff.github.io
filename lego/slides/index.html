@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>9. Distribuições de probabilidade</title>
+    <title>10. Testes de hipótese</title>
     <meta charset="utf-8" />
     <meta name="author" content="Fernando Meireles" />
     <script src="slides_files/header-attrs-2.23/header-attrs.js"></script>
@@ -15,7 +15,7 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# 9. Distribuições de probabilidade
+# 10. Testes de hipótese
 ]
 .author[
 ### Fernando Meireles
@@ -29,38 +29,31 @@ class: center, middle, inverse, title-slide
 
 
 
+# Modelando o mundo
 
-# O que aprendemos até aqui?
+Na última aula, vimos um jeito diferente de pensar sobre como o mundo funciona: como .texto2[distribuições de probabilidade] que geram os dados que observamos
 
 .pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Estatística descritiva] serve para resumir variáveis
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[TCL e LGN] nos dão as bases para fazer inferência
-
-.font90[
-- .texto2[LGN]: estimativas de uma amostra convergem para os parâmetros populacionais quando `\(n \to \infty\)`
-
-- .texto2[TCL]: a distribuição amostral da média é aproximadamente normal, mesmo que a população não seja
-]
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto[Resumo:] O mundo é incerto e permeado de aleatoriedade
 ]
 
 .pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Inferência randomizada] ajuda a entender a incerteza
-
-.font90[
-- .texto2[Distribuição nula]: o que esperamos se `\(H_0\)` for verdade
-
-- .texto2[P-valor]: qual é a probabilidade de observar o que observamos se `\(H_0\)` for verdade?
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Apesar de cada fenômeno ser único, suas distribuições seguem .texto2[parâmetros que podemos estimar] ou *modelar* por meio de funções
 ]
-]
+
 
 
 ---
-# Hoje
+# O que faremos hoje?
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Estudaremos como usar uma amostra para inferir sobre populações ou sobre o mundo *quantificando a nossa incerteza sobre a amostra*
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Veremos que, no fundo, todo o teste de hipótese é um teste .texto2[sobre o tipo de distribuição que gerou os dados que temos]
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Por fim, veremos o que é probabilidade
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Revisaremos distribuições de probabilidade
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Estudaremos estatísticas estandardizadas
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; ...e a história de como a cervejaria *Guinness* ajudou indiretamente a criar um dos testes estatísticos mais usados no mundo
+
 
 
 
@@ -80,765 +73,979 @@ Onde estamos:
 ---
 class: inverse, mline, middle, center
 background-color: #8f2a43
-# Quantificação de incerteza
+# Distribuições de probabilidade
 
 
 
 ---
-# O problema da amostra única
+# Recapitulação
 
+.texto2[Funções de densidade/massa de probabilidade] são uma maneira de descrever como um fenômeno se comporta teórica e probabilísticamente
 
+.pull-left[
+`\(Binomial(n=10, p=0.5)\)`
 
-
-Imagine o seguinte cenário: temos uma amostra de 800 pessoas que estudam na UERJ. Estimamos, com base nisso, que a idade média dos estudantes é de `25.02` anos, desvio-padrão de `1.96` anos.
-
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Mas e se tivéssemos outra amostra? A média seria a mesma?
+Onde `\(n\)` é o número de tentativas e `\(p\)` é a probabilidade de sucesso em cada uma
 ]
 
-.pull-right2[
+.pull-right[
+&lt;img src="slides_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Recapitulação
+
+.texto2[Funções de densidade/massa de probabilidade] são uma maneira de descrever como um fenômeno se comporta teórica e probabilísticamente
+
+.pull-left[
+`\(N(\mu=100, \sigma=10)\)`
+
+Onde `\(\mu\)` é a média e `\(\sigma\)` é desvio padrão
+]
+
+.pull-right[
 &lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 
 ---
-# O problema da amostra única
+# Sorteios
 
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
 
-
-
-Um outro cenário: temos nova amostra de 800 pessoas que estudam na UERJ. Estimamos, com base nisso, que a idade média dos estudantes é de `24.98` anos, desvio-padrão de `1.98` anos.
+.pull-left2[
+$$
+N(\mu=100, \sigma=10)
+$$
+]
 
 .pull-right2[
+
+
+```r
+rnorm(3, mean = 100, sd = 10)
+```
+
+```
+## [1]  94.39524  97.69823 115.58708
+```
+]
+
+
+---
+count:false
+# Sorteios
+
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
+
+.pull-left2[
+$$
+N(\mu=100, \sigma=10)
+$$
+]
+
+.pull-right2[
+
 &lt;img src="slides_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
-.pull-left2[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Mas e se tivéssemos outra amostra? A média seria a mesma? .texto2[Não seria.]
-]
-
-
-
----
-# *Bootstrap*
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A ideia é a seguinte: tratamos a nossa *amostra* como se ela fosse a *população* e reamostramos dela várias vezes
-
-.pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Intuição]: a melhor evidência que temos sobre a população é a nossa própria amostra
-
-.font90[
-- .texto2[Reamostragem com reposição]: pegamos uma observação, anotamos, devolvemos e pegamos outra; uma mesma pessoa pode ser sorteada várias vezes
-]
-]
-
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Com isso, podemos ter uma ideia de como a média variaria se pudéssemos ter várias amostras
-]
-
-
-
----
-# *Bootstrap*: um exemplo
-
-Sorteamos com reposição novas `800` pessoas da nossa amostra de estudantes da UERJ. Uma amostra possível:
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
-
 
 ---
 count:false
-# *Bootstrap*: um exemplo
+# Sorteios
 
-Sorteamos com reposição novas `800` pessoas da nossa amostra de estudantes da UERJ. Outra amostra possível:
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
----
-count:false
-# *Bootstrap*: um exemplo
-
-Sorteamos com reposição novas `800` pessoas da nossa amostra de estudantes da UERJ. Mais uma amostra possível:
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Distribuição amostral
-
-Com *bootstrap*, geramos uma distribuição de estatísticas da nossa amostra
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
 
 .pull-left2[
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A .texto2[distribuição amostral] é a distribuição de estatísticas de uma amostra, como a média, se repetirmos o processo de amostragem várias vezes
-]
+$$
+N(\mu=100, \sigma=10)
+$$
 ]
 
 .pull-right2[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Sorteios
+
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
+
+.pull-left2[
+$$
+N(\mu=100, \sigma=10)
+$$
+]
+
+.pull-right2[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Sorteios
+
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
+
+.pull-left2[
+$$
+N(\mu=100, \sigma=10)
+$$
+]
+
+.pull-right2[
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Sorteios
+
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
+
+.pull-left2[
+$$
+N(\mu=100, \sigma=10)
+$$
+]
+
+.pull-right2[
+
 &lt;img src="slides_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 
 
-
 ---
 count:false
-# Distribuição amostral
+# Sorteios
 
-Com *bootstrap*, geramos uma distribuição de estatísticas da nossa amostra
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
 
 .pull-left2[
-.font90[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Estimativas variam entre `24.8` e `25.25`, e a maioria está bem próxima da média original
-]
+$$
+N(\mu=100, \sigma=10)
+$$
 ]
 
 .pull-right2[
+
 &lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
 
 
+
 ---
 count:false
-# Intervalo de confiança
+# Sorteios
 
-No exemplo anterior, a área cinza é o nosso .texto2[intervalo de confiança], i.e. a faixa que acreditamos conter a média populacional 95% das vezes caso repetíssemos a amostragem
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
 
-.alert[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#777777;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; IC indica a incerteza da nossa estimativa, o quão errados podemos estar em função da variabilidade da amostra]
+.pull-left2[
+`\(Binom(n=8, p=0.7)\)`
+]
 
-`\(\rightsquigarrow\)` Dizendo de outra maneira, se tivéssemos coletado outra amostra de 800 estudantes da UERJ, há 95% de chance da média desta outra amostra estar dentro do intervalo `24.84, 25.12`
-
-
----
-# Teste I
-
-&gt; Voltando ao nosso exercício de *bootstrap*, como você obteria os ICs máximo e mínimo do gráfico abaixo (i.e., as margens de erro)?
-
+.pull-right2[
 &lt;img src="slides_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-count:false
-# Teste I
-
-&gt; Voltando ao nosso exercício de *bootstrap*, como você obteria os ICs máximo e mínimo do gráfico abaixo (i.e., as margens de erro)?
-
-.texto[R:] Os ICs são os percentis 2.5 e 97.5 da distribuição das médias, que podem ser calculados com a função `quantile`
-
-
-```r
-quantile(medias, c(0.025, 0.975))
-```
-
-```
-##     2.5%    97.5% 
-## 24.84250 25.12013
-```
-
-
-
-
-
----
-class: inverse, mline, middle, center
-background-color: #8f2a43
-# Probabilidade
-
-
-
----
-# Probabilidade
-
-.pull-left[
-.texto[Um resumo:]
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Probabilidade conecta nossas teorias e hipóteses quantitavas ao mundo empírico
-]
-
-.pull-right[
-.font90[
-- Definimos .texto2[variáveis aleatórias], com diferentes distribuições, para representar vários tipos de fenômenos
-
-- Usamos essas distribuições para formalizar como acreditamos que o mundo funciona, distinguindo entre partes sistemáticas (fixas) e partes aleatórias (estocásticas)
-]
 ]
 
 
----
-# Probabilidade como funções
-
-Distribuições de probabilidade são funções que descrevem a probabilidade de cada valor possível de uma variável aleatória
-
-
-.pull-left[
-.texto2[Notação]
-.font90[
-- `\(X\)` é a variável aleatória
-
-- `\(P(X = x)\)` é a probabilidade de `\(X\)` assumir o valor `\(x\)`
-
-- `\(f(x)\)` é a função de densidade/massa de probabilidade (PDF ou PMF) de `\(X\)`
-]
-]
-
-
-.pull-right[
-Isso significa que probabilidade é uma função que *mapeia valores possíveis de uma variável aleatória para a probabilidade de cada valor ocorrer*
-]
 
 
 ---
 count:false
-# Probabilidade como funções
+# Sorteios
 
-Um exemplo: posso definir uma variável aleatória binária que assume o valor de `\(1\)` pessoas com emprego e `\(0\)` pessoas sem emprego
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
 
-.pull-left[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `\(P(X = 1)\)` é a probabilidade de uma pessoa ter emprego, e `\(P(X = 0)\)` é a probabilidade de uma pessoa não ter emprego
-
-- Podemos atribuir valores a essas probabilidades, como `\(P(X = 1) = 0.6\)` e `\(P(X = 0) = 0.4\)`
+.pull-left2[
+`\(Binom(n=8, p=0.7)\)`
 ]
 
-.pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A função de probabilidade é a função que mapeia esses valores, i.e. 
-
-$$
-\begin{equation}
-f(x) = \begin{cases}
-0.6 &amp; \text{se } x = 1\\\
-0.4 &amp; \text{se } x = 0
-\end{cases}
-\end{equation}
-$$
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-12-1.svg" style="display: block; margin: auto;" /&gt;
 ]
+
+
 
 
 ---
 count:false
-# Probabilidade como funções
+# Sorteios
 
-Uma vantagem de ter funções que retornam probabilidades para cada evento possível de uma variável aleatória é poder fazer gráficos
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
 
-.pull-left[
+.pull-left2[
+`\(Binom(n=8, p=0.7)\)`
+]
+
+.pull-right2[
 &lt;img src="slides_files/figure-html/unnamed-chunk-13-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
-.pull-right[
-.texto2[Variável binária]
-`\(P(X = 1) = 0.6\)` e `\(P(X = 0) = 0.4\)`
-]
 
 
 
 ---
 count:false
-# Probabilidade como funções
+# Sorteios
 
-Uma vantagem de ter funções que retornam probabilidades para cada evento possível de uma variável aleatória é poder fazer gráficos
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
 
-.pull-left[
+.pull-left2[
+`\(Binom(n=8, p=0.7)\)`
+]
+
+.pull-right2[
 &lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
-.pull-right[
-.texto2[Variável binária]
-`\(P(X = 1) = 0.5\)` e `\(P(X = 0) = 0.5\)`
-]
-
 
 
 
 ---
 count:false
-# Probabilidade como funções
+# Sorteios
 
-Uma vantagem de ter funções que retornam probabilidades para cada evento possível de uma variável aleatória é poder fazer gráficos
+Tendo definido um .texto2[PGD], podemos gerar amostras de acordo com essa distribuição:
 
-.pull-left[
+.pull-left2[
+`\(Binom(n=8, p=0.7)\)`
+]
+
+.pull-right2[
 &lt;img src="slides_files/figure-html/unnamed-chunk-15-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
+
+
+
+---
+# Funções
+
+.texto2[Funções de densidade/massa de probabilidade] são fórmulas. A função da distribuição binomial, por exemplo, é:
+
+.pull-left[
+$$
+f(x) = \binom{n}{xk} p^k (1-p)^{n-k}
+$$
+
+.font90[
+onde `\(\binom{n}{k}\)` é o número de formas de obter `\(k\)` sucessos em `\(n\)` tentativas
+]
+]
+
+
 .pull-right[
-.texto2[Variável binária]
-`\(P(X = 1) = 0.2\)` e `\(P(X = 0) = 0.8\)`
+.texto[Exemplo]
+
+- `\(Bin(k=3, n = 8, p=0.7)\)`
+
+
+```r
+choose(8, 3) * 0.7^3 * 0.3^5
+```
+
+```
+## [1] 0.04667544
+```
+
+```r
+dbinom(3, size = 8, prob = 0.7)
+```
+
+```
+## [1] 0.04667544
+```
 ]
-
-
-
----
-# Simulação
-
-Com uma função de probabilidade, podemos simular sorteios, ou realizações, da variável aleatória
-
-
-.pull-left2[
-.texto2[Função]
-
-$$
-\begin{equation}
-f(x) = \begin{cases}
-0.5 &amp; \text{se } x = 1\\\
-0.5 &amp; \text{se } x = 0
-\end{cases}
-\end{equation}
-$$
-
-`\(n = 20\)`
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-16-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
 
 
 
 ---
 count:false
-# Simulação
+# Funções
 
-Com uma função de probabilidade, podemos simular sorteios, ou realizações, da variável aleatória
+Vale notar que, para a distribuição normal, a equação retorna outra coisa:
 
-
-.pull-left2[
-.texto2[Função]
-
+.pull-left[
 $$
-\begin{equation}
-f(x) = \begin{cases}
-0.5 &amp; \text{se } x = 1\\\
-0.5 &amp; \text{se } x = 0
-\end{cases}
-\end{equation}
+f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
 $$
 
-`\(n = 100\)`
+.font90[
+.alert[&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#777777;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; A PDF da normal retorna a densidade de prob., não a prob. de um valor exato ocorrer]
+]
 ]
 
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-17-1.svg" style="display: block; margin: auto;" /&gt;
+.pull-right[
+.texto[Exemplo]
+
+- `\(N(\mu=100, \sigma=10)\)`
+
+
+```r
+dnorm(100, mean = 100, sd = 10)
+```
+
+```
+## [1] 0.03989423
+```
 ]
-
-
 
 
 ---
-count:false
-# Simulação
+# Função cumulativa (CDF)
 
-Com uma função de probabilidade, podemos simular sorteios, ou realizações, da variável aleatória
+Para a distribuição normal, precisamos calcular a probabilidade de `\(X\)` ser menor ou igual/maior que um valor `\(x\)`:
 
-
-.pull-left2[
-.texto2[Função]
-
-$$
-\begin{equation}
-f(x) = \begin{cases}
-0.5 &amp; \text{se } x = 1\\\
-0.5 &amp; \text{se } x = 0
-\end{cases}
-\end{equation}
-$$
-
-`\(n = 1000\)`
-]
-
-.pull-right2[
+.pull-left[
 &lt;img src="slides_files/figure-html/unnamed-chunk-18-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
-
----
-# PGD
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A função de probabilidade é a base para criar teorias e hipóteses quantitativas sobre como o mundo funciona
-
-.pull-left[
-- Temos liberdade para definir variáveis aleatórias e suas distribuições como quisermos
-
-- Podemos, por exemplo, definir variáveis que representam lançamento de dados, resultados eleitorais, renda, etc.
-]
-
-
 .pull-right[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Até aqui, tratamos o mundo como *população*, mas em muitos casos é útil pensar como o .texto2[Processo Gerador de Dados (PGD)] que produz os dados que temos
-]
-
-
-
----
-# Inferência e probabilidade
-
-Com probabilidade, formalizamos nossa incerteza sobre como o mundo produz dados, o que nos permite justamente fazer e avaliar inferências
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-19-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Teste II
+.texto[Exemplo]
 
 .font90[
-&gt; Veja o gráfico abaixo que ilustra alturas humanas. Qual é a probabilidade de alguém ter exatamente a altura indicada pela linha tracejada?
+- Qual é a prob. de obter um valor menor que 100 da distribuição `\(N(\mu=100, \sigma=10)\)`?
+
+
+```r
+pnorm(100, mean = 100, sd = 10)
+```
+
+```
+## [1] 0.5
+```
+]
 ]
 
+
+
+
+---
+count:false
+# Função cumulativa (CDF)
+
+Para a distribuição normal, precisamos calcular a probabilidade de `\(X\)` ser menor ou igual/maior que um valor `\(x\)`:
+
+.pull-left[
 &lt;img src="slides_files/figure-html/unnamed-chunk-20-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.texto[Exemplo]
+
+.font90[
+- Qual é a prob. de obter um valor menor que 120 da distribuição `\(N(\mu=100, \sigma=10)\)`?
+
+
+```r
+pnorm(120, mean = 100, sd = 10)
+```
+
+```
+## [1] 0.9772499
+```
+]
+]
+
+
+
+
+---
+count:false
+# Função cumulativa (CDF)
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; E se quisermos saber a prob. de um valor estar em um intervalo qualquer (e.g., 100 e 120)?
 
 --
 
-.texto[R:] Zero.
-
-
-
-
----
-class: inverse, mline, middle, center
-background-color: #8f2a43
-# Distribuições
-
-
-
-
----
-# Axiomas
-
-Probabilidade é algo definido, convencionado, que possui três regras básicas:
-
-1. `\(P(x) \geq 0\)` para todo evento `\(x\)`
-
-2. `\(P(\Omega) = 1\)`, onde `\(\Omega\)` é o espaço amostral
-
-3. Se `\(x_1\)` e `\(x_2\)` são eventos mutuamente exclusivos, então `\(P(x_1 \cup x_2 \cup) = P(x_1) + P(x_2)\)`
-
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em palavras, probabilidades não devem ser negativas valores diferentes de 1, e cada evento possível deve ter uma probabilidade associada exclusiva
-
-
----
-# PMF e PDF
-
-Variáveis discretas e contínuas têm funções de prob. diferentes
-
 .pull-left[
-.texto2[PMF]
-
-.font90[
-Quanto temos eventos discretos (e.g., lançamento de moeda ou dado), usamos a .texto2[função de massa de probabilidade (*PMF*)]. Exemplos comuns:
-
-- .texto2[Binomial]: número de sucessos em `\(n\)` tentativas
-- .texto2[Bernoulli]: prob. de sucesso ou fracasso
-]
-]
-
-.pull-right[
-.texto2[PDF]
-
-.font90[
-Quando temos eventos contínuos (e.g., altura, peso, tempo), usamos a .texto2[função de densidade de probabilidade (*PDF*)]. Exemplos:
-
-- .texto2[Normal]: distribuição simétrica
-- .texto2[Uniforme]: todos os valores são igualmente prováveis
-]
-]
-
-
----
-# Exemplos
-
-Duas distruições mais comuns: .texto2[binomial] e .texto2[normal]
-
-&lt;img src="slides_files/figure-html/unnamed-chunk-21-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-# Binomial
-
-A distribuição .texto2[binomial] é usada para modelar o número de sucessos em `\(n\)` tentativas independentes, onde cada tentativa tem a mesma probabilidade de sucesso `\(p\)` e fracasso `\(1 - p\)`. O exemplo típico é: qual a probabilidade de obter `\(k\)` caras em `\(n\)` lançamentos de uma moeda?
-
-.pull-left[
-.texto2[Notação]
-
-.font90[
-- `\(k\)` é o número de sucessos
-
-- `\(n\)` é o número de tentativas
-
-- `\(p\)` é a probabilidade de sucesso em cada tentativa
-]
-]
-
-.pull-right[
-.texto2[Parâmetros]
-
-Algumas distribuições têm parâmetros que definem a forma da distribuição; no caso da binomial, são `\(n\)` e `\(p\)` definem a forma da distribuição
-]
-
-
----
-# Sorteando da binomial
-
-Qual é a probabilidade de termos 3 caras em 5 lançamentos de moeda?
-
-.pull-left2[
-.texto2[Exemplo]
-
-.font90[
-- `\(n = 5\)`
-- `\(p = 0.5\)`
-]
-]
-
-
-.pull-right2[
 &lt;img src="slides_files/figure-html/unnamed-chunk-22-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
-
-
-
----
-count:false
-# Sorteando da binomial
-
-Frequentemente usamos `\(Binomial(\cdot)\)` para indicar sorteios da binomial
-
-.pull-left2[
-.texto2[Exemplo]
-
-.font80[
-`\(Binomial(n=10, p=0.5)\)`
-]
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-23-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
----
-count:false
-# Sorteando da binomial
-
-Frequentemente usamos `\(Binomial(\cdot)\)` para indicar sorteios da binomial
-
-.pull-left2[
-.texto2[Exemplo]
-
-.font80[
-`\(Binomial(n=10, p=0.8)\)`
-]
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-24-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
-
----
-count:false
-# Sorteando da binomial
-
-Frequentemente usamos `\(Binomial(\cdot)\)` para indicar sorteios da binomial
-
-.pull-left2[
-.texto2[Exemplo]
-
-.font80[
-`\(Binomial(n=10, p=0.1)\)`
-]
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
----
-# Distribuição normal
-
-A distribuição .texto2[normal] é conhecida: é simétrica, com a média no centro e uma cauda longa (e comum quando calculamos a distribuição amostral da média)
-
-.pull-left[
-.texto2[Notação]
-
-.font80[
-- `\(\mu\)` é a média
-- `\(\sigma\)` é o desvio-padrão
-]
-]
-
 .pull-right[
-.texto2[Parâmetros]
 
-.font90[
-- `\(\mu\)` define a localização da distribuição
-- `\(\sigma\)` define a dispersão
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Qual é a prob. de obter um valor entre 100 e 120 da distribuição `\(N(\mu=100, \sigma=10)\)`?
+
+.font85[
+
+```r
+pnorm(120, 100, 10) - 
+pnorm(100, 100, 10)
+```
+
+```
+## [1] 0.4772499
+```
 ]
 ]
 
 
 ---
-# Sorteando da normal
+count:false
+# Função cumulativa  (CDF)
 
-Qual é a probabilidade de termos uma altura entre 170 e 180 cm, com média de 170 cm e desvio-padrão de 10 cm?
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A função cumulativa, na verdade, é geralmente representada por uma curva que mostra prob. acumulada 
 
-.pull-left2[
-.texto2[Exemplo]
+&lt;img src="slides_files/figure-html/unnamed-chunk-24-1.svg" style="display: block; margin: auto;" /&gt;
 
-.font90[
-- `\(\mu = 170\)`
-- `\(\sigma = 10\)`
-]
-]
 
-.pull-right2[
+
+---
+count:false
+# Função cumulativa  (CDF)
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Prob. de obtermos um valor menor que 100 da distribuição `\(N(\mu=100, \sigma=10)\)`?
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-25-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# Função cumulativa  (CDF)
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Prob. de obtermos um valor menor que 90 da distribuição `\(N(\mu=100, \sigma=10)\)`?
+
 &lt;img src="slides_files/figure-html/unnamed-chunk-26-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
-
----
-count:false
-# Sorteando da normal
-
-É comum expressar sorteios da normal como `\(N(\cdot)\)`
-
-.pull-left2[
-.texto2[Exemplo]
-
-.font90[
-- `\(N(\mu=0, \sigma=1)\)`
-]
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-27-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
-
-
----
-count:false
-# Sorteando da normal
-
-É comum expressar sorteios da normal como `\(N(\cdot)\)`
-
-.pull-left2[
-.texto2[Exemplo]
-
-.font90[
-- `\(N(\mu=0, \sigma=5)\)`
-]
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-28-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
-
----
-count:false
-# Sorteando da normal
-
-É comum expressar sorteios da normal como `\(N(\cdot)\)`
-
-.pull-left2[
-.texto2[Exemplo]
-
-.font90[
-- `\(N(\mu=5, \sigma=5)\)`
-]
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-29-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-
-
-
----
-count:false
-# Sorteando da normal
-
-É comum expressar sorteios da normal como `\(N(\cdot)\)`
-
-.pull-left2[
-.texto2[Exemplo]
-
-.font90[
-- `\(N(\mu=0, \sigma=8)\)`
-]
-]
-
-.pull-right2[
-&lt;img src="slides_files/figure-html/unnamed-chunk-30-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
 
 
 ---
 # Usos
 
-Distribuições de probabilidade são a base para muitas técnicas estatísticas
+Comparando qualquer valor com uma distribuição, podemos *saber o quão provável é observá-lo sob diferentes cenários*:
 
 .pull-left[
-.texto2[Inferência]
+.texto[Exemplo]
 
 .font90[
-- .texto2[Intervalos de confiança]: estimar parâmetros populacionais
-- .texto2[Testes de hipóteses]: testar hipóteses sobre parâmetros
+Amostramos 100 pessoas. Assumindo que 26% das pessoas na população se autodeclaram negras, quão provável é acabarmos com uma amostra com .texto2[20 ou menos pessoas negras]?
 ]
 ]
-
 
 .pull-right[
-.texto2[Modelagem]
+.texto[Prob. cumulativa]
+
+
+```r
+pbinom(20, 100, 0.26)
+```
+
+```
+## [1] 0.1027043
+```
+]
+
+
+
+---
+count:false
+# Usos
+
+Comparando qualquer valor com uma distribuição, podemos *saber o quão provável é observá-lo sob diferentes cenários*:
+
+.pull-left[
+.texto[Exemplo]
 
 .font90[
-- .texto2[Regressão]: especificar modelos
-- .texto2[Análise de sobrevivência]: tempo até um evento
+Amostramos 100 pessoas. Assumindo que 26% das pessoas na população se autodeclaram negras, quão provável é acabarmos com uma amostra com .texto2[8 ou menos pessoas negras]?
 ]
 ]
+
+.pull-right[
+.texto[Prob. cumulativa]
+
+
+```r
+pbinom(8, 100, 0.26)
+```
+
+```
+## [1] 4.734795e-06
+```
+]
+
+
+
+---
+count:false
+# Usos
+
+De forma geral, podemos usar distribuições para testar diferentes tipos de hipóteses:
+
+.font90[
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A avaliação do governo é maior do que 50%?
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Há diferença salarial entre homens e mulheres?
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Qual é a prob. de termos um Congresso tão masculino em relação à população?
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Políticas de mobilidade urbana reduzem criminalidade?
+]
+]
+
+
+---
+# Teste I
+
+&gt; O que o seguinte código faz?
+
+&lt;br&gt;
+
+
+```r
+dbinom(4, size = 8, prob = 0.5)
+```
+
+--
+
+
+```
+## [1] 0.2734375
+```
+
+.texto[R:] ele usa a função de probabilidade de massa da distribuição binomial para calcular a probabilidade de obtermos 4 sucessos em 8 tentativas com `\(p=0.5\)`
+
+
+---
+# Teste II
+
+&gt; O que o seguinte código faz?
+
+&lt;br&gt;
+
+
+```r
+dbinom(1, size = 8, prob = 0.5) +
+dbinom(2, size = 8, prob = 0.5)
+```
+
+--
+
+
+```
+## [1] 0.140625
+```
+
+.texto[R:] soma a prob. de obtermos 1 sucesso com a probabilidade de obtermos 2 sucessos em 8 tentativas com `\(p=0.5\)`
+
 
 
 ---
 # Teste III
 
-&gt; Qual distribuição produziu essa variável?
+&gt; O que o seguinte código faz?
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-31-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+
+
+```r
+pbinom(3, size = 8, prob = 0.5)
+```
 
 --
 
-.texto[R:] `\(Binomial(n=5, p=0.3)\)` 
+
+```
+## [1] 0.3632813
+```
+
+.texto[R:] calcula a probabilidade de obtermos 3 ou menos sucessos em 8 tentativas com `\(p=0.5\)`
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+# Testes de hipótese
+
+
+---
+# Resumo do que vimos
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Um teste de hipótese é sempre um *teste sobre o tipo de PGD que gerou nossos dados*
+
+.pull-left[
+
+.font90[
+- Assumimos que conhecemos o .texto2[PGD]
+
+- Usamos prob. para ver quais tipos de dados deveríamos observar nesse cenário
+
+- Comparamos nossos dados com esse cenário e, se forem muito extremos, *rejeitamos a hipótese de que o PGD que assumimos a gerou*
+]
+]
+
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Nunca *comprovamos* uma hipótese, apenas afastamos a possibilidade de que nossos dados tenham sido gerados por uma determinada distribuição
+]
+
+
+---
+# Hipóteses nula e alternativa
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A hipótese nula, `\(H_0\)`, é um valor compatível com um cenário em que não há efeito
+
+.font90[
+- e.g., não há diferença salariam entre pessoas de diferentes cores/raças, `\(H_0: \bar{x}_{brancas} - \bar{x}_{negras} = 0\)`
+
+- e.g., a aprovação do governo é 50% (e não maior ou menor), `\(H_0: \bar{x} = 0.5\)`
+
+]
+]
+
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A hipótese alternativa, `\(H_1\)`, é o oposto da hipótese nula
+
+.font90[
+- `\(H_1: \bar{x}_{brancas} - \bar{x}_{negras} \neq 0\)`
+
+- `\(H_1: \bar{x} \neq 0.5\)` (ou $ &gt; 0.5$ )
+]
+]
 
 
 
 
 ---
-# Teste IV
+# Procedimento geral
 
-&gt; Qual distribuição produziu essa variável?
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O passo a passo do teste de hipóteses:
 
-&lt;img src="slides_files/figure-html/unnamed-chunk-32-1.svg" style="display: block; margin: auto;" /&gt;
+.font90[
+1) Formular `\(H_0\)` e `\(H_1\)` assumindo que conhecemos o PGD (i.e., distribuição e parâmetros)
 
---
+2) Calcular a probabilidade de obtermos nossos dados sob `\(H_0\)`
 
-.texto[R:] `\(Binomial(n=12, p=0.5)\)` 
+3) Comparar essa probabilidade com um limiar (e.g., `\(\alpha = 0.05\)`)
+
+4) Se a probabilidade for menor que `\(\alpha\)`, rejeitar `\(H_0\)`
+]
 
 
+
+---
+# Tentativa de teste
+
+Imagine que, numa população, pessoas com ens. médio recebem R$ 1200,00, em média, vs. R$ 1300,00 para pessoas com ens. superior.
+
+.pull-left[
+.texto[Diferença de média na amostra]
+
+.font80[
+- Amostramos 100 pessoas com ens. médio e 100 com ens. superior
+
+- Média de R$ 1250,00 para ens. médio e R$ 1350,00 para ens. superior, desvio padrão de R$ 200,00 para ambos
+
+- .texto2[Diferença:] `\(\bar{x}_{superior} - \bar{x}_{medio} = 100\)`
+]
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; É fácil perceber que `\(H_0\)` deveria ser `\(H_0: \bar{x}_{medio} - \bar{x}_{superior} = 0\)`, mas como gerar a distribuição nula?
+]
+
+
+---
+count:false
+# Tentativa de teste
+
+Uma possível solução: vamos assumir que a distribuição nula é normal com `\(\mu = 0\)` e `\(\sigma = 200\)`:
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-35-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# Tentativa de teste
+
+Outra possível solução: assumir que a distribuição nula é normal com `\(\mu = 0\)` e `\(\sigma = 50\)`:
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-36-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+# Estandardização
+
+
+
+---
+# Parâmetros
+
+Vimos que cada distribuição tem parâmetros que a descrevem. Muitas distribuições têm um centro, como um valor médio, e também alguma dispersão
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Para estimar `\(\mu\)`, podemos usar a média de uma amostra (segundo .texto2[TCL] e .texto2[LGN])
+
+$$
+\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i
+$$
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Para estimar `\(\sigma\)`, podemos usar o desvio padrão da amostra, `\(s\)`
+
+$$
+s = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2}
+$$
+]
+
+
+
+---
+# Estandardização
+
+É útil padronizar nossos dados para podermos comparar diferentes distribuições. Solução comum: dividir nossa estimativa de `\(\mu\)` pelo desvio padrão:
+
+
+.pull-left[
+.texto[Exemplo]
+
+No exemplo da renda, a diferença de média foi de 100 para um desvio de 200, o que daria uma .texto2[diferença padronizada] de 0.5
+]
+
+
+.pull-right[
+.texto[Intuição]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Qualquer efeito que observamos será medido em número desvios padrão
+]
+
+
+
+---
+count:false
+# Estandardização
+
+De forma geral, o processo de estandardização envolve subtrair .texto2[nossa estimativa] de `\(H_0\)` para, aí sim, dividir pela estimativa do desvio padrão:
+
+.pull-left[
+.texto[Fórmula]
+
+$$
+\frac{\bar{x} - H_0}{s}
+$$
+
+onde `\(H_0: \bar{x}_{medio} - \bar{x}_{superior} = 0\)` e `\(s = 200\)`
+]
+
+.pull-right[
+.texto[Exemplo]
+
+.font90[
+
+$$
+`\begin{align}
+\frac{100 - 0}{200} = 0.5
+\end{align}`
+$$
+
+]
+]
+
+
+---
+# TCL e estandardização
+
+Exemplo: `\(1000\)` amostras de `\(n=100\)` da distribuição `\(N(\mu=350, \sigma=25)\)`, calculamos média e média padronizada
+
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-37-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# TCL e estandardização
+
+Outro exemplo: geramos mais `\(1000\)` amostras com `\(n=100\)`, dessa vez da distribuição `\(N(\mu=560, \sigma=100)\)`
+
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-38-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# TCL e estandardização
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em resumo, dado o .texto2[TCL], a distribuição amostral das estatísticas estandardizadas se distribui como `\(N(0, 1)\)`
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Esse é o pilar de muitos testes de hipótese: se estandarizarmos nossos dados, podemos usar a distribuição `\(N(0, 1)\)` (também chamada de *normal estandardizada*) como distribuição nula
+
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+# T de *Student*
+
+
+
+---
+# Estatística de teste
+
+Vamos começar com um exemplo: imagine que temos uma amostra `\(n=100\)` e, nela, pessoas com ens. superior ganham, em média, R$ 1350,00; sabemos que pessoas com ens. médio ganham R$ 1250,00 (tiramos essa informação de outra fonte). A diferença é por acaso?
+
+- `\(H_0: \bar{x}_{superior} - \bar{x}_{medio} = 0\)`
+- `\(H_1: \bar{x}_{superior} &gt; \bar{x}_{medio}\)`
+
+
+
+---
+count:false
+# Estatística de teste
+
+Adaptando um pouco a estatística estandarizada que vimos, há uma fórmula geral que podemos usar para testar `\(H_1\)`:
+
+$$
+t = \frac{\bar{x} - H_0}{\frac{s}{\sqrt{n}}}
+$$
+
+Essencial aqui, usamos `\(\frac{s}{\sqrt{n}}\)` no lugar de `\(\sigma\)`, que é o .texto2[erro-padrão da amostra], o que incorpora nossa incerteza sobre a média amostral decorrente do tamanho da amostra
+
+
+---
+count:false
+# Estatística de teste
+
+Aplicado ao nosso exemplo anterior:
+
+.pull-left[
+.font90[
+$$
+`\begin{equation}
+t = \frac{1350 - 1250}{\frac{200}{\sqrt{100}}} = 5
+\end{equation}`
+$$
+]
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `\(t\)` aqui indica *a diferença entre a média amostral e a média nula em número de erros-padrão*
+
+- Caso não haja diferença de médias, esperaríamos que `\(t\)` fosse 0, o que seria compatível com a distribuição nula
+]
+
+
+---
+count:false
+# Estatística de teste
+
+Usando a função cumulativa normal, podemos calcular a probabilidade de obtermos um valor tão extremo quanto `\(t\)` assumindo uma distribuição nula `\(N(0, 1)\)`:
+
+
+.pull-left[
+
+
+```r
+pnorm(5, mean = 0, sd = 1, 
+      lower.tail = FALSE)
+```
+
+```
+## [1] 2.866516e-07
+```
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/unnamed-chunk-40-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Teste T
+
+Esse procedimento funciona para amostras grandes, mas ela tem um problema quando `\(n\)` é pequeno: .texto2[TCL] não se aplica
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; William Gosset (*aka Student*), estatístico da Guinness, criou uma solução para esse problema
+]
+
+.pull-right[
+&lt;img src="imgs/gosset.jpg" width="75%" height="5%" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Teste T
+
+O teste T tem a mesma fórmula que usamos anteriormente:
+
+$$
+t = \frac{\bar{x} - H_0}{\frac{s}{\sqrt{n}}}
+$$
+
+A diferença central é que, ao invés de assumir uma distribuição nula `\(N(0, 1)\)`, usamos uma distribuição `\(t\)` de Student com `\(n-1\)` graus de liberdade
+
+
+---
+# Diferença de distribuições
+
+A distribuição `\(t\)` de *Student* parece a normal, mas tem caudas mais altas. Para amostras pequenas, a prob. de obtermos valores extremos é maior:
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-42-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# Estatística T
+
+Usando a função cumulativa T, podemos calcular a probabilidade de obtermos um valor tão extremo quanto `\(t=5\)` assumindo uma distribuição `\(t\)` de Student caso tivéssemos apenas 6 observações:
+
+
+.pull-left[
+
+
+```r
+pt(5, df = 5, lower.tail = FALSE)
+```
+
+```
+## [1] 0.002052358
+```
+]
+
+.pull-right[
+&lt;img src="slides_files/figure-html/unnamed-chunk-44-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+# Prática em `R`
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

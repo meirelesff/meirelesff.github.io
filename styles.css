@@ -25,6 +25,7 @@ h1, .h1 {
 
 
 /* PAGINA */
+
 div.quarto-about-trestles {
   padding-top: 1em !important;
   padding-bottom: 0em;
@@ -143,4 +144,15 @@ div.quarto-about-trestles .about-entity .about-link {
 .sidebar nav[role="doc-toc"] ul > li > a.active {
   border-left: 1px solid #8f2a43;
   color: #8f2a43 !important;
+}
+
+.navbar {
+  background-color: #FFFFFF;
+}
+
+.nav-link:hover, .nav-link:focus {
+  color: #8f2a43;
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+  color: #8f2a43;
 }

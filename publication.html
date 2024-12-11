@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.335">
+<meta name="generator" content="quarto-1.5.56">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,7 +17,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -47,7 +47,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,8 +62,10 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script>
@@ -70,9 +78,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-wp','listing-ano','listing-id','listing-pdf','listing-article','listing-journal','listing-with','listing-doi','listing-abstract','listing-thesis',{ data: ['index'] },{ data: ['categories'] }],
+      valueNames: ['listing-wp','listing-with','listing-ano','listing-id','listing-pdf','listing-abstract','listing-article','listing-journal','listing-doi','listing-thesis',{ data: ['index'] },{ data: ['categories'] }],
       
-      searchColumns: ["listing-wp","listing-ano","listing-id","listing-pdf","listing-article","listing-journal","listing-with","listing-doi","listing-abstract","listing-thesis"],
+      searchColumns: ["listing-wp","listing-with","listing-ano","listing-id","listing-pdf","listing-abstract","listing-article","listing-journal","listing-doi","listing-thesis"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -90,49 +98,86 @@ ul.task-list li input[type="checkbox"] {
   })
   </script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Fernando Meireles, Assistant Professor of Political Science at IESP-UERJ">
+<meta property="og:description" content="Assistant Professor of Political Science at IESP-UERJ">
+<meta name="twitter:title" content="Publication">
+<meta name="twitter:description" content="Assistant Professor of Political Science at IESP-UERJ">
+<meta name="twitter:creator" content="@meirelesff">
+<meta name="twitter:site" content="@meirelesff">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./publication.html" aria-current="page">
- <span class="menu-text">Publication</span></a>
+    <a class="nav-link active" href="./publication.html" aria-current="page"> 
+<span class="menu-text">Publication</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./teaching.html">
- <span class="menu-text">Teaching</span></a>
+    <a class="nav-link" href="./teaching.html"> 
+<span class="menu-text">Teaching</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./software.html">
- <span class="menu-text">Software</span></a>
+    <a class="nav-link" href="./software.html"> 
+<span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data.html">
- <span class="menu-text">Data</span></a>
+    <a class="nav-link" href="./data.html"> 
+<span class="menu-text">Data</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link" href="./blog.html"> 
+<span class="menu-text">Blog</span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -140,7 +185,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
     </div>
 <!-- main -->
@@ -161,7 +206,9 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
+
 
 <p class="lead">
 A list of my working papers and peer-reviewed publications
@@ -173,95 +220,254 @@ A list of my working papers and peer-reviewed publications
 <div class="quarto-listing quarto-listing-container-custom" id="listing-listing">
 <h2 class="anchored"> Working papers</h2>
 <div class="about-links">
-        <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> The Distributive Politics of Cabinet Ministers. 2022.</h4>
-      <a class="btn btn-primary btn-sm" href="https://fmeireles.com/publication/distributive-politics-cabinet/distributive_politics_cabinet_ministers.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
+
+    
+        <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> Can Right-Wing Populists Repurpose Cash Transfer Programs?. 2024.</h4>
+    
+      <p class="text-muted" style="margin-bottom: 0rem"> <em>With</em> Bruno Schaefer and Sergio Simoni</p>
+      
+      
+      <a class="btn btn-primary btn-sm" href="https://papers.ssrn.com/sol3/Delivery.cfm/4913589.pdf?abstractid=4913589&amp;mirid=1" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
+      
+      
+      <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseAbstractPaperright-cash-transfers" target="_blank" aria-expanded="false" aria-controls="collapseAbstractPaperright-cash-transfers" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-card-text" style="font-size: 0.7rem;"></i> Abstract</a>
+      <div class="collapse" id="collapseAbstractPaperright-cash-transfers">
+        <div class="card card-body">
+        Can right-wing populists repurpose existing social programs to their electoral advantage once in power? We explore this question by examining the electoral effects of Auxílio Brasil, an unconditional cash transfer program introduced by Brazil's former President Bolsonaro that modified, expanded, and rebranded Bolsa Família-the flagship conditional cash transfer established in 2003 by the Workers' Party (PT) in Brazil. Using a series of difference-indifferences designs, we show that Auxílio Brasil led to an almost 20% increase in Bolsonaro's vote share in 2022 in municipalities heavily targeted by the program. Furthermore, leveraging the automatic enrollment of Bolsa Família recipients into Auxílio Brasil, we find that while PT's immediate electoral gain in these municipalities slightly diminished in 2022, the party reaped substantive long-term benefits from the program starting in the 2006 elections. An additional event-study with repeated survey data shows that Auxílio Brasil temporarily reduced individual-level opposition to Bolsonaro. Overall, our results suggest that while repurposing social programs can provide short-term gains for right-wing populists, it does not necessarily undermine long-term benefits accrued by implementing parties.
+        </div>
+      </div>
+      
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
 <h2 class="anchored"> Books</h2>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
 <h2 class="anchored"> Peer-Reviewed Articles</h2>
+
+    
+
+    
     <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> Multi-level legislative representation in an inchoate party system: Mass-elite ideological congruence in Brazil. <em>Party Politics</em>. 2022.</h4>
+    
       <p class="text-muted" style="margin-bottom: 0rem"> <em>With</em> Royce Carroll</p>
+      
+    
+      
       <a class="btn btn-primary btn-sm" href="https://doi.org/10.1177/13540688221130489" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i> DOI</a>
+      
+      
       <a class="btn btn-primary btn-sm" href="https://journals.sagepub.com/doi/reader/10.1177/13540688221130489" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
+      
+      
+      
       <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseAbstractideological-congruence" target="_blank" aria-expanded="false" aria-controls="collapseAbstractideological-congruence" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-card-text" style="font-size: 0.7rem;"></i> Abstract</a>
       <div class="collapse" id="collapseAbstractideological-congruence">
         <div class="card card-body">
         Research has suggested that fragmented political systems, incohesive parties, and weak programmatic links between voters and legislators can undermine the effectiveness of ideological legislative representation. Using Brazil's national and state assemblies, we examine the potential for voter-elite congruence in a legislative environment considered weak in programmatic representation and highly fragmented by a decentralized political structure. Focusing on 2005–2014, we use mass and elite survey data from the National Congress and 12 state assemblies to estimate deputies' and respondents' ideal points on a common left-right scale. Despite many potential barriers to ideological representation, we find an aggregate pattern of congruence between voters' and politicians' ideological positions during this period, with stronger voter-deputy correspondence for state deputies on average. These patterns are confirmed by a dyadic analysis of deputy and voter characteristics. However, we also find weaknesses in party-level ideological congruence for the major parties—for voters on the left and party supporters on the right. The findings suggest that, while the party system did not prevent overall ideological representation, it may have hindered important aspects of party representation.
         </div>
       </div>
-    <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> Política Distributiva em Coalizão. <em>Dados</em>. 2023.</h4>
+      
+    
+
+    
+    <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> Política Distributiva em Coalizão. <em>Dados</em>. 2024.</h4>
+    
+    
+      
       <a class="btn btn-primary btn-sm" href="https://doi.org/10.1590/dados.2024.67.1.308" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i> DOI</a>
+      
+      
       <a class="btn btn-primary btn-sm" href="https://www.scielo.br/j/dados/a/RkmpG7bYsVq9v9LhLPC4Yqx/?format=pdf&amp;lang=pt" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
+      
+      
+      
       <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseAbstractpolitica-distributiva-coalizao" target="_blank" aria-expanded="false" aria-controls="collapseAbstractpolitica-distributiva-coalizao" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-card-text" style="font-size: 0.7rem;"></i> Abstract</a>
       <div class="collapse" id="collapseAbstractpolitica-distributiva-coalizao">
         <div class="card card-body">
         Este artigo oferece uma teoria para explicar como partidos políticos influem nos investimentos discricionários de ministérios no Brasil. Ao contrário de estudos anteriores que assumem que presidentes centralizam decisões alocativas do Governo Federal, argumento que eles e elas as partilham com outros partidos quando oferecem ministérios ao formar coalizões de governo. Uma vez no comando de um ministério, partidos passam a exercer influência e adquirir expertise sobre os investimentos geridos por suas pastas, o que, por sua vez, incentiva seus correligionários locais a pedir, e também receber, mais recursos destas. Dados que cobrem mais de 20 anos de transferências discricionários de ministérios a prefeituras no Brasil e um desenho de triplas-diferenças dão suporte à teoria. Em particular, os resultados mostram que prefeitos tanto demandam quando recebem até um terço a mais de transferências vindas de ministérios comandados por correligionários, efeito que é maior em anos eleitorais e em ministérios que investem mais em infraestrutura local, sem distinção entre partido na Presidência e parceiros de coalizão. Por outro lado, não há evidência de que ministros manipulam diretamente a burocracia para beneficiar aliados. No geral, esses achados indicam que partidos políticos extraem benefícios não-programáticos da ocupação de ministérios no Brasil.
         </div>
       </div>
+      
+    
+
+    
     <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> Pesquisas eleitorais no Brasil: tendências e desempenho. <em>Estudos Avançados</em>. 2022.</h4>
+    
       <p class="text-muted" style="margin-bottom: 0rem"> <em>With</em> Guilherme Russo</p>
+      
+    
+      
       <a class="btn btn-primary btn-sm" href="https://doi.org/10.1590/s0103-4014.2022.36106.007" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i> DOI</a>
+      
+      
       <a class="btn btn-primary btn-sm" href="https://www.scielo.br/j/ea/a/HpJD5WZ485T56SmKkkwSbRz/?format=pdf&amp;lang=pt" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
+      
+      
+      
       <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseAbstractpesquisas-eleitorais" target="_blank" aria-expanded="false" aria-controls="collapseAbstractpesquisas-eleitorais" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-card-text" style="font-size: 0.7rem;"></i> Abstract</a>
       <div class="collapse" id="collapseAbstractpesquisas-eleitorais">
         <div class="card card-body">
         Este artigo analisa as estimativas de mais de 2 mil pesquisas eleitorais com os resultados de cinco eleições municipais e nacionais no Brasil entre 2012 e 2020. Em particular, examinamos como fatores previstos nos planos amostrais, como tamanho da amostra e modo de aplicação de entrevistas, e outros como a distância temporal da data de realização das pesquisas até o dia do pleito, predizem diferenças entre estimativas e resultados oficiais. Entre outros, mostramos que pesquisas de véspera com amostras maiores tiveram resultados mais próximos dos apurados nas urnas no período, assim como pesquisas conduzidas perto do dia dos pleitos. Também documentamos que estimativas de pesquisas em eleições nacionais, especialmente para a Presidência e Governos estaduais em segundo turno, tendem a ser mais próximas dos resultados do que em outras disputas. No geral, portanto, os achados indicam que as pesquisas eleitorais no Brasil têm desempenho similar às realizadas em outros contextos.
         </div>
       </div>
+      
+    
+
+    
     <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> Carreiras Políticas na Câmara dos Deputados: Uma Análise Quase-Experimental. <em>Dados</em>. 2019.</h4>
+    
+    
+      
       <a class="btn btn-primary btn-sm" href="https://doi.org/10.1590/001152582019194" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i> DOI</a>
+      
+      
       <a class="btn btn-primary btn-sm" href="http://www.scielo.br/pdf/dados/v62n4/0011-5258-dados-62-4-e20160198.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
+      
+      
+      
       <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseAbstractcarreiras" target="_blank" aria-expanded="false" aria-controls="collapseAbstractcarreiras" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-card-text" style="font-size: 0.7rem;"></i> Abstract</a>
       <div class="collapse" id="collapseAbstractcarreiras">
         <div class="card card-body">
         Este artigo investiga o efeito das eleições sobre as carreiras dos candidatos a deputado federal no Brasil. Com um desenho de regressão descontínua, mostro que os resultados de uma única eleição têm impactos substantivos: obter um mandato na Câmara causa um aumento de cerca de 25 pontos percentuais a mais na chance de um político obter o mesmo cargo novamente quatro anos depois, efeito que permanece positivo por até doze anos após a eleição inicial. Candidatos derrotados, ao contrário, passam a ambicionar mais cargos eletivos nos municípios, mas não têm maiores chances de obtê-los; além disso, estes têm probabilidade muito maior de se retirarem da arena eleitoral. Nesse sentido, o artigo contribui ao mostrar que mesmo os resultados de uma única eleição afetam as perspectivas de carreira dos políticos brasileiros, alçando uns à política em nível nacional e, outros, ao âmbito local e à aposentadoria.
         </div>
       </div>
+      
+    
+
+    
     <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> Partisan alignment and requests for federal transfers in Brazil. <em>Revista de Administração Pública (RAP)</em>. 2019.</h4>
+    
+    
+      
       <a class="btn btn-primary btn-sm" href="https://doi.org/10.1590/0034-761220170282" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i> DOI</a>
+      
+      
       <a class="btn btn-primary btn-sm" href="http://bibliotecadigital.fgv.br/ojs/index.php/rap/article/download/77803/pdf_256" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
+      
+      
+      
       <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseAbstractalinhamento" target="_blank" aria-expanded="false" aria-controls="collapseAbstractalinhamento" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-card-text" style="font-size: 0.7rem;"></i> Abstract</a>
       <div class="collapse" id="collapseAbstractalinhamento">
         <div class="card card-body">
         This article analyzes how subnational governments request transfers from the federal government in Brazil. Using microdata on applications for discretionary transfers from the Brazilian federal government to municipalities between 2009 and 2016 and a regression discontinuity design (RDD), I show that mayors affiliated with the president’s party demand substantially more resources than opposition mayors, meaning that the partisan alignment is an important channel to request transfers. On the other hand, the effect varies among mayors from other coalition parties. Thus, the results show that partisan alignment between different levels of government is a key factor in explaining the requests for discretionary resources in Brazil.
         </div>
       </div>
+      
+    
+
+    
     <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> Magnitude eleitoral e representação de mulheres nos municípios brasileiros. <em>Revista de Sociologia &amp; Política</em>. 2017.</h4>
+    
       <p class="text-muted" style="margin-bottom: 0rem"> <em>With</em> Luciana Andrade</p>
+      
+    
+      
       <a class="btn btn-primary btn-sm" href="https://doi.org/10.1590/1678-987317256304" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i> DOI</a>
+      
+      
       <a class="btn btn-primary btn-sm" href="http://www.scielo.br/pdf/rsocp/v25n63/0104-4478-rsocp-25-63-0079.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
+      
+      
+      
       <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseAbstractmagnitude" target="_blank" aria-expanded="false" aria-controls="collapseAbstractmagnitude" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-card-text" style="font-size: 0.7rem;"></i> Abstract</a>
       <div class="collapse" id="collapseAbstractmagnitude">
         <div class="card card-body">
         É argumento corrente na literatura sobre representação política de mulheres que sistemas mais proporcionais aumentam as chances de mulheres serem eleitas. O objetivo deste artigo é testar esta hipótese usando dados dos municípios brasileiros. Explorando uma regra estabelecida pelo Tribunal Superior Eleitoral em 2004 e 2008, que fixou o número de vereadores de cada município de acordo com o número de habitantes, utilizamos regressão descontínua (RD) para estimar o efeito causal de uma cadeira a mais na representação política de mulheres nas câmaras municipais. Nossos resultados mostram que este efeito é substantivo: onde havia uma cadeira adicional, quase 40% mais mulheres foram eleitas, e a probabilidade de um município eleger ao menos uma mulher aumentou em cerca de 20 pontos percentuais. Por outro lado, a explicação deste fenômeno contraria as hipóteses da literatura: especificamente, mostramos que uma cadeira a mais aumentou apenas o número de candidatos homens concorrendo, o que fragmentou suas votações e os deixou com desempenhos eleitorais piores. Deste modo, mesmo não tendo suas votações afetadas pelo número de cadeiras, mais mulheres acabaram eleitas.
         </div>
       </div>
-    <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> Simulações de Monte Carlo no Ensino de Ciência Política. <em>Revista Brasileira de Ciência Política (RBCP)</em>. 2017.</h4>
-      <p class="text-muted" style="margin-bottom: 0rem"> <em>With</em> Denisson Silva and Filipe Correa</p>
-      <a class="btn btn-primary btn-sm" href="https://doi.org/10.1590/0103-335220172407" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i> DOI</a>
-      <a class="btn btn-primary btn-sm" href="http://www.scielo.br/pdf/rbcpol/n24/2178-4884-rbcpol-24-223.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
-      <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseAbstractsimulacoes" target="_blank" aria-expanded="false" aria-controls="collapseAbstractsimulacoes" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-card-text" style="font-size: 0.7rem;"></i> Abstract</a>
-      <div class="collapse" id="collapseAbstractsimulacoes">
-        <div class="card card-body">
-        Ensinar como mecanismos causais ou modelos estatísticos funcionam nem sempre é algo simples, especialmente quando estes não podem ser facilmente exemplificados. O objetivo deste artigo é mostrar como Simulações de Monte Carlo (SMC) podem ser usadas para superar dificuldades como estas. Após fazermos uma breve introdução ao método, mostramos como utilizá-lo, a fim de ilustrar fenômenos de difícil mensuração ou conceitos abstratos; além disso, também mostramos como ele pode ser empregado para explicar intuitivamente a influência das violações de pressupostos sobre os resultados de alguns modelos estatísticos frequentemente utilizados na Ciência Política. Por fim, oferecemos um passo a passo para reproduzir nossos exemplos utilizando o software R, além de um simples aplicativo virtual (Shiny app) com estes exemplos, de modo a ser adaptado para uso em sala de aula.
-        </div>
-      </div>
+      
+    
+
+    
     <h4 class="anchored"><i class="bi bi-file-earmark-text" style="font-size: 0.8rem"></i> Oversized government coalitions in Latin America. <em>Brazilian Political Science Review</em>. 2016.</h4>
+    
+    
+      
       <a class="btn btn-primary btn-sm" href="https://doi.org/10.1590/1981-38212016000300001" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-box-arrow-up-right" style="font-size: 0.7rem;"></i> DOI</a>
+      
+      
       <a class="btn btn-primary btn-sm" href="http://www.scielo.br/pdf/bpsr/v10n3/1981-3821-bpsr-1981-38212016000300001.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
+      
+      
+      
       <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseAbstractoversized-coalitions" target="_blank" aria-expanded="false" aria-controls="collapseAbstractoversized-coalitions" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-card-text" style="font-size: 0.7rem;"></i> Abstract</a>
       <div class="collapse" id="collapseAbstractoversized-coalitions">
         <div class="card card-body">
         Research on executive-legislative relations in presidential systems have emphasized how presidents use cabinet appointments to form and manage government coalitions in the absence of majority legislative support. Yet not all coalitions are similar, as some are larger and, consequently, more prone to agency and coordination problems than others. But what shapes presidents’ decision to include more parties in their coalitions? While several hypotheses exist in the literature, few have been tested in a systematic fashion, none focusing on why surplus coalitions form. This article intends to fill this gap by examining an original time-series cross-sectional dataset comprising 168 unique coalitions in all 18 Latin American presidential countries since 1979. In particular, I find that highly fragmented party systems and presidents with great legislative powers are more likely to generate oversized government coalitions. An additional analysis, with monthly data from Brazilian cabinets between 1989 and 2010, also shows that supermajority rules and bicameralism dynamics play a role in the occurrence of surplus coalitions, but party discipline and presidential approval do not.
         </div>
       </div>
+      
+    
+
+    
+
 <h2 class="anchored"> Thesis</h2>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
     <h4 class="anchored"><i class="bi bi-book" style="font-size: 0.8rem"></i> A Política Distributiva da Coalizão</h4>
+    
+      
       <a class="btn btn-primary btn-sm" href="https://fmeireles.com/publication/politica-distributiva-coalizao-tese/tese_politica_distributiva_coalizao.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem     .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> PDF</a>
+      
+      
       <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseAbstractThesis" aria-expanded="false" aria-controls="collapseAbstractThesis" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-card-text" style="font-size: 0.7rem;"></i> Abstract</a>
       <div class="collapse" id="collapseAbstractThesis">
         <div class="card card-body">
         Esta tese investiga se partidos influem nos investimentos dos ministérios no presidencialismo de coalizão. Ao fazer isso, ela diverge da visão corrente nos estudos sobre política distributiva de que presidentes centralizam as decisões alocativas de seus governos. Meu argumento é o de que, ao oferecer ministérios a outros partidos em troca de apoio legislativo, presidentes compartilham a política distributiva do governo com seus parceiros de coalizão. Com isso, partidos adquirem influência e expertise sobre os investimentos das pastas que comandam e, consequentemente, meios de levar mais deles para as suas bases eleitorais. Documento essa conexão eleitoral partidária com dados de mais de vinte anos de transferências discricionárias dos ministérios para prefeituras no Brasil, entrevistas conduzidas em trabalho de campo e uma série de experimentos naturais. Meus resultados mostram que municípios demandam e recebem mais recursos de ministérios comandados pelos partidos dos seus prefeitos e, em troca, estes mobilizam votos para as suas legendas nas eleições gerais. Entre outras contribuições, a tese oferece evidência causal de que partidos extraem benefícios particularistas da ocupação de ministérios; mostra que isso promove desigualdades na provisão de bens públicos no país; e documenta como os partidos brasileiros, considerados fracos por muitos analistas, articulam a oferta e a demanda por recursos públicos estrategicamente para conquistar votos e adquirir influência na política nacional.
         </div>
       </div>
+      
+    
+
 </div>
 <div class="listing-no-matching d-none">
 No matching items
@@ -294,12 +500,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
     }
-  });
-  clipboard.on('success', function(e) {
+    return false;
+  }
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -331,11 +540,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/fmeireles\.com\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -345,8 +593,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -358,9 +615,245 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -401,6 +894,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 

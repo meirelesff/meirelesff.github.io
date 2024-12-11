@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fernando Meireles">
+<meta name="dcterms.date" content="2024-12-11">
+
+<title>Dados eleitorais com o electionsBR</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Fernando Meireles, Assistant Professor of Political Science at IESP-UERJ">
+<meta property="og:description" content="Atualização do pacote, agora com dados das eleições de 2024 e outras modificações">
+<meta name="twitter:title" content="Dados eleitorais com o electionsBR">
+<meta name="twitter:description" content="Atualização do pacote, agora com dados das eleições de 2024 e outras modificações">
+<meta name="twitter:creator" content="@meirelesff">
+<meta name="twitter:site" content="@meirelesff">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../publication.html"> 
+<span class="menu-text">Publication</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../teaching.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../software.html"> 
+<span class="menu-text">Software</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../data.html"> 
+<span class="menu-text">Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-razão-do-pacote" id="toc-a-razão-do-pacote" class="nav-link active" data-scroll-target="#a-razão-do-pacote">A razão do pacote</a></li>
+  <li><a href="#a-atualização" id="toc-a-atualização" class="nav-link" data-scroll-target="#a-atualização">A atualização</a></li>
+  <li><a href="#usando-o-electionsbr" id="toc-usando-o-electionsbr" class="nav-link" data-scroll-target="#usando-o-electionsbr">Usando o electionsBR</a></li>
+  <li><a href="#um-exemplo-mapas" id="toc-um-exemplo-mapas" class="nav-link" data-scroll-target="#um-exemplo-mapas">Um exemplo: mapas</a></li>
+  <li><a href="#compatibilidade" id="toc-compatibilidade" class="nav-link" data-scroll-target="#compatibilidade">Compatibilidade</a></li>
+  <li><a href="#citação" id="toc-citação" class="nav-link" data-scroll-target="#citação">Citação</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Dados eleitorais com o electionsBR</h1>
+<p class="subtitle lead">Atualização do pacote, agora com dados das eleições de 2024 e outras modificações</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">Eleições</div>
+    <div class="quarto-category">TSE</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fernando Meireles </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 11, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><br> <br></p>
+<p>Depois de um relativamente longo período sem divulgarmos atualizações, acabamos de lançar a versão 0.5.0 do <code>electionsBR</code>, um pacote para <code>R</code> criado para facilitar o acesso a dados eleitorais brasileiros. Muitas coisas mudaram nele desde o ano passado, quando lançamos silenciosamente a versão 0.4.0. Tento recapitular as principais mudanças e novidades a seguir.</p>
+<section id="a-razão-do-pacote" class="level2">
+<h2 class="anchored" data-anchor-id="a-razão-do-pacote">A razão do pacote</h2>
+<p>O <code>electionsBR</code> cumpre um único objetivo: facilitar o acesso a dados eleitorais <a href="https://dadosabertos.tse.jus.br/">Tribunal Superior Eleitoral (TSE)</a> para análise.</p>
+<p>Quando <a href="https://denissonsilva.com/">Denisson</a> e eu o criamos há 6 anos, o TSE disponibilizava informações de resultados eleitorais, candidaturas registradas, coligações, entre outros, de forma fragmentada em arquivos cujas formatações não raro geravam problemas de importação.</p>
+<p>O <code>electionsBR</code> foi uma tentativa de solucionar o problema. Com ele, criamos uma interface amigável, via <code>R</code>, que permitia a qualquer pessoa obter, em segundos, dados de uma eleição inteira de forma estruturada, contornando problemas de importação. Mesmo para quem não usa <code>R</code>, basta digitar duas linhas de código para ter os dados desejados em uma planilha ou arquivo para leitura no SPSS ou Stata.</p>
+<p>Nos últimos anos, nosso trabalho de manutenção do pacote, no entanto, diminuiu. O TSE passou a disponibilizar os dados de forma mais amigável, em arquivos CSV com cabeçalhos, além de ter criado uma excelente página de <a href="https://dadosabertos.tse.jus.br/">Dados Abertos</a>.</p>
+<p>Paralelamente, a louvável iniciativa do <a href="https://cepesp.fgv.br/data">Cepesp Data</a>, da FGV, passou não apenas a oferecer os mesmos dados em uma interface versátil como, também, a consolidá-los e a enriquecê-los com outras informações. A plataforma dispensa a consulta aos dados do próprio TSE em vários casos.</p>
+</section>
+<section id="a-atualização" class="level2">
+<h2 class="anchored" data-anchor-id="a-atualização">A atualização</h2>
+<p>Se há alternativas, por que atualizar o <code>electionsBR</code>? Simples: ele ainda é útil para muitas pessoas – principalmente para nós mesmos.</p>
+<p>Indo além, integramos também a API do <a href="https://cepesp.fgv.br/data">Cepesp Data</a> ao pacote, o que desbloqueia a possibilidade de obter dados consolidados e enriquecidos de outra fonte. Com essa atualização, portanto, o <code>electionsBR</code> vira uma interface unificada para obtenção de dados eleitorais brasileiros diretamente do <code>R</code>.</p>
+<p>Outra novidade, disponível desde a última atualização, é simplificação de código: com apenas duas funções é possível acessar qualquer dado eleitoral. A divisão funciona por fonte dos dados: <code>elections_tse()</code> para dados do TSE e <code>elections_cepesp()</code> para dados do Cepesp Data.</p>
+<table class="caption-top table">
+<caption>Duas principais funções do novo <code>electionsBR</code></caption>
+<colgroup>
+<col style="width: 14%">
+<col style="width: 38%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Função</th>
+<th>Argumentos principais</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>elections_tse()</code></td>
+<td><code>year</code>, <code>type</code></td>
+<td>Dados diretamente do TSE</td>
+</tr>
+<tr class="even">
+<td><code>elections_cepesp()</code></td>
+<td><code>year</code>, <code>type</code>, <code>position</code></td>
+<td>Dados da API do Cepesp Data</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="usando-o-electionsbr" class="level2">
+<h2 class="anchored" data-anchor-id="usando-o-electionsbr">Usando o electionsBR</h2>
+<p>O pacote está disponível no <a href="https://cran.r-project.org/web/packages/electionsBR/index.html">CRAN</a> e pode ser instalado e carregado com as seguintes linhas:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"electionsBR"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(electionsBR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Com isso feito, é possível usar uma das duas principais funções para, por exemplo, obter informações das candidaturas registradas para concorrer na eleição de 2018:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cands <span class="ot">&lt;-</span> <span class="fu">elections_tse</span>(<span class="at">year =</span> <span class="dv">2018</span>, <span class="at">type =</span> <span class="st">"candidate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Para baixar os resultados eleitorais na mesma eleição agregados por município e por zona eleitoral (nível de agregação padrão do TSE), basta modificar o argumento <code>type</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>votos <span class="ot">&lt;-</span> <span class="fu">elections_tse</span>(<span class="at">year =</span> <span class="dv">2018</span>, <span class="at">type =</span> <span class="st">"vote_mun_zone"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>E para baixar dados do Cepesp Data? Basicamente a mesma coisa:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cands_cepesp <span class="ot">&lt;-</span> <span class="fu">elections_cepesp</span>(<span class="at">year =</span> <span class="dv">2018</span>, <span class="at">type =</span> <span class="st">"candidate"</span>, <span class="at">position =</span> <span class="st">"President"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A diferença aqui é que, além de indicar o tipo de informação desejada, é preciso informar o cargo em disputa. A tabela a seguir mostra os tipos de dados disponíveis para cada fonte e, para o caso do Cepesp Data, os cargos disponíveis:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true"><code>elections_tse</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>elections_cepesp</code></a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 81%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo (<code>type</code>)</th>
+<th>Dados</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>candidate</code></td>
+<td>Candidaturas</td>
+</tr>
+<tr class="even">
+<td><code>vote_mun_zone</code></td>
+<td>Votos</td>
+</tr>
+<tr class="odd">
+<td><code>details_mun_zone</code></td>
+<td>Apuração eleitoral</td>
+</tr>
+<tr class="even">
+<td><code>legends</code></td>
+<td>Partidos</td>
+</tr>
+<tr class="odd">
+<td><code>party_mun_zone</code></td>
+<td>Votos por partido</td>
+</tr>
+<tr class="even">
+<td><code>personal_finances</code></td>
+<td>Declarações de bens pessoais dos candidatos</td>
+</tr>
+<tr class="odd">
+<td><code>seats</code></td>
+<td>Número de vagas em disputa</td>
+</tr>
+<tr class="even">
+<td><code>vote_section</code></td>
+<td>Votos por seção eleitoral</td>
+</tr>
+<tr class="odd">
+<td><code>voter_profile_by_section</code></td>
+<td>Perfil do eleitorado por seção</td>
+</tr>
+<tr class="even">
+<td><code>voter_profile</code></td>
+<td>Perfil do eleitorado</td>
+</tr>
+<tr class="odd">
+<td><code>social_media</code></td>
+<td>Links das redes sociais dos candidatos</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 34%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo (<code>type</code>)</th>
+<th>Posição (<code>position</code>)</th>
+<th>Dados</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>candidate</code></td>
+<td><code>President</code>, <code>Governor</code>, <code>Senator</code>, <code>Federal Deputy</code>, <code>State Deputy</code>, <code>District Deputy</code>, <code>Mayor</code>, <code>Councillor</code></td>
+<td>Candidaturas</td>
+</tr>
+<tr class="even">
+<td><code>vote</code></td>
+<td><code>President</code>, <code>Governor</code>, <code>Senator</code>, <code>Federal Deputy</code>, <code>State Deputy</code>, <code>District Deputy</code>, <code>Mayor</code>, <code>Councillor</code></td>
+<td>Votos</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="um-exemplo-mapas" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="um-exemplo-mapas">Um exemplo: mapas</h2>
+<p>Passadas as eleições, mapas eleitorais pipocam em todo lugar. Graças a um excelente pacote chamado <a href="https://ipea.github.io/geobr/">geobr</a>, é extremamente simples criar esse tipo de visualização.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Um exemplo: qual foi o percentual de vereadores e vereadoras eleitos em cada município brasileiro em 2024?</p>
+<p>O TSE disponibiliza uma tabela com várias informações sobre candidaturas, incluindo seus resultados na totalização dos votos (i.e., se foram ou não eleitos e eleitas). Com o <code>electionsBR</code>, basta usar <code>elections_tse()</code> com <code>type = "candidate"</code> para baixar os dados:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega pacotes</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(pacman)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">"electionsBR"</span>, <span class="st">"tidyverse"</span>, <span class="st">"geobr"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Baixa os dados</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>eleitos <span class="ot">&lt;-</span> <span class="fu">elections_tse</span>(<span class="at">year =</span> <span class="dv">2024</span>, <span class="at">type =</span> <span class="st">"candidate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As variáveis que nos interessam são essas:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>eleitos <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(NM_UE, SG_UE, SG_PARTIDO, DS_CARGO, DS_SIT_TOT_TURNO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 463,598 × 5
+  NM_UE       SG_UE SG_PARTIDO    DS_CARGO DS_SIT_TOT_TURNO
+  &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;           
+1 BRASILÉIA   01058 SOLIDARIEDADE VEREADOR NÃO ELEITO      
+2 BRASILÉIA   01058 SOLIDARIEDADE VEREADOR NÃO ELEITO      
+3 BRASILÉIA   01058 SOLIDARIEDADE VEREADOR NÃO ELEITO      
+4 MÂNCIO LIMA 01090 PSDB          VEREADOR NÃO ELEITO      
+5 MÂNCIO LIMA 01090 CIDADANIA     PREFEITO #NULO#          
+# ℹ 463,593 more rows</code></pre>
+</div>
+</div>
+<p>Com elas, conseguimos saber, para cada município, o percentual de vereadores e vereadoras eleitos e eleitas pelo PT (claro, usando algumas funções antes):</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>eleitos_pt <span class="ot">&lt;-</span> eleitos <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(NR_TURNO <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(DS_CARGO <span class="sc">==</span> <span class="st">"VEREADOR"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(DS_SIT_TOT_TURNO <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"ELEITO POR QP"</span>, <span class="st">"ELEITO POR MÉDIA"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">SG_UE =</span> <span class="fu">as.numeric</span>(SG_UE)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(NM_UE, SG_UE) <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">pct_vereadores_pt =</span> <span class="fu">sum</span>(SG_PARTIDO <span class="sc">==</span> <span class="st">"PT"</span>) <span class="sc">/</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="fu">desc</span>(pct_vereadores_pt))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>eleitos_pt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,531 × 3
+# Groups:   NM_UE [5,263]
+  NM_UE           SG_UE pct_vereadores_pt
+  &lt;chr&gt;           &lt;dbl&gt;             &lt;dbl&gt;
+1 ANÍSIO DE ABREU 10138             1    
+2 BREJO DO PIAUÍ  10642             1    
+3 IPAPORANGA      13340             1    
+4 URUOCA          15792             0.889
+5 COCAL DOS ALVES 12696             0.778
+# ℹ 5,526 more rows</code></pre>
+</div>
+</div>
+<p>O <a href="https://ipea.github.io/geobr/">geobr</a> tem uma função <code>read_municipality()</code> que retorna um <code>sf</code> com os municípios brasileiros.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> O que é isso? Basicamente, um <code>data.frame</code> com as informações geográficas necessárias para desenharmos polígonos em <code>R</code>, isto é, um mapa.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>municipios <span class="ot">&lt;-</span> geobr<span class="sc">::</span><span class="fu">read_municipality</span>(<span class="at">showProgress =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Um problema: o código utilizado para identificar cada município nas bases do TSE é diferente do código utilizado pelo <code>geobr</code>, que adota os identificadores do IBGE. Se tivermos um arquivo de correspondência entre os dois códigos, podemos fazer a junção dos dados. Aqui:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>codigos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://github.com/betafcc/Municipios-Brasileiros-TSE/raw/refs/heads/master/municipios_brasileiros_tse.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">SG_UE =</span> codigo_tse, <span class="at">code_muni =</span> codigo_ibge)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> municipios <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(codigos, <span class="at">by =</span> <span class="st">"code_muni"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(eleitos_pt, <span class="at">by =</span> <span class="st">"SG_UE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finalmente, o mapa:</p>
+<div class="cell page-columns page-full" data-layout-align="center" data-fig-sub="Fontes: TSE e electionsBR">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> pct_vereadores_pt)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.05</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#eae2b7"</span>, <span class="st">"#e09f3e"</span>, <span class="st">"#9e2a2b"</span>, <span class="st">"#540b0e"</span>), </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">na.value =</span> <span class="st">"#faf0ca"</span>, <span class="at">guide =</span> <span class="fu">guide_colorsteps</span>(<span class="at">barheight =</span> <span class="fl">0.3</span>),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">label =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.key.width =</span> <span class="fu">unit</span>(<span class="dv">12</span>, <span class="st">"mm"</span>)) <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-6-1.svg" class="img-fluid figure-img column-body-outset" style="width:120.0%"></p>
+<figcaption>Percentual de vereadores e vereadoras eleitos pelo PT em 2024</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Há nitidamente um vazio em boa parte do território, o que pode ser lido como a extensão territorial sem representates do PT. A exceção é parte do Nordeste, área de sertão, onde o partido tem maior presença e também boa votação em eleições presidenciais. O contraste com a bancada de vereadores e vereadoras eleitos pelo PL, do ex-Presidente Jair Bolsonaro, é grande (mas vale o alerta de que <a href="https://x.com/simongerman600/status/1591175192834965515">território não vota</a>):</p>
+<div class="cell page-columns page-full" data-layout-align="center" data-fig-sub="Fontes: TSE e electionsBR">
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="index_files/figure-html/unnamed-chunk-7-1.svg" class="img-fluid figure-img column-body-outset" style="width:120.0%"></p>
+<figcaption>Percentual de vereadores e vereadoras eleitos pelo PL em 2024</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="compatibilidade" class="level2">
+<h2 class="anchored" data-anchor-id="compatibilidade">Compatibilidade</h2>
+<p>Na versão atual do <code>electionsBR</code>, todas as funções terminadas com o sufixo <code>_fed</code> ou <code>_local</code> (e.g., <code>vote_mun_zone_local</code>) foram substituídas por <code>elections_tse()</code>. Vale dizer, elas ainda estão disponíveis no pacote, mas serão removidas em futuras atualizações (ao usá-las, você deverá receber um aviso de que a função está <em>deprecated</em>). Com o passar do tempo, nossa ideia é simplificar ao máximo a interface do pacote, o que também nos ajudará a fazer manutenção do código.</p>
+</section>
+<section id="citação" class="level2">
+<h2 class="anchored" data-anchor-id="citação">Citação</h2>
+<p>Pretende usar o pacote em uma pesquisa ou artigo acadêmico? Se o <code>electionsBR</code> foi útil para você, para nós seria ótimo vê-lo citado no seu trabalho – é a nossa forma de ter esse projeto paralelo reconhecido e valorizado. As referências bibliográficas do pacote são encontradas assim, no próprio <code>R</code>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">"electionsBR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Para citar o pacote 'electionsBR' em publicações use:
+
+  Meireles, Fernando; Silva, Denisson; Costa, Beatriz. (2016).
+  electionsBR: R functions to download and clean Brazilian electoral
+  data. URL: http://electionsbr.com/novo/
+
+Uma entrada BibTeX para usuários(as) de LaTeX é
+
+  @Manual{,
+    title = {{electionsBR}: {R} Functions to Download and Clean {B}razilian Electoral Data},
+    author = {Fernando Meireles and Denisson Silva and Beatriz Costa},
+    year = {2016},
+    url = {http://electionsbr.com/novo/},
+    encoding = {UTF-8},
+  }</code></pre>
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Há outro pacote que facilita a criação de mapas em R, o <a href="https://github.com/RobertMyles/simplefeaturesbr">simplefeaturesbr</a>. Vale conferir.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Para uma introdução detalhada ao pacote, que obviamente passa longe daqui, ver <a href="https://cran.r-project.org/web/packages/geobr/vignettes/intro_to_geobr.html">este link</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/fmeireles\.com\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

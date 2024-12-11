@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fmeireles.com/index.html</loc>
-    <lastmod>2023-03-24T19:22:20.009Z</lastmod>
+    <lastmod>2024-09-04T19:15:00.965Z</lastmod>
   </url>
   <url>
     <loc>https://fmeireles.com/data.html</loc>
-    <lastmod>2023-03-24T19:22:20.212Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmeireles.com/software.html</loc>
-    <lastmod>2023-03-24T19:22:20.410Z</lastmod>
+    <lastmod>2024-09-04T19:15:08.147Z</lastmod>
   </url>
   <url>
     <loc>https://fmeireles.com/teaching.html</loc>
-    <lastmod>2023-03-24T19:22:20.590Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmeireles.com/publication.html</loc>
-    <lastmod>2023-03-24T19:22:20.776Z</lastmod>
+    <lastmod>2023-01-22T11:12:30.000Z</lastmod>
   </url>
   <url>
     <loc>https://fmeireles.com/blog.html</loc>
-    <lastmod>2023-03-24T19:22:21.775Z</lastmod>
+    <lastmod>2023-01-24T01:26:23.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmeireles.com/posts/2024-11-18-atualizacao-electionsbr/index.html</loc>
+    <lastmod>2024-12-11T17:11:09.281Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmeireles.com/software.html</loc>
+    <lastmod>2024-09-04T19:15:04.038Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmeireles.com/publication.html</loc>
+    <lastmod>2023-01-22T11:12:15.000Z</lastmod>
   </url>
 </urlset>

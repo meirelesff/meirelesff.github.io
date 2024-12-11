@@ -4,19 +4,21 @@
     "items": []
   },
   {
-    "listing": "/software.html",
-    "items": []
-  },
-  {
     "listing": "/teaching.html",
     "items": []
   },
   {
-    "listing": "/publication.html",
+    "listing": "/blog.html",
+    "items": [
+      "/posts/2024-11-18-atualizacao-electionsbr/index.html"
+    ]
+  },
+  {
+    "listing": "/software.html",
     "items": []
   },
   {
-    "listing": "/blog.html",
+    "listing": "/publication.html",
     "items": []
   }
 ]

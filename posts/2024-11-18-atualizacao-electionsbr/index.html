@@ -106,9 +106,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Fernando Meireles, Assistant Professor of Political Science at IESP-UERJ">
-<meta property="og:description" content="Atualização do pacote, agora com dados das eleições de 2024 e outras modificações">
+<meta property="og:description" content="8 anos de pacote e uma atualização">
 <meta name="twitter:title" content="Dados eleitorais com o electionsBR">
-<meta name="twitter:description" content="Atualização do pacote, agora com dados das eleições de 2024 e outras modificações">
+<meta name="twitter:description" content="8 anos de pacote e uma atualização">
 <meta name="twitter:creator" content="@meirelesff">
 <meta name="twitter:site" content="@meirelesff">
 <meta name="twitter:card" content="summary">
@@ -181,7 +181,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Dados eleitorais com o electionsBR</h1>
-<p class="subtitle lead">Atualização do pacote, agora com dados das eleições de 2024 e outras modificações</p>
+<p class="subtitle lead">8 anos de pacote e uma atualização</p>
   <div class="quarto-categories">
     <div class="quarto-category">R</div>
     <div class="quarto-category">Eleições</div>
@@ -216,12 +216,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><br> <br></p>
-<p>Depois de um relativamente longo período sem divulgarmos atualizações, acabamos de lançar a versão 0.5.0 do <code>electionsBR</code>, um pacote para <code>R</code> criado para facilitar o acesso a dados eleitorais brasileiros. Muitas coisas mudaram nele desde o ano passado, quando lançamos silenciosamente a versão 0.4.0. Tento recapitular as principais mudanças e novidades a seguir.</p>
+<p>Depois de um relativamente longo período sem atualizações, acabamos, <a href="https://denissonsilva.com/">Denisson</a> e eu, de lançar a versão 0.5.0 do <code>electionsBR</code>, nosso pacote em <code>R</code> criado para facilitar o acesso estruturado a dados eleitorais brasileiros. Muitas coisas mudaram nele com essa atualização – mas, talvez a mais importante, é que ela marca 8 anos de existência do pacote, período no qual ele foi baixado mais de <a href="https://cranlogs.r-pkg.org/badges/grand-total/electionsBR">45 mil vezes</a>.</p>
+<p>A seguir, um resumo do que mudou de lá para cá.</p>
 <section id="a-razão-do-pacote" class="level2">
 <h2 class="anchored" data-anchor-id="a-razão-do-pacote">A razão do pacote</h2>
-<p>O <code>electionsBR</code> cumpre um único objetivo: facilitar o acesso a dados eleitorais <a href="https://dadosabertos.tse.jus.br/">Tribunal Superior Eleitoral (TSE)</a> para análise.</p>
-<p>Quando <a href="https://denissonsilva.com/">Denisson</a> e eu o criamos há 6 anos, o TSE disponibilizava informações de resultados eleitorais, candidaturas registradas, coligações, entre outros, de forma fragmentada em arquivos cujas formatações não raro geravam problemas de importação.</p>
-<p>O <code>electionsBR</code> foi uma tentativa de solucionar o problema. Com ele, criamos uma interface amigável, via <code>R</code>, que permitia a qualquer pessoa obter, em segundos, dados de uma eleição inteira de forma estruturada, contornando problemas de importação. Mesmo para quem não usa <code>R</code>, basta digitar duas linhas de código para ter os dados desejados em uma planilha ou arquivo para leitura no SPSS ou Stata.</p>
+<p>O <code>electionsBR</code> tem um único objetivo: facilitar o acesso a dados eleitorais do <a href="https://dadosabertos.tse.jus.br/">Tribunal Superior Eleitoral (TSE)</a>.</p>
+<p>Quando <a href="https://denissonsilva.com/">Denisson</a> e eu o criamos, em novembro de 2016, o TSE disponibilizava informações de resultados eleitorais, candidaturas registradas, coligações, entre outros, de forma fragmentada em arquivos cujas formatações não raro geravam problemas de importação.</p>
+<p>O <code>electionsBR</code> foi a nossa tentativa de solucionar o problema. Com ele, criamos uma interface amigável, via <code>R</code>, que permitia a qualquer pessoa obter, em segundos, dados de uma eleição inteira de forma estruturada, contornando problemas de importação. Mesmo para quem não usa <code>R</code>, basta digitar duas linhas de código para ter os dados desejados em uma planilha ou arquivo para leitura no SPSS ou Stata.</p>
 <p>Nos últimos anos, nosso trabalho de manutenção do pacote, no entanto, diminuiu. O TSE passou a disponibilizar os dados de forma mais amigável, em arquivos CSV com cabeçalhos, além de ter criado uma excelente página de <a href="https://dadosabertos.tse.jus.br/">Dados Abertos</a>.</p>
 <p>Paralelamente, a louvável iniciativa do <a href="https://cepesp.fgv.br/data">Cepesp Data</a>, da FGV, passou não apenas a oferecer os mesmos dados em uma interface versátil como, também, a consolidá-los e a enriquecê-los com outras informações. A plataforma dispensa a consulta aos dados do próprio TSE em vários casos.</p>
 </section>
@@ -366,8 +367,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="um-exemplo-mapas" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="um-exemplo-mapas">Um exemplo: mapas</h2>
-<p>Passadas as eleições, mapas eleitorais pipocam em todo lugar. Graças a um excelente pacote chamado <a href="https://ipea.github.io/geobr/">geobr</a>, é extremamente simples criar esse tipo de visualização.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Um exemplo: qual foi o percentual de vereadores e vereadoras eleitos em cada município brasileiro em 2024?</p>
-<p>O TSE disponibiliza uma tabela com várias informações sobre candidaturas, incluindo seus resultados na totalização dos votos (i.e., se foram ou não eleitos e eleitas). Com o <code>electionsBR</code>, basta usar <code>elections_tse()</code> com <code>type = "candidate"</code> para baixar os dados:</p>
+<p>Passadas as eleições, mapas eleitorais pipocam em todo lugar. Graças a um excelente pacote chamado <a href="https://ipea.github.io/geobr/">geobr</a>, é extremamente simples criar esse tipo de visualização.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Um exemplo: qual foi o percentual de vereadores e vereadoras eleitos pelo Partido dos Trabalhadores (PT) em cada município brasileiro no pleito de 2024?</p>
+<p>O TSE disponibiliza uma tabela com várias informações sobre candidaturas, incluindo seus resultados na totalização dos votos (i.e., se foram ou não eleitos e eleitas). Com o <code>electionsBR</code>, basta usar <code>elections_tse()</code> com <code>type = "candidate"</code> para obter esses dados:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carrega pacotes</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(pacman)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
@@ -382,13 +383,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(NM_UE, SG_UE, SG_PARTIDO, DS_CARGO, DS_SIT_TOT_TURNO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 463,598 × 5
-  NM_UE       SG_UE SG_PARTIDO    DS_CARGO DS_SIT_TOT_TURNO
-  &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;           
-1 FEIJÓ       01139 SOLIDARIEDADE VEREADOR SUPLENTE        
-2 BRASILÉIA   01058 SOLIDARIEDADE VEREADOR NÃO ELEITO      
-3 RIO BRANCO  01392 PRD           VEREADOR NÃO ELEITO      
-4 TARAUACÁ    01473 PSDB          VEREADOR SUPLENTE        
-5 MÂNCIO LIMA 01090 PSDB          VEREADOR NÃO ELEITO      
+  NM_UE                SG_UE SG_PARTIDO DS_CARGO DS_SIT_TOT_TURNO
+  &lt;chr&gt;                &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;           
+1 MARECHAL THAUMATURGO 01040 PV         VEREADOR SUPLENTE        
+2 RODRIGUES ALVES      01082 PC do B    VEREADOR NÃO ELEITO      
+3 XAPURI               01490 PT         VEREADOR #NULO#          
+4 SENA MADUREIRA       01457 PP         VEREADOR SUPLENTE        
+5 PORTO ACRE           01023 PSDB       VEREADOR NÃO ELEITO      
 # ℹ 463,593 more rows</code></pre>
 </div>
 </div>
@@ -405,8 +406,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>eleitos_pt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5,535 × 3
-# Groups:   NM_UE [5,265]
+<pre><code># A tibble: 5,537 × 3
+# Groups:   NM_UE [5,266]
   NM_UE           SG_UE pct_vereadores_pt
   &lt;chr&gt;           &lt;dbl&gt;             &lt;dbl&gt;
 1 ANÍSIO DE ABREU 10138             1    
@@ -414,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3 IPAPORANGA      13340             1    
 4 URUOCA          15792             0.889
 5 COCAL DOS ALVES 12696             0.778
-# ℹ 5,530 more rows</code></pre>
+# ℹ 5,532 more rows</code></pre>
 </div>
 </div>
 <p>O <a href="https://ipea.github.io/geobr/">geobr</a> tem uma função <code>read_municipality()</code> que retorna um <code>sf</code> com os municípios brasileiros.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> O que é isso? Basicamente, um <code>data.frame</code> com as informações geográficas necessárias para desenharmos polígonos em <code>R</code>, isto é, um mapa.</p>

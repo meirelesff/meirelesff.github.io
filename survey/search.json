@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "template.html",
+    "href": "template.html",
+    "title": "Template",
+    "section": "",
+    "text": "Neste curso, usaremos um template em quarto para realizar as listas de exercícios. Diferentemente de um arquivo de Word, este template pode ser editado em qualquer editor de texto usando Markdown; e ele também dispensa termos de usar normas da ABNT; de inserir bibligrafia manualmente; ou de ter de copiar e colar resultados de análises feitas no R. Usando ele, em outras palavras, podemos nos concentrar apenas em escrever e analisar dados."
+  },
+  {
+    "objectID": "template.html#template",
+    "href": "template.html#template",
+    "title": "Template",
+    "section": "",
+    "text": "Neste curso, usaremos um template em quarto para realizar as listas de exercícios. Diferentemente de um arquivo de Word, este template pode ser editado em qualquer editor de texto usando Markdown; e ele também dispensa termos de usar normas da ABNT; de inserir bibligrafia manualmente; ou de ter de copiar e colar resultados de análises feitas no R. Usando ele, em outras palavras, podemos nos concentrar apenas em escrever e analisar dados."
+  },
+  {
+    "objectID": "template.html#download",
+    "href": "template.html#download",
+    "title": "Template",
+    "section": "Download",
+    "text": "Download\nO template pode ser baixado daqui. Extraia os arquivos para uma pasta da sua preferência. Para abrir o template no RStudio, abra o arquivo template_quarto.Rproj. Se tudo funcionar, seu projeto será aberto e você deverá ver algo mais ou menos assim:\n\n\n\nTemplate aberto via RStudio"
+  },
+  {
+    "objectID": "template.html#instalação",
+    "href": "template.html#instalação",
+    "title": "Template",
+    "section": "Instalação",
+    "text": "Instalação\nPara usar o template, é necessário ter o R e o quarto instalados, o que podemos fazer seguindo três passos simples.\n\n1) Instalando o quarto\nPara instalar especificamente o quarto, busque a versão adequada para o seu sistema operacional em:\n\nhttps://quarto.org/docs/get-started/\n\n\n\n2) Instalando o tinytex e LaTex\nFeito isso, precisamos instalar o tinytex, que é uma distribuição \\(\\LaTeX\\) leve e fácil de instalar, rodando o seguinte código diretamente do R:\ninstall.packages(\"tinytex\")\ntinytex::install_tinytex()\n\n\n3) Instalando o quarto para R\nCom a etapa anterior concluída, instale o pacote quarto para R com:\ninstall.packages(\"quarto\")"
+  },
+  {
+    "objectID": "template.html#usando-o-template",
+    "href": "template.html#usando-o-template",
+    "title": "Template",
+    "section": "Usando o template",
+    "text": "Usando o template\nPara usar o template, basta abrir o arquivo documento.qmd de dentro RStudio, editar seu conteúdo como quiser e clicar no botão Render. O arquivo documento.pdf será gerado.\nTambém é possível compilar o arquivo executando o seguinte código em R:\nquarto::render(\"documento.qmd\")\n\nDicas de uso\n\nMarkdown\nTítulos e sub-títulos são definidos com # e ##, respectivamente. Por exemplo, # Título gera um título, e ## Sub-título gera um sub-título. Para criar uma lista, use - ou * no início de cada item. Exemplo:\n- Item 1\n- Item 2\nPara criar um parágrafo, basta deixar uma linha em branco entre os parágrafos. Para criar uma citação, use &gt;. Exemplo:\n\nCitação qualquer…\n\nPara destacar um texto com itálito, use *texto*; para negrito, use **texto**; e para negrito e itálico, use ***texto***. Finalmente, links podem ser criados com [texto](url).\n\n\nCódigo em R\nPodemos inserir código bruto em R e o template o compilará e o exibirá no documento final. Por exemplo, o código abaixo gerará um gráfico:\nx &lt;- 1:10\ny &lt;- x^2\nplot(x, y)\nPara inserir código, bastar usar três crases seguidas de r, e depois do código três crases novamente. Exemplo:\n```{r}\nplot(x, y)\n```\n\n\nCitações\n\nPara inserir uma citação, use @ seguido do nome do código da referência como definido no arquivo referencias.bib. Por exemplo, @groves2011survey citará Groves et al. (2011), e [@lusinchi2012president] citará (Lusinchi 2012). Para inserir várias citações, separe elas por ;. Por exemplo, [@groves2010total; @groves2011survey], o que produzirá (Groves e Lyberg 2010; Groves et al. 2011).\n\n\n\nNotação\nPodemos inserir notação matemática usando \\(\\LaTeX\\). Para inserir um símbolo, use $ seguido do código \\(\\LaTeX\\) e $ novamente. Por exemplo, $\\beta$ gerará \\(\\beta\\).\nNotações que usaremos bastante no curso:\n\n\\(Y\\) (Y): $Y$\n\\(Y_i\\) (indexador): $Y_i$ ou $Y_{i}$\n\\(\\beta\\) (beta): $\\beta$\n\\(\\alpha\\) (alfa): $\\alpha$\n\\(\\sim\\) (sim): $\\sim$\n\\(\\hat{\\beta}\\) (beta chapéu): $\\hat{\\beta}$\n\\(\\sum_{i=1}^n\\) (somatório): $\\sum_{i=1}^n$\n\\(\\mathbb{E}[X]\\) (valor esperado): $\\mathbb{E}[X]$\n\nPara uma lista mais completa de símbolos, veja este link."
+  },
+  {
+    "objectID": "ementa.html",
+    "href": "ementa.html",
+    "title": "Ementa",
+    "section": "",
+    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 18/02/2025."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Survey",
+    "section": "",
+    "text": "Este é o website da disciplina de Survey do IESP-UERJ. Aqui estão disponíveis: ementa atualizada do curso, cronograma parcial, materiais de aula e recursos adicionais.\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n12/3\nAula 1 – Apresentação do curso\n\n\n19/3\nAula 2 – O que são surveys\n\n\n26/3\nAula 3 – Erros (aula remota)\n\n\n2/4\nAula 4 – Amostragem (Tarefa I)\n\n\n9/4\nAula 5 – Amostragem II\n\n\n16/4\nAula 6 – Questionários (Tarefa II)"
+  },
+  {
+    "objectID": "index.html#sobre",
+    "href": "index.html#sobre",
+    "title": "Survey",
+    "section": "",
+    "text": "Este é o website da disciplina de Survey do IESP-UERJ. Aqui estão disponíveis: ementa atualizada do curso, cronograma parcial, materiais de aula e recursos adicionais.\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n12/3\nAula 1 – Apresentação do curso\n\n\n19/3\nAula 2 – O que são surveys\n\n\n26/3\nAula 3 – Erros (aula remota)\n\n\n2/4\nAula 4 – Amostragem (Tarefa I)\n\n\n9/4\nAula 5 – Amostragem II\n\n\n16/4\nAula 6 – Questionários (Tarefa II)"
+  }
+]

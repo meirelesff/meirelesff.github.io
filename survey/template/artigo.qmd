@@ -1,0 +1,91 @@
+---
+title: "Tarefa de survey"
+date: "12/03/2025"
+author:
+  - name: Nome Sobrenome
+    email: nome.sobrenome@iesp.uerj.br
+abstract: > 
+  Este é um exemplo de tarefa para a disciplina de Survey. Ele deverá ser usado
+  por padrão nos trabalhos da disciplina. É possível inserir tabelas e gráficos nele 
+  por meio de código, e a bibliografia é gerenciada automaticamente.
+  Obviamente, este exemplo pode ser adaptado de inúmeras formas. Este campo é 
+  o abstract da tarefa, elemento que deverá sempre ser preenchido para indicar
+  1) o que foi feito, 2) como foi feito e 3) quais resultados foram encontrados.
+format:
+  pdf:
+    toc: false
+    number-sections: false
+    colorlinks: true
+    fig-pos: H
+    tbl-cap-location: top
+    fig-cap-location: top
+    df-print: kable
+    geometry:
+      - top=25mm
+      - left=20mm
+      - right=20mm
+      - bottom=25mm
+bibliography: referencias.bib
+lang: pt
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r setup, include=FALSE}
+# Pacotes
+library(modelsummary)
+library(tidyverse)
+```
+
+
+# Introdução
+
+Aqui vai a introdução da tarefa. Lembre-se sempre de discutir a literatura teórica que embase o que foi feito, justificando suas escolhas de metodologia e, sempre que possível, debatendo com outros estudos. A introdução é a parte analítica das tarefas e será avaliada em função do domínio das leituras previstas. Neste template, a bibliografia é formatada automaticamente. Para fazer citações diretas, use, por exemplo, @groves2011survey. Citações indiretas funcionam assim [@groves2010total; @groves2011survey]. 
+
+
+# Metodologia
+
+Descreva sempre o que foi feito. Use notação, se preciso:
+
+$$
+Y_i \sim N(\mu_i, \sigma^2)
+$$
+
+Também podemos usar notação no meio do texto, como quando queremos falar de uma unidade $i$, ou de uma variável aleatória $Y$, ou ainda de uma estimativa $\hat{\mu}$.
+
+
+# Resultados
+
+Finalmente, aqui vai a @fig-1 (criada com [ggplot2](https://ggplot2.tidyverse.org/)). É importante que seu código seja escrito dentro deste documento para que o resultado seja reprodutível -- o que será essencial na correção das tarefas.
+
+```{r}
+#| label: fig-1
+#| fig-cap: "Um gráfico de exemplo"
+mtcars %>%
+  ggplot(aes(x = wt, y = mpg)) +
+  geom_point() +
+  theme_minimal()
+```
+
+
+O gráfico aparece com título e pode ser citado no texto, como na linha anterior. E aqui vão algumas estatísticas descritivas na @tbl-mtcars (usando o pacote [modelsummary](https://modelsummary.com/index.html)). As tabelas já saem formatadas e é possível customizar várias outras opções de exibição.
+
+
+```{r}
+#| label: tbl-mtcars
+#| tbl-cap: "Resumo de algumas estatísticas"
+#| tbl-pos: H
+mtcars %>%
+  select(mpg, cyl, hp) %>%
+  datasummary_skim()
+```
+
+
+
+### Referências
+
+::: {#refs}
+:::
+

@@ -1,0 +1,257 @@
+/* Importacoes */
+@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:wght@300;400;500;700;900&display=swap');
+
+/* Inverse slide */
+  
+.inverse {
+    background-color: #282A36;
+}
+
+.inverse .remark-slide-number {
+    opacity: 0;
+    font-size: 0px;
+}
+
+
+.title-slide h2::after, .mline h1::after {
+    background-color: #F8F8F2;
+    color: #F8F8F2;
+    height: 6px;
+    width: 60px;
+}
+
+.mline h1::after {
+    margin: 10px 15px 15px 370px;
+}
+
+
+.pull-left2 {
+  float: left;
+  width: 28%;
+}
+.pull-right2 {
+  float: right;
+  width: 62%;
+}
+
+.pull-c-left {
+  float: left;
+  font-size: 90%;
+  width: 30%;
+}
+
+.pull-c-center {
+  float: left;
+  width: 30%;
+  font-size: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.pull-c-right {
+  float: right;
+  font-size: 90%;
+  width: 30%;
+}
+
+
+
+.footnote {
+  bottom: 1em;
+}
+
+
+/* Corpo */
+.remark-slide-content {
+    background-color: #F8F8F2;
+    border-top: 14px solid #282A36;
+    font-size: 26px;
+    color:#282A36;
+    font-weight:300; 
+}
+
+body {
+    font-family: 'Mona Sans','Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+}
+
+/* Slide inicial */
+.title-slide h1 {
+    color: #282A36;
+    font-weight: 900;
+    font-size: 52px;
+    padding-top: 280px;
+    margin-bottom: 100px;
+}
+  
+.title-slide {
+    background-color: #F8F8F2;
+    border-top: #F8F8F2;
+    background-size: 105px;
+}
+
+.title-slide h1 {
+    margin-bottom:25px;
+}
+
+.title-slide h2 {
+    line-height: 1.1;
+    margin-bottom: 40px;
+    font-weight: 400;
+    color: #44475A;
+    font-size: 33px;
+}
+
+.title-slide h3 {
+    font-weight: 400;
+    font-size: 22px;
+    color: #282A36;
+}
+
+.title-slide h2::after {
+    display:none;
+}
+
+
+/* Fontes */
+.remark-slide-content h1 {
+    font-size: 50px;
+    font-family: 'Mona Sans','Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+    
+}
+
+h1 {
+    font-weight: 900;
+    margin-top: -92px;
+    color: #FAFAFA;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-weight: 600;
+    color: #44475A;
+}
+
+.remark-slide-content h3 {
+  font-size: 26px;
+}
+
+.hljs-default .hljs {
+    background: #dfe1e1;
+    border-radius: 5px;
+  }
+.font85 {
+  font-size: 85%;
+}
+
+
+/* Efeitos */
+
+.left-column {
+    font-weight: 300;
+    padding-right: 1.4em;
+}
+
+
+/* Barra de progresso */
+.remark-slide-number {
+  position: inherit;
+  opacity: 1;
+  font-size: 0px;
+}
+
+.remark-slide-number .progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: #282A36;
+}
+
+
+/* Links */
+a {
+    color: #FF5555;
+    transform: scale(1.5);
+    text-decoration: underline;
+    text-underline-offset: 7px;
+}
+
+
+/* Lista */
+li{
+    list-style-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAYAAADA+m62AAAAFUlEQVQYV2NMKlryn4EIwDiqEB8AAASKE8GhIDCMAAAAAElFTkSuQmCC');
+}
+
+
+/* Outros */
+
+.codigo {
+    backgroud: #44475A;
+    color: #F8F8F2;
+}
+
+.remark-inline-code {
+    background: #44475A;
+    border-radius: 5px;
+    color:#F8F8F2;
+    padding: 1px;
+}
+
+.texto {
+    color: #6272A4;
+    font-weight:700;
+}
+
+.texto2 {
+    color: #6272A4;
+    font-weight: 500;
+}
+
+blockquote {
+    border-left: solid 10px #6272A4;
+    padding-left: 0.8em;
+}
+
+.remark-slide table thead th {
+    border-bottom: 1px solid #ddd;
+    color: #282A36;
+}
+
+.remark-slide table {
+    margin: auto;
+    border-top: none;
+    border-bottom: none;
+    width: 65%;
+}  
+
+.remark-code-line-highlighted {
+  background-color: #FF5555;
+}
+
+.remark-code-span-highlighted {
+    background-color: #FF5555;
+    padding: 1px 2px 2px 2px;
+  }
+
+.alert {
+  padding: 11px;
+  background-color: #ddd;
+  display: inline-block;
+  position: relative;
+  border-radius: 0.25em;
+}
+
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}

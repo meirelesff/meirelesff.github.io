@@ -382,15 +382,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>eleitos <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(NM_UE, SG_UE, SG_PARTIDO, DS_CARGO, DS_SIT_TOT_TURNO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 463,598 × 5
-  NM_UE                SG_UE SG_PARTIDO DS_CARGO DS_SIT_TOT_TURNO
-  &lt;chr&gt;                &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;           
-1 MARECHAL THAUMATURGO 01040 PV         VEREADOR SUPLENTE        
-2 RODRIGUES ALVES      01082 PC do B    VEREADOR NÃO ELEITO      
-3 XAPURI               01490 PT         VEREADOR #NULO#          
-4 SENA MADUREIRA       01457 PP         VEREADOR SUPLENTE        
-5 PORTO ACRE           01023 PSDB       VEREADOR NÃO ELEITO      
-# ℹ 463,593 more rows</code></pre>
+<pre><code># A tibble: 463,622 × 5
+  NM_UE    SG_UE SG_PARTIDO    DS_CARGO DS_SIT_TOT_TURNO
+  &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;           
+1 CAPIXABA 01015 REPUBLICANOS  VEREADOR SUPLENTE        
+2 CAPIXABA 01015 SOLIDARIEDADE VEREADOR #NULO           
+3 CAPIXABA 01015 REPUBLICANOS  VEREADOR SUPLENTE        
+4 CAPIXABA 01015 PP            VEREADOR SUPLENTE        
+5 CAPIXABA 01015 PSD           VEREADOR NÃO ELEITO      
+# ℹ 463,617 more rows</code></pre>
 </div>
 </div>
 <p>Com elas, conseguimos saber, para cada município, o percentual de vereadores e vereadoras eleitos e eleitas pelo PT (claro, usando algumas funções antes):</p>
@@ -406,8 +406,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>eleitos_pt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5,537 × 3
-# Groups:   NM_UE [5,266]
+<pre><code># A tibble: 5,542 × 3
+# Groups:   NM_UE [5,270]
   NM_UE           SG_UE pct_vereadores_pt
   &lt;chr&gt;           &lt;dbl&gt;             &lt;dbl&gt;
 1 ANÍSIO DE ABREU 10138             1    
@@ -415,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3 IPAPORANGA      13340             1    
 4 URUOCA          15792             0.889
 5 COCAL DOS ALVES 12696             0.778
-# ℹ 5,532 more rows</code></pre>
+# ℹ 5,537 more rows</code></pre>
 </div>
 </div>
 <p>O <a href="https://ipea.github.io/geobr/">geobr</a> tem uma função <code>read_municipality()</code> que retorna um <code>sf</code> com os municípios brasileiros.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> O que é isso? Basicamente, um <code>data.frame</code> com as informações geográficas necessárias para desenharmos polígonos em <code>R</code>, isto é, um mapa.</p>

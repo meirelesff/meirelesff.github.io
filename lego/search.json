@@ -1,0 +1,289 @@
+[
+  {
+    "objectID": "dados.html",
+    "href": "dados.html",
+    "title": "Dados",
+    "section": "",
+    "text": "Para praticar análise de dados, usaremos diferentes bancos ao longo do curso. Estes podem ser obtidos nesta pasta do Drive:\n\nDatasets de Lego 1\n\nO arquivo datasets.zip contém todos os arquivos. Descompacte-o em um local de sua preferência e lembre-se de usar este mesmo local como diretório de trabalho para os exercícios."
+  },
+  {
+    "objectID": "ementa.html",
+    "href": "ementa.html",
+    "title": "Ementa",
+    "section": "",
+    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 24/02/2026."
+  },
+  {
+    "objectID": "recursos.html",
+    "href": "recursos.html",
+    "title": "Recursos",
+    "section": "",
+    "text": "Esta página contém algumas indicações de materiais úteis para quem está começando a aprender R e estatística. Para contemplar diferentes tipos de aprendizagem, há tanto indicação de conteúdos interativos como, também, de livros; blogs; vídeos; e podcasts. A lista não é exaustiva e provavelmente será atualizada ao longo do curso.\n\nBlogs e sites\n\nR Weekly - Newsletter semanal com os principais acontecimentos da comunidade R e vários links para tutoriais, pacotes, etc.\nR-bloggers - Agregador de blogs sobre R (há coisas em português também)\n\n\n\nLivros\nLivros indicados para quem quer nunca viu R e quer ter um contato mais aprofundado com o ambiente de programação:\n\nR for Data Science - Garrett Grolemund e Hadley Wickham\nHands on Programming with R - Garrett Grolemund\nR Cookbook - James Long e Paul Teetor"
+  },
+  {
+    "objectID": "tutoriais/tutorial2.html",
+    "href": "tutoriais/tutorial2.html",
+    "title": "Tutorial 2 – Importação de dados",
+    "section": "",
+    "text": "ImportantePacotes\n\n\n\n\nNeste tutorial, não é necessário instalar o pacote readr – ele já está disponível e carregado no ambiente do navegador."
+  },
+  {
+    "objectID": "tutoriais/tutorial2.html#formatos-de-dados",
+    "href": "tutoriais/tutorial2.html#formatos-de-dados",
+    "title": "Tutorial 2 – Importação de dados",
+    "section": "Formatos de dados",
+    "text": "Formatos de dados\nDados podem estar em diferentes formatos: CSV (texto separado por vírgulas), Excel (.xlsx), entre outros. O formato mais comum é o CSV – que nada mais é do que um arquivo de texto com um tipo de formatação específica. Exemplo:\nnome,idade,partido\nAna,35,PT\nBruno,42,PSOL\nCarla,28,PL\nOutro exemplo, dessa vez com tabulações:\nnome    idade   partido\nAna 35  PT\nBruno   42  PSOL\nCarla   28  PL\nPara este tutorial, vamos carregar um destes arquivos da página de estatísticas do Instituto de Segurança Pública do Rio de Janeiro.1 O arquivo é um CSV separado por ponto e vírgula (;) e tem dados sobre letalidade no estado do Rio.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\n\n\n\nDicaDica prática\n\n\n\nDepois de importar uma base, sempre confira 3 coisas: primeiras linhas, número de linhas e nomes das colunas.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: descubra se existe uma coluna chamada ano.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial2.html#explorando-dados",
+    "href": "tutoriais/tutorial2.html#explorando-dados",
+    "title": "Tutorial 2 – Importação de dados",
+    "section": "Explorando dados",
+    "text": "Explorando dados\nApós importar, use funções de inspeção rápida:\n\n\n\nFunção\nO que faz\n\n\n\n\nhead()\nPrimeiras linhas\n\n\nstr()\nEstrutura dos dados\n\n\nsummary()\nResumo estatístico\n\n\nnrow()\nNúmero de linhas\n\n\nncol()\nNúmero de colunas\n\n\nnames()\nNomes das colunas\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: explore letalidade com summary(), nrow(), ncol() e names().\nResultado esperado: 150 linhas e 5 colunas.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial2.html#exportando-dados",
+    "href": "tutoriais/tutorial2.html#exportando-dados",
+    "title": "Tutorial 2 – Importação de dados",
+    "section": "Exportando dados",
+    "text": "Exportando dados\nNo navegador, salvar arquivo local pode não funcionar como no RStudio local.\n\n\n\n\n\n\nCuidadoNo RStudio (local)\n\n\n\nUse esta sintaxe para exportar:\nwrite.csv(objeto, \"meus_dados.csv\", row.names = FALSE)"
+  },
+  {
+    "objectID": "tutoriais/tutorial2.html#footnotes",
+    "href": "tutoriais/tutorial2.html#footnotes",
+    "title": "Tutorial 2 – Importação de dados",
+    "section": "Notas de rodapé",
+    "text": "Notas de rodapé\n\n\nA definição de letalidade violenta é, segundo o site do ISP, “Homicídio doloso + Lesão corporal seguida de morte + Latrocínio + Morte por intervenção de agente do Estado”.↩︎"
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html",
+    "href": "tutoriais/tutorial4.html",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "",
+    "text": "Vamos carregar novamente a base de letalidade do tutorial anterior para praticar manipulação de dados.\nTambém vamos criar um novo data frame dados_plot com a contagem total de letalidade por ano:"
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#fundamentos-do-ggplot2",
+    "href": "tutoriais/tutorial4.html#fundamentos-do-ggplot2",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Fundamentos do ggplot2",
+    "text": "Fundamentos do ggplot2\nNo ggplot2, construímos gráficos em camadas:\n\ndados (ggplot(dados, ...))\nestética (aes(...))\ngeometria (geom_*())\ncamadas extras como labs(), scale_*(), theme_*() e coord_*()\n\nNeste tutorial, vamos focar em um único tipo de gráfico: geom_col().\n\n\n\n\n\n\nDicaCamadas no ggplot\n\n\n\nAs camadas são combinadas com + (não com |&gt;)."
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#etapa-1-apenas-os-dados",
+    "href": "tutoriais/tutorial4.html#etapa-1-apenas-os-dados",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Etapa 1: apenas os dados",
+    "text": "Etapa 1: apenas os dados\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: execute head(dados_plot) e confira as colunas disponíveis.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#etapa-2-mapeando-eixos-com-aes",
+    "href": "tutoriais/tutorial4.html#etapa-2-mapeando-eixos-com-aes",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Etapa 2: mapeando eixos com aes()",
+    "text": "Etapa 2: mapeando eixos com aes()\nAgora mapeamos ano no eixo X e contagem_total no eixo Y.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: altere o mapeamento para inverter os eixos (X = contagem_total, Y = ano).\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#etapa-3-adicionando-a-geometria-geom_col",
+    "href": "tutoriais/tutorial4.html#etapa-3-adicionando-a-geometria-geom_col",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Etapa 3: adicionando a geometria (geom_col())",
+    "text": "Etapa 3: adicionando a geometria (geom_col())\ngeom_col() usa os valores de y como altura das barras.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: recrie o gráfico acima e teste fill = \"steelblue\" dentro de geom_col().\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#etapa-4-customizando-barras",
+    "href": "tutoriais/tutorial4.html#etapa-4-customizando-barras",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Etapa 4: customizando barras",
+    "text": "Etapa 4: customizando barras\nPodemos ajustar cor, transparência e largura.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: mude fill, alpha e width para observar diferenças visuais.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#etapa-5-títulos-e-rótulos-com-labs",
+    "href": "tutoriais/tutorial4.html#etapa-5-títulos-e-rótulos-com-labs",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Etapa 5: títulos e rótulos com labs()",
+    "text": "Etapa 5: títulos e rótulos com labs()\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: personalize o gráfico com outro título e outros rótulos de eixo.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#etapa-6-escalas-e-tema",
+    "href": "tutoriais/tutorial4.html#etapa-6-escalas-e-tema",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Etapa 6: escalas e tema",
+    "text": "Etapa 6: escalas e tema\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: troque o tema para theme_light() e altere os breaks do eixo X para passo 10.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#etapa-7-coordenação-do-gráfico",
+    "href": "tutoriais/tutorial4.html#etapa-7-coordenação-do-gráfico",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Etapa 7: coordenação do gráfico",
+    "text": "Etapa 7: coordenação do gráfico\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: reproduza o gráfico acima e teste outra cor de preenchimento.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#desafio-final",
+    "href": "tutoriais/tutorial4.html#desafio-final",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Desafio final",
+    "text": "Desafio final\nConstrua um gráfico completo com geom_col() usando dados_plot e incluindo:\n\nlabs() com título e eixos\ntheme_minimal()\nscale_x_continuous() com passo 5 no eixo X\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#salvando-gráficos-r-local",
+    "href": "tutoriais/tutorial4.html#salvando-gráficos-r-local",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Salvando gráficos (R local)",
+    "text": "Salvando gráficos (R local)\nNo R local, use ggsave() para salvar gráficos em arquivo.\n\n\n\n\n\n\nCuidadoNo RStudio (local)\n\n\n\nggsave(\"grafico.png\", width = 8, height = 5)"
+  },
+  {
+    "objectID": "tutoriais/tutorial3.html#dados",
+    "href": "tutoriais/tutorial3.html#dados",
+    "title": "Tutorial 3 – Manipulação de dados",
+    "section": "Dados",
+    "text": "Dados\nVamos carregar novamente a base de letalidade do tutorial anterior para praticar manipulação de dados.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial3.html#o-pipe",
+    "href": "tutoriais/tutorial3.html#o-pipe",
+    "title": "Tutorial 3 – Manipulação de dados",
+    "section": "O pipe |>",
+    "text": "O pipe |&gt;\nO pipe |&gt; passa o resultado de uma função para a próxima. Leia como “e então”.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: use o pipe para passar letalidade para a função summary().\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial3.html#filter-filtrar-linhas",
+    "href": "tutoriais/tutorial3.html#filter-filtrar-linhas",
+    "title": "Tutorial 3 – Manipulação de dados",
+    "section": "filter(): filtrar linhas",
+    "text": "filter(): filtrar linhas\nfilter() seleciona linhas que satisfazem uma condição.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: filtre apenas observações de Municipio a partir de 2010.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: filtre as linhas em que delito seja diferente de Letalidade Violenta.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial3.html#select-selecionar-colunas",
+    "href": "tutoriais/tutorial3.html#select-selecionar-colunas",
+    "title": "Tutorial 3 – Manipulação de dados",
+    "section": "select(): selecionar colunas",
+    "text": "select(): selecionar colunas\nselect() escolhe quais colunas manter.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: selecione apenas ano, delito e taxa_100mil.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial3.html#mutate-criar-colunas",
+    "href": "tutoriais/tutorial3.html#mutate-criar-colunas",
+    "title": "Tutorial 3 – Manipulação de dados",
+    "section": "mutate(): criar colunas",
+    "text": "mutate(): criar colunas\nmutate() cria ou modifica colunas.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: crie uma coluna decada com base em ano (ex.: 2017 -&gt; 2010).\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: crie uma coluna lógica recente que seja TRUE para anos a partir de 2020.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial3.html#summarise-e-group_by-resumir-dados",
+    "href": "tutoriais/tutorial3.html#summarise-e-group_by-resumir-dados",
+    "title": "Tutorial 3 – Manipulação de dados",
+    "section": "summarise() e group_by(): resumir dados",
+    "text": "summarise() e group_by(): resumir dados\nsummarise() calcula estatísticas. Combinado com group_by(), resume por grupo.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: calcule a média de contagem por area_geografica.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: conte quantas observações existem por ano.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial3.html#arrange-ordenar-dados",
+    "href": "tutoriais/tutorial3.html#arrange-ordenar-dados",
+    "title": "Tutorial 3 – Manipulação de dados",
+    "section": "arrange(): ordenar dados",
+    "text": "arrange(): ordenar dados\narrange() ordena as linhas. Use desc() para ordem decrescente.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: ordene letalidade por ano (crescente) e mostre 8 linhas.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial3.html#desafios-integrando-funções",
+    "href": "tutoriais/tutorial3.html#desafios-integrando-funções",
+    "title": "Tutorial 3 – Manipulação de dados",
+    "section": "Desafios integrando funções",
+    "text": "Desafios integrando funções\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nDesafio 10: reproduza o pipeline acima, mas para Municipio e em ordem crescente de ano.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nDesafio 11: calcule, por década, o valor máximo de contagem.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial1.html",
+    "href": "tutoriais/tutorial1.html",
+    "title": "Tutorial 1 – Sintaxe básica do R",
+    "section": "",
+    "text": "A partir de agora, vamos aprender R do jeito mais direto possível: escrevendo e executando código.\n\n\n\n\n\n\nImportanteComo usar esta página\n\n\n\n\nBlocos cinza com código podem ser executados no navegador (botão Run).\nPara executar apenas uma linha de cada vez, basta colocar o cursor na linha e usar o atalho:\n\nmacOS: ⌘ + ↩︎/Return\nWindows/Linux: Ctrl + ↩︎/Enter\n\nLinhas com [1] no resultado são o output do R.\nAlguns exemplos dependem de objetos criados antes. Se algo der erro, execute os blocos anteriores da seção.\n\n\n\n\n\n\n\n\n\nDicaEstratégia de estudo\n\n\n\nA maioria dos blocos de código tem um exemplo seguido de exercícios. Tente primeiro entender o exemplo, depois escreva seu código para os exercícios. Se ficar travado, revise o exemplo, procure nos materiais de aula, tente de novo – aprender a programar é um processo infinito de tentativas e erros.\n\n\n\n\n\n\n\n\nImportanteNavegadores\n\n\n\n\nEste tutorial é melhor visualizado no Chrome ou Firefox. Safari não é compatível.\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nNo R, # cria comentários (não executa):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nAgora pratique operações básicas:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: calcule \\((15 + 5) \\times 2 - 8\\).\nResultado esperado: 32.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nOperadores aritméticos mais usados:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTambém usamos operadores lógicos para testar condições:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nCombine testes com & (E) e | (OU):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTeste pertencimento com %in%:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial1.html#sintaxe-básica-do-r",
+    "href": "tutoriais/tutorial1.html#sintaxe-básica-do-r",
+    "title": "Tutorial 1 – Sintaxe básica do R",
+    "section": "",
+    "text": "A partir de agora, vamos aprender R do jeito mais direto possível: escrevendo e executando código.\n\n\n\n\n\n\nImportanteComo usar esta página\n\n\n\n\nBlocos cinza com código podem ser executados no navegador (botão Run).\nPara executar apenas uma linha de cada vez, basta colocar o cursor na linha e usar o atalho:\n\nmacOS: ⌘ + ↩︎/Return\nWindows/Linux: Ctrl + ↩︎/Enter\n\nLinhas com [1] no resultado são o output do R.\nAlguns exemplos dependem de objetos criados antes. Se algo der erro, execute os blocos anteriores da seção.\n\n\n\n\n\n\n\n\n\nDicaEstratégia de estudo\n\n\n\nA maioria dos blocos de código tem um exemplo seguido de exercícios. Tente primeiro entender o exemplo, depois escreva seu código para os exercícios. Se ficar travado, revise o exemplo, procure nos materiais de aula, tente de novo – aprender a programar é um processo infinito de tentativas e erros.\n\n\n\n\n\n\n\n\nImportanteNavegadores\n\n\n\n\nEste tutorial é melhor visualizado no Chrome ou Firefox. Safari não é compatível.\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nNo R, # cria comentários (não executa):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nAgora pratique operações básicas:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: calcule \\((15 + 5) \\times 2 - 8\\).\nResultado esperado: 32.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nOperadores aritméticos mais usados:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTambém usamos operadores lógicos para testar condições:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nCombine testes com & (E) e | (OU):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTeste pertencimento com %in%:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial1.html#funções",
+    "href": "tutoriais/tutorial1.html#funções",
+    "title": "Tutorial 1 – Sintaxe básica do R",
+    "section": "Funções",
+    "text": "Funções\nFunções recebem argumentos e retornam resultados.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: transforme \"r para ciência social\" em maiúsculas e conte os caracteres.\nResultado esperado: texto em maiúsculas e um número inteiro de caracteres.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial1.html#objetos",
+    "href": "tutoriais/tutorial1.html#objetos",
+    "title": "Tutorial 1 – Sintaxe básica do R",
+    "section": "Objetos",
+    "text": "Objetos\nObjetos guardam resultados para uso posterior. Use &lt;-.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nCom texto:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: crie z &lt;- 25 e calcule z / 5.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial1.html#tipos-e-classes-de-objetos",
+    "href": "tutoriais/tutorial1.html#tipos-e-classes-de-objetos",
+    "title": "Tutorial 1 – Sintaxe básica do R",
+    "section": "Tipos e classes de objetos",
+    "text": "Tipos e classes de objetos\nUse class() para ver a classe de um objeto.\nVamos do mais simples ao mais complexo: vetor -&gt; fator -&gt; matriz -&gt; data.frame -&gt; lista.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\ninteger e numeric\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\ncharacter\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nfactor\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\n\n\n\nNota\n\n\n\nas.numeric() em factor retorna os códigos internos das categorias (1, 2, …), não os rótulos de texto.\n\n\n\n\nmatrix\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\ndata.frame\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nlist\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial1.html#manipulando-objetos-indexação",
+    "href": "tutoriais/tutorial1.html#manipulando-objetos-indexação",
+    "title": "Tutorial 1 – Sintaxe básica do R",
+    "section": "Manipulando objetos (indexação)",
+    "text": "Manipulando objetos (indexação)\n\nVetores\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\ndata.frame: linhas e colunas\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nListas\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nAcesso por nome com $\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: no objeto novo_banco, retorne apenas as UF com cidade &gt;= 45.\nResultado esperado: duas linhas.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+  },
+  {
+    "objectID": "tutoriais/tutorial1.html#pipes",
+    "href": "tutoriais/tutorial1.html#pipes",
+    "title": "Tutorial 1 – Sintaxe básica do R",
+    "section": "Pipes",
+    "text": "Pipes\nPipes (|&gt;) encadeiam operações sem criar muitos objetos intermediários.\nSem pipe:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nCom pipe:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nPipeline maior:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício final: use pipe para calcular a média de c(10, 12, 13, 15), tirar raiz quadrada e arredondar.\nResultado esperado: 4.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\n\n\n\nDicaPróximo passo\n\n\n\nSe um código falhar, leia a mensagem de erro e teste uma alteração por vez. Aprender R é um ciclo: rodar -&gt; observar -&gt; ajustar."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Lego I",
+    "section": "",
+    "text": "Este é o website da disciplina de Lego I do IESP-UERJ contendo recursos e outras informações úteis para o andamento do curso.\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n2/3\nAula 1 – Introdução ao R\n\n\n3/3\nAula 2 – Importação de dados\n\n\n4/3\nAula 3 – Manipulação de dados\n\n\n5/3\nAula 4 – Visualização de dados\n\n\n6/3\nAula 5 – Estatísticas descritivas e regressão\n\n\n\n\n\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n11/3\nAula 1 – Fundamentos da pesquisa quantitativa\n\n\n18/3\nAula 2 – Desenho de pesquisa e mensuração (1º lista)\n\n\n25/3\nAula 3 – Visualização de dados\n\n\n1/4\nAula 4 – Manipulação de dados\n\n\n8/4\nAula 5 – Importação e combinação de bases de dados\n\n\n15/4\nAula 6 – Indicadores e estatísticas descritivas (2º lista)\n\n\n22/4\nAula 7 – Amostragem\n\n\n29/4\nAula 8 – Inferência randomizada\n\n\n6/5\nAula 9 – Distribuições de probabilidade (3º lista)\n\n\n13/5\nAula 10 – Teste de hipóteses\n\n\n20/5\nAula 11 – Comparação entre grupos\n\n\n27/5\nAula 12 – Relações entre variáveis (4º lista)\n\n\n3/6\nAula 13 – Inferência com regressão linear\n\n\n10/6\nAula 14 – Regressão linear multivariada\n\n\n17/6\nAula 15 – Prova (Entrega da lista final)"
+  },
+  {
+    "objectID": "index.html#sobre",
+    "href": "index.html#sobre",
+    "title": "Lego I",
+    "section": "",
+    "text": "Este é o website da disciplina de Lego I do IESP-UERJ contendo recursos e outras informações úteis para o andamento do curso.\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n2/3\nAula 1 – Introdução ao R\n\n\n3/3\nAula 2 – Importação de dados\n\n\n4/3\nAula 3 – Manipulação de dados\n\n\n5/3\nAula 4 – Visualização de dados\n\n\n6/3\nAula 5 – Estatísticas descritivas e regressão\n\n\n\n\n\n\n\n\n\n\n\n\n\nData\nConteúdo\n\n\n\n\n11/3\nAula 1 – Fundamentos da pesquisa quantitativa\n\n\n18/3\nAula 2 – Desenho de pesquisa e mensuração (1º lista)\n\n\n25/3\nAula 3 – Visualização de dados\n\n\n1/4\nAula 4 – Manipulação de dados\n\n\n8/4\nAula 5 – Importação e combinação de bases de dados\n\n\n15/4\nAula 6 – Indicadores e estatísticas descritivas (2º lista)\n\n\n22/4\nAula 7 – Amostragem\n\n\n29/4\nAula 8 – Inferência randomizada\n\n\n6/5\nAula 9 – Distribuições de probabilidade (3º lista)\n\n\n13/5\nAula 10 – Teste de hipóteses\n\n\n20/5\nAula 11 – Comparação entre grupos\n\n\n27/5\nAula 12 – Relações entre variáveis (4º lista)\n\n\n3/6\nAula 13 – Inferência com regressão linear\n\n\n10/6\nAula 14 – Regressão linear multivariada\n\n\n17/6\nAula 15 – Prova (Entrega da lista final)"
+  },
+  {
+    "objectID": "template.html",
+    "href": "template.html",
+    "title": "Template",
+    "section": "",
+    "text": "Neste curso, usaremos um template em quarto para realizar listas de exercícios e trabalho final. Diferentemente de um arquivo de Word, este template pode ser editado em qualquer editor de texto usando Markdown; e ele também dispensa termos de usar normas da ABNT; de inserir bibligrafia manualmente; ou de ter de copiar e colar resultados de análises feitas no R. Usando ele, em outras palavras, podemos nos concentrar apenas em escrever e analisar dados."
+  },
+  {
+    "objectID": "template.html#template-de-lego-i",
+    "href": "template.html#template-de-lego-i",
+    "title": "Template",
+    "section": "",
+    "text": "Neste curso, usaremos um template em quarto para realizar listas de exercícios e trabalho final. Diferentemente de um arquivo de Word, este template pode ser editado em qualquer editor de texto usando Markdown; e ele também dispensa termos de usar normas da ABNT; de inserir bibligrafia manualmente; ou de ter de copiar e colar resultados de análises feitas no R. Usando ele, em outras palavras, podemos nos concentrar apenas em escrever e analisar dados."
+  },
+  {
+    "objectID": "template.html#download",
+    "href": "template.html#download",
+    "title": "Template",
+    "section": "Download",
+    "text": "Download\nO template pode ser baixado daqui ou deste repositório do GitHub. Extraia os arquivos para uma pasta da sua preferência. Para abrir o template no RStudio, abra o arquivo template_quarto.Rproj. Se tudo funcionar, seu projeto será aberto e você deverá ver algo mais ou menos assim:\n\n\n\nTemplate de Lego no RStudio"
+  },
+  {
+    "objectID": "template.html#instalação",
+    "href": "template.html#instalação",
+    "title": "Template",
+    "section": "Instalação",
+    "text": "Instalação\nPara usar o template, é necessário ter o R e o quarto instalados, o que podemos fazer seguindo três passos simples.\n\n1) Instalando o quarto\nPara instalar especificamente o quarto, busque a versão adequada para o seu sistema operacional em:\n\nhttps://quarto.org/docs/get-started/\n\n\n\n2) Instalando o tinytex e LaTex\nFeito isso, precisamos instalar o tinytex, que é uma distribuição \\(\\LaTeX\\) leve e fácil de instalar, rodando o seguinte código diretamente do R:\ninstall.packages(\"tinytex\")\ntinytex::install_tinytex()\n\n\n3) Instalando o quarto para R\nCom a etapa anterior concluída, instale o pacote quarto para R com:\ninstall.packages(\"quarto\")"
+  },
+  {
+    "objectID": "template.html#usando-o-template-de-lego",
+    "href": "template.html#usando-o-template-de-lego",
+    "title": "Template",
+    "section": "Usando o template de Lego",
+    "text": "Usando o template de Lego\nPara usar o template de Lego em listas de exercícios ou trabalhos, basta abrir o arquivo documento.qmd de dentro RStudio, editar seu conteúdo como quiser e clicar no botão Render. O arquivo documento.pdf será gerado.\nTambém é possível compilar o arquivo executando o seguinte código em R:\nquarto::render(\"documento.qmd\")\n\nDicas de uso\n\nMarkdown\nTítulos e sub-títulos são definidos com # e ##, respectivamente. Por exemplo, # Título gera um título, e ## Sub-título gera um sub-título. Para criar uma lista, use - ou * no início de cada item. Exemplo:\n- Item 1\n- Item 2\nPara criar um parágrafo, basta deixar uma linha em branco entre os parágrafos. Para criar uma citação, use &gt;. Exemplo:\n\nCitação qualquer…\n\nPara destacar um texto com itálico, use *texto*; para negrito, use **texto**; e para negrito e itálico, use ***texto***. Subescrito é criado com ~texto~, e sobrescrito com ^texto^. Finalmente, links podem ser criados com [texto](url).\n\n\nLinks e imagens\nPara inserir um link, use [texto](url). Por exemplo, [Google](https://www.google.com) gera Google.\nPara inserir uma imagem, use ![texto alternativo](caminho/para/imagem). Por exemplo, ![R logo](https://www.r-project.org/Rlogo.png) gera:\n\n\n\nR logo\n\n\n\n\nCódigo em R\nPodemos inserir código bruto em R e o template o compilará e o exibirá no documento final. Por exemplo, o código abaixo gerará um gráfico:\nx &lt;- 1:10\ny &lt;- x^2\nplot(x, y)\nPara inserir código, bastar usar três crases seguidas de r, e depois do código três crases novamente. Exemplo:\n```{r}\nplot(x, y)\n```\n\n\nCitações\n\nPara inserir uma citação, use @ seguido do nome do código da referência como definido no arquivo referencias.bib. Por exemplo, @ross2001does citará Ross (2001), e [@ross2001does] citará (Ross 2001). Para inserir várias citações, separe elas por ;. Por exemplo, [@ross2001does; @cunningham2021causal].\n\n\n\nNotação\nPodemos inserir notação matemática usando \\(\\LaTeX\\). Para inserir um símbolo, use $ seguido do código \\(\\LaTeX\\) e $ novamente. Por exemplo, $\\beta$ gerará \\(\\beta\\).\nNotações que usaremos bastante no curso:\n\n\\(\\beta\\) (beta): $\\beta$\n\\(\\beta_i\\) (beta sub i): $\\beta_i$\n\\(\\alpha\\) (alfa): $\\alpha$\n\\(\\sim\\) (sim): $\\sim$\n\\(\\hat{\\beta}\\) (beta chapéu): $\\hat{\\beta}$\n\\(\\sum_{i=1}^n\\) (somatório): $\\sum_{i=1}^n$\n\\(\\mathbb{E}[X]\\) (valor esperado): $\\mathbb{E}[X]$"
+  }
+]

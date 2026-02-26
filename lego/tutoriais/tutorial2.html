@@ -368,7 +368,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"# Carregamos a base diretamente da URL usando read_delim() do pacote readr\nletalidade <- read_delim(\"https://fmeireles.com/csvs/letalidade.csv\", delim = \";\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Carregamos a base diretamente da URL usando read_delim() do pacote readr\nletalidade <- read_delim(\"https://fmeireles.com/csvs/letalidade.csv\", delim = \";\")","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"true","results":"markup","warning":"true"}},{"code":"# Rode funções de inspeção rápida em letalidade\n# 1) primeiras linhas\nhead(letalidade)\n\n# 2) número de linhas e colunas\nnrow(letalidade)\nncol(letalidade)\n\n# 3) nomes das colunas\nnames(letalidade)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Código aqui","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Exemplo-modelo\nstr(letalidade)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Explore o data frame 'letalidade'","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-6","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"# Carregamos a base diretamente da URL usando read_delim() do pacote readr\nletalidade <- read_csv2(\"https://fmeireles.com/csvs/letalidade.csv\")","id":1,"options":{"autorun":"true","classes":"","comment":"","context":"setup","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Carregamos a base diretamente da URL usando read_delim() do pacote readr\nletalidade <- read_csv2(\"https://fmeireles.com/csvs/letalidade.csv\")","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"true","results":"markup","warning":"true"}},{"code":"# Rode funções de inspeção rápida em letalidade\n# 1) primeiras linhas\nhead(letalidade)\n\n# 2) número de linhas e colunas\nnrow(letalidade)\nncol(letalidade)\n\n# 3) nomes das colunas\nnames(letalidade)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Código aqui","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Exemplo-modelo\nstr(letalidade)","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# Explore o data frame 'letalidade'","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-6","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script>
 <script type="module">
@@ -1703,7 +1703,8 @@ globalThis.qwebrExecuteCode = async function (
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#formatos-de-dados" id="toc-formatos-de-dados" class="nav-link active" data-scroll-target="#formatos-de-dados">Formatos de dados</a></li>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a></li>
+  <li><a href="#formatos-de-dados" id="toc-formatos-de-dados" class="nav-link" data-scroll-target="#formatos-de-dados">Formatos de dados</a></li>
   <li><a href="#explorando-dados" id="toc-explorando-dados" class="nav-link" data-scroll-target="#explorando-dados">Explorando dados</a></li>
   <li><a href="#exportando-dados" id="toc-exportando-dados" class="nav-link" data-scroll-target="#exportando-dados">Exportando dados</a></li>
   </ul>
@@ -2030,6 +2031,10 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </ul>
 </div>
 </div>
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
+<p>Neste rápido tutorial, praticaremos a importação de dados em <code>R</code>. Particularmente, focaremos em CSVs – formato no qual armazenamos tabelas usando texto – e aprenderemos a importá-los usando a função <code>read_delim()</code> do pacote <code>readr</code>, que é parte do <code>tidyverse</code>.</p>
+</section>
 <section id="formatos-de-dados" class="level2">
 <h2 class="anchored" data-anchor-id="formatos-de-dados">Formatos de dados</h2>
 <p>Dados podem estar em diferentes formatos: CSV (texto separado por vírgulas), Excel (<code>.xlsx</code>), entre outros. O formato mais comum é o CSV – que nada mais é do que um arquivo de texto com um tipo de formatação específica. Exemplo:</p>
@@ -2047,6 +2052,12 @@ Carla   28  PL</code></pre>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Depois de importar uma base, sempre confira 3 coisas: primeiras linhas, número de linhas e nomes das colunas. Para isso, usamos algumas funções como as seguintes:</p>
+<div id="qwebr-insertion-location-3"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p><strong>Exercício:</strong> descubra se existe uma coluna chamada <code>ano</code>.</p>
+<div id="qwebr-insertion-location-4"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -2057,14 +2068,9 @@ Carla   28  PL</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Depois de importar uma base, sempre confira 3 coisas: primeiras linhas, número de linhas e nomes das colunas.</p>
+<p>É possível usar a função <code>glimpse()</code> do <code>dplyr</code> para fazer tudo isso de uma vez só.</p>
 </div>
 </div>
-<div id="qwebr-insertion-location-3"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p><strong>Exercício:</strong> descubra se existe uma coluna chamada <code>ano</code>.</p>
-<div id="qwebr-insertion-location-4"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section>
 <section id="explorando-dados" class="level2">
 <h2 class="anchored" data-anchor-id="explorando-dados">Explorando dados</h2>

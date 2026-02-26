@@ -1703,7 +1703,9 @@ globalThis.qwebrExecuteCode = async function (
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#fundamentos-do-ggplot2" id="toc-fundamentos-do-ggplot2" class="nav-link active" data-scroll-target="#fundamentos-do-ggplot2">Fundamentos do <code>ggplot2</code></a></li>
+  <li><a href="#introdução" id="toc-introdução" class="nav-link active" data-scroll-target="#introdução">Introdução</a></li>
+  <li><a href="#dados" id="toc-dados" class="nav-link" data-scroll-target="#dados">Dados</a></li>
+  <li><a href="#fundamentos-do-ggplot2" id="toc-fundamentos-do-ggplot2" class="nav-link" data-scroll-target="#fundamentos-do-ggplot2">Fundamentos do <code>ggplot2</code></a></li>
   <li><a href="#etapa-1-apenas-os-dados" id="toc-etapa-1-apenas-os-dados" class="nav-link" data-scroll-target="#etapa-1-apenas-os-dados">Etapa 1: apenas os dados</a></li>
   <li><a href="#etapa-2-mapeando-eixos-com-aes" id="toc-etapa-2-mapeando-eixos-com-aes" class="nav-link" data-scroll-target="#etapa-2-mapeando-eixos-com-aes">Etapa 2: mapeando eixos com <code>aes()</code></a></li>
   <li><a href="#etapa-3-adicionando-a-geometria-geom_col" id="toc-etapa-3-adicionando-a-geometria-geom_col" class="nav-link" data-scroll-target="#etapa-3-adicionando-a-geometria-geom_col">Etapa 3: adicionando a geometria (<code>geom_col()</code>)</a></li>
@@ -2040,12 +2042,19 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 </ul>
 </div>
 </div>
+<section id="introdução" class="level2">
+<h2 class="anchored" data-anchor-id="introdução">Introdução</h2>
+<p>Neste tutorial, aprenderemos o básico sobre uma das ferramentas de <em>dataviz</em> mais populares em todo o mundo: o pacote <code>ggplot2</code>. Entre outros, o <code>ggplot2</code> é o pacote de visualização recomendado para quem quer criar gráficos personalizados e de alta qualidade. Seu grande diferencial é a flexibilidade: ele tem uma estrutura de camadas que permite construir qualquer tipo de gráfico, do mais simples até o mais customizado.</p>
+</section>
+<section id="dados" class="level2">
+<h2 class="anchored" data-anchor-id="dados">Dados</h2>
 <p>Vamos carregar novamente a base de letalidade do tutorial anterior para praticar manipulação de dados.</p>
 <div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Também vamos criar um novo data frame <code>dados_plot</code> com a contagem total de letalidade por ano:</p>
 <div id="qwebr-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+</section>
 <section id="fundamentos-do-ggplot2" class="level2">
 <h2 class="anchored" data-anchor-id="fundamentos-do-ggplot2">Fundamentos do <code>ggplot2</code></h2>
 <p>No <code>ggplot2</code>, construímos gráficos em camadas:</p>

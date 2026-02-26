@@ -11,7 +11,7 @@
     "href": "ementa.html",
     "title": "Ementa",
     "section": "",
-    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 24/02/2026."
+    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 26/02/2026."
   },
   {
     "objectID": "recursos.html",
@@ -28,11 +28,18 @@
     "text": "ImportantePacotes\n\n\n\n\nNeste tutorial, não é necessário instalar o pacote readr – ele já está disponível e carregado no ambiente do navegador."
   },
   {
+    "objectID": "tutoriais/tutorial2.html#introdução",
+    "href": "tutoriais/tutorial2.html#introdução",
+    "title": "Tutorial 2 – Importação de dados",
+    "section": "Introdução",
+    "text": "Introdução\nNeste rápido tutorial, praticaremos a importação de dados em R. Particularmente, focaremos em CSVs – formato no qual armazenamos tabelas usando texto – e aprenderemos a importá-los usando a função read_delim() do pacote readr, que é parte do tidyverse."
+  },
+  {
     "objectID": "tutoriais/tutorial2.html#formatos-de-dados",
     "href": "tutoriais/tutorial2.html#formatos-de-dados",
     "title": "Tutorial 2 – Importação de dados",
     "section": "Formatos de dados",
-    "text": "Formatos de dados\nDados podem estar em diferentes formatos: CSV (texto separado por vírgulas), Excel (.xlsx), entre outros. O formato mais comum é o CSV – que nada mais é do que um arquivo de texto com um tipo de formatação específica. Exemplo:\nnome,idade,partido\nAna,35,PT\nBruno,42,PSOL\nCarla,28,PL\nOutro exemplo, dessa vez com tabulações:\nnome    idade   partido\nAna 35  PT\nBruno   42  PSOL\nCarla   28  PL\nPara este tutorial, vamos carregar um destes arquivos da página de estatísticas do Instituto de Segurança Pública do Rio de Janeiro.1 O arquivo é um CSV separado por ponto e vírgula (;) e tem dados sobre letalidade no estado do Rio.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\n\n\n\nDicaDica prática\n\n\n\nDepois de importar uma base, sempre confira 3 coisas: primeiras linhas, número de linhas e nomes das colunas.\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: descubra se existe uma coluna chamada ano.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "Formatos de dados\nDados podem estar em diferentes formatos: CSV (texto separado por vírgulas), Excel (.xlsx), entre outros. O formato mais comum é o CSV – que nada mais é do que um arquivo de texto com um tipo de formatação específica. Exemplo:\nnome,idade,partido\nAna,35,PT\nBruno,42,PSOL\nCarla,28,PL\nOutro exemplo, dessa vez com tabulações:\nnome    idade   partido\nAna 35  PT\nBruno   42  PSOL\nCarla   28  PL\nPara este tutorial, vamos carregar um destes arquivos da página de estatísticas do Instituto de Segurança Pública do Rio de Janeiro.1 O arquivo é um CSV separado por ponto e vírgula (;) e tem dados sobre letalidade no estado do Rio.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nDepois de importar uma base, sempre confira 3 coisas: primeiras linhas, número de linhas e nomes das colunas. Para isso, usamos algumas funções como as seguintes:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: descubra se existe uma coluna chamada ano.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\n\n\n\nDicaDica prática\n\n\n\nÉ possível usar a função glimpse() do dplyr para fazer tudo isso de uma vez só."
   },
   {
     "objectID": "tutoriais/tutorial2.html#explorando-dados",
@@ -56,11 +63,18 @@
     "text": "Notas de rodapé\n\n\nA definição de letalidade violenta é, segundo o site do ISP, “Homicídio doloso + Lesão corporal seguida de morte + Latrocínio + Morte por intervenção de agente do Estado”.↩︎"
   },
   {
-    "objectID": "tutoriais/tutorial4.html",
-    "href": "tutoriais/tutorial4.html",
+    "objectID": "tutoriais/tutorial4.html#introdução",
+    "href": "tutoriais/tutorial4.html#introdução",
     "title": "Tutorial 4 – Visualização de dados",
-    "section": "",
-    "text": "Vamos carregar novamente a base de letalidade do tutorial anterior para praticar manipulação de dados.\nTambém vamos criar um novo data frame dados_plot com a contagem total de letalidade por ano:"
+    "section": "Introdução",
+    "text": "Introdução\nNeste tutorial, aprenderemos o básico sobre uma das ferramentas de dataviz mais populares em todo o mundo: o pacote ggplot2. Entre outros, o ggplot2 é o pacote de visualização recomendado para quem quer criar gráficos personalizados e de alta qualidade. Seu grande diferencial é a flexibilidade: ele tem uma estrutura de camadas que permite construir qualquer tipo de gráfico, do mais simples até o mais customizado."
+  },
+  {
+    "objectID": "tutoriais/tutorial4.html#dados",
+    "href": "tutoriais/tutorial4.html#dados",
+    "title": "Tutorial 4 – Visualização de dados",
+    "section": "Dados",
+    "text": "Dados\nVamos carregar novamente a base de letalidade do tutorial anterior para praticar manipulação de dados.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTambém vamos criar um novo data frame dados_plot com a contagem total de letalidade por ano:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "tutoriais/tutorial4.html#fundamentos-do-ggplot2",
@@ -133,46 +147,60 @@
     "text": "Salvando gráficos (R local)\nNo R local, use ggsave() para salvar gráficos em arquivo.\n\n\n\n\n\n\nCuidadoNo RStudio (local)\n\n\n\nggsave(\"grafico.png\", width = 8, height = 5)"
   },
   {
+    "objectID": "tutoriais/tutorial3.html#introdução",
+    "href": "tutoriais/tutorial3.html#introdução",
+    "title": "Tutorial 3 – Manipulação de dados",
+    "section": "Introdução",
+    "text": "Introdução\nNeste tutorial, praticaremos o básico sobre manipulação de dados em R, particularmente usando um dos pacotes mais flexíveis e populares para isso: o dplyr. Nosso foco será aprender a usar os quatro verbos mais comuns de manipulação usando dplyr:\n\nfilter(), para fatiar dados horizontalmente;\nselect(), para fatiar dados verticalmente;\nmutate(), para criar ou modificar colunas;\nsummarise() (e group_by()), para resumir colunas."
+  },
+  {
     "objectID": "tutoriais/tutorial3.html#dados",
     "href": "tutoriais/tutorial3.html#dados",
     "title": "Tutorial 3 – Manipulação de dados",
     "section": "Dados",
-    "text": "Dados\nVamos carregar novamente a base de letalidade do tutorial anterior para praticar manipulação de dados.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "Dados\nVamos carregar novamente a base de letalidade violenta no estado do Rio de Janeiro do tutorial anterior para praticar manipulação de dados.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "tutoriais/tutorial3.html#o-pipe",
     "href": "tutoriais/tutorial3.html#o-pipe",
     "title": "Tutorial 3 – Manipulação de dados",
     "section": "O pipe |>",
-    "text": "O pipe |&gt;\nO pipe |&gt; passa o resultado de uma função para a próxima. Leia como “e então”.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: use o pipe para passar letalidade para a função summary().\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "O pipe |&gt;\nO pipe |&gt; passa o resultado de uma função para a próxima – é mais ou menos como separar processos em etapas. Exemplo:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: use o pipe para passar letalidade para a função summary().\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "tutoriais/tutorial3.html#filter-filtrar-linhas",
     "href": "tutoriais/tutorial3.html#filter-filtrar-linhas",
     "title": "Tutorial 3 – Manipulação de dados",
     "section": "filter(): filtrar linhas",
-    "text": "filter(): filtrar linhas\nfilter() seleciona linhas que satisfazem uma condição.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: filtre apenas observações de Municipio a partir de 2010.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: filtre as linhas em que delito seja diferente de Letalidade Violenta.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "filter(): filtrar linhas\nfilter() é uma das operações mais comuns em análise de dados. Resumidamente, ela serve para selecionar algumas das linhas de um data.frame com base em uma ou mais condições:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nÉ possível também intercalar condições usando & (e) oou vírgula:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: filtre apenas observações de area_geografica que indiquem a Capital do estado.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: filtre as linhas em que delito seja diferente de Letalidade Violenta a partir de 2010.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "tutoriais/tutorial3.html#select-selecionar-colunas",
     "href": "tutoriais/tutorial3.html#select-selecionar-colunas",
     "title": "Tutorial 3 – Manipulação de dados",
     "section": "select(): selecionar colunas",
-    "text": "select(): selecionar colunas\nselect() escolhe quais colunas manter.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: selecione apenas ano, delito e taxa_100mil.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "select(): selecionar colunas\nselect() escolhe quais colunas manter, isto é, fatia verticalmente o data.frame:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: selecione apenas ano, delito e taxa_100mil.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "tutoriais/tutorial3.html#mutate-criar-colunas",
     "href": "tutoriais/tutorial3.html#mutate-criar-colunas",
     "title": "Tutorial 3 – Manipulação de dados",
     "section": "mutate(): criar colunas",
-    "text": "mutate(): criar colunas\nmutate() cria ou modifica colunas.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: crie uma coluna decada com base em ano (ex.: 2017 -&gt; 2010).\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: crie uma coluna lógica recente que seja TRUE para anos a partir de 2020.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "mutate(): criar colunas\nmutate(), por sua vez, serve para criar ou modificar colunas. O nome da nova coluna é o nome do argumento, e o valor é a expressão que você quiser. Por exemplo, o código abaixo cria uma nova coluna contagem_mil que é a contagem de delitos multiplicada por 1000:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nmutate() é flexível o suficiente para permitir criar colunas com base em operações envolvendo outras colunas, como o número casos de letalidade per capita (o que nada mais é do que a divisão da contagem de casos pela população):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nPodemos, inclusive, transformar essa taxa per capita em uma taxa por 100 mil habitantes multiplicando o resultado por 100 mil:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nNão surpreendentemente, o resultado é o mesmo da coluna taxa_100mil que já existia na base – mutate() funciona."
+  },
+  {
+    "objectID": "tutoriais/tutorial3.html#mutate-operadores-lógicos",
+    "href": "tutoriais/tutorial3.html#mutate-operadores-lógicos",
+    "title": "Tutorial 3 – Manipulação de dados",
+    "section": "mutate(): operadores lógicos",
+    "text": "mutate(): operadores lógicos\nUma das formas mais comuns de usar mutate() é criar colunas condicionalmente, isto é, atribuindo a ela valores a depender dos valores de outras colunas. Por exemplo, podemos criar uma coluna pos2000 que indique se o ano é posterior a 2000:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nNote que, na coluna resunltante, temos FALSE para anos anteriores a 2000 e TRUE para anos posteriores. Se usarmos outra função, ifelse, podemos criar uma coluna categórica que indique se o ano é anterior ou posterior a 2000:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nOutra função útil para criar colunas categóricas é case_when(), que é mais flexível do que ifelse() para lidar com múltiplas condições. Por exemplo, podemos criar uma coluna periodo que indique se o ano é anterior a 1990, entre 1990 e 2010, ou posterior a 2010:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nPara case_when() funcionar, é preciso usar ~ para separar a condição do valor a ser atribuído. Condições, como dá para ver também pelo exemplo, precisam ser exaustivas – caso contrário, o resultado será NA para as linhas que não se encaixarem em nenhuma das condições.\nExercício: crie uma coluna que indique se a taxa de letalidade por 100 mil habitantes é alta (acima de 20) ou baixa (20 ou abaixo).\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "tutoriais/tutorial3.html#summarise-e-group_by-resumir-dados",
     "href": "tutoriais/tutorial3.html#summarise-e-group_by-resumir-dados",
     "title": "Tutorial 3 – Manipulação de dados",
     "section": "summarise() e group_by(): resumir dados",
-    "text": "summarise() e group_by(): resumir dados\nsummarise() calcula estatísticas. Combinado com group_by(), resume por grupo.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: calcule a média de contagem por area_geografica.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: conte quantas observações existem por ano.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "summarise() e group_by(): resumir dados\nA última das operações que veremos faz algo bem diferente do que vimos até então: ela não fatia ou muda um data.frame; ela o resume. Um exemplo bem simples: cálculo da média da variável contagem:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nOutro exemplo: cálculo do número de observações (linhas) na base:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nMais útil do que colapsar uma base inteira, summarise() é frequentemente usado em conjunto com group_by(), que agrupa os dados por uma ou mais variáveis. Por exemplo, para calcular a média de contagem por tipo de área geográfica, usamos:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nOu por ano:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: calcule a média de taxa_100mil por area_geografica.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: conte quantas observações existem por ano.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "tutoriais/tutorial3.html#arrange-ordenar-dados",
@@ -186,21 +214,28 @@
     "href": "tutoriais/tutorial3.html#desafios-integrando-funções",
     "title": "Tutorial 3 – Manipulação de dados",
     "section": "Desafios integrando funções",
-    "text": "Desafios integrando funções\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nDesafio 10: reproduza o pipeline acima, mas para Municipio e em ordem crescente de ano.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nDesafio 11: calcule, por década, o valor máximo de contagem.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "Desafios integrando funções\nNo mais das vezes, precisamos combinar diferentes verbos de manipulação para obter o resultado desejado. Um exemplo:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nDesafio: reproduza o pipeline acima, mas filtre pela variável ano para mostrar apenas os anos posteriores a 2010.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nDesafio: calcule, por década, o valor máximo de contagem.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "tutoriais/tutorial1.html",
     "href": "tutoriais/tutorial1.html",
     "title": "Tutorial 1 – Sintaxe básica do R",
     "section": "",
-    "text": "A partir de agora, vamos aprender R do jeito mais direto possível: escrevendo e executando código.\n\n\n\n\n\n\nImportanteComo usar esta página\n\n\n\n\nBlocos cinza com código podem ser executados no navegador (botão Run).\nPara executar apenas uma linha de cada vez, basta colocar o cursor na linha e usar o atalho:\n\nmacOS: ⌘ + ↩︎/Return\nWindows/Linux: Ctrl + ↩︎/Enter\n\nLinhas com [1] no resultado são o output do R.\nAlguns exemplos dependem de objetos criados antes. Se algo der erro, execute os blocos anteriores da seção.\n\n\n\n\n\n\n\n\n\nDicaEstratégia de estudo\n\n\n\nA maioria dos blocos de código tem um exemplo seguido de exercícios. Tente primeiro entender o exemplo, depois escreva seu código para os exercícios. Se ficar travado, revise o exemplo, procure nos materiais de aula, tente de novo – aprender a programar é um processo infinito de tentativas e erros.\n\n\n\n\n\n\n\n\nImportanteNavegadores\n\n\n\n\nEste tutorial é melhor visualizado no Chrome ou Firefox. Safari não é compatível.\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nNo R, # cria comentários (não executa):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nAgora pratique operações básicas:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: calcule \\((15 + 5) \\times 2 - 8\\).\nResultado esperado: 32.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nOperadores aritméticos mais usados:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTambém usamos operadores lógicos para testar condições:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nCombine testes com & (E) e | (OU):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTeste pertencimento com %in%:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "text": "O objetivo deste tutorial é simples: aprensentar o básico de como escrever e rodar código em R. Veremos, entre outros, operações básicas, tipos de objetos, funções e o uso de pipes. O foco é aprender a escrever código e interpretar mensagens, e não necessariamente decorar funções ou sintaxe – isso vem com a prática."
+  },
+  {
+    "objectID": "tutoriais/tutorial1.html#introdução",
+    "href": "tutoriais/tutorial1.html#introdução",
+    "title": "Tutorial 1 – Sintaxe básica do R",
+    "section": "",
+    "text": "O objetivo deste tutorial é simples: aprensentar o básico de como escrever e rodar código em R. Veremos, entre outros, operações básicas, tipos de objetos, funções e o uso de pipes. O foco é aprender a escrever código e interpretar mensagens, e não necessariamente decorar funções ou sintaxe – isso vem com a prática."
   },
   {
     "objectID": "tutoriais/tutorial1.html#sintaxe-básica-do-r",
     "href": "tutoriais/tutorial1.html#sintaxe-básica-do-r",
     "title": "Tutorial 1 – Sintaxe básica do R",
-    "section": "",
-    "text": "A partir de agora, vamos aprender R do jeito mais direto possível: escrevendo e executando código.\n\n\n\n\n\n\nImportanteComo usar esta página\n\n\n\n\nBlocos cinza com código podem ser executados no navegador (botão Run).\nPara executar apenas uma linha de cada vez, basta colocar o cursor na linha e usar o atalho:\n\nmacOS: ⌘ + ↩︎/Return\nWindows/Linux: Ctrl + ↩︎/Enter\n\nLinhas com [1] no resultado são o output do R.\nAlguns exemplos dependem de objetos criados antes. Se algo der erro, execute os blocos anteriores da seção.\n\n\n\n\n\n\n\n\n\nDicaEstratégia de estudo\n\n\n\nA maioria dos blocos de código tem um exemplo seguido de exercícios. Tente primeiro entender o exemplo, depois escreva seu código para os exercícios. Se ficar travado, revise o exemplo, procure nos materiais de aula, tente de novo – aprender a programar é um processo infinito de tentativas e erros.\n\n\n\n\n\n\n\n\nImportanteNavegadores\n\n\n\n\nEste tutorial é melhor visualizado no Chrome ou Firefox. Safari não é compatível.\n\n\n\n\n\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nNo R, # cria comentários (não executa):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nAgora pratique operações básicas:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: calcule \\((15 + 5) \\times 2 - 8\\).\nResultado esperado: 32.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\n\nOperadores aritméticos mais usados:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTambém usamos operadores lógicos para testar condições:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nCombine testes com & (E) e | (OU):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTeste pertencimento com %in%:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
+    "section": "Sintaxe básica do R",
+    "text": "Sintaxe básica do R\nA partir de agora, vamos aprender R do jeito mais direto possível: escrevendo e executando código.\n\n\n\n\n\n\nImportanteComo usar esta página\n\n\n\n\nBlocos cinza com código podem ser executados no navegador (botão Run).\nPara executar apenas uma linha de cada vez, basta colocar o cursor na linha e usar o atalho:\n\nmacOS: ⌘ + ↩︎/Return\nWindows/Linux: Ctrl + ↩︎/Enter\n\nLinhas com [1] no resultado são o output do R.\nAlguns exemplos dependem de objetos criados antes. Se algo der erro, execute os blocos anteriores da seção.\n\n\n\n\n\n\n\n\n\nDicaEstratégia de estudo\n\n\n\nA maioria dos blocos de código tem um exemplo seguido de exercícios. Tente primeiro entender o exemplo, depois escreva seu código para os exercícios. Se ficar travado, revise o exemplo, procure nos materiais de aula, tente de novo – aprender a programar é um processo infinito de tentativas e erros.\n\n\n\n\n\n\n\n\nImportanteNavegadores\n\n\n\n\nEste tutorial é melhor visualizado no Chrome ou Firefox. Safari pode não rodar blocos de código.\n\n\n\n\nR como uma calculadora\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nNo R, # cria comentários (não executa):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nAgora pratique operações básicas:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nExercício: calcule \\((15 + 5) \\times 2 - 8\\).\nResultado esperado: 32.\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\n\n\nOperadores\nOperadores aritméticos mais usados:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTambém usamos operadores lógicos para testar condições:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nCombine testes com & (E) e | (OU):\n\nPlease enable JavaScript to experience the dynamic code cell content on this page.\nTeste pertencimento com %in%:\n\nPlease enable JavaScript to experience the dynamic code cell content on this page."
   },
   {
     "objectID": "tutoriais/tutorial1.html#funções",

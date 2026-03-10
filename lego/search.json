@@ -11,14 +11,14 @@
     "href": "ementa.html",
     "title": "Ementa",
     "section": "",
-    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 02/03/2026."
+    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 10/03/2026."
   },
   {
     "objectID": "recursos.html",
     "href": "recursos.html",
     "title": "Recursos",
     "section": "",
-    "text": "Esta página contém algumas indicações de materiais úteis para quem está começando a aprender R e estatística. Para contemplar diferentes tipos de aprendizagem, há tanto indicação de conteúdos interativos como, também, de livros; blogs; vídeos; e podcasts. A lista não é exaustiva e provavelmente será atualizada ao longo do curso.\n\nBlogs e sites\n\nR Weekly - Newsletter semanal com os principais acontecimentos da comunidade R e vários links para tutoriais, pacotes, etc.\nR-bloggers - Agregador de blogs sobre R (há coisas em português também)\n\n\n\nLivros\nLivros indicados para quem quer nunca viu R e quer ter um contato mais aprofundado com o ambiente de programação:\n\nR for Data Science - Garrett Grolemund e Hadley Wickham\nHands on Programming with R - Garrett Grolemund\nR Cookbook - James Long e Paul Teetor"
+    "text": "Esta página contém algumas indicações de materiais úteis para quem está começando a aprender R e estatística. Para contemplar diferentes tipos de aprendizagem, há tanto indicação de conteúdos interativos como, também, de livros; blogs; vídeos; e podcasts. A lista não é exaustiva e provavelmente será atualizada ao longo do curso.\n\nBlogs e sites\n\nR Weekly - Newsletter semanal com os principais acontecimentos da comunidade R e vários links para tutoriais, pacotes, etc.\nR-bloggers - Agregador de blogs sobre R (há coisas em português também)\n\n\n\nLivros\nLivros indicados para quem quer nunca viu R e quer ter um contato mais aprofundado com o ambiente de programação:\n\nR for Data Science - Garrett Grolemund e Hadley Wickham\nHands on Programming with R - Garrett Grolemund\nR Cookbook - James Long e Paul Teetor\n\n\n\nGaleria de visualizações\n\nR Graph Gallery - Vários exemplos de visualizações feitas em R, com o código para reproduzir cada uma delas."
   },
   {
     "objectID": "tutoriais/tutorial2.html",

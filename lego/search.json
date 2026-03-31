@@ -53,7 +53,7 @@
     "href": "scripts.html",
     "title": "Códigos e dados",
     "section": "",
-    "text": "Para praticar análise de dados, teremos alguns scripts e bases de dados com exemplos aplicados. Estes estão disponíveis abaixo:\n\nMapas (do Brasil) em R – Script e dados para reproduzir mapas por estado, município, setores censitários, etc."
+    "text": "Para praticar análise de dados, teremos alguns scripts e bases de dados com exemplos aplicados. Estes estão disponíveis abaixo:\n\nMapas (do Brasil) em R – Script e dados para reproduzir mapas por estado, município, setores censitários, etc.\nEleições de 1996 e Censo de 1872 – Scripts para praticar cruzamentos, pivotagem e gráficos"
   },
   {
     "objectID": "tutoriais/tutorial2.html",
@@ -319,6 +319,6 @@
     "href": "ementa.html",
     "title": "Ementa",
     "section": "",
-    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 24/03/2026."
+    "text": "Para consultar a versão mais atualizada da ementa do curso, clique aqui.\nÚltima atualização: 31/03/2026."
   }
 ]

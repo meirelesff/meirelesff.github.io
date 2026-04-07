@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://fmeireles.com/index.html</loc>
-    <lastmod>2024-09-04T19:15:00.965Z</lastmod>
+    <loc>https://fmeireles.com/blog.html</loc>
+    <lastmod>2023-01-24T01:26:23.000Z</lastmod>
   </url>
   <url>
-    <loc>https://fmeireles.com/data.html</loc>
-    <lastmod>2024-09-04T19:15:08.147Z</lastmod>
+    <loc>https://fmeireles.com/software.html</loc>
+    <lastmod>2024-09-04T19:15:04.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmeireles.com/posts/2026-04-07-genderbr-classificacao-sexo/index.html</loc>
+    <lastmod>2026-04-07T13:25:49.907Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmeireles.com/posts/2025-03-25-usando-r/index.html</loc>
+    <lastmod>2026-04-07T13:22:03.960Z</lastmod>
   </url>
   <url>
     <loc>https://fmeireles.com/teaching.html</loc>
     <lastmod>2023-01-22T11:12:30.000Z</lastmod>
   </url>
   <url>
-    <loc>https://fmeireles.com/blog.html</loc>
-    <lastmod>2023-01-24T01:26:23.000Z</lastmod>
-  </url>
-  <url>
     <loc>https://fmeireles.com/posts/2024-11-18-atualizacao-electionsbr/index.html</loc>
-    <lastmod>2025-03-25T20:30:05.283Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmeireles.com/posts/2025-03-25-usando-r/index.html</loc>
-    <lastmod>2025-03-25T23:22:28.217Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmeireles.com/software.html</loc>
-    <lastmod>2024-09-04T19:15:04.038Z</lastmod>
+    <lastmod>2026-04-07T13:22:03.960Z</lastmod>
   </url>
   <url>
     <loc>https://fmeireles.com/publication.html</loc>
     <lastmod>2023-01-22T11:12:15.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmeireles.com/index.html</loc>
+    <lastmod>2026-04-07T12:36:31.892Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmeireles.com/data.html</loc>
+    <lastmod>2024-09-04T19:15:08.000Z</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fernando Meireles">
+<meta name="dcterms.date" content="2026-04-07">
+
+<title>genderBR v1.3.0</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5b4ad623e5705c0698d39aec6f10cf02.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Fernando Meireles, Assistant Professor of Political Science at IESP-UERJ">
+<meta property="og:description" content="Classificação de sexo a partir de nomes próprios brasileiros">
+<meta property="og:image" content="https://fmeireles.com/posts/2026-04-07-genderbr-classificacao-sexo/index_files/figure-html/benchmark-1.png">
+<meta property="og:image:height" content="1036">
+<meta property="og:image:width" content="1344">
+<meta name="twitter:title" content="genderBR v1.3.0">
+<meta name="twitter:description" content="Classificação de sexo a partir de nomes próprios brasileiros">
+<meta name="twitter:image" content="https://fmeireles.com/posts/2026-04-07-genderbr-classificacao-sexo/index_files/figure-html/benchmark-1.png">
+<meta name="twitter:creator" content="@meirelesff">
+<meta name="twitter:site" content="@meirelesff">
+<meta name="twitter:image-height" content="1036">
+<meta name="twitter:image-width" content="1344">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../publication.html"> 
+<span class="menu-text">Publication</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../teaching.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../software.html"> 
+<span class="menu-text">Software</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../data.html"> 
+<span class="menu-text">Data</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#atualização-v1.3.0" id="toc-atualização-v1.3.0" class="nav-link active" data-scroll-target="#atualização-v1.3.0">Atualização: v1.3.0</a></li>
+  <li><a href="#o-que-o-genderbr-faz" id="toc-o-que-o-genderbr-faz" class="nav-link" data-scroll-target="#o-que-o-genderbr-faz">O que o genderBR faz</a></li>
+  <li><a href="#ampliando-a-classificação-de-nomes" id="toc-ampliando-a-classificação-de-nomes" class="nav-link" data-scroll-target="#ampliando-a-classificação-de-nomes">Ampliando a classificação de nomes</a></li>
+  <li><a href="#desempenho-três-backends-três-velocidades" id="toc-desempenho-três-backends-três-velocidades" class="nav-link" data-scroll-target="#desempenho-três-backends-três-velocidades">Desempenho: três backends, três velocidades</a></li>
+  <li><a href="#funciona-uma-validação" id="toc-funciona-uma-validação" class="nav-link" data-scroll-target="#funciona-uma-validação">Funciona? Uma validação</a></li>
+  <li><a href="#uso-responsável" id="toc-uso-responsável" class="nav-link" data-scroll-target="#uso-responsável">Uso responsável</a></li>
+  <li><a href="#links-e-citações" id="toc-links-e-citações" class="nav-link" data-scroll-target="#links-e-citações">Links e citações</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">genderBR v1.3.0</h1>
+<p class="subtitle lead">Classificação de sexo a partir de nomes próprios brasileiros</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">Pacote</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Fernando Meireles </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 7, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><br> <br></p>
+<p>Saber o sexo de uma pessoa – ou, mais precisamente, sexo biológico burocraticamente atribuído ao nascer – é uma informação útil para pesquisa aplicada em várias áreas. Com ela, é possível quantificar fenômenos como a diferença salarial média entre homens e mulheres; presença de mulheres em espaços de decisão; concentração de mulheres em determinadas áreas do conhecimento; e assim por diante. Um problema maior, contudo, frequentemente impede essas análises: ausência de informações.</p>
+<p>Bases de dados como a de <a href="https://dadosabertos.tse.jus.br/dataset/00e1a2a5-67e1-441b-9fd9-b8e59fc1189d/resource/0ca1f730-ab27-471d-b608-6d94a38dd24a?activity_id=13abac79-db5e-4dd8-b656-ddb65a95311emi">filiados a partidos no Brasil</a>, ou a de <a href="https://dados.gov.br/dados/conjuntos-dados/cadastro-nacional-da-pessoa-juridica---cnpj">sócio de empresas mantida pela Receita Federal</a>, registram o nome das milhares das pessoas nelas incluídas, mas não a informação seus sexos informados. No Brasil, assim como em outros países, primeiros nomes guardam marcados que permitem inferir a informação: convencionalmente, Maria é um nome considerado feminino; João, masculino. Se tivermos nomes de pessoas, mas não seus sexos, podemos classificar manualmente aqueles para atribuir a informação faltante. Se nossa base tiver milhares ou milhões de registros, no entanto, o problema persiste.</p>
+<p>Foi para resolver esse problema que, em 2017, surgiu o pacote para R <a href="https://cran.r-project.org/package=genderBR">genderBR</a>. Sua proposta é bem simples: ele imputa uma classificação de sexo binária a partir de nomes próprios. Para tanto, usa dados do Censo do IBGE, que armazena a contagem de pessoas de cada sexo no país com determinado nome, o que garante cobertura para quase totalidade dos primeiros nomes usados pela população brasileira.</p>
+<p>Desde então, o pacote acumula 43 mil downloads no <a href="https://cran.r-project.org/package=genderBR">CRAN</a> e quase 80 citações no <a href="https://scholar.google.com/scholar?hl=pt-BR&amp;as_sdt=0%2C5&amp;q=%22genderBR%22">Google Scholar</a>. Mesmo assim, ele tinha a limitação de não conseguir classificar nomes não contidos na base do Censo de 2010 – o que significava que, no mais das vezes, cerca de 5% de nomes classificados em tarefas comuns ficavam de fora.</p>
+<section id="atualização-v1.3.0" class="level2">
+<h2 class="anchored" data-anchor-id="atualização-v1.3.0">Atualização: v1.3.0</h2>
+<p>Na sua nova versão, lançada em março deste ano e já disponível no <a href="https://cran.r-project.org/package=genderBR">CRAN</a> (o principal repositório de pacotes para R), o <code>genderBR</code> inclui duas grandes novidades:</p>
+<ul>
+<li>Incorporação dos dados do <a href="https://censo2022.ibge.gov.br/nomes">Censo de 2022</a>, atualizando a contagem de usos de cada um dos 123733 primeiros nomes no Brasil utilizados por mais de 20 pessoas;</li>
+<li>Adição de um modelo de aprendizado profundo, treinado em cima de todos os 141742 próprios contidos nas bases dos Censo de 2010 e de 2022, para fazer a classificação de sexo binária – o que permite generalizar a classificação para nomes não contidos nas bases do Censo.</li>
+</ul>
+<p>Com o <code>R</code> aberto, a nova versão do pacote pode ser instalada com:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"genderBR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="o-que-o-genderbr-faz" class="level2">
+<h2 class="anchored" data-anchor-id="o-que-o-genderbr-faz">O que o genderBR faz</h2>
+<p>O <code>genderBR</code> imputa uma classificação binária de sexo a partir de nomes próprios brasileiros usando dados dos Censos do IBGE de 2010 e 2022. A base interna do pacote cobre mais de 142 mil nomes únicos. A função principal, <code>get_gender</code>, recebe um nome (ou um vetor de nomes) e retorna a predição:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(genderBR)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>nomes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Guilherme"</span>, <span class="st">"Maria"</span>, <span class="st">"Ana"</span>, <span class="st">"Arnaldo"</span>, <span class="st">"Martha"</span>, <span class="st">"Carlos"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gender</span>(nomes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Male"   "Female" "Female" "Male"   "Female" "Male"  </code></pre>
+</div>
+</div>
+<p>Por padrão, a função usa os dados internos do pacote (<code>internal = TRUE</code>), o que permite predições offline quase instantaneamente – mesmo para bases grandes. Para retornar a probabilidade de um nome ser usado por uma pessoa do sexo feminino (de acordo com dados do Censo de 2022 e, quando indisponíveis, do Censo de 2010), bastar usar <code>prob = TRUE</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gender</span>(nomes, <span class="at">prob =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0,007027704 0,995115136 0,995264457 0,002405403 0,996589940 0,004324201</code></pre>
+</div>
+</div>
+<p>Também é possível escolher qual Censo usar para obter as probabilidades:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gender</span>(nomes, <span class="at">prob =</span> <span class="cn">TRUE</span>, <span class="at">year =</span> <span class="dv">2010</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0,007510383 0,996643040 0,996721856 0,002919058 0,995692666 0,004076039</code></pre>
+</div>
+</div>
+</section>
+<section id="ampliando-a-classificação-de-nomes" class="level2">
+<h2 class="anchored" data-anchor-id="ampliando-a-classificação-de-nomes">Ampliando a classificação de nomes</h2>
+<p>Apesar da cobertura ampla dos dados do Censo, se um nome não está na base, não há como classificá-lo. Portanto, nomes com grafias incomuns, nomes estrangeiros, nomes adaptados ou raros ficavam de fora ao usar a versão anterior do <code>genderBR</code> para atribuir sexo biológico a nomes brasileiros.</p>
+<p>Para contornar o problema, a nova versão do pacote inclui uma rede neural treinada nos dados do IBGE, o que permite generalizar a classificação de sexo para nomes que não estão nos dados do Censo. Um exemplo: o nome Zusjane não existe no Censo do IBGE.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gender</span>(<span class="st">"Zusjane"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>Ao usar a função <code>get_gender</code>, nenhuma classificação é atribuída. Com a rede neural, habilitada com o argumento <code>nn = TRUE</code>, o pacote faz a classificação:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gender</span>(<span class="st">"Zusjane"</span>, <span class="at">nn =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Female"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gender</span>(<span class="st">"Zusjane"</span>, <span class="at">nn =</span> <span class="cn">TRUE</span>, <span class="at">prob =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0,9993508</code></pre>
+</div>
+</div>
+<p>Por detrás dos panos, o modelo usado para fazer a classificação é um <a href="https://en.wikipedia.org/wiki/Gated_recurrent_unit">Gated Recurrent Unit (GUR)</a> bidirecional que opera no nível do caractere – isto é, o modelo lê cada nome letra por letra e aprende padrões associados a nomes considerados femininos e masculinos, de acordo com dados dos Censos. Treinado em todos os 142 mil nomes do IBGE, o modelo consegue 96,5% de acurácia nos dados de teste. Os pesos do modelo estão disponíveis no <a href="https://huggingface.co/fmeireles/genderBR">Hugging Face</a> e são baixados automaticamente pelo pacote no seu primeiro uso.</p>
+</section>
+<section id="desempenho-três-backends-três-velocidades" class="level2">
+<h2 class="anchored" data-anchor-id="desempenho-três-backends-três-velocidades">Desempenho: três backends, três velocidades</h2>
+<p>O <code>genderBR</code> oferece três formas de classificar nomes: dados do Censo (armazenados internamente no pacote para uso offline e otimizados para consultas rápidas); a nova rede neural (método offline, rápido); e a API do IBGE (método online, mais lento). Para ilustrar as diferenças de performance, o código abaixo cronometra a classificação de 20 nomes com cada método:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>nomes20 <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Joao"</span>, <span class="st">"Maria"</span>, <span class="st">"Pedro"</span>, <span class="st">"Ana"</span>, <span class="st">"Lucas"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Juliana"</span>, <span class="st">"Gabriel"</span>, <span class="st">"Fernanda"</span>, <span class="st">"Rafael"</span>, <span class="st">"Camila"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bruno"</span>, <span class="st">"Patricia"</span>, <span class="st">"Carlos"</span>, <span class="st">"Larissa"</span>, <span class="st">"Felipe"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Beatriz"</span>, <span class="st">"Gustavo"</span>, <span class="st">"Aline"</span>, <span class="st">"Rodrigo"</span>, <span class="st">"Mariana"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>t_interno <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">get_gender</span>(nomes20, <span class="at">internal =</span> <span class="cn">TRUE</span>))[<span class="st">"elapsed"</span>]</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>t_nn <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">get_gender</span>(nomes20, <span class="at">nn =</span> <span class="cn">TRUE</span>))[<span class="st">"elapsed"</span>]</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>t_api <span class="ot">&lt;-</span> <span class="fu">system.time</span>(<span class="fu">get_gender</span>(nomes20, <span class="at">internal =</span> <span class="cn">FALSE</span>))[<span class="st">"elapsed"</span>]</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  Método <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Dataset interno"</span>, <span class="st">"Rede neural"</span>, <span class="st">"API do IBGE"</span>),</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Tempo (segundos)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(t_interno, t_nn, t_api)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Método</th>
+<th style="text-align: right;">Tempo (segundos)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Dataset interno</td>
+<td style="text-align: right;">0,002</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rede neural</td>
+<td style="text-align: right;">0,011</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">API do IBGE</td>
+<td style="text-align: right;">1,339</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Como se vê, tanto usar dados internos (<code>internal = TRUE</code>, o padrão) quanto usar a rede neural (<code>nn = TRUE</code>) leva frações de segundo, ao contrário de usar o serviço online do IBGE.</p>
+<p>Ganhos de escala no método interno são grandes porque ele consome quase o mesmo tempo para predizer o sexo de 100 ou de 10 mil nomes. Com a API do IBGE, por outro lado, o tempo cresce de forma linear: cada nome exige uma requisição, e cada requisição leva uma fração de segundo.</p>
+<p>Considerando tarefas de classificação de diferentes tamanhos – classificar 25, 50, 100 ou 200 nomes –, as diferenças de tempo são ainda mais evidentes (note que foi necessário usar uma escala <a href="https://pt.wikipedia.org/wiki/Escala_logarítmica">escala logarítmica</a> para visualizar melhor as diferenças):</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/benchmark-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Mesmo ao classificar 200 nomes, dados internos e rede neural levam fração de segundo, enquanto que o serviço online do IBGE passa a gastar quase dois minutos. Apesar disso, ao classificar milhares ou milhões de nomes a rede neural consome muita memória do computador, podendo travar ou interromper a execução.</p>
+<p>A recomendação geral, portanto, é sempre usar dados internos do Censo e, quando nomes a serem classificados não estiverem contidos neles, usar a rede neural com <code>nn = TRUE</code>.</p>
+</section>
+<section id="funciona-uma-validação" class="level2">
+<h2 class="anchored" data-anchor-id="funciona-uma-validação">Funciona? Uma validação</h2>
+<p>O uso do <code>genderBR</code> já foi validado outras vezes, e por diferentes pesquisadores, mas a nova rede neural é uma adição importante que não foi testada. Para dar uma ideia da sua utilidade, apliquei o pacote para classificar todas os 463681 candidatos e candidatas que disputaram as eleições municipais de 2024, usando os <a href="https://dadosabertos.tse.jus.br">dados do TSE</a>.</p>
+<p>O procedimento adotado foi o seguinte: primeiro, usei a função <code>get_gender</code> para pegar a probabilidade dos nomes serem femininos usando o dataset interno do pacote, o que é rápido e cobre a maioria dos nomes brasileiros; depois, usei a rede neural para obter a probabilidade dos nomes que ficaram sem classificação, ou seja, aqueles ausentes da base do Censo. Isso feito, usei duas formas de classificação dos nomes: se a probabilidade de um nome ser feminino for maior que um threshold (e.g., 0,5 ou 0,9), o nome foi classificado como <code>Feminino</code>; se a probabilidade for menor que o threshold, o nome foi classificado como <code>Masculino</code>; e se a probabilidade estiver entre os dois limites, o nome foi classificado como <code>Desconecido</code>. Por fim, comparei o resultado das classificações com o sexo autodeclarado pelos próprios candidatos e candidatas a título de validação.</p>
+<p>O processo de classificação de quase meio milhão de candidatos levou apenas 0,8 segundos para o método baseado no Censo e 1,6 segundos para a rede neural, que classificou 13646 nomes não contidos no Censo. Os resultados são os que seguem.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Classificação</th>
+<th style="text-align: center;">Threshold</th>
+<th style="text-align: right;">Acurácia</th>
+<th style="text-align: right;">Cobertura</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Censo</td>
+<td style="text-align: center;">0,5</td>
+<td style="text-align: right;">99.0%</td>
+<td style="text-align: right;">97.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Censo</td>
+<td style="text-align: center;">0,6</td>
+<td style="text-align: right;">99.2%</td>
+<td style="text-align: right;">96.5%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Censo</td>
+<td style="text-align: center;">0,7</td>
+<td style="text-align: right;">99.4%</td>
+<td style="text-align: right;">96.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Censo</td>
+<td style="text-align: center;">0,8</td>
+<td style="text-align: right;">99.6%</td>
+<td style="text-align: right;">95.5%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Censo</td>
+<td style="text-align: center;">0,9</td>
+<td style="text-align: right;">99.7%</td>
+<td style="text-align: right;">94.6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rede neural (faltantes)</td>
+<td style="text-align: center;">0,5</td>
+<td style="text-align: right;">89.5%</td>
+<td style="text-align: right;">100.0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rede neural (faltantes)</td>
+<td style="text-align: center;">0,6</td>
+<td style="text-align: right;">90.4%</td>
+<td style="text-align: right;">97.3%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rede neural (faltantes)</td>
+<td style="text-align: center;">0,7</td>
+<td style="text-align: right;">91.4%</td>
+<td style="text-align: right;">94.6%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rede neural (faltantes)</td>
+<td style="text-align: center;">0,8</td>
+<td style="text-align: right;">92.5%</td>
+<td style="text-align: right;">91.3%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rede neural (faltantes)</td>
+<td style="text-align: center;">0,9</td>
+<td style="text-align: right;">93.8%</td>
+<td style="text-align: right;">85.9%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Combinado</td>
+<td style="text-align: center;">0,5</td>
+<td style="text-align: right;">98.7%</td>
+<td style="text-align: right;">100.0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Combinado</td>
+<td style="text-align: center;">0,6</td>
+<td style="text-align: right;">99.0%</td>
+<td style="text-align: right;">99.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Combinado</td>
+<td style="text-align: center;">0,7</td>
+<td style="text-align: right;">99.2%</td>
+<td style="text-align: right;">98.9%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Combinado</td>
+<td style="text-align: center;">0,8</td>
+<td style="text-align: right;">99.4%</td>
+<td style="text-align: right;">98.2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Combinado</td>
+<td style="text-align: center;">0,9</td>
+<td style="text-align: right;">99.5%</td>
+<td style="text-align: right;">97.1%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><br></p>
+<p>Comentários:</p>
+<ul>
+<li><p>Usar apenas dados internos, do Censo, já dá mais de 99% de acurácia na predição de sexo a partir de nomes próprios brasileiros, mas a cobertura do método é limitada: se considerarmos como feminino ou masculino apenas os nomes com probabilidade de serem femininos ou masculinos maior que 0,9, por exemplo, conseguimos classificar apenas 94,6% de todos os nomes. O restante é <em>missing</em>.</p></li>
+<li><p>A rede neural, por sua vez, classifica todos os nomes não classificados pelo método anterior quando usamos um threshold de 0,5. A acurácia, contudo, é menor do que a do método baseado no Censo: 89,5% dos nomes classificados pela rede neural estavam corretos. Dado que estes são nomes raros, que não estão na base do Censo e que, portanto, o modelo nunca os viu antes, o resultado é bom. Ao aumentar o threshold, a acurácia sobe, mas a cobertura cai ligeiramente.</p></li>
+<li><p>Se combinarmos os dois métodos – i.e., classificamos todos os nomes com dados internos, depois classificamos apenas nomes faltantes com a rede neural –, conseguimos o melhor dos dois mundos: alta acurácia (98,7% com threshold de 0,5) e cobertura total, de 100% dos nomes.</p></li>
+<li><p>Dados do TSE são autopreenchidos, então é possível que haja erros de digitação ou grafias incomuns, além de declarações de sexo erradas. Conseguir 99% de acurácia e cobertura total, nesse caso, pode ser antes um piso do que um teto para o desempenho do <code>genderBR</code>.</p></li>
+</ul>
+<p>E quais casos a rede neural errou? A tabela abaixo mostra 10 destes sorteados ao acaso. Como se pode ver, não são nomes fáceis de classificar nem mesmo para humanos.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Nome</th>
+<th style="text-align: left;">Sexo declarado</th>
+<th style="text-align: right;">Prob. feminino (NN)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Durcinei</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">0,668</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Markesnane</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">0,970</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ladislê</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">0,996</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kericlis</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">0,652</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gelcioni</td>
+<td style="text-align: left;">Feminino</td>
+<td style="text-align: right;">0,104</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oquemiler</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">0,608</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Elionenai</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">0,851</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Jusecleide</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">0,999</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Orda</td>
+<td style="text-align: left;">Feminino</td>
+<td style="text-align: right;">0,306</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Waldirez</td>
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">0,501</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="uso-responsável" class="level2">
+<h2 class="anchored" data-anchor-id="uso-responsável">Uso responsável</h2>
+<p>O <code>genderBR</code> infere sexo, de forma binária,a partir de nomes. Essa classificação binária, derivada de convenções de nomeação e registro de crianças ao nascer, no entanto, certamente não reflete a complexidade das identidades de gênero, tampouco suas mudanças ao longo da vida das pessoas. Por isso mesmo, ao usar o pacote deve-se ter em mente que impor classificações binárias a indivíduos ou grupos pode resultar em danos ou discriminação a estes.</p>
+<p>O melhor uso acadêmico do pacote é o de estimar proporções de mulheres e homens em populações agregadas, apenas para fins de estudo de fenômenos sociais que, sem o pacote, ficariam sem análise. Em outras palavras, considere o pacote como um último recurso, a ser usado apenas quando na ausência de dados autorreportados e quando inferi-lo a partir de nomes próprios não oferece risco às pessoas estudadas.</p>
+</section>
+<section id="links-e-citações" class="level2">
+<h2 class="anchored" data-anchor-id="links-e-citações">Links e citações</h2>
+<p>O pacote é open source e sua documentação e código estão disponíveis em:</p>
+<ul>
+<li><a href="https://github.com/meirelesff/genderBR">GitHub</a></li>
+<li><a href="https://cran.r-project.org/package=genderBR">CRAN</a></li>
+<li><a href="https://huggingface.co/fmeireles/genderBR">Modelo no Hugging Face</a></li>
+</ul>
+<p>Para usar o <code>genderBR</code> em publicações acadêmicas, obtenha as referências bibliográficas do pacote com:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>(<span class="st">"genderBR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite package 'genderBR' in publications use:
+
+  Meireles F (2026). _genderBR: Predict Gender from Brazilian First
+  Names_. doi:10.32614/CRAN.package.genderBR
+  &lt;https://doi.org/10.32614/CRAN.package.genderBR&gt;, R package version
+  1.3.0, &lt;https://CRAN.R-project.org/package=genderBR&gt;.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {genderBR: Predict Gender from Brazilian First Names},
+    author = {Fernando Meireles},
+    year = {2026},
+    note = {R package version 1.3.0},
+    url = {https://CRAN.R-project.org/package=genderBR},
+    doi = {10.32614/CRAN.package.genderBR},
+  }</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/fmeireles\.com\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

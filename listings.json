@@ -1,15 +1,8 @@
 [
   {
-    "listing": "/data.html",
-    "items": []
-  },
-  {
-    "listing": "/teaching.html",
-    "items": []
-  },
-  {
     "listing": "/blog.html",
     "items": [
+      "/posts/2026-04-07-genderbr-classificacao-sexo/index.html",
       "/posts/2025-03-25-usando-r/index.html",
       "/posts/2024-11-18-atualizacao-electionsbr/index.html"
     ]
@@ -19,7 +12,15 @@
     "items": []
   },
   {
+    "listing": "/teaching.html",
+    "items": []
+  },
+  {
     "listing": "/publication.html",
+    "items": []
+  },
+  {
+    "listing": "/data.html",
     "items": []
   }
 ]

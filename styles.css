@@ -1,6 +1,6 @@
 /* FONTE */
 body, p {
-  font-size: 22px;
+  font-size: 21px;
 }
 
 p.subtitle, .lead {
@@ -8,12 +8,13 @@ p.subtitle, .lead {
 }
 
 .lead {
-  font-size: 1.35rem;
+  font-size: 1.75rem;
 }
 
 h1, .h1 {
-  font-size: calc(1.145rem + 1.14vw);
+  font-size: calc(1.22rem + 1.14vw);
 }
+
 
 .card-body {
   font-size: 18px;

@@ -105,9 +105,9 @@ h2 {
 }
 
 .hljs-default .hljs {
-    background: #ecf0f2;
-}
-
+    background: #dfe1e1;
+    border-radius: 5px;
+  }
 .font85 {
   font-size: 85%;
 }

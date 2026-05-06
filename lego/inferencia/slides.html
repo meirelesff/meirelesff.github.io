@@ -147,6 +147,18 @@ background-color: #8f2a43
 ]
 
 
+
+---
+count:false
+# O experimento
+
+.font90[
+&gt; *A lady declares that by tasting a cup of tea made with milk she can discriminate whether the milk or the tea infusion was first added to the cup. We will consider the problem of .grifo[designing an experiment] by means of which this assertion can be tested.*
+]
+
+- Ronald Fisher, [*Mathematics of a Lady Tasting Tea*](https://static.gymportalen.dk/sites/lru.dk/files/lru/docs/kap9/Projekt9_1_MathematicsofaLadyTastingTea.pdf)
+
+
 ---
 count:false
 # O experimento
@@ -310,13 +322,28 @@ count:false
 No experimento de Fisher, temos o seguinte:
 
 $$
-\binom{8}{4} = \frac{8 \times 7 \dots \times 1}{4 \times 3 \times 2 \times 1} = \frac{40320}{576} = 70
+\binom{8}{4} = \frac{8 \times 7 \dots \times 1}{(4 \times 3 \times 2 \times 1)(4 \times 3 \times 2 \times 1)} =
 $$
 
-&lt;br&gt;
+O que é igual a:
+
+$$
+\frac{40320}{24 \times 24} = \frac{40320}{576} = 70
+$$
 
 &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Muriel poderia ter escolhido `\(4\)` de `\(8\)` xícaras de chá de `\(70\)` formas diferentes
 
+
+
+---
+count:false
+# Outra explicação
+
+.font90[
+&gt; *[...] if we were to choose the 4 objects in succession we should have successively `\(8 \times 7 \times 6 \times 5\)` objects to choose from, and could make our succession of choices in `\(8 \times 7 \times 6 \times 5\)`, or 1680 ways. But in doing this we have not only chosen every possible set of 4, .grifo[but every possible set in every possible order]; and since 4 objects can be arranged in order in `\(4 \times 3 \times 2 \times 1\)`, or 24 ways, wee may find the number of possible choices by dividing 1640 by 24.*
+]
+
+- Ronald Fisher, [*Mathematics of a Lady Tasting Tea*](https://static.gymportalen.dk/sites/lru.dk/files/lru/docs/kap9/Projekt9_1_MathematicsofaLadyTastingTea.pdf)
 
 
 ---

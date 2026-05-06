@@ -215,6 +215,10 @@ blockquote {
   border-radius: 0.25em;
 }
 
+.grifo {
+  background-color: #e1f553;
+}
+
 @media print {
   .has-continuation {
     display: block !important;

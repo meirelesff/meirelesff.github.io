@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>9. Distribuições de probabilidade</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles" />
+    <script src="slides_files/header-attrs-2.30/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# 9. Distribuições de probabilidade
+]
+.author[
+### Fernando Meireles
+]
+.date[
+### <div class="line-block"><small>Lego I | 1.2026</small><br> <a href="https://fmeireles.com"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"></path></svg></a> <a href="https://twitter.com/meirelesff"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a> <a href="mailto:fernando.meireles@iesp.uerj.br"><svg viewBox="0 0 512 512" style="position:relative;display:inline-block;top:.1em;fill:#8f2a43;height:0.9em;" xmlns="http://www.w3.org/2000/svg"> <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path></svg></a></div>
+]
+
+---
+
+
+
+
+
+# O que aprendemos até aqui?
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Estatística descritiva] serve para resumir variáveis
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[TCL e LGN] nos dão as bases para fazer inferência
+
+.font90[
+- .texto2[LGN]: estimativas de uma amostra convergem para os parâmetros populacionais quando `\(n \to \infty\)`
+
+- .texto2[TCL]: a distribuição amostral da média é aproximadamente normal, mesmo que a população não seja
+]
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Inferência randomizada] ajuda a entender a incerteza
+
+.font90[
+- .texto2[Distribuição nula]: o que esperamos se `\(H_0\)` for verdade
+
+- .texto2[P-valor]: qual é a probabilidade de observar o que observamos se `\(H_0\)` for verdade?
+]
+]
+
+
+---
+# Hoje
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Estudaremos como usar uma amostra para inferir sobre populações ou sobre o mundo *quantificando a nossa incerteza sobre a amostra*
+
+--
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Faremos isso sem *simulações*, isto é, usando alguns pressupostos (i.e., .texto2[distribuições de probabilidade]) 
+
+
+
+
+---
+# Trajeto
+
+De onde viemos e para onde vamos...
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+# Quantificação de incerteza
+
+
+
+---
+# O problema da amostra única
+
+
+
+
+Imagine o seguinte cenário: temos uma amostra de 800 pessoas que estudam na UERJ. Estimamos, com base nisso, que a idade média dos estudantes é de `25.02` anos, desvio-padrão de `1.96` anos.
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Mas e se tivéssemos outra amostra? A média seria a mesma?
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-3-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+# O problema da amostra única
+
+
+
+
+Um outro cenário: temos nova amostra de 800 pessoas que estudam na UERJ. Estimamos, com base nisso, que a idade média dos estudantes é de `24.98` anos, desvio-padrão de `1.98` anos.
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-5-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Mas e se tivéssemos outra amostra? A média seria a mesma? .texto2[Não seria.]
+]
+
+
+---
+count:false
+# O problema da amostra única
+
+
+.alert[&lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#FF5F15;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"&gt;&lt;/path&gt;&lt;/svg&gt; O problema da amostra única é que não sabemos o quão errados podemos estar, ou seja, qual é a incerteza associada à nossa estimativa
+]
+
+--
+
+- Temos como usar simulações? 
+--
+.texto2[R:] Até temos.
+
+
+
+---
+# *Bootstrap*
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A ideia é a seguinte: tratamos a nossa *amostra* como se ela fosse a *população* e reamostramos dela várias vezes
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Intuição]: a melhor evidência que temos sobre a população é *a nossa própria amostra da população*
+
+.font90[
+- .texto2[Reamostragem com reposição]: pegamos uma observação, anotamos, devolvemos e pegamos outra; uma mesma pessoa pode ser sorteada várias vezes
+]
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Objetivo]: termos uma ideia de como a média variaria se pudéssemos ter várias amostras
+]
+
+
+
+---
+# *Bootstrap*: um exemplo
+
+Sorteamos com reposição novas `800` pessoas da nossa amostra de estudantes da UERJ. Uma amostra possível:
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-6-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# *Bootstrap*: um exemplo
+
+Sorteamos com reposição novas `800` pessoas da nossa amostra de estudantes da UERJ. Outra amostra possível:
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-7-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# *Bootstrap*: um exemplo
+
+Sorteamos com reposição novas `800` pessoas da nossa amostra de estudantes da UERJ. Mais uma amostra possível:
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-8-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Distribuição amostral
+
+Com *bootstrap*, geramos uma distribuição de estatísticas da nossa amostra
+
+.pull-left2[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A .texto2[distribuição amostral] é a distribuição de estatísticas de uma amostra, como a média, se repetirmos o processo de amostragem várias vezes
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-9-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+count:false
+# Distribuição amostral
+
+Com *bootstrap*, geramos uma distribuição de estatísticas da nossa amostra
+
+.pull-left2[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Estimativas variam entre `24.8` e `25.26`, e a maioria está bem próxima da média original
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-10-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Intervalo de confiança
+
+No exemplo anterior, a área cinza é o nosso .texto2[intervalo de confiança], i.e. a faixa que acreditamos conter a média populacional 95% das vezes caso repetíssemos a amostragem
+
+.alert[&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#777777;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"&gt;&lt;/path&gt;&lt;/svg&gt; IC indica a incerteza da nossa estimativa, o quão errados podemos estar em função da variabilidade da amostra]
+
+`\(\rightsquigarrow\)` Dizendo de outra maneira, há 95% de chance da média da nosa amostra estar dentro do intervalo `24.84, 25.12`
+
+
+---
+# Teste I
+
+.font90[
+&gt; Voltando ao nosso exercício de *bootstrap*, como você obteria os ICs máximo e mínimo do gráfico abaixo (i.e., as margens de erro)?
+
+]
+&lt;img src="slides_files/figure-html/unnamed-chunk-11-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Teste I
+
+&gt; Voltando ao nosso exercício de *bootstrap*, como você obteria os ICs máximo e mínimo do gráfico abaixo (i.e., as margens de erro)?
+
+.texto[R:] Os ICs são os percentis 2.5 e 97.5 da distribuição das médias, que podem ser calculados com a função `quantile`
+
+
+``` r
+quantile(medias, c(0.025, 0.975))
+```
+
+```
+##     2.5%    97.5% 
+## 24.84250 25.12013
+```
+
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+# Probabilidade
+
+
+
+---
+# Probabilidade
+
+.pull-left[
+.texto[Uma definição:]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; .texto2[Probabilidade] conecta nossas teorias e hipóteses quantitavas ao mundo empírico
+]
+
+.pull-right[
+.font90[
+- Definimos .texto2[variáveis aleatórias], com diferentes distribuições, para representar vários tipos de fenômenos
+
+- Usamos essas distribuições para formalizar como acreditamos que o mundo funciona, distinguindo entre partes sistemáticas (fixas) e partes aleatórias (estocásticas)
+]
+]
+
+
+---
+# Probabilidade como funções
+
+Distribuições de probabilidade são funções que descrevem a probabilidade de cada valor possível de uma variável aleatória
+
+
+.pull-left[
+.texto2[Notação]
+.font90[
+- `\(X\)` é a variável aleatória
+
+- `\(P(X = x)\)` é a probabilidade de `\(X\)` assumir o valor `\(x\)`
+
+- `\(f(x)\)` é a função de densidade/massa de probabilidade (PDF ou PMF) de `\(X\)`
+]
+]
+
+
+.pull-right[
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Isso significa que probabilidade é uma função que *mapeia valores possíveis de uma variável aleatória para a probabilidade de cada valor ocorrer*
+]
+
+
+---
+count:false
+# Probabilidade como funções
+
+Um exemplo: posso definir uma variável aleatória binária que assume o valor de `\(1\)` pessoas com emprego e `\(0\)` pessoas sem emprego
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `\(P(X = 1)\)` é a probabilidade de uma pessoa ter emprego, e `\(P(X = 0)\)` é a probabilidade de uma pessoa não ter emprego
+
+- Podemos atribuir valores a essas probabilidades, como `\(P(X = 1) = 0.6\)` e `\(P(X = 0) = 0.4\)`
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A função de probabilidade é a função que mapeia esses valores, i.e. 
+
+$$
+\begin{equation}
+f(x) = \begin{cases}
+0.6 &amp; \text{se } x = 1\\\
+0.4 &amp; \text{se } x = 0
+\end{cases}
+\end{equation}
+$$
+]
+
+
+---
+count:false
+# Probabilidade como funções
+
+Uma vantagem de ter funções que retornam probabilidades para cada evento possível de uma variável aleatória é poder fazer gráficos
+
+.pull-left[
+&lt;img src="slides_files/figure-html/unnamed-chunk-13-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.texto2[Variável binária]
+`\(P(X = 1) = 0.6\)` e `\(P(X = 0) = 0.4\)`
+]
+
+
+
+---
+count:false
+# Probabilidade como funções
+
+Uma vantagem de ter funções que retornam probabilidades para cada evento possível de uma variável aleatória é poder fazer gráficos
+
+.pull-left[
+&lt;img src="slides_files/figure-html/unnamed-chunk-14-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.texto2[Variável binária]
+`\(P(X = 1) = 0.5\)` e `\(P(X = 0) = 0.5\)`
+]
+
+
+
+
+---
+count:false
+# Probabilidade como funções
+
+Uma vantagem de ter funções que retornam probabilidades para cada evento possível de uma variável aleatória é poder fazer gráficos
+
+.pull-left[
+&lt;img src="slides_files/figure-html/unnamed-chunk-15-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.texto2[Variável binária]
+`\(P(X = 1) = 0.2\)` e `\(P(X = 0) = 0.8\)`
+]
+
+
+
+---
+# Simulação
+
+Com uma função de probabilidade, podemos simular sorteios, ou realizações, da variável aleatória
+
+
+.pull-left2[
+.texto2[Função]
+
+$$
+\begin{equation}
+f(x) = \begin{cases}
+0.5 &amp; \text{se } x = 1\\\
+0.5 &amp; \text{se } x = 0
+\end{cases}
+\end{equation}
+$$
+
+`\(n = 20\)`
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-16-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+count:false
+# Simulação
+
+Com uma função de probabilidade, podemos simular sorteios, ou realizações, da variável aleatória
+
+
+.pull-left2[
+.texto2[Função]
+
+$$
+\begin{equation}
+f(x) = \begin{cases}
+0.5 &amp; \text{se } x = 1\\\
+0.5 &amp; \text{se } x = 0
+\end{cases}
+\end{equation}
+$$
+
+`\(n = 100\)`
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-17-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+count:false
+# Simulação
+
+Com uma função de probabilidade, podemos simular sorteios, ou realizações, da variável aleatória
+
+
+.pull-left2[
+.texto2[Função]
+
+$$
+\begin{equation}
+f(x) = \begin{cases}
+0.5 &amp; \text{se } x = 1\\\
+0.5 &amp; \text{se } x = 0
+\end{cases}
+\end{equation}
+$$
+
+`\(n = 1000\)`
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-18-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+
+---
+count:false
+# Simulação
+
+Com uma função de probabilidade, podemos simular sorteios, ou realizações, da variável aleatória
+
+
+.pull-left2[
+.texto2[Função]
+
+$$
+\begin{equation}
+f(x) = \begin{cases}
+0.5 &amp; \text{se } x = 1\\\
+0.5 &amp; \text{se } x = 0
+\end{cases}
+\end{equation}
+$$
+
+`\(n = 2000\)`
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-19-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+# PGD
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; A função de probabilidade é a base para criar teorias e hipóteses quantitativas sobre como o mundo funciona
+
+.pull-left[
+- Temos liberdade para definir variáveis aleatórias e suas distribuições como quisermos
+
+- Podemos, por exemplo, definir variáveis que representam lançamento de dados, resultados eleitorais, renda, etc.
+]
+
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Até aqui, tratamos o mundo como *população*, mas em muitos casos é útil pensar como o .texto2[Processo Gerador de Dados (PGD)] que produz os dados que temos
+]
+
+
+
+---
+# Inferência e probabilidade
+
+Com probabilidade, formalizamos nossa incerteza sobre como o mundo produz dados, o que nos permite justamente fazer e avaliar inferências
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-20-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Teste II
+
+.font90[
+&gt; O gráfico abaixo mostra uma distribuição de altura de pessoas. Qual é a prob. de alguém ter exatamente a altura indicada pela linha tracejada?
+]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-21-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+--
+
+.texto[R:] Zero.
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+# Distribuições
+
+
+
+
+---
+# Axiomas
+
+.texto2[Probabilidade] é uma teoria definida, convencionada, que possui três regras básicas:
+
+1. `\(P(x) \geq 0\)` para todo evento `\(x\)`
+
+2. `\(P(\Omega) = 1\)`, onde `\(\Omega\)` é o espaço amostral
+
+3. Se `\(x_1\)` e `\(x_2\)` são eventos mutuamente exclusivos, então `\(P(x_1 \cup x_2) = P(x_1) + P(x_2)\)`
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em palavras, probabilidades não devem ser negativas, cada evento possível deve ter uma prob. associada exclusiva e a soma de todas as probs. deve ser igual a 1
+
+
+---
+# PMF e PDF
+
+Variáveis discretas e contínuas têm funções de prob. diferentes
+
+.pull-left[
+.texto2[PMF]
+
+.font90[
+Quanto temos eventos discretos (e.g., lançamento de moeda ou dado), chamamos .texto2[função de massa de probabilidade (*PMF*)]. Exemplos comuns:
+
+- .texto2[Binomial]: número de sucessos em `\(n\)` tentativas
+- .texto2[Bernoulli]: prob. de sucesso ou fracasso
+]
+]
+
+.pull-right[
+.texto2[PDF]
+
+.font90[
+Quando temos eventos contínuos (e.g., altura, peso, tempo), chamamos .texto2[função de densidade de probabilidade (*PDF*)]. Exemplos:
+
+- .texto2[Normal]: distribuição simétrica
+- .texto2[Uniforme]: todos os valores são igualmente prováveis
+]
+]
+
+
+---
+# Exemplos
+
+Duas distruições mais comuns: .texto2[binomial] e .texto2[normal]
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-22-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Binomial
+
+A distribuição .texto2[binomial] é usada para modelar o número de sucessos em `\(n\)` tentativas independentes, onde cada tentativa tem a mesma probabilidade de sucesso `\(p\)` e fracasso `\(1 - p\)`. O exemplo típico é: qual a probabilidade de obter `\(k\)` caras em `\(n\)` lançamentos de uma moeda?
+
+.pull-left[
+.texto2[Notação]
+
+.font90[
+- `\(k\)` é o número de sucessos
+
+- `\(n\)` é o número de tentativas
+
+- `\(p\)` é a probabilidade de sucesso em cada tentativa
+]
+]
+
+.pull-right[
+.texto2[Parâmetros]
+
+Algumas distribuições têm parâmetros que definem a forma da distribuição; no caso da binomial, são `\(n\)` e `\(p\)` definem a forma da distribuição
+]
+
+
+---
+# Exemplos de binomial
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Nas Ciências Sociais, vários fenômenos são modelados como binomial:
+
+.font90[
+.pull-left[
+- Prob. de votar em um candidato(a) (e.g., transformamos a variável em binária, o que é super comum)
+- Prob. de um país entrar em guerra
+]
+
+.pull-right[
+- Sexo biológico (ou convenção de gênero)
+- Escola federal vs. outras escolas
+]
+]
+
+
+
+---
+# Sorteando da binomial
+
+Qual é a probabilidade de termos 3 caras em 5 lançamentos de moeda?
+
+.pull-left2[
+.texto2[Exemplo]
+
+.font90[
+- `\(n = 5\)`
+- `\(p = 0.5\)`
+]
+]
+
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-23-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+count:false
+# Sorteando da binomial
+
+Frequentemente usamos `\(Binomial(\cdot)\)` para indicar sorteios da binomial
+
+.pull-left2[
+.texto2[Exemplo]
+
+.font80[
+`\(Binomial(n=10, p=0.5)\)`
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-24-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Sorteando da binomial
+
+Frequentemente usamos `\(Binomial(\cdot)\)` para indicar sorteios da binomial
+
+.pull-left2[
+.texto2[Exemplo]
+
+.font80[
+`\(Binomial(n=10, p=0.8)\)`
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-25-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+count:false
+# Sorteando da binomial
+
+Frequentemente usamos `\(Binomial(\cdot)\)` para indicar sorteios da binomial
+
+.pull-left2[
+.texto2[Exemplo]
+
+.font80[
+`\(Binomial(n=10, p=0.1)\)`
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-26-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+# Distribuição normal
+
+A distribuição .texto2[normal] é conhecida: é simétrica, com a média no centro e uma cauda longa (e comum quando calculamos a distribuição amostral da média)
+
+.pull-left[
+.texto2[Notação]
+
+.font80[
+- `\(\mu\)` é a média
+- `\(\sigma\)` é o desvio-padrão
+]
+]
+
+.pull-right[
+.texto2[Parâmetros]
+
+.font90[
+- `\(\mu\)` define a localização da distribuição
+- `\(\sigma\)` define a dispersão
+]
+]
+
+
+---
+# Sorteando da normal
+
+Qual é a probabilidade de termos uma altura entre 170 e 180 cm, com média de 170 cm e desvio-padrão de 10 cm?
+
+.pull-left2[
+.texto2[Exemplo]
+
+.font90[
+- `\(\mu = 170\)`
+- `\(\sigma = 10\)`
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-27-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+count:false
+# Sorteando da normal
+
+É comum expressar sorteios da normal como `\(N(\cdot)\)`
+
+.pull-left2[
+.texto2[Exemplo]
+
+.font90[
+- `\(N(\mu=0, \sigma=1)\)`
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-28-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+
+---
+count:false
+# Sorteando da normal
+
+É comum expressar sorteios da normal como `\(N(\cdot)\)`
+
+.pull-left2[
+.texto2[Exemplo]
+
+.font90[
+- `\(N(\mu=0, \sigma=5)\)`
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-29-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+---
+count:false
+# Sorteando da normal
+
+É comum expressar sorteios da normal como `\(N(\cdot)\)`
+
+.pull-left2[
+.texto2[Exemplo]
+
+.font90[
+- `\(N(\mu=5, \sigma=5)\)`
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-30-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+count:false
+# Sorteando da normal
+
+É comum expressar sorteios da normal como `\(N(\cdot)\)`
+
+.pull-left2[
+.texto2[Exemplo]
+
+.font90[
+- `\(N(\mu=-5, \sigma=5)\)`
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-31-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+
+
+
+
+---
+count:false
+# Sorteando da normal
+
+É comum expressar sorteios da normal como `\(N(\cdot)\)`
+
+.pull-left2[
+.texto2[Exemplo]
+
+.font90[
+- `\(N(\mu=0, \sigma=8)\)`
+]
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-32-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+# Usos
+
+Distribuições de probabilidade são a base para muitas técnicas estatísticas
+
+.pull-left[
+.texto2[Inferência]
+
+.font90[
+- .texto2[Intervalos de confiança]: estimar parâmetros populacionais
+- .texto2[Testes de hipóteses]: testar hipóteses sobre parâmetros
+]
+]
+
+
+.pull-right[
+.texto2[Modelagem]
+
+.font90[
+- .texto2[Regressão]: especificar modelos
+- .texto2[Análise de sobrevivência]: tempo até um evento
+]
+]
+
+
+
+---
+# Distribuição da nula
+
+O ponto mais importante aqui é entender que, se soubermos usar distribuições, não precisamos de simulações pra fazer inferência
+
+.pull-left2[
+.texto2[Ideia]: assumir, *como pressuposto*, a distribuição de `\(H_0\)` a partir de estatísticas de um amostra
+]
+
+.pull-right2[
+.texto2[Exemplo]: na nossa amostra, a média da idade dos estudantes da UERJ é 25 anos e o desvio-padrão é de 2,5 anos
+]
+
+
+
+---
+count:false
+# Distribuição da nula
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se plugarmos esses valores na função de densidade da normal, podemos obter uma distribuição de `\(H_0\)` para a média da idade dos estudantes da UERJ
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-33-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+count:false
+# Distribuição da nula
+
+.pull-left2[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; E aí testar se a média de idade de outra universidade (e.g., Unirio ou UFF) é diferente da média da UERJ
+]
+
+.pull-right2[
+&lt;img src="slides_files/figure-html/unnamed-chunk-34-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+# Inferência paramétrica
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se soubermos a distribuição de `\(H_0\)`, podemos calcular P-valor e os ICs sem precisar de simulações
+
+--
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Isso é o que faremos daqui em diante (e o que normalmente é feito na maioria das áreas)
+
+
+
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #8f2a43
+# Mais simulações
+
+
+
+---
+# De onde vem o lucro no Bicho?
+
+Considerem o .texto2[Jogo do Bicho], que funciona mais ou menos assim:
+
+.pull-left[
+.font90[
+- Um número com 4 algarismos é sorteado aleatoriamente (e.g., 5678)
+
+- Há 25 animais, e 4 dezenas por animal
+
+- Total de dezenas: `\(25 \times 4 = 100\)`
+]
+]
+
+.pull-right[
+.font90[
+Grupo | Animal | Dezenas
+--- | --- | ---
+1 | Avestruz | 01, 02, 03, 04
+2 | Águia | 05, 06, 07, 08
+3 | Burro | 09, 10, 11, 12
+4 | Borboleta | 13, 14, 15, 16
+]
+]
+
+
+
+---
+count:false
+# De onde vem o lucro no Bicho?
+
+Considerem o .texto2[Jogo do Bicho], que funciona mais ou menos assim:
+
+.pull-left[
+.font90[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Apostar no *burro*, por exemplo, significa aposta no grupo 3, ou seja que as dezenas 09, 10, 11 ou 12 serão sorteadas (os dois últimos dígitos no número sorteado)
+]
+]
+
+.pull-right[
+.font90[
+Grupo | Animal | Dezenas
+--- | --- | ---
+1 | Avestruz | 01, 02, 03, 04
+2 | Águia | 05, 06, 07, 08
+3 | .texto2[Burro] | .texto2[09, 10, 11, 12]
+4 | Borboleta | 13, 14, 15, 16
+]
+]
+
+
+---
+count:false
+# De onde vem o lucro no Bicho?
+
+Os tipos de apostas mais comuns:
+
+.pull-left[
+.font80[
+- .texto2[Grupo]: ganha se o número sorteado tiver os dois últimos dígitos entre as dezenas do *grupo*
+    - Prêmio geralmente de 18 vezes o valor apostado
+
+- .texto2[Dezena]: ganha se o número sorteado tiver os dois últimos dígitos iguais à dezena apostada
+    - Prêmio geralmente de 60 vezes o valor apostado
+]
+]
+
+.pull-right[
+.font80[
+- .texto2[Centena]: ganha se o número sorteado tiver os três últimos dígitos iguais à centena apostada
+    - Prêmio geralmente de 600 vezes o valor apostado
+- .texto2[Milhar]: ganha se o número sorteado tiver os quatro últimos dígitos iguais à milhar apostada
+    - Prêmio geralmente de 4000 vezes o valor apostado
+]
+]
+
+
+---
+count:false
+# De onde vem o lucro no Bicho?
+
+
+A prob. é relativamente simples de calcular:
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se apostamos no *grupo* e há 25 animais, a prob. de ganhar é 
+
+`\(1/25 = 0.04\)` 
+
+(ou `\(4/100 = 0.4\)` porque há 4 dezenas por grupo)
+]
+
+--
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O prêmio, por sua vez, é de 18 vezes o valor apostado, ou `\(1/18 \approx 0.056\)` do valor apostado
+]
+
+
+---
+count:false
+# De onde vem o lucro no Bicho?
+
+
+A prob. é relativamente simples de calcular:
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se apostamos na *dezena*, a prob. de ganhar é
+
+`\(1/100 = 0.01\)` 
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O prêmio, por sua vez, é de 60 vezes o valor apostado, ou `\(1/60 \approx 0.0167\)` do valor apostado
+]
+
+
+
+---
+count:false
+# De onde vem o lucro no Bicho?
+
+
+A prob. é relativamente simples de calcular:
+
+.pull-left[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se apostamos na *Centena*, a prob. de ganhar é
+
+`\(1/1000 = 0.001\)` 
+]
+
+.pull-right[
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; O prêmio, por sua vez, é de 600 vezes o valor apostado, ou `\(1/600 \approx 0.00167\)` do valor apostado
+]
+
+
+
+
+---
+count:false
+# De onde vem o lucro no Bicho?
+
+
+Em resumo, há sempre o mesmo padrão: a prob. de ganhar é menor do que o prêmio
+
+.font90[
+Aposta | Prob. de ganhar | Prêmio 
+:---: | :---: | :---:
+Grupo | 1/25 | 18:1
+Dezena | 1/100 | 60:1 
+Centena | 1/1000 | 600:1
+Milhar | 1/10000 | 4000:1
+]
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; É essa diferença que garante que, no longo prazo, a banca sempre terá lucro
+
+
+---
+# Simulando um jogo
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Vamos simular um jogo simples, no *grupo*, i.e., apostamos R$ 1,00 no *burro* (grupo 3)
+
+.pull-left2[
+.font90[
+- Se sair um número com os dois últimos dígitos entre 09, 10, 11 ou 12, ganhamos R$ 18,00
+- Perdemos R$ 1,00 caso contrário
+]
+]
+
+.pull-right2[
+.font80[
+
+``` r
+burro &lt;- 9:12
+sorteado &lt;- sample(0:9999, 1)
+
+# Dois ultimos digitos
+sorteados &lt;- str_sub(sorteados, -2, -1)
+sorteado &lt;- as.numeric(sorteado)
+
+ifelse(sorteado %in% burro, 18, -1)
+```
+
+```
+## [1] -1
+```
+]
+]
+
+
+---
+# Repetindo o jogo
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se repetirmos esse jogo 1000 vezes, qual será nosso saldo total?
+
+.font80[
+
+``` r
+set.seed(404)
+n &lt;- 1000
+burro &lt;- 9:12
+
+sorteados &lt;- sample(0:9999, n, replace = TRUE)
+sorteados &lt;- str_sub(sorteados, -2, -1)
+sorteados &lt;- as.numeric(sorteados)
+
+resultados &lt;- ifelse(sorteados %in% burro, 18, -1)
+sum(resultados)
+```
+
+```
+## [1] -278
+```
+]
+
+
+---
+count:false
+# Repetindo o jogo
+
+Podemos também ver o retorno médio (em reais) por jogo ao longo de 100 mil jogos
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-37-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Repetindo o jogo
+
+Se dermos *zoom*, dá pra ver que o retorno médio é cerca de -0.24
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-38-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# Repetindo o jogo
+
+Se jogarmos na *dezena* (e.g., 11), o retorno médio é pior, cerca de -0.39
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-39-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+count:false
+# Repetindo o jogo
+
+Na *centena* (e.g., 111), pior (cerca de -0.4)
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-40-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+---
+count:false
+# Repetindo o jogo
+
+E, no *milhar* (e.g., 1111), com prêmio de R$ 4000, o pior (cerca de -0.6)
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-41-1.svg" alt="" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Quanto perdemos?
+
+A moral da história é que o valor esperado de cada jogo no Bicho é sempre negativo, mas vai ficando mais negativo conforme a aposta é mais arriscada (e o prêmio é maior)
+
+--
+
+No *grupo*, e.g., cada real gasto tem um retorno esperado de cerca de R$ -0,24
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Pra cada real captado, a banca espera ganhar cerca de R$ 0,24 no longo prazo
+
+
+---
+count:false
+# Quanto perdemos?
+
+A moral da história é que o valor esperado de cada jogo no Bicho é sempre negativo, mas vai ficando mais negativo conforme a aposta é mais arriscada (e o prêmio é maior)
+
+
+No *milhar*, a vantagem da banca é ainda maior: cada real gasto tem um retorno esperado de cerca de R$ -0,6
+
+
+---
+# Lucro da banca
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Se um apontador movimenta R$ 800,00 por dia, e assumindo uma vantagem média conservadora de R$ 0,4 por real apostado e que ele tira R$ 0,20 por aposta fixos, o lucro diário esperado é de R$ 160 por dia
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em 4 dias na semana de trabalho, o lucro mensal esperado é de R$ 2560
+
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Para uma banca com 200 apontadores, o lucro mensal esperado é de R$ 512000
+
+.font80[
+- Em cima disso há ainda custos fixos (e.g., aluguel, funcionários, segurança) e custos variáveis (e.g., propinas, etc.)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightLines": true,
+  "highlightSpans": true,
+  "slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>`"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

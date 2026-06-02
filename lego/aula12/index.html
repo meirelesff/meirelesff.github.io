@@ -116,13 +116,14 @@ count:false
 .texto[Notação]
 
 `\(X\)` variável aleatória&lt;br&gt;
-`\(f(x)\)` Função de densidade de probabilidade (PDF) de `\(X\)`&lt;br&gt;
-`\(F(X)\)` Função de distribuição acumulada (CDF) até `\(x\)`
+`\(p(x)\)` Função de massa de probabilidade (PMF) de `\(X\)`, se `\(X\)` é discreta&lt;br&gt;
+`\(f(x)\)` Função de densidade de probabilidade (PDF) de `\(X\)`, se `\(X\)` é contínua&lt;br&gt;
+`\(F(x)\)` Função de distribuição acumulada (CDF) até `\(x\)`
 ]
 
 .pull-right[
 .font95[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; PDF nos diz a prob. de `\(X\)` assumir um valor ou estar em um intervalo específico; toda distribuição possui um PDF (e um CDF)
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Em variáveis discretas, usamos a PMF para obter `\(P(X=x)\)`; em variáveis contínuas, a PDF descreve densidade e probabilidades em intervalos; toda distribuição possui um CDF
 ]
 ]
 
@@ -132,7 +133,7 @@ count:false
 # Exemplo: Binomial
 
 .pull-left[
-.texto[PDF] `\(Bin(n=10\)`, `\(p=0.5)\)` 
+.texto[PMF] `\(Bin(n=10\)`, `\(p=0.5)\)` 
 &lt;img src="slides_files/figure-html/unnamed-chunk-4-1.svg" alt="" style="display: block; margin: auto;" /&gt;
 ]
 
@@ -250,7 +251,7 @@ count:false
 Probabilidade nos ajuda a quantificar essa incerteza:
 
 `\(\mu = 170\)`&lt;br&gt;
-`\(\sigma^2 = 10\)`&lt;br&gt;
+`\(\sigma = 10\)`&lt;br&gt;
 `\(Y \sim N(\mu, \sigma^2)\)`&lt;br&gt;
 ]
 
@@ -273,7 +274,7 @@ count:false
 Probabilidade nos ajuda a quantificar essa incerteza:
 
 `\(\mu = 170\)`&lt;br&gt;
-`\(\sigma^2 = 10\)`&lt;br&gt;
+`\(\sigma = 10\)`&lt;br&gt;
 `\(Y \sim N\underbrace{(\mu,}_{\tiny\small{Localização~}}\underbrace{\ \sigma^2)}_{\small\text{Dispersão}}\)`
 ]
 
@@ -286,9 +287,9 @@ Um ponto importante é que, como nossas .texto[estimativas] variam se tirarmos d
 
 .pull-left[
 .font90[
-- Para a média da população, assumimos que a distribuição amostral das estimativas, `\(\hat{\theta}\)`, tem uma distribuição normal com média `\(\theta\)` e variância `\(Var(\hat{\theta})\)`
+- Para a média da população, sob certos pressupostos e especialmente com amostras grandes, a distribuição amostral de `\(\hat{\theta}\)` é aproximadamente normal, com média `\(\theta\)` e variância `\(Var(\hat{\theta})\)`
 
-- Com base nesse pressupostos, podemos criar intervalos de confiança
+- Com base nesses pressupostos, podemos criar intervalos de confiança
 ]
 ]
 
@@ -304,13 +305,13 @@ Um ponto importante é que, como nossas .texto[estimativas] variam se tirarmos d
 
 .pull-left[
 .font90[
-- Comparamos uma estatística da amostra com uma hipótese
+- Comparamos uma estatística da amostra com o que esperaríamos sob `\(H_0\)`
 
-- A .texto[hipótese nula] é o que queremos rejeitar
+- A .texto[hipótese nula] é a hipótese de referência do teste
 
 - O .texto[erro-padrão] quantifica a nossa incerteza na estimativa 
 
-- Quanto maior nosso `\(N\)`, menor nossa incerteza
+- Em geral, quanto maior nosso `\(N\)`, menor nossa incerteza
 ]
 ]
 
@@ -331,9 +332,9 @@ Um ponto importante é que, como nossas .texto[estimativas] variam se tirarmos d
 
 Como saber se uma estatística obtida de uma amostra é diferente da hipótese nula? Para isso, .texto[p-valores] são úteis
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Pode ser interpretado uma medida de plausibilidade da hipótese nula dada a nossa amostra
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; É a probabilidade, assumindo `\(H_0\)` verdadeira, de observar um resultado tão ou mais extremo que o obtido
 
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Valores próximos de 1 indicam que a distribuição sob a hipótese nula é plausível
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; Valores pequenos indicam maior incompatibilidade entre os dados e `\(H_0\)`
 
 
 &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Varia, portanto, .texto2[de 0 a 1]
@@ -344,22 +345,22 @@ Como saber se uma estatística obtida de uma amostra é diferente da hipótese n
 # Cálculo do P-valor
 
 .pull-left[
-De forma geral, calculamos uma .texto[estatística padronizada] de alguma diferença entre `\(H_0\)` e `\(H_1\)`, usando propriedades de alguma distribuição, calculamos o quão provável é que ambas tenham sido geradas a partir da mesma distribuição
+De forma geral, calculamos uma .texto[estatística padronizada] sob `\(H_0\)` e, usando sua distribuição de referência, calculamos quão provável seria observar um valor tão ou mais extremo quanto o obtido
 ]
 
 .pull-right[
-Também é possível usar simulações, *boostrap* ou *permutações* para calcular P-valor
+Também é possível usar simulações, *bootstrap* ou *permutações* para calcular o P-valor
 ]
 
 
 ---
 # Teste I
 
-Temos uma variável `\(Y_i\)` gerada por uma distribuição normal com média `\(\bar{Y}\)`. Fizemos um teste T para saber se essa média é diferente de 0, nossa `\(H_0\)`, e o resultado do P-valor foi de 0.25. O que isso nos diz?
+Temos uma variável `\(Y_i\)` gerada por uma distribuição normal com média `\(\mu\)` e variância `\(\sigma^2\)`. Fizemos um teste t para saber se essa média é diferente de 0, isto é, `\(H_0: \mu = 0\)`, e o P-valor foi de 0.25. O que isso nos diz?
 
 --
 
-.texto[R:] não é possível rejeitar `\(H_0\)`.
+.texto[R:] não rejeitamos `\(H_0\)` aos níveis usuais.
 
 
 ---
@@ -404,7 +405,7 @@ Esse também é um modelo linear
 
 .pull-left[
 .font90[
-&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; O objetivo central é encontrar uma linha que sirva para descrever a relação, isto é, queremos obter estimativas de .texto[parâmetros] que nos ajudem a predizer valores de `\(\hat{Y}\)` em função de valores de `\(X\)`
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; O objetivo central é encontrar uma linha que sirva para descrever a relação, isto é, queremos obter estimativas de .texto[parâmetros] que nos ajudem a predizer valores de `\(\hat{y}_i\)` em função de valores de `\(x_i\)`
 ]
 ]
 
@@ -414,14 +415,14 @@ Esse também é um modelo linear
 
 Modelos lineares se parecem com uma equação linear simples:
 
-`\(Y = \beta_0 + \beta X\)`
+`\(Y_i = \beta_0 + \beta_1 X_i\)`
 
 --
 
 &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Apenas assim, `\(X\)` determinaria completamente `\(Y\)`. Por isso, adicionamos outro componente na equação:
 
 
-`\(Y = \beta_0 + \beta X + \epsilon\)`
+`\(Y_i = \beta_0 + \beta_1 X_i + \epsilon_i\)`
 
 
 ---
@@ -430,12 +431,12 @@ count:false
 
 Modelos lineares se parecem com uma equação linear simples:
 
-`\(Y = \beta_0 + \beta X\)`
+`\(Y_i = \beta_0 + \beta_1 X_i\)`
 
 &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Apenas assim, `\(X\)` determinaria completamente `\(Y\)`. Por isso, adicionamos outro componente na equação:
 
 
-`\(Y = \underbrace{\beta_0 + \beta X}_{\tiny\small{Sistemática}} + \underbrace{\epsilon}_{\tiny\small{Estocástica}}\)`
+`\(Y_i = \underbrace{\beta_0 + \beta_1 X_i}_{\tiny\small{Sistemática}} + \underbrace{\epsilon_i}_{\tiny\small{Estocástica}}\)`
 
 
 ---
@@ -466,9 +467,9 @@ Essencialmente, esses parâmetros são como .texto2[regras] que podemos usar par
 
 $$
 `\begin{equation}
-\hat{y_i} = \beta_0 + \beta x_i\\
-\beta_0 = 15\\ 
-\beta_1 = 30
+\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i\\
+\hat{\beta}_0 = 15\\ 
+\hat{\beta}_1 = 30
 \end{equation}`
 $$
 ]
@@ -495,18 +496,18 @@ $$
 ---
 # Mínimos Quadrados
 
-O método mais comum de se avaliar modelos lineares é por Mínimos Quadrados Ordinários (MQO):
+O método mais comum de se estimar coeficientes em modelos lineares é por Mínimos Quadrados Ordinários (MQO):
 
 - Somamos a distância ao quadrado de cada ponto no eixo vertical em relação à linha do modelo
 
-- `\(SRQ = \sum_{i=1}^{n} (y_i - (\hat{\beta_0} + \hat{\beta_1}X_i))^2\)`
+- `\(SRQ = \sum_{i=1}^{n} (y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i))^2\)`
 
 
 ---
 count:false
 # Mínimos Quadrados
 
-O método mais comum de se avaliar modelos lineares é por Mínimos Quadrados Ordinários (MQO):
+O método mais comum de se estimar coeficientes em modelos lineares é por Mínimos Quadrados Ordinários (MQO):
 
 - Somamos a distância ao quadrado de cada ponto no eixo vertical em relação à linha do modelo
 
@@ -526,7 +527,7 @@ Podemos ver objetivamente quando um modelo é ruim
 count: false
 # Mínimos Quadrados
 
-Esse aqui é o melhor segundo MQO
+Esse aqui é o melhor ajuste segundo o MQO
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-17-1.svg" alt="" style="display: block; margin: auto;" /&gt;
 
@@ -535,7 +536,7 @@ Esse aqui é o melhor segundo MQO
 ---
 # Intuição
 
-É possível testar iterativamente vários parâmetros `\(\beta_0\)` e `\(\beta_1\)` para encontrar menores valores de SRQ -- desde que possamos ser exautivos na busca no espaço de parâmetros possíveis, encontraremos um bom modelo.
+É possível testar iterativamente vários valores de `\(\beta_0\)` e `\(\beta_1\)` para encontrar menores valores de SRQ; o MQO escolhe, entre as retas possíveis, a que minimiza a SRQ.
 
 &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"&gt;&lt;/path&gt;&lt;/svg&gt; [Tutorial interativo](https://fmeireles.shinyapps.io/modelagem_r/)
 
@@ -575,7 +576,7 @@ load(url("https://github.com/svmiller/stevedata/raw/refs/heads/master/data/ingle
 # Mortalidade de colonizadores e PIB
 
 .font90[
-&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Para `AJR5`, mortalidade de colonizadores é preditor do PIB per capita atual porque países com alta mortalidade tiveram instituições mais extrativas
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Para `AJR5`, podemos examinar a associação entre mortalidade de colonizadores e PIB per capita atual
 ]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-19-1.svg" alt="" style="display: block; margin: auto;" /&gt;
@@ -587,7 +588,7 @@ count:false
 # Mortalidade de colonizadores e PIB
 
 .font90[
-&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Parece realmente haver uma relação negativa entre as duas coisas; *mas quão forte ela é*?
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Parece realmente haver uma relação negativa entre as duas coisas; *mas quão forte é essa associação*?
 ]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-20-1.svg" alt="" style="display: block; margin: auto;" /&gt;
@@ -596,14 +597,14 @@ count:false
 ---
 # Regressão linear
 
-&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; No `R`, podemos usar a função `lm()` para obter os parâmetros de um modelo linear
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; No `R`, podemos usar a função `lm()` para obter estimativas dos parâmetros de um modelo linear
 
 
 .pull-left2[
 Onde:
 
 .font80[
-&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt;  `(logpgp95` é a variável dependente
+&lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt;  `logpgp95` é a variável dependente
 &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `logem4` é a variável independente
 &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `(Intercept)` é o `\(\beta_0\)` do modelo
 &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm-28.9 143.6l75.5 72.4H120c-13.3 0-24 10.7-24 24v16c0 13.3 10.7 24 24 24h182.6l-75.5 72.4c-9.7 9.3-9.9 24.8-.4 34.3l11 10.9c9.4 9.4 24.6 9.4 33.9 0L404.3 273c9.4-9.4 9.4-24.6 0-33.9L271.6 106.3c-9.4-9.4-24.6-9.4-33.9 0l-11 10.9c-9.5 9.6-9.3 25.1.4 34.4z"&gt;&lt;/path&gt;&lt;/svg&gt; `logem4` é o `\(\beta_1\)` do modelo
@@ -633,7 +634,7 @@ mod
 # Democracia e líder forte
 
 .font90[
-&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Para `inglehart03`, países com mais pessoas que concordam que apoia "um líder forte" é menor em países com mais pessoas que preferem viver em uma democracia, *mas essa relação é forte?*
+&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Para `inglehart03`, países com maior apoio à democracia tendem a ter menor apoio a "um líder forte", *mas quão forte é essa associação?*
 ]
 
 &lt;img src="slides_files/figure-html/unnamed-chunk-22-1.svg" alt="" style="display: block; margin: auto;" /&gt;
@@ -641,8 +642,6 @@ mod
 
 ---
 # Nova regressão
-
-&lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;fill:#8f2a43;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"&gt;&lt;/path&gt;&lt;/svg&gt; Será que o modelo linear ajuda?
 
 .font85[
 

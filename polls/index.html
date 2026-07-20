@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Codificação de relatórios — hand-validation</title>
+<style>
+/* ---------------------------------------------------------------- tokens -- */
+:root {
+  --ground:  #fbfcfd;
+  --panel:   #f1f4f7;
+  --sunken:  #e6ebf0;
+  --line:    #d3dbe3;
+  --ink:     #1a1f26;
+  --muted:   #5c6773;
+  --accent:  #0f6e8c;
+  --accent-soft: #e2f0f5;
+  --good:    #1e7a4c;
+  --warn:    #a8621b;
+  --danger:  #a32f2f;
+  --shadow:  0 1px 2px rgba(20, 30, 40, .08);
+
+  --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #14181d; --panel: #1c222a; --sunken: #252d37; --line: #333d4a;
+    --ink: #e6eaef; --muted: #8b97a5; --accent: #4fb3d0; --accent-soft: #1b333d;
+    --good: #4caf85; --warn: #d99b4e; --danger: #e07a7a;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4);
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #14181d; --panel: #1c222a; --sunken: #252d37; --line: #333d4a;
+  --ink: #e6eaef; --muted: #8b97a5; --accent: #4fb3d0; --accent-soft: #1b333d;
+  --good: #4caf85; --warn: #d99b4e; --danger: #e07a7a;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4);
+}
+:root[data-theme="light"] {
+  --ground: #fbfcfd; --panel: #f1f4f7; --sunken: #e6ebf0; --line: #d3dbe3;
+  --ink: #1a1f26; --muted: #5c6773; --accent: #0f6e8c; --accent-soft: #e2f0f5;
+  --good: #1e7a4c; --warn: #a8621b; --danger: #a32f2f;
+  --shadow: 0 1px 2px rgba(20, 30, 40, .08);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; font-family: var(--ui); font-size: 14px; line-height: 1.5;
+  color: var(--ink); background: var(--ground);
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ----------------------------------------------------------------- gate -- */
+#gate {
+  height: 100%; display: grid; place-items: center; padding: 24px;
+}
+.gate-card {
+  width: min(380px, 100%); background: var(--panel); border: 1px solid var(--line);
+  border-radius: 10px; padding: 28px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.gate-card h1 { margin: 0; font-size: 18px; letter-spacing: -.01em; }
+.gate-card p { margin: 0; color: var(--muted); font-size: 13px; }
+
+/* ----------------------------------------------------------------- shell -- */
+#app { display: none; height: 100%; grid-template-columns: 2fr 1fr; }
+#app.on { display: grid; }
+#viewer { border: 0; width: 100%; height: 100%; background: var(--sunken); }
+#side {
+  border-left: 1px solid var(--line); background: var(--panel);
+  display: grid; grid-template-rows: auto 1fr auto; min-height: 0;
+}
+
+/* --------------------------------------------------------------- header -- */
+.head { padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.bar {
+  height: 5px; background: var(--sunken); border-radius: 3px; overflow: hidden;
+  margin-bottom: 8px;
+}
+.bar > i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .3s; }
+.stats {
+  display: flex; justify-content: space-between; gap: 8px;
+  font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums;
+}
+.stats b { color: var(--ink); font-weight: 600; }
+
+.poll-id {
+  margin-top: 12px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+}
+.poll-id code {
+  font-family: var(--mono); font-size: 13px; font-weight: 600;
+  background: var(--accent-soft); color: var(--accent);
+  padding: 2px 7px; border-radius: 5px;
+}
+.poll-id .where { font-weight: 600; font-size: 14px; }
+.poll-id .firm { color: var(--muted); font-size: 12px; width: 100%; }
+
+/* ---------------------------------------------------------------- rules -- */
+.rules { margin-top: 10px; font-size: 12px; }
+.rules .one {
+  color: var(--ink); background: var(--sunken); border-left: 3px solid var(--accent);
+  padding: 7px 10px; border-radius: 0 5px 5px 0;
+}
+.rules details { margin-top: 6px; }
+.rules summary { cursor: pointer; color: var(--accent); font-weight: 500; }
+.rules ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+.rules li { margin-bottom: 4px; }
+.rules .no { color: var(--danger); }
+
+/* ---------------------------------------------------------------- entry -- */
+.scroll { overflow-y: auto; padding: 14px 16px; min-height: 0; }
+.label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--muted); font-weight: 600; margin: 0 0 8px;
+}
+.cand {
+  display: grid; grid-template-columns: 1fr 76px; gap: 8px; align-items: center;
+  padding: 7px 0; border-bottom: 1px solid var(--line);
+}
+.cand:last-of-type { border-bottom: 0; }
+.cand .who { min-width: 0; }
+.cand .name {
+  font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cand .meta { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+.num {
+  font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right;
+}
+.cand .skip { grid-column: 1 / -1; font-size: 12px; color: var(--muted); }
+.cand.off .name, .cand.off .meta { opacity: .5; }
+.cand.bad input[type="text"] { border-color: var(--danger); }
+
+input[type="text"], input[type="password"], textarea, select {
+  font-family: var(--ui); font-size: 14px; color: var(--ink);
+  background: var(--ground); border: 1px solid var(--line);
+  border-radius: 6px; padding: 7px 9px; width: 100%;
+}
+input:disabled { background: var(--sunken); color: var(--muted); }
+textarea { resize: vertical; min-height: 52px; }
+label.check {
+  display: flex; align-items: center; gap: 7px; cursor: pointer; padding: 3px 0;
+}
+label.check input { accent-color: var(--accent); }
+
+.extra {
+  display: grid; grid-template-columns: 64px 1fr 76px; gap: 6px; margin-bottom: 6px;
+}
+.block { margin-top: 18px; }
+.hint { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
+.empty {
+  background: var(--sunken); border: 1px dashed var(--line); border-radius: 7px;
+  padding: 12px; font-size: 13px; color: var(--muted);
+}
+
+/* --------------------------------------------------------------- actions -- */
+.foot {
+  padding: 12px 16px; border-top: 1px solid var(--line); background: var(--panel);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.row { display: flex; gap: 8px; }
+button {
+  font-family: var(--ui); font-size: 14px; font-weight: 600; cursor: pointer;
+  border-radius: 7px; padding: 10px 14px; border: 1px solid var(--line);
+  background: var(--ground); color: var(--ink);
+}
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: .55; cursor: default; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; flex: 1; }
+:root[data-theme="dark"] button.primary, .darkfix { color: #10161b; }
+@media (prefers-color-scheme: dark) { button.primary { color: #10161b; } }
+:root[data-theme="light"] button.primary { color: #fff; }
+button.ghost { color: var(--muted); }
+button.link {
+  border: 0; background: none; color: var(--accent); padding: 4px 0;
+  font-weight: 500; font-size: 13px; text-align: left;
+}
+.msg { font-size: 12px; min-height: 16px; }
+.msg.err { color: var(--danger); }
+.msg.ok { color: var(--good); }
+.kbd {
+  font-family: var(--mono); font-size: 11px; background: var(--sunken);
+  border: 1px solid var(--line); border-radius: 4px; padding: 1px 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- ------------------------------------------------------------ passcode -- -->
+<div id="gate">
+  <form class="gate-card" id="gate-form">
+    <h1>Codificação de relatórios</h1>
+    <p>Validação manual da extração — 500 relatórios. Use suas iniciais para que
+       seu progresso seja registrado.</p>
+    <div>
+      <p class="label">Suas iniciais</p>
+      <input type="text" id="in-coder" autocomplete="off" maxlength="6"
+             placeholder="ex. FM" required>
+    </div>
+    <div>
+      <p class="label">Senha compartilhada</p>
+      <input type="password" id="in-pass" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="primary" id="btn-enter">Entrar</button>
+    <p class="msg err" id="gate-msg"></p>
+  </form>
+</div>
+
+<!-- ----------------------------------------------------------------- app -- -->
+<main id="app">
+  <iframe id="viewer" title="Relatório em PDF"></iframe>
+
+  <section id="side">
+    <header class="head">
+      <div class="bar"><i id="bar-fill"></i></div>
+      <div class="stats">
+        <span><b id="st-done">0</b> / <span id="st-total">500</span> prontos</span>
+        <span id="st-pct">0%</span>
+        <span>você: <b id="st-mine">0</b></span>
+      </div>
+
+      <div class="poll-id">
+        <code id="p-protocol">—</code>
+        <span class="where" id="p-where">—</span>
+        <span class="firm" id="p-firm">—</span>
+      </div>
+
+      <div class="rules">
+        <p class="one"><b>Codifique só o TOTAL GERAL</b> da 1ª pergunta
+           <b>estimulada</b> de prefeito com a lista completa de candidatos.</p>
+        <details>
+          <summary>Regras completas</summary>
+          <ul>
+            <li>Use o <b>TOTAL GERAL</b> do município — nunca recortes por região,
+                zona ou bairro.</li>
+            <li>Use a pergunta <b>estimulada</b> de 1º turno para prefeito que traz
+                o <b>campo completo</b> de candidatos.</li>
+            <li>Se duas perguntas mostram o <b>mesmo</b> campo completo, use a que
+                aparece <b>primeiro</b> no PDF.</li>
+            <li>Case os candidatos pelo <b>número na urna</b>, não pela grafia do
+                nome.</li>
+            <li class="no">Nunca codifique: rejeição ("em quem NÃO votaria"),
+                2º turno, cenários "se X desistir", espontânea, ou vereador.</li>
+            <li class="no">Nunca lance <b>Não opinaram</b>, <b>Brancos / Nulos</b>,
+                <b>Nenhum</b> ou <b>Indecisos</b> como candidato.</li>
+            <li>Digite o número puro: <span class="kbd">75,5</span> ou
+                <span class="kbd">75.5</span>. Sem o sinal de %.</li>
+          </ul>
+        </details>
+      </div>
+    </header>
+
+    <div class="scroll" id="scroll">
+      <p class="label">Candidatos registrados</p>
+      <div id="cands"></div>
+
+      <div class="block">
+        <p class="label">Candidato no PDF fora da lista</p>
+        <div id="extras"></div>
+        <button type="button" class="link" id="btn-add">+ adicionar candidato</button>
+        <p class="hint">Só para quem aparece no PDF mas não está na lista acima.</p>
+      </div>
+
+      <div class="block">
+        <p class="label">Sinalizações</p>
+        <label class="check"><input type="checkbox" id="f-image">
+          PDF só em imagem (não dá para selecionar texto)</label>
+        <label class="check"><input type="checkbox" id="f-nostim">
+          Sem pergunta estimulada de 1º turno</label>
+        <label class="check"><input type="checkbox" id="f-amb">
+          Cenário ambíguo (anote abaixo)</label>
+      </div>
+
+      <div class="block">
+        <p class="label">Observações</p>
+        <textarea id="p-notes" placeholder="Qualquer coisa fora do comum."></textarea>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <p class="msg" id="msg"></p>
+      <div class="row">
+        <button type="button" class="ghost" id="btn-skip">Pular</button>
+        <button type="button" class="primary" id="btn-save">Salvar e próximo</button>
+      </div>
+      <div class="stats">
+        <span><span class="kbd">Ctrl</span>+<span class="kbd">Enter</span> salva</span>
+        <span id="st-timer">0:00</span>
+      </div>
+    </footer>
+  </section>
+</main>
+
+<script type="module">
+// The anon key is designed to be public and is safe inline; every table has RLS
+// on with no policies, so it reaches nothing except the passcode-gated RPCs.
+// Four plain POSTs is the whole API surface, so there is no supabase-js import:
+// a CDN outage would otherwise strand an RA mid-session.
+const SUPABASE_URL = "https://sotlkfnxbwbnmrysddoo.supabase.co";
+const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNvdGxrZm54Yndibm1yeXNkZG9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyNzkxOTcsImV4cCI6MjA5OTg1NTE5N30.iDCISmrOnJb-JHBZlyKc1hiUNcUObn-OkSpwRdxEa_s";
+const PDF_BASE = `${SUPABASE_URL}/storage/v1/object/public/relatorios`;
+
+const $ = (id) => document.getElementById(id);
+
+let coder = localStorage.getItem("hv_coder") || "";
+let passcode = localStorage.getItem("hv_pass") || "";
+let current = null;      // { poll, candidates, saved }
+let extras = [];         // rows the RA added by hand
+let startedAt = 0;
+let timerId = null;
+let mine = Number(localStorage.getItem("hv_mine") || 0);
+
+async function rpc(fn, args) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {
+    method: "POST",
+    headers: { apikey: ANON_KEY, Authorization: `Bearer ${ANON_KEY}`,
+               "Content-Type": "application/json" },
+    body: JSON.stringify(args),
+  });
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(/bad passcode/i.test(body) ? "Senha incorreta."
+                    : `Falha na gravação (${res.status}). Tente de novo.`);
+  }
+  return res.json();
+}
+
+/* ------------------------------------------------------------------ gate -- */
+$("gate-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const c = $("in-coder").value.trim().toUpperCase();
+  const p = $("in-pass").value;
+  if (!c || !p) return;
+  $("btn-enter").disabled = true;
+  $("gate-msg").textContent = "";
+  try {
+    await rpc("progress", { p_passcode: p });      // cheapest passcode check
+    coder = c; passcode = p;
+    localStorage.setItem("hv_coder", c);
+    localStorage.setItem("hv_pass", p);
+    $("gate").style.display = "none";
+    $("app").classList.add("on");
+    await next();
+  } catch (err) {
+    $("gate-msg").textContent = err.message;
+  } finally {
+    $("btn-enter").disabled = false;
+  }
+});
+
+/* -------------------------------------------------------------- rendering -- */
+function paintProgress(p) {
+  if (!p) return;
+  const done = p.done || 0, total = p.total || 500;
+  $("st-done").textContent = done;
+  $("st-total").textContent = total;
+  $("st-pct").textContent = `${Math.round((done / total) * 100)}%`;
+  $("st-mine").textContent = (p.by_coder && p.by_coder[coder]) || mine;
+  $("bar-fill").style.width = `${(done / total) * 100}%`;
+}
+
+// One row per registered candidate: a percent box plus an explicit "não aparece"
+// toggle, because a blank box alone cannot distinguish "absent" from "not typed yet".
+function candRow(c, saved) {
+  const wrap = document.createElement("div");
+  wrap.className = "cand";
+  wrap.dataset.politicoId = c.politico_id;
+
+  const who = document.createElement("div");
+  who.className = "who";
+  who.innerHTML = `<div class="name"></div><div class="meta"></div>`;
+  who.querySelector(".name").textContent = c.nome_urna || "(sem nome)";
+  who.querySelector(".meta").textContent =
+    `${c.numero_cand || "??"}${c.party ? " · " + c.party : ""}`;
+
+  const pct = document.createElement("input");
+  pct.type = "text";
+  pct.className = "num pct";
+  pct.inputMode = "decimal";
+  pct.placeholder = "%";
+  pct.setAttribute("aria-label", `Percentual de ${c.nome_urna || c.numero_cand}`);
+
+  const skip = document.createElement("label");
+  skip.className = "check skip";
+  skip.innerHTML = `<input type="checkbox" class="absent"> não aparece nesse cenário`;
+
+  wrap.append(who, pct, skip);
+
+  const absent = skip.querySelector("input");
+  absent.addEventListener("change", () => {
+    wrap.classList.toggle("off", absent.checked);
+    pct.disabled = absent.checked;
+    if (absent.checked) pct.value = "";
+    wrap.classList.remove("bad");
+  });
+  pct.addEventListener("input", () => wrap.classList.remove("bad"));
+
+  if (saved) {                                  // resumed claim: repopulate
+    if (saved.present_in_pdf === 0) { absent.checked = true; absent.dispatchEvent(new Event("change")); }
+    else if (saved.handcoded_percent != null) pct.value = saved.handcoded_percent;
+  }
+  return wrap;
+}
+
+function extraRow(seed) {
+  const row = document.createElement("div");
+  row.className = "extra";
+  row.innerHTML = `
+    <input type="text" class="num e-num" placeholder="nº" inputmode="numeric" aria-label="Número na urna">
+    <input type="text" class="e-name" placeholder="nome na urna" aria-label="Nome na urna">
+    <input type="text" class="num e-pct" placeholder="%" inputmode="decimal" aria-label="Percentual">`;
+  if (seed) {
+    row.querySelector(".e-num").value = seed.numero_cand || "";
+    row.querySelector(".e-name").value = seed.nome_urna || "";
+    row.querySelector(".e-pct").value = seed.handcoded_percent ?? "";
+  }
+  return row;
+}
+
+function render(data) {
+  current = data;
+  const poll = data.poll;
+  const savedBy = {};
+  (data.saved || []).forEach((s) => { savedBy[s.politico_id] = s; });
+
+  $("p-protocol").textContent = poll.protocol;
+  $("p-where").textContent = `${poll.municipality} — ${poll.uf}`;
+  $("p-firm").textContent = poll.pollster_name;
+  $("viewer").src = `${PDF_BASE}/${poll.pdf_name}#toolbar=1&navpanes=0&view=FitH`;
+
+  const box = $("cands");
+  box.textContent = "";
+  if (!data.candidates.length) {
+    const note = document.createElement("div");
+    note.className = "empty";
+    note.textContent = "Esta pesquisa não tem lista de candidatos registrada. "
+      + "Adicione os candidatos direto do PDF abaixo, ou pule.";
+    box.append(note);
+  } else {
+    data.candidates.forEach((c) => box.append(candRow(c, savedBy[c.politico_id])));
+  }
+
+  // Extras from a resumed claim keep their typed values.
+  extras = [];
+  $("extras").textContent = "";
+  (data.saved || []).filter((s) => s.is_extra).forEach((s) => $("extras").append(extraRow(s)));
+
+  $("f-image").checked = false;
+  $("f-nostim").checked = false;
+  $("f-amb").checked = false;
+  $("p-notes").value = "";
+  $("msg").textContent = "";
+  $("msg").className = "msg";
+  $("scroll").scrollTop = 0;
+  paintProgress(data.progress);
+
+  const first = document.querySelector(".pct");
+  if (first) first.focus();
+
+  startedAt = Date.now();
+  clearInterval(timerId);
+  timerId = setInterval(tick, 1000);
+  tick();
+}
+
+function tick() {
+  const s = Math.floor((Date.now() - startedAt) / 1000);
+  $("st-timer").textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+}
+
+/* -------------------------------------------------------------- collecting -- */
+// "75,5" and "75.5" are both accepted; the dot form is what gets stored.
+function parsePercent(raw) {
+  const t = (raw || "").trim().replace(",", ".").replace("%", "");
+  if (t === "") return null;
+  const n = Number(t);
+  if (!Number.isFinite(n) || n < 0 || n > 100) return undefined;   // invalid
+  return t;
+}
+
+function collect() {
+  const rows = [];
+  let bad = false;
+
+  document.querySelectorAll("#cands .cand").forEach((el) => {
+    const absent = el.querySelector(".absent").checked;
+    const value = parsePercent(el.querySelector(".pct").value);
+    el.classList.remove("bad");
+    if (!absent && value === undefined) { el.classList.add("bad"); bad = true; return; }
+    // Every candidate needs an answer: a number, or "não aparece" ticked.
+    if (!absent && value === null) { el.classList.add("bad"); bad = true; return; }
+    rows.push({
+      politico_id: el.dataset.politicoId,
+      handcoded_percent: absent ? null : value,
+      present_in_pdf: absent ? 0 : 1,
+      is_extra: false,
+    });
+  });
+
+  document.querySelectorAll("#extras .extra").forEach((el) => {
+    const numero = el.querySelector(".e-num").value.trim();
+    const nome = el.querySelector(".e-name").value.trim();
+    const value = parsePercent(el.querySelector(".e-pct").value);
+    if (!numero && !nome && value === null) return;               // untouched row
+    if (!numero || value === undefined || value === null) { bad = true; return; }
+    rows.push({
+      // Synthetic id keeps the (protocol, politico_id) primary key intact.
+      politico_id: `x_${current.poll.protocol}_${numero}`,
+      numero_cand: numero,
+      nome_urna: nome,
+      handcoded_percent: value,
+      present_in_pdf: 1,
+      is_extra: true,
+    });
+  });
+
+  return { rows, bad };
+}
+
+/* ----------------------------------------------------------------- flow -- */
+async function next() {
+  $("btn-save").disabled = true;
+  $("msg").textContent = "Carregando…";
+  $("msg").className = "msg";
+  try {
+    const data = await rpc("claim_next", { p_coder: coder, p_passcode: passcode });
+    if (data.done) {
+      clearInterval(timerId);
+      $("viewer").removeAttribute("src");
+      $("p-protocol").textContent = "—";
+      $("p-where").textContent = "Tudo codificado";
+      $("p-firm").textContent = "";
+      $("cands").textContent = "";
+      $("msg").textContent = "Todas as pesquisas foram codificadas. Obrigado!";
+      $("msg").className = "msg ok";
+      paintProgress(data.progress);
+      return;
+    }
+    render(data);
+  } catch (err) {
+    $("msg").textContent = err.message;
+    $("msg").className = "msg err";
+  } finally {
+    $("btn-save").disabled = false;
+  }
+}
+
+async function save() {
+  if (!current) return;
+  const { rows, bad } = collect();
+  if (bad) {
+    $("msg").textContent = "Preencha o percentual ou marque “não aparece” "
+      + "em cada candidato destacado.";
+    $("msg").className = "msg err";
+    return;
+  }
+  $("btn-save").disabled = true;
+  $("msg").textContent = "Salvando…";
+  $("msg").className = "msg";
+  try {
+    await rpc("submit_poll", {
+      p_protocol: current.poll.protocol,
+      p_coder: coder,
+      p_passcode: passcode,
+      p_rows: rows,
+      p_flags: {
+        flag_image_only: $("f-image").checked,
+        flag_no_stimulated: $("f-nostim").checked,
+        flag_ambiguous: $("f-amb").checked,
+        notes: $("p-notes").value,
+      },
+      p_seconds: Math.round((Date.now() - startedAt) / 1000),
+    });
+    mine += 1;
+    localStorage.setItem("hv_mine", mine);
+    await next();
+  } catch (err) {
+    $("msg").textContent = err.message;
+    $("msg").className = "msg err";
+    $("btn-save").disabled = false;
+  }
+}
+
+async function skip() {
+  if (!current) return;
+  const reason = prompt("Por que está pulando esta pesquisa?");
+  if (reason === null) return;
+  $("btn-skip").disabled = true;
+  try {
+    await rpc("release_claim", {
+      p_protocol: current.poll.protocol, p_coder: coder,
+      p_passcode: passcode, p_reason: reason,
+    });
+    await next();
+  } catch (err) {
+    $("msg").textContent = err.message;
+    $("msg").className = "msg err";
+  } finally {
+    $("btn-skip").disabled = false;
+  }
+}
+
+$("btn-save").addEventListener("click", save);
+$("btn-skip").addEventListener("click", skip);
+$("btn-add").addEventListener("click", () => {
+  const row = extraRow(null);
+  $("extras").append(row);
+  row.querySelector(".e-num").focus();
+});
+
+// Enter walks down the percent fields; Ctrl/Cmd+Enter submits from anywhere.
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); save(); return; }
+  if (e.key === "Enter" && e.target.classList.contains("pct")) {
+    e.preventDefault();
+    const all = [...document.querySelectorAll(".pct:not(:disabled)")];
+    const i = all.indexOf(e.target);
+    if (i > -1 && i + 1 < all.length) all[i + 1].focus(); else save();
+  }
+});
+
+// Returning RA: skip the gate when the stored passcode still works.
+if (coder && passcode) {
+  $("in-coder").value = coder;
+  rpc("progress", { p_passcode: passcode })
+    .then(() => {
+      $("gate").style.display = "none";
+      $("app").classList.add("on");
+      return next();
+    })
+    .catch(() => { localStorage.removeItem("hv_pass"); });
+}
+</script>
+</body>
+</html>

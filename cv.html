@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Teaching</title>
+<title>CV</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -70,77 +68,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-name','listing-syllabus','listing-resumo','listing-website',{ data: ['index'] },{ data: ['categories'] }],
-      
-      searchColumns: ["listing-name","listing-syllabus","listing-resumo","listing-website"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="Fernando Meireles, Assistant Professor of Political Science at IESP-UERJ">
 <meta property="og:description" content="Assistant Professor of Political Science at IESP-UERJ">
-<meta name="twitter:title" content="Teaching">
+<meta name="twitter:title" content="CV">
 <meta name="twitter:description" content="Assistant Professor of Political Science at IESP-UERJ">
 <meta name="twitter:creator" content="@meirelesff">
 <meta name="twitter:site" content="@meirelesff">
 <meta name="twitter:card" content="summary">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -157,7 +97,7 @@ window.Quarto = {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cv.html"> 
+    <a class="nav-link active" href="./cv.html" aria-current="page"> 
 <span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
@@ -165,7 +105,7 @@ window.Quarto = {
 <span class="menu-text">Publication</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./teaching.html" aria-current="page"> 
+    <a class="nav-link" href="./teaching.html"> 
 <span class="menu-text">Teaching</span></a>
   </li>  
   <li class="nav-item">
@@ -191,21 +131,13 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#courses" id="toc-courses" class="nav-link active" data-scroll-target="#courses">Courses</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Teaching</h1>
+<h1 class="title">CV</h1>
 </div>
 
 
@@ -223,71 +155,13 @@ window.Quarto = {
 
 
 <p class="lead">
-Classes that I teach
+Download my full curriculum vitae
 </p>
-<section id="courses" class="level2">
-<h2 class="anchored" data-anchor-id="courses">Courses</h2>
+<p><a class="btn btn-primary btn-sm" href="CV_EN.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-file-pdf" style="font-size: 0.7rem;"></i> Download CV (PDF)</a></p>
 
 
 
-</section>
-
-<div class="quarto-listing quarto-listing-container-custom" id="listing-listing">
-<div class="about-links">
-
-    <h4 class="anchored"><i class="bi bi-mortarboard" style="font-size: 0.8rem"></i> Pesquisa de survey</h4>
-    
-    Ciência Política e Sociologia (graduate level), State University of Rio de Janeiro, IESP-UERJ (1/2025)<br>
-    
-     
-  <a class="btn btn-primary btn-sm" href="https://fmeireles.com/survey/ementa.html" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-file-text" style="font-size: 0.7rem;"></i> Syllabus</a>
-
-    
-  <a class="btn btn-primary btn-sm" href="https://fmeireles.com/survey" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-link" style="font-size: 0.7rem;"></i> Website</a>
-
-   
-    
-
-    <h4 class="anchored"><i class="bi bi-mortarboard" style="font-size: 0.8rem"></i> Lego 1</h4>
-    
-    Ciência Política e Sociologia (graduate level), State University of Rio de Janeiro, IESP-UERJ (1/2024;1/2026)<br>
-    
-     
-  <a class="btn btn-primary btn-sm" href="https://fmeireles.com/lego/docs/ementa_lego1.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-file-text" style="font-size: 0.7rem;"></i> Syllabus</a>
-
-    
-  <a class="btn btn-primary btn-sm" href="https://fmeireles.com/lego" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-link" style="font-size: 0.7rem;"></i> Website</a>
-
-   
-    
-
-    <h4 class="anchored"><i class="bi bi-mortarboard" style="font-size: 0.8rem"></i> Ciência de Dados e Aprendizado de Máquina em Ciência Política</h4>
-    
-    Ciência Política (graduate level), University of São Paulo, USP (2/2022)<br>
-    
-     
-  <a class="btn btn-primary btn-sm" href="https://fmeireles.com/materiais/ementa.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-file-text" style="font-size: 0.7rem;"></i> Syllabus</a>
-
-    
-  <a class="btn btn-primary btn-sm" href="https://fmeireles.com/materiais/" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-link" style="font-size: 0.7rem;"></i> Website</a>
-
-   
-    
-
-    <h4 class="anchored"><i class="bi bi-mortarboard" style="font-size: 0.8rem"></i> Instituições Políticas: Teoria e Método</h4>
-    
-    Ciência Política (graduate level), State University of Rio de Janeiro, IESP-UERJ (2/2019)<br>
-    
-     
-  <a class="btn btn-primary btn-sm" href="https://fmeireles.com/teaching/ementa_instituicoes_politicas.pdf" target="_blank" role="button" style="margin-top: 0.5em; padding: .05rem .2rem;"><i class="bi bi-file-text" style="font-size: 0.7rem;"></i> Syllabus</a>
-
-    
-   
-    
-
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>2. Estudando de eleições</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Fernando Meireles e Bruno Schaefer" />
+    <script src="slides_files/header-attrs-2.31/header-attrs.js"></script>
+    <link href="slides_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <link href="slides_files/remark-css-0.0.1/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="slides.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# 2. Estudando de eleições
+]
+.subtitle[
+## Abordagens e teorias
+]
+.author[
+### Fernando Meireles e Bruno Schaefer
+]
+.date[
+### <div class="line-block"><small>Laboratório de Eleições | 2.2026</small>&lt;br&gt;<a href="https://bsky.app/profile/meirelesff.bsky.social"><svg aria-hidden="true" role="img" viewBox="0 0 576 512" style="height:1em;width:1.12em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3zM288 227.1C261.9 176.4 190.9 81.9 124.9 35.3C61.6-9.4 37.5-1.7 21.6 5.5C3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7c3.3-.5 6.6-.9 10-1.4c-3.3 .5-6.6 1-10 1.4C74.3 308.6-9.1 342.8 100.3 464.5C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4c102.4-103.4 28.1-156-65.8-169.9c-3.3-.4-6.7-.8-10-1.3c3.4 .4 6.7 .9 10 1.3c64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1z"/></svg></a> <a href="https://x.com/meirelesff"><svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg></a> <a href="https://fmeireles.com"><svg aria-hidden="true" role="img" viewBox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg></a> <a href="mailto:fernando.meireles@iesp.uerj.br"><svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M64 112c-8.8 0-16 7.2-16 16v22.1L220.5 291.7c20.7 17 50.4 17 71.1 0L464 150.1V128c0-8.8-7.2-16-16-16H64zM48 212.2V384c0 8.8 7.2 16 16 16H448c8.8 0 16-7.2 16-16V212.2L322 328.8c-38.4 31.5-93.7 31.5-132 0L48 212.2zM0 128C0 92.7 28.7 64 64 64H448c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128z"/></svg></a></div>
+]
+
+---
+
+
+
+
+
+background-color: #FFFFFF
+&lt;img src="img/partidos.png" alt="" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+---
+background-color: #FFFFFF
+&lt;img src="img/federacoes.png" alt="" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+Hoje, veremos um .texto2[panorama] de cada um dos blocos que estudaremos ao longo do semestre. São:
+
+.pull-left[
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg> .texto2[Eleições e sistema partidário]
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg> .texto2[Identificação partidária e comportamento eleitoral]
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg> .texto2[Participação eleitoral]
+]
+
+.pull-right[
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg> .texto2[Campanhas e comunicação política]
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg> .texto2[Economia, avaliação de governo e voto retrospectivo]
+]
+
+
+---
+class: inverse, mline, middle, center
+background-color: #282A36
+
+# Eleições e sistema partidário
+
+
+---
+.texto[Como sistemas eleitorais estruturam a competição?]
+
+.font90[
+- .texto2[Lei de Duverger:] regras eleitorais têm efeitos mecânicos sobre a conversão de votos em cadeiras e efeitos psicológicos sobre o eleitorado, partidos, etc.
+
+- .texto2[Mensuração:] contar partidos depende da dimensão de relevância; índices diferentes pra fragmentação, concentração, volatilidade, inflação, etc.
+
+- .texto2[Instituições e clivagens:] a tese clássica é a de que diversidade social incentiva a formação de partidos políticos de determinadas famílias ideológicas e organizacionais
+
+- .texto2[Fragmentação endógena:] recursos organizacionais e incentivos às elites também podem produzir novos partidos, mesmo sem novas clivagens sociais
+]
+
+.footnote[.font85[Riker (1982); Molinar (1991); Stoll (2008); Zucco &amp; Power (2021).]]
+
+
+---
+.texto[Uma teoria que acumula revisões]
+
+.font90[
+&gt; To investigate whether propositions about evanescent institutions can be scientifically falsified and reformulated, I examine in this essay the history of the recent and not wholly accepted revisions of the propositions collectively called Duverger's law: that .grifo[the plurality rule for selecting the winner of elections favors the two-party system]. The body of the essay presents the discovery, revision, testing, and reformulation of sentences in this series in order to demonstrate that in at least one instance in political science, knowledge has been accumulated and a history exists.
+]
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg> William H. Riker (1982, p. 753)
+
+
+---
+class: inverse, mline, middle, center
+background-color: #282A36
+
+# Identificação partidária e comportamento eleitoral
+
+
+---
+.texto[Como identidades partidárias organizam o voto?]
+
+.font90[
+- .texto2[Modelo de Michigan:] identificação partidária é um vínculo duradouro, que organiza atitudes e opiniões sobre política, governos e eleições
+
+- .texto2[Motivated reasoning:] lealdades partidárias afetam como eleitores percebem os mesmos fatos
+
+- .texto2[Retroalimentação:] identidades moldam percepções, que reforçam atitudes, avaliações de governo e escolhas eleitorais
+
+- .texto2[Running tally:] modelo alternativo entende o partidarismo como um estoque atualizado por avaliações retrospectivas de desempenho
+]
+
+.footnote[.font85[Campbell et al. (1960); Fiorina (1981); Bartels (2002).]]
+
+
+---
+.texto[Partidarismo como *perceptual lens*]
+
+.font90[
+&gt; In contrast to the notion of partisanship as a simple “running tally” of political assessments, I show that .grifo[party identification is a pervasive dynamic force shaping citizens’ perceptions of, and reactions to, the political world]. My analysis employs panel data to isolate the impact of partisan bias in the context of a Bayesian model of opinion change.
+]
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg> Larry M. Bartels (2002, p. 117)
+
+
+---
+class: inverse, mline, middle, center
+background-color: #282A36
+
+# Participação eleitoral
+
+
+---
+.texto[O que mobiliza o eleitorado?]
+
+.font90[
+- .texto2[Decisão individual:] benefícios, custos, informação, interesse, recursos e dever cívico
+
+- .texto2[Mobilização:] partidos, campanhas e organizações reduzem custos e aumentam a percepção de que participar importa
+
+- .texto2[Instituições:] voto obrigatório, regras eleitorais, competitividade e estrutura partidária alteram incentivos ao comparecimento
+
+- .texto2[Problema de ligação:] associações comparadas nem sempre são robustas
+]
+
+.footnote[.font85[Powell (1986); Jackman (1987); Blais (2006).]]
+
+
+---
+.texto[Uma agenda menos resolvida do que parece]
+
+.font90[
+&gt; The dominant view in the literature is that the existing research on voter turnout has established some robust patterns, that we know relatively well why turnout is higher in some countries than in others, and that the main factors that affect variations in turnout are institutional variables. .grifo[My verdict is different]. Many of the findings in the comparative cross-national research are not robust, and when they are, we do not have a compelling microfoundation account of the relationship.
+]
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg> André Blais (2006, p. 111)
+
+
+---
+class: inverse, mline, middle, center
+background-color: #282A36
+
+# Campanhas e comunicação política
+
+
+---
+.texto[Como mensagens de campanha podem alterar escolhas?]
+
+.font90[
+- .texto2[Persuasão:] novas informações mudam crenças ou avaliações sobre candidaturas, partidos e políticas
+
+- .texto2[Priming:] a comunicação altera quais critérios estão acessíveis e recebem maior peso em uma avaliação
+
+- .texto2[Enquadramento:] mensagens selecionam aspectos de um problema e orientam como o público o interpreta
+
+- .texto2[Condições dos efeitos:] força e competição dos enquadramentos, predisposições, conhecimento, fonte e contexto condicionam impacto
+]
+
+.footnote[.font85[Chong &amp; Druckman (2007); Jacobson (2015).]]
+
+
+---
+.texto[Enquadramentos conectam comunicação e opinião]
+
+.font90[
+&gt; We review the meaning of the concept of framing, approaches to studying framing, and the effects of framing on public opinion. After defining framing and framing effects, we articulate a method for identifying frames in communication and .grifo[a psychological model for understanding how such frames affect public opinion]. We also discuss the relationship between framing and priming, outline future research directions, and describe the normative implications of framing.
+]
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg> Dennis Chong &amp; James N. Druckman (2007, p. 103)
+
+
+---
+class: inverse, mline, middle, center
+background-color: #282A36
+
+# Economia, avaliação de governo e voto retrospectivo
+
+
+---
+.texto[Economia dá voto?]
+
+.font90[
+- .texto2[Voto retrospectivo:] eleitores usam resultados observados da economia para premiar ou punir governos
+
+- .texto2[Voto econômico:] avaliações podem ser sociotrópicas (ou seja, sobre a economia como um todo) ou egotrópicas (ou seja, sobre a situação econômica pessoal do eleitor)
+
+- .texto2[Competência e vieses:] uma linha influence foca em eventos irrelevantes ou fora do controle do governo pra defender que *accountability* é limitada e, o eleitorado, miópico
+
+- .texto2[Economias abertas:] no Brasil, condições financeiras externas limitam escolhas governamentais e complicam a conexão entre desempenho, voto e accountability
+]
+
+.footnote[.font85[Healy &amp; Malhotra (2013); Campello (2018).]]
+
+
+---
+.texto[Accountability é uma possibilidade, não uma garantia]
+
+.font90[
+&gt; Understanding the circumstances under which retrospective voting .grifo[achieves effective democratic accountability] and when it fails to do so is an important task for subsequent research.
+]
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#6272A4;overflow:visible;position:relative;"><path d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM241 377c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l87-87-87-87c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L345 239c9.4 9.4 9.4 24.6 0 33.9L241 377z"/></svg> Andrew Healy &amp; Neil Malhotra (2013, abstract)
+
+.alert[O núcleo da agenda é identificar quando avaliações de desempenho disciplinam governos e quando atribuições, informação e vieses rompem essa ligação]
+
+
+
+---
+class: inverse, mline, middle, center
+background-color: #282A36
+
+# Brasil
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

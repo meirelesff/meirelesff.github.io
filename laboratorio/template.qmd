@@ -1,0 +1,49 @@
+---
+title: "Template de relatórios"
+toc: false
+lang: pt-BR
+---
+
+Neste curso, os relatórios de pesquisa serão produzidos em
+[Quarto](https://quarto.org/). O template combina texto, referências, código em
+`R`, gráficos, tabelas e resultados em um único arquivo, permitindo que os
+relatórios sejam reprodutíveis.
+
+## Download
+
+[Baixar o template de relatórios (.zip)](template.zip){.btn .btn-primary}
+
+O arquivo contém o relatório de exemplo, a bibliografia, o README, o projeto do
+RStudio e a licença. Extraia o ZIP, abra `template_quarto.Rproj` e edite
+`artigo.qmd`. 
+
+
+## Instalação
+
+Instale o [R](https://cran.r-project.org/), o [RStudio](https://posit.co/download/rstudio-desktop/),
+se desejar usar uma interface gráfica, e o [Quarto](https://quarto.org/docs/get-started/),
+com o instalador apropriado para seu sistema operacional.
+
+Para produzir o PDF, instale também o [TinyTeX](https://quarto.org/docs/output-formats/pdf-engine.html):
+
+```bash
+quarto install tinytex
+```
+
+No R, instale os pacotes usados pelo exemplo:
+
+```r
+install.packages(c("tidyverse", "knitr"))
+```
+
+## Renderização
+
+O template produz arquivos em dois formatos. O PDF aparece primeiro e é o formato padrão do
+botão `Render` no RStudio. O HTML pode ser escolhido no menu do botão e gera um *website* que pode ser visualizado no seu navegador.
+
+Com o `R` aberto, execute o código abaixo para renderizar o relatório de exemplo:
+
+```r
+install.packages("quarto")
+quarto::quarto_render("artigo.qmd")
+```
